@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UI>
+	<Node>
+		<Name>Button</Name>
+		<Type>PushButton</Type>
+		<W>200</W>
+		<H>200</H>
+		<X>500</X>
+		<Y>500</Y>
+		<Script>
+			public class CustomEvent
+			{
+				public bool OnClick(object o, EventArgs e)
+				{
+					Console.WriteLine("##################################Test Success################################");
+					return true;
+				}
+			}
+		</Script>
+	</Node>
+</UI>

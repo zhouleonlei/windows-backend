@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{98AED9E5-DED3-41A8-8013-5426B030DE8C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>csharp-demo</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Dali\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>nuirun</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vscode\" />
+    <Folder Include=".vs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sample\TestStaticDynamicResource\TestStaticDynamicResourcePage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Examples\CommandUTTest.cs" />
+    <Compile Include="Examples\ImageRatioTest.cs" />
+    <Compile Include="Examples\ImageScalePolicyTest.cs" />
+    <Compile Include="Examples\LongPressGestureTest.cs" />
+    <Compile Include="Examples\PanGestureTest.cs" />
+    <Compile Include="Examples\TextFieldTest.cs" />
+    <Compile Include="Examples\TouchEventTest.cs" />
+    <Compile Include="Examples\ViewDispose.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Sample\BindingConverterDemo\BindingConverterDemo.cs" />
+    <Compile Include="Sample\BindingConverterDemo\BindingConverterDemoPage.xaml.cs" />
+    <Compile Include="Sample\BindingConverterDemo\IntToBoolConverter.cs" />
+    <Compile Include="Sample\BindingMarkUpExtensionDemo\BindingMarkUpExtensionDemo.cs" />
+    <Compile Include="Sample\BindingMarkUpExtensionDemo\BindingMarkUpExtensionDemoPage.xaml.cs" />
+    <Compile Include="Sample\BindingModeDemo\BindingModeDemo.cs" />
+    <Compile Include="Sample\BindingModeDemo\BindingModeDemoPage.xaml.cs" />
+    <Compile Include="Sample\multi-random-views.cs" />
+    <Compile Include="Sample\MultiTrigger\MultiTriggerDemo.cs" />
+    <Compile Include="Sample\MultiTrigger\MultiTriggerDemoPage.xaml.cs" />
+    <Compile Include="Sample\SampleMain.cs" />
+    <Compile Include="Sample\StyleDemo\StyleDemo.cs" />
+    <Compile Include="Sample\StyleDemo\StyleDemoPage.xaml.cs" />
+    <Compile Include="Sample\EventHandlerDemo\EventHandlerDemo.cs" />
+    <Compile Include="Sample\EventHandlerDemo\EventHandlerDemoPage.xaml.cs" />
+    <Compile Include="Sample\TestMultiResolution\TestMultiResolution.cs" />
+    <Compile Include="Sample\TestMultiResolution\TestMultiResolution.xaml.cs" />
+    <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResource.cs" />
+    <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResourcePage.xaml.cs" />
+    <Compile Include="MVVM\Clock\ClockPage.xaml.cs" />
+    <Compile Include="MVVM\Clock\ClockTest.cs" />
+    <Compile Include="MVVM\HslColorScroll\HslColorScrollPage.xaml.cs" />
+    <Compile Include="MVVM\HslColorScroll\HslColorScrollTest.cs" />
+    <Compile Include="MVVM\Keypad\KeypadPage.xaml.cs" />
+    <Compile Include="MVVM\Keypad\KeypadTest.cs" />
+    <Compile Include="MVVM\StaticDateTime\StaticDateTimePage.xaml.cs" />
+    <Compile Include="MVVM\StaticDateTime\StaticDateTimeTest.cs" />
+    <Compile Include="MVVM\ViewToView\ViewToViewPage.xaml.cs" />
+    <Compile Include="MVVM\ViewToView\ViewToViewTest.cs" />
+    <Compile Include="Sample\TriggerWithDataBindingDemo\TriggerWithDataBindingDemo.cs" />
+    <Compile Include="Sample\TriggerWithDataBindingDemo\TriggerWithDataBindingDemoPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestButton\ButtonTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestButton\TestButton.cs" />
+    <Compile Include="Sample\UIControlDemo\TestFlexContainer\FlexContainerPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestFlexContainer\TestFlexContainer.cs" />
+    <Compile Include="Sample\UIControlDemo\TestImageView\ImageTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestImageView\TestImageView.cs" />
+    <Compile Include="Sample\UIControlDemo\TestScrollBar\ScrollBarTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestScrollBar\TestScrollBar.cs" />
+    <Compile Include="Sample\UIControlDemo\TestSlider\SliderTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestSlider\TestSlider.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTableView\TableTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTableView\TestTableView.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextEditor\TestTextEditor.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextEditor\TextEditorTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextField\TestTextField.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextField\TextFieldTestPage.xaml.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextLabel\TestTextLabel.cs" />
+    <Compile Include="Sample\UIControlDemo\TestTextLabel\TextLabelTestPage.xaml.cs" />
+    <Compile Include="Sample\xArgumentsDemo\xArgumentDemo.cs" />
+    <Compile Include="Sample\xArgumentsDemo\xArgumentDemo.xaml.cs" />
+    <Compile Include="Sample\xNameDemo\xNameDemo.cs" />
+    <Compile Include="Sample\xNameDemo\xNameDemoPage.xaml.cs" />
+    <Compile Include="Sample\xReferenceMarkupExtensionDemo\xReferenceMarkupExtensionDemo.cs" />
+    <Compile Include="Sample\xReferenceMarkupExtensionDemo\xReferenceMarkupExtensionDemoPage.xaml.cs" />
+    <Compile Include="Sample\xStaticMarkupExtensionDemo\xStaticMarkupExtensionDemo.cs" />
+    <Compile Include="Sample\xStaticMarkupExtensionDemo\xStaticMarkupExtensionDemoPage.xaml.cs" />
+    <Compile Include="TempTest\TempPage.xaml.cs" />
+    <Compile Include="TempTest\TempTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Tizen.Applications.Common\Tizen.Applications.Common.csproj">
+      <Project>{2aedcaa7-543f-48a1-bea3-cf3e14f6edc2}</Project>
+      <Name>Tizen.Applications.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.Log\Tizen.Log.csproj">
+      <Project>{1c550c1f-9370-42ff-86fa-edcd6262b258}</Project>
+      <Name>Tizen.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI\Tizen.NUI.csproj">
+      <Project>{473c3bec-2f67-4285-85fc-bf4e96bfff1c}</Project>
+      <Name>Tizen.NUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj">
+      <Project>{8d71b1b6-9901-436f-8914-9f812e1b10a7}</Project>
+      <Name>Tizen.System.SystemSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen\Tizen.csproj">
+      <Project>{33b7efd5-0050-416d-a2d1-8f18f26f106d}</Project>
+      <Name>Tizen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

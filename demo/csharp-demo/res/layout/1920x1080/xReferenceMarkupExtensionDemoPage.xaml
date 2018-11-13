@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="Tizen.NUI.Examples.xReferenceMarkupExtensionDemoPage"
+  xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <PushButton x:Name="Up" Name="Up" DownFocusableView="{x:Reference Down}"  
+                LabelText="Up"  Size2D="200,80"  Position2D="200,200" />
+    <PushButton x:Name="Down" Name="Down" UpFocusableView="{x:Reference Up}"  
+                LabelText="Down" Size2D="200,80"  Position2D="200,400" />
+</ContentPage>

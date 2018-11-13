@@ -1,0 +1,25 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+  <XamlLayout.XamlResources>
+    <ResourceDictionary>
+      <Style x:Key="StateInfo" TargetType="TextLabel">
+        <Style.Triggers>
+          <Trigger TargetType="TextLabel" Property="State" Value="Normal">
+            <Trigger.Setters >
+              <Setter TargetType="TextLabel" Property="BackgroundColor" Value="Blue" />
+              <Setter TargetType="TextLabel" Property="TextColor" Value="Black" />
+            </Trigger.Setters>
+          </Trigger>
+          <Trigger TargetType="TextLabel" Property="State" Value="Focused">
+            <Trigger.Setters >
+              <Setter TargetType="TextLabel" Property="BackgroundColor" Value="Green" />
+              <Setter TargetType="TextLabel" Property="TextColor" Value="White" />
+            </Trigger.Setters>
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+    </ResourceDictionary>
+  </XamlLayout.XamlResources>
+
+  <TextLabel x:Name ="textLabel" PointSize = "30" HorizontalAlignment = "Center" VerticalAlignment = "Center" Style = "{StaticResource StateInfo}"/>
+</XamlLayout>

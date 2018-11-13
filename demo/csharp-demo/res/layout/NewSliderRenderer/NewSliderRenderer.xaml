@@ -1,0 +1,8 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	
+	<View x:Name="ProgressBar" BackgroundColor="1,0,0,1">
+		<View x:Name="ProgressValue" BackgroundColor="1,1,1,1" />
+	</View>
+
+</XamlLayout>

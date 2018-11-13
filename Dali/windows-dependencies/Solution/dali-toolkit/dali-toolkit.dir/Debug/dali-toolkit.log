@@ -1,0 +1,10 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1767,5): warning : The referenced project '..\..\..\windows-dependencies\SampleSolution\dali-adaptor.out\dali-adaptor.vcxproj' does not exist.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1767,5): warning : The referenced project '..\..\..\windows-dependencies\SampleSolution\dali-core.out\dali-core.vcxproj' does not exist.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1767,5): warning : The referenced project '..\..\..\windows-dependencies\SampleSolution\ZERO_CHECK.vcxproj' does not exist.
+dlfcn.lib(dlfcn.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+     Creating library ../../../bin/Debug/dali-toolkit.lib and object ../../../bin/Debug/dali-toolkit.exp
+dlfcn.lib(dlfcn.obj) : warning LNK4099: PDB 'dlfcn.pdb' was not found with 'dlfcn.lib(dlfcn.obj)' or at 'D:\workspace\NewUI\Dali\bin\Debug\dlfcn.pdb'; linking object as if no debug info
+Win32File.lib(GetRealFileName.obj) : warning LNK4099: PDB 'Win32File.pdb' was not found with 'Win32File.lib(GetRealFileName.obj)' or at 'D:\workspace\NewUI\Dali\bin\Debug\Win32File.pdb'; linking object as if no debug info
+WindowsPlatform.lib(qsort.obj) : warning LNK4099: PDB 'WindowsPlatform.pdb' was not found with 'WindowsPlatform.lib(qsort.obj)' or at 'D:\workspace\NewUI\Dali\bin\Debug\WindowsPlatform.pdb'; linking object as if no debug info
+  dali-toolkit.vcxproj -> D:\workspace\NewUI\Dali\windows-dependencies\Solution\dali-toolkit\..\..\..\bin\Debug\dali-toolkit.dll
+  dali-toolkit.vcxproj -> ../../../bin/Debug/dali-toolkit.pdb (Full PDB)

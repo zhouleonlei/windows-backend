@@ -1,0 +1,12 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	
+	<View x:Name="ProgressBar" BackgroundColor="1,0,0,1">
+		<View x:Name="ProgressValue" BackgroundColor="1,1,1,1" />
+	</View>
+
+	<TextLabel BackgroundColor="1,0,1,1" x:Name="minValueText" BindingContext="{x:Reference *this}" Text="{Binding MinValue}" />
+	<TextLabel BackgroundColor="1,0,1,1" x:Name="maxValueText" BindingContext="{x:Reference *this}" Text="{Binding MaxValue}" />
+	<TextLabel BackgroundColor="1,0,1,1" x:Name="PromptText" BindingContext="{x:Reference *this}" Text="{Binding Value}" />
+
+</XamlLayout>

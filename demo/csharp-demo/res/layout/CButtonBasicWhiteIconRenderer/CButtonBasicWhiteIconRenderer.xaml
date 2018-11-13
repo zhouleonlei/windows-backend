@@ -1,0 +1,26 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+  <XamlLayout.XamlResources>
+    <ResourceDictionary>
+      <Style x:Key="BGStateInfo" TargetType="ImageView">
+        <Style.Triggers>
+          <Trigger TargetType="ImageView" Property="State" Value="Normal">
+            <Trigger.Setters >
+              <Setter TargetType="ImageView" Property="Border" Value="4,4,5,5" />
+              <Setter TargetType="ImageView" Property="ResourceUrl" Value="E:\NewUI-master\NewUI-master\demo\csharp-demo\res\images\c_basic_button_white_bg_normal_9patch.png" />
+            </Trigger.Setters>
+          </Trigger>
+          <Trigger TargetType="ImageView" Property="State" Value="Focused">
+            <Trigger.Setters >
+              <Setter TargetType="ImageView" Property="Border" Value="14,14,20,20" />
+              <Setter TargetType="ImageView" Property="ResourceUrl" Value="E:\NewUI-master\NewUI-master\demo\csharp-demo\res\images\r_highlight_bg_focus_9patch.png" />
+            </Trigger.Setters>
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+    </ResourceDictionary>
+  </XamlLayout.XamlResources>
+
+  <ImageView x:Name ="backgroundImage" PositionUsesPivotPoint = "true" ParentOrigin="Center" PivotPoint="Center"  Position2D =" 0,0" Style = "{StaticResource BGStateInfo}"/>
+  <ImageView x:Name ="icon" PositionUsesPivotPoint = "true" ParentOrigin="Center" PivotPoint="Center"  Position2D =" 0,0"/>
+</XamlLayout>

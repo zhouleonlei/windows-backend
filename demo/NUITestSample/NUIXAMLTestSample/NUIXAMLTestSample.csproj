@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>portable</DebugType>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>1701;1702;1705;1566</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="lib\" />
+    <Folder Include="res\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tizen.NET.Sdk" Version="1.0.0" />
+  </ItemGroup>
+    <ItemGroup>
+    <EmbeddedResource Include="TempTest/TempPage.xaml" />
+    <EmbeddedResource Include="TestAmbient/*.xaml" />
+    <Compile Remove="UTC\TestSpin\**" />
+    <EmbeddedResource Remove="UTC\TestSpin\**" />
+    <None Remove="UTC\TestSpin\**" />
+    <EmbeddedResource Include="TestMyContents/MediaHubPage.xaml" />
+    <EmbeddedResource Include="TestDetailApps/AppDetailPage.xaml" />
+    <EmbeddedResource Include="UTC/TestButton/ButtonTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestFlexContainer/FlexContainerPage.xaml" />
+    <EmbeddedResource Include="UTC/TestImageView/ImageTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestScrollBar/ScrollBarTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestSlider/SliderTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestTableView/TableTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestTextEditor/TextEditorTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestTextField/TextFieldTestPage.xaml" />
+    <EmbeddedResource Include="UTC/TestTextLabel/TextLabelTestPage.xaml" />
+    <EmbeddedResource Include="MVVM/Clock/ClockPage.xaml" />
+    <EmbeddedResource Include="MVVM/HslColorScroll/HslColorScrollPage.xaml" />
+    <EmbeddedResource Include="MVVM/Keypad/KeypadPage.xaml" />
+    <EmbeddedResource Include="MVVM/StaticDateTime/StaticDateTimePage.xaml" />
+    <EmbeddedResource Include="MVVM/ViewToView/ViewToViewPage.xaml" />
+  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Tizen.Applications.Common\Tizen.Applications.Common.csproj" />
+      <ProjectReference Include="..\..\..\src\Tizen.Log\Tizen.Log.csproj" />
+      <ProjectReference Include="..\..\..\src\Tizen.NUI\Tizen.NUI.csproj" />
+      <ProjectReference Include="..\..\..\src\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj" />
+      <ProjectReference Include="..\..\..\src\Tizen\Tizen.csproj" />
+    </ItemGroup>
+
+</Project>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="Tizen.NUI.Examples.TempPage" 
+             xmlns="http://tizen.org/Tizen.NUI/2018/XAML" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <TextLabel x:Name="textlabel1" Name ="textlabel1-name" Text="MyText Test" Position2D="20,20" Size2D="300,100"
+           HorizontalAlignment="Center" VerticalAlignment="Center" BackgroundColor="Yellow" MultiLine="true"/>
+
+    <TextEditor x:Name="texteditor1" Name ="texteditor1-name" PlaceholderText="please input test here"
+
+          Position2D="20,140" Size2D="300,100" BackgroundColor="Green" BindingContext="{x:Reference textlabel1}" Text="{Binding Text, Mode=TwoWay}" />
+</ContentPage>

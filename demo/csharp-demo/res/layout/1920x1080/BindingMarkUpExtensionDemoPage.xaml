@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="Tizen.NUI.Examples.BindingMarkUpExtensionDemoPage"
+  xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <TextLabel x:Name="label" Name ="label" Position2D="100,100" Size2D="300,50"
+             Text="{Binding Source={x:Reference Name=slider}, Path=Value}" />
+
+  <Slider x:Name="slider" Name="slider" LowerBound="100" UpperBound="800" Value="100" ShowPopup="true" 
+          ShowValue="false" Position2D="400,400" Size2D="300,20" />
+
+  <TextLabel x:Name="label2" Name ="label2" Text="Text2" Position2D="100,500" Size2D="300,50"
+           PositionX="{Binding Value, Source={x:Reference Name=slider}}" />
+
+  <TextLabel x:Name="label3" Name ="label3" Text="Text3" Position2D="100,800" Size2D="300,50" >
+    <TextLabel.PositionX>
+      <Binding Path="Value">
+        <Binding.Source>
+          <x:Reference Name="slider" />
+        </Binding.Source>
+      </Binding>
+    </TextLabel.PositionX>
+  </TextLabel>
+
+  <TextLabel x:Name="label4" Name ="label" BindingContext="{x:Reference Name=slider}" Text="Text" Position2D="100,900" Size2D="300,50"
+             PositionX="{Binding Path=Value}" />
+  
+</ContentPage>
