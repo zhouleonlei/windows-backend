@@ -12,6 +12,11 @@ namespace Tizen.NUI.Binding
     // [ProvideCompiled("Tizen.NUI.Core.XamlC.SetterValueProvider")]
     internal sealed class Setter : IValueProvider
     {
+        public Setter([TypeConverter(typeof(TypeTypeConverter))] [Parameter("TargetType")] Type targetType)
+        {
+            TargetType = targetType;
+        }
+
         readonly ConditionalWeakTable<BindableObject, object> _originalValues = new ConditionalWeakTable<BindableObject, object>();
 
         public BindableProperty Property { get; set; }
@@ -37,12 +42,28 @@ namespace Tizen.NUI.Binding
             return this;
         }
 
+        internal Type TargetType { get; }
+
+        private BindableObject targetObject = null;
+        public string TargetName
+        {
+            set
+            {
+                targetObject = NameScopeExtensions.FindByNameInCurrentNameScope<BindableObject>(value);
+            }
+        }
+
         internal void Apply(BindableObject target, bool fromStyle = false)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
             if (Property == null)
                 return;
+
+            if (null != targetObject)
+            {
+                target = targetObject;
+            }
 
             object originalValue = target.GetValue(Property);
             if (!Equals(originalValue, Property.DefaultValue))

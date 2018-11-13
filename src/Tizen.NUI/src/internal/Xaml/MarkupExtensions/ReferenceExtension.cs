@@ -2,6 +2,7 @@ using System;
 using Tizen.NUI.Binding.Internals;
 using Tizen.NUI.Xaml.Internals;
 using Tizen.NUI.Binding;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Xaml
 {
@@ -35,8 +36,15 @@ namespace Tizen.NUI.Xaml
                     return value;
             }
 
-            var lineInfo = (serviceProvider?.GetService(typeof(IXmlLineInfoProvider)) as IXmlLineInfoProvider)?.XmlLineInfo ?? new XmlLineInfo();
-            throw new XamlParseException($"Can not find the object referenced by `{Name}`", lineInfo);
+            if ("*this" == Name)
+            {
+                return BaseControl.Instance;
+            }
+            else
+            {
+                var lineInfo = (serviceProvider?.GetService(typeof(IXmlLineInfoProvider)) as IXmlLineInfoProvider)?.XmlLineInfo ?? new XmlLineInfo();
+                throw new XamlParseException($"Can not find the object referenced by `{Name}`", lineInfo);
+            }
         }
     }
 }

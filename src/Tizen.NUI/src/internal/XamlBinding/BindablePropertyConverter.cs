@@ -45,15 +45,22 @@ namespace Tizen.NUI.Binding
                 object parent = parentValuesProvider.ParentObjects.Skip(1).FirstOrDefault();
                 if (parentValuesProvider.TargetObject is Setter)
                 {
-                    var style = parent as Style;
-                    var triggerBase = parent as TriggerBase;
-                    var visualState = parent as VisualState;
-                    if (style != null)
-                        type = style.TargetType;
-                    else if (triggerBase != null)
-                        type = triggerBase.TargetType;
-                    else if (visualState != null)
-                        type = FindTypeForVisualState(parentValuesProvider, lineinfo);
+                    if (null != (parentValuesProvider.TargetObject as Setter).TargetType)
+                    {
+                        type = (parentValuesProvider.TargetObject as Setter).TargetType;
+                    }
+                    else
+                    {
+                        var style = parent as Style;
+                        var triggerBase = parent as TriggerBase;
+                        var visualState = parent as VisualState;
+                        if (style != null)
+                            type = style.TargetType;
+                        else if (triggerBase != null)
+                            type = triggerBase.TargetType;
+                        else if (visualState != null)
+                            type = FindTypeForVisualState(parentValuesProvider, lineinfo);
+                    }
                 }
                 else if (parentValuesProvider.TargetObject is Trigger)
                     type = (parentValuesProvider.TargetObject as Trigger).TargetType;

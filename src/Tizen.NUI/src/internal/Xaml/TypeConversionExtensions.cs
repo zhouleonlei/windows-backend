@@ -111,20 +111,24 @@ namespace Tizen.NUI.Xaml
             {
                 //If there's a [TypeConverter], use it
                 object converter = getConverter?.Invoke();
-                var xfTypeConverter = converter as TypeConverter;
-                var xfExtendedTypeConverter = xfTypeConverter as IExtendedTypeConverter;
-                if (xfExtendedTypeConverter != null)
-                    return value = xfExtendedTypeConverter.ConvertFromInvariantString(str, serviceProvider);
-                if (xfTypeConverter != null)
-                    return value = xfTypeConverter.ConvertFromInvariantString(str);
-                var converterType = converter?.GetType();
-                if (converterType != null)
+                if (null != converter)
                 {
-                    var convertFromStringInvariant = converterType.GetRuntimeMethod("ConvertFromInvariantString",
-                        new[] { typeof (string) });
-                    if (convertFromStringInvariant != null)
-                        return value = convertFromStringInvariant.Invoke(converter, new object[] { str });
+                    var xfTypeConverter = converter as TypeConverter;
+                    var xfExtendedTypeConverter = xfTypeConverter as IExtendedTypeConverter;
+                    if (xfExtendedTypeConverter != null)
+                        return value = xfExtendedTypeConverter.ConvertFromInvariantString(str, serviceProvider);
+                    if (xfTypeConverter != null)
+                        return value = xfTypeConverter.ConvertFromInvariantString(str);
+                    var converterType = converter?.GetType();
+                    if (converterType != null)
+                    {
+                        var convertFromStringInvariant = converterType.GetRuntimeMethod("ConvertFromInvariantString",
+                            new[] { typeof(string) });
+                        if (convertFromStringInvariant != null)
+                            return value = convertFromStringInvariant.Invoke(converter, new object[] { str });
+                    }
                 }
+
                 var ignoreCase = (serviceProvider?.GetService(typeof(IConverterOptions)) as IConverterOptions)?.IgnoreCase ?? false;
 
                 //If the type is nullable, as the value is not null, it's safe to assume we want the built-in conversion

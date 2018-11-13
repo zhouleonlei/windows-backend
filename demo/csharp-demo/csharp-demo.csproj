@@ -107,6 +107,7 @@
     <Compile Include="Sample\EventHandlerDemo\EventHandlerDemoPage.xaml.cs" />
     <Compile Include="Sample\TestMultiResolution\TestMultiResolution.cs" />
     <Compile Include="Sample\TestMultiResolution\TestMultiResolution.xaml.cs" />
+    <Compile Include="Sample\TestNewSlider.cs" />
     <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResource.cs" />
     <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResourcePage.xaml.cs" />
     <Compile Include="MVVM\Clock\ClockPage.xaml.cs" />

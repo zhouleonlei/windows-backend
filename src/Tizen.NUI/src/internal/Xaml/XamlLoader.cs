@@ -68,7 +68,49 @@ namespace Tizen.NUI.Xaml
             Console.WriteLine("============= Got xaml text is {0} ===========", xaml);
             Load(view, xaml);
         }
+        public static T LoadObject<T>(string path)
+        {
+            var xaml = GetAnimationXaml(path);
+            if (string.IsNullOrEmpty(xaml))
+                throw new XamlParseException(string.Format("No embeddedresource found for {0}", path), new XmlLineInfo());
+            Type type = typeof(T);
+            T ret = (T)type.Assembly.CreateInstance(type.FullName);
 
+            NameScopeExtensions.PushElement(ret);
+
+            using (var textReader = new StringReader(xaml))
+            using (var reader = XmlReader.Create(textReader))
+            {
+                while (reader.Read())
+                {
+                    //Skip until element
+                    if (reader.NodeType == XmlNodeType.Whitespace)
+                        continue;
+                    if (reader.NodeType == XmlNodeType.XmlDeclaration)
+                        continue;
+                    if (reader.NodeType != XmlNodeType.Element)
+                    {
+                        Debug.WriteLine("Unhandled node {0} {1} {2}", reader.NodeType, reader.Name, reader.Value);
+                        continue;
+                    }
+
+                    var rootnode = new RuntimeRootNode(new XmlType(reader.NamespaceURI, reader.Name, null), ret, (IXmlNamespaceResolver)reader);
+                    XamlParser.ParseXaml(rootnode, reader);
+                    Visit(rootnode, new HydrationContext
+                    {
+                        RootElement = ret,
+#pragma warning disable 0618
+                        ExceptionHandler = ResourceLoader.ExceptionHandler ?? (Internals.XamlLoader.DoNotThrowOnExceptions ? e => { } : (Action<Exception>)null)
+#pragma warning restore 0618
+                    });
+                    break;
+                }
+            }
+
+            NameScopeExtensions.PopElement();
+            return ret;
+        }
+		
         public static Transition LoadTransition(string animationXamlPath)
         {
             var xaml = GetAnimationXaml(animationXamlPath);

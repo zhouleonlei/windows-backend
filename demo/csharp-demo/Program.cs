@@ -45,7 +45,7 @@ namespace Tizen.NUI.Examples
             //new BindingModeDemo().Run(args);
             //new MultiTriggerDemo().Run(args);
             //new AnimationWithXamlDemo().Run(args);
-            new TestButton().Run(args);
+            //new TestButton().Run(args);
             //new TestFlexContainer().Run(args);
             //new TestImageView().Run(args);
             //new TestScrollBar().Run(args);
@@ -57,6 +57,8 @@ namespace Tizen.NUI.Examples
             //new MultiRandomViews().Run(args);
             //new NuiXamlTempPageTest().Run(args);
             //new ImageSlideShowPageTest().Run(args);
+
+             new TestNewSlider().Run(args);
         }
     }
 }

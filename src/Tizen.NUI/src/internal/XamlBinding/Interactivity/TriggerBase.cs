@@ -46,6 +46,8 @@ namespace Tizen.NUI.Binding
 
         public Type TargetType { get; }
 
+        protected BindableObject targetObject;
+
         internal Condition Condition { get; }
 
         //Setters and Condition are used by Trigger, DataTrigger and MultiTrigger

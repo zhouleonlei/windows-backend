@@ -140,7 +140,7 @@ namespace Tizen.NUI.BaseComponents
         public static readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(View), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var view = (View)bindable;
-            if (newValue != null)
+            if (newValue != null && (int)newValue < (int)States.Pressed)
             {
                 Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.STATE, new Tizen.NUI.PropertyValue((int)newValue));
             }
@@ -3161,7 +3161,15 @@ namespace Tizen.NUI.BaseComponents
             /// <summary>
             /// The disabled state.
             /// </summary>
-            Disabled
+            Disabled,
+            /// <summary>
+            /// 
+            /// </summary>
+            Selected,
+            /// <summary>
+            /// 
+            /// </summary>
+            Pressed
         }
 
         /// <summary>

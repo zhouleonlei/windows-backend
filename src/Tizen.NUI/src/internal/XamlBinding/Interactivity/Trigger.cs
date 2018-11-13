@@ -15,6 +15,22 @@ namespace Tizen.NUI.Binding
         {
         }
 
+        private string targetObjectName;
+        public string TargetObjectName
+        {
+            get { return targetObjectName; }
+            set
+            {
+                targetObjectName = value;
+                targetObject = NameScopeExtensions.FindByNameInCurrentNameScope<BindableObject>(targetObjectName);
+
+                if (null != targetObject && null != ((XamlPropertyCondition)Condition).Property && null != ((XamlPropertyCondition)Condition).Value)
+                {
+                    OnAttachedTo(targetObject);
+                }
+            }
+        }
+
         public BindableProperty Property
         {
             get { return ((XamlPropertyCondition)Condition).Property; }
@@ -27,6 +43,11 @@ namespace Tizen.NUI.Binding
                 OnPropertyChanging();
                 ((XamlPropertyCondition)Condition).Property = value;
                 OnPropertyChanged();
+
+                if (null != targetObject && null != ((XamlPropertyCondition)Condition).Property && null != ((XamlPropertyCondition)Condition).Value)
+                {
+                    OnAttachedTo(targetObject);
+                }
             }
         }
 
@@ -47,6 +68,11 @@ namespace Tizen.NUI.Binding
                 OnPropertyChanging();
                 ((XamlPropertyCondition)Condition).Value = value;
                 OnPropertyChanged();
+
+                if (null != targetObject && null != ((XamlPropertyCondition)Condition).Property && null != ((XamlPropertyCondition)Condition).Value)
+                {
+                    OnAttachedTo(targetObject);
+                }
             }
         }
 

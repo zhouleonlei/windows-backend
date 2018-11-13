@@ -28,6 +28,7 @@
 using System;
 using System.Reflection;
 using System.ComponentModel;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.Xaml
 {
@@ -48,7 +49,10 @@ namespace Tizen.NUI.Xaml
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static TXaml LoadFromXaml<TXaml>(this TXaml view, Type callingType) 
         {
+            NameScopeExtensions.PushElement(view);
             XamlLoader.Load(view, callingType);
+            NameScopeExtensions.PopElement();
+
             return view;
         }
 
@@ -63,7 +67,18 @@ namespace Tizen.NUI.Xaml
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static TXaml LoadFromXaml<TXaml>(this TXaml view, string xaml)
         {
+            if (view is Element)
+            {
+                NameScopeExtensions.PushElement(view);
+            }
+
             XamlLoader.Load(view, xaml);
+
+            if (view is Element)
+            {
+                NameScopeExtensions.PopElement();
+            }
+
             return view;
         }
 
@@ -72,6 +87,13 @@ namespace Tizen.NUI.Xaml
         public static Transition LoadTransition(string animationXamlPath)
         {
             return XamlLoader.LoadTransition(animationXamlPath);
+        }
+		
+	    /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static T LoadObject<T>(string path)
+        {
+            return XamlLoader.LoadObject<T>(path);
         }
 	}
 }
