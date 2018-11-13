@@ -1,2 +1,2 @@
 # CommonUI
-Create common ui components 
+This branch used to develop new common ui components.
