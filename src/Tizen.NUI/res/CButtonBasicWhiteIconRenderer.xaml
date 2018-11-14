@@ -7,13 +7,13 @@
           <Trigger TargetType="ImageView" Property="State" Value="Normal">
             <Trigger.Setters >
               <Setter TargetType="ImageView" Property="Border" Value="4,4,5,5" />
-              <Setter TargetType="ImageView" Property="ResourceUrl" Value="E:\NewUI-master\NewUI-master\demo\csharp-demo\res\images\c_basic_button_white_bg_normal_9patch.png" />
+              <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/c_basic_button_white_bg_normal_9patch.png" />
             </Trigger.Setters>
           </Trigger>
           <Trigger TargetType="ImageView" Property="State" Value="Focused">
             <Trigger.Setters >
               <Setter TargetType="ImageView" Property="Border" Value="14,14,20,20" />
-              <Setter TargetType="ImageView" Property="ResourceUrl" Value="E:\NewUI-master\NewUI-master\demo\csharp-demo\res\images\r_highlight_bg_focus_9patch.png" />
+              <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/r_highlight_bg_focus_9patch.png" />
             </Trigger.Setters>
           </Trigger>
         </Style.Triggers>
