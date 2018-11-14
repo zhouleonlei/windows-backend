@@ -1,5 +1,7 @@
 ﻿using Tizen.NUI.Binding;
 
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.CButtonBasicWhiteIconRenderer.xaml", "CButtonBasicWhiteIconRenderer.xaml", typeof(Tizen.NUI.BaseComponents.CButtonBasicWhiteIconRenderer))]
+
 namespace Tizen.NUI.BaseComponents
 {
     public class CButtonBasicWhiteIconRenderer : IconButtonRenderer

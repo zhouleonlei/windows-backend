@@ -1,4 +1,5 @@
 ﻿using Tizen.NUI.Binding;
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.CButtonBasicWhiteTextRenderer.xaml", "CButtonBasicWhiteTextRenderer.xaml", typeof(Tizen.NUI.BaseComponents.CButtonBasicWhiteTextRenderer))]
 
 namespace Tizen.NUI.BaseComponents
 {

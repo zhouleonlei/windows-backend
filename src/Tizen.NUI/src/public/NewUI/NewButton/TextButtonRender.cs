@@ -1,5 +1,7 @@
 ﻿using Tizen.NUI.Binding;
 
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.TextButtonRenderer.xaml", "TextButtonRenderer.xaml", typeof(Tizen.NUI.BaseComponents.TextButtonRenderer))]
+
 namespace Tizen.NUI.BaseComponents
 {
     public class TextButtonRenderer : BaseRenderer

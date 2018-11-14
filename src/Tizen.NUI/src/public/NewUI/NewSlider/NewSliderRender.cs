@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using static Tizen.NUI.BaseComponents.View;
 using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
+
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.NewSliderRenderer.xaml", "NewSliderRenderer.xaml", typeof(Tizen.NUI.BaseComponents.NewSliderRenderer))]
 
 namespace Tizen.NUI.BaseComponents
 {

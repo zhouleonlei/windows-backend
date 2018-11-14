@@ -6,6 +6,8 @@ using static Tizen.NUI.BaseComponents.View;
 using Tizen.NUI.Binding;
 using Tizen.NUI.Xaml;
 
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.ExSliderRenderer.xaml", "ExSliderRenderer.xaml", typeof(Tizen.NUI.BaseComponents.ExSliderRenderer))]
+
 namespace Tizen.NUI.BaseComponents
 {
     public class ExSliderRenderer : NewSliderRenderer

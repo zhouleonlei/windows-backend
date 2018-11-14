@@ -6,7 +6,7 @@ namespace Tizen.NUI.BaseComponents
     {
         public BaseRenderer()
         {
-            layout = Extensions.LoadObject<XamlLayout>(GetLayoutPath());
+            layout = Extensions.LoadObject<XamlLayout>(GetType());
         }
 
         internal View Root
@@ -19,15 +19,6 @@ namespace Tizen.NUI.BaseComponents
 
         public abstract void OnPropertyChanged(string type, View sender);
         public abstract void OnStateChanged(View.States state);
-
-        //need to change to abstract method to request child class override it
-        protected virtual string GetLayoutPath()
-        {
-            string resourceName = GetType().Name;
-            resourceName = resourceName + "/" + resourceName + ".xaml";
-            return Tizen.Applications.Application.Current.DirectoryInfo.Resource + "layout/" + resourceName;
-        }
-
         protected XamlLayout layout;
     }
 }

@@ -1,5 +1,6 @@
-﻿using static Tizen.NUI.BaseComponents.View;
-using Tizen.NUI.Binding;
+﻿using Tizen.NUI.Binding;
+
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.IconButtonRenderer.xaml", "IconButtonRenderer.xaml", typeof(Tizen.NUI.BaseComponents.IconButtonRenderer))]
 
 namespace Tizen.NUI.BaseComponents
 {

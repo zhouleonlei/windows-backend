@@ -95,5 +95,11 @@ namespace Tizen.NUI.Xaml
         {
             return XamlLoader.LoadObject<T>(path);
         }
-	}
+        public static T LoadObject<T>(Type callingType)
+        {
+            return XamlLoader.LoadObject<T>(callingType);
+        }
+
+
+    }
 }
