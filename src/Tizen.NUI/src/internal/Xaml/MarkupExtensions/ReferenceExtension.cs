@@ -3,6 +3,7 @@ using Tizen.NUI.Binding.Internals;
 using Tizen.NUI.Xaml.Internals;
 using Tizen.NUI.Binding;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.Controls;
 
 namespace Tizen.NUI.Xaml
 {

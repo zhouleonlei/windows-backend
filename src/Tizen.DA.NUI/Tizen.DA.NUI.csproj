@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="res\" />
+    <Folder Include="src\Conttrols\" />
+    <Folder Include="src\Renderers\" />
+  </ItemGroup>
+
+</Project>

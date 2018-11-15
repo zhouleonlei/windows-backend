@@ -33,32 +33,8 @@ namespace Tizen.NUI.Examples
                 return message;
             }));
 
-            //new InternetLaunchSample.Program().Run(args);
-
-            //new Tizen.TV.NUI.Example.SampleMain().Run(args);
-            //new NuiXamlTempPageTest().Run(args);
-            //new TestStaticDynamicResource().Run(args);  //Push right-left-down-up key to move the picture.
-            //new ViewToViewTest().Run(args);           //Drag the thumbnail of slider.
-            //new StaticDateTimeTest().Run(args);
-            //new TestMultiResolutionSample().Run(args);
-            //new StyleDemo().Run(args);					//Demo of style
-            //new BindingModeDemo().Run(args);
-            //new MultiTriggerDemo().Run(args);
-            //new AnimationWithXamlDemo().Run(args);
-            //new TestButton().Run(args);
-            //new TestFlexContainer().Run(args);
-            //new TestImageView().Run(args);
-            //new TestScrollBar().Run(args);
-            //new TestTableView().Run(args);
-            //new TestTextEditor().Run(args);
-            //new TestTextField().Run(args);
-            //new TriggerWithDataBindingDemo().Run(args);
-            //TestTextLabel().Run(args);
-            //new MultiRandomViews().Run(args);
-            //new NuiXamlTempPageTest().Run(args);
-            //new ImageSlideShowPageTest().Run(args);
-
-             new TestNewSlider().Run(args);
+            //new SliderSample().Run(args);
+            new ButtonSample().Run(args);
         }
     }
 }

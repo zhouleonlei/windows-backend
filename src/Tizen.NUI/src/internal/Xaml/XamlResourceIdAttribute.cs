@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Tizen.NUI.Xaml
 {
     [AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = true)]
-    internal sealed class XamlResourceIdAttribute : Attribute
+    public sealed class XamlResourceIdAttribute : Attribute
     {
         public string ResourceId { get; set; }
         public string Path { get; set; }
