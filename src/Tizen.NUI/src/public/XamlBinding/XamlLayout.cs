@@ -1,34 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using Tizen.NUI.BaseComponents;
+﻿using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Binding;
-using Tizen.NUI.UIComponents;
 
 namespace Tizen.NUI.Xaml
 {
     [ContentProperty("Content")]
-    public class XamlLayout : BaseHandle
+    public class XamlLayout : View
     {
         public XamlLayout()
         {
             IsCreateByXaml = true;
-            Root = new View();
-            Root.WidthResizePolicy = ResizePolicyType.FillToParent;
-            Root.HeightResizePolicy = ResizePolicyType.FillToParent;
+            WidthResizePolicy = ResizePolicyType.FillToParent;
+            HeightResizePolicy = ResizePolicyType.FillToParent;
         }
 
-        public View Root
+        internal View Root
         {
-            get;
-            internal set;
+            get
+            {
+                return this;
+            }
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public View Content
+        internal View Content
         {
             get
             {
@@ -40,7 +33,7 @@ namespace Tizen.NUI.Xaml
             }
         }
 
-        public View RelateView
+        internal View RelateView
         {
             get
             {
@@ -50,24 +43,6 @@ namespace Tizen.NUI.Xaml
             {
                 relateView = value;
                 relateView.Add(Root);
-            }
-        }
-
-        /// <summary>
-        /// The Resources property.
-        /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ResourceDictionary XamlResources
-        {
-            get
-            {
-                return Application.Current.XamlResources;
-            }
-
-            set
-            {
-                Application.Current.XamlResources = value;
             }
         }
 
