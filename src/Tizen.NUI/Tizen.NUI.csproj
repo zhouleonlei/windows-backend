@@ -6,7 +6,7 @@
   
   <ItemGroup>
     <EmbeddedResource Include="res\IconButtonRenderer.xaml" />
-    <EmbeddedResource Include="res\NewSliderRenderer.xaml" />
+    <EmbeddedResource Include="res\SliderRenderer.xaml" />
     <EmbeddedResource Include="res\TextButtonRenderer.xaml" />
   </ItemGroup>
 
