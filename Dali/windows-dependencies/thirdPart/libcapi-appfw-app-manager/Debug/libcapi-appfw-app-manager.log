@@ -1,5 +1,2 @@
-﻿  api.cpp
-     Creating library ..\..\..\bin\Debug\libcapi-appfw-app-manager.so.lib and object ..\..\..\bin\Debug\libcapi-appfw-app-manager.so.exp
-libcapi-appfw-app-manager.so.exp : warning LNK4070: /OUT:libcapi-appfw-app-common.so directive in .EXP differs from output filename '..\..\..\bin\Debug\libcapi-appfw-app-manager.so.0'; ignoring directive
-  libcapi-appfw-app-manager.vcxproj -> D:\workspace\NewUI\Dali\windows-dependencies\thirdPart\libcapi-appfw-app-manager\..\..\..\bin\Debug\libcapi-appfw-app-manager.so.0
+﻿  libcapi-appfw-app-manager.vcxproj -> D:\workspace\NewUI\Dali\windows-dependencies\thirdPart\libcapi-appfw-app-manager\..\..\..\bin\Debug\libcapi-appfw-app-manager.so.0
   libcapi-appfw-app-manager.vcxproj -> ..\..\..\bin\Debug\libcapi-appfw-app-manager.so.pdb (Partial PDB)

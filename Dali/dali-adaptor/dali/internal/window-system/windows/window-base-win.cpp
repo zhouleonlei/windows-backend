@@ -21,6 +21,7 @@
 // INTERNAL HEADERS
 #include <dali/internal/window-system/common/window-impl.h>
 #include <dali/internal/window-system/common/window-render-surface.h>
+#include <dali/internal/window-system/common/window-system.h>
 
 // EXTERNAL_HEADERS
 #include <dali/public-api/object/any.h>
@@ -48,195 +49,10 @@ const unsigned int PRIMARY_TOUCH_BUTTON_ID( 1 );
 Debug::Filter* gWindowBaseLogFilter = Debug::Filter::New( Debug::NoLogging, false, "LOG_WINDOW_BASE" );
 #endif
 
-static bool EcoreEventWindowPropertyChanged( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    return windowBase->OnWindowPropertyChanged( data, type, event );
-  }
-
-  return true;
-}
-
-/**
- * Called when the window gains focus.
- */
-static bool EcoreEventWindowFocusIn( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnFocusIn( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when the window loses focus.
- */
-static bool EcoreEventWindowFocusOut( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnFocusOut( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when the window is damaged.
- */
-static bool EcoreEventWindowDamaged( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnWindowDamaged( data, type, event );
-  }
-
-  return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Selection Callbacks
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Called when the source window notifies us the content in clipboard is selected.
- */
-static bool EcoreEventSelectionClear( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnSelectionClear( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when the source window sends us about the selected content.
- * For example, when dragged items are dragged INTO our window or when items are selected in the clipboard.
- */
-static bool EcoreEventSelectionNotify( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnSelectionNotify( data, type, event );
-  }
-  return true;
-}
-
-static bool isPressed = false;
-static bool moveAfterPressed = false;
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Touch Callbacks
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Called when a touch down is received.
- */
-static bool EcoreEventMouseButtonDown( void* data, int type, TWinEventInfo *event )
-{
-  isPressed = true;
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnMouseButtonDown( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when a touch up is received.
- */
-static bool EcoreEventMouseButtonUp( void* data, int type, TWinEventInfo *event )
-{
-  isPressed = false;
-  moveAfterPressed = false;
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnMouseButtonUp( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when a touch motion is received.
- */
-static bool EcoreEventMouseButtonMove( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    if( true == moveAfterPressed )
-    {
-      int temp = 0;
-    }
-    if( true == isPressed )
-    {
-      moveAfterPressed = true;
-    }
-    windowBase->OnMouseButtonMove( data, type, event );
-  }
-  return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Wheel Callbacks
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Called when a mouse wheel is received.
- */
-static bool EcoreEventMouseWheel( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnMouseWheel( data, type, event );
-  }
-  return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Key Callbacks
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Called when a key down is received.
- */
-static bool EcoreEventKeyDown( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnKeyDown( data, type, event );
-  }
-  return true;
-}
-
-/**
- * Called when a key up is received.
- */
-static bool EcoreEventKeyUp( void* data, int type, TWinEventInfo *event )
-{
-  WindowBaseWin* windowBase = static_cast< WindowBaseWin* >( data );
-  if( windowBase )
-  {
-    windowBase->OnKeyUp( data, type, event );
-  }
-  return true;
-}
 } // unnamed namespace
 
 WindowBaseWin::WindowBaseWin( Dali::PositionSize positionSize, Any surface, bool isTransparent )
-: mEventHandler(),
-  mWin32Window( 0 ),
+: mWin32Window( 0 ),
   mOwnSurface( false ),
   mIsTransparent( false ), // Should only be set to true once we actually create a transparent window regardless of what isTransparent is.
   mRotationAppSet( false )
@@ -246,26 +62,7 @@ WindowBaseWin::WindowBaseWin( Dali::PositionSize positionSize, Any surface, bool
 
 WindowBaseWin::~WindowBaseWin()
 {
-  for( Dali::Vector< Event_Handler >::Iterator iter = mEventHandler.Begin(), endIter = mEventHandler.End(); iter != endIter; ++iter )
-  {
-    event_handler_del( *iter );
-  }
-  mEventHandler.Clear();
-
   WindowsPlatformImplement::PostWinMessage( WM_CLOSE, 0, 0, mWin32Window );
-}
-
-static void EventEntry( long hWnd, unsigned int uMsg, long wParam, long lParam )
-{
-  EventCallback callback = GetCallback( uMsg );
-  EventHandler *handler = (EventHandler*)GetEventHandler( uMsg );
-
-  if( NULL != callback )
-  {
-    //EventHandler *handler = new EventHandler();
-    TWinEventInfo eventInfo( hWnd, uMsg, wParam, lParam );
-    callback( handler, uMsg, &eventInfo );
-  }
 }
 
 void WindowBaseWin::Initialize( PositionSize positionSize, Any surface, bool isTransparent )
@@ -283,81 +80,10 @@ void WindowBaseWin::Initialize( PositionSize positionSize, Any surface, bool isT
   else
   {
     // XLib should already be initialized so no point in calling XInitThreads
-    mWin32Window = static_cast< Win_Window_Handle >( surfaceId );
+    mWin32Window = static_cast< WinWindowHandle >( surfaceId );
   }
 
-  // Register window focus events
-  mEventHandler.PushBack( event_handler_add( WIN_EVENT_WINDOW_FOCUS_IN,       EcoreEventWindowFocusIn,   this ) );
-  mEventHandler.PushBack( event_handler_add( WIN_EVENT_WINDOW_FOCUS_OUT,      EcoreEventWindowFocusOut,  this ) );
-
-  // Register Window damage events
-  mEventHandler.PushBack( event_handler_add( WIN_EVENT_WINDOW_DAMAGE,         EcoreEventWindowDamaged,   this ) );
-
-  // Register Touch events
-  mEventHandler.PushBack( event_handler_add( EVENT_MOUSE_BUTTON_DOWN,       EcoreEventMouseButtonDown, this ) );
-  mEventHandler.PushBack( event_handler_add( EVENT_MOUSE_BUTTON_UP,         EcoreEventMouseButtonUp,   this ) );
-  mEventHandler.PushBack( event_handler_add( EVENT_MOUSE_MOVE,              EcoreEventMouseButtonMove, this ) );
-  mEventHandler.PushBack( event_handler_add( EVENT_MOUSE_OUT,               EcoreEventMouseButtonUp,   this ) ); // process mouse out event like up event
-
-  // Register Mouse wheel events
-  mEventHandler.PushBack( event_handler_add( EVENT_MOUSE_WHEEL,             EcoreEventMouseWheel,      this ) );
-
-  // Register Key events
-  mEventHandler.PushBack( event_handler_add( EVENT_KEY_DOWN,                EcoreEventKeyDown,         this ) );
-  mEventHandler.PushBack( event_handler_add( EVENT_KEY_UP,                  EcoreEventKeyUp,           this ) );
-
-  // Register Selection event
-  mEventHandler.PushBack( event_handler_add( WIN_EVENT_SELECTION_CLEAR,       EcoreEventSelectionClear,  this ) );
-  mEventHandler.PushBack( event_handler_add( WIN_EVENT_SELECTION_NOTIFY,      EcoreEventSelectionNotify, this ) );
-
-  WindowsPlatformImplement::AddListener( EventEntry );
-}
-
-bool WindowBaseWin::OnWindowPropertyChanged( void* data, int type, TWinEventInfo *event )
-{
-  //Ecore_X_Event_Window_Property* propertyChangedEvent = static_cast< Ecore_X_Event_Window_Property* >( event );
-  //bool handled( true );
-
-  //if( propertyChangedEvent->win == mWin32Window )
-  //{
-  //  Ecore_X_Window_State_Hint state( ecore_x_icccm_state_get( propertyChangedEvent->win ) );
-
-  //  switch( state )
-  //  {
-  //    case ECORE_X_WINDOW_STATE_HINT_WITHDRAWN:
-  //    {
-  //      // Window was hidden.
-  //      mWindow->OnIconifyChanged( true );
-  //      DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "Window (%d) Withdrawn\n", mWindow );
-  //      handled = ECORE_CALLBACK_DONE;
-  //      break;
-  //    }
-  //    case ECORE_X_WINDOW_STATE_HINT_ICONIC:
-  //    {
-  //      // Window was iconified (minimised).
-  //      mWindow->OnIconifyChanged( true );
-  //      DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "Window (%d) Iconfied\n", mWindow );
-  //      handled = ECORE_CALLBACK_DONE;
-  //      break;
-  //    }
-  //    case ECORE_X_WINDOW_STATE_HINT_NORMAL:
-  //    {
-  //      // Window was shown.
-  //      mWindow->OnIconifyChanged( false );
-  //      DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "Window (%d) Shown\n", mWindow );
-  //      handled = ECORE_CALLBACK_DONE;
-  //      break;
-  //    }
-  //    default:
-  //    {
-  //      // Ignore
-  //      break;
-  //    }
-  //  }
-  //}
-
-  //return handled;
-  return true;
+  WindowsPlatformImplement::SetListener( MakeCallback( this, &WindowBaseWin::EventEntry ) );
 }
 
 void WindowBaseWin::OnDeleteRequest()
@@ -365,52 +91,30 @@ void WindowBaseWin::OnDeleteRequest()
   mDeleteRequestSignal.Emit();
 }
 
-void WindowBaseWin::OnFocusIn( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnFocusIn( int type, TWinEventInfo *event )
 {
-  //Ecore_X_Event_Window_Focus_In* focusInEvent = static_cast< Ecore_X_Event_Window_Focus_In* >( event );
-
-  //if( focusInEvent->win == mWin32Window )
-  //{
-  //  DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "Window EcoreEventWindowFocusIn\n" );
-
-  //  mFocusChangedSignal.Emit( true );
-  //}
 }
 
-void WindowBaseWin::OnFocusOut( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnFocusOut( int type, TWinEventInfo *event )
 {
-  //Ecore_X_Event_Window_Focus_Out* focusOutEvent = static_cast< Ecore_X_Event_Window_Focus_Out* >( event );
-
-  //// If the window loses focus then hide the keyboard.
-  //if( focusOutEvent->win == mWin32Window )
-  //{
-  //  DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "Window EcoreEventWindowFocusOut\n" );
-
-  //  mFocusChangedSignal.Emit( false );
-  //}
 }
 
-void WindowBaseWin::OnWindowDamaged( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnWindowDamaged( int type, TWinEventInfo *event )
 {
   Event_Mouse_Button* windowDamagedEvent( (Event_Mouse_Button*)event );
-  EventHandler* handler( (EventHandler*)data );
 
   if( windowDamagedEvent->window == mWin32Window )
   {
     DamageArea area;
     area.x = 0;
     area.y = 0;
-    area.width = 480;
-    area.height = 800;
+    WindowSystem::GetScreenSize( area.width, area.height );
 
-    //handler->SendEvent( area );
     mWindowDamagedSignal.Emit( area );
   }
 }
 
-int downHitCount = 0;
-
-void WindowBaseWin::OnMouseButtonDown( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnMouseButtonDown( int type, TWinEventInfo *event )
 {
   Event_Mouse_Button touchEvent = *((Event_Mouse_Button*)event);
   touchEvent.timestamp = GetTickCount();
@@ -422,14 +126,6 @@ void WindowBaseWin::OnMouseButtonDown( void* data, int type, TWinEventInfo *even
   {
     PointState::Type state ( PointState::DOWN );
 
-    // Check if the buttons field is set and ensure it's the primary touch button.
-    // If this event was triggered by buttons other than the primary button (used for touch), then
-    // just send an interrupted event to Core.
-    if( touchEvent.buttons && ( touchEvent.buttons != PRIMARY_TOUCH_BUTTON_ID ) )
-    {
-      state = PointState::INTERRUPTED;
-    }
-
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
@@ -438,20 +134,11 @@ void WindowBaseWin::OnMouseButtonDown( void* data, int type, TWinEventInfo *even
     point.SetPressure( touchEvent.multi.pressure );
     point.SetAngle( Degree( touchEvent.multi.angle ) );
 
-    if( 1 == downHitCount )
-    {
-      int temp = 0;
-    }
-
-    downHitCount = ( downHitCount + 1 ) % 2;
-
     mTouchEventSignal.Emit( point, touchEvent.timestamp );
   }
 }
 
-int hitCount = 0;
-
-void WindowBaseWin::OnMouseButtonUp( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnMouseButtonUp( int type, TWinEventInfo *event )
 {
   Event_Mouse_Button touchEvent = *( (Event_Mouse_Button*)event );
   touchEvent.timestamp = GetTickCount();
@@ -463,14 +150,6 @@ void WindowBaseWin::OnMouseButtonUp( void* data, int type, TWinEventInfo *event 
   {
     PointState::Type state( PointState::UP );
 
-    // Check if the buttons field is set and ensure it's the primary touch button.
-    // If this event was triggered by buttons other than the primary button (used for touch), then
-    // just send an interrupted event to Core.
-    if( touchEvent.buttons && ( touchEvent.buttons != PRIMARY_TOUCH_BUTTON_ID ) )
-    {
-      state = PointState::INTERRUPTED;
-    }
-
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
@@ -479,20 +158,11 @@ void WindowBaseWin::OnMouseButtonUp( void* data, int type, TWinEventInfo *event 
     point.SetPressure( touchEvent.multi.pressure );
     point.SetAngle( Degree( touchEvent.multi.angle ) );
 
-    printf( "---------- OnMouseButtonUp ----------\n" );
-
-    if( 1 == hitCount )
-    {
-      int temp = 0;
-    }
-
-    hitCount = ( hitCount + 1 ) % 2;
-
     mTouchEventSignal.Emit( point, touchEvent.timestamp );
   }
 }
 
-void WindowBaseWin::OnMouseButtonMove( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnMouseButtonMove( int type, TWinEventInfo *event )
 {
   Event_Mouse_Button touchEvent = *((Event_Mouse_Button*)event);
   touchEvent.timestamp = GetTickCount();
@@ -504,14 +174,6 @@ void WindowBaseWin::OnMouseButtonMove( void* data, int type, TWinEventInfo *even
   {
     PointState::Type state( PointState::MOTION );
 
-    // Check if the buttons field is set and ensure it's the primary touch button.
-    // If this event was triggered by buttons other than the primary button (used for touch), then
-    // just send an interrupted event to Core.
-    if( touchEvent.buttons && ( touchEvent.buttons != PRIMARY_TOUCH_BUTTON_ID ) )
-    {
-      state = PointState::INTERRUPTED;
-    }
-
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
@@ -524,7 +186,7 @@ void WindowBaseWin::OnMouseButtonMove( void* data, int type, TWinEventInfo *even
   }
 }
 
-void WindowBaseWin::OnMouseWheel( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnMouseWheel( int type, TWinEventInfo *event )
 {
   Event_Mouse_Wheel mouseWheelEvent = *((Event_Mouse_Wheel*)( event ));
 
@@ -538,7 +200,7 @@ void WindowBaseWin::OnMouseWheel( void* data, int type, TWinEventInfo *event )
   }
 }
 
-void WindowBaseWin::OnKeyDown( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnKeyDown( int type, TWinEventInfo *event )
 {
   if( event->mWindow == mWin32Window )
   {
@@ -561,7 +223,7 @@ void WindowBaseWin::OnKeyDown( void* data, int type, TWinEventInfo *event )
   }
 }
 
-void WindowBaseWin::OnKeyUp( void* data, int type, TWinEventInfo *event )
+void WindowBaseWin::OnKeyUp( int type, TWinEventInfo *event )
 {
   if( event->mWindow == mWin32Window )
   {
@@ -582,41 +244,6 @@ void WindowBaseWin::OnKeyUp( void* data, int type, TWinEventInfo *event )
 
     mKeyEventSignal.Emit( keyEvent );
   }
-}
-
-void WindowBaseWin::OnSelectionClear( void* data, int type, TWinEventInfo *event )
-{
-  //Ecore_X_Event_Selection_Clear* selectionClearEvent = static_cast< Ecore_X_Event_Selection_Clear* >( event );
-
-  //if( selectionClearEvent->win == mWin32Window )
-  //{
-  //  DALI_LOG_INFO( gWindowBaseLogFilter, Debug::Concise, " WindowBaseWin::OnSelectionClear\n" );
-
-  //  if( selectionClearEvent->selection == ECORE_X_SELECTION_SECONDARY )
-  //  {
-  //    // Request to get the content from Ecore.
-  //    ecore_x_selection_secondary_request( selectionClearEvent->win, ECORE_X_SELECTION_TARGET_TEXT );
-  //  }
-  //}
-}
-
-void WindowBaseWin::OnSelectionNotify( void* data, int type, TWinEventInfo *event )
-{
-  //Ecore_X_Event_Selection_Notify* selectionNotifyEvent = static_cast< Ecore_X_Event_Selection_Notify* >( event );
-
-  //if( selectionNotifyEvent->win == mWin32Window )
-  //{
-  //  DALI_LOG_INFO( gWindowBaseLogFilter, Debug::Concise, " WindowBaseWin::OnSelectionNotify\n" );
-
-  //  Ecore_X_Selection_Data* selectionData = static_cast< Ecore_X_Selection_Data* >( selectionNotifyEvent->data );
-  //  if( selectionData->data )
-  //  {
-  //    if( selectionNotifyEvent->selection == ECORE_X_SELECTION_SECONDARY )
-  //    {
-  //      mSelectionDataReceivedSignal.Emit( event  );
-  //    }
-  //  }
-  //}
 }
 
 Any WindowBaseWin::GetNativeWindow()
@@ -661,62 +288,22 @@ bool WindowBaseWin::IsEglWindowRotationSupported()
 
 void WindowBaseWin::Move( PositionSize positionSize )
 {
-  //ecore_x_window_move( mWin32Window, positionSize.x, positionSize.y );
 }
 
 void WindowBaseWin::Resize( PositionSize positionSize )
 {
-  //ecore_x_window_resize( mWin32Window, positionSize.width, positionSize.height );
 }
 
 void WindowBaseWin::MoveResize( PositionSize positionSize )
 {
-  //ecore_x_window_move_resize( mWin32Window, positionSize.x, positionSize.y, positionSize.width, positionSize.height );
 }
 
 void WindowBaseWin::ShowIndicator( Dali::Window::IndicatorVisibleMode visibleMode, Dali::Window::IndicatorBgOpacity opacityMode )
 {
-//  DALI_LOG_TRACE_METHOD_FMT( gWindowBaseLogFilter, "visible : %d\n", visibleMode );
-//
-//  if( visibleMode == Dali::Window::VISIBLE )
-//  {
-//    // when the indicator is visible, set proper mode for indicator server according to bg mode
-//    if( opacityMode == Dali::Window::OPAQUE )
-//    {
-//      ecore_x_e_illume_indicator_opacity_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_OPAQUE );
-//    }
-//    else if( opacityMode == Dali::Window::TRANSLUCENT )
-//    {
-//      ecore_x_e_illume_indicator_opacity_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_TRANSLUCENT );
-//    }
-//#if defined (DALI_PROFILE_MOBILE)
-//    else if( opacityMode == Dali::Window::TRANSPARENT )
-//    {
-//      ecore_x_e_illume_indicator_opacity_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_OPAQUE );
-//    }
-//#endif
-//  }
-//  else
-//  {
-//    // when the indicator is not visible, set TRANSPARENT mode for indicator server
-//    ecore_x_e_illume_indicator_opacity_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_TRANSPARENT ); // it means hidden indicator
-//  }
 }
 
 void WindowBaseWin::SetIndicatorProperties( bool isShow, Dali::Window::WindowOrientation lastOrientation )
 {
-  /*int show_state = static_cast< int >( isShow );
-  ecore_x_window_prop_property_set( mWin32Window, ECORE_X_ATOM_E_ILLUME_INDICATOR_STATE,
-                                    ECORE_X_ATOM_CARDINAL, 32, &show_state, 1 );
-
-  if( isShow )
-  {
-    ecore_x_e_illume_indicator_state_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_STATE_ON );
-  }
-  else
-  {
-    ecore_x_e_illume_indicator_state_set( mWin32Window, ECORE_X_ILLUME_INDICATOR_STATE_OFF );
-  }*/
 }
 
 void WindowBaseWin::IndicatorTypeChanged( IndicatorInterface::Type type )
@@ -725,22 +312,18 @@ void WindowBaseWin::IndicatorTypeChanged( IndicatorInterface::Type type )
 
 void WindowBaseWin::SetClass( const std::string& name, const std::string& className )
 {
-  //ecore_x_icccm_name_class_set( mWin32Window, name.c_str(), className.c_str() );
 }
 
 void WindowBaseWin::Raise()
 {
-  //ecore_x_window_raise( mWin32Window );
 }
 
 void WindowBaseWin::Lower()
 {
-  //ecore_x_window_lower( mWin32Window );
 }
 
 void WindowBaseWin::Activate()
 {
-  //ecore_x_netwm_client_active_request( ecore_x_window_root_get( mWin32Window ), mWin32Window, 1 /* request type, 1:application, 2:pager */, 0 );
 }
 
 void WindowBaseWin::SetAvailableOrientations( const std::vector< Dali::Window::WindowOrientation >& orientations )
@@ -757,12 +340,10 @@ void WindowBaseWin::SetAcceptFocus( bool accept )
 
 void WindowBaseWin::Show()
 {
-  //ecore_x_window_show( mWin32Window );
 }
 
 void WindowBaseWin::Hide()
 {
-  //ecore_x_window_hide( mWin32Window );
 }
 
 unsigned int WindowBaseWin::GetSupportedAuxiliaryHintCount() const
@@ -868,7 +449,7 @@ void WindowBaseWin::GetDpi( unsigned int& dpiHorizontal, unsigned int& dpiVertic
   float xres, yres;
 
   //// 1 inch = 25.4 millimeters
-  WindowsPlatformImplement::GetDPI( xres, yres );
+  WindowsPlatformImplement::GetDPI( mWin32Window, xres, yres );
 
   xres *= 1.5;
   yres *= 1.5;
@@ -905,17 +486,10 @@ unsigned int WindowBaseWin::GetSurfaceId( Any surface ) const
   if ( surface.Empty() == false )
   {
     // check we have a valid type
-    DALI_ASSERT_ALWAYS( ( (surface.GetType() == typeid ( winWindow ) ) || (surface.GetType() == typeid ( Win_Window_Handle ) ) )
+    DALI_ASSERT_ALWAYS( (surface.GetType() == typeid ( WinWindowHandle ) )
                         && "Surface type is invalid" );
 
-    if ( surface.GetType() == typeid ( Win_Window_Handle ) )
-    {
-      surfaceId = AnyCast< Win_Window_Handle >( surface );
-    }
-    else
-    {
-      surfaceId = AnyCast< winWindow >( surface );
-    }
+    surfaceId = AnyCast< WinWindowHandle >( surface );
   }
   return surfaceId;
 }
@@ -926,8 +500,73 @@ void WindowBaseWin::CreateWinWindow( PositionSize positionSize, bool isTranspare
 
   WindowsPlatformImplement::ShowWindow( hWnd );
 
-  mWin32Window = (Win_Window_Handle)hWnd;
-  DALI_ASSERT_ALWAYS( mWin32Window != 0 && "There is no EcoreWin window" );
+  mWin32Window = (WinWindowHandle)hWnd;
+  DALI_ASSERT_ALWAYS( mWin32Window != 0 && "There is no Windows window" );
+}
+
+void WindowBaseWin::EventEntry( TWinEventInfo *event )
+{
+  unsigned int uMsg = event->uMsg;
+
+  switch( uMsg )
+  {
+  case WIN_EVENT_WINDOW_FOCUS_IN:
+  {
+    OnFocusIn( uMsg, event );
+    break;
+  }
+
+  case WIN_EVENT_WINDOW_FOCUS_OUT:
+  {
+    OnFocusOut( uMsg, event );
+    break;
+  }
+
+  case WIN_EVENT_WINDOW_DAMAGE:
+  {
+    OnWindowDamaged( uMsg, event );
+    break;
+  }
+
+  case EVENT_MOUSE_BUTTON_DOWN:
+  {
+    OnMouseButtonDown( uMsg, event );
+    break;
+  }
+
+  case EVENT_MOUSE_BUTTON_UP:
+  {
+    OnMouseButtonUp( uMsg, event );
+    break;
+  }
+
+  case EVENT_MOUSE_MOVE:
+  {
+    OnMouseButtonMove( uMsg, event );
+    break;
+  }
+
+  case EVENT_MOUSE_WHEEL:
+  {
+    OnMouseWheel( uMsg, event );
+    break;
+  }
+
+  case EVENT_KEY_DOWN:
+  {
+    OnKeyDown( uMsg, event );
+    break;
+  }
+
+  case EVENT_KEY_UP:
+  {
+    OnKeyUp( uMsg, event );
+    break;
+  }
+
+  default:
+    break;
+  }
 }
 
 } // namespace Adaptor
@@ -936,4 +575,3 @@ void WindowBaseWin::CreateWinWindow( PositionSize positionSize, bool isTranspare
 
 } // namespace Dali
 
-#pragma GCC diagnostic pop

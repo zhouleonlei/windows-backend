@@ -265,25 +265,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="E:\Dali\dali-demo\main\main-example.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="E:\Dali\windows-dependencies\SampleSolution\ZERO_CHECK.vcxproj">
-      <Project>{D5BC0A9A-A9A3-39E2-8B88-F177D3BD5C11}</Project>
-      <Name>ZERO_CHECK</Name>
-    </ProjectReference>
-    <ProjectReference Include="E:\Dali\windows-dependencies\SampleSolution\dali-adaptor.out\dali-adaptor.vcxproj">
-      <Project>{B3CB580D-6490-396F-AE20-CF15975D70FE}</Project>
-      <Name>dali-adaptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="E:\Dali\windows-dependencies\SampleSolution\dali-core.out\dali-core.vcxproj">
-      <Project>{6517E691-3A75-3CF9-B432-27A54ACDDDD0}</Project>
-      <Name>dali-core</Name>
-    </ProjectReference>
-    <ProjectReference Include="E:\Dali\windows-dependencies\SampleSolution\dali-toolkit.out\dali-toolkit.vcxproj">
-      <Project>{827E353D-76EB-34E5-8261-756EEB05C6E0}</Project>
-      <Name>dali-toolkit</Name>
-    </ProjectReference>
+    <ClCompile Include="main-example.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

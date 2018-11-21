@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1266,7 +1266,7 @@ void TextEditor::OnInitialize()
                         Add( ColorVisual::Property::MIX_COLOR, Color::TRANSPARENT ) );
 
   // Enable the clipping property.
-  mStencil.SetProperty( Actor::Property::CLIPPING_MODE, ClippingMode::CLIP_CHILDREN );
+  mStencil.SetProperty( Actor::Property::CLIPPING_MODE, ClippingMode::CLIP_TO_BOUNDING_BOX );
   mStencil.SetResizePolicy( ResizePolicy::FILL_TO_PARENT, Dimension::ALL_DIMENSIONS );
 
   self.Add( mStencil );
@@ -1351,7 +1351,7 @@ void TextEditor::OnRelayout( const Vector2& size, RelayoutContainer& container )
     mActiveLayer.SetPosition( padding.start, padding.top );
   }
 
-  const Text::Controller::UpdateTextType updateTextType = mController->Relayout( contentSize );
+  const Text::Controller::UpdateTextType updateTextType = mController->Relayout( contentSize, layoutDirection );
 
   if( ( Text::Controller::NONE_UPDATED != updateTextType ) ||
       !mRenderer )

@@ -18,6 +18,9 @@
 // INTERNAL HEADERS
 #include <dali/internal/window-system/common/window-system.h>
 
+// EXTERNAL HEADERS
+#include <Windows.h>
+
 namespace Dali
 {
 
@@ -34,14 +37,20 @@ void Initialize()
 {
 }
 
-
 void GetScreenSize( int& width, int& height )
 {
-  const char* widthValue = std::getenv( "DALI_WINDOW_WIDTH" );
-  width = widthValue ? std::atoi( widthValue ) : 720;
+  width = GetSystemMetrics( SM_CXSCREEN );
+  height = GetSystemMetrics( SM_CYSCREEN );
+}
 
-  const char* heightValue = std::getenv( "DALI_WINDOW_WIDTH" );
-  height = heightValue ? std::atoi( heightValue ) : 480;
+bool SetKeyboardRepeatInfo( float rate, float delay )
+{
+  return false;
+}
+
+bool GetKeyboardRepeatInfo( float& rate, float& delay )
+{
+  return false;
 }
 
 } // namespace WindowSystem

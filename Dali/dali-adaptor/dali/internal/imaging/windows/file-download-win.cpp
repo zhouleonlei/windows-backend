@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,10 +74,13 @@ size_t __cdecl ChunkLoader(char *ptr, size_t size, size_t nmemb, void *userdata)
 {
   std::vector<ChunkData>* chunks = static_cast<std::vector<ChunkData>*>( userdata );
   int numBytes = size*nmemb;
-  chunks->push_back( ChunkData() );
-  ChunkData& chunkData = (*chunks)[chunks->size()-1];
-  chunkData.data.reserve( numBytes );
-  memcpy( chunkData.data.data(), ptr, numBytes );
+  if( chunks != nullptr )
+  {
+    chunks->push_back( ChunkData() );
+    ChunkData& chunkData = (*chunks)[chunks->size()-1];
+    chunkData.data.reserve( numBytes );
+    memcpy( chunkData.data.data(), ptr, numBytes );
+  }
   return numBytes;
 }
 
@@ -99,7 +102,7 @@ CURLcode DownloadFileDataWithSize( CURL* curlHandle, Dali::Vector<uint8_t>& data
   // create
   Dali::Internal::Platform::FileWriter fileWriter( dataBuffer, dataSize );
   FILE* dataBufferFilePointer = fileWriter.GetFile();
-  if( NULL != dataBufferFilePointer )
+  if( nullptr != dataBufferFilePointer )
   {
     // we only want the body which contains the file data
     curl_easy_setopt( curlHandle, CURLOPT_HEADER, EXCLUDE_HEADER );

@@ -20,9 +20,9 @@
 
 // EXTERNAL INCLUDES
 #include <dali/integration-api/debug.h>
+#include <Windows.h>
 
 // INTERNAL INCLUDES
-#include <Windows.h>
 #include <dali/internal/window-system/windows/platform-implement-win.h>
 
 namespace Dali
@@ -53,8 +53,6 @@ void WinCallbackManager::Stop()
   mRunning = false;
 }
 
-#define WIN_CALLBACK_EVENT    9999
-
 bool WinCallbackManager::AddIdleCallback( CallbackBase* callback, bool hasReturnValue )
 {
   if( !mRunning )
@@ -62,8 +60,7 @@ bool WinCallbackManager::AddIdleCallback( CallbackBase* callback, bool hasReturn
     return false;
   }
 
-  WindowsPlatformImplement::AddListener( WIN_CALLBACK_EVENT, callback );
-  WindowsPlatformImplement::PostWinMessage( WIN_CALLBACK_EVENT, (long)callback, 0 );
+  WindowsPlatformImplement::PostWinThreadMessage( WIN_CALLBACK_EVENT, reinterpret_cast<uint64_t>(callback), 0 );
   return true;
 }
 

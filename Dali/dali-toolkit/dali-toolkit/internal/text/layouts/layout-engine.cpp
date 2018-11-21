@@ -281,9 +281,6 @@ struct Engine::Impl
       // Get the line break info for the current character.
       const LineBreakInfo lineBreakInfo = hasCharacters ? *( parameters.lineBreakInfoBuffer + characterLastIndex ) : TextAbstraction::LINE_NO_BREAK;
 
-      // Get the word break info for the current character.
-      const WordBreakInfo wordBreakInfo = *( parameters.wordBreakInfoBuffer + characterLastIndex );
-
       // Increase the number of characters.
       tmpLineLayout.numberOfCharacters += charactersPerGlyph;
 
@@ -397,11 +394,19 @@ struct Engine::Impl
         tmpLineLayout.wsLengthEndOfLine = 0.f;
       }
 
+      // If calculation is end but wsLengthEndOfLine is exist, it means end of text is space.
+      // Merge remained length.
+      if ( !parameters.ignoreSpaceAfterText && glyphIndex == lastGlyphOfParagraphPlusOne-1 && tmpLineLayout.wsLengthEndOfLine > 0 )
+      {
+        tmpLineLayout.length += tmpLineLayout.wsLengthEndOfLine;
+        tmpLineLayout.wsLengthEndOfLine = 0u;
+      }
+
       // Save the current extra width to compare with the next one
       mPreviousCharacterExtraWidth = tmpExtraWidth;
 
       // Check if the accumulated length fits in the width of the box.
-      if( ( completelyFill || isMultiline ) && !isWhiteSpace &&
+      if( ( completelyFill || isMultiline )  && !(parameters.ignoreSpaceAfterText && isWhiteSpace) &&
           ( tmpExtraBearing + lineLayout.length + lineLayout.wsLengthEndOfLine + tmpLineLayout.length + tmpExtraWidth > parameters.boundingBox.width ) )
       {
         // Current word does not fit in the box's width.
@@ -458,7 +463,7 @@ struct Engine::Impl
       }
 
       if( isMultiline &&
-          ( TextAbstraction::WORD_BREAK == wordBreakInfo ) )
+          ( TextAbstraction::LINE_ALLOW_BREAK == lineBreakInfo ) )
       {
         oneWordLaidOut = isWordLaidOut;
         DALI_LOG_INFO( gLogFilter, Debug::Verbose, "  One word laid-out\n" );
@@ -1099,7 +1104,9 @@ struct Engine::Impl
               Length numberOfCharacters,
               Text::HorizontalAlignment::Type horizontalAlignment,
               Vector<LineRun>& lines,
-              float& alignmentOffset )
+              float& alignmentOffset,
+              Dali::LayoutDirection::Type layoutDirection,
+              bool matchSystemLanguageDirection )
   {
     const CharacterIndex lastCharacterPlusOne = startIndex + numberOfCharacters;
 
@@ -1127,7 +1134,9 @@ struct Engine::Impl
       // the box width, line length, and the paragraph's direction.
       CalculateHorizontalAlignment( size.width,
                                     horizontalAlignment,
-                                    line );
+                                    line,
+                                    layoutDirection,
+                                    matchSystemLanguageDirection );
 
       // Updates the alignment offset.
       alignmentOffset = std::min( alignmentOffset, line.alignmentOffset );
@@ -1136,16 +1145,24 @@ struct Engine::Impl
 
   void CalculateHorizontalAlignment( float boxWidth,
                                      HorizontalAlignment::Type horizontalAlignment,
-                                     LineRun& line )
+                                     LineRun& line,
+                                     Dali::LayoutDirection::Type layoutDirection,
+                                     bool matchSystemLanguageDirection )
   {
     line.alignmentOffset = 0.f;
-    const bool isRTL = RTL == line.direction;
+    bool isRTL = RTL == line.direction;
     float lineLength = line.width;
-
     HorizontalAlignment::Type alignment = horizontalAlignment;
+
+    // match align for system language direction
+    if( matchSystemLanguageDirection )
+    {
+      isRTL = layoutDirection == LayoutDirection::RIGHT_TO_LEFT;
+    }
+
+    // Swap the alignment type if the line is right to left.
     if( isRTL )
     {
-      // Swap the alignment type if the line is right to left.
       switch( alignment )
       {
         case HorizontalAlignment::BEGIN:
@@ -1164,6 +1181,7 @@ struct Engine::Impl
           break;
         }
       }
+
     }
 
     // Calculate the horizontal line offset.
@@ -1295,14 +1313,18 @@ void Engine::Align( const Size& size,
                     Length numberOfCharacters,
                     Text::HorizontalAlignment::Type horizontalAlignment,
                     Vector<LineRun>& lines,
-                    float& alignmentOffset )
+                    float& alignmentOffset,
+                    Dali::LayoutDirection::Type layoutDirection,
+                    bool matchSystemLanguageDirection )
 {
   mImpl->Align( size,
                 startIndex,
                 numberOfCharacters,
                 horizontalAlignment,
                 lines,
-                alignmentOffset );
+                alignmentOffset,
+                layoutDirection,
+                matchSystemLanguageDirection );
 }
 
 void Engine::SetDefaultLineSpacing( float lineSpacing )

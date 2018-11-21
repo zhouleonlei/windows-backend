@@ -15,6 +15,14 @@
  #pragma warning(disable: _STL_DISABLED_WARNINGS)
  #pragma push_macro("new")
  #undef new
+ 
+#ifndef _NOEXCEPT
+#define _NOEXCEPT				noexcept
+#endif
+
+#ifndef _CRT_SECURE_WMEMCPY
+#define _CRT_SECURE_WMEMCPY(dest, destsize, source, count) ::wmemcpy_s((dest), (destsize), (source), (count))
+#endif
 
 _STD_BEGIN
 		// STREAM POSITIONING TYPES (from <streambuf>)

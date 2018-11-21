@@ -51,7 +51,7 @@ public:
    * Constructor
    * @param[in] win32Window, The window is created by application.
    */
-  explicit InputMethodContextWin( Win_Window_Handle win32Window );
+  explicit InputMethodContextWin( WinWindowHandle win32Window );
 
 public:
 
@@ -234,7 +234,7 @@ private:
    * Context created the first time and kept until deleted.
    * @param[in] win32Window, The window is created by application.
    */
-  void CreateContext( Win_Window_Handle win32Window );
+  void CreateContext( WinWindowHandle win32Window );
 
   /**
    * @copydoc Dali::InputMethodContext::DeleteContext()
@@ -275,7 +275,7 @@ private:
   InputMethodContextWin& operator=( const InputMethodContextWin& inputMethodContext ) = delete;
 
 private:
-  Win_Window_Handle mWin32Window;
+  WinWindowHandle mWin32Window;
   int mIMFCursorPosition;
   std::string mSurroundingText;
 

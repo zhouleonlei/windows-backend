@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_WIN_DIPLAY_CONNECTION_H
 
 /*
- * Copyright (c) 2015 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +71,20 @@ public:
    */
   bool InitializeEgl(EglInterface& egl);
 
+  /**
+  * @copydoc Dali::DisplayConnection::InitializeGraphics
+  */
+  bool InitializeGraphics();
+
+  /**
+  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetSurfaceType
+  */
   void SetSurfaceType( RenderSurface::Type type );
+
+  /**
+  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetGraphicsInterface
+  */
+  void SetGraphicsInterface( GraphicsInterface& graphics );
 
 public:
 
@@ -89,7 +102,9 @@ protected:
   DisplayConnectionWin& operator=(const DisplayConnectionWin& rhs) = delete;
 
 private:
-    HDC mDisplay;
+  
+  GraphicsInterface *mGraphics; ///< The graphics interface
+  HDC mDisplay;
 };
 
 } // namespace Adaptor

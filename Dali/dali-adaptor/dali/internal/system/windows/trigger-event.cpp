@@ -16,7 +16,7 @@
  */
 
 // CLASS HEADER
-#include <dali/internal/system/common/trigger-event.h>
+#include <dali/internal/system/windows/trigger-event.h>
 
 // EXTERNAL INCLUDES
 #include <unistd.h>
@@ -27,8 +27,6 @@
 #include <dali/internal/system/common/file-descriptor-monitor.h>
 #include <dali/internal/window-system/windows/platform-implement-win.h>
 
-#define MESSAGE_TYPE_OFFSET     10000
-
 namespace Dali
 {
 
@@ -37,36 +35,16 @@ namespace Internal
 
 namespace Adaptor
 {
-TriggerEvent* triggerEventArray[10000] = { 0 };
-
-int SetTriggerEvent(TriggerEvent *event)
-{
-    for (size_t i = 0; i < 10000; i++)
-    {
-        if (NULL == triggerEventArray[i])
-        {
-            triggerEventArray[i] = event;
-            return i;
-        }
-    }
-
-    return -1;
-}
 
 TriggerEvent::TriggerEvent( CallbackBase* callback, TriggerEventInterface::Options options )
 : mCallback( callback ),
-  mFileDescriptor( -1 ),
+  mThreadID( -1 ),
   mOptions( options )
 {
   // Create accompanying file descriptor.
-  mFileDescriptor = SetTriggerEvent( this );
-  WindowsPlatformImplement::AddListener( mFileDescriptor + MESSAGE_TYPE_OFFSET, mCallback );
+  mThreadID = WindowsPlatformImplement::GetCurrentThreadId();
 
-  if (mFileDescriptor >= 0)
-  {
-    // Now Monitor the created event file descriptor
-  }
-  else
+  if ( mThreadID < 0)
   {
     DALI_LOG_ERROR("Unable to create TriggerEvent File descriptor\n");
   }
@@ -76,21 +54,21 @@ TriggerEvent::~TriggerEvent()
 {
   delete mCallback;
 
-  if (mFileDescriptor >= 0)
+  if ( mThreadID >= 0)
   {
-    mFileDescriptor = 0;
+    mThreadID = 0;
   }
 }
 
 void TriggerEvent::Trigger()
 {
-  if (mFileDescriptor >= 0)
+  if ( mThreadID >= 0)
   {
     // Increment event counter by 1.
     // Writing to the file descriptor triggers the Dispatch() method in the other thread
     // (if in multi-threaded environment).
-
-    WindowsPlatformImplement::PostWinMessage( mFileDescriptor + MESSAGE_TYPE_OFFSET, 0, 0 );
+    CallbackBase *callback = MakeCallback( this, &TriggerEvent::Triggered );
+    WindowsPlatformImplement::PostWinThreadMessage( WIN_CALLBACK_EVENT, reinterpret_cast<uint64_t>( callback ), 0, mThreadID );
   }
   else
   {
@@ -98,23 +76,8 @@ void TriggerEvent::Trigger()
   }
 }
 
-void TriggerEvent::Triggered( FileDescriptorMonitor::EventType eventBitMask )
+void TriggerEvent::Triggered()
 {
-  if( !( eventBitMask & FileDescriptorMonitor::FD_READABLE ) )
-  {
-    DALI_ASSERT_ALWAYS( 0 && "Trigger event file descriptor error");
-    return;
-  }
-
-  // Reading from the file descriptor resets the event counter, we can ignore the count.
-  uint64_t receivedData;
-  size_t size;
-  size = read(mFileDescriptor, &receivedData, sizeof(uint64_t));
-  if (size != sizeof(uint64_t))
-  {
-    DALI_LOG_WARNING("Unable to read to UpdateEvent File descriptor\n");
-  }
-
   // Call the connected callback
   CallbackBase::Execute( *mCallback );
 

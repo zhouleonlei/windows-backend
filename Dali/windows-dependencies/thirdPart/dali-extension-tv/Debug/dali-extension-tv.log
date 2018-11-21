@@ -1,64 +1,58 @@
 ﻿cl : Command line warning D9002: ignoring unknown option '/NODEFAULTLIB:libcmt.lib'
   animation-ex.cpp
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(134): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(134): warning C4244: 'initializing': conversion from 'const float' to 'const int', possible loss of data
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(167): warning C4068: unknown pragma
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(168): warning C4068: unknown pragma
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(173): warning C4068: unknown pragma
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(213): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(214): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(215): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(170): warning C4068: unknown pragma
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(171): warning C4068: unknown pragma
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/math-utils.h(176): warning C4068: unknown pragma
 D:\workspace\NewUI\Dali\dali-core\dali/public-api/object/base-handle.h(267): warning C4251: 'Dali::BaseHandle::mObjectHandle': class 'Dali::IntrusivePtr<Dali::RefObject>' needs to have dll-interface to be used by clients of class 'Dali::BaseHandle'
   D:\workspace\NewUI\Dali\dali-core\dali/public-api/object/base-handle.h(267): note: see declaration of 'Dali::IntrusivePtr<Dali::RefObject>'
 D:\workspace\NewUI\Dali\dali-core\dali/public-api/signals/connection-tracker.h(87): warning C4251: 'Dali::ConnectionTracker::mConnections': class 'Dali::Vector<Dali::SlotConnection *,true>' needs to have dll-interface to be used by clients of class 'Dali::ConnectionTracker'
   D:\workspace\NewUI\Dali\dali-core\dali/public-api/signals/connection-tracker.h(87): note: see declaration of 'Dali::Vector<Dali::SlotConnection *,true>'
 D:\workspace\NewUI\Dali\dali-core\dali/public-api/signals/base-signal.h(519): warning C4251: 'Dali::BaseSignal::mSignalConnections': class 'Dali::Vector<Dali::SignalConnection *,true>' needs to have dll-interface to be used by clients of class 'Dali::BaseSignal'
   D:\workspace\NewUI\Dali\dali-core\dali/public-api/signals/base-signal.h(519): note: see declaration of 'Dali::Vector<Dali::SignalConnection *,true>'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/hover-event.h(70): warning C4251: 'Dali::HoverEvent::points': class 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of struct 'Dali::HoverEvent'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/hover-event.h(73): warning C4251: 'Dali::HoverEvent::points': class 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of struct 'Dali::HoverEvent'
           with
           [
               _Ty=Dali::TouchPoint
           ]
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/touch-point.h(127): note: see declaration of 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/touch-point.h(130): note: see declaration of 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>'
           with
           [
               _Ty=Dali::TouchPoint
           ]
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/key-event.h(168): warning C4251: 'Dali::KeyEvent::keyPressedName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Dali::KeyEvent'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/key-event.h(169): warning C4251: 'Dali::KeyEvent::keyPressedName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Dali::KeyEvent'
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.11.25503\include\xstring(4079): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/key-event.h(173): warning C4251: 'Dali::KeyEvent::keyPressed': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Dali::KeyEvent'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/key-event.h(174): warning C4251: 'Dali::KeyEvent::keyPressed': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Dali::KeyEvent'
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.11.25503\include\xstring(4079): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(98): warning C4251: 'Dali::PanGestureDetector::DIRECTION_LEFT': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(99): warning C4251: 'Dali::PanGestureDetector::DIRECTION_RIGHT': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(100): warning C4251: 'Dali::PanGestureDetector::DIRECTION_UP': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(101): warning C4251: 'Dali::PanGestureDetector::DIRECTION_DOWN': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(102): warning C4251: 'Dali::PanGestureDetector::DIRECTION_HORIZONTAL': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(103): warning C4251: 'Dali::PanGestureDetector::DIRECTION_VERTICAL': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(105): warning C4251: 'Dali::PanGestureDetector::DEFAULT_THRESHOLD': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(29): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(101): warning C4251: 'Dali::PanGestureDetector::DIRECTION_LEFT': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(102): warning C4251: 'Dali::PanGestureDetector::DIRECTION_RIGHT': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(103): warning C4251: 'Dali::PanGestureDetector::DIRECTION_UP': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(104): warning C4251: 'Dali::PanGestureDetector::DIRECTION_DOWN': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(105): warning C4251: 'Dali::PanGestureDetector::DIRECTION_HORIZONTAL': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(106): warning C4251: 'Dali::PanGestureDetector::DIRECTION_VERTICAL': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(108): warning C4251: 'Dali::PanGestureDetector::DEFAULT_THRESHOLD': struct 'Dali::Radian' needs to have dll-interface to be used by clients of class 'Dali::PanGestureDetector'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/pan-gesture-detector.h(32): note: see declaration of 'Dali::Radian'
 D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/touch-event.h(76): warning C4251: 'Dali::TouchEvent::points': class 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of struct 'Dali::TouchEvent'
           with
           [
               _Ty=Dali::TouchPoint
           ]
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/touch-point.h(127): note: see declaration of 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/events/touch-point.h(130): note: see declaration of 'std::vector<Dali::TouchPoint,std::allocator<_Ty>>'
           with
           [
               _Ty=Dali::TouchPoint
           ]
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/math/random.h(58): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\workspace\NewUI\Dali\dali-core\dali/public-api/object/property-key.h(53): warning C4251: 'Dali::Property::Key::stringKey': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Dali::Property::Key'
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.11.25503\include\xstring(4079): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\workspace\NewUI\Dali\dali-core\dali/public-api/object/type-registry.h(237): warning C4251: 'Dali::TypeRegistration::mName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Dali::TypeRegistration'
+D:\workspace\NewUI\Dali\dali-core\dali/public-api/object/type-registry.h(238): warning C4251: 'Dali::TypeRegistration::mName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Dali::TypeRegistration'
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.11.25503\include\xstring(4079): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
 D:\workspace\NewUI\Dali\dali-adaptor\dali/public-api/adaptor-framework/native-image-source.h(66): warning C4275: non dll-interface class 'Dali::NativeImageInterface' used as base for dll-interface class 'Dali::NativeImageSource'
-  D:\workspace\NewUI\Dali\dali-core\dali/public-api/images/native-image-interface.h(40): note: see declaration of 'Dali::NativeImageInterface'
+  D:\workspace\NewUI\Dali\dali-core\dali/public-api/images/native-image-interface.h(41): note: see declaration of 'Dali::NativeImageInterface'
   D:\workspace\NewUI\Dali\dali-adaptor\dali/public-api/adaptor-framework/native-image-source.h(65): note: see declaration of 'Dali::NativeImageSource'
 src\public-api\animation\animation-ex.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
      Creating library ..\..\..\bin\Debug\libdali-extension-tv.so.lib and object ..\..\..\bin\Debug\libdali-extension-tv.so.exp

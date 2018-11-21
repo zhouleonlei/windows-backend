@@ -141,14 +141,12 @@ struct Framework::Impl
 
   void Quit()
   {
-      int temp = 0;
-    //uv_stop( mMainLoop );
   }
 
 
 private:
   // Undefined
-  Impl( const Impl& impl );
+  Impl( const Impl& impl ) = delete;
 
   // Undefined
   Impl& operator=( const Impl& impl );
@@ -191,7 +189,6 @@ void Framework::Run()
 void Framework::Quit()
 {
   Impl::AppTerminate(this);
-//  mImpl->Quit();
 }
 
 bool Framework::IsMainLoopRunning()
@@ -222,9 +219,9 @@ std::string Framework::GetBundleId() const
 std::string Framework::GetResourcePath()
 {
   // "DALI_APPLICATION_PACKAGE" is used by Ubuntu specifically to get the already configured Application package path.
-  const char* ubuntuEnvironmentVariable = "DALI_APPLICATION_PACKAGE";
-  char* value = getenv( ubuntuEnvironmentVariable );
-  printf( "DALI_APPLICATION_PACKAGE is %s\n", value );
+  const char* winEnvironmentVariable = "DALI_APPLICATION_PACKAGE";
+  char* value = getenv( winEnvironmentVariable );
+
   std::string resourcePath;
   if ( value != NULL )
   {
@@ -263,29 +260,35 @@ bool Framework::AppStatusHandler(int type, void *bundleData)
       mObserver.OnInit();
       break;
     }
-
     case APP_RESET:
+    {
       mObserver.OnReset();
       break;
-
+    }
     case APP_RESUME:
+    {
       mObserver.OnResume();
       break;
-
+    }
     case APP_TERMINATE:
+    {
       mObserver.OnTerminate();
       break;
-
+    }
     case APP_PAUSE:
+    {
       mObserver.OnPause();
       break;
-
+    }
     case APP_LANGUAGE_CHANGE:
+    {
       mObserver.OnLanguageChanged();
       break;
-
+    }
     default:
+    {
       break;
+    }
   }
 
   return true;
@@ -293,7 +296,6 @@ bool Framework::AppStatusHandler(int type, void *bundleData)
 
 void Framework::InitThreads()
 {
-//  XInitThreads();
 }
 
 std::string Framework::GetLanguage() const

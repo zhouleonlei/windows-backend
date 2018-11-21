@@ -252,8 +252,6 @@ public:
    */
   ~Button();
 
-  static Button New();
-
   // Deprecated API
 
   /**

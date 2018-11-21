@@ -30,7 +30,6 @@
 
 // INTERNAL INCLUDES
 #include <dali-toolkit/public-api/visuals/visual-properties.h>
-#include <dali-toolkit/devel-api/visual-factory/visual-base.h>
 
 namespace Dali
 {
@@ -194,9 +193,6 @@ public:
 
   /// @brief ResourceReady signal type. @SINCE_1_2.60
   typedef Signal<void ( Control ) > ResourceReadySignalType;
-
-  /// @brief ResourceVisualReady signal type. @SINCE_1_3.39
-  typedef Signal<void( Visual::Base* ) > ResourceVisualReadySignalType;
 
 public: // Creation & Destruction
 
@@ -493,8 +489,6 @@ public:
    * @note A RelayoutRequest is queued by Control before this signal is emitted
    */
   ResourceReadySignalType& ResourceReadySignal();
-
-  ResourceVisualReadySignalType& ResourceVisualReadySignal();
 
 public: // Intended for control developers
 

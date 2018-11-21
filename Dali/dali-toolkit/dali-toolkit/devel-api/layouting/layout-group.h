@@ -17,7 +17,6 @@
  */
 
 #include <memory>
-#include <dali/public-api/common/dali-common.h>
 #include <dali/public-api/actors/actor-enumerations.h>
 #include <dali-toolkit/devel-api/toolkit-property-index-ranges.h>
 #include <dali-toolkit/devel-api/layouting/layout-item.h>
@@ -78,6 +77,13 @@ public:
    * This is non-virtual since derived Handle types must not contain data or virtual methods.
    */
   ~LayoutGroup() = default;
+
+  /**
+   * @brief Create an initialized LayoutGroup
+   *
+   * @param[in] handle A handle to the object that this layout for, e.g. a Control or a Visual::Base
+   */
+  static LayoutGroup New( Handle& handle );
 
   /**
    * @brief Copy constructor

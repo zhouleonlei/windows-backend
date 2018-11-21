@@ -160,7 +160,7 @@ inline void AddRendererToRenderList( BufferIndex updateBufferIndex,
                                      bool cull )
 {
   bool inside( true );
-  const Node* node = renderable.mNode;
+  Node* node = renderable.mNode;
 
   if( cull && renderable.mRenderer && !renderable.mRenderer->GetShader().HintEnabled( Dali::Shader::Hint::MODIFIES_GEOMETRY ) )
   {
@@ -202,6 +202,12 @@ inline void AddRendererToRenderList( BufferIndex updateBufferIndex,
 
       Matrix::Multiply( item.mModelViewMatrix, item.mModelMatrix, viewMatrix );
     }
+
+     node->SetCulled( updateBufferIndex, false );
+  }
+  else
+  {
+     node->SetCulled( updateBufferIndex, true );
   }
 }
 
@@ -226,12 +232,11 @@ inline void AddRenderersToRenderList( BufferIndex updateBufferIndex,
 {
   DALI_LOG_INFO( gRenderListLogFilter, Debug::Verbose, "AddRenderersToRenderList()\n");
 
-  unsigned int rendererCount( renderers.Size() );
-  for( unsigned int i(0); i < rendererCount; ++i )
+  for( auto&& renderer : renderers )
   {
     AddRendererToRenderList( updateBufferIndex,
                              renderList,
-                             renderers[i],
+                             renderer,
                              viewMatrix,
                              camera,
                              isLayer3d,
@@ -252,7 +257,7 @@ inline bool TryReuseCachedRenderers( Layer& layer,
                                      RenderableContainer& renderables )
 {
   bool retValue = false;
-  size_t renderableCount = renderables.Size();
+  uint32_t renderableCount = static_cast<uint32_t>( renderables.Size() );
   // Check that the cached list originates from this layer and that the counts match
   if( ( renderList.GetSourceLayer() == &layer )&&
       ( renderList.GetCachedItemCount() == renderableCount ) )
@@ -262,11 +267,11 @@ inline bool TryReuseCachedRenderers( Layer& layer,
     // Therefore we check a combined sum of all renderer addresses.
     size_t checkSumNew = 0;
     size_t checkSumOld = 0;
-    for( size_t index = 0; index < renderableCount; ++index )
+    for( uint32_t index = 0; index < renderableCount; ++index )
     {
       const Render::Renderer& renderer = renderables[index].mRenderer->GetRenderer();
-      checkSumNew += size_t( &renderer );
-      checkSumOld += size_t( &renderList.GetRenderer( index ) );
+      checkSumNew += reinterpret_cast<std::size_t>( &renderer );
+      checkSumOld += reinterpret_cast<std::size_t>( &renderList.GetRenderer( index ) );
     }
     if( checkSumNew == checkSumOld )
     {
@@ -312,9 +317,9 @@ RenderInstructionProcessor::~RenderInstructionProcessor()
 
 inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex, RenderList& renderList, Layer& layer, bool respectClippingOrder )
 {
-  const size_t renderableCount = renderList.Count();
+  const uint32_t renderableCount = static_cast<uint32_t>( renderList.Count() );
   // Reserve space if needed.
-  const unsigned int oldcapacity = mSortingHelper.size();
+  const uint32_t oldcapacity = static_cast<uint32_t>( mSortingHelper.size() );
   if( oldcapacity < renderableCount )
   {
     mSortingHelper.reserve( renderableCount );
@@ -333,7 +338,7 @@ inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex
   // Using an if and two for-loops rather than if inside for as its better for branch prediction.
   if( layer.UsesDefaultSortFunction() )
   {
-    for( size_t index = 0; index < renderableCount; ++index )
+    for( uint32_t index = 0; index < renderableCount; ++index )
     {
       RenderItem& item = renderList.GetItem( index );
 
@@ -346,7 +351,7 @@ inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex
       mSortingHelper[ index ].textureSet = item.mTextureSet;
 
       // The default sorting function should get inlined here.
-      mSortingHelper[ index ].zValue = Internal::Layer::ZValue( item.mModelViewMatrix.GetTranslation3() ) - item.mDepthIndex;
+      mSortingHelper[ index ].zValue = Internal::Layer::ZValue( item.mModelViewMatrix.GetTranslation3() ) - static_cast<float>( item.mDepthIndex );
 
       // Keep the renderitem pointer in the helper so we can quickly reorder items after sort.
       mSortingHelper[ index ].renderItem = &item;
@@ -355,7 +360,7 @@ inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex
   else
   {
     const Dali::Layer::SortFunctionType sortFunction = layer.GetSortFunction();
-    for( size_t index = 0; index < renderableCount; ++index )
+    for( uint32_t index = 0; index < renderableCount; ++index )
     {
       RenderItem& item = renderList.GetItem( index );
 
@@ -365,7 +370,7 @@ inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex
       mSortingHelper[ index ].textureSet = item.mTextureSet;
 
 
-      mSortingHelper[ index ].zValue = (*sortFunction)( item.mModelViewMatrix.GetTranslation3() ) - item.mDepthIndex;
+      mSortingHelper[ index ].zValue = (*sortFunction)( item.mModelViewMatrix.GetTranslation3() ) - static_cast<float>( item.mDepthIndex );
 
       // Keep the RenderItem pointer in the helper so we can quickly reorder items after sort.
       mSortingHelper[ index ].renderItem = &item;
@@ -383,7 +388,7 @@ inline void RenderInstructionProcessor::SortRenderItems( BufferIndex bufferIndex
   // Reorder / re-populate the RenderItems in the RenderList to correct order based on the sortinghelper.
   DALI_LOG_INFO( gRenderListLogFilter, Debug::Verbose, "Sorted Transparent List:\n");
   RenderItemContainer::Iterator renderListIter = renderList.GetContainer().Begin();
-  for( unsigned int index = 0; index < renderableCount; ++index, ++renderListIter )
+  for( uint32_t index = 0; index < renderableCount; ++index, ++renderListIter )
   {
     *renderListIter = mSortingHelper[ index ].renderItem;
     DALI_LOG_INFO( gRenderListLogFilter, Debug::Verbose, "  sortedList[%d] = %p\n", index, mSortingHelper[ index ].renderItem->mRenderer);

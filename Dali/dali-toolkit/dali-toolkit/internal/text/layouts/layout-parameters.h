@@ -60,6 +60,9 @@ struct Parameters
    * @param[in] totalNumberOfGlyphs The number of glyphs.
    * @param[in] horizontalAlignment The horizontal alignment.
    * @param[in] lineWrapMode The text wrap mode.
+   * @param[in] outlineWidth The outline width.
+   * @param[in] ignoreSpaceAfterText Whether ignoring spaces after text or not.
+   * @param[in] matchSystemLanguageDirection Whether match align for system language direction or not..
    */
   Parameters( const Vector2& boundingBox,
               const Character* const textBuffer,
@@ -74,7 +77,9 @@ struct Parameters
               Length totalNumberOfGlyphs,
               Text::HorizontalAlignment::Type horizontalAlignment,
               Text::LineWrap::Mode lineWrapMode,
-              float outlineWidth )
+              float outlineWidth,
+              bool ignoreSpaceAfterText,
+              bool matchSystemLanguageDirection )
   : boundingBox( boundingBox ),
     textBuffer( textBuffer ),
     lineBreakInfoBuffer( lineBreakInfoBuffer ),
@@ -94,8 +99,10 @@ struct Parameters
     startLineIndex( 0u ),
     estimatedNumberOfLines( 0u ),
     lineWrapMode( lineWrapMode ),
+    outlineWidth( outlineWidth ),
     isLastNewParagraph( false ),
-    outlineWidth( outlineWidth )
+    ignoreSpaceAfterText( ignoreSpaceAfterText ),
+    matchSystemLanguageDirection ( matchSystemLanguageDirection )
   {}
 
   Vector2                         boundingBox;                     ///< The size of the box containing the text.
@@ -117,8 +124,10 @@ struct Parameters
   LineIndex                       startLineIndex;                  ///< The line index where to insert the new lines.
   Length                          estimatedNumberOfLines;          ///< The estimated number of lines.
   Text::LineWrap::Mode            lineWrapMode;                    ///< The line wrap mode for moving to next line.
-  bool                            isLastNewParagraph;              ///< Whether the last character is a new paragraph character.
   float                           outlineWidth;                    ///< The outline width.
+  bool                            isLastNewParagraph:1;            ///< Whether the last character is a new paragraph character.
+  bool                            ignoreSpaceAfterText:1;          ///< Whether ignoring spaces after text or not. Default is true.
+  bool                            matchSystemLanguageDirection:1;  ///< Whether match align for system language direction or not. Default is false.
 };
 
 } // namespace Layout

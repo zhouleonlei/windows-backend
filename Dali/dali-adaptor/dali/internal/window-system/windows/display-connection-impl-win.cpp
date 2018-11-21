@@ -17,12 +17,10 @@
 
 // CLASS HEADER
 #include <dali/internal/window-system/windows/display-connection-impl-win.h>
+#include <dali/internal/graphics/gles20/egl-graphics.h>
 
 // EXTERNAL_HEADERS
 #include <dali/integration-api/debug.h>
-
-// INTERNAL HEADERS
-#include <dali/internal/window-system/windows/pixmap-render-surface-win.h>
 
 namespace Dali
 {
@@ -47,10 +45,6 @@ DisplayConnectionWin::DisplayConnectionWin()
 
 DisplayConnectionWin::~DisplayConnectionWin()
 {
-  if(mDisplay)
-  {
-    //XCloseDisplay(mDisplay);
-  }
 }
 
 Any DisplayConnectionWin::GetDisplay()
@@ -60,28 +54,25 @@ Any DisplayConnectionWin::GetDisplay()
 
 void DisplayConnectionWin::ConsumeEvents()
 {
-  // check events so that we can flush the queue and avoid any potential memory leaks in X
-  // looping if events remain
-  int events(0);
-  do
-  {
-    // Check if there are any events in the queue
-    //events = XEventsQueued(mDisplay, QueuedAfterFlush);
-
-    //if (events > 0)
-    //{
-    //  // Just flush event to prevent memory leak from event queue as the events get built up in
-    //  // memory but are only deleted when we retrieve them
-    //  XEvent ev;
-    //  XNextEvent(mDisplay, &ev);
-    //}
-  }
-  while (events > 0);
 }
 
 bool DisplayConnectionWin::InitializeEgl(EglInterface& egl)
 {
   EglImplementation& eglImpl = static_cast<EglImplementation&>( egl );
+
+  if( !eglImpl.InitializeGles( reinterpret_cast<EGLNativeDisplayType>( mDisplay ) ) )
+  {
+    DALI_LOG_ERROR( "Failed to initialize GLES.\n" );
+    return false;
+  }
+
+  return true;
+}
+
+bool DisplayConnectionWin::InitializeGraphics()
+{
+  auto eglGraphics = static_cast<EglGraphics *>( mGraphics );
+  EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
 
   if( !eglImpl.InitializeGles( reinterpret_cast<EGLNativeDisplayType>( mDisplay ) ) )
   {
@@ -98,6 +89,11 @@ void DisplayConnectionWin::SetSurfaceType( RenderSurface::Type type )
   {
      mDisplay = GetDC( GetForegroundWindow() );
   }
+}
+
+void DisplayConnectionWin::SetGraphicsInterface( GraphicsInterface& graphics )
+{
+  mGraphics = &graphics;
 }
 
 } // namespace Adaptor

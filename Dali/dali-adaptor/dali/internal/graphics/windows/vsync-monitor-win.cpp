@@ -95,7 +95,7 @@ bool VSyncMonitor::UseHardware()
 
 bool VSyncMonitor::DoSync( unsigned int& frameNumber, unsigned int& seconds, unsigned int& microseconds )
 {
-  DALI_ASSERT_DEBUG( mFileDescriptor != FD_NONE && "ECoreX::VSyncMonitor is not initialized" );
+  DALI_ASSERT_DEBUG( mFileDescriptor != FD_NONE && "Windows::VSyncMonitor is not initialized" );
   return false;
 }
 

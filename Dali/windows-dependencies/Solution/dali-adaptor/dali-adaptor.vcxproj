@@ -99,7 +99,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;DALI_ADAPTOR_COMPILATION;_NSIG=65;FT_FACE_FLAG_COLOR=16384;NON_POWER_OF_TWO_TEXTURES;HAVE_STRUCT_TIMESPEC;CURL_STATICLIB=0;LC_MESSAGES=0;BUILDING_DALI_ADAPTOR;CMAKE_INTDIR="Debug";dali_adaptor_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;DALI_ADAPTOR_COMPILATION;_NSIG=65;FT_FACE_FLAG_COLOR=16384;NON_POWER_OF_TWO_TEXTURES;HAVE_STRUCT_TIMESPEC;CURL_STATICLIB=0;LC_MESSAGES=0;BUILDING_DALI_ADAPTOR;CMAKE_INTDIR="Debug";dali_adaptor_EXPORTS;WIN_CALLBACK_EVENT=9999;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
@@ -290,6 +290,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\input-method-context.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\input-method-options.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\native-image-source-queue.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\orientation.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\performance-logger.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\physical-keyboard.cpp" />
@@ -302,6 +303,7 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\lifecycle-controller.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\video-player.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\virtual-keyboard.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\web-engine.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\text-abstraction\bidirectional-support.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\text-abstraction\font-client.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\text-abstraction\font-list.cpp" />
@@ -315,6 +317,7 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\accessibility\common\accessibility-adaptor-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\accessibility\common\accessibility-gesture-detector.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\accessibility\windows\accessibility-adaptor-impl-win.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\adaptor-builder-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\adaptor.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\lifecycle-controller-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\adaptor-impl.cpp" />
@@ -324,9 +327,9 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\windows\framework-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\clipboard\common\clipboard-event-notifier-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\clipboard\windows\clipboard-impl-win.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\common\render-helper.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-debug.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-factory.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-graphics-factory.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-graphics.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-implementation.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-sync-implementation.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\gl-extensions.cpp" />
@@ -335,9 +338,8 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\windows-gl\egl-image-extensions.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\haptics\common\feedback-player-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\haptics\common\feedback-plugin-proxy.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\image-loader-plugin-proxy.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-bitmap-buffer-impl.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-image-source-factory.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-image-source-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\pixel-buffer-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\alpha-mask.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\gaussian-blur.cpp" />
@@ -375,6 +377,8 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\windows\file-download-win.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\windows\native-image-source-factory-win.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\windows\native-image-source-impl-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\input\common\drag-and-drop-detector-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\input\common\gesture-manager.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\input\common\input-method-context-impl.cpp" />
@@ -421,17 +425,17 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\system-trace.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\thread-controller.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\time-service.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\trigger-event-factory.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\update-status-logger.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\widget-application-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\logging.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\generic\color-controller-impl.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\generic\system-settings.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\callback-manager-win.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\color-controller-impl-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\file-closer-win.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
     </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\system-settings-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\timer-impl-win.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event-factory.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\widget-application-impl-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\widget-controller-win.cpp" />
@@ -445,6 +449,7 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\trace\common\trace-factory.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\trace\common\trace-manager-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\video\common\video-player-impl.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\web-engine\common\web-engine-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\display-connection.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\event-handler.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\indicator-buffer.cpp" />
@@ -455,22 +460,20 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\window-render-surface.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\display-connection-factory-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\display-connection-impl-win.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\pixmap-render-surface-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\render-surface-factory-win.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\event-system-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\platform-implement-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\window-base-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\window-factory-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\window-system-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\application.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\key.cpp" />
+    <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\native-image-source.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\window.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\timer.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\tts-player.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\widget.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\widget-application.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\widget-impl.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\native-image-source.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\dali-adaptor-version.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\third-party\glyphy\glyphy-arcs.cc" />
     <ClCompile Include="..\..\..\dali-adaptor\third-party\glyphy\glyphy-blob-impl.cc" />

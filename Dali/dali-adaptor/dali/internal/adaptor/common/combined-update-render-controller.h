@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H__
-#define __DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H__
+#ifndef DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H
+#define DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,10 @@
 #include <dali/integration-api/thread-synchronization-interface.h>
 #include <dali/internal/system/common/performance-interface.h>
 #include <dali/internal/system/common/fps-tracker.h>
-#include <dali/internal/graphics/common/render-helper.h>
 #include <dali/internal/adaptor/common/thread-controller-interface.h>
 #include <dali/internal/system/common/update-status-logger.h>
+#include <dali/internal/window-system/common/display-connection.h>
+
 
 namespace Dali
 {
@@ -134,6 +135,11 @@ public:
    * @copydoc ThreadControllerInterface::SetRenderRefreshRate()
    */
   virtual void SetRenderRefreshRate( unsigned int numberOfFramesPerRender );
+
+  /**
+   * @copydoc ThreadControllerInterface::SetPreRenderCallback
+   */
+  void SetPreRenderCallback( CallbackBase* callback ) override;
 
 private:
 
@@ -294,8 +300,6 @@ private:
   FpsTracker                        mFpsTracker;                       ///< Object that tracks the FPS
   UpdateStatusLogger                mUpdateStatusLogger;               ///< Object that logs the update-status as required.
 
-  RenderHelper                      mRenderHelper;                     ///< Helper class for EGL, pre & post rendering
-
   sem_t                             mEventThreadSemaphore;             ///< Used by the event thread to ensure all threads have been initialised, and when replacing the surface.
 
   ConditionalWait                   mUpdateRenderThreadWaitCondition;  ///< The wait condition for the update-render-thread.
@@ -306,6 +310,7 @@ private:
   const EnvironmentOptions&         mEnvironmentOptions;               ///< Environment options
   TriggerEventInterface&            mNotificationTrigger;              ///< Reference to notification event trigger
   TriggerEventInterface*            mSleepTrigger;                     ///< Used by the update-render thread to trigger the event thread when it no longer needs to do any updates
+  CallbackBase*                     mPreRenderCallback;                ///< Used by Update/Render thread when PreRender is about to be called on graphics.
 
   pthread_t*                        mUpdateRenderThread;               ///< The Update/Render thread.
 
@@ -333,7 +338,7 @@ private:
 
   volatile unsigned int             mPostRendering;                    ///< Whether post-rendering is taking place (set by the event & render threads, read by the render-thread).
   volatile unsigned int             mSurfaceResized;                   ///< Will be set to resize the surface (set by the event-thread, read & cleared by the update-render thread).
-  volatile unsigned int             mForceClear;                       ///< Will be set to clear forcely
+  volatile unsigned int             mForceClear;                       ///< Will be set to clear forcibly
 };
 
 } // namespace Adaptor
@@ -342,4 +347,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H__
+#endif // DALI_INTERNAL_COMBINED_UPDATE_RENDER_CONTROLLER_H

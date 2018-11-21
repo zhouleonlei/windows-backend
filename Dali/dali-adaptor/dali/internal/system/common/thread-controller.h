@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_THREAD_CONTROLLER_H__
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@
  * limitations under the License.
  *
  */
+#include <dali/public-api/signals/callback.h>
+
+// INTERNAL INCLUDES
+#include <dali/internal/window-system/common/display-connection.h>
 
 namespace Dali
 {
@@ -113,13 +117,18 @@ public:
    */
   void SetRenderRefreshRate( unsigned int numberOfVSyncsPerRender );
 
+  /**
+   * @copydoc Dali::Adaptor::SetPreRenderCallback
+   */
+  void SetPreRenderCallback( CallbackBase* callback );
+
 private:
 
   // Undefined copy constructor.
-  ThreadController( const ThreadController& );
+  ThreadController( const ThreadController& ) = delete;
 
   // Undefined assignment operator.
-  ThreadController& operator=( const ThreadController& );
+  ThreadController& operator=( const ThreadController& ) = delete;
 
 private:
 

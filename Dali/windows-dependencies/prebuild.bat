@@ -16,5 +16,6 @@ xcopy /s/y/i/f/d "..\dali-demo\resources\shaders\*.*" "..\dali-env\opt\share\com
 xcopy /s/y/i/f/d "..\dali-demo\resources\style\*.json" "..\dali-env\opt\share\com.samsung.dali-demo\res\style"
 xcopy /s/y/i/f/d "..\dali-demo\resources\style\images\*.png" "..\dali-env\opt\share\com.samsung.dali-demo\res\style\images"
 xcopy /s/y/i/f/d "..\dali-demo\resources\videos\*.*" "..\dali-env\opt\share\com.samsung.dali-demo\res\videos"
-xcopy /s/y/i/f/d "..\..\demo\csharp-demo\lib\Debug\*.dll" "..\bin\Debug"
+xcopy /s/y/i/f/d "ExDll\*.dll" "..\bin\Debug"
+xcopy /s/y/i/f/d "ExDll\*.dll" "..\bin\Release"
 @pause

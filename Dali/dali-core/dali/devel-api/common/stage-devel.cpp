@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,26 @@ namespace DevelStage
 KeyEventGeneratedSignalType& KeyEventGeneratedSignal( Dali::Stage stage )
 {
   return GetImplementation( stage ).KeyEventGeneratedSignal();
+}
+
+void SetRenderingBehavior( Dali::Stage stage, Rendering renderingBehavior )
+{
+  GetImplementation( stage ).SetRenderingBehavior( renderingBehavior );
+}
+
+Rendering GetRenderingBehavior( Dali::Stage stage )
+{
+  return GetImplementation( stage ).GetRenderingBehavior();
+}
+
+void AddFrameCallback( Dali::Stage stage, FrameCallbackInterface& frameCallback, Actor rootActor )
+{
+  GetImplementation( stage ).AddFrameCallback( frameCallback, GetImplementation( rootActor ) );
+}
+
+void RemoveFrameCallback( Dali::Stage stage, FrameCallbackInterface& frameCallback )
+{
+  GetImplementation( stage ).RemoveFrameCallback( frameCallback );
 }
 
 } // namespace DevelStage

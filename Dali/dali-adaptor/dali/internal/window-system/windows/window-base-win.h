@@ -54,11 +54,6 @@ public:
 public:
 
   /**
-   * @brief Called when the window property is changed.
-   */
-  bool OnWindowPropertyChanged( void* data, int type, TWinEventInfo *event );
-
-  /**
    * Called when the window receives a delete request
    */
   void OnDeleteRequest();
@@ -66,57 +61,48 @@ public:
   /**
    * @brief Called when the window gains focus.
    */
-  void OnFocusIn( void* data, int type, TWinEventInfo *event );
+  void OnFocusIn( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when the window loses focus.
    */
-  void OnFocusOut( void* data, int type, TWinEventInfo *event );
+  void OnFocusOut( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when the window is damaged.
    */
-  void OnWindowDamaged( void* data, int type, TWinEventInfo *event );
+  void OnWindowDamaged( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a touch down is received.
    */
-  void OnMouseButtonDown( void* data, int type, TWinEventInfo *event );
+  void OnMouseButtonDown( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a touch up is received.
    */
-  void OnMouseButtonUp( void* data, int type, TWinEventInfo *event );
+  void OnMouseButtonUp( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a touch motion is received.
    */
-  void OnMouseButtonMove( void* data, int type, TWinEventInfo *event );
+  void OnMouseButtonMove( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a mouse wheel is received.
    */
-  void OnMouseWheel( void* data, int type, TWinEventInfo *event );
+  void OnMouseWheel( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a key down is received.
    */
-  void OnKeyDown( void* data, int type, TWinEventInfo *event );
+  void OnKeyDown( int type, TWinEventInfo *event );
 
   /**
    * @brief Called when a key up is received.
    */
-  void OnKeyUp( void* data, int type, TWinEventInfo *event );
+  void OnKeyUp( int type, TWinEventInfo *event );
 
-  /**
-   * @brief Called when the source window notifies us the content in clipboard is selected.
-   */
-  void OnSelectionClear( void* data, int type, TWinEventInfo *event );
-
-  /**
-   * @brief Called when the source window sends us about the selected content.
-   */
-  void OnSelectionNotify( void* data, int type, TWinEventInfo *event );
 
 public:
 
@@ -399,11 +385,12 @@ protected:
 
 private:
 
-  Dali::Vector< Event_Handler >        mEventHandler;
-  Win_Window_Handle                    mWin32Window;        ///< Native window handle
+  WinWindowHandle                    mWin32Window;        ///< Native window handle
   bool                                 mOwnSurface:1;       ///< Whether we own the surface (responsible for deleting it)
   bool                                 mIsTransparent;      ///< Whether the window is transparent (32 bit or 24 bit)
   bool                                 mRotationAppSet:1;
+
+  void EventEntry( TWinEventInfo *event );
 };
 
 } // namespace Adaptor

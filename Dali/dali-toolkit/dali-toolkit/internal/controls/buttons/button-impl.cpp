@@ -172,21 +172,6 @@ Button::~Button()
 {
 }
 
-Dali::Toolkit::Button Button::New()
-{
-  // Create the implementation, temporarily owned on stack
-  IntrusivePtr< Button > internalButton = new Button();
-
-  // Pass ownership to CustomActor
-  Dali::Toolkit::Button button( *internalButton );
-
-  // Second-phase init of the implementation
-  // This can only be done after the CustomActor connection has been made...
-  internalButton->Initialize();
-
-  return button;
-}
-
 void Button::SetAutoRepeating( bool autoRepeating )
 {
   mAutoRepeating = autoRepeating;

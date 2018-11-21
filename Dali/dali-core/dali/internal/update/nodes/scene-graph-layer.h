@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_SCENE_GRAPH_LAYER_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,9 +77,10 @@ public:
 
   /**
    * Construct a new Layer.
+   * @param[in] id The Unique ID of the actor creating the node
    * @return A smart-pointer to a newly allocated Node
    */
-  static SceneGraph::Layer* New();
+  static SceneGraph::Layer* New( uint32_t id );
 
   /**
    * From Node, to convert a node to a layer.
@@ -205,9 +206,10 @@ private:
 
   /**
    * Private constructor.
+   * @param[in] id The Unique ID of the actor creating the node
    * See also Layer::New()
    */
-  Layer();
+  Layer( uint32_t id );
 
   // Undefined
   Layer(const Layer&);
@@ -255,7 +257,7 @@ inline void SetSortFunctionMessage( EventThreadServices& eventThreadServices, co
   typedef MessageValue1< Layer, Dali::Layer::SortFunctionType > LocalType;
 
   // Reserve some memory inside the message queue
-  unsigned int* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
+  uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
   new (slot) LocalType( &layer, &Layer::SetSortFunction, function );
@@ -271,7 +273,7 @@ inline void SetClippingMessage( EventThreadServices& eventThreadServices, const 
   typedef MessageValue1< Layer, bool > LocalType;
 
   // Reserve some memory inside the message queue
-  unsigned int* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
+  uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
   new (slot) LocalType( &layer, &Layer::SetClipping, enabled );
@@ -287,7 +289,7 @@ inline void SetClippingBoxMessage( EventThreadServices& eventThreadServices, con
   typedef MessageValue1< Layer, Dali::ClippingBox > LocalType;
 
   // Reserve some memory inside the message queue
-  unsigned int* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
+  uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
   new (slot) LocalType( &layer, &Layer::SetClippingBox, clippingbox );
@@ -305,7 +307,7 @@ inline void SetBehaviorMessage( EventThreadServices& eventThreadServices,
   typedef MessageValue1< Layer, Dali::Layer::Behavior > LocalType;
 
   // Reserve some memory inside the message queue
-  unsigned int* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
+  uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
   new (slot) LocalType( &layer, &Layer::SetBehavior, behavior );
@@ -324,7 +326,7 @@ inline void SetDepthTestDisabledMessage( EventThreadServices& eventThreadService
   typedef MessageValue1< Layer, bool > LocalType;
 
   // Reserve some memory inside the message queue
-  unsigned int* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
+  uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
   new (slot) LocalType( &layer, &Layer::SetDepthTestDisabled, disable );

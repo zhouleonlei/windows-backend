@@ -701,7 +701,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_Application_GetWindow(void * jarg1) {
 
   jresult = new Dali::Window((const Dali::Window &)result);
   return jresult;
-  //return &(( arg1 )->GetWindow());
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef __DALI_INTEGRATION_ADAPTOR_H__
-#define __DALI_INTEGRATION_ADAPTOR_H__
+#ifndef DALI_INTEGRATION_ADAPTOR_H
+#define DALI_INTEGRATION_ADAPTOR_H
 
 /*
  * Copyright (c) 2018 Samsung Electronics Co., Ltd.
@@ -46,6 +46,7 @@ namespace Internal
 {
 namespace Adaptor
 {
+class GraphicsFactory;
 class Adaptor;
 }
 }
@@ -236,6 +237,13 @@ public:
   Any GetNativeWindowHandle();
 
   /**
+   * @brief Get the native display associated with the graphics backend
+   *
+   * @return A handle to the native display
+   */
+  Any GetGraphicsDisplay();
+
+  /**
    * @brief Release any locks the surface may hold.
    *
    * For example, after compositing an offscreen surface, use this method to allow
@@ -255,6 +263,23 @@ public:
    * 8 - render every eighth vsync frame
    */
   void SetRenderRefreshRate( unsigned int numberOfVSyncsPerRender );
+
+  /**
+   * @brief The callback is called from the Update/Render thread prior to rendering.
+   *
+   * @param[in] callback The function to call
+   *
+   * @note The function is called from the Update thread, so should do as little processing as possible.
+   * It is not possible to call any DALi event side APIs from within the callback; doing so will cause
+   * instability. Only 1 callback is supported. Setting the callback to NULL will remove the current callback.
+   *
+   * A callback of the following type should be used:
+   * @code
+   *   bool MyFunction();
+   * @endcode
+   * This callback will be called repeatedly as long as it returns true. A return of 0 deletes this callback.
+   */
+  void SetPreRenderCallback( CallbackBase* callback );
 
   /**
    * @brief Set whether the frame count per render is managed using the hardware VSync or
@@ -391,4 +416,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_INTEGRATION_ADAPTOR_H__
+#endif // DALI_INTEGRATION_ADAPTOR_H

@@ -24,17 +24,19 @@ namespace Toolkit
 namespace Internal
 {
 
-bool LayoutItem::Impl::sUseZeroUnspecifiedMeasureSpec = false;
+class LayoutData;
 
+bool LayoutItem::Impl::sUseZeroUnspecifiedMeasureSpec = false;
+LayoutData* LayoutItem::Impl::sLayoutData = nullptr;
 
 LayoutItem::Impl::Impl()
 : mOwner( nullptr ),
   mLayoutParent( nullptr ),
-  mOldWidthMeasureSpec( 0u ),
-  mOldHeightMeasureSpec( 0u ),
+  mOldWidthMeasureSpec( 0 ),
+  mOldHeightMeasureSpec( 0 ),
   mMinimumSize(),
-  mMeasuredWidth(0u),
-  mMeasuredHeight(0u),
+  mMeasuredWidth(0),
+  mMeasuredHeight(0),
   mLeft( 0 ),
   mRight( 0 ),
   mTop( 0 ),

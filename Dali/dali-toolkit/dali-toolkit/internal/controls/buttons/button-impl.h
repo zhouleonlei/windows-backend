@@ -66,8 +66,6 @@ public:
     BOTTOM  // At the bottom of the control below the foreground/icon
   };
 
-  static Dali::Toolkit::Button New();
-
 public:
 
   /**
@@ -308,7 +306,6 @@ protected:
    * A reference counted object may only be deleted by calling Unreference()
    */
   virtual ~Button();
-
   /**
    * @return A reference to the label actor.
    */

@@ -1231,6 +1231,30 @@ public: // Queries & retrieves.
    */
   void SetVerticalLineAlignment( Toolkit::DevelText::VerticalLineAlignment::Type alignment );
 
+  /**
+   * @brief Retrieves ignoreSpaceAfterText value from model
+   * @return The value of ignoreSpaceAfterText
+   */
+  bool IsIgnoreSpacesAfterText() const;
+
+  /**
+   * @brief Sets ignoreSpaceAfterText value to model
+   * @param[in] ignore The value of ignoreSpacesAfterText for the text
+   */
+  void SetIgnoreSpacesAfterText( bool ignore );
+
+  /**
+   * @brief Retrieves matchSystemLanguageDirection value from model
+   * @return The value of matchSystemLanguageDirection
+   */
+  bool IsMatchSystemLanguageDirection() const;
+
+  /**
+   * @brief Sets matchSystemLanguageDirection value to model
+   * @param[in] match The value of matchSystemLanguageDirection for the text
+   */
+  void SetMatchSystemLanguageDirection( bool match );
+
 public: // Relayout.
 
   /**
@@ -1238,10 +1262,11 @@ public: // Relayout.
    *
    * @note UI Controls are expected to minimize calls to this method e.g. call once after size negotiation.
    * @param[in] size A the size of a bounding box to layout text within.
+   * @param[in] layoutDirection The direction of the system language.
    *
    * @return Whether the text model or decorations were updated.
    */
-  UpdateTextType Relayout( const Size& size );
+  UpdateTextType Relayout( const Size& size, Dali::LayoutDirection::Type layoutDirection = Dali::LayoutDirection::LEFT_TO_RIGHT );
 
   /**
    * @brief Request a relayout using the ControlInterface.

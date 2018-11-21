@@ -18,10 +18,6 @@
 // CLASS HEADER
 #include <dali/internal/system/common/timer-impl.h>
 
-// Ecore is littered with C style cast
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-
 // INTERNAL INCLUDES
 #include <dali/internal/window-system/windows/platform-implement-win.h>
 
@@ -37,16 +33,15 @@ namespace Adaptor
 // LOCAL STUFF
 namespace
 {
-void TimerSourceFunc (void *data)
+bool TimerSourceFunc (void *data)
 {
   Timer* timer = static_cast<Timer*>(data);
-
-  bool keepRunning = timer->Tick();
+  return timer->Tick();
 }
 }
 
 /**
- * Struct to hide away Ecore implementation details
+ * Struct to hide away Windows implementation details
  */
 struct Timer::Impl
 {
@@ -98,13 +93,30 @@ void Timer::Stop()
   }
 }
 
-void Timer::SetInterval( unsigned int interval )
+void Timer::Pause()
 {
-  // stop existing timer
-  Stop();
-  mImpl->mInterval = interval;
-  // start new tick
-  Start();
+
+}
+
+void Timer::Resume()
+{
+
+}
+
+void Timer::SetInterval( unsigned int interval, bool restart )
+{
+  if( true == restart )
+  {
+    // stop existing timer
+    Stop();
+    mImpl->mInterval = interval;
+    // start new tick
+    Start();
+  }
+  else
+  {
+    mImpl->mInterval = interval;
+  }
 }
 
 unsigned int Timer::GetInterval() const
@@ -159,4 +171,3 @@ bool Timer::IsRunning() const
 
 } // namespace Dali
 
-#pragma GCC diagnostic pop

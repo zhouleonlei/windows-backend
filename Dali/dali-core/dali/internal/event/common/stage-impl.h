@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_STAGE_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,7 +156,7 @@ public:
    * initial size is zero before it is assigned
    * @param[in] margin margin size
    */
-  void SetTopMargin( unsigned int margin );
+  void SetTopMargin( uint32_t margin );
 
   /**
    * Returns the size of the Stage in pixels as a Vector.
@@ -198,12 +198,12 @@ public:
   /**
    * @copydoc Dali::Stage::GetLayerCount()
    */
-  unsigned int GetLayerCount() const;
+  uint32_t GetLayerCount() const;
 
   /**
    * @copydoc Dali::Stage::GetLayer()
    */
-  Dali::Layer GetLayer( unsigned int depth ) const;
+  Dali::Layer GetLayer( uint32_t depth ) const;
 
   /**
    * @copydoc Dali::Stage::GetRootLayer()
@@ -306,6 +306,16 @@ public:
   void KeepRendering( float durationSeconds );
 
   /**
+   * @copydoc Dali::DevelStage::SetRenderingBehavior()
+   */
+  void SetRenderingBehavior( DevelStage::Rendering renderingBehavior );
+
+  /**
+   * @copydoc Dali::DevelStage::GetRenderingBehavior()
+   */
+  DevelStage::Rendering GetRenderingBehavior() const;
+
+  /**
    * Used by the EventProcessor to emit key event signals.
    * @param[in] event The key event.
    */
@@ -389,6 +399,16 @@ public:
   Dali::DevelStage::KeyEventGeneratedSignalType& KeyEventGeneratedSignal();
 
   /**
+   * @copydoc Dali::DevelStage::AddFrameCallback()
+   */
+  void AddFrameCallback( FrameCallbackInterface& frameCallback, Actor& rootActor );
+
+  /**
+   * @copydoc Dali::DevelStage::RemoveFrameCallback()
+   */
+  void RemoveFrameCallback( FrameCallbackInterface& frameCallback );
+
+  /**
    * Connects a callback function with the object's signals.
    * @param[in] object The object providing the signal.
    * @param[in] tracker Used to disconnect the signal.
@@ -436,7 +456,7 @@ public: // Implementation of EventThreadServices
   /**
    * @copydoc EventThreadServices::ReserveMessageSlot
    */
-  virtual unsigned int* ReserveMessageSlot( std::size_t size, bool updateScene );
+  virtual uint32_t* ReserveMessageSlot( uint32_t size, bool updateScene );
 
   /**
    * @copydoc EventThreadServices::GetEventBufferIndex
@@ -510,7 +530,7 @@ private:
   ViewMode mViewMode;
   float mStereoBase;
 
-  unsigned int mTopMargin;
+  uint32_t mTopMargin;
   Vector2 mDpi;
 
   // The object registry
@@ -544,6 +564,8 @@ private:
   Dali::Stage::ContextStatusSignal mContextRegainedSignal;
 
   Dali::Stage::SceneCreatedSignalType mSceneCreatedSignal;
+
+  DevelStage::Rendering mRenderingBehavior; ///< The rendering behavior
 
   bool mDepthTreeDirty:1;  ///< True if the depth tree needs recalculating
   bool mForceNextUpdate:1; ///< True if the next rendering is really required.

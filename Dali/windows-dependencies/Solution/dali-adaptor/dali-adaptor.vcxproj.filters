@@ -67,9 +67,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\color-controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\generic\color-controller-impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\combined-update-render-controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,9 +97,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-factory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\windows-gl\egl-image-extensions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +116,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\event-handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\event-system-win.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\event-thread-callback.cpp">
@@ -304,15 +295,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-bitmap-buffer-impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\native-image-source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-image-source-factory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\native-image-source-impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\common\native-render-surface-factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -364,13 +346,7 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\pixel-manipulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\pixmap-render-surface-win.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\platform-implement-win.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\common\render-helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\window-system\windows\render-surface-factory-win.cpp">
@@ -424,9 +400,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\styling\common\style-monitor-impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\generic\system-settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\system-trace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -461,12 +434,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\trace\common\trace-manager-impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\trigger-event-factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\tts-player.cpp">
@@ -551,6 +518,48 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\thread\common\thread-settings-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\native-image-source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\windows\native-image-source-factory-win.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\windows\native-image-source-impl-win.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\native-image-source-queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event-factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\common\adaptor-builder-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles20\egl-graphics-factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\color-controller-impl-win.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\imaging\common\image-loader-plugin-proxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\system-settings-win.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\web-engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\web-engine\common\web-engine-impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

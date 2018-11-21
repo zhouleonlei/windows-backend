@@ -35,17 +35,74 @@ using LinearLayoutPtr = IntrusivePtr<LinearLayout>;
 class LinearLayout final : public LayoutGroup
 {
 public:
+  /**
+   * Creates a pointer to a LinearLayout implementation.
+   */
   static LinearLayoutPtr New();
 
 public:
+  /**
+   * @brief Set the padding between cells in the layout
+   *
+   * @param[in] size The padding between cells.
+   */
   void SetCellPadding( LayoutSize size );
-  LayoutSize GetCellPadding();
+
+  /**
+   * @brief Get the padding between cells in the layout
+   *
+   * @return The padding between cells.
+   */
+  LayoutSize GetCellPadding() const;
+
+  /**
+   * @brief Set the orientation in the layout
+   *
+   * @param[in] orientation The orientation.
+   */
   void SetOrientation( Dali::Toolkit::LinearLayout::Orientation orientation );
-  Dali::Toolkit::LinearLayout::Orientation GetOrientation();
+
+  /**
+   * @brief Get the orientation in the layout
+   *
+   * @return The orientation.
+   */
+  Dali::Toolkit::LinearLayout::Orientation GetOrientation() const;
+
+  /**
+   * @brief Set the alignment in the layout
+   *
+   * @param[in] alignment The alignment.
+   */
+  void SetAlignment( unsigned int alignment );
+
+  /**
+   * @brief Get the alignment in the layout
+   *
+   * @return The alignment.
+   */
+  unsigned int GetAlignment() const;
 
 protected:
+  /**
+   * Default Constructor
+   */
   LinearLayout();
+
+  /**
+   * Destructor
+   */
   virtual ~LinearLayout();
+
+  /**
+   * @copydoc LayoutItem::DoRegisterChildProperties()
+   */
+  virtual void DoRegisterChildProperties( const std::string& containerType ) override;
+
+  /**
+    * @copydoc LayoutItem::OnChildAdd
+    */
+  virtual void OnChildAdd( LayoutItem& child ) override;
 
   /**
    * @copydoc LayoutItem::OnMeasure
@@ -94,6 +151,7 @@ private:
 private:
   LayoutSize mCellPadding;
   Dali::Toolkit::LinearLayout::Orientation mOrientation;
+  unsigned int mAlignment;
   LayoutLength mTotalLength;
 };
 

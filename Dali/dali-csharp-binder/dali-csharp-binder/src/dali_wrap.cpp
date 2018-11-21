@@ -424,6 +424,7 @@ void SWIG_CSharpException(int code, const char *msg) {
 #include <dali-toolkit/dali-toolkit.h>
 
 #include <dali/devel-api/actors/actor-devel.h>
+#include <dali/devel-api/common/stage-devel.h>
 
 #include <dali/public-api/math/matrix.h>
 #include <dali/public-api/math/matrix3.h>
@@ -470,6 +471,9 @@ void SWIG_CSharpException(int code, const char *msg) {
 #include <dali/devel-api/adaptor-framework/image-loading.h>
 
 #include <dali/public-api/events/mouse-button.h>
+
+#include <dali-toolkit/devel-api/controls/web-view/web-view.h>
+
 
 // add here SWIG version check
 
@@ -1682,7 +1686,6 @@ SWIGINTERN void Dali_Signal_Sl_bool_Sp_Dali_Toolkit_Slider_Sc_int_SP__Sg__Discon
 SWIGINTERN bool Dali_Signal_Sl_bool_Sp_Dali_Toolkit_Slider_Sc_int_SP__Sg__Emit(Dali::Signal< bool (Dali::Toolkit::Slider,int) > *self,Dali::Toolkit::Slider arg1,int arg2){
         return self->Emit( arg1, arg2 );
       }
-
 
 /* ---------------------------------------------------
  * C++ director class methods
@@ -36698,6 +36701,15 @@ SWIGEXPORT int SWIGSTDCALL CSharp_Dali_Actor_GetHierarchyDepth(void * jarg1) {
   {
     try {
       result = (int)(arg1)->GetHierarchyDepth();
+      Dali::Actor parent = ((Dali::Actor const *)arg1)->GetParent();
+      if(parent)
+      {
+        const std::string parentName = parent.GetName();
+        if(parentName.compare("rootAbsoluteLayout") == 0)
+        {
+          result -= 1;
+        }
+      }
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
@@ -39062,6 +39074,68 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_Stage_SceneCreatedSignal(void * jarg1)
   return jresult;
 }
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_Stage_SetRenderingBehavior(void * jarg1, int jarg2) {
+  Dali::Stage *arg1 = (Dali::Stage *) 0 ;
+  Dali::DevelStage::Rendering arg2 ;
+
+  arg1 = (Dali::Stage *)jarg1;
+  arg2 = (Dali::DevelStage::Rendering)jarg2;
+  {
+    try {
+      DevelStage::SetRenderingBehavior(*arg1,arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+
+}
+
+SWIGEXPORT int SWIGSTDCALL CSharp_Dali_Stage_GetRenderingBehavior(void * jarg1) {
+
+  int jresult ;
+  int result ;
+  Dali::Stage *arg1 = (Dali::Stage *) 0 ;
+
+  arg1 = (Dali::Stage *)jarg1;
+  {
+    try {
+      result = (int)(DevelStage::GetRenderingBehavior(*arg1));
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+
+  jresult = result;
+  return jresult;
+}
 
 SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_RelayoutContainer(void * jarg1) {
   Dali::RelayoutContainer *arg1 = (Dali::RelayoutContainer *) 0 ;
@@ -68603,6 +68677,70 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_SetLayout__SWIG_1(void * jarg1, void * j
   }
 }
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_SetLayoutingRequired(void * jarg1, bool jarg2) {
+  Dali::Toolkit::Control *arg1 = 0 ;
+
+  arg1 = (Dali::Toolkit::Control *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Dali::Toolkit::Internal::Control & type is null", 0);
+    return ;
+  }
+
+  {
+    try {
+      Dali::Toolkit::DevelControl::SetLayoutingRequired(*arg1,jarg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_View_IsLayoutingRequired(void * jarg1) {
+  unsigned int jresult ;
+  Dali::Toolkit::Control *arg1 = 0 ;
+  bool result;
+
+  arg1 = (Dali::Toolkit::Control *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Dali::Toolkit::Control const & type is null", 0);
+    return 0;
+  }
+  {
+    try {
+      result = (bool)DevelControl::IsLayoutingRequired( *arg1 );
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+
+  jresult = result;
+  return jresult;
+}
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_ResourceReadySignal(void * jarg1) {
   void * jresult ;
   Dali::Toolkit::Control *arg1 = 0 ;
@@ -68639,45 +68777,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_ResourceReadySignal(void * jarg1) {
   return jresult;
 }
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_ResourceVisualReadySignal( void * jarg1 ) {
-  void * jresult;
-  Dali::Toolkit::Control *arg1 = 0;
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *result = 0;
-
-  arg1 = ( Dali::Toolkit::Control * )jarg1;
-  if( !arg1 ) {
-    SWIG_CSharpSetPendingExceptionArgument( SWIG_CSharpArgumentNullException, "Dali::Toolkit::Control & type is null", 0 );
-    return 0;
-  }
-  {
-    try {
-      result = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) &arg1->ResourceVisualReadySignal();
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
-      };
-    }
-  }
-
-  jresult = (void *)result;
-  return jresult;
-}
 
 SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_IsResourceReady(void * jarg1) {
   unsigned int jresult ;
@@ -69766,11 +69865,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_Button_Property(void * jarg1) {
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_Button__SWIG_0() {
   void * jresult ;
-  Dali::Toolkit::Button result;
+  Dali::Toolkit::Button *result = 0 ;
 
   {
     try {
-      result = Dali::Toolkit::Button::New();
+      result = (Dali::Toolkit::Button *)new Dali::Toolkit::Button();
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
@@ -69790,7 +69889,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_Button__SWIG_0() {
     }
   }
 
-  jresult = new Dali::Toolkit::Button( ( const Dali::Toolkit::Button & )result );;
+  jresult = (void *)result;
   return jresult;
 }
 
@@ -100999,254 +101098,8 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_ViewResourceReadySignal(void * ja
       };
     }
   }
-}
-
-typedef void( *ResourceVisualReadyCallback )( Toolkit::Visual::Base* );
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_ViewResourceVisualReadySignal_Empty( void * jarg1 ) {
-  unsigned int jresult;
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-  bool result;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-  {
-    try {
-      result = arg1->Empty();
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
-      };
-    }
-  }
-
-  jresult = result;
-  return jresult;
-}
-
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_Dali_ViewResourceVisualReadySignal_GetConnectionCount( void * jarg1 ) {
-  unsigned long jresult;
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-  std::size_t result;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-  {
-    try {
-      result = arg1->GetConnectionCount();
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
-      };
-    }
-  }
-
-  jresult = (unsigned long)result;
-  return jresult;
-}
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_ViewResourceVisualReadySignal_Connect( void * jarg1, void * jarg2 ) {
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-  ResourceVisualReadyCallback arg2 = (ResourceVisualReadyCallback) 0;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-  arg2 = (ResourceVisualReadyCallback)jarg2;
-  {
-    try {
-      arg1->Connect( arg2 );
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
-      };
-    }
-  }
-}
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_ViewResourceVisualReadySignal_Disconnect( void * jarg1, void * jarg2 ) {
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-  ResourceVisualReadyCallback arg2 = (ResourceVisualReadyCallback) 0;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-  arg2 = (ResourceVisualReadyCallback)jarg2;
-  {
-    try {
-      arg1->Disconnect(arg2);
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
-      };
-    }
-  }
-}
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_ViewResourceVisualReadySignal_Emit( void * jarg1, void * jarg2 ) {
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-  Toolkit::Visual::Base* arg2 = (Toolkit::Visual::Base*)jarg2;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-
-  if( !arg2 ) {
-    SWIG_CSharpSetPendingExceptionArgument( SWIG_CSharpArgumentNullException, "Attempt to dereference null Dali::Toolkit::Control", 0 );
-    return;
-  }
-
-  {
-    try {
-      arg1->Emit(arg2);
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_ViewResourceVisualReadySignal() {
-  void * jresult;
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *result = 0;
-
-  {
-    try {
-      result = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )new Dali::Toolkit::Control::ResourceVisualReadySignalType();
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
-      };
-    }
-  }
-
-  jresult = (void *)result;
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_ViewResourceVisualReadySignal( void * jarg1 ) {
-  Dali::Toolkit::Control::ResourceVisualReadySignalType *arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * ) 0;
-
-  arg1 = ( Dali::Toolkit::Control::ResourceVisualReadySignalType * )jarg1;
-  {
-    try {
-      delete arg1;
-    }
-    catch( std::out_of_range& e ) {
-      {
-        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( std::exception& e ) {
-      {
-        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
-      };
-    }
-    catch( Dali::DaliException e ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
-      };
-    }
-    catch( ... ) {
-      {
-        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
-      };
-    }
-  }
 
 }
-
 
 SWIGEXPORT Dali::RefObject * SWIGSTDCALL CSharp_Dali_GetRefObjectPtr(Dali::BaseHandle *arg1) {
   Dali::RefObject *result = NULL;
@@ -103776,13 +103629,123 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_DownloadImageSynchronously__SWIG_4(cha
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_SetMaxTextureSize(unsigned int jarg1) {
-  unsigned int arg1 ;
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_WebView_New() {
+  void * jresult ;
+  Dali::Toolkit::WebView result;
 
-  arg1 = (unsigned int)jarg1;
   {
     try {
-      Dali::SetMaxTextureSize(arg1);
+      result = Dali::Toolkit::WebView::New();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  jresult = new Dali::Toolkit::WebView((const Dali::Toolkit::WebView &)result);
+  return jresult;
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_WebView_New_2(char * jarg1, char * jarg2) {
+  void * jresult ;
+  Dali::Toolkit::WebView result;
+
+  std::string *arg1;
+  std::string *arg2;
+
+  if (!jarg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "jarg1 is null string", 0);
+    return 0;
+  }
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "jarg2 is null string", 0);
+    return 0;
+  }
+
+  std::string jarg1_str = std::string(jarg1);
+  std::string jarg2_str = std::string(jarg2);
+
+  arg1 = &jarg1_str;
+  arg2 = &jarg2_str;
+
+  {
+    try {
+      result = Dali::Toolkit::WebView::New( (std::string const &)*arg1, (std::string const &)*arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  jresult = new Dali::Toolkit::WebView((const Dali::Toolkit::WebView &)result);
+  return jresult;
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_WebView__SWIG_1(void * jarg1) {
+  void * jresult ;
+  Dali::Toolkit::WebView *arg1 = 0 ;
+  Dali::Toolkit::WebView *result = 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Dali::Toolkit::WebView const & type is null", 0);
+    return 0;
+  }
+  {
+    try {
+      result = (Dali::Toolkit::WebView *)new Dali::Toolkit::WebView((Dali::Toolkit::WebView const &)*arg1);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  jresult = (void *)result;
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_WebView(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      delete arg1;
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
@@ -103790,6 +103753,672 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_SetMaxTextureSize(unsigned int jarg1) {
     } catch (std::exception& e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_WebView_Assign(void * jarg1, void * jarg2) {
+  void * jresult ;
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  Dali::Toolkit::WebView *arg2 = 0 ;
+  Dali::Toolkit::WebView *result = 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  arg2 = (Dali::Toolkit::WebView *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Dali::Toolkit::WebView const & type is null", 0);
+    return 0;
+  }
+  {
+    try {
+      result = (Dali::Toolkit::WebView *) &(arg1)->operator =((Dali::Toolkit::WebView const &)*arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  jresult = (void *)result;
+  return jresult;
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_WebView_DownCast(void * jarg1) {
+  void * jresult ;
+  Dali::BaseHandle arg1 ;
+  Dali::BaseHandle *argp1 ;
+  Dali::Toolkit::WebView result;
+
+  argp1 = (Dali::BaseHandle *)jarg1;
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null Dali::BaseHandle", 0);
+    return 0;
+  }
+  arg1 = *argp1;
+  {
+    try {
+      result = Dali::Toolkit::WebView::DownCast(arg1);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  jresult = new Dali::Toolkit::WebView((const Dali::Toolkit::WebView &)result);
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_LoadUrl(void * jarg1, char * jarg2) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  std::string *arg2;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return;
+  }
+
+  std::string jarg2str = std::string(jarg2);
+  arg2 = &jarg2str;
+  {
+    try {
+      (arg1)->LoadUrl((std::string const &)*arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_Dali_WebView_GetUrl(void * jarg1) {
+  char * jresult ;
+  std::string result;
+
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      result = arg1->GetUrl();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+
+  jresult = SWIG_csharp_string_callback((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_LoadHTMLString(void * jarg1, char * jarg2) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  std::string *arg2;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return;
+  }
+  std::string jarg2str = std::string(jarg2);
+  arg2 = &jarg2str;
+  {
+    try {
+      (arg1)->LoadHTMLString((std::string const &)*arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_Reload(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->Reload();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_StopLoading(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->StopLoading();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_GoBack(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->GoBack();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_GoForward(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->GoForward();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT bool SWIGSTDCALL CSharp_Dali_WebView_CanGoBack(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  bool ret;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      ret = (arg1)->CanGoBack();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return false;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return false;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return false;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return false;
+      };
+    }
+  }
+  return ret;
+}
+
+SWIGEXPORT bool SWIGSTDCALL CSharp_Dali_WebView_CanGoForward(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  bool ret;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      ret = (arg1)->CanGoForward();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return false;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return false;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return false;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return false;
+      };
+    }
+  }
+  return ret;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_EvaluateJavaScript(void * jarg1, char * jarg2) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+  std::string *arg2;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return;
+  }
+  std::string jarg2_str = std::string(jarg2);
+  arg2 = &jarg2_str;
+  {
+    try {
+      (arg1)->EvaluateJavaScript((std::string const &)*arg2);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_ClearHistory(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->ClearHistory();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebView_ClearCache(void * jarg1) {
+  Dali::Toolkit::WebView *arg1 = (Dali::Toolkit::WebView *) 0 ;
+
+  arg1 = (Dali::Toolkit::WebView *)jarg1;
+  {
+    try {
+      (arg1)->ClearCache();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT Dali::Toolkit::Control * SWIGSTDCALL CSharp_Dali_WebView_SWIGUpcast(Dali::Toolkit::WebView *jarg1) {
+    return (Dali::Toolkit::Control *)jarg1;
+}
+
+
+// Proxy class of WebViewSignal.
+// WebViewSignal has an argument of std::string type which is not supported at C# side.
+// The purpose of this class is to convert signal argument of string type safely.
+class WebViewSignalProxy : public ConnectionTracker
+{
+public:
+  typedef Dali::Signal< void(Dali::Toolkit::WebView, const std::string&) > OriginalSignalType;
+  typedef Dali::Signal< void(Dali::Toolkit::WebView, char*) > ProxySignalType;
+  typedef void (*CallbackType)(Dali::Toolkit::WebView, char *);
+
+  WebViewSignalProxy(OriginalSignalType* signal)
+    : mSignalPtr(signal)
+  {
+  }
+
+  void Connect(CallbackType csharpCallback)
+  {
+    if (mSignalPtr->Empty())
+    {
+      mSignalPtr->Connect(this, &WebViewSignalProxy::OnEmit);
+    }
+    mProxySignal.Connect(csharpCallback);
+  }
+
+  void Disconnect(CallbackType csharpCallback)
+  {
+    mProxySignal.Disconnect(csharpCallback);
+    if (mProxySignal.Empty())
+    {
+      mSignalPtr->Disconnect(this, &WebViewSignalProxy::OnEmit);
+    }
+  }
+
+  bool Empty()
+  {
+    return mProxySignal.Empty();
+  }
+
+  std::size_t GetConnectionCount()
+  {
+    return mProxySignal.GetConnectionCount();
+  }
+
+  void Emit(Dali::Toolkit::WebView& webview, char* url)
+  {
+    if (!mProxySignal.Empty())
+    {
+      mProxySignal.Emit(webview, url);
+    }
+  }
+
+  void OnEmit(Dali::Toolkit::WebView webview, const std::string& url)
+  {
+    // Safe string conversion
+    mProxySignal.Emit(webview, SWIG_csharp_string_callback(url.c_str()));
+  }
+
+private:
+  OriginalSignalType* mSignalPtr;
+  ProxySignalType mProxySignal;
+};
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_WebViewSignalProxy_PageLoadStarted(void * jarg1) {
+  Dali::Toolkit::WebView* webview = (Dali::Toolkit::WebView *) jarg1;
+  WebViewSignalProxy* result = NULL;
+  {
+    try {
+      result = new WebViewSignalProxy(&webview->PageLoadStartedSignal());
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  return (void*) result;
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_new_WebViewSignalProxy_PageLoadFinished(void * jarg1) {
+  Dali::Toolkit::WebView* webview = (Dali::Toolkit::WebView *) jarg1;
+  WebViewSignalProxy* result = NULL;
+  {
+    try {
+      result = new WebViewSignalProxy(&webview->PageLoadFinishedSignal());
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  return (void*) result;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_delete_WebViewSignalProxy(void * jarg1)
+{
+  WebViewSignalProxy* object = (WebViewSignalProxy*) jarg1;
+  {
+    try {
+      delete object;
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Empty(void * jarg1)
+{
+  bool result;
+  WebViewSignalProxy* proxy = (WebViewSignalProxy*) jarg1;
+  {
+    try {
+      result = (bool)proxy->Empty();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  return (unsigned int) result;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_GetConnectionCount(void * jarg1)
+{
+  std::size_t result;
+  WebViewSignalProxy* arg1 = (WebViewSignalProxy*) jarg1;
+  {
+    try {
+      result = arg1->GetConnectionCount();
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+      };
+    }
+  }
+  return (unsigned long) result;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Connect(void * jarg1, void * jarg2)
+{
+  WebViewSignalProxy* proxy = (WebViewSignalProxy*) jarg1;
+  WebViewSignalProxy::CallbackType callback = (WebViewSignalProxy::CallbackType) jarg2;
+  {
+    try {
+      proxy->Connect(callback);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
       };
     } catch (...) {
       {
@@ -103800,31 +104429,67 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_SetMaxTextureSize(unsigned int jarg1) {
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_GetMaxTextureSize() {
-  unsigned int jresult ;
-  unsigned int result;
-
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Disconnect(void * jarg1, void * jarg2) {
+  WebViewSignalProxy* proxy = (WebViewSignalProxy*) jarg1;
+  WebViewSignalProxy::CallbackType callback = (WebViewSignalProxy::CallbackType) jarg2;
   {
     try {
-      result = (unsigned int)Dali::GetMaxTextureSize();
+      proxy->Disconnect(callback);
     } catch (std::out_of_range& e) {
       {
-        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
       };
     } catch (std::exception& e) {
       {
-        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
       };
     } catch (...) {
       {
-        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
       };
     }
   }
-  jresult = result;
-  return jresult;
 }
 
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Emit(void * jarg1, void * jarg2, char * jarg3) {
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Dali::Toolkit::WebView & type is null", 0);
+    return ;
+  }
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "jarg3 is null string", 0);
+    return ;
+  }
+
+  WebViewSignalProxy* proxy = (WebViewSignalProxy*) jarg1;
+  Dali::Toolkit::WebView* webview = (Dali::Toolkit::WebView*) jarg2;
+  {
+    try {
+      proxy->Emit(*webview, jarg3);
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
+      };
+    } catch (Dali::DaliException e) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
+      };
+    }
+  }
+}
 
 #ifdef __cplusplus
 }

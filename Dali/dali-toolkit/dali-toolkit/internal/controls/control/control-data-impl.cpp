@@ -36,6 +36,7 @@
 #include <dali-toolkit/devel-api/controls/control-depth-index-ranges.h>
 #include <dali-toolkit/devel-api/controls/control-devel.h>
 #include <dali-toolkit/devel-api/controls/control-wrapper-impl.h>
+#include <dali-toolkit/devel-api/layouting/layout-item.h>
 #include <dali-toolkit/internal/styling/style-manager-impl.h>
 #include <dali-toolkit/internal/visuals/visual-string-constants.h>
 
@@ -67,6 +68,7 @@ namespace
 
 #if defined(DEBUG_ENABLED)
 Debug::Filter* gLogFilter = Debug::Filter::New( Debug::NoLogging, false, "LOG_CONTROL_VISUALS");
+Debug::Filter* gLogFilterLayout = Debug::Filter::New( Debug::NoLogging, false, "LOG_LAYOUT");
 #endif
 
 
@@ -339,7 +341,8 @@ Control::Impl::Impl( Control& controlImpl )
   mInputMethodContext(),
   mFlags( Control::ControlBehaviour( CONTROL_BEHAVIOUR_DEFAULT ) ),
   mIsKeyboardNavigationSupported( false ),
-  mIsKeyboardFocusGroup( false )
+  mIsKeyboardFocusGroup( false ),
+  mIsLayoutingRequired( false )
 {
 }
 
@@ -679,9 +682,6 @@ void Control::Impl::ResourceReady( Visual::Base& object)
   {
     Dali::Toolkit::Control handle( mControlImpl.GetOwner() );
     mResourceReadySignal.Emit( handle );
-
-    Dali::Toolkit::Visual::Base visual( &object );
-    mResourceVisualReadySignal.Emit( &visual );
   }
 }
 
@@ -1440,6 +1440,10 @@ Toolkit::Internal::LayoutItemPtr Control::Impl::GetLayout() const
 
 void Control::Impl::SetLayout( Toolkit::Internal::LayoutItem& layout )
 {
+  DALI_LOG_INFO( gLogFilterLayout, Debug::Verbose, "Control::SetLayout control:%s  existing layout:%s\n",
+                                   mControlImpl.Self().GetName().c_str(),
+                                   mLayout?"true":"false" );
+
   if( mLayout )
   {
     mLayout->Unparent();
@@ -1453,11 +1457,22 @@ void Control::Impl::SetLayout( Toolkit::Internal::LayoutItem& layout )
 
 void Control::Impl::RemoveLayout()
 {
+  DALI_LOG_INFO( gLogFilter, Debug::Verbose, "Control::Impl::RemoveLayout\n");
   if( mLayout )
   {
     mLayout->Unparent();
     mLayout.Reset();
   }
+}
+
+void Control::Impl::SetLayoutingRequired( bool layoutingRequired )
+{
+  mControlImpl.mImpl->mIsLayoutingRequired = layoutingRequired;
+}
+
+bool Control::Impl::IsLayoutingRequired()
+{
+  return mControlImpl.mImpl->mIsLayoutingRequired;
 }
 
 } // namespace Internal

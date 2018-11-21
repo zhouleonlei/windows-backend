@@ -2477,7 +2477,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_Dali_FontClient_AddCustomFontDirector
   arg2 = &arg2_str;
   {
     try {
-      //result = (bool)(arg1)->AddCustomFontDirectory((Dali::TextAbstraction::FontPath const &)*arg2);
+      result = (bool)(arg1)->AddCustomFontDirectory((Dali::TextAbstraction::FontPath const &)*arg2);
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;

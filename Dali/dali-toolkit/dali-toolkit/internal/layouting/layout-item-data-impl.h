@@ -20,6 +20,7 @@
 #include <dali-toolkit/devel-api/layouting/layout-item-impl.h>
 #include <dali-toolkit/devel-api/layouting/layout-controller.h>
 #include <dali-toolkit/devel-api/layouting/layout-size.h>
+#include <dali-toolkit/internal/layouting/layout-transition-data-impl.h>
 
 namespace Dali
 {
@@ -27,8 +28,6 @@ namespace Toolkit
 {
 namespace Internal
 {
-class LayoutParent;
-
 
 class LayoutItem::Impl
 {
@@ -51,39 +50,13 @@ public:
   LayoutLength mTop;
   LayoutLength mBottom;
 
-  /**
-   * This view is visible.
-   * Use with {@link #setVisibility} and <a href="#attr_android:visibility">{@code
-   * android:visibility}.
-   */
-  static const int VISIBLE = 0x00000000;
-
-  /**
-   * This view is invisible, but it still takes up space for layout purposes.
-   * Use with {@link #setVisibility} and <a href="#attr_android:visibility">{@code
-   * android:visibility}.
-   */
-  static const int INVISIBLE = 0x00000004;
-
-  /**
-   * This view is invisible, and it doesn't take any space for layout
-   * purposes. Use with {@link #setVisibility} and <a href="#attr_android:visibility">{@code
-   * android:visibility}.
-   */
-  static const int GONE = 0x00000008;
-
-  /**
-   * Mask for use with setFlags indicating bits used for visibility.
-   * {@hide}
-   */
-  static const int VISIBILITY_MASK = 0x0000000C;
-
   static const int PRIVATE_FLAG_MEASURED_DIMENSION_SET        = 0x00000001;
   static const int PRIVATE_FLAG_FORCE_LAYOUT                  = 0x00000002;
   static const int PRIVATE_FLAG_LAYOUT_REQUIRED               = 0x00000004;
   static const int PRIVATE_FLAG_IS_LAID_OUT                   = 0x00000008;
   static const int PRIVATE_FLAG_MEASURE_NEEDED_BEFORE_LAYOUT  = 0x00000010; ///< Flag indicating that a call to measure() was skipped and should be done instead when layout() is invoked.
-  static const int PRIVATE_FLAG_HAS_BOUNDS                    = 0x00000020;
+  static const int PRIVATE_FLAG_FORCE_SET_FRAME               = 0x00000020;
+  static const int PRIVATE_FLAG_USE_RESIZE_POLICY             = 0x00000040;
 
   int mViewFlags;
   int mPrivateFlags;
@@ -107,6 +80,13 @@ public:
 
   static bool sUseZeroUnspecifiedMeasureSpec;
 
+  LayoutTransitionDataPtr mOnChildAddTransitionData;
+  LayoutTransitionDataPtr mOnChildRemoveTransitionData;
+  LayoutTransitionDataPtr mOnOwnerSetTransitionData;
+  LayoutTransitionDataPtr mDefaultTransitionData;
+
+  // To pass layout data during perform layout
+  static LayoutData* sLayoutData;
 };
 
 } // namespace Internal

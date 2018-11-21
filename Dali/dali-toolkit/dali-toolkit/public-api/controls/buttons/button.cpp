@@ -55,11 +55,6 @@ Button::~Button()
 {
 }
 
-Button Button::New()
-{
-  return Internal::Button::New();
-}
-
 Button Button::DownCast( BaseHandle handle )
 {
   return Control::DownCast<Button, Internal::Button>(handle);

@@ -697,12 +697,6 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\yoga\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\layouting\vbox-layout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\vbox-layout-impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\controls\video-view\video-view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -779,6 +773,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\layouting\grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\size-negotiation-mapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\layout-transition-data-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\bin-layout-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\layouting\bin-layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\layouting\layout-transition-data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\controls\web-view\web-view-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\controls\web-view\web-view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

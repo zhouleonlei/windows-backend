@@ -170,14 +170,6 @@ Control::ResourceReadySignalType&  Control::ResourceReadySignal()
   return controlImpl.mResourceReadySignal;
 }
 
-Control::ResourceVisualReadySignalType& Control::ResourceVisualReadySignal()
-{
-  Internal::Control& internalControl = Toolkit::Internal::GetImplementation( *this );
-  Internal::Control::Impl& controlImpl = Internal::Control::Impl::Get( internalControl );
-
-  return controlImpl.mResourceVisualReadySignal;
-}
-
 Control::Control(Internal::Control& implementation)
 : CustomActor(implementation)
 {
