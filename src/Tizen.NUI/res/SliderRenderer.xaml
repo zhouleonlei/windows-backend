@@ -1,0 +1,11 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <View x:Name="BackgroundBar" BackgroundColor="0,0,0,0.1" ParentOrigin="CenterLeft" PivotPoint="CenterLeft" PositionUsesPivotPoint="true" >
+        <View x:Name="SliderBar" BackgroundColor="0.055,0.631,0.902,1" />
+    </View>
+
+    <ImageView x:Name="Thumb" Size2D="60,60" ParentOrigin="CenterLeft" PivotPoint="Center" PositionUsesPivotPoint="true" >
+    </ImageView>
+    
+</XamlLayout>

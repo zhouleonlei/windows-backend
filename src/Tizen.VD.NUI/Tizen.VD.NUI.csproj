@@ -7,7 +7,7 @@
   <ItemGroup>
     <EmbeddedResource Include="res\CButtonBasicWhiteIconRenderer.xaml" />
     <EmbeddedResource Include="res\CButtonBasicWhiteTextRenderer.xaml" />
-    <EmbeddedResource Include="res\ExSliderRenderer.xaml" />
+    <EmbeddedResource Include="res\SliderRenderer.xaml" />
   </ItemGroup>
 
   <ItemGroup>

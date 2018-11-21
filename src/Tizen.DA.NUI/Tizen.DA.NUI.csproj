@@ -5,13 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
+    <Compile Remove="src\Conttrols\**" />
+    <EmbeddedResource Remove="src\Conttrols\**" />
+    <None Remove="src\Conttrols\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="res\" />
-    <Folder Include="src\Conttrols\" />
-    <Folder Include="src\Renderers\" />
+    <None Remove="res\SliderDefaultRenderer.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="res\SliderDefaultRenderer.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
   </ItemGroup>
 
 </Project>

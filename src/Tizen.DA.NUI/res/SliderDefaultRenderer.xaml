@@ -1,0 +1,32 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <XamlLayout.XamlResources>
+        <ResourceDictionary>
+            <Style x:Key="ThumbState" TargetType="ImageView">
+                <Style.Triggers>
+                    <Trigger TargetType="ImageView" Property="State" Value="Normal">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger TargetType="ImageView" Property="State" Value="Focused">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_press.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </XamlLayout.XamlResources>
+
+    <View x:Name="BackgroundBar" BackgroundColor="0,0,0,0.1" ParentOrigin="CenterLeft" PivotPoint="CenterLeft" PositionUsesPivotPoint="true" >
+        <View x:Name="SliderBar" BackgroundColor="0.055,0.631,0.902,1" />
+
+        <ImageView x:Name="ThumbBg" Size2D="60,60" ParentOrigin="CenterLeft" PivotPoint="Center" PositionUsesPivotPoint="true" >
+            <ImageView x:Name="Thumb" Size2D="60,60" Style = "{StaticResource ThumbState}" />
+        </ImageView>
+
+    </View>
+
+</XamlLayout>
