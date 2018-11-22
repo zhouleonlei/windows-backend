@@ -14,6 +14,7 @@ namespace Tizen.NUI.Controls
         /// </summary>
         public class GestureEventArgs : EventArgs
         {
+            // The changed current value caused by gesture event.
             public int CurrentValue;
         }
 
@@ -23,6 +24,7 @@ namespace Tizen.NUI.Controls
         public Slider() : base()
         {
             Focusable = true;
+            // The value change caused by touch&panGesture event.
             (renderer as SliderRenderer).ValueChangeHandler += (object obj, float percent) =>
             {
                 curValue = (int)((maxValue - minValue) * percent + 0.5f) + minValue;
@@ -235,6 +237,7 @@ namespace Tizen.NUI.Controls
             return renderer;
         }
 
+        // The gesture event that user can register.
         public event EventHandler<GestureEventArgs> GestureEvent;
         private int curValue, minValue, maxValue;
 

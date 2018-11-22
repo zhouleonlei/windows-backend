@@ -11,6 +11,7 @@ namespace Tizen.DA.NUI.Renderers
     {
         public SliderDefaultRenderer()
         {
+            thumbUpper = NameScopeExtensions.FindByName<ImageView>(layout, "ThumbUpper");
         }
 
         public override void OnPropertyChanged(string type, View sender)
@@ -25,27 +26,30 @@ namespace Tizen.DA.NUI.Renderers
             }
         }
 
-        private void UpdateSliderSize(Size2D newSize)
-        {
-            int bgBarWidth = newSize.Width - space * 2;
-
-            backgroundBar.Position2D = new Position2D(space, (newSize.Height - barHeight) / 2);
-            backgroundBar.Size2D = new Size2D(bgBarWidth, barHeight);
-
-            sliderBar.Size2D = new Size2D((int)(bgBarWidth * CurrentPercent), barHeight);
-        }
-
         protected override void OnSizeChanged(Size2D newSize)
         {
-            UpdateSliderSize(newSize);
+            backgroundBar.PositionX = space;
+            backgroundBar.Size2D = new Size2D(newSize.Width - space * 2, (int)BarHeight);
+
+            CurrentSlidedOffset = UpdateValue();
         }
 
         protected override void OnValueChanged(float newPercent)
         {
-            base.OnValueChanged(newPercent);
+            if ((CurrentPercent - newPercent > 0.0001) || (CurrentPercent - newPercent < -0.0001))
+            {
+                CurrentPercent = newPercent;
+                CurrentSlidedOffset = UpdateValue();
+            }
         }
 
-        private int barHeight = 4;
+        public override void OnStateChanged(View.States state)
+        {
+            thumbUpper.State = state;
+            base.OnStateChanged(state);
+        }
+
+        protected ImageView thumbUpper;
         private int space = 40;
     }
 }

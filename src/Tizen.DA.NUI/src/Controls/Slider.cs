@@ -1,4 +1,5 @@
-﻿using Tizen.NUI;
+﻿using System;
+using Tizen.NUI;
 using Tizen.NUI.Controls;
 using Tizen.NUI.Renderers;
 using Tizen.DA.NUI.Renderers;
@@ -15,6 +16,18 @@ namespace Tizen.DA.NUI.Controls
         /// </summary>
         public Slider() : base()
         {
+        }
+
+        protected override void OnFocusGained(object sender, EventArgs e)
+        {
+            State = States.Focused;
+            base.OnFocusGained(sender, e);
+        }
+
+        protected override void OnFocusLost(object sender, EventArgs e)
+        {
+            State = States.Normal;
+            base.OnFocusLost(sender, e);
         }
 
         protected override BaseRenderer GetRenderer()

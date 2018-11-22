@@ -21,10 +21,10 @@
     </XamlLayout.XamlResources>
 
     <View x:Name="BackgroundBar" BackgroundColor="0,0,0,0.1" ParentOrigin="CenterLeft" PivotPoint="CenterLeft" PositionUsesPivotPoint="true" >
-        <View x:Name="SliderBar" BackgroundColor="0.055,0.631,0.902,1" />
+        <View x:Name="SliderBar" BackgroundColor="0.055,0.631,0.902,1" HeightResizePolicy="FillToParent"/>
 
-        <ImageView x:Name="ThumbBg" Size2D="60,60" ParentOrigin="CenterLeft" PivotPoint="Center" PositionUsesPivotPoint="true" >
-            <ImageView x:Name="Thumb" Size2D="60,60" Style = "{StaticResource ThumbState}" />
+        <ImageView x:Name="Thumb" Size2D="60,60" ParentOrigin="CenterLeft" PivotPoint="Center" PositionUsesPivotPoint="true" ResourceUrl="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_effect.png">
+            <ImageView x:Name="ThumbUpper" Size2D="60,60" Style = "{StaticResource ThumbState}" />
         </ImageView>
 
     </View>

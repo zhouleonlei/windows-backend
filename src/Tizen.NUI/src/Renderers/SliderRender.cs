@@ -21,6 +21,7 @@ namespace Tizen.NUI.Renderers
             sliderBar = NameScopeExtensions.FindByName<View>(layout, "SliderBar");
             thumb = NameScopeExtensions.FindByName<ImageView>(layout, "Thumb");
 
+            // register touch event callback
             backgroundBar.TouchEvent += (object sender, View.TouchEventArgs e) =>
             {
                 Vector2 touchPosition = e.Touch.GetLocalPosition(e.Touch.GetPointCount() - 1);
@@ -33,6 +34,7 @@ namespace Tizen.NUI.Renderers
                 return true;
             };
 
+            // register panGesture event callback
             currentSlidedOffset = 0;
             panGestureDetector = new PanGestureDetector();
             panGestureDetector.Attach(thumb);
@@ -41,40 +43,18 @@ namespace Tizen.NUI.Renderers
             {
                 if (e.PanGesture.State == Gesture.StateType.Started)
                 {
-                    Console.WriteLine("currentSlidedOffset = " + currentSlidedOffset);
+                    //Console.WriteLine("currentSlidedOffset = " + currentSlidedOffset);
                     currentSlidedOffset = sliderBar.SizeWidth;
                 }
 
                 if (e.PanGesture.State == Gesture.StateType.Continuing || e.PanGesture.State == Gesture.StateType.Started)
                 {
-                    Console.WriteLine("x = " + e.PanGesture.Displacement.X);
+                    //Console.WriteLine("x = " + e.PanGesture.Displacement.X);
                     CalculateCurrentValue(e.PanGesture.Displacement.X);
                     UpdateValue();
                     ValueChangeHandler?.Invoke(this, currentPercent);
                 }
             };
-        }
-
-        private void CalculateCurrentValue(float offset)
-        {
-            currentSlidedOffset += offset;
-
-            Console.WriteLine("offset = " + offset + ", currentSlidedOffset = " + currentSlidedOffset);
-            if (currentSlidedOffset <= 0)
-            {
-                currentPercent = 0;
-            }
-            else if (currentSlidedOffset >= backgroundBar.Size2D.Width)
-            {
-                currentPercent = 1;
-            }
-            else
-            {
-                if (backgroundBar.Size2D.Width != 0)
-                {
-                    currentPercent = (currentSlidedOffset / (float)backgroundBar.Size2D.Width);
-                }
-            }
         }
 
         public override void OnPropertyChanged(string type, View sender)
@@ -88,42 +68,36 @@ namespace Tizen.NUI.Renderers
                         OnSizeChanged(obj.Size2D);
                     }
                     break;
-
                 case ValueChanged:
                     {
                         if (obj.MaxValue <= obj.MinValue || obj.CurrentValue < obj.MinValue || obj.CurrentValue > obj.MaxValue)
                         {
                             return;
                         }
-                        float percent = (float)(obj.CurrentValue) / (obj.MaxValue - obj.MinValue);
-                        OnValueChanged(percent);
+                        float newPercent = (float)(obj.CurrentValue) / (obj.MaxValue - obj.MinValue);
+                        OnValueChanged(newPercent);
                     }
                     break;
-
                 case BarHeightChanged:
                     {
                         OnBarHeightChanged(obj.BarHeight);
                     }
                     break;
-
                 case ThumbSizeChanged:
                     {
                         OnThumbSizeChanged(obj.ThumbSize);
                     }
                     break;
-
                 case ThumbImageURLChanged:
                     {
                         OnThumbImageURLChanged(obj.ThumbImageURL);
                     }
                     break;
-
                 case BgBarColorChanged:
                     {
                         OnBgBarColorChanged(obj.BgBarColor);
                     }
                     break;
-
                 case SliderBarColorChanged:
                     {
                         OnSliderBarColorChanged(obj.SliderBarColor);
@@ -152,17 +126,13 @@ namespace Tizen.NUI.Renderers
             barHeight = newBarHeight;
             if (backgroundBar != null)
             {
-                backgroundBar.SizeHeight = newBarHeight;
-            }
-            if (sliderBar != null)
-            {
-                sliderBar.SizeHeight = newBarHeight;
+                backgroundBar.SizeHeight = barHeight;
             }
         }
 
         protected virtual void OnThumbSizeChanged(Size2D newSize)
         {
-            if (thumb != null)
+            if (thumb != null && newSize != null)
             {
                 thumb.Size2D = new Size2D(newSize.Width, newSize.Height);
             }
@@ -170,7 +140,7 @@ namespace Tizen.NUI.Renderers
 
         protected virtual void OnThumbImageURLChanged(string stringURL)
         {
-            if (thumb != null)
+            if (thumb != null && stringURL != null)
             {
                 thumb.ResourceUrl = stringURL;
             }
@@ -178,7 +148,7 @@ namespace Tizen.NUI.Renderers
 
         protected virtual void OnBgBarColorChanged(Color newColor)
         {
-            if (backgroundBar != null)
+            if (backgroundBar != null && newColor != null)
             {
                 backgroundBar.BackgroundColor = new Color(newColor.R, newColor.G, newColor.B, newColor.A);
             }
@@ -186,17 +156,19 @@ namespace Tizen.NUI.Renderers
 
         protected virtual void OnSliderBarColorChanged(Color newColor)
         {
-            if (sliderBar != null)
+            if (sliderBar != null && newColor != null)
             {
                 sliderBar.BackgroundColor = new Color(newColor.R, newColor.G, newColor.B, newColor.A);
             }
         }
 
-        private float UpdateValue()
+        protected float UpdateValue()
         {
             float offset = (int)(backgroundBar.Size2D.Width * currentPercent);
-            sliderBar.Size2D = new Size2D((int)offset, (int)barHeight);
-            thumb.Position2D = new Position2D((int)offset, 0);
+            //sliderBar.Size2D = new Size2D((int)offset, (int)barHeight);
+            //thumb.Position2D = new Position2D((int)offset, 0);
+            sliderBar.SizeWidth = (int)offset;
+            thumb.PositionX = (int)offset;
             return offset;
         }
 
@@ -212,6 +184,10 @@ namespace Tizen.NUI.Renderers
             {
                 return currentPercent;
             }
+            set
+            {
+                currentPercent = value;
+            }
         }
 
         // The property is for derived class to get the barHeight.
@@ -223,11 +199,47 @@ namespace Tizen.NUI.Renderers
             }
         }
 
-        public EventHandler<float> ValueChangeHandler;
-        private PanGestureDetector panGestureDetector;
+        protected float CurrentSlidedOffset
+        {
+            get
+            {
+                return currentSlidedOffset;
+            }
+            set
+            {
+                currentSlidedOffset = value;
+            }
+        }
 
+        private void CalculateCurrentValue(float offset)
+        {
+            currentSlidedOffset += offset;
+
+            Console.WriteLine("offset = " + offset + ", currentSlidedOffset = " + currentSlidedOffset);
+            if (currentSlidedOffset <= 0)
+            {
+                currentPercent = 0;
+            }
+            else if (currentSlidedOffset >= backgroundBar.Size2D.Width)
+            {
+                currentPercent = 1;
+            }
+            else
+            {
+                if (backgroundBar.Size2D.Width != 0)
+                {
+                    currentPercent = (currentSlidedOffset / (float)backgroundBar.Size2D.Width);
+                }
+            }
+        }
+
+        public EventHandler<float> ValueChangeHandler;
+        
+        // The background bar
         protected View backgroundBar = null;
+        // The slider bar
         protected View sliderBar = null;
+        // The thumb view
         protected ImageView thumb = null;
 
         internal const string SizeChanged = "SizeChanged";
@@ -238,6 +250,7 @@ namespace Tizen.NUI.Renderers
         internal const string BgBarColorChanged = "BgBarColorChanged";
         internal const string SliderBarColorChanged = "SliderBarColorChanged";
 
+        private PanGestureDetector panGestureDetector;
         private float currentPercent = 0;
         private uint barHeight = 4;
         private float currentSlidedOffset = 0;
