@@ -11,10 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="res\Slider1TextRenderer.xaml" />
+    <None Remove="res\Slider2TextRenderer.xaml" />
     <None Remove="res\SliderDefaultRenderer.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="res\Slider1TextRenderer.xaml" />
+    <EmbeddedResource Include="res\Slider2TextRenderer.xaml" />
     <EmbeddedResource Include="res\SliderDefaultRenderer.xaml" />
   </ItemGroup>
 

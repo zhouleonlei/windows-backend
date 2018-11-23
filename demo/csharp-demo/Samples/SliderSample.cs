@@ -12,7 +12,9 @@ namespace Tizen.NUI.Examples
             Window.Instance.BackgroundColor = Color.White;
 
             CreateNUI();
-            CreateDA();
+            CreateDADefault();
+            CreateDA1Text();
+            CreateDA2Text();
             CreateIndicator();
 
             objIndex = 1;
@@ -24,7 +26,7 @@ namespace Tizen.NUI.Examples
         private void CreateNUI()
         {
             title1 = new TextLabel();
-            title1.Size2D = new Size2D(150, 50);
+            title1.Size2D = new Size2D(150, 60);
             title1.Position2D = new Position2D(50, 100);
             title1.PointSize = 15;
             title1.BackgroundColor = Color.Blue;
@@ -36,11 +38,11 @@ namespace Tizen.NUI.Examples
 
             sliderBase = new Tizen.NUI.Controls.Slider();
             sliderBase.Position2D = new Position2D(250, 100);
-            sliderBase.Size2D = new Size2D(1370, 50);
+            sliderBase.Size2D = new Size2D(1370, 60);
             sliderBase.BackgroundColor = new Color(1.0f, 1.0f, 0, 0.2f);
             sliderBase.MinValue = 0;
             sliderBase.MaxValue = 100;
-            sliderBase.CurrentValue = 30;
+            sliderBase.CurrentValue = 25;
             sliderBase.ThumbImageURL = "*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png";
             Window.Instance.Add(sliderBase);
             sliderBase.GestureEvent += OnGestureEventNUI;
@@ -48,11 +50,11 @@ namespace Tizen.NUI.Examples
             sliderBase.FocusLost += OnFocusLost;
         }
 
-        private void CreateDA()
+        private void CreateDADefault()
         {
             title2 = new TextLabel();
-            title2.Size2D = new Size2D(150, 50);
-            title2.Position2D = new Position2D(50, 300);
+            title2.Size2D = new Size2D(150, 60);
+            title2.Position2D = new Position2D(50, 200);
             title2.BackgroundColor = Color.Blue;
             title2.TextColor = Color.Yellow;
             title2.PointSize = 15;
@@ -61,21 +63,70 @@ namespace Tizen.NUI.Examples
             title2.Text = "DA Default";
             Window.Instance.Add(title2);
 
-            sliderDA = new DA.NUI.Controls.Slider();
-            sliderDA.Position2D = new Position2D(250, 300);
-            sliderDA.Size2D = new Size2D(1370, 50);
-            sliderDA.BackgroundColor = new Color(255, 255, 0, 0.2f);
-            sliderDA.MinValue = 0;
-            sliderDA.MaxValue = 100;
-            sliderDA.CurrentValue = 50;
-            Window.Instance.Add(sliderDA);
-            sliderDA.GestureEvent += OnGestureEventDA;
+            sliderDA_Default = new DA.NUI.Controls.Slider("Default");
+            sliderDA_Default.Position2D = new Position2D(250, 200);
+            sliderDA_Default.Size2D = new Size2D(1370, 60);
+            sliderDA_Default.BackgroundColor = new Color(255, 255, 0, 0.2f);
+            sliderDA_Default.MinValue = 0;
+            sliderDA_Default.MaxValue = 100;
+            sliderDA_Default.CurrentValue = 50;
+            Window.Instance.Add(sliderDA_Default);
+            sliderDA_Default.GestureEvent += OnGestureEventDA;
+        }
+
+        private void CreateDA1Text()
+        {
+            title3 = new TextLabel();
+            title3.Size2D = new Size2D(150, 60);
+            title3.Position2D = new Position2D(50, 300);
+            title3.BackgroundColor = Color.Blue;
+            title3.TextColor = Color.Yellow;
+            title3.PointSize = 15;
+            title3.HorizontalAlignment = HorizontalAlignment.Center;
+            title3.VerticalAlignment = VerticalAlignment.Center;
+            title3.Text = "DA 1Text";
+            Window.Instance.Add(title3);
+
+            sliderDA_1SubText = new DA.NUI.Controls.Slider("1Text");
+            sliderDA_1SubText.Position2D = new Position2D(250, 300);
+            sliderDA_1SubText.Size2D = new Size2D(1370, 60);
+            sliderDA_1SubText.BackgroundColor = new Color(255, 255, 0, 0.2f);
+            sliderDA_1SubText.MinValue = 0;
+            sliderDA_1SubText.MaxValue = 100;
+            sliderDA_1SubText.CurrentValue = 75;
+            sliderDA_1SubText.SubText = "subText";
+            Window.Instance.Add(sliderDA_1SubText);
+        }
+
+        private void CreateDA2Text()
+        {
+            title4 = new TextLabel();
+            title4.Size2D = new Size2D(150, 60);
+            title4.Position2D = new Position2D(50, 450);
+            title4.BackgroundColor = Color.Blue;
+            title4.TextColor = Color.Yellow;
+            title4.PointSize = 15;
+            title4.HorizontalAlignment = HorizontalAlignment.Center;
+            title4.VerticalAlignment = VerticalAlignment.Center;
+            title4.Text = "DA 2Text";
+            Window.Instance.Add(title4);
+
+            sliderDA_2SubText = new DA.NUI.Controls.Slider("2Text");
+            sliderDA_2SubText.Position2D = new Position2D(250, 450);
+            sliderDA_2SubText.Size2D = new Size2D(1370, 60);
+            sliderDA_2SubText.BackgroundColor = new Color(255, 255, 0, 0.2f);
+            sliderDA_2SubText.MinValue = 0;
+            sliderDA_2SubText.MaxValue = 100;
+            sliderDA_2SubText.CurrentValue = 75;
+            sliderDA_2SubText.LeftSubText = "left subText";
+            sliderDA_2SubText.RightSubText = "right subText";
+            Window.Instance.Add(sliderDA_2SubText);
         }
 
         private void CreateIndicator()
         {
             indicator = new TextLabel();
-            indicator.Size2D = new Size2D(350, 50);
+            indicator.Size2D = new Size2D(350, 60);
             indicator.Position2D = new Position2D(50, 30);
             indicator.PointSize = 15;
             indicator.BackgroundColor = new Color(238.0f / 255.0f, 183.0f / 255.0f, 79.0f / 255.0f, 255.0f / 255.0f);
@@ -84,141 +135,106 @@ namespace Tizen.NUI.Examples
             Window.Instance.Add(indicator);
         }
 
-        private void SetFocusToSlider(int idx)
+        private NUI.Controls.Slider SliderInstance(int idx)
         {
             if (idx == 1)
             {
-                FocusManager.Instance.SetCurrentFocusView(sliderBase);
-                indicator.Text = "NUI, CurrentValue = " + sliderBase.CurrentValue.ToString();
+                return sliderBase;
+            }
+            else if (idx == 2)
+            {
+                return sliderDA_Default;
+            }
+            else if (idx == 3)
+            {
+                return sliderDA_1SubText;
             }
             else if (idx == COUNT)
             {
-                FocusManager.Instance.SetCurrentFocusView(sliderDA);
-                indicator.Text = "DA Default, CurrentValue = " + sliderDA.CurrentValue.ToString();
+                return sliderDA_2SubText;
             }
+            return null;
+        }
+
+        private string SliderName(int idx)
+        {
+            if (idx == 1)
+            {
+                return "NUI";
+            }
+            else if (idx == 2)
+            {
+                return "DA Default";
+            }
+            else if (idx == 3)
+            {
+                return "DA 1Text";
+            }
+            else if (idx == COUNT)
+            {
+                return "DA 2Text";
+            }
+            return string.Empty;
+        }
+
+        private void SetFocusToSlider(int idx)
+        {
+            FocusManager.Instance.SetCurrentFocusView(SliderInstance(idx));
+            indicator.Text = SliderName(idx) + ", CurrentValue = " + SliderInstance(idx).CurrentValue.ToString();
         }
 
         private void ChangeCurValue(int idx, string keyNameStr)
         {
-            if (idx == 1)
+            if (keyNameStr == "Left")
             {
-                if (keyNameStr == "Left")
+                if (SliderInstance(idx).CurrentValue > SliderInstance(idx).MinValue)
                 {
-                    if (sliderBase.CurrentValue > sliderBase.MinValue)
-                    {
-                        sliderBase.CurrentValue--;
-                    }
-                    else
-                    {
-                        sliderBase.CurrentValue = sliderBase.MaxValue;
-                    }
+                    SliderInstance(idx).CurrentValue--;
                 }
-                else if (keyNameStr == "Right")
+                else
                 {
-                    if (sliderBase.CurrentValue < sliderBase.MaxValue)
-                    {
-                        sliderBase.CurrentValue++;
-                    }
-                    else
-                    {
-                        sliderBase.CurrentValue = sliderBase.MinValue;
-                    }
+                    SliderInstance(idx).CurrentValue = SliderInstance(idx).MaxValue;
                 }
-                indicator.Text = "NUI, CurrentValue = " + sliderBase.CurrentValue.ToString();
             }
-            else if (idx == COUNT)
+            else if (keyNameStr == "Right")
             {
-                if (keyNameStr == "Left")
+                if (SliderInstance(idx).CurrentValue < SliderInstance(idx).MaxValue)
                 {
-                    if (sliderDA.CurrentValue > sliderDA.MinValue)
-                    {
-                        sliderDA.CurrentValue--;
-                    }
-                    else
-                    {
-                        sliderDA.CurrentValue = sliderDA.MaxValue;
-                    }
+                    SliderInstance(idx).CurrentValue++;
                 }
-                else if (keyNameStr == "Right")
+                else
                 {
-                    if (sliderDA.CurrentValue < sliderDA.MaxValue)
-                    {
-                        sliderDA.CurrentValue++;
-                    }
-                    else
-                    {
-                        sliderDA.CurrentValue = sliderDA.MinValue;
-                    }
+                    SliderInstance(idx).CurrentValue = SliderInstance(idx).MinValue;
                 }
-                indicator.Text = "DA Default, CurrentValue = " + sliderDA.CurrentValue.ToString();
             }
+            indicator.Text = SliderName(idx) + ", CurrentValue = " + SliderInstance(idx).CurrentValue.ToString();
         }
 
         private void ChangeThumbSize(int idx)
         {
-            if (idx == 1)
+            if (SliderInstance(idx).ThumbSize.Width == 60)
             {
-                if (sliderBase.ThumbSize.Width == 60)
-                {
-                    sliderBase.ThumbSize = new Size2D(100, 100);
-                }
-                else if (sliderBase.ThumbSize.Width == 100)
-                {
-                    sliderBase.ThumbSize = new Size2D(40, 40);
-                }
-                else if (sliderBase.ThumbSize.Width == 40)
-                {
-                    sliderBase.ThumbSize = new Size2D(60, 60);
-                }
+                SliderInstance(idx).ThumbSize = new Size2D(80, 80);
             }
-            else if (idx == COUNT)
+            else if (SliderInstance(idx).ThumbSize.Width == 80)
             {
-                if (sliderDA.ThumbSize.Width == 60)
-                {
-                    sliderDA.ThumbSize = new Size2D(100, 100);
-                }
-                else if (sliderDA.ThumbSize.Width == 100)
-                {
-                    sliderDA.ThumbSize = new Size2D(40, 40);
-                }
-                else if (sliderDA.ThumbSize.Width == 40)
-                {
-                    sliderDA.ThumbSize = new Size2D(60, 60);
-                }
+                SliderInstance(idx).ThumbSize = new Size2D(40, 40);
+            }
+            else if (SliderInstance(idx).ThumbSize.Width == 40)
+            {
+                SliderInstance(idx).ThumbSize = new Size2D(60, 60);
             }
         }
 
         private void ChangeBarHeight(int idx)
         {
-            if (idx == 1)
+            if (SliderInstance(idx).BarHeight == 4)
             {
-                if (sliderBase.BarHeight == 4)
-                {
-                    sliderBase.BarHeight = 10;
-                }
-                else if (sliderBase.BarHeight == 10)
-                {
-                    sliderBase.BarHeight = 30;
-                }
-                else if (sliderBase.BarHeight == 30)
-                {
-                    sliderBase.BarHeight = 4;
-                }
+                SliderInstance(idx).BarHeight = 10;
             }
-            else if (idx == COUNT)
+            else if (SliderInstance(idx).BarHeight == 10)
             {
-                if (sliderDA.BarHeight == 4)
-                {
-                    sliderDA.BarHeight = 10;
-                }
-                else if (sliderDA.BarHeight == 10)
-                {
-                    sliderDA.BarHeight = 30;
-                }
-                else if (sliderDA.BarHeight == 30)
-                {
-                    sliderDA.BarHeight = 4;
-                }
+                SliderInstance(idx).BarHeight = 4;
             }
         }
 
@@ -266,6 +282,36 @@ namespace Tizen.NUI.Examples
                 {
                     ChangeBarHeight(objIndex);
                 }
+                else if (e.Key.KeyPressedName == "3")
+                {
+                    if (objIndex == 3)
+                    {
+                        if (sliderDA_1SubText.SubText.Length < 10)
+                        {
+                            sliderDA_1SubText.SubText = "subText1234564780";
+                        }
+                        else
+                        {
+                            sliderDA_1SubText.SubText = "subText";
+                        }
+                    }
+                }
+                else if (e.Key.KeyPressedName == "4")
+                {
+                    if (objIndex == 4)
+                    {
+                        if (sliderDA_2SubText.LeftSubText.Length < 15)
+                        {
+                            sliderDA_2SubText.LeftSubText = "left subText12345";
+                            sliderDA_2SubText.RightSubText = "left subText12345";
+                        }
+                        else
+                        {
+                            sliderDA_2SubText.LeftSubText = "left subText";
+                            sliderDA_2SubText.RightSubText = "right subText";
+                        }
+                    }
+                }
             }
         }
 
@@ -292,11 +338,15 @@ namespace Tizen.NUI.Examples
         }
 
         Tizen.NUI.Controls.Slider sliderBase = null;
-        Tizen.DA.NUI.Controls.Slider sliderDA = null;
+        Tizen.DA.NUI.Controls.Slider sliderDA_Default = null;
+        Tizen.DA.NUI.Controls.Slider sliderDA_1SubText = null;
+        Tizen.DA.NUI.Controls.Slider sliderDA_2SubText = null;
         TextLabel title1 = null;
         TextLabel title2 = null;
+        TextLabel title3 = null;
+        TextLabel title4 = null;
         TextLabel indicator = null;
         private int objIndex;
-        private const int COUNT = 2;
+        private const int COUNT = 4;
     }
 }

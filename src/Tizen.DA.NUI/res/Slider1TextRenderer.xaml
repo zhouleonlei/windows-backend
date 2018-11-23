@@ -29,4 +29,16 @@
 
     </View>
 
+    <TextLabel
+        x:Name="SubText"
+        TextColor="0,0,0,0.75"
+        FontFamily="SamsungOne 400"
+        PointSize="30"
+        ParentOrigin="CenterLeft" 
+        PivotPoint="CenterLeft" 
+        PositionUsesPivotPoint="true"
+        WidthResizePolicy="UseNaturalSize"
+        HeightResizePolicy="UseNaturalSize">
+    </TextLabel>
+
 </XamlLayout>

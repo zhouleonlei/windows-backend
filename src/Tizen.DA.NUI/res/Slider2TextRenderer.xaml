@@ -29,4 +29,28 @@
 
     </View>
 
+    <TextLabel
+        x:Name="LeftSubText"
+        TextColor="0,0,0,0.75"
+        FontFamily="SamsungOne 400"
+        PointSize="30"
+        ParentOrigin="CenterLeft" 
+        PivotPoint="BottomLeft" 
+        PositionUsesPivotPoint="true"
+        WidthResizePolicy="UseNaturalSize"
+        HeightResizePolicy="UseNaturalSize">
+    </TextLabel>
+
+    <TextLabel
+        x:Name="RightSubText"
+        TextColor="0,0,0,0.75"
+        FontFamily="SamsungOne 400"
+        PointSize="30"
+        ParentOrigin="CenterRight" 
+        PivotPoint="BottomRight" 
+        PositionUsesPivotPoint="true"
+        WidthResizePolicy="UseNaturalSize"
+        HeightResizePolicy="UseNaturalSize">
+    </TextLabel>
+
 </XamlLayout>

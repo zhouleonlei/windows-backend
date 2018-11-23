@@ -23,15 +23,12 @@ namespace Tizen.NUI.Controls
         /// </summary>
         public Slider() : base()
         {
-            Focusable = true;
-            // The value change caused by touch&panGesture event.
-            (renderer as SliderRenderer).ValueChangeHandler += (object obj, float percent) =>
-            {
-                curValue = (int)((maxValue - minValue) * percent + 0.5f) + minValue;
-                GestureEventArgs args = new GestureEventArgs();
-                args.CurrentValue = curValue;
-                OnGestureEvent(args);
-            };
+            Initialize();
+        }
+
+        public Slider(string style) : base(style)
+        {
+            Initialize();
         }
 
         /// <summary>
@@ -188,6 +185,19 @@ namespace Tizen.NUI.Controls
         {
             renderer.OnPropertyChanged(SliderRenderer.SizeChanged, this);
             base.OnRelayout(sender, e);
+        }
+
+        private void Initialize()
+        {
+            Focusable = true;
+            // The value change caused by touch&panGesture event.
+            (renderer as SliderRenderer).ValueChangeHandler += (object obj, float percent) =>
+            {
+                curValue = (int)((maxValue - minValue) * percent + 0.5f) + minValue;
+                GestureEventArgs args = new GestureEventArgs();
+                args.CurrentValue = curValue;
+                OnGestureEvent(args);
+            };
         }
 
         private void UpdateValue()
