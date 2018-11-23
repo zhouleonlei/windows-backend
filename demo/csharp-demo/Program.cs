@@ -34,6 +34,7 @@ namespace Tizen.NUI.Examples
             }));
 
             //new SliderSample().Run(args);
+			//new SelectionSample().Run(args);
             new ButtonSample().Run(args);
         }
     }

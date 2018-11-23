@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Samples\SelectionSample.cs" />
     <Compile Include="Samples\SliderSample.cs" />
   </ItemGroup>
   <ItemGroup>
