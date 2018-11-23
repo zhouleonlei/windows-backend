@@ -3145,34 +3145,6 @@ namespace Tizen.NUI.BaseComponents
         }
 
         /// <summary>
-        /// Enumeration for describing the states of the view.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public enum States
-        {
-            /// <summary>
-            /// The normal state.
-            /// </summary>
-            Normal,
-            /// <summary>
-            /// The focused state.
-            /// </summary>
-            Focused,
-            /// <summary>
-            /// The disabled state.
-            /// </summary>
-            Disabled,
-            /// <summary>
-            /// 
-            /// </summary>
-            Selected,
-            /// <summary>
-            /// 
-            /// </summary>
-            Pressed
-        }
-
-        /// <summary>
         ///  Retrieves the position of the view.<br />
         ///  The coordinates are relative to the view's parent.<br />
         /// </summary>

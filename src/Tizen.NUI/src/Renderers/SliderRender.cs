@@ -172,7 +172,7 @@ namespace Tizen.NUI.Renderers
             return offset;
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
            // throw new NotImplementedException();
         }

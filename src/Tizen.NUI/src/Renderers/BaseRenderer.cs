@@ -19,7 +19,7 @@ namespace Tizen.NUI.Renderers
         }
 
         public abstract void OnPropertyChanged(string type, View sender);
-        public abstract void OnStateChanged(View.States state);
+        public abstract void OnStateChanged(States state);
         protected XamlLayout layout;
     }
 }

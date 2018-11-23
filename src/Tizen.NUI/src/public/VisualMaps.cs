@@ -70,6 +70,12 @@ namespace Tizen.NUI
         {
         }
 
+        States State
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Gets or sets the size of the visual.<br />
         /// It can be either relative (percentage of the parent)

@@ -36,16 +36,16 @@ namespace Tizen.NUI.Renderers
                 case "CheckBoxSize2D":
                     checkImage.Size2D = selection.CheckBoxSize2D;
                     //checkImage.ParentOrigin = ParentOrigin.Center;
-                    checkImage.State = View.States.Normal;
+                    checkImage.State = States.Normal;
                     break;
                 case "CheckState":
                     if(selection.CheckState == true)
                     {
-                        checkImage.State = View.States.Focused;
+                        checkImage.State = States.Focused;
                     }
                     else
                     {
-                        checkImage.State = View.States.Normal;
+                        checkImage.State = States.Normal;
                     }
                     break;
                 default:
@@ -53,7 +53,7 @@ namespace Tizen.NUI.Renderers
             }
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
             backgroundImage.State = state;
             textLabel.State = state;

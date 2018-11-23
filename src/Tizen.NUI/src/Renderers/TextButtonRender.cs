@@ -29,7 +29,7 @@ namespace Tizen.NUI.Renderers
             }
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
             textLabel.State = state;
         }
