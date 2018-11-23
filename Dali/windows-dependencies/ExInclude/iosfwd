@@ -24,6 +24,10 @@
 #define _CRT_SECURE_WMEMCPY(dest, destsize, source, count) ::wmemcpy_s((dest), (destsize), (source), (count))
 #endif
 
+#ifndef _CRT_SECURE_MEMCPY
+#define _CRT_SECURE_MEMCPY(dest, destsize, source, count) ::memcpy_s((dest), (destsize), (source), (count))
+#endif
+
 _STD_BEGIN
 		// STREAM POSITIONING TYPES (from <streambuf>)
 
