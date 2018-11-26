@@ -30,7 +30,7 @@ namespace Tizen.VD.NUI.Renderers
             base.OnPropertyChanged(type, sender);
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
             //backgroundImage.State = state;
             //switch(state)

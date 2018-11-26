@@ -30,12 +30,12 @@ namespace Tizen.VD.NUI.Renderers
             base.OnPropertyChanged(type, sender);
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
             backgroundImage.State = state;
             switch (state)
             {
-                case View.States.Focused:
+                case States.Focused:
                     backgroundImage.Size2D = new Size2D(controlSize2D.Width + 14, controlSize2D.Height + 24);
                     break;
                 default:

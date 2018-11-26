@@ -29,22 +29,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dali-core", "..\..\Dali\win
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dali-toolkit", "..\..\Dali\windows-dependencies\Solution\dali-toolkit\dali-toolkit.vcxproj", "{827E353D-76EB-34E5-8261-756EEB05C6E0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dali-csharp-binder", "..\..\Dali\dali-csharp-binder\dali-csharp-binder.vcxproj", "{B645AB4D-59AD-49AD-BC1E-01A18F08B958}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B3CB580D-6490-396F-AE20-CF15975D70FE} = {B3CB580D-6490-396F-AE20-CF15975D70FE}
-		{827E353D-76EB-34E5-8261-756EEB05C6E0} = {827E353D-76EB-34E5-8261-756EEB05C6E0}
-		{6517E691-3A75-3CF9-B432-27A54ACDDDD0} = {6517E691-3A75-3CF9-B432-27A54ACDDDD0}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcapi-appfw-app-common", "..\..\Dali\windows-dependencies\thirdPart\libcapi-appfw-app-common\libcapi-appfw-app-common.vcxproj", "{90A8A4F0-FA2D-4D8D-AEB8-3EE042021F33}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcapi-appfw-app-manager", "..\..\Dali\windows-dependencies\thirdPart\libcapi-appfw-app-manager\libcapi-appfw-app-manager.vcxproj", "{78D2821F-9722-4085-A45B-AF3FDB44D24A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dali-extension-tv", "..\..\Dali\windows-dependencies\thirdPart\dali-extension-tv\dali-extension-tv.vcxproj", "{599CBAA2-1D31-48EA-B121-2E7474A59670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizen.VD.NUI", "..\..\src\Tizen.VD.NUI\Tizen.VD.NUI.csproj", "{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.VD.NUI", "..\..\src\Tizen.VD.NUI\Tizen.VD.NUI.csproj", "{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizen.DA.NUI", "..\..\src\Tizen.DA.NUI\Tizen.DA.NUI.csproj", "{3367954D-C980-47BB-8522-37CCDA3B6843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.DA.NUI", "..\..\src\Tizen.DA.NUI\Tizen.DA.NUI.csproj", "{3367954D-C980-47BB-8522-37CCDA3B6843}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dali-csharp-binder", "..\..\Dali\windows-dependencies\Solution\dali-csharp-binder\dali-csharp-binder.vcxproj", "{B645AB4D-59AD-49AD-BC1E-01A18F08B958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -348,6 +343,54 @@ Global
 		{599CBAA2-1D31-48EA-B121-2E7474A59670}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{599CBAA2-1D31-48EA-B121-2E7474A59670}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{599CBAA2-1D31-48EA-B121-2E7474A59670}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|x64.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Debug|x86.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|x64.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.MinSizeRel|x86.Build.0 = Debug|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|x64.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|x64.Build.0 = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|x86.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.Release|x86.Build.0 = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
+		{1069D6C4-C235-4B0D-8CAF-E93BE3345CC6}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|x64.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Debug|x86.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|x64.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.MinSizeRel|x86.Build.0 = Debug|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|x64.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|x64.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|x86.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.Release|x86.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
+		{3367954D-C980-47BB-8522-37CCDA3B6843}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

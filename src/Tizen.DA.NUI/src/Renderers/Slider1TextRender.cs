@@ -61,7 +61,7 @@ namespace Tizen.DA.NUI.Renderers
             }
         }
 
-        public override void OnStateChanged(View.States state)
+        public override void OnStateChanged(States state)
         {
             thumbUpper.State = state;
             base.OnStateChanged(state);
