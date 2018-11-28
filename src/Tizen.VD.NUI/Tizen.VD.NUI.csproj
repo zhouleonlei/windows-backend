@@ -7,7 +7,8 @@
   <ItemGroup>
     <EmbeddedResource Include="res\CButtonBasicWhiteIconRenderer.xaml" />
     <EmbeddedResource Include="res\CButtonBasicWhiteTextRenderer.xaml" />
-    <EmbeddedResource Include="res\CSelectionRenderer.xaml" />
+    <EmbeddedResource Include="res\CheckBoxRenderer.xaml"/>
+    <EmbeddedResource Include="res\RadioButtonRenderer.xaml"/>
     <EmbeddedResource Include="res\SliderRenderer.xaml" />
     <EmbeddedResource Include="res\CSwitchRenderer.xaml" />
   </ItemGroup>

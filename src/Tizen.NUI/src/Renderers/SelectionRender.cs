@@ -24,7 +24,7 @@ namespace Tizen.NUI.Renderers
                     backgroundImage.Size2D = selection.Size2D ;
                     break;
                 case "Text":                  
-                    textLabel.Size2D = new Size2D(selection.Size2D.Width - selection.CheckBoxSize2D.Width, selection.Size2D.Height);
+                    textLabel.Size2D = new Size2D(selection.Size2D.Width - selection.SelectBoxSize2D.Width, selection.Size2D.Height);
                     textLabel.Text = selection.Text;
                     break; 
                 case "CheckImageURL":
@@ -34,8 +34,7 @@ namespace Tizen.NUI.Renderers
                     backgroundImage.ResourceUrl = selection.BackgroundImageURL;
                     break;
                 case "CheckBoxSize2D":
-                    checkImage.Size2D = selection.CheckBoxSize2D;
-                    //checkImage.ParentOrigin = ParentOrigin.Center;
+                    checkImage.Size2D = selection.SelectBoxSize2D;
                     checkImage.State = States.Normal;
                     break;
                 case "CheckState":
