@@ -1,0 +1,14 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/demo/csharp-demo/obj/x86
+/demo/NUITestSample
+/src/Tizen.VD.NUI/obj
+/src/Tizen.System.SystemSettings/obj
+/src/Tizen.Log/obj
+/src/Tizen.DA.NUI/obj
+/src/Tizen.Applications.Common/obj
+/src/Tizen/obj
+/src/Tizen.NUI/obj
+/.vs
