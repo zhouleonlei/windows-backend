@@ -1,0 +1,6 @@
+﻿<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ImageView x:Name ="toggle"  PositionUsesPivotPoint = "true" ParentOrigin="Center" PivotPoint="Center"  Position2D =" 0,0"/>
+
+</XamlLayout>

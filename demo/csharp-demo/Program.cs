@@ -37,6 +37,7 @@ namespace Tizen.NUI.Examples
             //new CheckBoxSample().Run(args);
             //new RadioButtonSample().Run(args);
             //new SwitchSample().Run(args);
+			//new ToggleButtonSample().Run(args);
             new ButtonSample().Run(args);
         }
     }

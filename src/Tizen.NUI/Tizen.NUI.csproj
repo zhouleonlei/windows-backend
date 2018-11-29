@@ -28,6 +28,9 @@
     <None Update="res\SwitchRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="res\ToggleButtonRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">

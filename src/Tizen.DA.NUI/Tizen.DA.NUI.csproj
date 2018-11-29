@@ -22,6 +22,7 @@
     <EmbeddedResource Include="res\Slider1TextRenderer.xaml" />
     <EmbeddedResource Include="res\Slider2TextRenderer.xaml" />
     <EmbeddedResource Include="res\SliderDefaultRenderer.xaml" />
+	<EmbeddedResource Include="res\CToggleButtonRenderer.xaml" />
   </ItemGroup>
 
   <ItemGroup>
