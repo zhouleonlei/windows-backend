@@ -6,7 +6,7 @@
                 <Style.Triggers>
                     <Trigger TargetType="ImageView" Property="State" Value="Normal">
                         <Trigger.Setters >
-                            <Setter TargetType="ImageView" Property="BackgroundColor" Value="White" />
+                            <Setter TargetType="ImageView" Property="BackgroundColor" Value="Yellow" />
                         </Trigger.Setters>
                     </Trigger>
                     <Trigger TargetType="ImageView" Property="State" Value="Focused">

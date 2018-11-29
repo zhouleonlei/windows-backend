@@ -3,8 +3,18 @@ using Tizen.NUI.Renderers;
 
 namespace Tizen.NUI.Controls
 {
+    /// <summary>
+    /// Selection is the abstract class that represent the base control which can be selected or unselected.
+    /// This control is base of checkbox and radio button.
+    /// </summary>
+    /// <code>
+    /// Refer to CheckBox and RadioButton
+    /// </code>
     public class Selection : BaseControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public class SelectEventArgs : EventArgs
         {
             public bool CheckState
@@ -16,12 +26,21 @@ namespace Tizen.NUI.Controls
         //static constructor used to register internal style
         static Selection()
         {
-            RegisterStyle("Selection", typeof(SelectionRenderer));
+            //RegisterStyle("Selection", typeof(SelectionRenderer));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Selection() : base() { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="style"></param>
         public Selection(string style) : base(style) { }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string Text
         {
             get
@@ -37,6 +56,9 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public string CheckImageURL
         {
             get
@@ -52,6 +74,9 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public string BackgroundImageURL
         {
             get
@@ -67,21 +92,27 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
-        public Size2D CheckBoxSize2D
+        /// <summary>
+        /// 
+        /// </summary>
+        public Size2D SelectBoxSize2D
         {
             get
             {
-                return checkBoxSize2D;
+                return selectBoxSize2D;
             }
             set
             {
-                if(checkBoxSize2D != value)
+                if(selectBoxSize2D != value)
                 {
-                    checkBoxSize2D = value;
+                    selectBoxSize2D = value;
                     renderer.OnPropertyChanged("CheckBoxSize2D", this);
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool CheckState
         {
             get
@@ -97,6 +128,24 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+        /// <summary>
+        /// Index of selection in selection group. If selection is not in the group, return -1;
+        /// </summary>
+        public int Index
+        {
+            get
+            {
+                if (itemGroup != null)
+                {
+                    return itemGroup.GetIndex(this);
+                }
+
+                return -1;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<SelectEventArgs> SelectEvent;
 
         protected override void OnRelayout(object sender, EventArgs e)
@@ -123,6 +172,12 @@ namespace Tizen.NUI.Controls
                 }
             }
             return base.OnKey(source, e);
+        }
+        /// <summary>
+        /// Overrides this method if want to handle behavior after pressing return key by user.
+        /// </summary>
+        protected virtual void OnSelected()
+        {
         }
         protected override void OnFocusGained(object sender, EventArgs e)
         {
@@ -167,10 +222,10 @@ namespace Tizen.NUI.Controls
         }
         private void OnClick(SelectEventArgs eventArgs)
         {
-            CheckState = !CheckState;
-            eventArgs.CheckState = CheckState;
+            OnSelected();
             if (SelectEvent != null)
             {
+                eventArgs.CheckState = checkState;
                 SelectEvent(this, eventArgs);
             }
         }
@@ -178,7 +233,9 @@ namespace Tizen.NUI.Controls
         private string text;
         private string backgroundImageURL;
         private string checkImageURL;
-        private Size2D checkBoxSize2D = new Size2D(0, 0);
+        private Size2D selectBoxSize2D = new Size2D(0, 0);
         private bool checkState = false;
+
+        protected SelectionGroup itemGroup = null;
     }
 }

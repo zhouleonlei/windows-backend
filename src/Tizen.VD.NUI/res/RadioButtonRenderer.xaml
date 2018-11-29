@@ -1,0 +1,58 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <XamlLayout.XamlResources>
+        <ResourceDictionary>
+            <Style x:Key="BGStateInfo" TargetType="ImageView">
+                <Style.Triggers>
+                    <Trigger TargetType="ImageView" Property="State" Value="Normal">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="Border" Value="4,4,5,5" />
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/c_textitem/c_textitem_normal_transparentbg.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger TargetType="ImageView" Property="State" Value="Focused">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="Border" Value="14,14,20,20" />
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/highlight/r_highlight_bg_focus_9patch.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="CheckStateInfo" TargetType="ImageView">
+                <Style.Triggers>
+                    <Trigger TargetType="ImageView" Property="State" Value="Focused">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/c_radiobutton/c_radiobutton_white_check.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger TargetType="ImageView" Property="State" Value="Normal">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/c_radiobutton/c_radiobutton_white_uncheck.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </XamlLayout.XamlResources>
+
+    <ImageView x:Name ="backgroundImage"  
+               PositionUsesPivotPoint = "true" 
+               ParentOrigin="TopLeft" 
+               PivotPoint="TopLeft"  
+               Style = "{StaticResource BGStateInfo}"/>
+    <ImageView x:Name ="checkImage"  
+               PositionUsesPivotPoint = "true"
+               ParentOrigin="CenterLeft" 
+               PivotPoint="CenterLeft"  
+               Position2D ="10,0"                           
+               Style = "{StaticResource CheckStateInfo}"/>
+    <TextLabel x:Name ="textLabel"
+               PointSize = "20" 
+               TextColor="0,0,0,255"
+               PositionUsesPivotPoint = "true" 
+               ParentOrigin="CenterLeft" 
+               PivotPoint="CenterLeft" 
+               Position2D ="45,0"
+               HorizontalAlignment = "Center"
+               VerticalAlignment = "Center" />
+</XamlLayout>

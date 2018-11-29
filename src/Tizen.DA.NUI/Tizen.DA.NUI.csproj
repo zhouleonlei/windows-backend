@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="res\CheckBoxRenderer.xaml"/>
+    <EmbeddedResource Include="res\RadioButtonRenderer.xaml"/>
     <EmbeddedResource Include="res\Slider1TextRenderer.xaml" />
     <EmbeddedResource Include="res\Slider2TextRenderer.xaml" />
     <EmbeddedResource Include="res\SliderDefaultRenderer.xaml" />

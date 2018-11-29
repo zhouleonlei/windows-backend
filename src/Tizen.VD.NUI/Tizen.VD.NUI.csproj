@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,13 +7,21 @@
   <ItemGroup>
     <EmbeddedResource Include="res\CButtonBasicWhiteIconRenderer.xaml" />
     <EmbeddedResource Include="res\CButtonBasicWhiteTextRenderer.xaml" />
-    <EmbeddedResource Include="res\CSelectionRenderer.xaml" />
+    <EmbeddedResource Include="res\CheckBoxRenderer.xaml"/>
+    <EmbeddedResource Include="res\RadioButtonRenderer.xaml"/>
     <EmbeddedResource Include="res\SliderRenderer.xaml" />
+    <EmbeddedResource Include="res\CSwitchRenderer.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tizen.Log\Tizen.Log.csproj" />
     <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="res\CSwitchRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>
