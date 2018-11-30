@@ -2,14 +2,13 @@
 
 namespace Tizen.NUI.Examples
 {
-    public class ToggleButtonSample : NUIApplication
+    public class ToggleButtonSample : IExample
     {
         Tizen.NUI.Controls.ToggleButton _toggle;
         Tizen.DA.NUI.Controls.ToggleButton _toggle1;
 
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
             window.BackgroundColor = Color.White;
 
@@ -50,9 +49,15 @@ namespace Tizen.NUI.Examples
             _toggle1.StateEnable = true;
 
             window.Add(_toggle1);
+        }
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(_toggle);
+            window.Remove(_toggle1);
 
-
-
+            _toggle.Dispose();
+            _toggle1.Dispose();
         }
     }
 }

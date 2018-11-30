@@ -3,16 +3,15 @@
 
 namespace Tizen.NUI.Examples
 {
-    public class ButtonSample : NUIApplication
+    public class ButtonSample : IExample
     {
         TextLabel board;
         Tizen.NUI.Controls.Button btn1;
         Tizen.NUI.Controls.Button btn2;
         Tizen.VD.NUI.Controls.Button btn3;
         Tizen.VD.NUI.Controls.Button btn4;
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
 
             btn1 = new Tizen.NUI.Controls.Button("Text");
@@ -72,6 +71,20 @@ namespace Tizen.NUI.Examples
 
         }
 
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(board);
+            window.Remove(btn1);
+            window.Remove(btn2);
+            window.Remove(btn3);
+            window.Remove(btn4);
+            board.Dispose();
+            btn1.Dispose();
+            btn2.Dispose();
+            btn3.Dispose();
+            btn4.Dispose();
+        }
         private void Btn1_ClickEvent(object sender, Tizen.NUI.Controls.Button.ClickEventArgs e)
         {
             View view = sender as View;

@@ -3,7 +3,7 @@
 
 namespace Tizen.NUI.Examples
 {
-    public class CheckBoxSample : NUIApplication
+    public class CheckBoxSample : IExample
     {
         TextLabel board;
         Tizen.NUI.Controls.CheckBoxGroup group;
@@ -17,9 +17,8 @@ namespace Tizen.NUI.Examples
         Tizen.DA.NUI.Controls.CheckBoxGroup daGroup;
         Tizen.DA.NUI.Controls.CheckBox daCheckBox1;
         Tizen.DA.NUI.Controls.CheckBox daCheckBox2;
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
             window.BackgroundColor = Color.White;
 
@@ -116,7 +115,25 @@ namespace Tizen.NUI.Examples
             window.Add(board);
 
         }
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(board);
+            window.Remove(checkBox1);
+            window.Remove(checkBox2);
+            window.Remove(vdCheckBox1);
+            window.Remove(vdCheckBox2);
+            window.Remove(daCheckBox1);
+            window.Remove(daCheckBox2);
 
+            board.Dispose();
+            checkBox1.Dispose();
+            checkBox2.Dispose();
+            vdCheckBox1.Dispose();
+            vdCheckBox2.Dispose();
+            daCheckBox1.Dispose();
+            daCheckBox2.Dispose();
+        }
         private void checkBox1_ClickEvent(object sender, Tizen.NUI.Controls.CheckBox.SelectEventArgs e)
         {
             View view = sender as View;

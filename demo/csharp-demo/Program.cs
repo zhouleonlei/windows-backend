@@ -33,13 +33,7 @@ namespace Tizen.NUI.Examples
                 return message;
             }));
 
-            //new SliderSample().Run(args);
-            //new CheckBoxSample().Run(args);
-            //new RadioButtonSample().Run(args);
-            //new SwitchSample().Run(args);
-			//new ToggleButtonSample().Run(args);
-			//new PaginationSample().Run(args);
-            new ButtonSample().Run(args);
+            new SampleMain().Run(args);
         }
     }
 }

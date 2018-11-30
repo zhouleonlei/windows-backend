@@ -3,7 +3,7 @@
 
 namespace Tizen.NUI.Examples
 {
-    public class RadioButtonSample : NUIApplication
+    public class RadioButtonSample : IExample
     {
         TextLabel board;
         Tizen.NUI.Controls.RadioButtonGroup group;
@@ -17,9 +17,8 @@ namespace Tizen.NUI.Examples
         Tizen.DA.NUI.Controls.RadioButtonGroup daGroup;
         Tizen.DA.NUI.Controls.RadioButton daRadioButton1;
         Tizen.DA.NUI.Controls.RadioButton daRadioButton2;
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
             window.BackgroundColor = Color.White;
 
@@ -116,7 +115,25 @@ namespace Tizen.NUI.Examples
             window.Add(board);
 
         }
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(board);
+            window.Remove(radioButton1);
+            window.Remove(radioButton2);
+            window.Remove(vdRadioButton1);
+            window.Remove(vdRadioButton2);
+            window.Remove(daRadioButton1);
+            window.Remove(daRadioButton2);
 
+            board.Dispose();
+            radioButton1.Dispose();
+            radioButton2.Dispose();
+            vdRadioButton1.Dispose();
+            vdRadioButton2.Dispose();
+            daRadioButton1.Dispose();
+            daRadioButton2.Dispose();
+        }
         private void radioButton1_ClickEvent(object sender, Tizen.NUI.Controls.RadioButton.SelectEventArgs e)
         {
             View view = sender as View;

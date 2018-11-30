@@ -4,11 +4,10 @@ using System;
 
 namespace Tizen.NUI.Examples
 {
-    public class SliderSample : NUIApplication
+    public class SliderSample : IExample
     {
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window.Instance.BackgroundColor = Color.White;
 
             CreateNUI();
@@ -21,6 +20,29 @@ namespace Tizen.NUI.Examples
             Window.Instance.KeyEvent += OnKeyEvent;
             FocusManager.Instance.SetCurrentFocusView(sliderBase);
             indicator.Text = "base, CurrentValue = " + sliderBase.CurrentValue.ToString();
+        }
+        public void Deactivate()
+        {
+            Window.Instance.KeyEvent -= OnKeyEvent;
+            Window window = Window.Instance;
+            window.Remove(sliderBase);
+            window.Remove(sliderDA_Default);
+            window.Remove(sliderDA_1SubText);
+            window.Remove(sliderDA_2SubText);
+            window.Remove(title1);
+            window.Remove(title2);
+            window.Remove(title3);
+            window.Remove(title4);
+            window.Remove(indicator);
+            sliderBase.Dispose();
+            sliderDA_Default.Dispose();
+            sliderDA_1SubText.Dispose();
+            sliderDA_2SubText.Dispose();
+            title1.Dispose();
+            title2.Dispose();
+            title3.Dispose();
+            title4.Dispose();
+            indicator.Dispose();
         }
 
         private void CreateNUI()

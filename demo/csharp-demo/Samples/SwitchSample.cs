@@ -2,14 +2,13 @@
 
 namespace Tizen.NUI.Examples
 {
-    public class SwitchSample : NUIApplication
+    public class SwitchSample : IExample
     {
         Tizen.NUI.Controls.Switch _switch;
         Tizen.VD.NUI.Controls.Switch _switch1;
 
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
 
             _switch = new Controls.Switch();
@@ -40,6 +39,14 @@ namespace Tizen.NUI.Examples
             window.Add(_switch1);
 
 
+        }
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(_switch);
+            window.Remove(_switch1);
+            _switch1.Dispose();
+            _switch1.Dispose();
         }
     }
 }

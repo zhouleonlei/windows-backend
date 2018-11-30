@@ -29,7 +29,7 @@ namespace Tizen.NUI.Examples
             Console.WriteLine("C.Test()\n");
         }
     }
-    public class PaginationSample : NUIApplication
+    public class PaginationSample : IExample
     {
         private Pagination pagination;
         private Pagination vdMediumPagination;
@@ -42,9 +42,8 @@ namespace Tizen.NUI.Examples
         private int currentSelectIndex = 0;
         private readonly int PAGE_COUNT_1 = 14;
         private int currentSelectIndex1 = 0;
-        protected override void OnCreate()
+        public void Activate()
         {
-            base.OnCreate();
             Window window = Window.Instance;
 
             pagination = new Pagination();
@@ -102,6 +101,20 @@ namespace Tizen.NUI.Examples
 
             A test = new C();
             test.Test();
+        }
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.Remove(pagination);
+            window.Remove(vdMediumPagination);
+            window.Remove(vdSmallPagination);
+            window.Remove(daAppPagination);
+            window.Remove(daWidgetPagination);
+            pagination.Dispose();
+            vdMediumPagination.Dispose();
+            vdSmallPagination.Dispose();
+            daAppPagination.Dispose();
+            daWidgetPagination.Dispose();
         }
 
         private void Window_KeyEvent(object sender, Window.KeyEventArgs e)
