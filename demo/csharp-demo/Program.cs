@@ -38,6 +38,7 @@ namespace Tizen.NUI.Examples
             //new RadioButtonSample().Run(args);
             //new SwitchSample().Run(args);
 			//new ToggleButtonSample().Run(args);
+			//new PaginationSample().Run(args);
             new ButtonSample().Run(args);
         }
     }

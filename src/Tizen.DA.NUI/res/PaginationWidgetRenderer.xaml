@@ -1,0 +1,15 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            BackgroundColor="1, 0, 0, 0.2"
+            Size2D="230, 26">
+
+    <ImageView x:Name ="leftArrow" Size2D="26, 26" Position="0, 0, 0" ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="True" ResourceUrl="*DemoRes*/images/FH3/9. Controller/pagination_ic_return.png"/>
+    <View x:Name ="container" Size2D ="162, 26" Position="34, 0, 0" BackgroundColor="0, 0, 1, 0.2"  ParentOrigin="Center" PivotPoint="Center" PositionUsesPivotPoint="True"  WidthResizePolicy="FillToParent" HeightResizePolicy="FillToParent">
+        <!--
+        <View.Layout>
+            <LinearLayout x:Name="mainLayout"  LinearOrientation="Horizontal"  CellPading="8, 8"/>
+        </View.Layout>
+    -->
+    </View>
+    <ImageView x:Name ="rightArrow" Size2D="26, 26" Position="0, 0, 0" ParentOrigin="TopRight" PivotPoint="TopRight" PositionUsesPivotPoint="True" ResourceUrl="*DemoRes*/images/FH3/9. Controller/pagination_ic_next.png"/>
+</XamlLayout>

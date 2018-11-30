@@ -1,0 +1,14 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            BackgroundColor="1, 0, 0, 0.2"
+            WidthResizePolicy="FillToParent" 
+            HeightResizePolicy="FillToParent">
+
+    <View x:Name ="container" BackgroundColor="0, 0, 1, 0.2"  ParentOrigin="Center" PivotPoint="Center" PositionUsesPivotPoint="True"  WidthResizePolicy="FillToParent" HeightResizePolicy="FillToParent">
+    <!--
+        <View.Layout>
+            <LinearLayout x:Name="mainLayout"  LinearOrientation="Horizontal"  CellPading="14, 14"/>
+        </View.Layout>
+    -->
+    </View>
+</XamlLayout>

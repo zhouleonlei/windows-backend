@@ -1,0 +1,26 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            Size2D = "15, 15">
+    <!--
+    <XamlLayout.XamlResources>
+        <ResourceDictionary>
+            <Style x:Key="StateInfo" TargetType="PrimitiveVisual">
+                <Style.Triggers>
+                    <Trigger TargetType="PrimitiveVisual" Property="State" Value="Normal">
+                        <Trigger.Setters >
+                            <Setter TargetType="PrimitiveVisual" Property="MixColor" Value="White" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger TargetType="PrimitiveVisual" Property="State" Value="Selected">
+                        <Trigger.Setters >
+                            <Setter TargetType="PrimitiveVisual" Property="MixColor" Value="Black" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </XamlLayout.XamlResources>
+    <PrimitiveVisual x:Name ="indicator" Shape ="Sphere"  MixColor="White" Style = "{StaticResource StateInfo}"/>
+    -->
+    <PrimitiveVisual x:Name ="indicator" Shape ="Sphere"  MixColor="White"/>
+</XamlLayout>

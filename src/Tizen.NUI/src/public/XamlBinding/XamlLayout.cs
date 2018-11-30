@@ -4,7 +4,7 @@ using Tizen.NUI.Binding;
 namespace Tizen.NUI.Xaml
 {
     [ContentProperty("Content")]
-    public class XamlLayout : View
+    public class XamlLayout : VisualView
     {
         public XamlLayout()
         {
@@ -13,7 +13,7 @@ namespace Tizen.NUI.Xaml
             HeightResizePolicy = ResizePolicyType.FillToParent;
         }
 
-        internal View Root
+        internal VisualView Root
         {
             get
             {
@@ -21,7 +21,7 @@ namespace Tizen.NUI.Xaml
             }
         }
 
-        internal View Content
+        internal object Content
         {
             get
             {
@@ -29,7 +29,14 @@ namespace Tizen.NUI.Xaml
             }
             set
             {
-                Root.Add(value);
+                if (value is VisualMap visualMap)
+                {
+                    Root.AddVisual("123", visualMap);
+                }
+                else if (value is View view)
+                {
+                    Root.Add(view);
+                }
             }
         }
 

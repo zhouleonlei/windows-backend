@@ -1,0 +1,13 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            WidthResizePolicy="FillToParent" 
+            HeightResizePolicy="FillToParent">
+
+    <View x:Name ="container" ParentOrigin="Center" PivotPoint="Center" PositionUsesPivotPoint="True"  WidthResizePolicy="FillToParent" HeightResizePolicy="FillToParent">
+    <!--
+        <View.Layout>
+            <LinearLayout x:Name="mainLayout"  LinearOrientation="Horizontal"  CellPading="8, 8"/>
+        </View.Layout>
+    -->
+    </View>
+</XamlLayout>

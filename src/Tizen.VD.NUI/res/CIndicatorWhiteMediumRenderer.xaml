@@ -1,0 +1,23 @@
+<XamlLayout xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            Size2D = "15, 15">
+    <XamlLayout.XamlResources>
+        <ResourceDictionary>
+            <Style x:Key="StateInfo" TargetType="ImageView">
+                <Style.Triggers>
+                    <Trigger TargetType="ImageView" Property="State" Value="Normal">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/VD/component/c_pagination/c_paganation_medium_dot_normal.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger TargetType="ImageView" Property="State" Value="Selected">
+                        <Trigger.Setters >
+                            <Setter TargetType="ImageView" Property="ResourceUrl" Value="*DemoRes*/images/VD/component/c_pagination/c_paganation_medium_dot_focus.png" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </XamlLayout.XamlResources>
+    <ImageView x:Name ="indicator" WidthResizePolicy="FillToParent" HeightResizePolicy="FillToParent" Style = "{StaticResource StateInfo}"/>
+</XamlLayout>

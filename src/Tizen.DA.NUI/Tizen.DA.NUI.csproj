@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="res\IndicatorRenderer.xaml" />
+    <None Remove="res\PaginationRenderer.xaml" />
+    <None Remove="res\PaginationWidgetRenderer.xaml" />
     <None Remove="res\Slider1TextRenderer.xaml" />
     <None Remove="res\Slider2TextRenderer.xaml" />
     <None Remove="res\SliderDefaultRenderer.xaml" />
@@ -18,11 +21,14 @@
 
   <ItemGroup>
     <EmbeddedResource Include="res\CheckBoxRenderer.xaml"/>
+    <EmbeddedResource Include="res\IndicatorRenderer.xaml"/>
+    <EmbeddedResource Include="res\PaginationRenderer.xaml"/>
+    <EmbeddedResource Include="res\PaginationWidgetRenderer.xaml"/>
     <EmbeddedResource Include="res\RadioButtonRenderer.xaml"/>
     <EmbeddedResource Include="res\Slider1TextRenderer.xaml" />
     <EmbeddedResource Include="res\Slider2TextRenderer.xaml" />
     <EmbeddedResource Include="res\SliderDefaultRenderer.xaml" />
-	<EmbeddedResource Include="res\CToggleButtonRenderer.xaml" />
+    <EmbeddedResource Include="res\CToggleButtonRenderer.xaml" />
   </ItemGroup>
 
   <ItemGroup>

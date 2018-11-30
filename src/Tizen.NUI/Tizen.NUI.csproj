@@ -6,6 +6,8 @@
   
   <ItemGroup>
     <EmbeddedResource Include="res\IconButtonRenderer.xaml" />
+    <EmbeddedResource Include="res\IndicatorRenderer.xaml" />
+    <EmbeddedResource Include="res\PaginationRenderer.xaml" />
     <EmbeddedResource Include="res\SliderRenderer.xaml" />
     <EmbeddedResource Include="res\SelectionRenderer.xaml" />
     <EmbeddedResource Include="res\TextButtonRenderer.xaml" />
@@ -22,15 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Tizen.Applications.Common\Tizen.Applications.Common.csproj" />
     <ProjectReference Include="..\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="res\SwitchRenderer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\ToggleButtonRenderer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
