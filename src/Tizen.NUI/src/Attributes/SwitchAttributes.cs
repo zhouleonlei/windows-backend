@@ -33,30 +33,22 @@ namespace Tizen.NUI.Controls
             return attrs.switchBackgroundImageAttrs;
         });
 
-        public static new readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(SelectButtonAttributes), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.state = (States)newValue;
-                if (attrs.switchHandlerImageAttrs != null)
-                {
-                    attrs.switchHandlerImageAttrs.State = attrs.state;
-                }
-                if (attrs.switchBackgroundImageAttrs != null)
-                {
-                    attrs.switchBackgroundImageAttrs.State = attrs.state;
-                }
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            return attrs.state;
-        });
-
         private ImageAttributes switchHandlerImageAttrs;
         private ImageAttributes switchBackgroundImageAttrs;
+
+        public SwitchAttributes() : base() { }
+        public SwitchAttributes(SwitchAttributes attributes) : base(attributes)
+        {
+            if (attributes.switchHandlerImageAttrs != null)
+            {
+                switchHandlerImageAttrs = attributes.switchHandlerImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.switchBackgroundImageAttrs != null)
+            {
+                switchBackgroundImageAttrs = attributes.switchBackgroundImageAttrs.Clone() as ImageAttributes;
+            }
+        }
 
         public ImageAttributes SwitchHandlerImageAttributes
         {
@@ -82,17 +74,9 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public override States State
+        public override Attributes Clone()
         {
-            get
-            {
-                return (States)GetValue(StateProperty);
-            }
-            set
-            {             
-                SetValue(StateProperty, value);
-                base.State = value;
-            }
+            return new SwitchAttributes(this);
         }
     }
 }

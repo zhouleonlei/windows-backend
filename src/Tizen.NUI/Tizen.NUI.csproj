@@ -17,19 +17,10 @@
     <Compile Remove="src\Attributes\FontAttributes.cs" />
     <Compile Remove="src\Attributes\PaginationAttributes.cs" />
     <Compile Remove="src\Attributes\ScrollbarAttributes.cs" />
-    <Compile Remove="src\Attributes\SelectButtonAttributes.cs" />
     <Compile Remove="src\Attributes\SliderAttributes.cs" />
-    <Compile Remove="src\Attributes\SwitchAttributes.cs" />
-    <Compile Remove="src\Controls\CheckBox.cs" />
-    <Compile Remove="src\Controls\CheckBoxGroup.cs" />
     <Compile Remove="src\Controls\Pagination.cs" />
-    <Compile Remove="src\Controls\RadioButton.cs" />
-    <Compile Remove="src\Controls\RadioButtonGroup.cs" />
     <Compile Remove="src\Controls\Scrollbar.cs" />
-    <Compile Remove="src\Controls\SelectButton.cs" />
-    <Compile Remove="src\Controls\SelectGroup.cs" />
     <Compile Remove="src\Controls\Slider.cs" />
-    <Compile Remove="src\Controls\Switch.cs" />
   </ItemGroup>
 
   <ItemGroup>

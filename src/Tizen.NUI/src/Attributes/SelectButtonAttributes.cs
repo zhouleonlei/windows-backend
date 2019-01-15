@@ -47,32 +47,6 @@ namespace Tizen.NUI.Controls
             return attrs.checkShadowImageAttrs;
         });
 
-        public static new readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(SelectButtonAttributes), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (SelectButtonAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.state = (States)newValue;
-                if (attrs.checkShadowImageAttrs != null)
-                {
-                    attrs.checkShadowImageAttrs.State = attrs.state;
-                }
-                if (attrs.checkBackgroundImageAttrs != null)
-                {
-                    attrs.checkBackgroundImageAttrs.State = attrs.state;
-                }
-                if (attrs.checkImageAttrs != null)
-                {
-                    attrs.checkImageAttrs.State = attrs.state;
-                }
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (SelectButtonAttributes)bindable;
-            return attrs.state;
-        });
-
         private ImageAttributes checkImageAttrs;
         private ImageAttributes checkBackgroundImageAttrs;
         private ImageAttributes checkShadowImageAttrs;
@@ -110,19 +84,6 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(CheckShadowImageAttributesProperty, value);
-            }
-        }
-
-        public override States State
-        {
-            get
-            {
-                return (States)GetValue(StateProperty);
-            }
-            set
-            {             
-                SetValue(StateProperty, value);
-                base.State = value;
             }
         }
     }

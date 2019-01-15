@@ -85,6 +85,11 @@ namespace Tizen.NUI.Controls
             return ret;
         }
 
+        protected override Attributes GetAttributes()
+        {
+            return null;
+        }
+
         /// <summary>
         /// Overrides this method if want to handle behavior after pressing return key by user.
         /// </summary>

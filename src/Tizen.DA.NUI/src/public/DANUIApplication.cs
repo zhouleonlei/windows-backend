@@ -172,10 +172,10 @@ namespace Tizen.DA.NUI
             //         RadioButton.RegisterStyle("FamilyRadioButton", typeof(FamilyRadioButtonAttributes));
             //         RadioButton.RegisterStyle("KitchenRadioButton", typeof(KitchenRadioButtonAttributes));
 
-            //         Switch.RegisterStyle("UtilitySwitch", typeof(UtilitySwitchAttributes));
-            //         Switch.RegisterStyle("FoodSwitch", typeof(FoodSwitchAttributes));
-            //         Switch.RegisterStyle("FamilySwitch", typeof(FamilySwitchAttributes));
-            //         Switch.RegisterStyle("KitchenSwitch", typeof(KitchenSwitchAttributes));
+            Switch.RegisterStyle("UtilitySwitch", typeof(UtilitySwitchAttributes));
+            Switch.RegisterStyle("FoodSwitch", typeof(FoodSwitchAttributes));
+            Switch.RegisterStyle("FamilySwitch", typeof(FamilySwitchAttributes));
+            Switch.RegisterStyle("KitchenSwitch", typeof(KitchenSwitchAttributes));
 
             //         ScrollBar.RegisterStyle("FamilyBasicScrollbar", typeof(DA.NUI.Controls.DAScrollbarAttributes));
 

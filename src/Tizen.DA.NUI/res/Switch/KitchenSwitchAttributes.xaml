@@ -1,0 +1,43 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <AttributesContainer.XamlResources>
+        <StringSelector x:Key="DAKitchenSwitchBackground"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_switch_bg_off.png"
+                        Selected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_switch_bg_on_9762d9.png"
+                        Disabled ="*DemoRes*/images/FH3/9. Controller/controller_switch_bg_off_dim.png"
+                        DisabledSelected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_switch_bg_on_dim_9762d9.png"
+                        />
+        <StringSelector x:Key="DAKitchenSwitchHandler"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_switch_handler.png"
+                        Selected ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler.png"
+                        Disabled ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
+                        DisabledSelected ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
+                        />
+        <PositionSelector x:Key="DAKitchenSwitchHandlerParentOrigin"
+                        Normal="TopLeft"
+                        Selected ="TopRight"
+                        Disabled ="TopLeft"
+                        DisabledSelected ="TopRight"
+                        />
+        <PositionSelector x:Key="DAKitchenSwitchHandlerPivotPoint"
+                        Normal="TopLeft"
+                        Selected ="TopRight"
+                        Disabled ="TopLeft"
+                        DisabledSelected ="TopRight"
+                        />
+    </AttributesContainer.XamlResources>
+
+    <SwitchAttributes x:Name="SwitchAttributes" MinimumSize="96, 60"
+                      ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true">
+        <SwitchAttributes.SwitchBackgroundImageAttributes>
+            <ImageAttributes Size2D="96, 60" ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
+                             ResourceURL ="{StaticResource DAKitchenSwitchBackground}"/>
+        </SwitchAttributes.SwitchBackgroundImageAttributes>
+        <SwitchAttributes.SwitchHandlerImageAttributes>
+            <ImageAttributes Size2D="60, 60" PositionUsesPivotPoint="true"
+                             ResourceURL ="{StaticResource DAKitchenSwitchHandler}"
+                             ParentOrigin ="{StaticResource DAKitchenSwitchHandlerParentOrigin}"
+                             PivotPoint ="{StaticResource DAKitchenSwitchHandlerPivotPoint}"/>
+        </SwitchAttributes.SwitchHandlerImageAttributes>
+    </SwitchAttributes>
+</AttributesContainer>

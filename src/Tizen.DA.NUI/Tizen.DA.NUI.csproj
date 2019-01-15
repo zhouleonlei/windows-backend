@@ -8,31 +8,23 @@
     <Compile Remove="src\Controls\Pagination.cs" />
     <Compile Remove="src\Controls\Slider.cs" />
     <Compile Remove="src\StyleAttributes\DAScrollbarAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FamilyCheckBoxAttributes.cs" />
     <Compile Remove="src\StyleAttributes\FamilyDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FamilyRadioButtonAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FamilySwitchAttributes.cs" />
     <Compile Remove="src\StyleAttributes\FamilyTextSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FoodCheckBoxAttributes.cs" />
     <Compile Remove="src\StyleAttributes\FoodDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FoodRadioButtonAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FoodSwitchAttributes.cs" />
     <Compile Remove="src\StyleAttributes\FoodTextSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\KitchenCheckBoxAttributes.cs" />
     <Compile Remove="src\StyleAttributes\KitchenDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\KitchenRadioButtonAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\KitchenSwitchAttributes.cs" />
     <Compile Remove="src\StyleAttributes\KitchenTextSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\PaginationAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\UtilityCheckBoxAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\UtilityRadioButtonAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\UtilitySwitchAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityTextSliderAttributes.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="res\AppStyles.xaml" />
+    <None Remove="res\CheckBox\FamilyCheckBoxAttributes.xaml" />
+    <None Remove="res\CheckBox\FoodCheckBoxAttributes.xaml" />
+    <None Remove="res\CheckBox\KitchenCheckBoxAttributes.xaml" />
+    <None Remove="res\CheckBox\UtilityCheckBoxAttributes.xaml" />
     <None Remove="res\FamilyBasicButtonAttributes.xaml" />
     <None Remove="res\FamilyBasicScrollbarAttributes.xaml" />
     <None Remove="res\FamilyCheckBoxAttributes.xaml" />
@@ -62,6 +54,14 @@
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
+    <None Remove="res\RadioButton\FamilyRadioButtonAttributes.xaml" />
+    <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
+    <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
+    <None Remove="res\RadioButton\UtilityRadioButtonAttributes.xaml" />
+    <None Remove="res\Switch\FamilySwitchAttributes.xaml" />
+    <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
+    <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
+    <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
     <None Remove="res\UtilityBasicButtonAttributes.xaml" />
     <None Remove="res\UtilityCheckBoxAttributes.xaml" />
     <None Remove="res\UtilityDefaultSliderAttributes.xaml" />
@@ -77,83 +77,19 @@
     <EmbeddedResource Include="res\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyCheckBoxAttributes.xaml">
+    <EmbeddedResource Include="res\CheckBox\FamilyCheckBoxAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\CheckBox\FoodCheckBoxAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\CheckBox\KitchenCheckBoxAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\FamilyBasicScrollbarAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyRadioButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FamilyServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FamilyBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilySwitchAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodCheckBoxAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodRadioButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodSwitchAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenCheckBoxAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenRadioButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodToggleButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\KitchenSwitchAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenToggleButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\Button\FamilyToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenOvalButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\Button\FoodOvalButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\Button\FamilyOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityCheckBoxAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityRadioButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilitySwitchAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\PaginationAttributes.xaml">
@@ -165,27 +101,36 @@
     <EmbeddedResource Include="res\FoodTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\RadioButton\FoodRadioButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\RadioButton\KitchenRadioButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\RadioButton\UtilityRadioButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Switch\FamilySwitchAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Switch\FoodSwitchAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Switch\KitchenSwitchAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Switch\UtilitySwitchAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\UtilityDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\UtilityTextSliderAttributes.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="res\Button\FoodToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="res\Button\KitchenToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="res\Button\KitchenOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="res\Button\FoodOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
