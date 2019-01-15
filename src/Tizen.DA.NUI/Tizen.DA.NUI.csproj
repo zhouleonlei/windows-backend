@@ -86,10 +86,10 @@
     <EmbeddedResource Include="res\FamilyRadioButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyServiceButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\FamilySwitchAttributes.xaml">
@@ -101,10 +101,10 @@
     <EmbeddedResource Include="res\FoodRadioButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodServiceButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\FoodSwitchAttributes.xaml">
@@ -116,29 +116,29 @@
     <EmbeddedResource Include="res\KitchenRadioButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenServiceButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FoodToggleButtonAttributes.xaml" />
+    <EmbeddedResource Include="res\Button\FoodToggleButtonAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenSwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenToggleButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\FamilyToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenToggleButtonAttributes.xaml" />
+    <EmbeddedResource Include="res\Button\FamilyToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\KitchenOvalButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\FoodOvalButtonAttributes.xaml" />
-    <EmbeddedResource Include="res\FamilyOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenOvalButtonAttributes.xaml" />
+    <EmbeddedResource Include="res\Button\FoodOvalButtonAttributes.xaml" />
+    <EmbeddedResource Include="res\Button\FamilyOvalButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\UtilityCheckBoxAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityOvalButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\UtilityRadioButtonAttributes.xaml">
@@ -147,13 +147,13 @@
     <EmbeddedResource Include="res\UtilitySwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityServiceButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\PaginationAttributes.xaml">
@@ -174,22 +174,73 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="res\FoodToggleButtonAttributes.xaml">
+    <EmbeddedResource Update="res\Button\FoodToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="res\KitchenToggleButtonAttributes.xaml">
+    <EmbeddedResource Update="res\Button\KitchenToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="res\KitchenOvalButtonAttributes.xaml">
+    <EmbeddedResource Update="res\Button\KitchenOvalButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="res\FoodOvalButtonAttributes.xaml">
+    <EmbeddedResource Update="res\Button\FoodOvalButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\Controls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="res\Button\FamilyBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FamilyOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FamilyServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FamilyToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FoodBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FoodOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FoodServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\FoodToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\KitchenBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\KitchenOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\KitchenServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\KitchenToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\UtilityBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\UtilityOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\UtilityServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Button\UtilityToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>
