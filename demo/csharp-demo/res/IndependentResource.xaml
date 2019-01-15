@@ -1,9 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-  <x:String x:Key="urlKey">
-    *DemoRes*/images/ambient/default/picture_m_1.jpg
-  </x:String>
-  <x:String x:Key="positionKey">
-    200, 200
-  </x:String>
-</ResourceDictionary> 

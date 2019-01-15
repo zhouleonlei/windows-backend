@@ -1,3 +1,0 @@
-LIBRARY libcapi-appfw-app-common.so
-EXPORTS
-app_manager_get_app_info @1

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage x:Class="Tizen.NUI.Examples.TestBaseViewPage"
-  xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
-  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-  <NewSlider x:Name="Slider" Position2D="100,100" Size2D="600,50" BackgroundColor="1,1,1,1"/>
-
-</ContentPage>

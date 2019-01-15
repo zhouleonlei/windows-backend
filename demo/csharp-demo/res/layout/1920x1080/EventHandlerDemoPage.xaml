@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage x:Class="Tizen.NUI.Examples.EventHandlerDemoPage"
-  xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
-  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-  <PushButton Name="PushButton" PositionX="800" PositionY="500" LabelText="PushButton" Size2D="260, 84" 
-              Clicked="OnClicked" KeyEvent="OnKeyEvent"/>
-
-</ContentPage>
