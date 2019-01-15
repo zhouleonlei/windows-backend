@@ -1,0 +1,117 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <AttributesContainer.XamlResources>
+        <Style x:Key="DAFamilySwitchBackgroundSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchBackground}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_switch_bg_on_24c447.png"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchBackgroundNormal" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchBackground}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_bg_off.png"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchBackgroundDisabledSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchBackground}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_switch_bg_on_dim_24c447.png"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchBackgroundDisabled" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchBackground}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_bg_off_dim.png"/>
+        </Style>
+
+        <Style x:Key="DAFamilySwitchHandlerSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchHandler}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_handler.png"/>
+            <Setter Property="ParentOrigin" Value="TopRight"/>
+            <Setter Property="PivotPoint" Value="TopRight"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchHandlerNormal" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchHandler}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_handler.png"/>
+            <Setter Property="ParentOrigin" Value="TopLeft"/>
+            <Setter Property="PivotPoint" Value="TopLeft"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchHandlerDisabledSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchHandler}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"/>
+            <Setter Property="ParentOrigin" Value="TopRight"/>
+            <Setter Property="PivotPoint" Value="TopRight"/>
+        </Style>
+        <Style x:Key="DAFamilySwitchHandlerDisabled" TargetType="ImageAttributes" BasedOn="{StaticResource DASwitchHandler}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"/>
+            <Setter Property="ParentOrigin" Value="TopLeft"/>
+            <Setter Property="PivotPoint" Value="TopLeft"/>
+        </Style>
+        
+        <Style x:Key="DAFamilySwitch" TargetType="SwitchAttributes" BasedOn="{StaticResource DASwitchBase}">
+            <Style.Triggers>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Normal">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchBackgroundImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchBackgroundNormal}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Selected">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchBackgroundImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchBackgroundSelected}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Disabled">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchBackgroundImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchBackgroundDisabled}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="DisabledSelected">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchBackgroundImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchBackgroundDisabledSelected}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Normal">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchHandlerImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchHandlerNormal}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Selected">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchHandlerImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchHandlerSelected}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="Disabled">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchHandlerImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchHandlerDisabled}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SwitchAttributes" Property="State" Value="DisabledSelected">
+                    <Trigger.Setters>
+                        <Setter Property="SwitchHandlerImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilySwitchHandlerDisabledSelected}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </AttributesContainer.XamlResources>
+
+    <SwitchAttributes x:Name="SwitchAttributes" Style = "{StaticResource DAFamilySwitch}" />
+</AttributesContainer>

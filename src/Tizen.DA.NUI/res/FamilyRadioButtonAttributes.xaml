@@ -1,0 +1,36 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <AttributesContainer.XamlResources>
+        <Style x:Key="DAFamilyRadioNormal" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"/>
+        </Style>
+        <Style x:Key="DAFamilyRadioSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
+            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png"/>
+        </Style>
+
+        <Style x:Key="DAFamilyRadioSelectButton" TargetType="SelectButtonAttributes" BasedOn="{StaticResource DASelectButtonBase}">
+            <Style.Triggers>
+                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Normal">
+                    <Trigger.Setters >
+                        <Setter Property="CheckImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilyRadioNormal}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Selected">
+                    <Trigger.Setters >
+                        <Setter Property="CheckImageAttributes">
+                            <Setter.Value>
+                                <ImageAttributes Style="{StaticResource DAFamilyRadioSelected}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </AttributesContainer.XamlResources>
+
+    <SelectButtonAttributes x:Name="SelectButtonAttributes" Style = "{StaticResource DAFamilyRadioSelectButton}" />
+</AttributesContainer>

@@ -1,0 +1,57 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+
+        <StringSelector x:Key="DAKitchenToggleButtonBackground"
+                        Normal="*DemoRes*/images/FH3/3. Button/[Button] App Primary Color/rectangle_toggle_btn_normal_24c447.png"
+                        Selected ="*DemoRes*/images/FH3/3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png"
+                        />
+
+        <FloatSelector x:Key="DAOverlayOpacity"
+                        Normal="0"
+                        Pressed ="1"
+                        />
+        <ColorSelector x:Key="DAKitchenToggleButtonFont" 
+                       Normal="#ff24c447"
+                       Selected="#ffffffff"
+                       />
+
+    </AttributesContainer.XamlResources>
+
+    <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
+
+        <ButtonAttributes.BackgroundImageAttributes>
+            <ImageAttributes 
+                ResourceURL="{StaticResource DAKitchenToggleButtonBackground}" 
+                Border="5, 5, 5, 5" 
+                />
+        </ButtonAttributes.BackgroundImageAttributes>
+
+        <ButtonAttributes.ShadowImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/3. Button/rectangle_btn_shadow.png" 
+                Border="5, 5, 5, 5" 
+                />
+        </ButtonAttributes.ShadowImageAttributes>
+
+        <ButtonAttributes.OverlayImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/3. Button/rectangle_btn_press_overlay.png" 
+                Border="5, 5, 5, 5"
+                Opacity="{StaticResource DAOverlayOpacity}"
+                />
+        </ButtonAttributes.OverlayImageAttributes>
+
+        <ButtonAttributes.TextAttributes>
+            <TextAttributes 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                WidthResizePolicy="FillToParent" 
+                HeightResizePolicy="FillToParent"
+                PointSize="20"
+                TextColor="{StaticResource DAKitchenToggleButtonFont}"/>
+        </ButtonAttributes.TextAttributes>
+    </ButtonAttributes>
+</AttributesContainer>

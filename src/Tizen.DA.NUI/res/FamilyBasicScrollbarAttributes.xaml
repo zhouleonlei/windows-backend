@@ -1,0 +1,23 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <AttributesContainer.XamlResources>
+
+        <Style x:Key="DABasicScrollbar" TargetType="DAScrollbarAttributes">
+            <Setter Property="TrackImageAttributes">
+                <Setter.Value>
+                    <ImageAttributes BackgroundColor= "0.43,0.43,0.43,0.1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ThumbImageAttributes">
+                <Setter.Value>
+                    <ImageAttributes BackgroundColor= "0, 0, 0, 0.2" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </AttributesContainer.XamlResources>
+    <ScrollbarAttributes x:Name="DAScrollbarAttributes" Style = "{StaticResource DABasicScrollbar}" />
+
+
+
+</AttributesContainer>
