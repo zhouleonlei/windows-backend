@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="res\**" />
+    <Compile Remove="src\Converter\**" />
+    <EmbeddedResource Remove="res\**" />
+    <EmbeddedResource Remove="src\Converter\**" />
+    <None Remove="res\**" />
+    <None Remove="src\Converter\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="src\Attributes\FontAttributes.cs" />
     <Compile Remove="src\Attributes\PaginationAttributes.cs" />
     <Compile Remove="src\Attributes\ScrollbarAttributes.cs" />
@@ -33,11 +42,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Tizen.Applications.Common\Tizen.Applications.Common.csproj" />
     <ProjectReference Include="..\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="res\" />
-    <Folder Include="src\Converter\" />
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
