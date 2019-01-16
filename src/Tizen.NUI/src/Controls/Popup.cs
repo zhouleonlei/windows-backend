@@ -90,27 +90,33 @@ namespace Tizen.NUI.Controls
             {
                 if (titleText != null)
                 {
-                    this.Remove(titleText);
+                    Remove(titleText);
                     titleText.Dispose();
                     titleText = null;
                 }
                 if (backgroundImage != null)
                 {
-                    this.Remove(backgroundImage);
+                    Remove(backgroundImage);
                     backgroundImage.Dispose();
                     backgroundImage = null;
                 }
                 if (shadowImage != null)
                 {
-                    this.Remove(shadowImage);
+                    Remove(shadowImage);
                     shadowImage.Dispose();
                     shadowImage = null;
                 }
-                if(buttonList != null)
+                if (contentView != null)
+                {
+                    Remove(contentView);
+                    contentView.Dispose();
+                    contentView = null;
+                }
+                if (buttonList != null)
                 {
                     foreach(Button btn in buttonList)
                     {
-                        this.Remove(btn);
+                        Remove(btn);
                         btn.Dispose();
                     }
                 }
