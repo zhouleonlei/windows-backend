@@ -1,100 +1,26 @@
 ﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <AttributesContainer.XamlResources>
-        <Style x:Key="DAFamilyCheckShadow" TargetType="ImageAttributes">
-            <Setter Property="Size2D" Value="48, 48"/>
-            <Setter Property="Position2D" Value="56, 28"/>
-            <Setter Property="ParentOrigin" Value="TopLeft"/>
-            <Setter Property="PivotPoint" Value="TopLeft"/>
-            <Setter Property="PositionUsesPivotPoint" Value="true"/>
-            <Style.Triggers>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Selected">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value=""/>
-                        <Setter Property="Opacity" Value="1" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Normal">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value="" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Disabled">
-                    <Trigger.Setters >
-                        <Setter Property="Opacity" Value="0.4" />
-                    </Trigger.Setters>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DAFamilyCheckBackground" TargetType="ImageAttributes">
-            <Setter Property="Size2D" Value="48, 48"/>
-            <Setter Property="Position2D" Value="56, 28"/>
-            <Setter Property="ParentOrigin" Value="TopLeft"/>
-            <Setter Property="PivotPoint" Value="TopLeft"/>
-            <Setter Property="PositionUsesPivotPoint" Value="true"/>
-            <Style.Triggers>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Selected">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value=""/>
-                        <Setter Property="Opacity" Value="1" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Normal">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_check_off.png"/>
-                        <Setter Property="Opacity" Value="1" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Disabled">
-                    <Trigger.Setters >
-                        <Setter Property="Opacity" Value="0.4" />
-                    </Trigger.Setters>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DAFamilyCheck" TargetType="ImageAttributes">
-            <Setter Property="Size2D" Value="48, 48"/>
-            <Setter Property="Position2D" Value="56, 28"/>
-            <Setter Property="ParentOrigin" Value="TopLeft"/>
-            <Setter Property="PivotPoint" Value="TopLeft"/>
-            <Setter Property="PositionUsesPivotPoint" Value="true"/>
-            <Style.Triggers>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Selected">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_check_on_24c447.png"/>
-                        <Setter Property="Opacity" Value="1" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Normal">
-                    <Trigger.Setters >
-                        <Setter Property="ResourceURL" Value="" />
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="ImageAttributes" Property="State" Value="Disabled">
-                    <Trigger.Setters >
-                        <Setter Property="Opacity" Value="0.4" />
-                    </Trigger.Setters>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DAFamilySelectButton" TargetType="SelectButtonAttributes" BasedOn="{StaticResource DASelectButtonBase}">
-            <Setter Property="CheckShadowImageAttributes">
-                <Setter.Value>
-                    <ImageAttributes Style="{StaticResource DAFamilyCheckShadow}" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="CheckBackgroundImageAttributes">
-                <Setter.Value>
-                    <ImageAttributes Style="{StaticResource DAFamilyCheckBackground}" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="CheckImageAttributes">
-                <Setter.Value>
-                    <ImageAttributes Style="{StaticResource DAFamilyCheck}" />
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <StringSelector x:Key="DAFamilyCheckBoxBackground"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_check_off.png"
+                        Selected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_check_on_24c447.png"
+                        Disabled ="*DemoRes*/images/FH3/9. Controller/controller_btn_check_off.png"
+                        DisabledSelected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_check_on_24c447.png"
+                        />
+        <FloatSelector x:Key="DAFamilyCheckBoxOpacity"
+                       Normal="1.0"
+                       Selected="1.0"
+                       Disabled="0.4"
+                       DisabledSelected="0.4"
+                        />
     </AttributesContainer.XamlResources>
 
-    <SelectButtonAttributes x:Name="SelectButtonAttributes" Style = "{StaticResource DAFamilySelectButton}" />
+    <SelectButtonAttributes x:Name="SelectButtonAttributes">
+        <SelectButtonAttributes.CheckImageAttributes>
+            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+                              ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
+                              ResourceURL ="{StaticResource DAFamilyCheckBoxBackground}"
+                              Opacity="{StaticResource DAFamilyCheckBoxOpacity}"/>
+        </SelectButtonAttributes.CheckImageAttributes>
+    </SelectButtonAttributes>
 </AttributesContainer>

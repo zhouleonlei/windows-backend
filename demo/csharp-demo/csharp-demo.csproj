@@ -82,6 +82,9 @@
     <Compile Include="SampleMain.cs" />
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Samples\CheckBoxSample.cs" />
+    <Compile Include="Samples\RadioButtonSample.cs" />
+    <Compile Include="Samples\SwitchSample.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

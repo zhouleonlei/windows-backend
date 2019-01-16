@@ -51,6 +51,25 @@ namespace Tizen.NUI.Controls
         private ImageAttributes checkBackgroundImageAttrs;
         private ImageAttributes checkShadowImageAttrs;
 
+        public SelectButtonAttributes() : base() { }
+        public SelectButtonAttributes(SelectButtonAttributes attributes) : base(attributes)
+        {
+            if (attributes.checkImageAttrs != null)
+            {
+                checkImageAttrs = attributes.checkImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.checkBackgroundImageAttrs != null)
+            {
+                checkBackgroundImageAttrs = attributes.checkBackgroundImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.checkShadowImageAttrs != null)
+            {
+                checkShadowImageAttrs = attributes.checkShadowImageAttrs.Clone() as ImageAttributes;
+            }
+        }
+
         public ImageAttributes CheckImageAttributes
         {
             get
@@ -85,6 +104,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(CheckShadowImageAttributesProperty, value);
             }
+        }
+
+        public override Attributes Clone()
+        {
+            return new SelectButtonAttributes(this);
         }
     }
 }

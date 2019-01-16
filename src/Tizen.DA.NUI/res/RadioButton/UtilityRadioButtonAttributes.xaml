@@ -1,37 +1,26 @@
 ﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <AttributesContainer.XamlResources>
-
-        <Style x:Key="DAUtilityRadioNormal" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
-            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"/>
-        </Style>
-        <Style x:Key="DAUtilityRadioSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
-            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_on.png"/>
-        </Style>
-
-        <Style x:Key="DAUtilityRadioSelectButton" TargetType="SelectButtonAttributes" BasedOn="{StaticResource DASelectButtonBase}">
-            <Style.Triggers>
-                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Normal">
-                    <Trigger.Setters >
-                        <Setter Property="CheckImageAttributes">
-                            <Setter.Value>
-                                <ImageAttributes Style="{StaticResource DAUtilityRadioNormal}" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Selected">
-                    <Trigger.Setters >
-                        <Setter Property="CheckImageAttributes">
-                            <Setter.Value>
-                                <ImageAttributes Style="{StaticResource DAUtilityRadioSelected}" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger.Setters>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <StringSelector x:Key="DAUtilityRadioBackground"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"
+                        Selected ="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_on.png"
+                        Disabled ="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"
+                        DisabledSelected ="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_on.png"
+                        />
+        <FloatSelector x:Key="DAUtilityRadioOpacity"
+                       Normal="1.0"
+                       Selected="1.0"
+                       Disabled="0.4"
+                       DisabledSelected="0.4"
+                        />
     </AttributesContainer.XamlResources>
 
-    <SelectButtonAttributes x:Name="SelectButtonAttributes" Style = "{StaticResource DAUtilityRadioSelectButton}" />
+    <SelectButtonAttributes x:Name="SelectButtonAttributes">
+        <SelectButtonAttributes.CheckImageAttributes>
+            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+                              ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
+                              ResourceURL ="{StaticResource DAUtilityRadioBackground}"
+                              Opacity="{StaticResource DAUtilityRadioOpacity}"/>
+        </SelectButtonAttributes.CheckImageAttributes>
+    </SelectButtonAttributes>
 </AttributesContainer>

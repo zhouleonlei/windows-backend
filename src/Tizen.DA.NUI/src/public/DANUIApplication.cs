@@ -162,15 +162,15 @@ namespace Tizen.DA.NUI
 
             //         Controls.Pagination.RegisterStyle("BasicPagination", typeof(Controls.PaginationAttributes));
 
-            //         CheckBox.RegisterStyle("UtilityCheckBox", typeof(UtilityCheckBoxAttributes));
-            //         CheckBox.RegisterStyle("FoodCheckBox", typeof(FoodCheckBoxAttributes));
-            //         CheckBox.RegisterStyle("FamilyCheckBox", typeof(FamilyCheckBoxAttributes));
-            //         CheckBox.RegisterStyle("KitchenCheckBox", typeof(KitchenCheckBoxAttributes));
+            CheckBox.RegisterStyle("UtilityCheckBox", typeof(UtilityCheckBoxAttributes));
+            CheckBox.RegisterStyle("FoodCheckBox", typeof(FoodCheckBoxAttributes));
+            CheckBox.RegisterStyle("FamilyCheckBox", typeof(FamilyCheckBoxAttributes));
+            CheckBox.RegisterStyle("KitchenCheckBox", typeof(KitchenCheckBoxAttributes));
 
-            //         RadioButton.RegisterStyle("UtilityRadioButton", typeof(UtilityRadioButtonAttributes));
-            //         RadioButton.RegisterStyle("FoodRadioButton", typeof(FoodRadioButtonAttributes));
-            //         RadioButton.RegisterStyle("FamilyRadioButton", typeof(FamilyRadioButtonAttributes));
-            //         RadioButton.RegisterStyle("KitchenRadioButton", typeof(KitchenRadioButtonAttributes));
+            RadioButton.RegisterStyle("UtilityRadioButton", typeof(UtilityRadioButtonAttributes));
+            RadioButton.RegisterStyle("FoodRadioButton", typeof(FoodRadioButtonAttributes));
+            RadioButton.RegisterStyle("FamilyRadioButton", typeof(FamilyRadioButtonAttributes));
+            RadioButton.RegisterStyle("KitchenRadioButton", typeof(KitchenRadioButtonAttributes));
 
             Switch.RegisterStyle("UtilitySwitch", typeof(UtilitySwitchAttributes));
             Switch.RegisterStyle("FoodSwitch", typeof(FoodSwitchAttributes));

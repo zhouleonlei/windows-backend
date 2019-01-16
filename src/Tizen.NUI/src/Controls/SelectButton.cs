@@ -70,6 +70,10 @@ namespace Tizen.NUI.Controls
 
         protected override bool OnKey(object source, KeyEventArgs e)
         {
+            if (IsEnabled == false)
+            {
+                return false;
+            }
             bool ret = base.OnKey(source, e);
             if (e.Key.State == Key.StateType.Up)
             {
@@ -84,6 +88,10 @@ namespace Tizen.NUI.Controls
 
         protected override bool OnTouch(object source, TouchEventArgs e)
         {
+            if (IsEnabled == false)
+            {
+                return false;
+            }
             PointStateType state = e.Touch.GetState(0);
             bool ret = base.OnTouch(source, e);
             switch (state)

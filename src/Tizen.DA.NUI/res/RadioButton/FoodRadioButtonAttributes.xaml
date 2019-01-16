@@ -1,36 +1,26 @@
 ﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <AttributesContainer.XamlResources>
-        <Style x:Key="DAFoodRadioNormal" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
-            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"/>
-        </Style>
-        <Style x:Key="DAFoodRadioSelected" TargetType="ImageAttributes" BasedOn="{StaticResource DARadioIcon}">
-            <Setter Property="ResourceURL" Value="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png"/>
-        </Style>
-
-        <Style x:Key="DAFoodRadioSelectButton" TargetType="SelectButtonAttributes" BasedOn="{StaticResource DASelectButtonBase}">
-            <Style.Triggers>
-                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Normal">
-                    <Trigger.Setters >
-                        <Setter Property="CheckImageAttributes">
-                            <Setter.Value>
-                                <ImageAttributes Style="{StaticResource DAFoodRadioNormal}" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger TargetType="SelectButtonAttributes" Property="State" Value="Selected">
-                    <Trigger.Setters >
-                        <Setter Property="CheckImageAttributes">
-                            <Setter.Value>
-                                <ImageAttributes Style="{StaticResource DAFoodRadioSelected}" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger.Setters>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <StringSelector x:Key="DAFoodRadioBackground"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"
+                        Selected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png"
+                        Disabled ="*DemoRes*/images/FH3/9. Controller/controller_btn_radio_off.png"
+                        DisabledSelected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png"
+                        />
+        <FloatSelector x:Key="DAFoodRadioOpacity"
+                       Normal="1.0"
+                       Selected="1.0"
+                       Disabled="0.4"
+                       DisabledSelected="0.4"
+                        />
     </AttributesContainer.XamlResources>
 
-    <SelectButtonAttributes x:Name="SelectButtonAttributes" Style = "{StaticResource DAFoodRadioSelectButton}" />
+    <SelectButtonAttributes x:Name="SelectButtonAttributes">
+        <SelectButtonAttributes.CheckImageAttributes>
+            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+                              ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
+                              ResourceURL ="{StaticResource DAFoodRadioBackground}"
+                              Opacity="{StaticResource DAFoodRadioOpacity}"/>
+        </SelectButtonAttributes.CheckImageAttributes>
+    </SelectButtonAttributes>
 </AttributesContainer>
