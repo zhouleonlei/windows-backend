@@ -21,6 +21,22 @@
 
   <ItemGroup>
     <None Remove="res\AppStyles.xaml" />
+    <None Remove="res\Button\FamilyBasicButtonAttributes.xaml" />
+    <None Remove="res\Button\FamilyOvalButtonAttributes.xaml" />
+    <None Remove="res\Button\FamilyServiceButtonAttributes.xaml" />
+    <None Remove="res\Button\FamilyToggleButtonAttributes.xaml" />
+    <None Remove="res\Button\FoodBasicButtonAttributes.xaml" />
+    <None Remove="res\Button\FoodOvalButtonAttributes.xaml" />
+    <None Remove="res\Button\FoodServiceButtonAttributes.xaml" />
+    <None Remove="res\Button\FoodToggleButtonAttributes.xaml" />
+    <None Remove="res\Button\KitchenBasicButtonAttributes.xaml" />
+    <None Remove="res\Button\KitchenOvalButtonAttributes.xaml" />
+    <None Remove="res\Button\KitchenServiceButtonAttributes.xaml" />
+    <None Remove="res\Button\KitchenToggleButtonAttributes.xaml" />
+    <None Remove="res\Button\UtilityBasicButtonAttributes.xaml" />
+    <None Remove="res\Button\UtilityOvalButtonAttributes.xaml" />
+    <None Remove="res\Button\UtilityServiceButtonAttributes.xaml" />
+    <None Remove="res\Button\UtilityToggleButtonAttributes.xaml" />
     <None Remove="res\CheckBox\FamilyCheckBoxAttributes.xaml" />
     <None Remove="res\CheckBox\FoodCheckBoxAttributes.xaml" />
     <None Remove="res\CheckBox\KitchenCheckBoxAttributes.xaml" />
@@ -75,6 +91,54 @@
 
   <ItemGroup>
     <EmbeddedResource Include="res\AppStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FamilyBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FamilyOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FamilyServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FamilyToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FoodBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FoodOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FoodServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\FoodToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\KitchenBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\KitchenOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\KitchenServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\KitchenToggleButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\UtilityBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\UtilityOvalButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\UtilityServiceButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Button\UtilityToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\CheckBox\FamilyCheckBoxAttributes.xaml">
@@ -138,52 +202,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="res\Button\FamilyBasicButtonAttributes.xaml">
+    <None Update="res\Popup\DAPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Button\FamilyOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FamilyServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FamilyToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FoodBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FoodOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FoodServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\FoodToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\KitchenBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\KitchenOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\KitchenServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\KitchenToggleButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\UtilityBasicButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\UtilityOvalButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\UtilityServiceButtonAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Button\UtilityToggleButtonAttributes.xaml">
+    <None Update="res\Popup\PopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
