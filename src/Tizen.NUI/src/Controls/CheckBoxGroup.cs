@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Tizen.NUI.Controls
 {
-
     /// <summary>
     /// The CheckboxGroup class is used to group together a set of CheckBox control
     /// </summary>
@@ -120,5 +119,4 @@ namespace Tizen.NUI.Controls
             }
         }
     }
-
 }

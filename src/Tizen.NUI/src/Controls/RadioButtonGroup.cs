@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Tizen.NUI.Controls
 {
-
     /// <summary>
     /// The RadioButtonGroup class is used to group together a set of RadioButton control
     /// It enables the user to select exclusively single radio button of group.

@@ -70,6 +70,7 @@
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
+    <None Remove="res\Popup\PopupAttributes.xaml" />
     <None Remove="res\RadioButton\FamilyRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
@@ -165,6 +166,9 @@
     <EmbeddedResource Include="res\FoodTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Popup\PopupAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -203,9 +207,6 @@
 
   <ItemGroup>
     <None Update="res\Popup\DAPopupAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="res\Popup\PopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>

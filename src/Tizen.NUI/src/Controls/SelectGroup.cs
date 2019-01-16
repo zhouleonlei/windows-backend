@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Tizen.NUI.Controls
 {
-
     /// <summary>
     /// SelectionGroup is the base class of CheckBoxGroup and RadioButtonGroup.
     /// It defines a group that is set of selections and enables the user to choose one or multiple selection.
@@ -13,14 +12,11 @@ namespace Tizen.NUI.Controls
     /// </code>
     public abstract class SelectGroup
     {
-        /// <summary>
-        /// Selection group event arguments
-        /// </summary>
-        public class SelectGroupEventArgs : EventArgs
-        {
-            /// <summary>The index of selected item</summary>
-            public int SelectedIndex;
-        }
+        /// <summary> Selection group composed of items </summary>
+        protected List<SelectButton> itemGroup;
+        /// <summary> Selected item index</summary>
+        protected int selectedIndex;
+        private EventHandler<SelectGroupEventArgs> selectionGroupHandlers = null;
 
         /// <summary>
         /// Get the number of items in the SelectionGroup.
@@ -138,10 +134,13 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        /// <summary> Selection group composed of items </summary>
-        protected List<SelectButton> itemGroup;
-        /// <summary> Selected item index</summary>
-        protected int selectedIndex;
-        private EventHandler<SelectGroupEventArgs> selectionGroupHandlers = null;
+        /// <summary>
+        /// Selection group event arguments
+        /// </summary>
+        public class SelectGroupEventArgs : EventArgs
+        {
+            /// <summary>The index of selected item</summary>
+            public int SelectedIndex;
+        }
     }
 }

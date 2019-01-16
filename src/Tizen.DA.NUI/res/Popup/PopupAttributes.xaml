@@ -1,0 +1,31 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <PopupAttributes x:Name="PopupAttributes" MinimumSize="1032, 184" ParentOrigin="Center" PivotPoint="Center"
+                     PositionUsesPivotPoint="true" ButtonStyle="UtilityBasicButton" ShadowOffset="24, 24, 24, 24"
+                     ButtonHeight="132">
+        <PopupAttributes.ShadowImageAttributes>
+            <ImageAttributes ParentOrigin="Center"
+                             PivotPoint="Center"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 105, 105" 
+                             ResourceURL ="*DemoRes*/images/FH3/11. Popup/popup_background_shadow.png"/>
+        </PopupAttributes.ShadowImageAttributes>
+        <PopupAttributes.BackgroundImageAttributes>
+            <ImageAttributes ParentOrigin="Center"
+                             PivotPoint="Center"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 81, 81" 
+                             ResourceURL ="*DemoRes*/images/FH3/11. Popup/popup_background.png"/>
+        </PopupAttributes.BackgroundImageAttributes>
+        <PopupAttributes.TitleTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="25"
+                            TextColor="Black"
+                            HorizontalAlignment="Begin"
+                            VerticalAlignment="Center"
+                            Position2D="64, 52"/>
+        </PopupAttributes.TitleTextAttributes>
+    </PopupAttributes>
+</AttributesContainer>
