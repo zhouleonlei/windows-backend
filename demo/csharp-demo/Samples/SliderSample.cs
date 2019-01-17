@@ -8,8 +8,8 @@ namespace Tizen.NUI.Examples
     {
         private TextLabel guideText;
         private TextLabel inforText;
-        private Slider[] slider_sr;
-        private DA.NUI.Controls.Slider[] slider_da;
+        //private Slider[] slider_sr;
+        private Slider[] slider_da;
         private const int MIN_VALUE = 0;
         private const int MAX_VALUE = 100;
         private const int SR_COUNT = 2;
@@ -30,7 +30,7 @@ namespace Tizen.NUI.Examples
         {
             CreateGuideText();
             CreateInforText();
-            CreateSR();
+            //CreateSR();
             CreateDA();
             Window.Instance.KeyEvent += OnWindowsKeyEvent;
         }
@@ -66,53 +66,53 @@ namespace Tizen.NUI.Examples
             Window.Instance.Add(inforText);
         }
 
-        private void CreateSR()
-        {
-            if (slider_sr == null)
-            {
-                slider_sr = new Slider[SR_COUNT];
-            }
-            slider_sr[0] = CreateSR("DefaultSlider", 50, 300, 1000, 50, 10, Slider.DirectionType.Horizontal);
-            slider_sr[0].ThumbImageURL = "*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png";
-            slider_sr[0].LowIndicatorSize = new Size2D(42, 42);
-            slider_sr[0].LowIndicatorImageURL = "*DemoRes*/images/FH3/9. Controller/picker_spin_btn_back.png";
-            slider_sr[0].HighIndicatorSize = new Size2D(42, 42);
-            slider_sr[0].HighIndicatorImageURL = "*DemoRes*/images/FH3/9. Controller/picker_spin_btn_next.png";
+        //private void CreateSR()
+        //{
+        //    if (slider_sr == null)
+        //    {
+        //        slider_sr = new Slider[SR_COUNT];
+        //    }
+        //    slider_sr[0] = CreateSR("Default", 50, 300, 1000, 50, 10, Slider.DirectionType.Horizontal);
+        //    slider_sr[0].ThumbImageURL = "*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png";
+        //    slider_sr[0].LowIndicatorSize = new Size2D(42, 42);
+        //    slider_sr[0].LowIndicatorImageURL = "*DemoRes*/images/FH3/9. Controller/picker_spin_btn_back.png";
+        //    slider_sr[0].HighIndicatorSize = new Size2D(42, 42);
+        //    slider_sr[0].HighIndicatorImageURL = "*DemoRes*/images/FH3/9. Controller/picker_spin_btn_next.png";
 
-            slider_sr[1] = CreateSR("DefaultSlider", 1100, 50, 50, 1000, 10, Slider.DirectionType.Vertical);
-            slider_sr[1].ThumbImageURL = "*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png";
-            slider_sr[1].LowIndicatorSize = new Size2D(42, 42);
-            slider_sr[1].LowIndicatorImageURL = "*DemoRes*/images/FH3/8. SIP/support_ic_down.png";
-            slider_sr[1].HighIndicatorSize = new Size2D(42, 42);
-            slider_sr[1].HighIndicatorImageURL = "*DemoRes*/images/FH3/8. SIP/support_ic_up.png";
+        //    slider_sr[1] = CreateSR("DefaultSlider", 1100, 50, 50, 1000, 10, Slider.DirectionType.Vertical);
+        //    slider_sr[1].ThumbImageURL = "*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png";
+        //    slider_sr[1].LowIndicatorSize = new Size2D(42, 42);
+        //    slider_sr[1].LowIndicatorImageURL = "*DemoRes*/images/FH3/8. SIP/support_ic_down.png";
+        //    slider_sr[1].HighIndicatorSize = new Size2D(42, 42);
+        //    slider_sr[1].HighIndicatorImageURL = "*DemoRes*/images/FH3/8. SIP/support_ic_up.png";
 
-            slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
-            inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
-        }
+        //    slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
+        //    inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
+        //}
 
-        private Tizen.NUI.Controls.Slider CreateSR(string style, int posX, int posY, int w, int h, int curValue, Slider.DirectionType dir)
-        {
-            Tizen.NUI.Controls.Slider source = new Slider(style);
-            source.Name = style;
-            source.Direction = dir;
-            Window.Instance.Add(source);
-            source.Focusable = true;
-            source.MinValue = MIN_VALUE;
-            source.MaxValue = MAX_VALUE;
-            source.StateChangedEvent += OnStateChanged;
-            source.ValueChangedEvent += OnValueChanged;
+        //private Tizen.NUI.Controls.Slider CreateSR(string style, int posX, int posY, int w, int h, int curValue, Slider.DirectionType dir)
+        //{
+        //    Tizen.NUI.Controls.Slider source = new Slider(style);
+        //    source.Name = style;
+        //    source.Direction = dir;
+        //    Window.Instance.Add(source);
+        //    source.Focusable = true;
+        //    source.MinValue = MIN_VALUE;
+        //    source.MaxValue = MAX_VALUE;
+        //    source.StateChangedEvent += OnStateChanged;
+        //    source.ValueChangedEvent += OnValueChanged;
 
-            source.Position2D = new Position2D(posX, posY);
-            source.Size2D = new Size2D(w, h);
-            source.CurrentValue = curValue;
-            return source;
-        }
+        //    source.Position2D = new Position2D(posX, posY);
+        //    source.Size2D = new Size2D(w, h);
+        //    source.CurrentValue = curValue;
+        //    return source;
+        //}
 
         private void CreateDA()
         {
             if (slider_da == null)
             {
-                slider_da = new DA.NUI.Controls.Slider[DA_COUNT];
+                slider_da = new Slider[DA_COUNT];
             }
 
             //
@@ -133,44 +133,44 @@ namespace Tizen.NUI.Examples
 
             //
             slider_da[8] = CreateDA(styleName[4], 50, 550, 1000, 50, 60, Slider.DirectionType.Horizontal);
-            slider_da[8].LowIndicatorTextStr = "SubText";
+            slider_da[8].LowIndicatorTextContent = "SubText";
             slider_da[8].LowIndicatorSize = new Size2D(100, 40);
           
             slider_da[9] = CreateDA(styleName[4], 1400, 50, 50, 1000, 60, Slider.DirectionType.Vertical);
-            slider_da[9].LowIndicatorTextStr = "SubText";
+            slider_da[9].LowIndicatorTextContent = "SubText";
             slider_da[9].LowIndicatorSize = new Size2D(100, 40);
 
             //
             slider_da[10] = CreateDA(styleName[5], 50, 600, 1000, 50, 70, Slider.DirectionType.Horizontal);
-            slider_da[10].LowIndicatorTextStr = "SubText";
+            slider_da[10].LowIndicatorTextContent = "SubText";
             slider_da[10].LowIndicatorSize = new Size2D(100, 40);
 
             slider_da[11] = CreateDA(styleName[5], 1500, 50, 50, 1000, 70, Slider.DirectionType.Vertical);
-            slider_da[11].LowIndicatorTextStr = "SubText";
+            slider_da[11].LowIndicatorTextContent = "SubText";
             slider_da[11].LowIndicatorSize = new Size2D(100, 40);
 
             //
             slider_da[12] = CreateDA(styleName[6], 50, 650, 1000, 50, 80, Slider.DirectionType.Horizontal);
-            slider_da[12].LowIndicatorTextStr = "SubText";
+            slider_da[12].LowIndicatorTextContent = "SubText";
             slider_da[12].LowIndicatorSize = new Size2D(100, 40);
 
             slider_da[13] = CreateDA(styleName[6], 1600, 50, 50, 1000, 80, Slider.DirectionType.Vertical);
-            slider_da[13].LowIndicatorTextStr = "SubText";
+            slider_da[13].LowIndicatorTextContent = "SubText";
             slider_da[13].LowIndicatorSize = new Size2D(100, 40);
 
             //
             slider_da[14] = CreateDA(styleName[7], 50, 700, 1000, 50, 90, Slider.DirectionType.Horizontal);
-            slider_da[14].LowIndicatorTextStr = "SubText";
+            slider_da[14].LowIndicatorTextContent = "SubText";
             slider_da[14].LowIndicatorSize = new Size2D(100, 40);
 
             slider_da[15] = CreateDA(styleName[7], 1700, 50, 50, 1000, 90, Slider.DirectionType.Vertical);
-            slider_da[15].LowIndicatorTextStr = "SubText";
+            slider_da[15].LowIndicatorTextContent = "SubText";
             slider_da[15].LowIndicatorSize = new Size2D(100, 40);
         }
 
-        private Tizen.DA.NUI.Controls.Slider CreateDA(string style, int posX, int posY, int w, int h, int curValue, Slider.DirectionType dir)
+        private Slider CreateDA(string style, int posX, int posY, int w, int h, int curValue, Slider.DirectionType dir)
         {
-            Tizen.DA.NUI.Controls.Slider source = new DA.NUI.Controls.Slider(style);
+            Slider source = new Slider(style);
             source.Name = style;
             source.Direction = dir;
             Window.Instance.Add(source);
@@ -194,15 +194,15 @@ namespace Tizen.NUI.Examples
                 {
                     if (index < SR_COUNT)
                     {
-                        if (slider_sr[index].CurrentValue > slider_sr[index].MinValue)
-                        {
-                            slider_sr[index].CurrentValue--;
-                        }
-                        else
-                        {
-                            slider_sr[index].CurrentValue = slider_sr[index].MaxValue;
-                        }
-                        inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
+                        //if (slider_sr[index].CurrentValue > slider_sr[index].MinValue)
+                        //{
+                        //    slider_sr[index].CurrentValue--;
+                        //}
+                        //else
+                        //{
+                        //    slider_sr[index].CurrentValue = slider_sr[index].MaxValue;
+                        //}
+                        //inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
                     }
                     else
                     {
@@ -221,15 +221,15 @@ namespace Tizen.NUI.Examples
                 {
                     if (index < SR_COUNT)
                     {
-                        if (slider_sr[index].CurrentValue < slider_sr[index].MaxValue)
-                        {
-                            slider_sr[index].CurrentValue++;
-                        }
-                        else
-                        {
-                            slider_sr[index].CurrentValue = slider_sr[index].MinValue;
-                        }
-                        inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
+                        //if (slider_sr[index].CurrentValue < slider_sr[index].MaxValue)
+                        //{
+                        //    slider_sr[index].CurrentValue++;
+                        //}
+                        //else
+                        //{
+                        //    slider_sr[index].CurrentValue = slider_sr[index].MinValue;
+                        //}
+                        //inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
                     }
                     else
                     {
@@ -248,7 +248,7 @@ namespace Tizen.NUI.Examples
                 {
                     if (index < SR_COUNT)
                     {
-                        slider_sr[index].BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0);
+                        //slider_sr[index].BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0);
                     }
                     else
                     {
@@ -266,8 +266,8 @@ namespace Tizen.NUI.Examples
 
                     if (index < SR_COUNT)
                     {
-                        slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
-                        inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
+                        //slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
+                        //inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
                     }
                     else
                     {
@@ -279,7 +279,7 @@ namespace Tizen.NUI.Examples
                 {
                     if (index < SR_COUNT)
                     {
-                        slider_sr[index].BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0);
+                        //slider_sr[index].BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0);
                     }
                     else
                     {
@@ -297,8 +297,8 @@ namespace Tizen.NUI.Examples
 
                     if (index < SR_COUNT)
                     {
-                        slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
-                        inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
+                        //slider_sr[index].BackgroundColor = new Color(0, 0.8f, 0, 0.3f);
+                        //inforText.Text = "name = " + slider_sr[index].Name + ", currentValue = " + slider_sr[index].CurrentValue;
                     }
                     else
                     {
@@ -329,28 +329,28 @@ namespace Tizen.NUI.Examples
                 inforText = null;
             }
 
-            DestroySR();
+            //DestroySR();
             DestroyDA();
         }
 
-        private void DestroySR()
-        {
-            if (slider_sr != null)
-            {
-                for (int i = 0; i < SR_COUNT; ++i)
-                {
-                    if (slider_sr[i] != null)
-                    {
-                        slider_sr[i].StateChangedEvent -= OnStateChanged;
-                        slider_sr[i].ValueChangedEvent -= OnValueChanged;
-                        Window.Instance.Remove(slider_sr[i]);
-                        slider_sr[i].Dispose();
-                        slider_sr[i] = null;
-                    }
-                }
-                slider_sr = null;
-            }
-        }
+        //private void DestroySR()
+        //{
+        //    if (slider_sr != null)
+        //    {
+        //        for (int i = 0; i < SR_COUNT; ++i)
+        //        {
+        //            if (slider_sr[i] != null)
+        //            {
+        //                slider_sr[i].StateChangedEvent -= OnStateChanged;
+        //                slider_sr[i].ValueChangedEvent -= OnValueChanged;
+        //                Window.Instance.Remove(slider_sr[i]);
+        //                slider_sr[i].Dispose();
+        //                slider_sr[i] = null;
+        //            }
+        //        }
+        //        slider_sr = null;
+        //    }
+        //}
 
         private void DestroyDA()
         {
@@ -382,9 +382,9 @@ namespace Tizen.NUI.Examples
                     inforText.Text = "name = " + slider.Name + ", currentValue = " + args.CurrentValue;
                 }
             }
-            else if (sender is Tizen.DA.NUI.Controls.Slider)
+            else if (sender is Slider)
             {
-                Tizen.DA.NUI.Controls.Slider slider = sender as Tizen.DA.NUI.Controls.Slider;
+                Slider slider = sender as Slider;
                 if (slider != null)
                 {
                     inforText.Text = "name = " + slider.Name + ", currentValue = " + args.CurrentValue;

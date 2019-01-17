@@ -1,6 +1,7 @@
 ﻿using Tizen.NUI.Binding;
+using Tizen.NUI.Xaml;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.SliderAttributes.xaml", "SliderAttributes.xaml", typeof(Tizen.NUI.Controls.SliderAttributes))]
+//[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.SliderAttributes.xaml", "SliderAttributes.xaml", typeof(Tizen.NUI.Controls.SliderAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class SliderAttributes : ViewAttributes
@@ -16,6 +17,53 @@ namespace Tizen.NUI.Controls
         private uint? trackThickness = null;
         private uint? spaceBetweenTrackAndIndicator = null;
         private Tizen.NUI.Controls.Slider.IndicatorType indicatorType = Slider.IndicatorType.None;
+
+        public SliderAttributes() : base() { }
+
+        public SliderAttributes(SliderAttributes attrs) : base(attrs)
+        {
+            if (attrs.bgTrackAttrs != null)
+            {
+                bgTrackAttrs = attrs.bgTrackAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.slidedTrackAttrs != null)
+            {
+                slidedTrackAttrs = attrs.slidedTrackAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.thumbBgAttrs != null)
+            {
+                thumbBgAttrs = attrs.thumbBgAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.thumbAttrs != null)
+            {
+                thumbAttrs = attrs.thumbAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.lowIndicatorImageAttrs != null)
+            {
+                lowIndicatorImageAttrs = attrs.lowIndicatorImageAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.highIndicatorImageAttrs != null)
+            {
+                highIndicatorImageAttrs = attrs.highIndicatorImageAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.lowIndicatorTextAttrs != null)
+            {
+                lowIndicatorTextAttrs = attrs.lowIndicatorTextAttrs.Clone() as TextAttributes;
+            }
+            if (attrs.highIndicatorTextAttrs != null)
+            {
+                highIndicatorTextAttrs = attrs.highIndicatorTextAttrs.Clone() as TextAttributes;
+            }
+            if (attrs.trackThickness != null)
+            {
+                trackThickness = attrs.trackThickness;
+            }
+            if (attrs.spaceBetweenTrackAndIndicator != null)
+            {
+                spaceBetweenTrackAndIndicator = attrs.spaceBetweenTrackAndIndicator;
+            }
+            indicatorType = attrs.indicatorType;
+        }
 
         public static readonly BindableProperty BgTrackAttributesProperty = 
             BindableProperty.Create("BgTrackAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
@@ -193,25 +241,6 @@ namespace Tizen.NUI.Controls
                 return attrs.indicatorType;
             });
 
-        public static new readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(SliderAttributes), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (SliderAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.state = (States)newValue;
-                if (attrs.thumbAttrs != null)
-                {
-                    attrs.thumbBgAttrs.State = attrs.state;
-                    attrs.thumbAttrs.State = attrs.state;
-                }
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (SliderAttributes)bindable;
-            return attrs.state;
-        });
-
         public ImageAttributes BgTrackAttributes
         {
             get { return (ImageAttributes)GetValue(BgTrackAttributesProperty); }
@@ -278,16 +307,9 @@ namespace Tizen.NUI.Controls
             set { SetValue(IndicatorTypeProperty, value); }
         }
 
-        public override States State
+        public override Attributes Clone()
         {
-            get
-            {
-                return (States)GetValue(StateProperty);
-            }
-            set
-            {
-                SetValue(StateProperty, value);
-            }
+            return new SliderAttributes(this);
         }
     }
 }

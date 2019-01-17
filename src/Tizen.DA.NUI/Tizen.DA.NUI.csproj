@@ -164,12 +164,6 @@
     <EmbeddedResource Include="res\PaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\FamilyTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\FoodDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\FoodTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\KitchenDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\KitchenTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -209,8 +203,14 @@
     <EmbeddedResource Include="res\Switch\UtilitySwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\UtilityDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\UtilityTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\UtilityDefaultSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\UtilityTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\FamilyDefaultSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\FamilyTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\FoodDefaultSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\FoodTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\KitchenDefaultSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\KitchenTextSliderAttributes.xaml" />
   </ItemGroup>
 
   <ItemGroup>

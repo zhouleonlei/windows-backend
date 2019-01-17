@@ -17,10 +17,8 @@
     <Compile Remove="src\Attributes\FontAttributes.cs" />
     <Compile Remove="src\Attributes\PaginationAttributes.cs" />
     <Compile Remove="src\Attributes\ScrollbarAttributes.cs" />
-    <Compile Remove="src\Attributes\SliderAttributes.cs" />
     <Compile Remove="src\Controls\Pagination.cs" />
     <Compile Remove="src\Controls\Scrollbar.cs" />
-    <Compile Remove="src\Controls\Slider.cs" />
   </ItemGroup>
 
   <ItemGroup>

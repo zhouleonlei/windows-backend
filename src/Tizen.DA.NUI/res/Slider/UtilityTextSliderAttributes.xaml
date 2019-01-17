@@ -1,0 +1,55 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+
+        <StringSelector x:Key="DAUtilityTextSliderThumbImageResource"
+                        Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png"
+                        Pressed ="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_press.png"
+                        />
+        <StringSelector x:Key="DAUtilityTextSliderThumbBgImageResource" 
+                       Normal=""
+                       Pressed="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_effect.png"
+                       />
+
+    </AttributesContainer.XamlResources>
+
+    <SliderAttributes 
+        x:Name="SliderAttributes"
+        TrackThickness="4"
+        SpaceBetweenTrackAndIndicator="48"
+        IndicatorType="Text">
+
+        <SliderAttributes.BgTrackAttributes>
+            <ImageAttributes BackgroundColor="0, 0, 0, 0.1"/>
+        </SliderAttributes.BgTrackAttributes>
+
+        <SliderAttributes.SlidedTrackAttributes>
+            <ImageAttributes BackgroundColor="0.055, 0.631, 0.902, 1"/>
+        </SliderAttributes.SlidedTrackAttributes>
+
+        <SliderAttributes.ThumbAttributes>
+            <ImageAttributes 
+                ResourceURL="{StaticResource DAUtilityTextSliderThumbImageResource}">
+            </ImageAttributes>
+        </SliderAttributes.ThumbAttributes>
+
+        <SliderAttributes.ThumbBgAttributes>
+            <ImageAttributes 
+                Size2D="60,60"
+                ResourceURL="{StaticResource DAUtilityTextSliderThumbBgImageResource}">
+            </ImageAttributes>
+        </SliderAttributes.ThumbBgAttributes>
+
+        <SliderAttributes.LowIndicatorTextAttributes>
+            <TextAttributes 
+                HorizontalAlignment="Begin" 
+                VerticalAlignment="Center" 
+                PointSize="18"
+                FontFamily="SamsungOne 400"
+                TextColor="0, 0, 0, 0.75"/>
+        </SliderAttributes.LowIndicatorTextAttributes>
+
+    </SliderAttributes>
+
+</AttributesContainer>
