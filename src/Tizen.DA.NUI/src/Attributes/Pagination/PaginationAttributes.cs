@@ -4,7 +4,6 @@ using System.Text;
 using Tizen.NUI.Controls;
 using Tizen.NUI.Binding;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.DA.NUI.res.PaginationAttributes.xaml", "PaginationAttributes.xaml", typeof(Tizen.DA.NUI.Controls.PaginationAttributes))]
 namespace Tizen.DA.NUI.Controls
 {
     internal class PaginationAttributes : Tizen.NUI.Controls.PaginationAttributes
@@ -39,6 +38,19 @@ namespace Tizen.DA.NUI.Controls
         private ImageAttributes returnArrowAtts;
         private ImageAttributes nextArrowAttrs;
 
+        public PaginationAttributes() : base() { }
+        public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
+        {
+            if (attributes.returnArrowAtts != null)
+            {
+                returnArrowAtts = attributes.returnArrowAtts.Clone() as ImageAttributes;
+            }
+            if (attributes.nextArrowAttrs != null)
+            {
+                nextArrowAttrs = attributes.nextArrowAttrs.Clone() as ImageAttributes;
+            }
+        }
+
         public ImageAttributes ReturnArrowAttributes
         {
             get
@@ -61,6 +73,11 @@ namespace Tizen.DA.NUI.Controls
             {
                 SetValue(NextArrowAttributesProperty, value);
             }
+        }
+
+        public override Attributes Clone()
+        {
+            return new PaginationAttributes(this);
         }
     }
 }

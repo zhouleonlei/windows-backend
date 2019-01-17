@@ -160,7 +160,7 @@ namespace Tizen.DA.NUI
             Button.RegisterStyle("FamilyOvalButton", typeof(FamilyOvalButtonAttributes));
             Button.RegisterStyle("KitchenOvalButton", typeof(KitchenOvalButtonAttributes));
 
-            //         Controls.Pagination.RegisterStyle("BasicPagination", typeof(Controls.PaginationAttributes));
+            Controls.Pagination.RegisterStyle("BasicPagination", typeof(BasicPaginationAttributes));
 
             CheckBox.RegisterStyle("UtilityCheckBox", typeof(UtilityCheckBoxAttributes));
             CheckBox.RegisterStyle("FoodCheckBox", typeof(FoodCheckBoxAttributes));

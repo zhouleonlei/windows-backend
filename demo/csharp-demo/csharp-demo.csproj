@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="IExamplecs.cs" />
     <Compile Include="SampleMain.cs" />
+    <Compile Include="Samples\PaginationSample.cs" />
     <Compile Include="Samples\PopupSample.cs" />
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Program.cs" />

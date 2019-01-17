@@ -65,6 +65,24 @@ namespace Tizen.NUI.Controls
         private string indicatorSelectURL;
         private int? indicatorSpacing;
 
+        public PaginationAttributes() : base() { }
+        public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
+        {
+            if (attributes.indicatorSize != null)
+            {
+                indicatorSize = new Size2D(attributes.indicatorSize.Width, attributes.indicatorSize.Height);
+            }
+            if (attributes.indicatorBackgroundURL != null)
+            {
+                indicatorBackgroundURL = attributes.indicatorBackgroundURL.Clone() as string;
+            }
+            if (attributes.indicatorSelectURL != null)
+            {
+                indicatorSelectURL = attributes.indicatorSelectURL.Clone() as string;
+            }
+            indicatorSpacing = attributes.indicatorSpacing;
+        }
+
         public Size2D IndicatorSize
         {
             get
@@ -112,5 +130,12 @@ namespace Tizen.NUI.Controls
                 SetValue(IndicatorSpacingProperty, value);
             }
         }
+
+
+        public override Attributes Clone()
+        {
+            return new PaginationAttributes(this);
+        }
+
     }
 }

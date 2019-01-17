@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="src\Controls\Pagination.cs" />
     <Compile Remove="src\Controls\Slider.cs" />
     <Compile Remove="src\StyleAttributes\DAScrollbarAttributes.cs" />
     <Compile Remove="src\StyleAttributes\FamilyDefaultSliderAttributes.cs" />
@@ -70,6 +69,7 @@
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
+    <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
     <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\FoodPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\KitchenPopupButtonAttributes.xaml" />
@@ -161,7 +161,7 @@
     <EmbeddedResource Include="res\FamilyBasicScrollbarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\PaginationAttributes.xaml">
+    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">
@@ -215,10 +215,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="src\Controls\" />
   </ItemGroup>
 
   <ItemGroup>

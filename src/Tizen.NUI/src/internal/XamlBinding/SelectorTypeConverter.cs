@@ -73,7 +73,7 @@ namespace Tizen.NUI.Binding
                 value = value.Trim();
                 BoolSelector selector = new BoolSelector();
 
-                selector.All = value.Trim() == "true" ? true : false;
+                selector.All = (value == "true" || value == "True") ? true : false;
                 return selector;
             }
 

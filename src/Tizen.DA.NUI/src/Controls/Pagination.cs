@@ -210,11 +210,11 @@ namespace Tizen.DA.NUI.Controls
                 int returnArrowWidth = 0, nextArrowWidth = 0;
                 if (paginationAttributes.ReturnArrowAttributes != null && paginationAttributes.ReturnArrowAttributes.Size2D != null)
                 {
-                    returnArrowWidth = paginationAttributes.ReturnArrowAttributes.Size2D.Width;
+                    returnArrowWidth = paginationAttributes.ReturnArrowAttributes.Size2D.All.Width;
                 }
                 if (paginationAttributes.NextArrowAttributes != null && paginationAttributes.NextArrowAttributes.Size2D != null)
                 {
-                    nextArrowWidth = paginationAttributes.NextArrowAttributes.Size2D.Width;
+                    nextArrowWidth = paginationAttributes.NextArrowAttributes.Size2D.All.Width;
                 }
                 int indicatorWidth = 0, indicatorHeight = 0;
                 int indicatorSpacing = 0;
