@@ -11,10 +11,11 @@ namespace Tizen.NUI.Controls
         private View contentView;
         private TextLabel titleText;
         private List<Button> buttonList;
+        private List<string> buttonTextList = new List<string>();
 
         private PopupAttributes popupAttributes;
         private int buttonCount = 0;
-        private string buttonStyle = null;
+        private string buttonStyle = "";
 
 
         //static constructor used to register internal style
@@ -42,6 +43,22 @@ namespace Tizen.NUI.Controls
                 if (titleText != null)
                 {
                     titleText.Text = value;
+                }
+            }
+        }
+
+        public string ButtonStyle
+        {
+            get
+            {
+                return buttonStyle;
+            }
+            set
+            {
+                if (buttonStyle != value)
+                {
+                    UpdateButton(buttonCount, value);
+                    buttonStyle = value;
                 }
             }
         }
@@ -76,7 +93,8 @@ namespace Tizen.NUI.Controls
             {
                 return;
             }
-            buttonList[index].Text = text;
+            buttonTextList[index] = text;
+            buttonList[index].Text = buttonTextList[index];
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -169,8 +187,7 @@ namespace Tizen.NUI.Controls
                 titleText.Size2D = new Size2D(w, h);
             }
 
-            UpdateButton(buttonCount, popupAttributes.ButtonStyle);
-            buttonStyle = popupAttributes.ButtonStyle;
+            UpdateButton(buttonCount, buttonStyle);
 
             w = Size2D.Width - titleText.Position2D.X * 2;
             h = Size2D.Height - titleText.Position2D.Y - titleText.Size2D.Height - popupAttributes.ButtonHeight;
@@ -190,8 +207,6 @@ namespace Tizen.NUI.Controls
 
             StateFocusableOnTouchMode = true;
             LeaveRequired = true;
-            //default settings
-            buttonStyle = popupAttributes.ButtonStyle;
 
             if (popupAttributes.ShadowImageAttributes != null)
             {
@@ -241,7 +256,7 @@ namespace Tizen.NUI.Controls
                 buttonList.Clear();
                 buttonList = null;
             }
-            if(count <= 0)
+            if(count <= 0 || style == "")
             {
                 return;
             }
@@ -257,6 +272,11 @@ namespace Tizen.NUI.Controls
                 btn.PivotPoint = Tizen.NUI.PivotPoint.BottomLeft;
                 btn.PositionUsesPivotPoint = true;
                 btn.Position2D = new Position2D(pos, 0);
+                if(i >= buttonTextList.Count)
+                {
+                    buttonTextList.Add("");
+                }
+                btn.Text = buttonTextList[i];
                 btn.ClickEvent += ButtonClickEvent;
                 pos += buttonWidth;
                 this.Add(btn);

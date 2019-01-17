@@ -1,0 +1,39 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <ColorSelector x:Key="DAFoodPopupButtonBackgroundColor" 
+                       Normal="#ffffffff"
+                       Pressed="0, 0, 0, 0.1"
+                       Selected="#ffffffff"
+                       />
+    </AttributesContainer.XamlResources>
+
+    <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
+
+        <ButtonAttributes.BackgroundImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/3. Button/rectangle_btn_normal.png" 
+                Border="5, 5, 5, 5" 
+                />
+        </ButtonAttributes.BackgroundImageAttributes>
+
+        <ButtonAttributes.OverlayImageAttributes>
+            <ImageAttributes 
+                ResourceURL="" 
+                BackgroundColor="{StaticResource DAFoodPopupButtonBackgroundColor}"
+                />
+        </ButtonAttributes.OverlayImageAttributes>
+
+        <ButtonAttributes.TextAttributes>
+            <TextAttributes 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                WidthResizePolicy="FillToParent" 
+                HeightResizePolicy="FillToParent"
+                PointSize="20"
+                TextColor="#ffec7510"/>
+        </ButtonAttributes.TextAttributes>
+    </ButtonAttributes>
+</AttributesContainer>

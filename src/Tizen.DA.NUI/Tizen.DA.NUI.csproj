@@ -70,7 +70,11 @@
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
+    <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
+    <None Remove="res\Popup\FoodPopupButtonAttributes.xaml" />
+    <None Remove="res\Popup\KitchenPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\PopupAttributes.xaml" />
+    <None Remove="res\Popup\UtilityPopupButtonAttributes.xaml" />
     <None Remove="res\RadioButton\FamilyRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
@@ -166,7 +170,19 @@
     <EmbeddedResource Include="res\FoodTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\KitchenTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Popup\FoodPopupButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Popup\KitchenPopupButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\PopupAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Popup\UtilityPopupButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonAttributes.xaml">
@@ -207,6 +223,18 @@
 
   <ItemGroup>
     <None Update="res\Popup\DAPopupAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Popup\FamilyBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Popup\FoodBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Popup\KitchenBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Popup\UtilityBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>

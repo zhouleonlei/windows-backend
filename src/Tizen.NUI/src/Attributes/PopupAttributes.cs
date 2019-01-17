@@ -47,20 +47,6 @@ namespace Tizen.NUI.Controls
             return attrs.titleTextAttributes;
         });
 
-        public static readonly BindableProperty ButtonStyleProperty = BindableProperty.Create("ButtonStyle", typeof(string), typeof(PopupAttributes), default(string), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PopupAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.buttonStyle = (string)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PopupAttributes)bindable;
-            return attrs.buttonStyle;
-        });
-
         public static readonly BindableProperty ShadowOffsetProperty = BindableProperty.Create("ShadowOffset", typeof(Vector4), typeof(PopupAttributes), default(Vector4), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PopupAttributes)bindable;
@@ -92,7 +78,6 @@ namespace Tizen.NUI.Controls
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
         private TextAttributes titleTextAttributes;
-        private string buttonStyle;
         private Vector4 shadowOffset;
         private int buttonHeight;
 
@@ -114,7 +99,6 @@ namespace Tizen.NUI.Controls
                 titleTextAttributes = attributes.titleTextAttributes.Clone() as TextAttributes;
             }
             shadowOffset = new Vector4(attributes.shadowOffset.W, attributes.shadowOffset.X, attributes.shadowOffset.Y, attributes.shadowOffset.Z);
-            buttonStyle = attributes.buttonStyle;
             buttonHeight = attributes.buttonHeight;
         }
 
@@ -151,18 +135,6 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(TitleTextAttributesProperty, value);
-            }
-        }
-
-        public string ButtonStyle
-        {
-            get
-            {
-                return (string)GetValue(ButtonStyleProperty);
-            }
-            set
-            {
-                SetValue(ButtonStyleProperty, value);
             }
         }
 

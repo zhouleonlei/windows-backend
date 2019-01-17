@@ -22,8 +22,17 @@ namespace Tizen.NUI.Examples
             "",
         };
 
+        private static string[] buttonStyles = new string[]
+        {
+            "UtilityPopupButton",
+            "FamilyPopupButton",
+            "FoodPopupButton",
+            "KitchenPopupButton",
+        };
+
         private TableView root;
         private TextLabel contentText = null;
+        private int index = 0;
         public void Activate()
         {
             Window window = Window.Instance;
@@ -68,6 +77,7 @@ namespace Tizen.NUI.Examples
                 for (uint i = 1; i < rowNum; i++)
                 {
                     Popup popup = new Popup("DAPopup");
+                    popup.ButtonStyle = buttonStyles[index];
                     popup.Size2D = new Size2D(1032, 500);
                     popup.TitleText = "Popup Title";
                     popup.ButtonCount = 2;
@@ -82,7 +92,7 @@ namespace Tizen.NUI.Examples
                         contentText.PointSize = 20;
                         contentText.HorizontalAlignment = HorizontalAlignment.Begin;
                         contentText.VerticalAlignment = VerticalAlignment.Center;
-                        contentText.Text = "Popup Description Text";
+                        contentText.Text = "Popup ButtonStyle is " + popup.ButtonStyle;
                     }
                     popup.ContentView.Add(contentText);
 
@@ -110,7 +120,10 @@ namespace Tizen.NUI.Examples
             Popup child = root.GetChildAt(new TableView.CellPosition(1, 1)) as Popup;
             if(child != null && e.ButtonIndex == 0)
             {
-                child.Hide();
+                index++;
+                index = index % buttonStyles.Length;
+                child.ButtonStyle = buttonStyles[index];
+                contentText.Text = "Popup ButtonStyle is " + child.ButtonStyle;
             }           
         }
 

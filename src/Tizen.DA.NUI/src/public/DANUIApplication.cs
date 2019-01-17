@@ -188,6 +188,10 @@ namespace Tizen.DA.NUI
             //         Controls.Slider.RegisterStyle("FamilyTextSlider", typeof(DA.NUI.Controls.FamilyTextSliderAttributes));
             //         Controls.Slider.RegisterStyle("KitchenTextSlider", typeof(DA.NUI.Controls.KitchenTextSliderAttributes));
             Popup.RegisterStyle("DAPopup", typeof(DAPopupAttributes));
+            Button.RegisterStyle("UtilityPopupButton", typeof(UtilityPopupButtonAttributes));
+            Button.RegisterStyle("FoodPopupButton", typeof(FoodPopupButtonAttributes));
+            Button.RegisterStyle("FamilyPopupButton", typeof(FamilyPopupButtonAttributes));
+            Button.RegisterStyle("KitchenPopupButton", typeof(KitchenPopupButtonAttributes));
         }
         private void CleanupComponent()
         {
