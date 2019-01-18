@@ -179,19 +179,22 @@ namespace Tizen.DA.NUI
 
             //         ScrollBar.RegisterStyle("FamilyBasicScrollbar", typeof(DA.NUI.Controls.DAScrollbarAttributes));
 
-            //Controls.Slider.RegisterStyle("UtilityDefaultSlider", typeof(DA.NUI.Controls.UtilityDefaultSliderAttributes));
-            //         Controls.Slider.RegisterStyle("FoodDefaultSlider", typeof(DA.NUI.Controls.FoodDefaultSliderAttributes));
-            //         Controls.Slider.RegisterStyle("FamilyDefaultSlider", typeof(DA.NUI.Controls.FamilyDefaultSliderAttributes));
-            //         Controls.Slider.RegisterStyle("KitchenDefaultSlider", typeof(DA.NUI.Controls.KitchenDefaultSliderAttributes));
-            //         Controls.Slider.RegisterStyle("UtilityTextSlider", typeof(DA.NUI.Controls.UtilityTextSliderAttributes));
-            //         Controls.Slider.RegisterStyle("FoodTextSlider", typeof(DA.NUI.Controls.FoodTextSliderAttributes));
-            //         Controls.Slider.RegisterStyle("FamilyTextSlider", typeof(DA.NUI.Controls.FamilyTextSliderAttributes));
-            //         Controls.Slider.RegisterStyle("KitchenTextSlider", typeof(DA.NUI.Controls.KitchenTextSliderAttributes));
             Popup.RegisterStyle("DAPopup", typeof(DAPopupAttributes));
             Button.RegisterStyle("UtilityPopupButton", typeof(UtilityPopupButtonAttributes));
             Button.RegisterStyle("FoodPopupButton", typeof(FoodPopupButtonAttributes));
             Button.RegisterStyle("FamilyPopupButton", typeof(FamilyPopupButtonAttributes));
             Button.RegisterStyle("KitchenPopupButton", typeof(KitchenPopupButtonAttributes));
+			
+			Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
+            Slider.RegisterStyle("FoodDefaultSlider", typeof(FoodDefaultSliderAttributes));
+            Slider.RegisterStyle("FamilyDefaultSlider", typeof(FamilyDefaultSliderAttributes));
+            Slider.RegisterStyle("KitchenDefaultSlider", typeof(KitchenDefaultSliderAttributes));
+            Slider.RegisterStyle("UtilityTextSlider", typeof(UtilityTextSliderAttributes));
+            Slider.RegisterStyle("FoodTextSlider", typeof(FoodTextSliderAttributes));
+            Slider.RegisterStyle("FamilyTextSlider", typeof(FamilyTextSliderAttributes));
+            Slider.RegisterStyle("KitchenTextSlider", typeof(KitchenTextSliderAttributes));
+
+            InputField.RegisterStyle("UtilityTextInputField", typeof(UtilityTextInputFieldAttributes));
         }
         private void CleanupComponent()
         {

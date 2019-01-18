@@ -211,6 +211,7 @@
     <EmbeddedResource Include="res\Slider\FoodTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\Slider\KitchenDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\Slider\KitchenTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityTextInputFieldAttributes.xaml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -218,6 +218,76 @@ namespace Tizen.NUI.Controls
                     text.Outline = new PropertyMap();
                 }
             }
+
+            TextField textField = view as TextField;
+            TextFieldAttributes textFieldAttrs = attrs as TextFieldAttributes;
+            if (textField != null && textFieldAttrs != null)
+            {
+                if (textFieldAttrs.Text?.GetValue(State) != null)
+                {
+                    textField.Text = textFieldAttrs.Text.GetValue(State);
+                }
+                if (textFieldAttrs.PlaceholderText?.GetValue(State) != null)
+                {
+                    textField.PlaceholderText = textFieldAttrs.PlaceholderText.GetValue(State);
+                }
+                if (textFieldAttrs.TranslatablePlaceholderText?.GetValue(State) != null)
+                {
+                    textField.TranslatablePlaceholderText = textFieldAttrs.TranslatablePlaceholderText.GetValue(State);
+                }
+                if (textFieldAttrs.HorizontalAlignment?.GetValue(State) != null)
+                {
+                    textField.HorizontalAlignment = textFieldAttrs.HorizontalAlignment.GetValue(State).Value;
+                }
+                if (textFieldAttrs.VerticalAlignment?.GetValue(State) != null)
+                {
+                    textField.VerticalAlignment = textFieldAttrs.VerticalAlignment.GetValue(State).Value;
+                }
+                if (textFieldAttrs.EnableMarkup?.GetValue(State) != null)
+                {
+                    textField.EnableMarkup = textFieldAttrs.EnableMarkup.GetValue(State).Value;
+                }
+                if (textFieldAttrs.TextColor?.GetValue(State) != null)
+                {
+                    textField.TextColor = textFieldAttrs.TextColor.GetValue(State);
+                }
+                if (textFieldAttrs.PlaceholderTextColor?.GetValue(State) != null)
+                {
+                    textField.TextColor = textFieldAttrs.PlaceholderTextColor.GetValue(State);
+                }
+                if (textFieldAttrs.PrimaryCursorColor?.GetValue(State) != null)
+                {
+                    textField.PrimaryCursorColor = textFieldAttrs.PrimaryCursorColor.GetValue(State);
+                }
+                if (textFieldAttrs.SecondaryCursorColor?.GetValue(State) != null)
+                {
+                    textField.SecondaryCursorColor = textFieldAttrs.SecondaryCursorColor.GetValue(State);
+                }
+                if (textFieldAttrs.FontFamily?.GetValue(State) != null)
+                {
+                    textField.FontFamily = textFieldAttrs.FontFamily.GetValue(State);
+                }
+                if (textFieldAttrs.PointSize?.GetValue(State) != null)
+                {
+                    textField.PointSize = textFieldAttrs.PointSize.GetValue(State).Value;
+                }
+                if (textFieldAttrs.EnableCursorBlink?.GetValue(State) != null)
+                {
+                    textField.EnableCursorBlink = textFieldAttrs.EnableCursorBlink.GetValue(State).Value;
+                }
+                if (textFieldAttrs.EnableSelection?.GetValue(State) != null)
+                {
+                    textField.EnableSelection = textFieldAttrs.EnableSelection.GetValue(State).Value;
+                }
+                if (textFieldAttrs.CursorWidth?.GetValue(State) != null)
+                {
+                    textField.CursorWidth = textFieldAttrs.CursorWidth.GetValue(State).Value;
+                }
+                if (textFieldAttrs.EnableEllipsis?.GetValue(State) != null)
+                {
+                    textField.Ellipsis = textFieldAttrs.EnableEllipsis.GetValue(State).Value;
+                }
+            }
         }
 
         protected override void Dispose(DisposeTypes type)

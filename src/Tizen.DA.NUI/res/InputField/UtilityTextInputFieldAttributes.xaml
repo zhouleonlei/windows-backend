@@ -1,0 +1,31 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <InputFieldAttributes 
+        x:Name="InputFieldAttributes"
+        Space="24"
+        SpaceBetweenTextFieldAndButton="56">
+
+        <InputFieldAttributes.BgImageViewAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/1. Action bar/search_bg.png"
+                Border="45, 45, 0, 0"/>
+        </InputFieldAttributes.BgImageViewAttributes>
+
+        <SliderAttributes.TextFieldViewAttributes>
+            <TextFieldAttributes 
+                TextColor="0, 0, 1.0, 1"
+                HorizontalAlignment="Begin"
+                VerticalAlignment="Center"
+                BackgroundColor="0, 1.0, 0, 0.3"/>
+        </SliderAttributes.TextFieldViewAttributes>
+
+        <InputFieldAttributes.CancelBtnAttributes>
+            <ImageAttributes
+                Size2D="56,56"
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/field_ic_cancel.png"/>
+        </InputFieldAttributes.CancelBtnAttributes>
+
+    </InputFieldAttributes>
+
+</AttributesContainer>
