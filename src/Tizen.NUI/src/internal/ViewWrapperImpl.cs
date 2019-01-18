@@ -387,7 +387,9 @@ namespace Tizen.NUI
 
         private bool DirectorOnTouch(global::System.IntPtr arg0)
         {
-            return OnTouch(new Touch(arg0, false));
+            //Temporary fix VisualView defect
+            //return OnTouch(new Touch(arg0, false));
+            return false;
         }
 
         private bool DirectorOnHover(global::System.IntPtr arg0)

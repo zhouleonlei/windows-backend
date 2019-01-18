@@ -6,7 +6,7 @@ using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.Controls
 {
-    public abstract class Control : View
+    public abstract class Control : VisualView
     {
         public new static readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(Attributes), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
         {
