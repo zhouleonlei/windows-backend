@@ -12,13 +12,17 @@
                 Border="45, 45, 0, 0"/>
         </InputFieldAttributes.BgImageViewAttributes>
 
-        <SliderAttributes.TextFieldViewAttributes>
+        <InputFieldAttributes.TextFieldViewAttributes>
             <TextFieldAttributes 
-                TextColor="0, 0, 1.0, 1"
+                TextColor="0, 0, 0, 1.0"
+                PlaceholderTextColor="0, 0, 0, 0.4"
                 HorizontalAlignment="Begin"
                 VerticalAlignment="Center"
+                PointSize="38"
+                FontFamily="SamsungOne 500"
+                CursorWidth="2"
                 BackgroundColor="0, 1.0, 0, 0.3"/>
-        </SliderAttributes.TextFieldViewAttributes>
+        </InputFieldAttributes.TextFieldViewAttributes>
 
         <InputFieldAttributes.CancelBtnAttributes>
             <ImageAttributes

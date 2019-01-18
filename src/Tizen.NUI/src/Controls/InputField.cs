@@ -15,6 +15,17 @@ namespace Tizen.NUI.Controls
 
         private string text = null;
         private string hintText = null;
+        private bool isPressed = false;
+
+        private EventHandler<CancelBtnClickArgs> cancelBtnClickHandler;
+
+        public enum ButtonClickState
+        {
+            /// <summary> Press down </summary>
+            PressDown,
+            /// <summary> Bounce up </summary>
+            BounceUp
+        }
 
         static InputField()
         {
@@ -29,6 +40,23 @@ namespace Tizen.NUI.Controls
         public InputField(string style) : base(style)
         {
             Initialize();
+        }
+
+        public event EventHandler<CancelBtnClickArgs> CancelBtnClickEvent
+        {
+            add
+            {
+                cancelBtnClickHandler += value;
+            }
+            remove
+            {
+                cancelBtnClickHandler -= value;
+            }
+        }
+
+        public class CancelBtnClickArgs : EventArgs
+        {
+            public ButtonClickState State;
         }
 
         /// <summary>
@@ -66,14 +94,16 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        protected override void OnFocusGained(object sender, EventArgs e)
-        {
-            base.OnFocusGained(sender, e);
-        }
-        protected override void OnFocusLost(object sender, EventArgs e)
-        {
-            base.OnFocusLost(sender, e);
-        }
+        //protected override void OnFocusGained(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine("<<<<<<<<<<<<<<<<, focus gained");
+        //    base.OnFocusGained(sender, e);
+        //}
+        //protected override void OnFocusLost(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine(">>>>>>>>>>>>>>>>, focus lost");
+        //    base.OnFocusLost(sender, e);
+        //}
 
         protected override Attributes GetAttributes()
         {
@@ -96,12 +126,17 @@ namespace Tizen.NUI.Controls
                 }
                 if (textField != null)
                 {
+                    textField.TouchEvent -= OnTextFieldTouchEvent;
+                    textField.FocusGained -= OnTextFieldFocusGained;
+                    textField.FocusLost -= OnTextFieldFocusLost;
+                    textField.TextChanged += OnTextFieldTextChanged;
                     this.Remove(textField);
                     textField.Dispose();
                     textField = null;
                 }
                 if (cancelView != null)
                 {
+                    cancelView.TouchEvent -= OnCancelBtnTouchEvent;
                     this.Remove(cancelView);
                     cancelView.Dispose();
                     cancelView = null;
@@ -157,6 +192,10 @@ namespace Tizen.NUI.Controls
                     PositionUsesPivotPoint = true
                 };
                 this.Add(textField);
+                textField.TouchEvent += OnTextFieldTouchEvent;
+                textField.FocusGained += OnTextFieldFocusGained;
+                textField.FocusLost += OnTextFieldFocusLost;
+                textField.TextChanged += OnTextFieldTextChanged;
             }
             if (inputFieldAttrs.CancelBtnAttributes != null && cancelView == null)
             {
@@ -169,22 +208,51 @@ namespace Tizen.NUI.Controls
                     PositionUsesPivotPoint = true
                 };
                 this.Add(cancelView);
+                cancelView.TouchEvent += OnCancelBtnTouchEvent;
             }
+            isPressed = false;
         }
         
         private void RelayoutComponents()
         {
             Size2D curSize = this.Size2D;
             int space = Space();
-            if (textField != null)
+            
+            int textLength = 0;
+            if (textField != null && textField.Text != null)
             {
-                textField.Size2D = new Size2D(curSize.Width - space * 2, curSize.Height);
-                textField.PositionX = space;
+                textLength = textField.Text.Length;
             }
-            if (cancelView != null)
+
+            if (!isPressed && textLength == 0)
             {
-                cancelView.PositionX = -space;
+                if (textField != null)
+                {
+                    textField.Size2D = new Size2D(curSize.Width - space * 2, curSize.Height);
+                    textField.PositionX = space;
+                }
+                if (cancelView != null)
+                {
+                    cancelView.PositionX = -space;
+                    cancelView.Hide();
+                }
             }
+            else
+            {
+                int spaceBetweenTextFieldAndButton = SpaceBetweenTextFieldAndButton();
+                int cancelBtnWidth = CancelButtonWidth();
+                if (textField != null)
+                {
+                    textField.Size2D = new Size2D(curSize.Width - space * 2 - spaceBetweenTextFieldAndButton - cancelBtnWidth, curSize.Height);
+                    textField.PositionX = space;
+                }
+                if (cancelView != null)
+                {
+                    cancelView.PositionX = -space;
+                    cancelView.Show();
+                }
+            }
+            
         }
 
         private int Space()
@@ -205,6 +273,71 @@ namespace Tizen.NUI.Controls
                 spaceBetweenTextFieldAndButton = inputFieldAttrs.SpaceBetweenTextFieldAndButton.Value;
             }
             return spaceBetweenTextFieldAndButton;
+        }
+
+        private int CancelButtonWidth()
+        {
+            int width = 0;
+            if (cancelView != null && cancelView.Size2D != null)
+            {
+                width = cancelView.Size2D.Width;
+            }
+            return width;
+        }
+
+        private bool OnTextFieldTouchEvent(object source, TouchEventArgs e)
+        {
+            PointStateType state = e.Touch.GetState(0);
+            //if (state == PointStateType.Down)
+            //{
+                
+            //}
+            //Console.WriteLine("-------, state = " + state);
+            return false;
+        }
+
+        private bool OnCancelBtnTouchEvent(object source, TouchEventArgs e)
+        {
+            PointStateType state = e.Touch.GetState(0);
+            if (state == PointStateType.Down)
+            {
+                CancelBtnClickArgs args = new CancelBtnClickArgs();
+                args.State = ButtonClickState.PressDown;
+                cancelBtnClickHandler(this, args);
+            }
+            else if (state == PointStateType.Up)
+            {
+                CancelBtnClickArgs args = new CancelBtnClickArgs();
+                args.State = ButtonClickState.BounceUp;
+                cancelBtnClickHandler(this, args);
+            }
+            Console.WriteLine("-------, state = " + state);
+            return false;
+        }
+
+        private void OnTextFieldFocusGained(object source, EventArgs e)
+        {
+            isPressed = true;
+            Console.WriteLine("<<<-------, textField focus gained");
+            RelayoutComponents();
+        }
+
+        private void OnTextFieldFocusLost(object source, EventArgs e)
+        {
+            isPressed = false;
+            Console.WriteLine(">>>-------, textField focus lost");
+            RelayoutComponents();
+        }
+
+        private void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
+        {
+            int textLength = 0;
+            if (textField != null && textField.Text != null)
+            {
+                textLength = textField.Text.Length;
+            }
+            Console.WriteLine("++++++++++++++++, text changed, textLength = " + textLength);
+            RelayoutComponents();
         }
     }
 }
