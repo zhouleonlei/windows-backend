@@ -21,13 +21,10 @@ namespace Tizen.NUI.Controls
         private bool isEnabled = true;
         private bool isPressed = false;
 
-        //static constructor used to register internal style
-        static Button()
+        public Button() : base()
         {
-            RegisterStyle("Text", typeof(ButtonAttributes));
+            Initialize();
         }
-
-        public Button() : this("Text") { }
         public Button(string style) : base(style)
         {
             Initialize();
@@ -46,18 +43,159 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public new Color BackgroundColor
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundColor.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (buttonAttributes.BackgroundColor == null)
+                    {
+                        buttonAttributes.BackgroundColor = new ColorSelector();
+                    }
+                    buttonAttributes.BackgroundColor.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public string BackgroundImageURL
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateBackgroundAttributes();
+                    if (buttonAttributes.BackgroundImageAttributes.ResourceURL == null)
+                    {
+                        buttonAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    buttonAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Rectangle BackgroundImageBorder
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundImageAttributes?.Border?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateBackgroundAttributes();
+                    if (buttonAttributes.BackgroundImageAttributes.Border == null)
+                    {
+                        buttonAttributes.BackgroundImageAttributes.Border = new RectangleSelector();
+                    }
+                    buttonAttributes.BackgroundImageAttributes.Border.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
         public string Text
         {
             get
             {
-                return buttonText?.Text;
+                return buttonAttributes?.TextAttributes?.Text?.All;
             }
             set
             {
-                if(buttonText != null)
+                if (value != null)
                 {
-                    buttonText.Text = value;
+                    CreateTextAttributes();
+                    if(buttonAttributes.TextAttributes.Text == null)
+                    {
+                        buttonAttributes.TextAttributes.Text = new StringSelector();
+                    }
+                    buttonAttributes.TextAttributes.Text.All = value;
+
+                    RelayoutRequest();
                 }
+            }
+        }
+
+        public float FontSize
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PointSize?.All ?? 0;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (buttonAttributes.TextAttributes.PointSize == null)
+                {
+                    buttonAttributes.TextAttributes.PointSize = new FloatSelector();
+                }
+                buttonAttributes.TextAttributes.PointSize.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string FontFamily
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.FontFamily?.All;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (buttonAttributes.TextAttributes.FontFamily == null)
+                {
+                    buttonAttributes.TextAttributes.FontFamily = new StringSelector();
+                }
+                buttonAttributes.TextAttributes.FontFamily.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Color TextColor
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.TextColor?.All;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (buttonAttributes.TextAttributes.TextColor == null)
+                {
+                    buttonAttributes.TextAttributes.TextColor = new ColorSelector();
+                }
+                buttonAttributes.TextAttributes.TextColor.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public HorizontalAlignment TextAlignment
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.HorizontalAlignment?.All ?? HorizontalAlignment.Center;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (buttonAttributes.TextAttributes.HorizontalAlignment == null)
+                {
+                    buttonAttributes.TextAttributes.HorizontalAlignment = new HorizontalAlignmentSelector();
+                }
+                buttonAttributes.TextAttributes.HorizontalAlignment.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -65,17 +203,169 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return buttonIcon?.ResourceUrl;
+                return buttonAttributes?.IconAttributes?.ResourceURL?.All;
             }
             set
             {
-                if (buttonIcon != null)
+                if (value != null)
                 {
-                    buttonIcon.ResourceUrl = value;
+                    CreateIconAttributes();
+                    if (buttonAttributes.IconAttributes.ResourceURL == null)
+                    {
+                        buttonAttributes.IconAttributes.ResourceURL = new StringSelector();
+                    }
+                    buttonAttributes.IconAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
                 }
             }
         }
 
+        public StringSelector TextSelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.Text;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.TextAttributes.Text = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public ColorSelector TextColorSelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.TextColor;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.TextAttributes.TextColor = value.Clone() as ColorSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public FloatSelector FontSizeSelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PointSize;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.TextAttributes.PointSize = value.Clone() as FloatSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector FontFamilySelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.FontFamily;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.TextAttributes.FontFamily = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public HorizontalAlignmentSelector TextAlignmentSelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.HorizontalAlignment;
+            }
+            set
+            {
+                CreateTextAttributes();
+                buttonAttributes.TextAttributes.HorizontalAlignment = value;
+                RelayoutRequest();
+            }
+        }
+
+        public StringSelector IconURLSelector
+        {
+            get
+            {
+                return buttonAttributes?.IconAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.IconAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector BackgroundImageURLSelector
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.BackgroundImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public RectangleSelector BackgroundImageBorderSelector
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundImageAttributes?.Border;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateBackgroundAttributes();
+                    buttonAttributes.BackgroundImageAttributes.Border = value.Clone() as RectangleSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public ColorSelector BackgroundColorSelector
+        {
+            get
+            {
+                return buttonAttributes?.BackgroundColor;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    buttonAttributes.BackgroundColor = value.Clone() as ColorSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
         public bool IsSelected
         {
             get
@@ -166,7 +456,7 @@ namespace Tizen.NUI.Controls
                 if (e.Key.KeyPressedName == "Return")
                 {
                     isPressed = false;
-                    if (buttonAttributes.IsSelectable.Value)
+                    if (buttonAttributes.IsSelectable != null && buttonAttributes.IsSelectable == true)
                     {
                         isSelected = !isSelected;
                     }
@@ -210,7 +500,7 @@ namespace Tizen.NUI.Controls
                     return true;
                 case PointStateType.Up:
                     isPressed = false;
-                    if (buttonAttributes.IsSelectable.Value)
+                    if (buttonAttributes.IsSelectable != null && buttonAttributes.IsSelectable == true)
                     {
                         isSelected = !isSelected;
                     }
@@ -223,12 +513,7 @@ namespace Tizen.NUI.Controls
         }
         protected override Attributes GetAttributes()
         {
-            return null;
-        }
-
-        protected override void OnRelayout(object sender, EventArgs e)
-        {
-            UpdateState();
+            return new ButtonAttributes();
         }
 
         protected override void OnUpdate(Attributes attributtes)
@@ -241,21 +526,78 @@ namespace Tizen.NUI.Controls
 
             ApplyAttributes(this, buttonAttributes);
 
-            /////////////// Background ////////////////////
-            ApplyAttributes(backgroundImage, buttonAttributes.BackgroundImageAttributes);
+            if (buttonAttributes.ShadowImageAttributes != null)
+            {
+                if(shadowImage == null)
+                {
+                    shadowImage = new ImageView()
+                    {
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent
+                    };
+                    this.Add(shadowImage);
+                }
+                /////////////// Shadow  ///////////////////////
+                ApplyAttributes(shadowImage, buttonAttributes.ShadowImageAttributes);
+            }
 
+            if (buttonAttributes.BackgroundImageAttributes != null)
+            {
+                if(backgroundImage == null)
+                {
+                    backgroundImage = new ImageView()
+                    {
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent
+                    };
+                    this.Add(backgroundImage);
+                }
+                /////////////// Background ////////////////////
+                ApplyAttributes(backgroundImage, buttonAttributes.BackgroundImageAttributes);
+            }
 
-            /////////////// Shadow  ///////////////////////
-            ApplyAttributes(shadowImage, buttonAttributes.ShadowImageAttributes);
+            if (buttonAttributes.OverlayImageAttributes != null)
+            {
+                if(overlayImage == null)
+                {
+                    overlayImage = new ImageView()
+                    {
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent
+                    };
+                    this.Add(overlayImage);
+                }
+                /////////////// Overlay ///////////////////////
+                ApplyAttributes(overlayImage, buttonAttributes.OverlayImageAttributes);
+            }
 
-            /////////////// Overlay ///////////////////////
-            ApplyAttributes(overlayImage, buttonAttributes.OverlayImageAttributes);
+            if(buttonAttributes.TextAttributes != null && buttonAttributes.IconAttributes != null)
+            {
 
-            /////////////// Text //////////////////////////
-            ApplyAttributes(buttonText, buttonAttributes.TextAttributes);
+            }
 
-            /////////////// Icon //////////////////////////
-            ApplyAttributes(buttonIcon, buttonAttributes.IconAttributes);
+            if (buttonAttributes.TextAttributes != null)
+            {
+                if(buttonText == null)
+                {
+                    buttonText = new TextLabel();
+                    this.Add(buttonText);
+                }
+                /////////////// Text //////////////////////////
+                ApplyAttributes(buttonText, buttonAttributes.TextAttributes);
+            }
+
+            if (buttonAttributes.IconAttributes != null)
+            {
+                if(buttonIcon == null)
+                {
+                    buttonIcon = new ImageView();
+                    this.Add(buttonIcon);
+                }
+                /////////////// Icon //////////////////////////
+                ApplyAttributes(buttonIcon, buttonAttributes.IconAttributes);
+            }
+
         }
 
         protected void UpdateState()
@@ -271,19 +613,21 @@ namespace Tizen.NUI.Controls
             {
                 targetState = IsSelected ? States.DisabledSelected : (IsFocused ? States.DisabledFocused : States.Disabled);
             }
-            
-            State = targetState;
-
-            OnUpdate(attributes);
-
-            StateChangeEventArgs e = new StateChangeEventArgs
+            if(sourceState != targetState)
             {
-                PreviousState = sourceState,
-                CurrentState = targetState
-            };
-            stateChangeHander?.Invoke(this, e);
+                State = targetState;
 
-            PlayMotion(sourceState, targetState);
+                OnUpdate(attributes);
+
+                StateChangeEventArgs e = new StateChangeEventArgs
+                {
+                    PreviousState = sourceState,
+                    CurrentState = targetState
+                };
+                stateChangeHander?.Invoke(this, e);
+
+                PlayMotion(sourceState, targetState);
+            }
         }
 
         private void Initialize()
@@ -293,52 +637,7 @@ namespace Tizen.NUI.Controls
             {
                 throw new Exception("Button attribute parse error.");
             }
-
-            StateFocusableOnTouchMode = true;
-            LeaveRequired = true;
-            //default settings
-            if (buttonAttributes.ShadowImageAttributes != null)
-            {
-                shadowImage = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent
-                };
-                this.Add(shadowImage);
-            }
-
-            if (buttonAttributes.BackgroundImageAttributes != null)
-            {
-                backgroundImage = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent
-                };
-                this.Add(backgroundImage);
-            }
-
-            if (buttonAttributes.OverlayImageAttributes != null)
-            {
-                overlayImage = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent
-                };
-                this.Add(overlayImage);
-            }
-
-            if (buttonAttributes.TextAttributes != null)
-            {
-                buttonText = new TextLabel();
-                this.Add(buttonText);
-            }
-
-            if (buttonAttributes.IconAttributes != null)
-            {
-                buttonIcon = new ImageView();
-                this.Add(buttonIcon);
-            }
-
+     
         }
 
         private void PlayMotion(States sourceState, States targetState)
@@ -355,6 +654,51 @@ namespace Tizen.NUI.Controls
             if (ClickEvent != null)
             {
                 ClickEvent(this, eventArgs);
+            }
+        }
+
+        private void CreateBackgroundAttributes()
+        {
+            if (buttonAttributes.BackgroundImageAttributes == null)
+            {
+                buttonAttributes.BackgroundImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent}
+                };
+            }
+        }
+
+        private void CreateTextAttributes()
+        {
+            if (buttonAttributes.TextAttributes == null)
+            {
+                buttonAttributes.TextAttributes = new TextAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center},
+                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center}
+                };
+            }
+        }
+
+        private void CreateIconAttributes()
+        {
+            if (buttonAttributes.IconAttributes == null)
+            {
+                buttonAttributes.IconAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.UseNaturalSize },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.UseNaturalSize },
+                };
             }
         }
 
