@@ -59,6 +59,14 @@
     <None Remove="res\FoodSwitchAttributes.xaml" />
     <None Remove="res\FoodTextSliderAttributes.xaml" />
     <None Remove="res\FoodToggleButtonAttributes.xaml" />
+    <None Remove="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FamilyTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FoodTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\KitchenTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\UtilityTextFieldInputFieldAttributes.xaml" />
     <None Remove="res\KitchenBasicButtonAttributes.xaml" />
     <None Remove="res\KitchenCheckBoxAttributes.xaml" />
     <None Remove="res\KitchenDefaultSliderAttributes.xaml" />
@@ -211,7 +219,15 @@
     <EmbeddedResource Include="res\Slider\FoodTextSliderAttributes.xaml" />
     <EmbeddedResource Include="res\Slider\KitchenDefaultSliderAttributes.xaml" />
     <EmbeddedResource Include="res\Slider\KitchenTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\UtilityTextInputFieldAttributes.xaml" />
+
+    <EmbeddedResource Include="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FamilyTextFieldInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FoodTextFieldInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\KitchenTextFieldInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityTextFieldInputFieldAttributes.xaml" />
   </ItemGroup>
 
   <ItemGroup>

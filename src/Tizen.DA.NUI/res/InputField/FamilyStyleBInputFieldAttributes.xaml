@@ -1,0 +1,73 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <StringSelector x:Key="DAFamilyStyleBInputFieldAddButtonBgResource"
+                        Normal="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_24c447.png"
+                        Pressed ="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_24c447.png"
+                        Disabled="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_dim_24c447.png"
+                        />
+        <StringSelector x:Key="DAFamilyStyleBInputFieldAddButtonOverlayResource"
+                        Pressed ="*DemoRes*/images/FH3/7. Input Field/field_btn_add_bg_press_overlay.png"
+                        Normal=""
+                        Disabled=""
+                        />
+        <StringSelector x:Key="DAFamilyStyleBInputFieldAddButtonTopResource"
+                        Normal="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_normal.png"
+                        Pressed ="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_press.png"
+                        Disabled="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_dim.png"
+                        />
+        <StringSelector x:Key="DAFamilyStyleBInputFieldDeleteButtonResource"
+                        Normal="*DemoRes*/images/FH3/7. Input Field/field_btn_ic_delete.png"
+                        Pressed ="*DemoRes*/images/FH3/7. Input Field/field_btn_ic_delete_press.png"
+                        Disabled="*DemoRes*/images/FH3/7. Input Field/field_btn_ic_delete_dim.png"
+                        />
+    </AttributesContainer.XamlResources>
+    
+    <InputFieldAttributes 
+        x:Name="InputFieldAttributes"
+        Space="24"
+        SpaceBetweenTextFieldAndButton="56">
+
+        <InputFieldAttributes.BgImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/1. Action bar/search_bg.png"
+                Border="45, 45, 0, 0"/>
+        </InputFieldAttributes.BgImageAttributes>
+
+        <InputFieldAttributes.InputBoxAttributes>
+            <TextFieldAttributes 
+                TextColor="0, 0, 0, 1.0"
+                PlaceholderTextColor="0, 0, 0, 0.4"
+                HorizontalAlignment="Begin"
+                VerticalAlignment="Center"
+                PointSize="38"
+                FontFamily="SamsungOne 500"
+                CursorWidth="2"/>
+        </InputFieldAttributes.InputBoxAttributes>
+
+        <InputFieldAttributes.AddButtonBgAttributes>
+            <ImageAttributes
+                Size2D="92,92"
+                ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonBgResource}"/>
+        </InputFieldAttributes.AddButtonBgAttributes>
+
+        <InputFieldAttributes.AddButtonOverlayAttributes>
+            <ImageAttributes
+                ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonOverlayResource}"/>
+        </InputFieldAttributes.AddButtonOverlayAttributes>
+
+        <InputFieldAttributes.AddButtonTopAttributes>
+            <ImageAttributes
+                ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonTopResource}"/>
+        </InputFieldAttributes.AddButtonTopAttributes>
+
+        <InputFieldAttributes.DeleteButtonAttributes>
+            <ImageAttributes
+                Size2D="92,92"
+                ResourceURL="{StaticResource DAFamilyStyleBInputFieldDeleteButtonResource}"/>
+        </InputFieldAttributes.DeleteButtonAttributes>
+
+    </InputFieldAttributes>
+
+</AttributesContainer>

@@ -5,9 +5,13 @@ namespace Tizen.NUI.Controls
 {
     public class InputFieldAttributes : ViewAttributes
     {
-        private ImageAttributes bgImageViewAttrs = null;
-        private TextFieldAttributes textFieldViewAttrs = null;
-        private ImageAttributes cancelBtnAttrs = null;
+        private ImageAttributes bgImageAttrs = null;
+        private TextFieldAttributes inputBoxAttrs = null;
+        private ImageAttributes cancelButtonAttrs = null;
+        private ImageAttributes deleteButtonAttrs = null;
+        private ImageAttributes addButtonBgAttrs = null;
+        private ImageAttributes addButtonOverlayAttrs = null;
+        private ImageAttributes addButtonTopAttrs = null;
         private int? space = null;
         private int? spaceBetweenTextFieldAndButton = null;
 
@@ -15,17 +19,33 @@ namespace Tizen.NUI.Controls
 
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
         {
-            if (attrs.bgImageViewAttrs != null)
+            if (attrs.bgImageAttrs != null)
             {
-                bgImageViewAttrs = attrs.bgImageViewAttrs.Clone() as ImageAttributes;
+                bgImageAttrs = attrs.bgImageAttrs.Clone() as ImageAttributes;
             }
-            if (attrs.textFieldViewAttrs != null)
+            if (attrs.inputBoxAttrs != null)
             {
-                textFieldViewAttrs = attrs.textFieldViewAttrs.Clone() as TextFieldAttributes;
+                inputBoxAttrs = attrs.inputBoxAttrs.Clone() as TextFieldAttributes;
             }
-            if (attrs.cancelBtnAttrs != null)
+            if (attrs.cancelButtonAttrs != null)
             {
-                cancelBtnAttrs = attrs.cancelBtnAttrs.Clone() as ImageAttributes;
+                cancelButtonAttrs = attrs.cancelButtonAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.deleteButtonAttrs != null)
+            {
+                deleteButtonAttrs = attrs.deleteButtonAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.addButtonBgAttrs != null)
+            {
+                addButtonBgAttrs = attrs.addButtonBgAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.addButtonOverlayAttrs != null)
+            {
+                addButtonOverlayAttrs = attrs.addButtonOverlayAttrs.Clone() as ImageAttributes;
+            }
+            if (attrs.addButtonTopAttrs != null)
+            {
+                addButtonTopAttrs = attrs.addButtonTopAttrs.Clone() as ImageAttributes;
             }
             if (attrs.space != null)
             {
@@ -37,52 +57,116 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public static readonly BindableProperty BgImageViewAttributesProperty = 
-            BindableProperty.Create("BgImageViewAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+        public static readonly BindableProperty BgImageAttributesProperty = 
+            BindableProperty.Create("BgImageAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.bgImageViewAttrs = (ImageAttributes)newValue;
+                    attrs.bgImageAttrs = (ImageAttributes)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
-                return attrs.bgImageViewAttrs;
+                return attrs.bgImageAttrs;
             });
 
-        public static readonly BindableProperty TextFieldViewAttributesProperty =
-            BindableProperty.Create("TextFieldViewAttributes", typeof(TextFieldAttributes), typeof(InputFieldAttributes), default(TextFieldAttributes),
+        public static readonly BindableProperty InputBoxAttributesProperty =
+            BindableProperty.Create("InputBoxAttributes", typeof(TextFieldAttributes), typeof(InputFieldAttributes), default(TextFieldAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.textFieldViewAttrs = (TextFieldAttributes)newValue;
+                    attrs.inputBoxAttrs = (TextFieldAttributes)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
-                return attrs.textFieldViewAttrs;
+                return attrs.inputBoxAttrs;
             });
 
-        public static readonly BindableProperty CancelBtnAttributesProperty =
-            BindableProperty.Create("CancelBtnAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+        public static readonly BindableProperty CancelButtonAttributesProperty =
+            BindableProperty.Create("CancelButtonAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.cancelBtnAttrs = (ImageAttributes)newValue;
+                    attrs.cancelButtonAttrs = (ImageAttributes)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
-                return attrs.cancelBtnAttrs;
+                return attrs.cancelButtonAttrs;
+            });
+
+        public static readonly BindableProperty DeleteButtonAttributesProperty =
+            BindableProperty.Create("DeleteButtonAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                if (newValue != null)
+                {
+                    attrs.deleteButtonAttrs = (ImageAttributes)newValue;
+                }
+            },
+            defaultValueCreator: (bindable) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                return attrs.deleteButtonAttrs;
+            });
+
+        public static readonly BindableProperty AddButtonBgAttributesProperty =
+            BindableProperty.Create("AddButtonBgAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                if (newValue != null)
+                {
+                    attrs.addButtonBgAttrs = (ImageAttributes)newValue;
+                }
+            },
+            defaultValueCreator: (bindable) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                return attrs.addButtonBgAttrs;
+            });
+
+        public static readonly BindableProperty AddButtonOverlayAttributesProperty =
+            BindableProperty.Create("AddButtonOverlayAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                if (newValue != null)
+                {
+                    attrs.addButtonOverlayAttrs = (ImageAttributes)newValue;
+                }
+            },
+            defaultValueCreator: (bindable) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                return attrs.addButtonOverlayAttrs;
+            });
+
+        public static readonly BindableProperty AddButtonTopAttributesProperty =
+            BindableProperty.Create("AddButtonTopAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                if (newValue != null)
+                {
+                    attrs.addButtonTopAttrs = (ImageAttributes)newValue;
+                }
+            },
+            defaultValueCreator: (bindable) =>
+            {
+                var attrs = (InputFieldAttributes)bindable;
+                return attrs.addButtonTopAttrs;
             });
 
         public static readonly BindableProperty SpaceProperty =
@@ -117,22 +201,46 @@ namespace Tizen.NUI.Controls
                 return attrs.spaceBetweenTextFieldAndButton;
             });
 
-        public ImageAttributes BgImageViewAttributes
+        public ImageAttributes BgImageAttributes
         {
-            get { return (ImageAttributes)GetValue(BgImageViewAttributesProperty); }
-            set { SetValue(BgImageViewAttributesProperty, value); }
+            get { return (ImageAttributes)GetValue(BgImageAttributesProperty); }
+            set { SetValue(BgImageAttributesProperty, value); }
         }
 
-        public TextFieldAttributes TextFieldViewAttributes
+        public TextFieldAttributes InputBoxAttributes
         {
-            get { return (TextFieldAttributes)GetValue(TextFieldViewAttributesProperty); }
-            set { SetValue(TextFieldViewAttributesProperty, value); }
+            get { return (TextFieldAttributes)GetValue(InputBoxAttributesProperty); }
+            set { SetValue(InputBoxAttributesProperty, value); }
         }
 
-        public ImageAttributes CancelBtnAttributes
+        public ImageAttributes CancelButtonAttributes
         {
-            get { return (ImageAttributes)GetValue(CancelBtnAttributesProperty); }
-            set { SetValue(CancelBtnAttributesProperty, value); }
+            get { return (ImageAttributes)GetValue(CancelButtonAttributesProperty); }
+            set { SetValue(CancelButtonAttributesProperty, value); }
+        }
+
+        public ImageAttributes DeleteButtonAttributes
+        {
+            get { return (ImageAttributes)GetValue(DeleteButtonAttributesProperty); }
+            set { SetValue(DeleteButtonAttributesProperty, value); }
+        }
+
+        public ImageAttributes AddButtonBgAttributes
+        {
+            get { return (ImageAttributes)GetValue(AddButtonBgAttributesProperty); }
+            set { SetValue(AddButtonBgAttributesProperty, value); }
+        }
+
+        public ImageAttributes AddButtonOverlayAttributes
+        {
+            get { return (ImageAttributes)GetValue(AddButtonOverlayAttributesProperty); }
+            set { SetValue(AddButtonOverlayAttributesProperty, value); }
+        }
+
+        public ImageAttributes AddButtonTopAttributes
+        {
+            get { return (ImageAttributes)GetValue(AddButtonTopAttributesProperty); }
+            set { SetValue(AddButtonTopAttributesProperty, value); }
         }
 
         public int? Space

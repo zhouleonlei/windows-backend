@@ -6,13 +6,13 @@
         Space="24"
         SpaceBetweenTextFieldAndButton="56">
 
-        <InputFieldAttributes.BgImageViewAttributes>
+        <InputFieldAttributes.BgImageAttributes>
             <ImageAttributes 
                 ResourceURL="*DemoRes*/images/FH3/1. Action bar/search_bg.png"
                 Border="45, 45, 0, 0"/>
-        </InputFieldAttributes.BgImageViewAttributes>
+        </InputFieldAttributes.BgImageAttributes>
 
-        <InputFieldAttributes.TextFieldViewAttributes>
+        <InputFieldAttributes.InputBoxAttributes>
             <TextFieldAttributes 
                 TextColor="0, 0, 0, 1.0"
                 PlaceholderTextColor="0, 0, 0, 0.4"
@@ -20,15 +20,14 @@
                 VerticalAlignment="Center"
                 PointSize="38"
                 FontFamily="SamsungOne 500"
-                CursorWidth="2"
-                BackgroundColor="0, 1.0, 0, 0.3"/>
-        </InputFieldAttributes.TextFieldViewAttributes>
+                CursorWidth="2"/>
+        </InputFieldAttributes.InputBoxAttributes>
 
-        <InputFieldAttributes.CancelBtnAttributes>
+        <InputFieldAttributes.CancelButtonAttributes>
             <ImageAttributes
                 Size2D="56,56"
-                ResourceURL="*DemoRes*/images/FH3/7. Input Field/field_ic_cancel.png"/>
-        </InputFieldAttributes.CancelBtnAttributes>
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_ic_cancel_9762d9.png"/>
+        </InputFieldAttributes.CancelButtonAttributes>
 
     </InputFieldAttributes>
 
