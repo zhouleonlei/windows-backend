@@ -104,6 +104,88 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+        public string ShadowImageURL
+        {
+            get
+            {
+                return buttonAttributes?.ShadowImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateShadowAttributes();
+                    if (buttonAttributes.ShadowImageAttributes.ResourceURL == null)
+                    {
+                        buttonAttributes.ShadowImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    buttonAttributes.ShadowImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public Rectangle ShadowImageBorder
+        {
+            get
+            {
+                return buttonAttributes?.ShadowImageAttributes?.Border?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateShadowAttributes();
+                    if (buttonAttributes.ShadowImageAttributes.Border == null)
+                    {
+                        buttonAttributes.ShadowImageAttributes.Border = new RectangleSelector();
+                    }
+                    buttonAttributes.ShadowImageAttributes.Border.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public string OverlayImageURL
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateOverlayAttributes();
+                    if (buttonAttributes.OverlayImageAttributes.ResourceURL == null)
+                    {
+                        buttonAttributes.OverlayImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    buttonAttributes.OverlayImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Rectangle OverlayImageBorder
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.Border?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateOverlayAttributes();
+                    if (buttonAttributes.OverlayImageAttributes.Border == null)
+                    {
+                        buttonAttributes.OverlayImageAttributes.Border = new RectangleSelector();
+                    }
+                    buttonAttributes.OverlayImageAttributes.Border.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
 
         public string Text
         {
@@ -329,7 +411,7 @@ namespace Tizen.NUI.Controls
             {
                 if (value != null)
                 {
-                    CreateTextAttributes();
+                    CreateBackgroundAttributes();
                     buttonAttributes.BackgroundImageAttributes.ResourceURL = value.Clone() as StringSelector;
                     RelayoutRequest();
                 }
@@ -347,6 +429,72 @@ namespace Tizen.NUI.Controls
                 {
                     CreateBackgroundAttributes();
                     buttonAttributes.BackgroundImageAttributes.Border = value.Clone() as RectangleSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector ShadowImageURLSelector
+        {
+            get
+            {
+                return buttonAttributes?.ShadowImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateShadowAttributes();
+                    buttonAttributes.ShadowImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public RectangleSelector ShadowImageBorderSelector
+        {
+            get
+            {
+                return buttonAttributes?.ShadowImageAttributes?.Border;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateShadowAttributes();
+                    buttonAttributes.ShadowImageAttributes.Border = value.Clone() as RectangleSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector OverlayImageURLSelector
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateOverlayAttributes();
+                    buttonAttributes.OverlayImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public RectangleSelector OverlayImageBorderSelector
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.Border;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateOverlayAttributes();
+                    buttonAttributes.OverlayImageAttributes.Border = value.Clone() as RectangleSelector;
                     RelayoutRequest();
                 }
             }
@@ -571,11 +719,6 @@ namespace Tizen.NUI.Controls
                 ApplyAttributes(overlayImage, buttonAttributes.OverlayImageAttributes);
             }
 
-            if(buttonAttributes.TextAttributes != null && buttonAttributes.IconAttributes != null)
-            {
-
-            }
-
             if (buttonAttributes.TextAttributes != null)
             {
                 if(buttonText == null)
@@ -668,6 +811,36 @@ namespace Tizen.NUI.Controls
                     PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
                     WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
                     HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent}
+                };
+            }
+        }
+
+        private void CreateShadowAttributes()
+        {
+            if (buttonAttributes.ShadowImageAttributes == null)
+            {
+                buttonAttributes.ShadowImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                };
+            }
+        }
+
+        private void CreateOverlayAttributes()
+        {
+            if (buttonAttributes.OverlayImageAttributes == null)
+            {
+                buttonAttributes.OverlayImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
                 };
             }
         }
