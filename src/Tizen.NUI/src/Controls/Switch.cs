@@ -35,6 +35,32 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                if (switchBackgroundImage != null)
+                {
+                    Remove(switchBackgroundImage);
+                    switchBackgroundImage.Dispose();
+                    switchBackgroundImage = null;
+                }
+                if (switchHandlerImage != null)
+                {
+                    Remove(switchHandlerImage);
+                    switchHandlerImage.Dispose();
+                    switchHandlerImage = null;
+                }
+            }
+
+            base.Dispose(type);
+        }
+
         protected override void OnUpdate(Attributes attributtes)
         {
             switchAttributes = attributes as SwitchAttributes;

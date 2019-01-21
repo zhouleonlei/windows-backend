@@ -54,6 +54,38 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                if (checkShadowImage != null)
+                {
+                    Remove(checkShadowImage);
+                    checkShadowImage.Dispose();
+                    checkShadowImage = null;
+                }
+                if (checkBackgroundImage != null)
+                {
+                    Remove(checkBackgroundImage);
+                    checkBackgroundImage.Dispose();
+                    checkBackgroundImage = null;
+                }
+                if (checkImage != null)
+                {
+                    Remove(checkImage);
+                    checkImage.Dispose();
+                    checkImage = null;
+                }
+            }
+
+            base.Dispose(type);
+        }
+
         protected override void OnUpdate(Attributes attributtes)
         {
             selectButtonAttributes = attributes as SelectButtonAttributes;
