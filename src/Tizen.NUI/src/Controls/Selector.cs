@@ -165,6 +165,18 @@ namespace Tizen.NUI.Controls
                 SetValue(NormalProperty, value);
             }
         }
+        public T Pressed
+        {
+            get
+            {
+                return (T)GetValue(PressedProperty);
+            }
+            set
+            {
+                SetValue(PressedProperty, value);
+            }
+        }
+
         public T Focused
         {
             get
