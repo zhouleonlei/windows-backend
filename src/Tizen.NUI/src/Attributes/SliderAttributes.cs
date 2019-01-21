@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.Binding;
 using Tizen.NUI.Xaml;
 
-//[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.SliderAttributes.xaml", "SliderAttributes.xaml", typeof(Tizen.NUI.Controls.SliderAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class SliderAttributes : ViewAttributes

@@ -6,35 +6,81 @@ namespace Tizen.NUI.Examples
 {
     public class InputFieldSample : IExample
     {
-        private InputField inputField1, inputField2;
-
+        private const int COUNT = 8;
+        private InputField[] inputFieldArr;
         
         public void Activate()
         {
-            CreateDA();
+            inputFieldArr = new InputField[COUNT];
+            CreateFamily();
+            CreateFood();
+            CreateKitchen();
+            CreateUtility();
             Window.Instance.KeyEvent += OnWindowsKeyEvent;
         }
 
-        private void CreateDA()
+        private void CreateFamily()
         {
-            inputField1 = new InputField("UtilityTextInputField");
-            inputField1.ParentOrigin = Tizen.NUI.ParentOrigin.Center;
-            inputField1.PivotPoint = Tizen.NUI.PivotPoint.Center;
-            inputField1.PositionUsesPivotPoint = true;
-            inputField1.Size2D = new Size2D(1600, 100);
-            inputField1.PositionY = -400;
-            Window.Instance.Add(inputField1);
-            inputField1.HintText = "Guide text";
-            inputField1.CancelBtnClickEvent += OnCancelBtnClickEvent1;
+            inputFieldArr[0] = new InputField("FamilyTextFieldInputField");
+            inputFieldArr[0].Size2D = new Size2D(1600, 95);
+            inputFieldArr[0].PositionY = 100;
+            Window.Instance.Add(inputFieldArr[0]);
+            inputFieldArr[0].HintText = "FamilyTextFieldInputField";
+            inputFieldArr[0].CancelBtnClickEvent += OnCancelBtnClickEvent1;
 
-            inputField2 = new InputField("UtilityTextInputField");
-            inputField2.ParentOrigin = Tizen.NUI.ParentOrigin.Center;
-            inputField2.PivotPoint = Tizen.NUI.PivotPoint.Center;
-            inputField2.PositionUsesPivotPoint = true;
-            inputField2.Size2D = new Size2D(1600, 100);
-            inputField2.PositionY = -200;
-            Window.Instance.Add(inputField2);
-            inputField2.HintText = "Guide text";
+            inputFieldArr[1] = new InputField("FamilyStyleBFieldInputField");
+            inputFieldArr[1].Size2D = new Size2D(1600, 95);
+            inputFieldArr[1].PositionY = 200;
+            Window.Instance.Add(inputFieldArr[1]);
+            inputFieldArr[1].HintText = "FamilyStyleBFieldInputField";
+        }
+
+        private void CreateFood()
+        {
+            inputFieldArr[2] = new InputField("FoodTextFieldInputField");
+            inputFieldArr[2].Size2D = new Size2D(1600, 95);
+            inputFieldArr[2].PositionY = 300;
+            Window.Instance.Add(inputFieldArr[2]);
+            inputFieldArr[2].HintText = "FoodTextFieldInputField";
+            //inputFieldArr[2].CancelBtnClickEvent += OnCancelBtnClickEvent1;
+
+            inputFieldArr[3] = new InputField("FoodStyleBFieldInputField");
+            inputFieldArr[3].Size2D = new Size2D(1600, 95);
+            inputFieldArr[3].PositionY = 400;
+            Window.Instance.Add(inputFieldArr[3]);
+            inputFieldArr[3].HintText = "FoodStyleBFieldInputField";
+        }
+
+        private void CreateKitchen()
+        {
+            inputFieldArr[4] = new InputField("KitchenTextFieldInputField");
+            inputFieldArr[4].Size2D = new Size2D(1600, 95);
+            inputFieldArr[4].PositionY = 500;
+            Window.Instance.Add(inputFieldArr[4]);
+            inputFieldArr[4].HintText = "KitchenTextFieldInputField";
+            //inputFieldArr[4].CancelBtnClickEvent += OnCancelBtnClickEvent1;
+
+            inputFieldArr[5] = new InputField("KitchenStyleBFieldInputField");
+            inputFieldArr[5].Size2D = new Size2D(1600, 95);
+            inputFieldArr[5].PositionY = 600;
+            Window.Instance.Add(inputFieldArr[5]);
+            inputFieldArr[5].HintText = "KitchenStyleBFieldInputField";
+        }
+
+        private void CreateUtility()
+        {
+            inputFieldArr[6] = new InputField("UtilityTextFieldInputField");
+            inputFieldArr[6].Size2D = new Size2D(1600, 95);
+            inputFieldArr[6].PositionY = 700;
+            Window.Instance.Add(inputFieldArr[6]);
+            inputFieldArr[6].HintText = "UtilityTextFieldInputField";
+            //inputFieldArr[6].CancelBtnClickEvent += OnCancelBtnClickEvent1;
+
+            inputFieldArr[7] = new InputField("UtilityStyleBFieldInputField");
+            inputFieldArr[7].Size2D = new Size2D(1600, 95);
+            inputFieldArr[7].PositionY = 800;
+            Window.Instance.Add(inputFieldArr[7]);
+            inputFieldArr[7].HintText = "UtilityStyleBFieldInputField";
         }
 
         private void OnWindowsKeyEvent(object sender, Window.KeyEventArgs e)
@@ -43,11 +89,11 @@ namespace Tizen.NUI.Examples
             {
                 if (e.Key.KeyPressedName == "Left")
                 {
-                    inputField1.Text = "test";
+                    //inputField1.Text = "test";
                 }
                 else if (e.Key.KeyPressedName == "Right")
                 {
-                    inputField1.Text = "";
+                    //inputField1.Text = "";
                 }
             }
         }
@@ -56,20 +102,21 @@ namespace Tizen.NUI.Examples
         {
             Window window = Window.Instance;
             window.KeyEvent -= OnWindowsKeyEvent;
-
-            if (inputField1 != null)
+            
+            for (int i = 0; i < COUNT; ++i)
             {
-                inputField1.CancelBtnClickEvent -= OnCancelBtnClickEvent1;
-                window.Remove(inputField1);
-                inputField1.Dispose();
-                inputField1 = null;
+                if (inputFieldArr[i] != null)
+                {
+                    if (i == 0)
+                    {
+                        inputFieldArr[i].CancelBtnClickEvent -= OnCancelBtnClickEvent1;
+                    }
+                    window.Remove(inputFieldArr[i]);
+                    inputFieldArr[i].Dispose();
+                    inputFieldArr[i] = null;
+                }
             }
-            if (inputField2 != null)
-            {
-                window.Remove(inputField2);
-                inputField2.Dispose();
-                inputField2 = null;
-            }
+            inputFieldArr = null;
         }
 
         private void OnCancelBtnClickEvent1(object sender, NUI.Controls.InputField.CancelBtnClickArgs args)

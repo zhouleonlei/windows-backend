@@ -194,7 +194,14 @@ namespace Tizen.DA.NUI
             Slider.RegisterStyle("FamilyTextSlider", typeof(FamilyTextSliderAttributes));
             Slider.RegisterStyle("KitchenTextSlider", typeof(KitchenTextSliderAttributes));
 
-            InputField.RegisterStyle("UtilityTextInputField", typeof(UtilityTextInputFieldAttributes));
+            InputField.RegisterStyle("FamilyTextFieldInputField", typeof(FamilyTextFieldInputFieldAttributes));
+            InputField.RegisterStyle("FamilyStyleBFieldInputField", typeof(FamilyStyleBInputFieldAttributes));
+            InputField.RegisterStyle("FoodTextFieldInputField", typeof(FoodTextFieldInputFieldAttributes));
+            InputField.RegisterStyle("FoodStyleBFieldInputField", typeof(FoodStyleBInputFieldAttributes));
+            InputField.RegisterStyle("KitchenTextFieldInputField", typeof(KitchenTextFieldInputFieldAttributes));
+            InputField.RegisterStyle("KitchenStyleBFieldInputField", typeof(KitchenStyleBInputFieldAttributes));
+            InputField.RegisterStyle("UtilityTextFieldInputField", typeof(UtilityTextFieldInputFieldAttributes));
+            InputField.RegisterStyle("UtilityStyleBFieldInputField", typeof(UtilityStyleBInputFieldAttributes));
         }
         private void CleanupComponent()
         {
