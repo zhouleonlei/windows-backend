@@ -152,14 +152,14 @@ namespace Tizen.DA.NUI.Controls
             }
             else if (e.View == container)
             {
-                if (e.TapGesture.ScreenPoint.X < selectIndicator.ScreenPosition.X)
+                if (e.TapGesture.LocalPoint.X < selectIndicator.Position.X)
                 {
                     if (selectedIndex > 0)
                     {
                         SelectedIndex = selectedIndex - 1;
                     }
                 }
-                else if (e.TapGesture.ScreenPoint.X > selectIndicator.ScreenPosition.X + indicatorWidth)
+                else if (e.TapGesture.LocalPoint.X > selectIndicator.Position.X + indicatorWidth)
                 {
                     if (selectedIndex < indicatorCount - 1)
                     {

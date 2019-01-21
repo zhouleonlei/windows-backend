@@ -11,15 +11,15 @@ namespace Tizen.NUI.Controls
         protected int indicatorHeight = 0;
         protected int indicatorSpacing = 0;
 
-        protected View container;
-        protected ImageView selectIndicator;
+        protected VisualView container;
+        protected ImageVisual selectIndicator;
 
         private int indicatorCount = 0;
         private int selectedIndex = -1;
 
-        private string indicatorBackgroundURL;
+        private string indicatorBackgroundURL = " ";
 
-        private List<ImageView> indicatorList = new List<ImageView>();
+        private List<ImageVisual> indicatorList = new List<ImageVisual>();
 
         private PaginationAttributes paginationAttributes;
 
@@ -52,9 +52,8 @@ namespace Tizen.NUI.Controls
                 {
                     for (int i = value; i < indicatorCount; i++)
                     {
-                        ImageView indicator = indicatorList[i];
-                        container.Remove(indicator);
-                        indicator.Dispose();
+                        ImageVisual indicator = indicatorList[i];
+                        container.RemoveVisual("Indicator" + i);
                     }
                     indicatorList.RemoveRange(value, indicatorCount - value);
                 }
@@ -88,14 +87,14 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        protected virtual void SelectOut(View selectOutIndicator)
+        protected virtual void SelectOut(VisualMap selectOutIndicator)
         {
 
         }
 
-        protected virtual void SelectIn(View selectInIndicator)
+        protected virtual void SelectIn(VisualMap selectInIndicator)
         {
-            selectInIndicator.Add(selectIndicator);
+            selectIndicator.Position = selectInIndicator.Position;
         }
 
         protected override Attributes GetAttributes()
@@ -112,18 +111,7 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
-                if (selectIndicator != null)
-                {
-                    selectIndicator.GetParent()?.Remove(selectIndicator);
-                    selectIndicator.Dispose();
-                    selectIndicator = null;
-                }
-
-                foreach(ImageView indicator in indicatorList)
-                {
-                    container.Remove(indicator);
-                    indicator.Dispose();
-                }
+                container.RemoveAll();    
                 indicatorList.Clear();
 
                 this.Remove(container);
@@ -155,21 +143,21 @@ namespace Tizen.NUI.Controls
             indicatorBackgroundURL = paginationAttributes.IndicatorBackgroundURL;
             for (int i = 0; i < indicatorList.Count; i++)
             {
-                ImageView indicator = indicatorList[i];
-                indicator.ResourceUrl = paginationAttributes.IndicatorBackgroundURL;
-                indicator.Size2D = paginationAttributes.IndicatorSize;
-                indicator.PositionX = (int)(indicatorWidth + indicatorSpacing) * i;
+                ImageVisual indicator = indicatorList[i];
+                indicator.URL = paginationAttributes.IndicatorBackgroundURL;
+                indicator.Size = paginationAttributes.IndicatorSize;
+                indicator.Position = new Position2D((int)(indicatorWidth + indicatorSpacing) * i, 0);
             }
 
-            selectIndicator.ResourceUrl = paginationAttributes.IndicatorSelectURL;
-            selectIndicator.Size2D = paginationAttributes.IndicatorSize;
+            selectIndicator.URL = paginationAttributes.IndicatorSelectURL;
+            selectIndicator.Size = paginationAttributes.IndicatorSize;
 
             //UpdateContainer();
         }
 
         private void Initialize()
         {
-            container = new View()
+            container = new VisualView()
             {
                 Name = "Container",
                 ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
@@ -179,10 +167,11 @@ namespace Tizen.NUI.Controls
             };
             this.Add(container);
 
-            selectIndicator = new ImageView()
+            selectIndicator = new ImageVisual()
             {
-                Name = "SelectIndicator"
+                URL = " "
             };
+            container.AddVisual("SelectIndicator", selectIndicator);
 
             paginationAttributes = attributes as PaginationAttributes;
             if (paginationAttributes == null)
@@ -203,16 +192,13 @@ namespace Tizen.NUI.Controls
 
         private void CreateIndicator()
         {
-            ImageView indicator = new ImageView
+            ImageVisual indicator = new ImageVisual
             {
-                Name = "Indicator",
-                ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
-                PivotPoint = Tizen.NUI.PivotPoint.CenterLeft,
-                PositionUsesPivotPoint = true
+                URL = indicatorBackgroundURL,
+                Size = new Size2D(indicatorWidth, indicatorHeight)
             };
-            indicator.ResourceUrl = indicatorBackgroundURL;
-            indicator.PositionX = (int)(indicatorWidth + indicatorSpacing) * indicatorList.Count;
-            container.Add(indicator);
+            indicator.Position = new Position2D((int)(indicatorWidth + indicatorSpacing) * indicatorList.Count, 0);
+            container.AddVisual("Indicator" + indicatorList.Count, indicator);
             indicatorList.Add(indicator);
         }
 
