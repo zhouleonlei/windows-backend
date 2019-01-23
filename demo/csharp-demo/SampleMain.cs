@@ -21,6 +21,10 @@ namespace Tizen.NUI.Examples
         {
             return @"../../../demo/Tizen.TV.NUI.Example/res/FH3/";
         }
+        public static string GetTVResourcePath()
+        {
+            return @"../../../demo/csharp-demo/res/images/VD/";
+        }
     }
 
     public class SampleMain : DANUIApplication, IExample

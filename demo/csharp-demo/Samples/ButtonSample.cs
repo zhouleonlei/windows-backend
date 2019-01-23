@@ -89,7 +89,7 @@ namespace Tizen.NUI.Examples
                     
                     if (i == 3)
                     {
-                        button.StateChangedEvent += Button_StateChangedEvent;
+                        button.TextSelector = new StringSelector() { Normal = "Toggle Off", Selected = "Toggle On" };
                     }
                     else if(i == 4)
                     {
@@ -99,39 +99,7 @@ namespace Tizen.NUI.Examples
                 }
             }
 
-            //for (uint i = 0; i < rowNum; i++)
-            //{
-            //    root.SetFixedHeight(i, Height);
-            //    for (uint j = 0; j < colNum; j++)
-            //    {
-            //        root.SetFixedWidth(j, Width);
-            //        root.SetCellAlignment(new TableView.CellPosition(i, j), HorizontalAlignmentType.Center, VerticalAlignmentType.Center);
-            //    }
-            //}
-            //root.SetCellPadding(Padding);
-
             window.Add(root);
-
-            button1 = new Button("UtilityBasicButton");
-            button1.Size2D = new Size2D(300, 100);
-            button1.Position2D = new Position2D(1500, 900);
-            button1.Text = "test";
-            root.Add(button1);
-
-            FocusManager.Instance.SetCurrentFocusView(root);
-        }
-        Button button1;
-        private void Button_StateChangedEvent(object sender, Button.StateChangeEventArgs e)
-        {
-            Button button = sender as Button;
-            if (e.CurrentState == States.Normal)
-            {
-                button.Text = "Toggle Off";
-            }
-            else if (e.CurrentState == States.Selected)
-            {
-                button.Text = "Toggle On";
-            }
         }
 
         public void Deactivate()
