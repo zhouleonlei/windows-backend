@@ -209,6 +209,28 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public string TranslatableText
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.TranslatableText?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    if (buttonAttributes.TextAttributes.TranslatableText == null)
+                    {
+                        buttonAttributes.TextAttributes.TranslatableText = new StringSelector();
+                    }
+                    buttonAttributes.TextAttributes.TranslatableText.All = value;
+
+                    RelayoutRequest();
+                }
+            }
+        }
+
         public float FontSize
         {
             get
@@ -314,6 +336,22 @@ namespace Tizen.NUI.Controls
                 {
                     CreateTextAttributes();
                     buttonAttributes.TextAttributes.Text = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+        public StringSelector TranslatableTextSelector
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.TranslatableText;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    buttonAttributes.TextAttributes.TranslatableText = value.Clone() as StringSelector;
                     RelayoutRequest();
                 }
             }

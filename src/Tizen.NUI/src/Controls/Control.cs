@@ -146,6 +146,10 @@ namespace Tizen.NUI.Controls
                 {
                     text.Text = textAttrs.Text.GetValue(State);
                 }
+                if (textAttrs.TranslatableText?.GetValue(State) != null)
+                {
+                    text.TranslatableText = textAttrs.TranslatableText.GetValue(State);
+                }
                 if (textAttrs.MultiLine?.GetValue(State) != null)
                 {
                     text.MultiLine = textAttrs.MultiLine.GetValue(State).Value;
@@ -289,6 +293,77 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+
+        //protected void ApplyAttributes(VisualMap visual, ViewAttributes attrs)
+        //{
+        //    if (visual == null || attrs == null)
+        //    {
+        //        return;
+        //    }
+
+        //    if (attrs.Position2D?.GetValue(State) != null)
+        //    {
+        //        visual.PositionPolicy = VisualTransformPolicyType.Absolute;
+        //        visual.Position = attrs.Position2D.GetValue(State);
+        //    }
+
+        //    if (attrs.Size2D?.GetValue(State) != null)
+        //    {
+        //        visual.SizePolicy = VisualTransformPolicyType.Absolute;
+        //        visual.Size = attrs.Size2D.GetValue(State);
+        //    }
+    
+        //    if (attrs.ParentOrigin?.GetValue(State) != null)
+        //    {
+        //        switch(attrs.ParentOrigin.GetValue(State))
+        //        {
+        //            case ParentOrigin.TopLeft:
+        //                visual.Origin = Visual.AlignType.TopBegin;
+        //                break;
+        //        }
+        //    }
+        //    if (attrs.PivotPoint?.GetValue(State) != null)
+        //    {
+        //        switch (attrs.PivotPoint.GetValue(State))
+        //        {
+        //            case NUI.PivotPoint.TopLeft:
+        //                visual.AnchorPoint = Visual.AlignType.TopBegin;
+        //                break;
+        //        }
+        //    }
+
+        //    if (attrs.WidthResizePolicy?.GetValue(State) != null)
+        //    {
+        //        view.WidthResizePolicy = attrs.WidthResizePolicy.GetValue(State).Value;
+        //    }
+        //    if (attrs.HeightResizePolicy?.GetValue(State) != null)
+        //    {
+        //        view.HeightResizePolicy = attrs.HeightResizePolicy.GetValue(State).Value;
+        //    }
+        //    if (attrs.SizeModeFactor?.GetValue(State) != null)
+        //    {
+        //        view.SizeModeFactor = attrs.SizeModeFactor.GetValue(State);
+        //    }
+        //    if (attrs.Opacity?.GetValue(State) != null)
+        //    {
+        //        view.Opacity = attrs.Opacity.GetValue(State).Value;
+        //    }
+
+        //    ImageView image = view as ImageView;
+        //    ImageAttributes imageAttrs = attrs as ImageAttributes;
+        //    if (image != null && imageAttrs != null)
+        //    {
+        //        if (imageAttrs.ResourceURL?.GetValue(State) != null)
+        //        {
+        //            image.ResourceUrl = imageAttrs.ResourceURL.GetValue(State);
+        //        }
+        //        if (imageAttrs.Border?.GetValue(State) != null)
+        //        {
+        //            image.Border = imageAttrs.Border.GetValue(State);
+        //        }
+
+        //    }
+        //}
 
         protected override void Dispose(DisposeTypes type)
         {

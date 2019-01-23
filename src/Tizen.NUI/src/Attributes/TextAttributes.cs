@@ -18,6 +18,20 @@ namespace Tizen.NUI.Controls
             return attrs.text;
         });
 
+        public static readonly BindableProperty TranslatableTextProperty = BindableProperty.Create("TranslatableText", typeof(StringSelector), typeof(TextAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (TextAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.translatableText = (StringSelector)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (TextAttributes)bindable;
+            return attrs.translatableText;
+        });
+
         public static readonly BindableProperty MultiLineProperty = BindableProperty.Create("MultiLine", typeof(BoolSelector), typeof(TextAttributes), default(BoolSelector), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
@@ -272,6 +286,7 @@ namespace Tizen.NUI.Controls
         });
 
         private StringSelector text;
+        private StringSelector translatableText;
         private BoolSelector multiLine;
         private HorizontalAlignmentSelector horizontalAlignment;
         private VerticalAlignmentSelector verticalAlignment;
@@ -298,6 +313,11 @@ namespace Tizen.NUI.Controls
             if (attributes.text != null)
             {
                 text = attributes.text.Clone() as StringSelector;
+            }
+
+            if (attributes.translatableText != null)
+            {
+                translatableText = attributes.translatableText.Clone() as StringSelector;
             }
 
             if (attributes.multiLine != null)
@@ -400,7 +420,17 @@ namespace Tizen.NUI.Controls
                 SetValue(TextProperty, value);
             }
         }
-
+        public StringSelector TranslatableText
+        {
+            get
+            {
+                return (StringSelector)GetValue(TranslatableTextProperty);
+            }
+            set
+            {
+                SetValue(TranslatableTextProperty, value);
+            }
+        }
         public BoolSelector MultiLine
         {
             get
