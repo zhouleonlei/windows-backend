@@ -22,6 +22,11 @@
                         Pressed ="*DemoRes*/images/FH3/7. Input Field/field_btn_ic_delete_press.png"
                         Disabled="*DemoRes*/images/FH3/7. Input Field/field_btn_ic_delete_dim.png"
                         />
+        <ColorSelector x:Key="DAFamilyStyleBInputFieldTextColor"
+                        Normal="0, 0, 0, 1.0"
+                        Pressed ="0, 0, 0, 1.0"
+                        Disabled="0, 0, 0, 0.4"
+                        />
     </AttributesContainer.XamlResources>
     
     <InputFieldAttributes 
@@ -37,8 +42,10 @@
 
         <InputFieldAttributes.InputBoxAttributes>
             <TextFieldAttributes 
-                TextColor="0, 0, 0, 1.0"
+                TextColor="{StaticResource DAFamilyStyleBInputFieldTextColor}"
                 PlaceholderTextColor="0, 0, 0, 0.4"
+                PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
+                SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
                 HorizontalAlignment="Begin"
                 VerticalAlignment="Center"
                 PointSize="38"

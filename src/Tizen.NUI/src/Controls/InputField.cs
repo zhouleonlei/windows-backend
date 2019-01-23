@@ -17,7 +17,7 @@ namespace Tizen.NUI.Controls
         private string text = null;
         private string hintText = null;
         private bool isFocused = false;
-        private bool isPressed = false;
+        //private bool isPressed = false;
         private bool isEnabled = true;
 
         private EventHandler<CancelBtnClickArgs> cancelBtnClickHandler;
@@ -30,6 +30,13 @@ namespace Tizen.NUI.Controls
             PressDown,
             /// <summary> Bounce up </summary>
             BounceUp
+        }
+
+        private new enum State
+        {
+            Disabled,
+            Pressed,
+            Normal
         }
 
         static InputField()
@@ -114,6 +121,8 @@ namespace Tizen.NUI.Controls
                     return;
                 }
                 isEnabled = value;
+                Sensitive = isEnabled;
+                UpdateComponentState();
             }
         }
         /// <summary>
@@ -255,6 +264,7 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(addBtnTop, inputFieldAttrs.AddButtonTopAttributes);
             ApplyAttributes(deleteBtn, inputFieldAttrs.DeleteButtonAttributes);
             RelayoutComponents();
+            UpdateComponentState();
         }
 
         private void Initialize()
@@ -350,7 +360,7 @@ namespace Tizen.NUI.Controls
                 deleteBtn.TouchEvent += OnDeleteBtnTouchEvent;
             }
             isFocused = false;
-            isPressed = false;
+            //isPressed = false;
             isEnabled = true;
         }
         
@@ -527,7 +537,8 @@ namespace Tizen.NUI.Controls
                     args.State = ButtonClickState.PressDown;
                     deleteBtnClickHandler(this, args);
                 }
-                UpdateDeleteBtnState(true);
+                //UpdateDeleteBtnState(true);
+                UpdateDeleteBtnState(State.Pressed);
             }
             else if (state == PointStateType.Up)
             {
@@ -537,7 +548,8 @@ namespace Tizen.NUI.Controls
                     args.State = ButtonClickState.BounceUp;
                     deleteBtnClickHandler(this, args);
                 }
-                UpdateDeleteBtnState(false);
+                //UpdateDeleteBtnState(false);
+                UpdateDeleteBtnState(State.Normal);
             }
             Console.WriteLine("-------, state = " + state);
             return false;
@@ -554,7 +566,8 @@ namespace Tizen.NUI.Controls
                     args.State = ButtonClickState.PressDown;
                     addBtnClickHandler(this, args);
                 }
-                UpdateAddBtnState(true);
+                //UpdateAddBtnState(true);
+                UpdateAddBtnState(State.Pressed);
             }
             else if (state == PointStateType.Up)
             {
@@ -564,7 +577,8 @@ namespace Tizen.NUI.Controls
                     args.State = ButtonClickState.BounceUp;
                     addBtnClickHandler(this, args);
                 }
-                UpdateAddBtnState(false);
+                //UpdateAddBtnState(false);
+                UpdateAddBtnState(State.Normal);
             }
             Console.WriteLine("-------, state = " + state);
             return false;
@@ -596,41 +610,127 @@ namespace Tizen.NUI.Controls
             RelayoutComponents();
         }
 
-        private void UpdateDeleteBtnState(bool pressed)
+        private void UpdateComponentState()
         {
-            if (!isEnabled)
+            if (isEnabled)
             {
-                return;
-            }
-            if (pressed)
-            {
-                deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Pressed;
+                UpdateTextFieldState(State.Normal);
+                UpdateDeleteBtnState(State.Normal);
+                UpdateAddBtnState(State.Normal);
             }
             else
             {
-                deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Normal;
-            }
-        }
-
-        private void UpdateAddBtnState(bool pressed)
-        {
-            if (!isEnabled)
-            {
-                return;
-            }
-            if (pressed)
-            {
-                addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Pressed;
-                addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Pressed;
-                addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Pressed;
-            }
-            else
-            {
-                addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Normal;
-                addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Normal;
-                addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Normal;
+                UpdateTextFieldState(State.Disabled);
+                UpdateDeleteBtnState(State.Disabled);
+                UpdateAddBtnState(State.Disabled);
             }
         }
         
+        private void UpdateTextFieldState(State state)
+        {
+            if (textField == null)
+            {
+                return;
+            }
+            if (inputFieldAttrs != null && inputFieldAttrs.InputBoxAttributes != null && inputFieldAttrs.InputBoxAttributes.TextColor != null)
+            {
+                switch (state)
+                {
+                    case State.Disabled:
+                        textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Disabled;
+                        break;
+                    //case State.Pressed:
+                    //    textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Pressed;
+                    //    break;
+                    case State.Normal:
+                        textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Normal;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void UpdateDeleteBtnState(State state)
+        {
+            if (deleteBtn != null && inputFieldAttrs != null && inputFieldAttrs.DeleteButtonAttributes != null && inputFieldAttrs.DeleteButtonAttributes.ResourceURL != null)
+            {
+                switch (state)
+                {
+                    case State.Disabled:
+                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Disabled;
+                        break;
+                    case State.Pressed:
+                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Pressed;
+                        break;
+                    case State.Normal:
+                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Normal;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void UpdateAddBtnState(State state)
+        {
+            if (inputFieldAttrs == null)
+            {
+                return;
+            }
+            switch (state)
+            {
+                case State.Disabled:
+                    {
+                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
+                        {
+                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Disabled;
+                        }
+                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
+                        {
+                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Disabled;
+                        }
+                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
+                        {
+                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Disabled;
+                        }
+                    }
+                    break;
+                case State.Pressed:
+                    {
+                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
+                        {
+                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Pressed;
+                        }
+                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
+                        {
+                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Pressed;
+                        }
+                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
+                        {
+                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Pressed;
+                        }
+                    }
+                    break;
+                case State.Normal:
+                    {
+                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
+                        {
+                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Normal;
+                        }
+                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
+                        {
+                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Normal;
+                        }
+                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
+                        {
+                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Normal;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
