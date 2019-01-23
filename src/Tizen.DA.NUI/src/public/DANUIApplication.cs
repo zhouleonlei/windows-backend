@@ -180,6 +180,12 @@ namespace Tizen.DA.NUI
             ScrollBar.RegisterStyle("DAScrollbar", typeof(DA.NUI.Controls.DAScrollbarAttributes));
             ScrollBar.RegisterStyle("VDScrollbar", typeof(DA.NUI.Controls.VDScrollbarAttributes));
 
+            Progress.RegisterStyle("FamilyProgressbar", typeof(DA.NUI.Controls.FamilyProgressbarAttributes));
+            Progress.RegisterStyle("FoodProgressbar", typeof(DA.NUI.Controls.FoodProgressbarAttributes));
+            Progress.RegisterStyle("KitchenProgressbar", typeof(DA.NUI.Controls.KitchenProgressbarAttributes));
+            Progress.RegisterStyle("UtilityProgressbar", typeof(DA.NUI.Controls.UtilityProgressbarAttributes));
+            ProgressCircle.RegisterStyle("VDProgressCircle", typeof(DA.NUI.Controls.VDProgressCircleAttributes));
+
             Popup.RegisterStyle("DAPopup", typeof(DAPopupAttributes));
             Button.RegisterStyle("UtilityPopupButton", typeof(UtilityPopupButtonAttributes));
             Button.RegisterStyle("FoodPopupButton", typeof(FoodPopupButtonAttributes));
