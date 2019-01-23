@@ -25,98 +25,11 @@ namespace Tizen.NUI.Controls
         ///// attr.ThumbColor = new Color(13.0f / 255.0f, 13.0f / 255.0f, 13.0f / 255.0f, 1.0f);    //Color #0d0d0d
         ///// attr.TrackColor = new Color(96.0f / 255.0f, 105.0f / 255.0f, 110.0f / 255.0f, 0.6f);  //Color #60696e (Opacity : 60%)
         ///// </code>
-        //public new class Attributes : Control.Attributes
-        //{
-        //    /// <summary>
-        //    /// The default constructor of the ScrollBar Attributes class.
-        //    /// </summary>
-        //    public Attributes()
-        //    {
-        //    }
 
-        //    /// <summary>
-        //    /// Copy Constructor of the ProgressBar Attributes class.
-        //    /// </summary>
-        //    /// <param name="attrs">Attributes to be copied</param>
-        //    public Attributes(Attributes attrs) : base(attrs)
-        //    {
-        //        if (attrs == null)
-        //        {
-        //            return;
-        //        }
-        //        if (attrs.Direction != null)
-        //        {
-        //            Direction = attrs.Direction;
-        //        }
-        //        if (attrs.TrackColor != null)
-        //        {
-        //            TrackColor = attrs.TrackColor;
-        //        }
-        //        if (attrs.ThumbColor != null)
-        //        {
-        //            ThumbColor = attrs.ThumbColor;
-        //        }
-        //        if (attrs.TrackImageURL != null)
-        //        {
-        //            TrackImageURL = attrs.TrackImageURL;
-        //        }
-        //        if (attrs.ThumbImageURL != null)
-        //        {
-        //            ThumbImageURL = attrs.ThumbImageURL;
-        //        }
-        //        if (attrs.ThumbSize != null)
-        //        {
-        //            ThumbSize = attrs.ThumbSize;
-        //        }
-        //        if (attrs.MaxValue != null)
-        //        {
-        //            MaxValue = attrs.MaxValue;
-        //        }
-        //        if (attrs.MinValue != null)
-        //        {
-        //            MinValue = attrs.MinValue;
-        //        }
-        //        if (attrs.CurValue != null)
-        //        {
-        //            CurValue = attrs.CurValue;
-        //        }
-        //        if (attrs.Duration != null)
-        //        {
-        //            Duration = attrs.Duration;
-        //        }
 
         //    }
 
-        //    /// <summary>
-        //    /// The method to clone the ScrollBar Attributes.
-        //    /// </summary>
-        //    /// <returns>The ScrollBar Attributes.</returns>
-        //    public override Control.Attributes Clone()
-        //    {
-        //        ////TNLog.D("Clone Attributes;");
-        //        return new Attributes(this);
-        //    }
 
-        //    public DirectionType? Direction = null;
-
-        //    public Color TrackColor = null;
-
-        //    public Color ThumbColor = null;
-
-        //    public string TrackImageURL = null;
-
-        //    public string ThumbImageURL = null;
-
-        //    public Size ThumbSize = null;
-
-        //    public uint? MaxValue = null;
-
-        //    public uint? MinValue = null;
-
-        //    public uint? CurValue = null;
-
-        //    public uint? Duration = null;
-        //}
 
         /// <summary>
         /// The PanGesture event args.
@@ -247,11 +160,8 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                Console.WriteLine("250");
                 if (value == null)
                 {
-                    Console.WriteLine("252");
-                    //TNLog.E("Set null value to the size of the thumb object!");
                     throw new InvalidOperationException("Wrong size value of the thumb object. It shoud be a not-null value!");
                 }
                 if (thumbObj != null)
@@ -259,12 +169,10 @@ namespace Tizen.NUI.Controls
                     //TNLog.D("ThumbSize, value.Width = " + value.Width + ", value.Height = " + value.Height + ";");
                     if (scrollBarAttrs.ThumbSize == null)
                     {
-                        Console.WriteLine("261");
                         scrollBarAttrs.ThumbSize = new Size(value.Width, value.Height, 0);
                     }
                     else
                     {
-                        Console.WriteLine("266");
                         scrollBarAttrs.ThumbSize.Width = value.Width;
                         scrollBarAttrs.ThumbSize.Height = value.Height;
                     }
@@ -274,7 +182,26 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public string TrackImageURL
+        {
+            get
+            {
+                return scrollBarAttrs.TrackImageAttributes.ResourceURL.All;
+            }
+            set
+            {
+                if (trackObj != null)
+                {
+                    if (scrollBarAttrs.TrackImageAttributes.ResourceURL == null)
+                    {
+                        scrollBarAttrs.TrackImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    scrollBarAttrs.TrackImageAttributes.ResourceURL.All = value;
+                }
+            }
+        }
 
+        //    public string ThumbImageURL = null;
 
         /// <summary>
         /// The property to get/set the color of the track object.

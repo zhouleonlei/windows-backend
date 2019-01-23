@@ -1,0 +1,15 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollbarAttributes x:Name="ScrollbarAttributes" >
+        <ScrollbarAttributes.TrackImageAttributes>
+            <ImageAttributes BackgroundColor = "0.38, 0.38, 0.38, 0.6" />
+        </ScrollbarAttributes.TrackImageAttributes>
+
+        <ScrollbarAttributes.ThumbImageAttributes>
+            <ImageAttributes BackgroundColor = "0.01, 0.01, 0.01, 1" />
+        </ScrollbarAttributes.ThumbImageAttributes>
+
+    </ScrollbarAttributes>
+
+</AttributesContainer>

@@ -15,8 +15,6 @@
 
   <ItemGroup>
     <Compile Remove="src\Attributes\FontAttributes.cs" />
-    <Compile Remove="src\Attributes\ScrollbarAttributes.cs" />
-    <Compile Remove="src\Controls\Scrollbar.cs" />
   </ItemGroup>
 
   <ItemGroup>

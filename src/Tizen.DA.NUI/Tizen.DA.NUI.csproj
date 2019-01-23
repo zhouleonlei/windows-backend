@@ -83,6 +83,11 @@
     <None Remove="res\Popup\KitchenPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\PopupAttributes.xaml" />
     <None Remove="res\Popup\UtilityPopupButtonAttributes.xaml" />
+    <None Remove="res\Progress\FamilyProgressbarAttributes.xaml" />
+    <None Remove="res\Progress\FoodProgressbarAttributes.xaml" />
+    <None Remove="res\Progress\KitchenProgressbarAttributes.xaml" />
+    <None Remove="res\Progress\UtilityProgressbarAttributes.xaml" />
+    <None Remove="res\Progress\VDProgressCircleAttributes.xaml" />
     <None Remove="res\RadioButton\FamilyRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
@@ -166,10 +171,28 @@
     <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyBasicScrollbarAttributes.xaml">
+    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\FamilyProgressbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Progress\FoodProgressbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Progress\KitchenProgressbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Progress\VDProgressCircleAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Progress\UtilityProgressbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Scrollbar\VDScrollbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Scrollbar\DAScrollbarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">

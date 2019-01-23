@@ -1,0 +1,13 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ProgressBarAttributes x:Name="ProgressBarAttributes" >
+        <ProgressBarAttributes.TrackImageAttributes>
+            <ImageAttributes  BackgroundColor= "0.0, 0.0, 0.0, 0.1" />
+        </ProgressBarAttributes.TrackImageAttributes>
+
+        <ProgressBarAttributes.ProgressImageAttributes>
+            <ImageAttributes  BackgroundColor= "#ec7510" />
+        </ProgressBarAttributes.ProgressImageAttributes>
+    </ProgressBarAttributes>
+</AttributesContainer>
