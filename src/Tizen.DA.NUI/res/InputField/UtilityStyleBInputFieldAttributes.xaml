@@ -44,6 +44,8 @@
             <TextFieldAttributes 
                 TextColor="{StaticResource DAUtilityStyleBInputFieldTextColor}"
                 PlaceholderTextColor="0, 0, 0, 0.4"
+                PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
+                SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
                 HorizontalAlignment="Begin"
                 VerticalAlignment="Center"
                 PointSize="38"

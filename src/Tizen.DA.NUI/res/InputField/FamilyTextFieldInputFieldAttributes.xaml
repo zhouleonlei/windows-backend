@@ -5,7 +5,7 @@
         <ColorSelector x:Key="DAFamilyTextFieldInputFieldTextColor"
                         Normal="0, 0, 0, 1.0"
                         Pressed ="0, 0, 0, 1.0"
-                        Disabled="1.0, 0, 0, 0.4"
+                        Disabled="0, 0, 0, 0.4"
                         />
     </AttributesContainer.XamlResources>
     
@@ -24,6 +24,8 @@
             <TextFieldAttributes 
                 TextColor="{StaticResource DAFamilyTextFieldInputFieldTextColor}"
                 PlaceholderTextColor="0, 0, 0, 0.4"
+                PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
+                SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
                 HorizontalAlignment="Begin"
                 VerticalAlignment="Center"
                 PointSize="38"
