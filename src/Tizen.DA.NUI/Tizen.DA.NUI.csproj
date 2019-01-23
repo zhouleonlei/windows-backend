@@ -166,10 +166,13 @@
     <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\FamilyBasicScrollbarAttributes.xaml">
+    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
+    <EmbeddedResource Include="res\Scrollbar\VDScrollbarAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Scrollbar\DAScrollbarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">

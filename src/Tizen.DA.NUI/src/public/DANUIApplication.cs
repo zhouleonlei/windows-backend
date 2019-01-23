@@ -177,7 +177,8 @@ namespace Tizen.DA.NUI
             Switch.RegisterStyle("FamilySwitch", typeof(FamilySwitchAttributes));
             Switch.RegisterStyle("KitchenSwitch", typeof(KitchenSwitchAttributes));
 
-            //         ScrollBar.RegisterStyle("FamilyBasicScrollbar", typeof(DA.NUI.Controls.DAScrollbarAttributes));
+            ScrollBar.RegisterStyle("DAScrollbar", typeof(DA.NUI.Controls.DAScrollbarAttributes));
+            ScrollBar.RegisterStyle("VDScrollbar", typeof(DA.NUI.Controls.VDScrollbarAttributes));
 
             Popup.RegisterStyle("DAPopup", typeof(DAPopupAttributes));
             Button.RegisterStyle("UtilityPopupButton", typeof(UtilityPopupButtonAttributes));

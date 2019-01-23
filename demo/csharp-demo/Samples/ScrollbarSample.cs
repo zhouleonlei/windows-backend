@@ -8,7 +8,8 @@ namespace Tizen.NUI.Examples
         private TextLabel board1, board2, board3, board, tl, tl2;
         private Button button1, button2, button3, button4;
 
-        private ScrollBar familyScrollBar1, familyScrollBar2;
+        private ScrollBar daScrollBar1, daScrollBar2;
+        private ScrollBar vdScrollBar1, vdScrollBar2;
 
 
         public void Activate()
@@ -54,6 +55,19 @@ namespace Tizen.NUI.Examples
             board2.FocusGained += Board_FocusGained;
             board2.FocusLost += Board_FocusLost;
 
+            board3 = new TextLabel();
+            board3.Size2D = new Size2D(200, 70);
+            board3.Position2D = new Position2D(700, 200);
+            board3.PointSize = 30;
+            board3.HorizontalAlignment = HorizontalAlignment.Center;
+            board3.VerticalAlignment = VerticalAlignment.Center;
+            board3.BackgroundColor = Color.Magenta;
+            board3.Text = "VD";
+            window.Add(board3);
+            board3.Focusable = true;
+            board3.FocusGained += Board_FocusGained;
+            board3.FocusLost += Board_FocusLost;
+
             button1 = new Button("FamilyBasicButton");
             button1.BackgroundColor = Color.Green;
             button1.Position2D = new Position2D(100, 700);
@@ -90,27 +104,49 @@ namespace Tizen.NUI.Examples
             button4.Focusable = true;
             button4.ClickEvent += Scroll2Minus;
 
-            familyScrollBar1 = new ScrollBar("FamilyBasicScrollbar");
-            familyScrollBar1.Position2D = new Position2D(100, 500);
-            familyScrollBar1.Size2D = new Size2D(300, 8);
-            familyScrollBar1.MaxValue = (uint)familyScrollBar1.SizeWidth / 10;
-            familyScrollBar1.MinValue = 0;
-            familyScrollBar1.CurrentValue = 0;
-            familyScrollBar1.ThumbSize = new Size(30.0f, 8.0f, 0.0f);
-            familyScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
+            daScrollBar1 = new ScrollBar("DAScrollbar");
+            daScrollBar1.Position2D = new Position2D(100, 500);
+            daScrollBar1.Size2D = new Size2D(300, 4);
+            daScrollBar1.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
+            daScrollBar1.MinValue = 0;
+            daScrollBar1.CurrentValue = 0;
+            daScrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
+            window.Add(daScrollBar1);
+            daScrollBar1.TrackImageURL = "*DemoRes*/images/VD/component/c_progressbar/c_progressbar_white_buffering.png";
 
-            window.Add(familyScrollBar1);
+            daScrollBar2 = new ScrollBar("DAScrollbar");
+            daScrollBar2.Position2D = new Position2D(450, 300);
+            daScrollBar2.Size2D = new Size2D(4, 300);
+            daScrollBar2.MaxValue = (uint)daScrollBar2.SizeHeight / 10;
+            daScrollBar2.MinValue = 0;
+            daScrollBar2.CurrentValue = 0;
+            daScrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            daScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
+            window.Add(daScrollBar2);
+            daScrollBar2.PanGestureEvent += ScrollPan;
 
-            familyScrollBar2 = new ScrollBar("FamilyBasicScrollbar");
-            familyScrollBar2.Position2D = new Position2D(450, 300);
-            familyScrollBar2.Size2D = new Size2D(8, 300);
-            familyScrollBar2.MaxValue = (uint)familyScrollBar2.SizeHeight / 10;
-            familyScrollBar2.MinValue = 0;
-            familyScrollBar2.CurrentValue = 0;
-            familyScrollBar2.ThumbSize = new Size(8.0f, 30.0f, 0.0f);
-            familyScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
+            vdScrollBar1 = new ScrollBar("VDScrollbar");
+            vdScrollBar1.Position2D = new Position2D(800, 500);
+            vdScrollBar1.Size2D = new Size2D(300, 3);
+            vdScrollBar1.MaxValue = (uint)vdScrollBar1.SizeWidth / 10;
+            vdScrollBar1.MinValue = 0;
+            vdScrollBar1.CurrentValue = 0;
+            vdScrollBar1.ThumbSize = new Size(30.0f, 3.0f, 0.0f);
+            vdScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
+            window.Add(vdScrollBar1);
+            
 
-            window.Add(familyScrollBar2);
+
+            vdScrollBar2 = new ScrollBar("VDScrollbar");
+            vdScrollBar2.Position2D = new Position2D(1150, 300);
+            vdScrollBar2.Size2D = new Size2D(3, 300);
+            vdScrollBar2.MaxValue = (uint)vdScrollBar2.SizeHeight / 10;
+            vdScrollBar2.MinValue = 0;
+            vdScrollBar2.CurrentValue = 0;
+            vdScrollBar2.ThumbSize = new Size(3.0f, 30.0f, 0.0f);
+            vdScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
+            window.Add(vdScrollBar2);
 
             board.UpFocusableView = button1;
 
@@ -129,19 +165,26 @@ namespace Tizen.NUI.Examples
 
         private void Scroll1Add(object sender, global::System.EventArgs e)
         {
-            familyScrollBar1.CurrentValue++;
+            daScrollBar1.CurrentValue++;
         }
         private void Scroll1Minus(object sender, global::System.EventArgs e)
         {
-            familyScrollBar1.CurrentValue--;
+            daScrollBar1.CurrentValue--;
         }
         private void Scroll2Add(object sender, global::System.EventArgs e)
         {
-            familyScrollBar2.CurrentValue++;
+            daScrollBar2.CurrentValue++;
         }
         private void Scroll2Minus(object sender, global::System.EventArgs e)
         {
-            familyScrollBar2.CurrentValue--;
+            daScrollBar2.CurrentValue--;
+        }
+
+        private void ScrollPan(object sender, global::System.EventArgs e)
+        {
+            board.Text=board.Text+" 1";
+            if (board.Text.Length > 20)
+                board.Text = "";
         }
 
         public void Deactivate()

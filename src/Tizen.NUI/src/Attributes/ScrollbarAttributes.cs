@@ -115,8 +115,6 @@ namespace Tizen.NUI.Controls
         });
 
         private ScrollBar.DirectionType? direction;
-        private string trackImageURL;
-        private string thumbImageURL;
         private Size thumbSize;
         private uint? maxValue;
         private uint? minValue;
@@ -124,6 +122,21 @@ namespace Tizen.NUI.Controls
         private uint? duration;
         private ImageAttributes trackImageAttrs;
         private ImageAttributes thumbImageAttrs;
+
+        public ScrollbarAttributes () : base() { }
+
+        public ScrollbarAttributes(ScrollbarAttributes attributes) : base(attributes)
+        {
+            if (attributes.trackImageAttrs != null)
+            {
+                trackImageAttrs = attributes.trackImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.thumbImageAttrs != null)
+            {
+                thumbImageAttrs = attributes.thumbImageAttrs.Clone() as ImageAttributes;
+            }
+        }
 
         public ImageAttributes TrackImageAttributes
         {
@@ -222,6 +235,10 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public override Attributes Clone()
+        {
+            return new ScrollbarAttributes(this);
+        }
 
     }
 }
