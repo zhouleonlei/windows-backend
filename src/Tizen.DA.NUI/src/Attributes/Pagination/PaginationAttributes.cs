@@ -4,7 +4,7 @@ using System.Text;
 using Tizen.NUI.Controls;
 using Tizen.NUI.Binding;
 
-namespace Tizen.DA.NUI.Controls
+namespace Tizen.FH.NUI.Controls
 {
     internal class PaginationAttributes : Tizen.NUI.Controls.PaginationAttributes
     {

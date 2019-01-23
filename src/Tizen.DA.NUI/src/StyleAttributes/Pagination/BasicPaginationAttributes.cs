@@ -1,7 +1,7 @@
 ﻿using Tizen.NUI.Xaml;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.DA.NUI.res.Pagination.BasicPaginationAttributes.xaml", "BasicPaginationAttributes.xaml", typeof(Tizen.DA.NUI.Controls.BasicPaginationAttributes))]
-namespace Tizen.DA.NUI.Controls
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Pagination.BasicPaginationAttributes.xaml", "BasicPaginationAttributes.xaml", typeof(Tizen.FH.NUI.Controls.BasicPaginationAttributes))]
+namespace Tizen.FH.NUI.Controls
 {
     internal class BasicPaginationAttributes : AttributesContainer
     {

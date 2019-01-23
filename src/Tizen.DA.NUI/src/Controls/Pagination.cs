@@ -5,7 +5,7 @@ using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Controls;
 using Tizen.NUI;
 
-namespace Tizen.DA.NUI.Controls
+namespace Tizen.FH.NUI.Controls
 {
     public class Pagination : Tizen.NUI.Controls.Pagination
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Tizen.DA.NUI;
+using Tizen.FH.NUI;
 using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
@@ -27,7 +27,7 @@ namespace Tizen.NUI.Examples
         }
     }
 
-    public class SampleMain : DANUIApplication, IExample
+    public class SampleMain : FHNUIApplication, IExample
     {
         public void Activate()
         {

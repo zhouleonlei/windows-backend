@@ -5,7 +5,7 @@ using Tizen.NUI.BaseComponents;
 using Tizen.NUI;
 using Tizen.NUI.Controls;
 
-namespace Tizen.DA.NUI.Controls
+namespace Tizen.FH.NUI.Controls
 {
     public class ProgressCircle : Tizen.NUI.Controls.Progress
     {
