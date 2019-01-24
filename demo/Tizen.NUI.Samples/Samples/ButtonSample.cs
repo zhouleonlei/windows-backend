@@ -251,12 +251,12 @@ namespace Tizen.NUI.Samples
                     },
                 }
             };
-            familyBasicButton = new Button(familyServiceButtonAttributes);
-            familyBasicButton.Size2D = new Size2D(300, 80);
-            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 500);
-            familyBasicButton.PointSize = 20;
-            familyBasicButton.Text = "FamilySeviceButton";
-            root.Add(familyBasicButton);
+            familyServiceButton = new Button(familyServiceButtonAttributes);
+            familyServiceButton.Size2D = new Size2D(300, 80);
+            familyServiceButton.Position2D = new Position2D(XBase + XPadding, 500);
+            familyServiceButton.PointSize = 20;
+            familyServiceButton.Text = "FamilySeviceButton";
+            root.Add(familyServiceButton);
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ButtonAttributes familyToggleButtonAttributes = new ButtonAttributes
             {
@@ -300,16 +300,16 @@ namespace Tizen.NUI.Samples
                     },
                 }
             };
-            familyBasicButton = new Button(familyToggleButtonAttributes);
-            familyBasicButton.Size2D = new Size2D(300, 80);
-            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 700);
-            familyBasicButton.PointSize = 20;
-            familyBasicButton.TextSelector = new StringSelector
+            familyToggleButton = new Button(familyToggleButtonAttributes);
+            familyToggleButton.Size2D = new Size2D(300, 80);
+            familyToggleButton.Position2D = new Position2D(XBase + XPadding, 700);
+            familyToggleButton.PointSize = 20;
+            familyToggleButton.TextSelector = new StringSelector
             {
                 Normal = "Toggle Off",
                 Selected = "Toggle On"
             };
-            root.Add(familyBasicButton);
+            root.Add(familyToggleButton);
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ButtonAttributes familyOvalButtonAttributes = new ButtonAttributes
             {
@@ -338,11 +338,11 @@ namespace Tizen.NUI.Samples
                     Opacity = new FloatSelector { Pressed = 1, Other = 0 }
                 },
             };
-            familyBasicButton = new Button(familyOvalButtonAttributes);
-            familyBasicButton.Size2D = new Size2D(104, 104);
-            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 900);
-            familyBasicButton.PointSize = 20;
-            root.Add(familyBasicButton);
+            familyOvalButton = new Button(familyOvalButtonAttributes);
+            familyOvalButton.Size2D = new Size2D(104, 104);
+            familyOvalButton.Position2D = new Position2D(XBase + XPadding, 900);
+            familyOvalButton.PointSize = 20;
+            root.Add(familyOvalButton);
 
         }
 
