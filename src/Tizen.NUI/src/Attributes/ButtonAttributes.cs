@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.Binding;
 using Tizen.NUI.Xaml;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.ButtonDefaultAttributes.xaml", "ButtonDefaultAttributes.xaml", typeof(Tizen.NUI.Controls.ButtonAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class ButtonAttributes : ViewAttributes
