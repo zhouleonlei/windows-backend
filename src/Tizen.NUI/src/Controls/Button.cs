@@ -30,6 +30,11 @@ namespace Tizen.NUI.Controls
             Initialize();
         }
 
+        public Button(ButtonAttributes attributes) : base()
+        {
+            this.attributes = buttonAttributes = attributes.Clone() as ButtonAttributes;
+        }
+
         public event EventHandler<ClickEventArgs> ClickEvent;
         public event EventHandler<StateChangeEventArgs> StateChangedEvent
         {
@@ -40,6 +45,18 @@ namespace Tizen.NUI.Controls
             remove
             {
                 stateChangeHander -= value;
+            }
+        }
+
+        public bool IsSelectable
+        {
+            get
+            {
+                return buttonAttributes?.IsSelectable ?? false;
+            }
+            set
+            {
+                buttonAttributes.IsSelectable = value;
             }
         }
 
@@ -187,6 +204,24 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public float OverlayImageOpacity
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.Opacity?.All ?? 0.0f;
+            }
+            set
+            {
+                CreateOverlayAttributes();
+                if (buttonAttributes.OverlayImageAttributes.Opacity == null)
+                {
+                    buttonAttributes.OverlayImageAttributes.Opacity = new FloatSelector();
+                }
+                buttonAttributes.OverlayImageAttributes.Opacity.All = value;
+                RelayoutRequest();
+            }
+        }
+
         public string Text
         {
             get
@@ -231,7 +266,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public float FontSize
+        public float PointSize
         {
             get
             {
@@ -537,6 +572,24 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
+
+        public FloatSelector OverlayImageOpacitySelector
+        {
+            get
+            {
+                return buttonAttributes?.OverlayImageAttributes?.Opacity;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateOverlayAttributes();
+                    buttonAttributes.OverlayImageAttributes.Opacity = value.Clone() as FloatSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
         public ColorSelector BackgroundColorSelector
         {
             get

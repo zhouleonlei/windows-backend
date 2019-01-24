@@ -255,23 +255,22 @@ namespace Tizen.NUI.Controls
             switch(state)
             {
                 case States.Normal:
-                    return normal;
+                    return normal != null? normal : other;
                 case States.Focused:
-                    return focused;
+                    return focused != null? focused : other;
                 case States.Pressed:
-                    return pressed;
+                    return pressed != null? pressed : other;
                 case States.Disabled:
-                    return disabled;
+                    return disabled != null? disabled : other;
                 case States.Selected:
-                    return selected;
+                    return selected != null? selected : other;
                 case States.DisabledFocused:
-                    return disabledFocused;
+                    return disabledFocused != null? disabledFocused : other;
                 case States.DisabledSelected:
-                    return disabledSelected;
+                    return disabledSelected != null? disabledSelected : other;
                 default:
                     return other;
             }
-
         }
 
         public void Clone(Selector<T> selector)

@@ -6,12 +6,22 @@ namespace Tizen.NUI.Samples
 {
     public class ButtonSample : IExample
     {
-        private static readonly float Height = 150;
-        private static readonly float Width = 300;
-        private static readonly Size2D Padding = new Size2D(50, 50);
+        private static readonly int XBase = 200;
+        private static readonly int YBase = 300;
+        private static readonly int XPadding = 350;
         private View root;
         Button textButton;
         Button iconButton;
+
+        Button utilityBasicButton;
+        Button utilityServiceButton;
+        Button utilityToggleButton;
+        Button utilityOvalButton;
+
+        Button familyBasicButton;
+        Button familyServiceButton;
+        Button familyToggleButton;
+        Button familyOvalButton;
 
         public void Activate()
         {
@@ -39,9 +49,303 @@ namespace Tizen.NUI.Samples
             iconButton.IconURL = CommonReosurce.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
             root.Add(iconButton);
 
+            ///////////////////////////////////////////////Create by Property//////////////////////////////////////////////////////////
+            utilityBasicButton = new Button();
+            utilityBasicButton.IsSelectable = true;
+            utilityBasicButton.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png";
+            utilityBasicButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityBasicButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityBasicButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityBasicButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
+            utilityBasicButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityBasicButton.OverlayImageOpacitySelector = new FloatSelector
+            {
+                Pressed = 1,
+                Other = 0
+            };
+
+            utilityBasicButton.TextColorSelector = new ColorSelector
+            {
+                Normal = new Color(0, 0, 0, 1),
+                Pressed = new Color(0, 0, 0, 0.7f),
+                Selected = new Color(0.058f, 0.631f, 0.92f, 1),
+                Disabled = new Color(0, 0, 0, 0.4f)
+            };
+
+            utilityBasicButton.Size2D = new Size2D(300, 80);
+            utilityBasicButton.Position2D = new Position2D(XBase, 300);
+            utilityBasicButton.PointSize = 20;
+            utilityBasicButton.Text = "UtilityBasicButton";
+            //utilityBasicButton.IsEnabled = false;
+            root.Add(utilityBasicButton);
+
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            utilityServiceButton = new Button();
+            utilityServiceButton.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png";
+            utilityServiceButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityServiceButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityServiceButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityServiceButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
+            utilityServiceButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityServiceButton.OverlayImageOpacitySelector = new FloatSelector
+            {
+                Pressed = 1,
+                Other = 0
+            };
+
+            utilityServiceButton.TextColorSelector = new ColorSelector
+            {
+                Normal = new Color(1, 1, 1, 1),
+                Pressed = new Color(1, 1, 1, 0.7f),
+                Disabled = new Color(1, 1, 1, 0.4f)
+            };
+
+            utilityServiceButton.Size2D = new Size2D(300, 80);
+            utilityServiceButton.Position2D = new Position2D(XBase, 500);
+            utilityServiceButton.PointSize = 20;
+            utilityServiceButton.Text = "ServiceBasicButton";
+            root.Add(utilityServiceButton);
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            utilityToggleButton = new Button();
+            utilityToggleButton.IsSelectable = true;
+            utilityToggleButton.BackgroundImageURLSelector = new StringSelector
+            {
+                Normal = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_toggle_btn_normal.png",
+                Selected = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png",
+            };
+                
+            utilityToggleButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityToggleButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityToggleButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityToggleButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
+            utilityToggleButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityToggleButton.OverlayImageOpacitySelector = new FloatSelector
+            {
+                Pressed = 1,
+                Other = 0
+            };
+
+            utilityToggleButton.TextColorSelector = new ColorSelector
+            {
+                Normal = new Color(0.058f, 0.631f, 0.92f, 1),
+                Selected = new Color(1, 1, 1, 1),
+            };
+
+            utilityToggleButton.Size2D = new Size2D(300, 80);
+            utilityToggleButton.Position2D = new Position2D(XBase, 700);
+            utilityToggleButton.PointSize = 20;
+            utilityToggleButton.TextSelector = new StringSelector
+            {
+                Normal = "Toggle Off",
+                Selected = "Toggle On"
+            };
+            root.Add(utilityToggleButton);
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            utilityOvalButton = new Button();
+            utilityOvalButton.IsSelectable = true;
+            utilityOvalButton.BackgroundImageURLSelector = new StringSelector
+            {
+                Normal = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
+                Selected = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_select.png",
+            };
+            utilityOvalButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityOvalButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png";
+            utilityOvalButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityOvalButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png";
+            utilityOvalButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
+            utilityOvalButton.OverlayImageOpacitySelector = new FloatSelector
+            {
+                Pressed = 1,
+                Other = 0
+            };
+
+            utilityOvalButton.Size2D = new Size2D(104, 104);
+            utilityOvalButton.Position2D = new Position2D(XBase, 900);
+            utilityOvalButton.PointSize = 20;
+            root.Add(utilityOvalButton);
+
+            ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
+            ButtonAttributes familyBasicButtonAttributes = new ButtonAttributes
+            {
+                IsSelectable = true,
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                ShadowImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                OverlayImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
+                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
+                },
+
+                TextAttributes = new TextAttributes
+                {
+                    PointSize = new FloatSelector { All = 20 },
+                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
+                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent},
+
+                    TextColor = new ColorSelector
+                    {
+                        Normal = new Color(0, 0, 0, 1),
+                        Pressed = new Color(0, 0, 0, 0.7f),
+                        Selected = new Color(0.141f, 0.769f, 0.278f, 1),
+                        Disabled = new Color(0, 0, 0, 0.4f),
+                    },
+                }
+            };
+            familyBasicButton = new Button(familyBasicButtonAttributes);
+            familyBasicButton.Size2D = new Size2D(300, 80);
+            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 300);
+            familyBasicButton.PointSize = 20;
+            familyBasicButton.Text = "FamilyBasicButton";
+            root.Add(familyBasicButton);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            ButtonAttributes familyServiceButtonAttributes = new ButtonAttributes
+            {
+                IsSelectable = false,
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                ShadowImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                OverlayImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
+                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
+                },
+
+                TextAttributes = new TextAttributes
+                {
+                    PointSize = new FloatSelector { All = 20 },
+                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
+                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+
+                    TextColor = new ColorSelector
+                    {
+                        Normal = new Color(1, 1, 1, 1),
+                        Pressed = new Color(1, 1, 1, 0.7f),
+                        Disabled = new Color(1, 1, 1, 0.4f),
+                    },
+                }
+            };
+            familyBasicButton = new Button(familyServiceButtonAttributes);
+            familyBasicButton.Size2D = new Size2D(300, 80);
+            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 500);
+            familyBasicButton.PointSize = 20;
+            familyBasicButton.Text = "FamilySeviceButton";
+            root.Add(familyBasicButton);
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            ButtonAttributes familyToggleButtonAttributes = new ButtonAttributes
+            {
+                IsSelectable = true,
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector
+                    {
+                        Normal = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_toggle_btn_normal_24c447.png",
+                        Selected = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png",
+
+                    },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                ShadowImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                OverlayImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
+                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
+                },
+
+                TextAttributes = new TextAttributes
+                {
+                    PointSize = new FloatSelector { All = 20 },
+                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
+                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+
+                    TextColor = new ColorSelector
+                    {
+                        Normal = new Color(0.141f, 0.769f, 0.278f, 1),
+                        Selected = new Color(1, 1, 1, 1),
+                    },
+                }
+            };
+            familyBasicButton = new Button(familyToggleButtonAttributes);
+            familyBasicButton.Size2D = new Size2D(300, 80);
+            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 700);
+            familyBasicButton.PointSize = 20;
+            familyBasicButton.TextSelector = new StringSelector
+            {
+                Normal = "Toggle Off",
+                Selected = "Toggle On"
+            };
+            root.Add(familyBasicButton);
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            ButtonAttributes familyOvalButtonAttributes = new ButtonAttributes
+            {
+                IsSelectable = true,
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector
+                    {
+                        Normal = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
+                        Selected = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/oval_toggle_btn_select_24c447.png",
+
+                    },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                ShadowImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
+                },
+
+                OverlayImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png" },
+                    Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
+                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
+                },
+            };
+            familyBasicButton = new Button(familyOvalButtonAttributes);
+            familyBasicButton.Size2D = new Size2D(104, 104);
+            familyBasicButton.Position2D = new Position2D(XBase + XPadding, 900);
+            familyBasicButton.PointSize = 20;
+            root.Add(familyBasicButton);
 
         }
-        
+
 
         public void Deactivate()
         {

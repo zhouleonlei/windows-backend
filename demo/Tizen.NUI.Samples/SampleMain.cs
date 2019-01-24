@@ -8,17 +8,9 @@ namespace Tizen.NUI.Samples
 {
     public class CommonReosurce
     {
-        public static string GetReosurceURL()
-        {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/image/";
-        }
-        public static string GetLocalReosurceURL()
-        {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/images/";
-        }
         public static string GetFHResourcePath()
         {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/FH3/";
+            return @"../../../demo/csharp-demo/res/images/FH3/";
         }
         public static string GetTVResourcePath()
         {
@@ -54,7 +46,6 @@ namespace Tizen.NUI.Samples
             container = new FlexContainer();
             container.Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height);
             container.PivotPoint = PivotPoint.TopLeft;
-            //container.Padding = new Vector4(100, 100, 100, 100);
             container.FlexWrap = FlexContainer.WrapType.Wrap;
             container.FlexDirection = (int)FlexContainer.FlexDirectionType.Column;
 
