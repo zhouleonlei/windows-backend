@@ -17,14 +17,10 @@ namespace Tizen.NUI.Controls
         private int buttonCount = 0;
         private string buttonStyle = "";
 
-
-        //static constructor used to register internal style
-        static Popup()
+        public Popup() : base()
         {
-            RegisterStyle("Popup", typeof(PopupAttributes));
+            Initialize();
         }
-
-        public Popup() : this("Text") { }
         public Popup(string style) : base(style)
         {
             Initialize();

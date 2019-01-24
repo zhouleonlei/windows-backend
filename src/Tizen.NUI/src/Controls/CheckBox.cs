@@ -3,11 +3,6 @@ namespace Tizen.NUI.Controls
 {
     public class CheckBox : SelectButton
     {
-        static CheckBox()
-        {
-            RegisterStyle("CheckBox", typeof(SelectButtonAttributes));
-        }
-
         /// <summary>
         /// 
         /// </summary>

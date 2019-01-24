@@ -9,13 +9,11 @@ namespace Tizen.NUI.Controls
         private ImageView switchHandlerImage;
 
         private SwitchAttributes switchAttributes;
-        //static constructor used to register internal style
-        static Switch()
-        {
-            RegisterStyle("Switch", typeof(SwitchAttributes));
-        }
 
-        public Switch() : this("Switch") { }
+        public Switch() : base()
+        {
+            Initialize();
+        }
         public Switch(string style) : base(style)
         {
             Initialize();

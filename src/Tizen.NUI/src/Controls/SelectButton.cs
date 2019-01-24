@@ -12,13 +12,11 @@ namespace Tizen.NUI.Controls
         private ImageView checkImage;
 
         private SelectButtonAttributes selectButtonAttributes;
-        //static constructor used to register internal style
-        static SelectButton()
-        {
-            RegisterStyle("SelectButton", typeof(SelectButtonAttributes));
-        }
 
-        public SelectButton() : this("SelectButton") { }
+        public SelectButton() : base()
+        {
+            Initialize();
+        }
         public SelectButton(string style) : base(style)
         {
             Initialize();

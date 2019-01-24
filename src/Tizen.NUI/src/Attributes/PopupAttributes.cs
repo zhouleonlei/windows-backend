@@ -1,6 +1,5 @@
 ﻿using Tizen.NUI.Binding;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.PopupDefaultAttributes.xaml", "PopupDefaultAttributes.xaml", typeof(Tizen.NUI.Controls.PopupAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class PopupAttributes : ViewAttributes
