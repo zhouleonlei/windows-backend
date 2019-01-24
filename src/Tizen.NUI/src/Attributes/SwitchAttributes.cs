@@ -1,6 +1,5 @@
 ﻿using Tizen.NUI.Binding;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.SwitchDefaultAttributes.xaml", "SwitchDefaultAttributes.xaml", typeof(Tizen.NUI.Controls.SwitchAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class SwitchAttributes : ButtonAttributes

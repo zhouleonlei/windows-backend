@@ -13,13 +13,6 @@ namespace Tizen.NUI.Controls
     /// </code>
     public class RadioButton : SelectButton
     {
-
-        //static constructor used to register internal style
-        static RadioButton()
-        {
-            RegisterStyle("RadioButton", typeof(SelectButtonAttributes));
-        }
-
         /// <summary>
         /// 
         /// </summary>

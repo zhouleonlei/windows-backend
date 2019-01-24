@@ -1,6 +1,5 @@
 ﻿using Tizen.NUI.Binding;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.NUI.res.SelectButtonDefaultAttributes.xaml", "SelectButtonDefaultAttributes.xaml", typeof(Tizen.NUI.Controls.SelectButtonAttributes))]
 namespace Tizen.NUI.Controls
 {
     public class SelectButtonAttributes : ButtonAttributes
