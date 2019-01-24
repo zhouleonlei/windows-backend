@@ -93,7 +93,7 @@ namespace Tizen.FH.NUI.Samples
                         group[j - 1].Add(checkBox);
                     }
                     checkBox.Focusable = true;
-                    checkBox.Text = checkBox.IsSelected.ToString();
+                    //checkBox.Text = checkBox.IsSelected.ToString();
                     checkBox.SelectedEvent += CheckBoxSelectedEvent;
                     root.AddChild(checkBox, new TableView.CellPosition(i, j));
                 }
@@ -124,7 +124,7 @@ namespace Tizen.FH.NUI.Samples
                     CheckBox child = root.GetChildAt(new TableView.CellPosition(i, j)) as CheckBox;
                     if (child != null)
                     {
-                        child.Text = child.IsSelected.ToString();
+                        //child.Text = child.IsSelected.ToString();
                     }
                 }
             }

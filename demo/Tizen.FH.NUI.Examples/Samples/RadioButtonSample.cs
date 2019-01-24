@@ -94,7 +94,7 @@ namespace Tizen.FH.NUI.Samples
                         group[j - 1].Add(radioButton);
                     }
                     radioButton.Focusable = true;
-                    radioButton.Text = radioButton.IsSelected.ToString();
+                    //radioButton.Text = radioButton.IsSelected.ToString();
                     radioButton.SelectedEvent += RadioButtonSelectedEvent;
                     root.AddChild(radioButton, new TableView.CellPosition(i, j));
                 }
@@ -122,7 +122,7 @@ namespace Tizen.FH.NUI.Samples
                     RadioButton child = root.GetChildAt(new TableView.CellPosition(i, j)) as RadioButton;
                     if (child != null)
                     {
-                        child.Text = child.IsSelected.ToString();
+                        //child.Text = child.IsSelected.ToString();
                     }
                 }
             }
