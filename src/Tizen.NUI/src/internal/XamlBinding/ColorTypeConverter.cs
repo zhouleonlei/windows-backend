@@ -6,7 +6,7 @@ using Tizen.NUI;
 
 namespace Tizen.NUI.Binding
 {
-    // [Xaml.ProvideCompiled("Tizen.NUI.XamlC.ColorTypeConverter")]
+    [Xaml.ProvideCompiled("Xamarin.Forms.Xaml.Core.XamlC.ColorTypeConverter")]
     [Xaml.TypeConversion(typeof(Color))]
     internal class ColorTypeConverter : TypeConverter
     {

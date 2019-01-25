@@ -356,7 +356,7 @@ namespace Tizen.NUI.Binding
 
         event EventHandler<ResourcesChangedEventArgs> ValuesChanged;
 
-        // [Xaml.ProvideCompiled("Xamarin.Forms.Core.XamlC.RDSourceTypeConverter")]
+        [Xaml.ProvideCompiled("Xamarin.Forms.Xaml.Core.XamlC.RDSourceTypeConverter")]
         internal class RDSourceTypeConverter : TypeConverter, IExtendedTypeConverter
         {
             object IExtendedTypeConverter.ConvertFromInvariantString(string value, IServiceProvider serviceProvider)

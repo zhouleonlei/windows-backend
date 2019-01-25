@@ -140,9 +140,11 @@ namespace Tizen.FH.NUI
         private void InitializeComponent()
         {
             NUIApplication.RegisterAssembly(typeof(FHNUIApplication).GetTypeInfo().Assembly);
+
+            Button.RegisterStyle("FamilyBasicButton", () => { return FamilyBasicButtonAttributesContainer.Container; });
+
             Button.RegisterStyle("UtilityBasicButton", typeof(UtilityBasicButtonAttributes));
             Button.RegisterStyle("FoodBasicButton", typeof(FoodBasicButtonAttributes));
-            Button.RegisterStyle("FamilyBasicButton", typeof(FamilyBasicButtonAttributes));
             Button.RegisterStyle("KitchenBasicButton", typeof(KitchenBasicButtonAttributes));
 
             Button.RegisterStyle("UtilityServiceButton", typeof(UtilityServiceButtonAttributes));

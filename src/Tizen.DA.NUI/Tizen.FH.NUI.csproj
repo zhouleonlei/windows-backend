@@ -254,6 +254,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Tizen.NUI.Xamarin" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ using Tizen.NUI.Xaml;
 
 namespace Tizen.NUI.Binding
 {
-    // [ProvideCompiled("Tizen.NUI.Core.XamlC.PassthroughValueProvider")]
+    [ProvideCompiled("Tizen.NUI.Core.XamlC.PassthroughValueProvider")]
     [AcceptEmptyServiceProvider]
     internal sealed class XamlPropertyCondition : Condition, IValueProvider
     {
