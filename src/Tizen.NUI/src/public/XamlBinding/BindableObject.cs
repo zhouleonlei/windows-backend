@@ -172,14 +172,15 @@ namespace Tizen.NUI.Binding
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetValue(BindableProperty property, object value)
         {
-            if (true == isCreateByXaml)
-            {
-                SetValue(property, value, false, true);
-            }
-            else
-            {
-                property.PropertyChanged?.Invoke(this, null, value);
-            }
+            SetValue(property, value, false, true);
+            //if (true == isCreateByXaml)
+            //{
+            //    SetValue(property, value, false, true);
+            //}
+            //else
+            //{
+            //    property.PropertyChanged?.Invoke(this, null, value);
+            //}
         }
 
         internal void SetValueAndForceSendChangeSignal(BindableProperty property, object value)

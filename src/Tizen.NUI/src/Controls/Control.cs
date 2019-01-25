@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Binding;
+using Tizen.NUI.Xaml;
 
 namespace Tizen.NUI.Controls
 {
@@ -61,6 +62,19 @@ namespace Tizen.NUI.Controls
                 return isFocused || HasFocus();
             }
         }
+
+        public delegate StyleContainer GetStyleContainer();
+
+        public static void RegisterStyle(string style, GetStyleContainer delegateForStyleContainer)
+        {
+            if (styleToDelegate.ContainsKey(style))
+            {
+                throw new InvalidOperationException(string.Format($"[RegisterStyle] [{style}] already be used"));
+            }
+
+            styleToDelegate.Add(style, delegateForStyleContainer);
+        }
+
         public static void RegisterStyle(string style, Type attributeType)
         {
             if (styleToAttributes.ContainsKey(style))
@@ -438,8 +452,16 @@ namespace Tizen.NUI.Controls
 
         private Attributes GetAttributes(string style)
         {
+            if (styleToDelegate.ContainsKey(style))
+            {
+                StyleContainer container = styleToDelegate[style]();
+                return container.Content as Attributes;
+            }
+
             return Attributes.GetAttributes(styleToAttributes[style]);
         }
+
+        private static Dictionary<string, GetStyleContainer> styleToDelegate = new Dictionary<string, GetStyleContainer>();
         private static Dictionary<string, Type> styleToAttributes = new Dictionary<string, Type>();
 
         private TapGestureDetector tapGestureDetector = new TapGestureDetector();
