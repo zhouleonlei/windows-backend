@@ -611,7 +611,7 @@ namespace Tizen.NUI.Controls
             {
                 return isSelected;
             }
-            internal set
+            set
             {
                 isSelected = value;
                 UpdateState();

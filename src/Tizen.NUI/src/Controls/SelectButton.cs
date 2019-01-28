@@ -40,18 +40,6 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public new bool IsSelected
-        {
-            get
-            {
-                return base.IsSelected;
-            }
-            set
-            {
-                base.IsSelected = value;
-            }
-        }
-
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
