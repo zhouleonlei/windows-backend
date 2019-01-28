@@ -12,6 +12,11 @@ namespace Tizen.NUI.Controls
         /// </summary>
         /// <param name="style"></param>
         public CheckBox(string style) : base(style) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attrs"></param>
+        public CheckBox(SelectButtonAttributes attrs) : base(attrs) { }
 
         /// <summary>
         /// Get CheckBoxGroup to which this CheckBox belong.
