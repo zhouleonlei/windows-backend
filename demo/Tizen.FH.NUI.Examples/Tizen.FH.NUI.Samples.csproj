@@ -44,9 +44,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tizen.NUI.Xamarin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\csharp-demo\packages\Tizen.NUI.Xamarin.1.0.0\lib\netstandard2.0\Tizen.NUI.Xamarin.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IExample.cs" />
