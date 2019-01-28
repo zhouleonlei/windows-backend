@@ -23,6 +23,11 @@ namespace Tizen.NUI.Controls
         /// <param name="style"></param>
         public RadioButton(string style) : base(style) { }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attrs"></param>
+        public RadioButton(SelectButtonAttributes attrs) : base(attrs) { }
+        /// <summary>
         /// Get RadioButtonGroup to which this selections belong.
         /// </summary>
         public RadioButtonGroup ItemGroup
