@@ -103,12 +103,17 @@
     <None Remove="res\FoodSwitchAttributes.xaml" />
     <None Remove="res\FoodTextSliderAttributes.xaml" />
     <None Remove="res\FoodToggleButtonAttributes.xaml" />
+    <None Remove="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FamilyDefaultInputFieldAttributes.xaml" />
     <None Remove="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
     <None Remove="res\InputField\FamilyTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FoodDefaultInputFieldAttributes.xaml" />
     <None Remove="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
     <None Remove="res\InputField\FoodTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\KitchenDefaultInputFieldAttributes.xaml" />
     <None Remove="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <None Remove="res\InputField\KitchenTextFieldInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\UtilityDefaultInputFieldAttributes.xaml" />
     <None Remove="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
     <None Remove="res\InputField\UtilityTextFieldInputFieldAttributes.xaml" />
     <None Remove="res\KitchenBasicButtonAttributes.xaml" />
@@ -136,6 +141,7 @@
     <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\UtilityRadioButtonAttributes.xaml" />
+    <None Remove="res\SearchBar\DefaultSearchBarAttributes.xaml" />
     <None Remove="res\Switch\FamilySwitchAttributes.xaml" />
     <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
@@ -215,6 +221,11 @@
     <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FamilyDefaultInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FoodDefaultInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\KitchenDefaultInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityDefaultInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -266,6 +277,7 @@
     <EmbeddedResource Include="res\RadioButton\UtilityRadioButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="res\SearchBar\DefaultSearchBarAttributes.xaml" />
     <EmbeddedResource Include="res\Switch\FamilySwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -288,13 +300,9 @@
     <EmbeddedResource Include="res\Slider\KitchenTextSliderAttributes.xaml" />
 
     <EmbeddedResource Include="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\FamilyTextFieldInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\FoodTextFieldInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\KitchenTextFieldInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\UtilityTextFieldInputFieldAttributes.xaml" />
   </ItemGroup>
 
   <ItemGroup>

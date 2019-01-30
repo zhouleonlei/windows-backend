@@ -12,7 +12,7 @@
                         Normal=""
                         Disabled=""
                         />
-        <StringSelector x:Key="DAFamilyStyleBInputFieldAddButtonTopResource"
+        <StringSelector x:Key="DAFamilyStyleBInputFieldAddButtonFgResource"
                         Normal="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_normal.png"
                         Pressed ="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_press.png"
                         Disabled="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_24c447_dim.png"
@@ -32,7 +32,7 @@
     <InputFieldAttributes 
         x:Name="InputFieldAttributes"
         Space="24"
-        SpaceBetweenTextFieldAndButton="56">
+        SpaceBetweenTextFieldAndRightButton="56">
 
         <InputFieldAttributes.BgImageAttributes>
             <ImageAttributes 
@@ -64,10 +64,10 @@
                 ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonOverlayResource}"/>
         </InputFieldAttributes.AddButtonOverlayAttributes>
 
-        <InputFieldAttributes.AddButtonTopAttributes>
+        <InputFieldAttributes.AddButtonFgAttributes>
             <ImageAttributes
-                ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonTopResource}"/>
-        </InputFieldAttributes.AddButtonTopAttributes>
+                ResourceURL="{StaticResource DAFamilyStyleBInputFieldAddButtonFgResource}"/>
+        </InputFieldAttributes.AddButtonFgAttributes>
 
         <InputFieldAttributes.DeleteButtonAttributes>
             <ImageAttributes

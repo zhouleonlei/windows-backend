@@ -5,46 +5,22 @@ namespace Tizen.NUI.Controls
 {
     public class InputField : Control
     {
+        // the background image
         private ImageView bgImage = null;
+        // the textField
         private TextField textField = null;
-        private ImageView cancelBtn = null;
-        private ImageView deleteBtn = null;
-        private ImageView addBtnBg = null;
-        private ImageView addBtnOverlay = null;
-        private ImageView addBtnTop = null;
+        // the attributes of the inputField
         private InputFieldAttributes inputFieldAttrs = null;
 
-        private string text = null;
-        private string hintText = null;
-        private bool isFocused = false;
-        //private bool isPressed = false;
-        private bool isEnabled = true;
-
-        private EventHandler<CancelBtnClickArgs> cancelBtnClickHandler;
-        private EventHandler<DeleteBtnClickArgs> deleteBtnClickHandler;
-        private EventHandler<AddBtnClickArgs> addBtnClickHandler;
-
-        public enum ButtonClickState
-        {
-            /// <summary> Press down </summary>
-            PressDown,
-            /// <summary> Bounce up </summary>
-            BounceUp
-        }
-
-        private new enum State
-        {
-            Disabled,
-            Pressed,
-            Normal
-        }
-
+        // the flag indicate should relayout the textField in base class
+        private bool relayoutTextField = true;
+        
         static InputField()
         {
-            RegisterStyle("Default", typeof(InputFieldAttributes));
+            RegisterStyle("DefaultInputField", typeof(InputFieldAttributes));
         }
 
-        public InputField() : this("Default")
+        public InputField() : this("DefaultInputField")
         {
             Initialize();
         }
@@ -54,57 +30,6 @@ namespace Tizen.NUI.Controls
             Initialize();
         }
 
-        public event EventHandler<CancelBtnClickArgs> CancelBtnClickEvent
-        {
-            add
-            {
-                cancelBtnClickHandler += value;
-            }
-            remove
-            {
-                cancelBtnClickHandler -= value;
-            }
-        }
-
-        public event EventHandler<DeleteBtnClickArgs> DeleteBtnClickEvent
-        {
-            add
-            {
-                deleteBtnClickHandler += value;
-            }
-            remove
-            {
-                deleteBtnClickHandler -= value;
-            }
-        }
-
-        public event EventHandler<AddBtnClickArgs> AddBtnClickEvent
-        {
-            add
-            {
-                addBtnClickHandler += value;
-            }
-            remove
-            {
-                addBtnClickHandler -= value;
-            }
-        }
-
-        public class CancelBtnClickArgs : EventArgs
-        {
-            public ButtonClickState State;
-        }
-
-        public class DeleteBtnClickArgs : EventArgs
-        {
-            public ButtonClickState State;
-        }
-
-        public class AddBtnClickArgs : EventArgs
-        {
-            public ButtonClickState State;
-        }
-
         /// <summary>
         /// The property for the enabled state
         /// </summary>
@@ -112,19 +37,14 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return isEnabled;
+                return Sensitive;
             }
             set
             {
-                if (isEnabled == value)
-                {
-                    return;
-                }
-                isEnabled = value;
-                Sensitive = isEnabled;
-                UpdateComponentState();
+                Sensitive = value;
             }
         }
+
         /// <summary>
         /// The property for the text content
         /// </summary>
@@ -132,14 +52,13 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return text;
+                return textField.Text;
             }
             set
             {
-                text = value;
                 if (textField != null)
                 {
-                    textField.Text = text;
+                    textField.Text = value;
                 }
             }
         }
@@ -151,28 +70,34 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return hintText;
+                return textField.PlaceholderText;
             }
             set
             {
-                hintText = value;
                 if (textField != null)
                 {
-                    textField.PlaceholderText = hintText;
+                    textField.PlaceholderText = value;
                 }
             }
         }
 
-        //protected override void OnFocusGained(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine("<<<<<<<<<<<<<<<<, focus gained");
-        //    base.OnFocusGained(sender, e);
-        //}
-        //protected override void OnFocusLost(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine(">>>>>>>>>>>>>>>>, focus lost");
-        //    base.OnFocusLost(sender, e);
-        //}
+        /// <summary>
+        /// The property for the color of the input text
+        /// </summary>
+        public Color TextColor
+        {
+            get
+            {
+                return textField.TextColor;
+            }
+            set
+            {
+                if (textField != null)
+                {
+                    textField.TextColor = value;
+                }
+            }
+        }
 
         protected override Attributes GetAttributes()
         {
@@ -195,52 +120,14 @@ namespace Tizen.NUI.Controls
                 }
                 if (textField != null)
                 {
-                    textField.TouchEvent -= OnTextFieldTouchEvent;
                     textField.FocusGained -= OnTextFieldFocusGained;
                     textField.FocusLost -= OnTextFieldFocusLost;
-                    textField.TextChanged += OnTextFieldTextChanged;
+                    textField.TextChanged -= OnTextFieldTextChanged;
+                    textField.KeyEvent -= OnTextFieldKeyEvent;
+                    textField.TouchEvent -= OnTextFieldTouchEvent;
                     this.Remove(textField);
                     textField.Dispose();
                     textField = null;
-                }
-                if (cancelBtn != null)
-                {
-                    cancelBtn.TouchEvent -= OnCancelBtnTouchEvent;
-                    this.Remove(cancelBtn);
-                    cancelBtn.Dispose();
-                    cancelBtn = null;
-                }
-                if (deleteBtn != null)
-                {
-                    deleteBtn.TouchEvent -= OnDeleteBtnTouchEvent;
-                    this.Remove(deleteBtn);
-                    deleteBtn.Dispose();
-                    deleteBtn = null;
-                }
-                if (addBtnTop != null)
-                {
-                    addBtnTop.TouchEvent -= OnAddBtnTouchEvent;
-                    if (addBtnOverlay != null)
-                    {
-                        addBtnOverlay.Remove(addBtnTop);
-                    }
-                    addBtnTop.Dispose();
-                    addBtnTop = null;
-                }
-                if (addBtnOverlay != null)
-                {
-                    if (addBtnBg != null)
-                    {
-                        addBtnBg.Remove(addBtnOverlay);
-                    }
-                    addBtnOverlay.Dispose();
-                    addBtnOverlay = null;
-                }
-                if (addBtnBg != null)
-                {
-                    this.Remove(addBtnBg);
-                    addBtnBg.Dispose();
-                    addBtnBg = null;
                 }
             }
 
@@ -255,16 +142,9 @@ namespace Tizen.NUI.Controls
                 return;
             }
             ApplyAttributes(this, inputFieldAttrs);
-
             ApplyAttributes(bgImage, inputFieldAttrs.BgImageAttributes);
             ApplyAttributes(textField, inputFieldAttrs.InputBoxAttributes);
-            ApplyAttributes(cancelBtn, inputFieldAttrs.CancelButtonAttributes);
-            ApplyAttributes(addBtnBg, inputFieldAttrs.AddButtonBgAttributes);
-            ApplyAttributes(addBtnOverlay, inputFieldAttrs.AddButtonOverlayAttributes);
-            ApplyAttributes(addBtnTop, inputFieldAttrs.AddButtonTopAttributes);
-            ApplyAttributes(deleteBtn, inputFieldAttrs.DeleteButtonAttributes);
-            RelayoutComponents();
-            UpdateComponentState();
+            RelayoutComponent();
         }
 
         private void Initialize()
@@ -272,7 +152,7 @@ namespace Tizen.NUI.Controls
             inputFieldAttrs = attributes as InputFieldAttributes;
             if (inputFieldAttrs == null)
             {
-                throw new Exception("Fail to get the inputField attributes.");
+                throw new Exception("Fail to get the base inputField attributes.");
             }
             if (inputFieldAttrs.BgImageAttributes != null && bgImage == null)
             {
@@ -297,92 +177,17 @@ namespace Tizen.NUI.Controls
                     PositionUsesPivotPoint = true
                 };
                 this.Add(textField);
-                textField.TouchEvent += OnTextFieldTouchEvent;
                 textField.FocusGained += OnTextFieldFocusGained;
                 textField.FocusLost += OnTextFieldFocusLost;
                 textField.TextChanged += OnTextFieldTextChanged;
+                textField.KeyEvent += OnTextFieldKeyEvent;
+                textField.TouchEvent += OnTextFieldTouchEvent;
             }
-            if (inputFieldAttrs.CancelButtonAttributes != null && cancelBtn == null)
-            {
-                cancelBtn = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
-                    PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
-                    PositionUsesPivotPoint = true
-                };
-                this.Add(cancelBtn);
-                cancelBtn.TouchEvent += OnCancelBtnTouchEvent;
-            }
-            if (inputFieldAttrs.AddButtonBgAttributes != null && addBtnBg == null)
-            {
-                addBtnBg = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
-                    PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
-                    PositionUsesPivotPoint = true
-                };
-                this.Add(addBtnBg);
-            }
-            if (inputFieldAttrs.AddButtonOverlayAttributes != null && addBtnOverlay == null)
-            {
-                addBtnOverlay = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent,
-                };
-                addBtnBg.Add(addBtnOverlay);
-            }
-            if (inputFieldAttrs.AddButtonTopAttributes != null && addBtnTop == null)
-            {
-                addBtnTop = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent,
-                };
-                addBtnOverlay.Add(addBtnTop);
-                addBtnTop.TouchEvent += OnAddBtnTouchEvent;
-            }
-            if (inputFieldAttrs.DeleteButtonAttributes != null && deleteBtn == null)
-            {
-                deleteBtn = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
-                    PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
-                    PositionUsesPivotPoint = true
-                };
-                this.Add(deleteBtn);
-                deleteBtn.TouchEvent += OnDeleteBtnTouchEvent;
-            }
-            isFocused = false;
-            //isPressed = false;
-            isEnabled = true;
         }
         
-        private void RelayoutComponents()
+        private void RelayoutComponent()
         {
-            if (cancelBtn != null)
-            {
-                RelayoutComponentsWithCancelBtn();
-            }
-            else if (deleteBtn != null && addBtnBg != null && addBtnOverlay != null && addBtnTop != null)
-            {
-                RelayoutComponentsWithDeleteAndAddBtn();
-            }
-            else
-            {
-                RelayoutComponentsDefault();
-            }
-        }
-
-        private void RelayoutComponentsDefault()
-        {// only contains textField
-            if (textField == null)
+            if (!relayoutTextField)
             {
                 return;
             }
@@ -391,58 +196,7 @@ namespace Tizen.NUI.Controls
             textField.PositionX = space;
         }
 
-        private void RelayoutComponentsWithCancelBtn()
-        {// Contains textField and cancelBtn.
-            if (textField == null || cancelBtn == null)
-            {
-                return;
-            }
-            Size2D size = this.Size2D;
-            int space = Space();
-            
-            int textLength = 0;
-            if (textField.Text != null)
-            {
-                textLength = textField.Text.Length;
-            }
-            if (!isFocused && textLength == 0)
-            {
-                textField.Size2D = new Size2D(size.Width - space * 2, size.Height);
-                textField.PositionX = space;
-                cancelBtn.PositionX = -space;
-                cancelBtn.Hide();
-            }
-            else
-            {
-                int spaceBetweenTextFieldAndButton = SpaceBetweenTextFieldAndButton();
-                int cancelBtnWidth = CancelButtonWidth();
-
-                textField.Size2D = new Size2D(size.Width - space * 2 - spaceBetweenTextFieldAndButton - cancelBtnWidth, size.Height);
-                textField.PositionX = space;
-                cancelBtn.PositionX = -space;
-                cancelBtn.Show();
-            }
-        }
-
-        private void RelayoutComponentsWithDeleteAndAddBtn()
-        {// contains textField, delete button and add button
-            if (textField == null || deleteBtn == null || addBtnBg == null || addBtnOverlay == null || addBtnTop == null)
-            {
-                return;
-            }
-            Size2D size = this.Size2D;
-            int space = Space();
-            int spaceBetweenTextFieldAndButton = SpaceBetweenTextFieldAndButton();
-            int deleteBtnWidth = DeleteButtonWidth();
-            int addBtnWidth = AddButtonWidth();
-            textField.Size2D = new Size2D(size.Width - space - spaceBetweenTextFieldAndButton - deleteBtnWidth - addBtnWidth, size.Height);
-            textField.PositionX = space;
-
-            addBtnBg.PositionX = 0;
-            deleteBtn.PositionX = -addBtnWidth;
-        }
-
-        private int Space()
+        protected int Space()
         {
             int space = 0;
             if (inputFieldAttrs != null && inputFieldAttrs.Space != null)
@@ -452,285 +206,55 @@ namespace Tizen.NUI.Controls
             return space;
         }
 
-        private int SpaceBetweenTextFieldAndButton()
+        protected virtual void OnTextFieldFocusGained(object source, EventArgs e)
         {
-            int spaceBetweenTextFieldAndButton = 0;
-            if (inputFieldAttrs != null && inputFieldAttrs.SpaceBetweenTextFieldAndButton != null)
-            {
-                spaceBetweenTextFieldAndButton = inputFieldAttrs.SpaceBetweenTextFieldAndButton.Value;
-            }
-            return spaceBetweenTextFieldAndButton;
         }
 
-        private int CancelButtonWidth()
+        protected virtual void OnTextFieldFocusLost(object source, EventArgs e)
         {
-            int width = 0;
-            if (cancelBtn != null && cancelBtn.Size2D != null)
-            {
-                width = cancelBtn.Size2D.Width;
-            }
-            return width;
         }
 
-        private int DeleteButtonWidth()
+        protected virtual void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
         {
-            int width = 0;
-            if (deleteBtn != null && deleteBtn.Size2D != null)
-            {
-                width = deleteBtn.Size2D.Width;
-            }
-            return width;
         }
 
-        private int AddButtonWidth()
+        protected virtual bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
         {
-            int width = 0;
-            if (addBtnBg != null && addBtnBg.Size2D != null)
-            {
-                width = addBtnBg.Size2D.Width;
-            }
-            return width;
-        }
-
-        private bool OnTextFieldTouchEvent(object source, TouchEventArgs e)
-        {
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
-            {
-
-            }
-            Console.WriteLine("-------, state = " + state);
             return false;
         }
 
-        private bool OnCancelBtnTouchEvent(object source, TouchEventArgs e)
+        protected virtual bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
         {
-            if (cancelBtnClickHandler == null)
-            {
-                return false;
-            }
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
-            {
-                CancelBtnClickArgs args = new CancelBtnClickArgs();
-                args.State = ButtonClickState.PressDown;
-                cancelBtnClickHandler(this, args);
-            }
-            else if (state == PointStateType.Up)
-            {
-                CancelBtnClickArgs args = new CancelBtnClickArgs();
-                args.State = ButtonClickState.BounceUp;
-                cancelBtnClickHandler(this, args);
-            }
-            Console.WriteLine("-------, state = " + state);
             return false;
         }
 
-        private bool OnDeleteBtnTouchEvent(object source, TouchEventArgs e)
+        protected void SetTextFieldSize2D(int w, int h)
         {
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
+            if (textField != null)
             {
-                if (deleteBtnClickHandler != null)
-                {
-                    DeleteBtnClickArgs args = new DeleteBtnClickArgs();
-                    args.State = ButtonClickState.PressDown;
-                    deleteBtnClickHandler(this, args);
-                }
-                //UpdateDeleteBtnState(true);
-                UpdateDeleteBtnState(State.Pressed);
-            }
-            else if (state == PointStateType.Up)
-            {
-                if (deleteBtnClickHandler != null)
-                {
-                    DeleteBtnClickArgs args = new DeleteBtnClickArgs();
-                    args.State = ButtonClickState.BounceUp;
-                    deleteBtnClickHandler(this, args);
-                }
-                //UpdateDeleteBtnState(false);
-                UpdateDeleteBtnState(State.Normal);
-            }
-            Console.WriteLine("-------, state = " + state);
-            return false;
-        }
-
-        private bool OnAddBtnTouchEvent(object source, TouchEventArgs e)
-        {
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
-            {
-                if (addBtnClickHandler != null)
-                {
-                    AddBtnClickArgs args = new AddBtnClickArgs();
-                    args.State = ButtonClickState.PressDown;
-                    addBtnClickHandler(this, args);
-                }
-                //UpdateAddBtnState(true);
-                UpdateAddBtnState(State.Pressed);
-            }
-            else if (state == PointStateType.Up)
-            {
-                if (addBtnClickHandler != null)
-                {
-                    AddBtnClickArgs args = new AddBtnClickArgs();
-                    args.State = ButtonClickState.BounceUp;
-                    addBtnClickHandler(this, args);
-                }
-                //UpdateAddBtnState(false);
-                UpdateAddBtnState(State.Normal);
-            }
-            Console.WriteLine("-------, state = " + state);
-            return false;
-        }
-
-        private void OnTextFieldFocusGained(object source, EventArgs e)
-        {
-            // when press on TextField, it will gain focus
-            isFocused = true;
-            Console.WriteLine("<<<-------, textField focus gained");
-            RelayoutComponents();
-        }
-
-        private void OnTextFieldFocusLost(object source, EventArgs e)
-        {
-            isFocused = false;
-            Console.WriteLine(">>>-------, textField focus lost");
-            RelayoutComponents();
-        }
-
-        private void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
-        {
-            int textLength = 0;
-            if (textField != null && textField.Text != null)
-            {
-                textLength = textField.Text.Length;
-            }
-            Console.WriteLine("++++++++++++++++, text changed, textLength = " + textLength);
-            RelayoutComponents();
-        }
-
-        private void UpdateComponentState()
-        {
-            if (isEnabled)
-            {
-                UpdateTextFieldState(State.Normal);
-                UpdateDeleteBtnState(State.Normal);
-                UpdateAddBtnState(State.Normal);
-            }
-            else
-            {
-                UpdateTextFieldState(State.Disabled);
-                UpdateDeleteBtnState(State.Disabled);
-                UpdateAddBtnState(State.Disabled);
-            }
-        }
-        
-        private void UpdateTextFieldState(State state)
-        {
-            if (textField == null)
-            {
-                return;
-            }
-            if (inputFieldAttrs != null && inputFieldAttrs.InputBoxAttributes != null && inputFieldAttrs.InputBoxAttributes.TextColor != null)
-            {
-                switch (state)
-                {
-                    case State.Disabled:
-                        textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Disabled;
-                        break;
-                    //case State.Pressed:
-                    //    textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Pressed;
-                    //    break;
-                    case State.Normal:
-                        textField.TextColor = inputFieldAttrs.InputBoxAttributes.TextColor.Normal;
-                        break;
-                    default:
-                        break;
-                }
+                textField.Size2D = new Size2D(w, h);
             }
         }
 
-        private void UpdateDeleteBtnState(State state)
+        protected void SetTextFieldPosX(int x)
         {
-            if (deleteBtn != null && inputFieldAttrs != null && inputFieldAttrs.DeleteButtonAttributes != null && inputFieldAttrs.DeleteButtonAttributes.ResourceURL != null)
+            if (textField != null)
             {
-                switch (state)
-                {
-                    case State.Disabled:
-                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Disabled;
-                        break;
-                    case State.Pressed:
-                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Pressed;
-                        break;
-                    case State.Normal:
-                        deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Normal;
-                        break;
-                    default:
-                        break;
-                }
+                textField.PositionX = x;
             }
         }
 
-        private void UpdateAddBtnState(State state)
+        protected void SetTextFieldTextColor(Color color)
         {
-            if (inputFieldAttrs == null)
+            if (textField != null)
             {
-                return;
+                textField.TextColor = color;
             }
-            switch (state)
-            {
-                case State.Disabled:
-                    {
-                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
-                        {
-                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Disabled;
-                        }
-                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
-                        {
-                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Disabled;
-                        }
-                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
-                        {
-                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Disabled;
-                        }
-                    }
-                    break;
-                case State.Pressed:
-                    {
-                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
-                        {
-                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Pressed;
-                        }
-                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
-                        {
-                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Pressed;
-                        }
-                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
-                        {
-                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Pressed;
-                        }
-                    }
-                    break;
-                case State.Normal:
-                    {
-                        if (addBtnBg != null && inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
-                        {
-                            addBtnBg.ResourceUrl = inputFieldAttrs.AddButtonBgAttributes.ResourceURL.Normal;
-                        }
-                        if (addBtnOverlay != null && inputFieldAttrs.AddButtonOverlayAttributes != null && inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL != null)
-                        {
-                            addBtnOverlay.ResourceUrl = inputFieldAttrs.AddButtonOverlayAttributes.ResourceURL.Normal;
-                        }
-                        if (addBtnTop != null && inputFieldAttrs.AddButtonTopAttributes != null && inputFieldAttrs.AddButtonTopAttributes.ResourceURL != null)
-                        {
-                            addBtnTop.ResourceUrl = inputFieldAttrs.AddButtonTopAttributes.ResourceURL.Normal;
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
+        }
+
+        protected void RelayoutTextField(bool value)
+        {
+            relayoutTextField = value;
         }
     }
 }

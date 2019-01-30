@@ -203,14 +203,17 @@ namespace Tizen.FH.NUI
             Slider.RegisterStyle("FamilyTextSlider", typeof(FamilyTextSliderAttributes));
             Slider.RegisterStyle("KitchenTextSlider", typeof(KitchenTextSliderAttributes));
 
-            InputField.RegisterStyle("FamilyTextFieldInputField", typeof(FamilyTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("FamilyStyleBFieldInputField", typeof(FamilyStyleBInputFieldAttributes));
-            InputField.RegisterStyle("FoodTextFieldInputField", typeof(FoodTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("FoodStyleBFieldInputField", typeof(FoodStyleBInputFieldAttributes));
-            InputField.RegisterStyle("KitchenTextFieldInputField", typeof(KitchenTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("KitchenStyleBFieldInputField", typeof(KitchenStyleBInputFieldAttributes));
-            InputField.RegisterStyle("UtilityTextFieldInputField", typeof(UtilityTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("UtilityStyleBFieldInputField", typeof(UtilityStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FamilyDefaultInputField", typeof(FamilyDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FamilyStyleBInputField", typeof(FamilyStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FoodDefaultInputField", typeof(FoodDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FoodStyleBInputField", typeof(FoodStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("KitchenDefaultInputField", typeof(KitchenDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("KitchenStyleBInputField", typeof(KitchenStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("UtilityDefaultInputField", typeof(UtilityDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("UtilityStyleBInputField", typeof(UtilityStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("DefaultSearchInputField", typeof(DefaultSearchInputFieldAttributes));
+
+            Tizen.FH.NUI.Controls.SearchBar.RegisterStyle("DefaultSearchBar", typeof(DefaultSearchBarAttributes));
         }
         private void CleanupComponent()
         {
