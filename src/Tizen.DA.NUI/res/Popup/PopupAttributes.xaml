@@ -1,8 +1,7 @@
 ﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <PopupAttributes x:Name="PopupAttributes" MinimumSize="1032, 184" ParentOrigin="Center" PivotPoint="Center"
-                     PositionUsesPivotPoint="true" ShadowOffset="24, 24, 24, 24"
-                     ButtonHeight="132">
+                     PositionUsesPivotPoint="true" ShadowOffset="24, 24, 24, 24">
         <PopupAttributes.ShadowImageAttributes>
             <ImageAttributes ParentOrigin="Center"
                              PivotPoint="Center"
@@ -27,5 +26,9 @@
                             VerticalAlignment="Center"
                             Position2D="64, 52"/>
         </PopupAttributes.TitleTextAttributes>
+        <PopupAttributes.ButtonAttributes>
+            <ButtonAttributes Size2D="0, 132"/>
+        </PopupAttributes.ButtonAttributes> 
+
     </PopupAttributes>
 </AttributesContainer>

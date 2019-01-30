@@ -60,25 +60,25 @@ namespace Tizen.NUI.Controls
             return attrs.shadowOffset;
         });
 
-        public static readonly BindableProperty ButtonHeightProperty = BindableProperty.Create("ButtonHeight", typeof(int), typeof(PopupAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ButtonAttributesAttributesProperty = BindableProperty.Create("ButtonAttributesAttributes", typeof(ButtonAttributes), typeof(PopupAttributes), default(ButtonAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PopupAttributes)bindable;
             if (newValue != null)
             {
-                attrs.buttonHeight = (int)newValue;
+                attrs.buttonAttributes = (ButtonAttributes)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
         {
             var attrs = (PopupAttributes)bindable;
-            return attrs.buttonHeight;
+            return attrs.buttonAttributes;
         });
 
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
         private TextAttributes titleTextAttributes;
         private Vector4 shadowOffset;
-        private int buttonHeight;
+        private ButtonAttributes buttonAttributes;
 
         public PopupAttributes() : base() { }
         public PopupAttributes(PopupAttributes attributes) : base(attributes)
@@ -97,8 +97,13 @@ namespace Tizen.NUI.Controls
             {
                 titleTextAttributes = attributes.titleTextAttributes.Clone() as TextAttributes;
             }
+
+            if (attributes.buttonAttributes != null)
+            {
+                buttonAttributes = attributes.buttonAttributes.Clone() as ButtonAttributes;
+            }
+
             shadowOffset = new Vector4(attributes.shadowOffset.W, attributes.shadowOffset.X, attributes.shadowOffset.Y, attributes.shadowOffset.Z);
-            buttonHeight = attributes.buttonHeight;
         }
 
         public ImageAttributes ShadowImageAttributes
@@ -149,15 +154,15 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public int ButtonHeight
+        public ButtonAttributes ButtonAttributes
         {
             get
             {
-                return (int)GetValue(ButtonHeightProperty);
+                return (ButtonAttributes)GetValue(ButtonAttributesAttributesProperty);
             }
             set
             {
-                SetValue(ButtonHeightProperty, value);
+                SetValue(ButtonAttributesAttributesProperty, value);
             }
         }
 

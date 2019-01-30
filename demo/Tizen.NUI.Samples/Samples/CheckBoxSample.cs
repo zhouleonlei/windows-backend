@@ -202,7 +202,6 @@ namespace Tizen.NUI.Samples
 
             SelectButtonAttributes utilityAttrs = new SelectButtonAttributes
             {
-                IsSelectable = true,
                 CheckBackgroundImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2DSelector { All = new Size2D(48, 48) },
@@ -263,7 +262,6 @@ namespace Tizen.NUI.Samples
             };         
             SelectButtonAttributes familyAttrs = new SelectButtonAttributes
             {
-                IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2DSelector { All = new Size2D(48, 48) },
@@ -286,7 +284,6 @@ namespace Tizen.NUI.Samples
             };
             SelectButtonAttributes foodAttrs = new SelectButtonAttributes
             {
-                IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2DSelector { All = new Size2D(48, 48) },
@@ -309,7 +306,6 @@ namespace Tizen.NUI.Samples
             };
             SelectButtonAttributes kitchenAttrs = new SelectButtonAttributes
             {
-                IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2DSelector { All = new Size2D(48, 48) },

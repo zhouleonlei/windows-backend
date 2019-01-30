@@ -15,16 +15,27 @@ namespace Tizen.NUI.Controls
 
         public SelectButton() : base()
         {
+            selectButtonAttributes = attributes as SelectButtonAttributes;
+            if (selectButtonAttributes == null)
+            {
+                throw new Exception("SelectButton attribute parse error.");
+            }
             Initialize();
         }
         public SelectButton(string style) : base(style)
         {
+            selectButtonAttributes = attributes as SelectButtonAttributes;
+            if (selectButtonAttributes == null)
+            {
+                throw new Exception("SelectButton attribute parse error.");
+            }
             Initialize();
         }
 
         public SelectButton(SelectButtonAttributes attributes) : base()
         {
             this.attributes = selectButtonAttributes = attributes.Clone() as SelectButtonAttributes;
+            Initialize();
         }
 
         public event EventHandler<SelectEventArgs> SelectedEvent;
@@ -498,12 +509,6 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                throw new Exception("SelectButton attribute parse error.");
-            }
-
             selectButtonAttributes.IsSelectable = true;           
         }
 
