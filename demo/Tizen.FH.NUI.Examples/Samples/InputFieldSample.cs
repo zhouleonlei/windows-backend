@@ -9,16 +9,21 @@ namespace Tizen.FH.NUI.Samples
     {
         private const int COUNT = 8;
         private Tizen.FH.NUI.Controls.InputField[] inputFieldArr;
+        private TextLabel guideText;
         private View rootView;
+        private int posX, posY;
 
         public void Activate()
         {
+            posX = 50;
+            posY = 250;
             inputFieldArr = new Tizen.FH.NUI.Controls.InputField[COUNT];
             CreateRootView();
             CreateFamily();
             CreateFood();
             CreateKitchen();
             CreateUtility();
+            CreateGuideText();
             Window.Instance.KeyEvent += OnWindowsKeyEvent;
         }
 
@@ -38,83 +43,112 @@ namespace Tizen.FH.NUI.Samples
             inputFieldArr[0] = new Tizen.FH.NUI.Controls.InputField("FamilyDefaultInputField");
             inputFieldArr[0].Name = "FamilyDefaultInputField";
             inputFieldArr[0].Size2D = new Size2D(1600, 95);
-            inputFieldArr[0].PositionY = 100;
+            inputFieldArr[0].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[0]);
             inputFieldArr[0].HintText = "FamilyDefaultInputField";
             inputFieldArr[0].CancelButtonClickEvent += OnCancelBtnClickEvent;
             inputFieldArr[0].KeyEvent += OnKeyEvent;
 
+            posY += 100;
             inputFieldArr[1] = new Tizen.FH.NUI.Controls.InputField("FamilyStyleBInputField");
             inputFieldArr[1].Name = "FamilyStyleBInputField";
             inputFieldArr[1].Size2D = new Size2D(1600, 95);
-            inputFieldArr[1].PositionY = 200;
+            inputFieldArr[1].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[1]);
             inputFieldArr[1].HintText = "FamilyStyleBInputField";
             inputFieldArr[1].DeleteButtonClickEvent += OnDeleteBtnClickEvent;
             inputFieldArr[1].AddButtonClickEvent += OnAddBtnClickEvent;
+            inputFieldArr[1].KeyEvent += OnKeyEvent;
         }
 
         private void CreateFood()
         {
+            posY += 100;
             inputFieldArr[2] = new Tizen.FH.NUI.Controls.InputField("FoodDefaultInputField");
             inputFieldArr[2].Name = "FoodDefaultInputField";
             inputFieldArr[2].Size2D = new Size2D(1600, 95);
-            inputFieldArr[2].PositionY = 300;
+            inputFieldArr[2].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[2]);
             inputFieldArr[2].HintText = "FoodDefaultInputField";
             inputFieldArr[2].CancelButtonClickEvent += OnCancelBtnClickEvent;
             inputFieldArr[2].KeyEvent += OnKeyEvent;
 
+            posY += 100;
             inputFieldArr[3] = new Tizen.FH.NUI.Controls.InputField("FoodStyleBInputField");
             inputFieldArr[3].Name = "FoodStyleBInputField";
             inputFieldArr[3].Size2D = new Size2D(1600, 95);
-            inputFieldArr[3].PositionY = 400;
+            inputFieldArr[3].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[3]);
             inputFieldArr[3].HintText = "FoodStyleBInputField";
             inputFieldArr[3].DeleteButtonClickEvent += OnDeleteBtnClickEvent;
             inputFieldArr[3].AddButtonClickEvent += OnAddBtnClickEvent;
+            inputFieldArr[3].KeyEvent += OnKeyEvent;
         }
 
         private void CreateKitchen()
         {
+            posY += 100;
             inputFieldArr[4] = new Tizen.FH.NUI.Controls.InputField("KitchenDefaultInputField");
             inputFieldArr[4].Name = "KitchenDefaultInputField";
             inputFieldArr[4].Size2D = new Size2D(1600, 95);
-            inputFieldArr[4].PositionY = 500;
+            inputFieldArr[4].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[4]);
             inputFieldArr[4].HintText = "KitchenDefaultInputField";
             inputFieldArr[4].CancelButtonClickEvent += OnCancelBtnClickEvent;
             inputFieldArr[4].KeyEvent += OnKeyEvent;
 
+            posY += 100;
             inputFieldArr[5] = new Tizen.FH.NUI.Controls.InputField("KitchenStyleBInputField");
             inputFieldArr[5].Name = "KitchenStyleBInputField";
             inputFieldArr[5].Size2D = new Size2D(1600, 95);
-            inputFieldArr[5].PositionY = 600;
+            inputFieldArr[5].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[5]);
             inputFieldArr[5].HintText = "KitchenStyleBInputField";
             inputFieldArr[5].DeleteButtonClickEvent += OnDeleteBtnClickEvent;
             inputFieldArr[5].AddButtonClickEvent += OnAddBtnClickEvent;
+            inputFieldArr[5].KeyEvent += OnKeyEvent;
         }
 
         private void CreateUtility()
         {
+            posY += 100;
             inputFieldArr[6] = new Tizen.FH.NUI.Controls.InputField("UtilityDefaultInputField");
             inputFieldArr[6].Name = "UtilityDefaultInputField";
             inputFieldArr[6].Size2D = new Size2D(1600, 95);
-            inputFieldArr[6].PositionY = 700;
+            inputFieldArr[6].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[6]);
             inputFieldArr[6].HintText = "UtilityDefaultInputField";
             inputFieldArr[6].CancelButtonClickEvent += OnCancelBtnClickEvent;
             inputFieldArr[6].KeyEvent += OnKeyEvent;
 
+            posY += 100;
             inputFieldArr[7] = new Tizen.FH.NUI.Controls.InputField("UtilityStyleBInputField");
             inputFieldArr[7].Name = "UtilityStyleBInputField";
             inputFieldArr[7].Size2D = new Size2D(1600, 95);
-            inputFieldArr[7].PositionY = 800;
+            inputFieldArr[7].Position2D = new Position2D(posX, posY);
             Window.Instance.Add(inputFieldArr[7]);
             inputFieldArr[7].HintText = "UtilityStyleBInputField";
             inputFieldArr[7].DeleteButtonClickEvent += OnDeleteBtnClickEvent;
             inputFieldArr[7].AddButtonClickEvent += OnAddBtnClickEvent;
+            inputFieldArr[7].KeyEvent += OnKeyEvent;
+        }
+
+        private void CreateGuideText()
+        {
+            guideText = new TextLabel();
+            guideText.Size2D = new Size2D(1600, 180);
+            guideText.Position2D = new Position2D(30, 30);
+            guideText.TextColor = Color.Blue;
+            guideText.BackgroundColor = Color.White;
+            guideText.PointSize = 15;
+            guideText.MultiLine = true;
+            rootView.Add(guideText);
+            guideText.Text =
+                "Tips: \n" +
+                "User can input text after press on the InputBox; \n" +
+                "User can press Cancel, Add and Delete button, do what they want in these button click callbacks; \n" +
+                "User can do what they want in the key event; \n " +
+                "In this sample, text color will change when inputted text's length change between 5~10, 10~15.  \n";
         }
 
         private void OnWindowsKeyEvent(object sender, Window.KeyEventArgs e)
@@ -164,17 +198,33 @@ namespace Tizen.FH.NUI.Samples
         {
             if (e.Key.State == Key.StateType.Down)
             {
-                if (e.Key.KeyPressedName == "Return")
+                Tizen.FH.NUI.Controls.InputField inputField = sender as Tizen.FH.NUI.Controls.InputField;
+                if (inputField != null)
                 {
-                    Tizen.FH.NUI.Controls.InputField inputField = sender as Tizen.FH.NUI.Controls.InputField;
-                    if (inputField != null)
+                    if (inputField.Text.Length > 5 && inputField.Text.Length <= 10)
                     {
-                        if (inputField.Text.Length >= 10)
-                        {
-                            inputField.TextColor = Color.Red;
-                        }
+                        inputField.TextColor = Color.Yellow;
+                    }
+                    else if (inputField.Text.Length > 10 && inputField.Text.Length <= 15)
+                    {
+                        inputField.TextColor = Color.Red;
+                    }
+                    else
+                    {
+                        inputField.TextColor = Color.Black;
                     }
                 }
+                //if (e.Key.KeyPressedName == "Return")
+                //{
+                //    Tizen.FH.NUI.Controls.InputField inputField = sender as Tizen.FH.NUI.Controls.InputField;
+                //    if (inputField != null)
+                //    {
+                //        if (inputField.Text.Length >= 10)
+                //        {
+                //            inputField.TextColor = Color.Red;
+                //        }
+                //    }
+                //}
             }
         }
 
@@ -190,19 +240,26 @@ namespace Tizen.FH.NUI.Samples
                     if (i % 2 == 0)
                     {
                         inputFieldArr[i].CancelButtonClickEvent -= OnCancelBtnClickEvent;
-                        inputFieldArr[i].KeyEvent -= OnKeyEvent;
                     }
                     else
                     {
                         inputFieldArr[i].DeleteButtonClickEvent -= OnDeleteBtnClickEvent;
                         inputFieldArr[i].AddButtonClickEvent -= OnAddBtnClickEvent;
                     }
+                    inputFieldArr[i].KeyEvent -= OnKeyEvent;
                     rootView.Remove(inputFieldArr[i]);
                     inputFieldArr[i].Dispose();
                     inputFieldArr[i] = null;
                 }
             }
             inputFieldArr = null;
+
+            if (guideText != null)
+            {
+                rootView.Remove(guideText);
+                guideText.Dispose();
+                guideText = null;
+            }
 
             if (rootView != null)
             {
