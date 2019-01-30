@@ -30,6 +30,12 @@ namespace Tizen.NUI.Controls
             Initialize();
         }
 
+        public InputField(InputFieldAttributes attributes) : base()
+        {
+            this.attributes = inputFieldAttrs = attributes.Clone() as InputFieldAttributes;
+            Initialize();
+        }
+
         /// <summary>
         /// The property for the enabled state
         /// </summary>
@@ -192,8 +198,11 @@ namespace Tizen.NUI.Controls
                 return;
             }
             int space = Space();
-            textField.Size2D = new Size2D(this.Size2D.Width - space * 2, this.Size2D.Height);
-            textField.PositionX = space;
+            if (textField != null)
+            {
+                textField.Size2D = new Size2D(this.Size2D.Width - space * 2, this.Size2D.Height);
+                textField.PositionX = space;
+            }
         }
 
         protected int Space()

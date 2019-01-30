@@ -136,7 +136,7 @@ namespace Tizen.FH.NUI.Samples
         private void CreateGuideText()
         {
             guideText = new TextLabel();
-            guideText.Size2D = new Size2D(1600, 180);
+            guideText.Size2D = new Size2D(1600, 200);
             guideText.Position2D = new Position2D(30, 30);
             guideText.TextColor = Color.Blue;
             guideText.BackgroundColor = Color.White;
@@ -148,7 +148,8 @@ namespace Tizen.FH.NUI.Samples
                 "User can input text after press on the InputBox; \n" +
                 "User can press Cancel, Add and Delete button, do what they want in these button click callbacks; \n" +
                 "User can do what they want in the key event; \n " +
-                "In this sample, text color will change when inputted text's length change between 5~10, 10~15.  \n";
+                "In this sample, text color will change when inputted text's length change between 5~10, 10~15.  \n" +
+                "User can exit the sample by press \"Esc\" key after touch on any area except the InputField.";
         }
 
         private void OnWindowsKeyEvent(object sender, Window.KeyEventArgs e)

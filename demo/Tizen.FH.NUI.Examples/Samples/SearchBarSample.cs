@@ -46,7 +46,7 @@ namespace Tizen.FH.NUI.Samples
         private void CreateGuideText()
         {
             guideText = new TextLabel();
-            guideText.Size2D = new Size2D(1100, 300);
+            guideText.Size2D = new Size2D(1100, 280);
             guideText.Position2D = new Position2D(30, 30);
             guideText.TextColor = Color.Blue;
             guideText.BackgroundColor = Color.White;
@@ -60,7 +60,8 @@ namespace Tizen.FH.NUI.Samples
                 "User can press on the search icon to search the inputted text, there are two result:  \n" +
                 "#1, success, the search result list will appear; \n" +
                 "#2, failed, this example if the length of the inputted text is greater than 10, text color will cahnged to Red. \n" +
-                "User can press on the cancel icon to cancel the inputted text.";
+                "User can press on the cancel icon to cancel the inputted text." +
+                "User can exit the sample by press \"Esc\" key after touch on any area except the InputField.";
         }
 
         private void OnWindowsKeyEvent(object sender, Window.KeyEventArgs e)
