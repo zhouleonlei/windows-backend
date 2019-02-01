@@ -214,6 +214,8 @@ namespace Tizen.FH.NUI
             Tizen.FH.NUI.Controls.InputField.RegisterStyle("DefaultSearchInputField", typeof(DefaultSearchInputFieldAttributes));
 
             Tizen.FH.NUI.Controls.SearchBar.RegisterStyle("DefaultSearchBar", typeof(DefaultSearchBarAttributes));
+
+            Tizen.FH.NUI.Controls.Toast.RegisterStyle("BasicToast", typeof(BasicToastAttributes));
         }
         private void CleanupComponent()
         {

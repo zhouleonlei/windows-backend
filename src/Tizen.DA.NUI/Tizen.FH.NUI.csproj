@@ -146,6 +146,7 @@
     <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
     <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
+    <None Remove="res\Toast\BasicToastAttributes.xaml" />
     <None Remove="res\UtilityBasicButtonAttributes.xaml" />
     <None Remove="res\UtilityCheckBoxAttributes.xaml" />
     <None Remove="res\UtilityDefaultSliderAttributes.xaml" />
@@ -303,6 +304,9 @@
     <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\Toast\BasicToastAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
