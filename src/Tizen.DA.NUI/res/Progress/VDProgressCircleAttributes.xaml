@@ -7,6 +7,14 @@
             <ImageAttributes  Size2D="90, 90" 
                               ResourceURL ="*DemoRes*/images/VD/component/c_progresscircle/circle_progress_m/circle_progress_whitem_00.png" />
         </ProgressBarAttributes.TrackImageAttributes>
+        <ProgressBarAttributes.LoadingImageAttributes>
+            <ImageAttributes  Size2D="90, 90" 
+                              ResourceURL ="*DemoRes*/images/VD/component/c_progresscircle/circle_progress_m/circle_progress_whitem_50.png" />
+        </ProgressBarAttributes.LoadingImageAttributes>
+        <ProgressBarAttributes.BufferImageAttributes>
+            <ImageAttributes  Size2D="90, 90" 
+                              ResourceURL ="*DemoRes*/images/VD/component/c_progresscircle/circle_progress_m/circle_progress_whitem_75.png" />
+        </ProgressBarAttributes.BufferImageAttributes>
     </ProgressBarAttributes>
 
 </AttributesContainer>

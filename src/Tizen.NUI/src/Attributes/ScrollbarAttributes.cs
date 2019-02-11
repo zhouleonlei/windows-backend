@@ -2,11 +2,11 @@
 
 namespace Tizen.NUI.Controls
 {
-    public class ScrollbarAttributes : ViewAttributes
+    public class ScrollBarAttributes : ViewAttributes
     {
-        public static readonly BindableProperty TrackImageAttributesProperty = BindableProperty.Create("TrackImageAttributes", typeof(ImageAttributes), typeof(ScrollbarAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TrackImageAttributesProperty = BindableProperty.Create("TrackImageAttributes", typeof(ImageAttributes), typeof(ScrollBarAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.trackImageAttrs = (ImageAttributes)newValue;
@@ -14,12 +14,12 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.trackImageAttrs;
         });
-        public static readonly BindableProperty ThumbImageAttributesProperty = BindableProperty.Create("ThumbImageAttributes", typeof(ImageAttributes), typeof(ScrollbarAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ThumbImageAttributesProperty = BindableProperty.Create("ThumbImageAttributes", typeof(ImageAttributes), typeof(ScrollBarAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.thumbImageAttrs = (ImageAttributes)newValue;
@@ -27,12 +27,12 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.thumbImageAttrs;
         });
-        public static readonly BindableProperty DirectionProperty = BindableProperty.Create("Direction", typeof(ScrollBar.DirectionType), typeof(ScrollbarAttributes), default(ScrollBar.DirectionType), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DirectionProperty = BindableProperty.Create("Direction", typeof(ScrollBar.DirectionType), typeof(ScrollBarAttributes), default(ScrollBar.DirectionType), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.direction = (ScrollBar.DirectionType)newValue;
@@ -40,13 +40,13 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.direction;
         });
 
-        public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size), typeof(ScrollbarAttributes), default(Size), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size), typeof(ScrollBarAttributes), default(Size), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.thumbSize = (Size)newValue;
@@ -54,13 +54,13 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.thumbSize;
         });
 
-        public static readonly BindableProperty MaxValueProperty = BindableProperty.Create("MaxValue", typeof(uint), typeof(ScrollbarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MaxValueProperty = BindableProperty.Create("MaxValue", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.maxValue = (uint?)newValue;
@@ -68,13 +68,13 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.maxValue;
         });
 
-        public static readonly BindableProperty MinValueProperty = BindableProperty.Create("MinValue", typeof(uint), typeof(ScrollbarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MinValueProperty = BindableProperty.Create("MinValue", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.minValue = (uint?)newValue;
@@ -82,13 +82,13 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.minValue;
         });
 
-        public static readonly BindableProperty CurValueProperty = BindableProperty.Create("CurValue", typeof(uint), typeof(ScrollbarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty CurValueProperty = BindableProperty.Create("CurValue", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.curValue = (uint?)newValue;
@@ -96,13 +96,13 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.curValue;
         });
 
-        public static readonly BindableProperty DurationProperty = BindableProperty.Create("Duration", typeof(uint), typeof(ScrollbarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DurationProperty = BindableProperty.Create("Duration", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
                 attrs.duration = (uint?)newValue;
@@ -110,7 +110,7 @@ namespace Tizen.NUI.Controls
         },
         defaultValueCreator: (bindable) =>
         {
-            var attrs = (ScrollbarAttributes)bindable;
+            var attrs = (ScrollBarAttributes)bindable;
             return attrs.duration;
         });
 
@@ -123,9 +123,9 @@ namespace Tizen.NUI.Controls
         private ImageAttributes trackImageAttrs;
         private ImageAttributes thumbImageAttrs;
 
-        public ScrollbarAttributes () : base() { }
+        public ScrollBarAttributes () : base() { }
 
-        public ScrollbarAttributes(ScrollbarAttributes attributes) : base(attributes)
+        public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)
         {
             if (attributes.trackImageAttrs != null)
             {
@@ -237,7 +237,7 @@ namespace Tizen.NUI.Controls
 
         public override Attributes Clone()
         {
-            return new ScrollbarAttributes(this);
+            return new ScrollBarAttributes(this);
         }
 
     }

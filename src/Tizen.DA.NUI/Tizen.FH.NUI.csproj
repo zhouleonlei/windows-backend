@@ -245,10 +245,10 @@
     <EmbeddedResource Include="res\Progress\UtilityProgressbarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Scrollbar\VDScrollbarAttributes.xaml">
+    <EmbeddedResource Include="res\Scrollbar\VDScrollBarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Scrollbar\DAScrollbarAttributes.xaml">
+    <EmbeddedResource Include="res\Scrollbar\DAScrollBarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">

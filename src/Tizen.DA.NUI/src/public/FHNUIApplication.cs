@@ -179,8 +179,8 @@ namespace Tizen.FH.NUI
             Switch.RegisterStyle("FamilySwitch", typeof(FamilySwitchAttributes));
             Switch.RegisterStyle("KitchenSwitch", typeof(KitchenSwitchAttributes));
 
-            ScrollBar.RegisterStyle("DAScrollbar", typeof(FH.NUI.Controls.DAScrollbarAttributes));
-            ScrollBar.RegisterStyle("VDScrollbar", typeof(FH.NUI.Controls.VDScrollbarAttributes));
+            ScrollBar.RegisterStyle("DAScrollbar", typeof(FH.NUI.Controls.DAScrollBarAttributes));
+            ScrollBar.RegisterStyle("VDScrollbar", typeof(FH.NUI.Controls.VDScrollBarAttributes));
 
             Progress.RegisterStyle("FamilyProgressbar", typeof(FH.NUI.Controls.FamilyProgressbarAttributes));
             Progress.RegisterStyle("FoodProgressbar", typeof(FH.NUI.Controls.FoodProgressbarAttributes));

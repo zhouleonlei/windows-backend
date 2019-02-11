@@ -72,22 +72,24 @@ namespace Tizen.NUI.Controls
         /// <summary>
         /// For register type to View Registry
         /// </summary>
-        static ScrollBar()
+        public ScrollBar() : base()
         {
+            Initialize();
         }
 
-        /// <summary>
-        /// The constructor of ScrollBar
-        /// </summary>
-        /// <version> 5.5.0 </version>
         public ScrollBar(string style) : base(style)
         {
-            scrollBarAttrs = attributes as ScrollbarAttributes;
+            scrollBarAttrs = attributes as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
                 throw new Exception("ScrollBar attribute parse error.");
             }
             Initialize();
+        }
+
+        public ScrollBar(ScrollBarAttributes attributes) : base()
+        {
+            this.attributes = scrollBarAttrs = attributes.Clone() as ScrollBarAttributes;
         }
 
         ///// <summary>
@@ -444,7 +446,7 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            scrollBarAttrs = attrs as ScrollbarAttributes;
+            scrollBarAttrs = attrs as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
                 return;
@@ -908,7 +910,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private ScrollbarAttributes scrollBarAttrs;
+        private ScrollBarAttributes scrollBarAttrs;
 
         ViewLayoutDirectionType uiDirection = ViewLayoutDirectionType.LTR;
 
