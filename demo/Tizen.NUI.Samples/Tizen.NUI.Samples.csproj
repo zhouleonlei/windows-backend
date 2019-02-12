@@ -53,6 +53,7 @@
     <Compile Include="Samples\PopupSample.cs" />
     <Compile Include="Samples\RadioButtonSample.cs" />
     <Compile Include="Samples\SwitchSample.cs" />
+    <Compile Include="Samples\TabSample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
