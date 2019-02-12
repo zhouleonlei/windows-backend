@@ -60,7 +60,7 @@ namespace Tizen.NUI.Controls
             return attrs.shadowOffset;
         });
 
-        public static readonly BindableProperty ButtonAttributesAttributesProperty = BindableProperty.Create("ButtonAttributesAttributes", typeof(ButtonAttributes), typeof(PopupAttributes), default(ButtonAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ButtonAttributesProperty = BindableProperty.Create("ButtonAttributes", typeof(ButtonAttributes), typeof(PopupAttributes), default(ButtonAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PopupAttributes)bindable;
             if (newValue != null)
@@ -158,11 +158,11 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return (ButtonAttributes)GetValue(ButtonAttributesAttributesProperty);
+                return (ButtonAttributes)GetValue(ButtonAttributesProperty);
             }
             set
             {
-                SetValue(ButtonAttributesAttributesProperty, value);
+                SetValue(ButtonAttributesProperty, value);
             }
         }
 
