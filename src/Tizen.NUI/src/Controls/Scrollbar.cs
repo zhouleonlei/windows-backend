@@ -74,22 +74,24 @@ namespace Tizen.NUI.Controls
         /// </summary>
         public ScrollBar() : base()
         {
+
             Initialize();
+            if (scrollBarAttrs == null)
+            {
+                scrollBarAttrs = new ScrollBarAttributes();
+                Console.WriteLine("hahahahahahah");
+            }
         }
 
         public ScrollBar(string style) : base(style)
         {
-            scrollBarAttrs = attributes as ScrollBarAttributes;
-            if (scrollBarAttrs == null)
-            {
-                throw new Exception("ScrollBar attribute parse error.");
-            }
             Initialize();
         }
 
         public ScrollBar(ScrollBarAttributes attributes) : base()
         {
             this.attributes = scrollBarAttrs = attributes.Clone() as ScrollBarAttributes;
+            Initialize();
         }
 
         ///// <summary>
@@ -256,7 +258,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return scrollBarAttrs.MaxValue.Value;
+                return scrollBarAttrs?.MaxValue;
             }
             set
             {
@@ -446,9 +448,11 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            scrollBarAttrs = attrs as ScrollBarAttributes;
+            if (attrs != null)
+                scrollBarAttrs = attrs as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
+                Console.WriteLine("wc  null  null  nulll");
                 return;
             }
 
@@ -459,6 +463,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
+            scrollBarAttrs = attributes as ScrollBarAttributes;
             this.Focusable = false;
             //TNLog.I("create component");
             trackObj = new ImageView
