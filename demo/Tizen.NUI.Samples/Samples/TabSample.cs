@@ -43,18 +43,38 @@ namespace Tizen.NUI.Samples
             ///////////////////////////////////////////////Create by Property//////////////////////////////////////////////////////////
             createText[0] = new TextLabel();
             createText[0].Text = "Create Tab just by properties";
-            createText[0].Size2D = new Size2D(500, 100);
+            createText[0].Size2D = new Size2D(450, 100);
             createText[0].Position2D = new Position2D(200, 100);
+            createText[0].MultiLine = true;
             root.Add(createText[0]);
 
             tab = new Tab();
             tab.Size2D = new Size2D(500, 108);
             tab.Position2D = new Position2D(100, 300);
             tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-
-
+            tab.IsNatureTextWidth = false;
+            tab.PaddingLeft = 56;
+            tab.PaddingRight = 56;
+            tab.PaddingTop = 1;
+            tab.PaddingBottom = 0;
+            tab.UnderLineSize2D = new Size2D(1, 3);
+            tab.UnderLineBackgroundColor = color[0];
+            tab.PointSize = 25;
+            tab.TextColorSelector = new ColorSelector
+            {
+                Normal = Color.Black,
+                Selected = color[0],
+            };
+            tab.ItemChangedEvent += TabItemChangedEvent;
             root.Add(tab);
 
+            for (int i = 0; i < 3; i++)
+            {
+                Tab.TabItem item = new Tab.TabItem();
+                item.Text = "Tab " + i;
+                tab.AddItem(item);
+            }
+            tab.SelectedItemIndex = 0;
 
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
@@ -104,7 +124,11 @@ namespace Tizen.NUI.Samples
                 tab2.AddItem(item);
             }
             tab2.SelectedItemIndex = 0;
+        }
 
+        private void TabItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
+        {
+            createText[0].Text = "Create Tab just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
 
         private void Tab2ItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
@@ -116,6 +140,10 @@ namespace Tizen.NUI.Samples
         {
             if (root != null)
             {
+                root.Remove(tab);
+                tab.Dispose();
+                tab = null;
+
                 root.Remove(tab2);
                 tab2.Dispose();
                 tab2 = null;

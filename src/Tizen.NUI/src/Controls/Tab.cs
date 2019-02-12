@@ -63,6 +63,223 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public bool IsNatureTextWidth
+        {
+            get
+            {
+                if(tabAttributes == null)
+                {
+                    return false;
+                }
+                return tabAttributes.IsNatureTextWidth;
+            }
+            set
+            {
+                if (tabAttributes == null)
+                {
+                    tabAttributes.IsNatureTextWidth = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public int PaddingLeft
+        {
+            get
+            {
+                if (tabAttributes == null)
+                {
+                    return 0;
+                }
+                return tabAttributes.PaddingLeft.All.Value;
+            }
+            set
+            {
+                if(tabAttributes.PaddingLeft == null)
+                {
+                    tabAttributes.PaddingLeft = new IntSelector { All = value };
+                }
+                tabAttributes.PaddingLeft.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int PaddingBottom
+        {
+            get
+            {
+                if (tabAttributes == null)
+                {
+                    return 0;
+                }
+                return tabAttributes.PaddingBottom.All.Value;
+            }
+            set
+            {
+                if (tabAttributes.PaddingBottom == null)
+                {
+                    tabAttributes.PaddingBottom = new IntSelector { All = value };
+                }
+                tabAttributes.PaddingBottom.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int PaddingRight
+        {
+            get
+            {
+                if (tabAttributes == null)
+                {
+                    return 0;
+                }
+                return tabAttributes.PaddingRight.All.Value;
+            }
+            set
+            {
+                if (tabAttributes.PaddingRight == null)
+                {
+                    tabAttributes.PaddingRight = new IntSelector { All = value };
+                }
+                tabAttributes.PaddingRight.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int PaddingTop
+        {
+            get
+            {
+                if (tabAttributes == null)
+                {
+                    return 0;
+                }
+                return tabAttributes.PaddingTop.All.Value;
+            }
+            set
+            {
+                if (tabAttributes.PaddingTop == null)
+                {
+                    tabAttributes.PaddingTop = new IntSelector { All = value };
+                }
+                tabAttributes.PaddingTop.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Size2D UnderLineSize2D
+        {
+            get
+            {
+                return tabAttributes?.UnderLineAttributes?.Size2D?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateUnderLineAttributes();
+                    if (tabAttributes.UnderLineAttributes.Size2D == null)
+                    {
+                        tabAttributes.UnderLineAttributes.Size2D = new Size2DSelector();
+                    }
+                    tabAttributes.UnderLineAttributes.Size2D.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Color UnderLineBackgroundColor
+        {
+            get
+            {
+                return tabAttributes?.UnderLineAttributes?.BackgroundColor?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateUnderLineAttributes();
+                    if (tabAttributes.UnderLineAttributes.BackgroundColor == null)
+                    {
+                        tabAttributes.UnderLineAttributes.BackgroundColor = new ColorSelector();
+                    }
+                    tabAttributes.UnderLineAttributes.BackgroundColor.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public float PointSize
+        {
+            get
+            {
+                return tabAttributes?.TextAttributes?.PointSize?.All ?? 0;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (tabAttributes.TextAttributes.PointSize == null)
+                {
+                    tabAttributes.TextAttributes.PointSize = new FloatSelector();
+                }
+                tabAttributes.TextAttributes.PointSize.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string FontFamily
+        {
+            get
+            {
+                return tabAttributes?.TextAttributes?.FontFamily?.All;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (tabAttributes.TextAttributes.FontFamily == null)
+                {
+                    tabAttributes.TextAttributes.FontFamily = new StringSelector();
+                }
+                tabAttributes.TextAttributes.FontFamily.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Color TextColor
+        {
+            get
+            {
+                return tabAttributes?.TextAttributes?.TextColor?.All;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (tabAttributes.TextAttributes.TextColor == null)
+                {
+                    tabAttributes.TextAttributes.TextColor = new ColorSelector();
+                }
+                tabAttributes.TextAttributes.TextColor.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public ColorSelector TextColorSelector
+        {
+            get
+            {
+                return tabAttributes?.TextAttributes.TextColor;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateTextAttributes();
+                    tabAttributes.TextAttributes.TextColor = value.Clone() as ColorSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
         public void AddItem(TabItem item)
         {
             int h = 0;
@@ -86,7 +303,7 @@ namespace Tizen.NUI.Controls
             UpdateItem();
             itemList[curIndex].State = States.Selected;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
-            
+
             UpdateUnderLinePos();
         }
 
@@ -119,6 +336,17 @@ namespace Tizen.NUI.Controls
             }
 
             ApplyAttributes(this, tabAttributes);
+
+            if (tabAttributes.UnderLineAttributes != null)
+            {
+                if (underLine == null)
+                {
+                    underLine = new View();
+                    Add(underLine);
+                }
+                UpdateUnderLinePos();
+                ApplyAttributes(underLine, tabAttributes.UnderLineAttributes);               
+            }
         }
 
         protected override Attributes GetAttributes()
@@ -141,7 +369,36 @@ namespace Tizen.NUI.Controls
                     Add(underLine);
                 }
                 ApplyAttributes(underLine, tabAttributes.UnderLineAttributes);
-                underLine.RaiseToTop();
+            }
+        }
+
+        private void CreateUnderLineAttributes()
+        {
+            if (tabAttributes.UnderLineAttributes == null)
+            {
+                tabAttributes.UnderLineAttributes = new ViewAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.BottomLeft },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.BottomLeft },
+                };
+            }
+        }
+
+        private void CreateTextAttributes()
+        {
+            if (tabAttributes.TextAttributes == null)
+            {
+                tabAttributes.TextAttributes = new TextAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
+                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
+                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                };
             }
         }
 
@@ -182,11 +439,10 @@ namespace Tizen.NUI.Controls
             {
                 return;
             }
+            tabAttributes.UnderLineAttributes.Size2D.All.Width = itemList[curIndex].Size2D.Width;
 
             underLine.Size2D = new Size2D(itemList[curIndex].Size2D.Width, tabAttributes.UnderLineAttributes.Size2D.All.Height);
             underLine.Position2D.X = itemList[curIndex].Position2D.X;
-
-            underLine.RaiseToTop();
         }
 
         private void UpdateSelectedItem(TabItem item)
