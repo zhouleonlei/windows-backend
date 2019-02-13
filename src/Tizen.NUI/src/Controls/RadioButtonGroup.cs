@@ -70,7 +70,7 @@ namespace Tizen.NUI.Controls
 
             foreach (RadioButton btn in itemGroup)
             {
-                if (btn != radio)
+                if (btn != null && btn != radio && btn.IsEnabled == true)
                 {
                     btn.IsSelected = false;
                 }

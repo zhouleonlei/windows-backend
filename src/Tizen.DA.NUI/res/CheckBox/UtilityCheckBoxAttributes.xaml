@@ -29,19 +29,19 @@
 
     <SelectButtonAttributes x:Name="SelectButtonAttributes">
         <SelectButtonAttributes.CheckShadowImageAttributes>
-            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+            <ImageAttributes  Size2D="48, 48"
                               ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
                               ResourceURL ="{StaticResource DAUtilityCheckBoxShadow}"
                               Opacity="{StaticResource DAUtilityCheckBoxOpacity}"/>
         </SelectButtonAttributes.CheckShadowImageAttributes>
         <SelectButtonAttributes.CheckBackgroundImageAttributes>
-            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+            <ImageAttributes  Size2D="48, 48"
                               ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
                               ResourceURL ="{StaticResource DAUtilityCheckBoxBackground}"
                               Opacity="{StaticResource DAUtilityCheckBoxOpacity}"/>
         </SelectButtonAttributes.CheckBackgroundImageAttributes>
         <SelectButtonAttributes.CheckImageAttributes>
-            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+            <ImageAttributes  Size2D="48, 48"
                               ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
                               ResourceURL ="{StaticResource DAUtilityCheck}"
                               Opacity="{StaticResource DAUtilityCheckBoxOpacity}"/>

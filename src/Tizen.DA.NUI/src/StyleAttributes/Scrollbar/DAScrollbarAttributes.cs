@@ -2,10 +2,10 @@
 using Tizen.NUI.Controls;
 using Tizen.NUI.Xaml;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Scrollbar.DAScrollbarAttributes.xaml", "DAScrollbarAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DAScrollbarAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Scrollbar.DAScrollBarAttributes.xaml", "DAScrollBarAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DAScrollBarAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DAScrollbarAttributes : AttributesContainer
+    internal class DAScrollBarAttributes : AttributesContainer
     {
 
     }

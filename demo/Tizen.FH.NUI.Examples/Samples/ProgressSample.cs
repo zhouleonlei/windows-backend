@@ -8,8 +8,8 @@ namespace Tizen.FH.NUI.Samples
     public class ProgressSample : IExample
     {
         private TextLabel board1, board2, board3, board, tl, tl2;
-        private Button button1, button2, button3, button4;
-
+        private Button button1, button2, button3, button4, button5;
+        int status = 0;
         private ProgressCircle progressCircle1, familyProgressBar2;
         private Progress progressBar1, progressBar2, progressBar3, progressBar4;
 
@@ -92,12 +92,21 @@ namespace Tizen.FH.NUI.Samples
             button4.Focusable = true;
             button4.ClickEvent += circle1Minus;
 
+            button5 = new Button("FamilyBasicButton");
+            button5.BackgroundColor = Color.Green;
+            button5.Position2D = new Position2D(650, 600);
+            button5.Size2D = new Size2D(200, 60);
+            button5.Text = "change status";
+            window.Add(button5);
+            button5.Focusable = true;
+            button5.ClickEvent += circleStatusChanged;
+
             progressCircle1 = new ProgressCircle("VDProgressCircle");
             progressCircle1.Position2D = new Position2D(400, 400);
             progressCircle1.MaxValue = 100;
             progressCircle1.MinValue = 0;
-            progressCircle1.CurrentValue = 15;
-            progressCircle1.ProgressState = Progress.ProgressStateType.Determinate;
+            progressCircle1.CurrentValue = 45;
+            progressCircle1.ProgressState = Progress.ProgressStatusType.Determinate;
             progressCircle1.Direction = Progress.DirectionType.Horizontal;
             window.Add(progressCircle1);
 
@@ -106,7 +115,7 @@ namespace Tizen.FH.NUI.Samples
             progressBar1.Size2D = new Size2D(140, 4);    
             progressBar1.MaxValue = 100;
             progressBar1.MinValue = 0;
-            progressBar1.CurrentValue = 15;
+            progressBar1.CurrentValue = 45;
             progressBar1.UpdateValue();
             progressBar1.Direction = Progress.DirectionType.Horizontal;
             window.Add(progressBar1);
@@ -126,7 +135,7 @@ namespace Tizen.FH.NUI.Samples
             progressBar3.Size2D = new Size2D(140, 4);
             progressBar3.MaxValue = 100;
             progressBar3.MinValue = 0;
-            progressBar3.CurrentValue = 15;
+            progressBar3.CurrentValue = 30;
             progressBar3.UpdateValue();
             progressBar3.Direction = Progress.DirectionType.Horizontal;
             window.Add(progressBar3);
@@ -136,17 +145,14 @@ namespace Tizen.FH.NUI.Samples
             progressBar4.Size2D = new Size2D(140, 4);
             progressBar4.MaxValue = 100;
             progressBar4.MinValue = 0;
-            progressBar4.CurrentValue = 15;
+            progressBar4.CurrentValue = 75;
             progressBar4.UpdateValue();
             progressBar4.Direction = Progress.DirectionType.Horizontal;
             window.Add(progressBar4);
 
             board.UpFocusableView = button1;
             FocusManager.Instance.SetCurrentFocusView(button1);
-            global::System.Console.WriteLine("0000");
-            global::System.Console.WriteLine("0000");
 
-            global::System.Console.WriteLine(progressCircle1.ProgressState.ToString());
         }
 
         private void Board_FocusLost(object sender, global::System.EventArgs e)
@@ -183,6 +189,31 @@ namespace Tizen.FH.NUI.Samples
             board.Text = "-";
             progressCircle1.CurrentValue--;
         }
+
+        private void circleStatusChanged(object sender, global::System.EventArgs e)
+        {
+            global::System.Console.WriteLine("----------------");
+
+            status++;
+            if (status > 2)
+                status = 0;
+            if (status == 0)
+            {
+                button5.Text = "Buffer";
+                progressCircle1.ProgressState = Progress.ProgressStatusType.Buffering;
+            }
+            if (status == 1)
+            {
+                button5.Text = "Deter";
+                progressCircle1.ProgressState = Progress.ProgressStatusType.Determinate;
+            }
+            if (status == 2)
+            {
+                button5.Text = "indeter";
+                progressCircle1.ProgressState = Progress.ProgressStatusType.Indeterminate;
+            }
+        }
+        
 
         public void Deactivate()
         {

@@ -79,7 +79,7 @@ namespace Tizen.FH.NUI.Samples
                 for (uint i = 1; i < rowNum; i++)
                 {
                     RadioButton radioButton = new RadioButton(applications[j - 1] + "RadioButton");
-                    radioButton.Size2D = new Size2D(204, 104);                  
+                    radioButton.Size2D = new Size2D(48, 48);                  
                     if (i == 3)
                     {
                         radioButton.IsEnabled = false;

@@ -1,0 +1,44 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <ColorSelector x:Key="DAUtilityDefaultInputFieldTextColor"
+                        Normal="0, 0, 0, 1.0"
+                        Pressed ="0, 0, 0, 1.0"
+                        Disabled="0, 0, 0, 0.4"
+                        />
+    </AttributesContainer.XamlResources>
+    
+    <InputFieldAttributes 
+        x:Name="InputFieldAttributes"
+        Space="24"
+        SpaceBetweenTextFieldAndRightButton="56">
+
+        <InputFieldAttributes.BgImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/1. Action bar/search_bg.png"
+                Border="45, 45, 0, 0"/>
+        </InputFieldAttributes.BgImageAttributes>
+
+        <InputFieldAttributes.InputBoxAttributes>
+            <TextFieldAttributes 
+                TextColor="{StaticResource DAUtilityDefaultInputFieldTextColor}"
+                PlaceholderTextColor="0, 0, 0, 0.4"
+                PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
+                SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
+                HorizontalAlignment="Begin"
+                VerticalAlignment="Center"
+                PointSize="38"
+                FontFamily="SamsungOne 500"
+                CursorWidth="2"/>
+        </InputFieldAttributes.InputBoxAttributes>
+
+        <InputFieldAttributes.CancelButtonAttributes>
+            <ImageAttributes
+                Size2D="56,56"
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/field_ic_cancel.png"/>
+        </InputFieldAttributes.CancelButtonAttributes>
+
+    </InputFieldAttributes>
+
+</AttributesContainer>
