@@ -347,6 +347,14 @@ namespace Tizen.NUI.Controls
                 UpdateUnderLinePos();
                 ApplyAttributes(underLine, tabAttributes.UnderLineAttributes);               
             }
+
+            if(tabAttributes.TextAttributes != null)
+            {
+                if (curIndex < itemList.Count)
+                {
+                    itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
+                }
+            }
         }
 
         protected override Attributes GetAttributes()

@@ -13,22 +13,22 @@ namespace Tizen.NUI.Samples
         private Tab tab = null;
         private Tab tab2 = null;
 
+        private Button button = null;
         private int index = 0;
-        private int index2 = 0;
 
-        private static string[] buttonStyles = new string[]
+        private static string[] mode = new string[]
         {
-            "UtilityTabButton",
-            "FamilyTabButton",
-            "FoodTabButton",
-            "KitchenTabButton",
+            "Utility Tab",
+            "Family Tab",
+            "Food Tab",
+            "Kitchen Tab",
         };
         private static Color[] color = new Color[]
         {
-            new Color(0.05f, 0.63f, 0.9f, 1),//#ff0ea1e6
-            new Color(0.14f, 0.77f, 0.28f, 1),//#ff24c447
-            new Color(0.75f, 0.46f, 0.06f, 1),//#ffec7510
-            new Color(0.59f, 0.38f, 0.85f, 1),//#ff9762d9
+        new Color(0.05f, 0.63f, 0.9f, 1),//#ff0ea1e6 Utility
+        new Color(0.14f, 0.77f, 0.28f, 1),//#ff24c447 Family
+        new Color(0.75f, 0.46f, 0.06f, 1),//#ffec7510 Food
+        new Color(0.59f, 0.38f, 0.85f, 1),//#ff9762d9 Kitchen
         };
         public void Activate()
         {
@@ -124,6 +124,15 @@ namespace Tizen.NUI.Samples
                 tab2.AddItem(item);
             }
             tab2.SelectedItemIndex = 0;
+
+            button = new Button();
+            button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            button.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
+            button.Size2D = new Size2D(280, 80);
+            button.Position2D = new Position2D(500, 700);
+            button.Text = mode[index];
+            button.ClickEvent += ButtonClickEvent;
+            root.Add(button);
         }
 
         private void TabItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
@@ -131,33 +140,70 @@ namespace Tizen.NUI.Samples
             createText[0].Text = "Create Tab just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
 
+        public void Deactivate()
+        {
+            if (root != null)
+            {
+                if (button != null)
+                {
+                    root.Remove(button);
+                    button.Dispose();
+                    button = null;
+                }
+
+                if (tab != null)
+                {
+                    root.Remove(tab);
+                    tab.Dispose();
+                    tab = null;
+                }
+                if (tab2 != null)
+                {
+                    root.Remove(tab2);
+                    tab2.Dispose();
+                    tab2 = null;
+                }
+
+                if (createText[0] != null)
+                {
+                    root.Remove(createText[0]);
+                    createText[0].Dispose();
+                    createText[0] = null;
+                }
+                if (createText[1] != null)
+                {
+                    root.Remove(createText[1]);
+                    createText[1].Dispose();
+                    createText[1] = null;
+                }
+
+                Window.Instance.Remove(root);
+                root.Dispose();
+                root = null;
+            }
+        }
+
         private void Tab2ItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
         {
             createText[1].Text = "Create Tab just by Attributes, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
 
-        public void Deactivate()
+        private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            if (root != null)
+            index = (index + 1) % 4;
+            button.Text = mode[index];
+            tab.UnderLineBackgroundColor = color[index];
+            tab.TextColorSelector = new ColorSelector
             {
-                root.Remove(tab);
-                tab.Dispose();
-                tab = null;
-
-                root.Remove(tab2);
-                tab2.Dispose();
-                tab2 = null;
-                
-                root.Remove(createText[0]);
-                createText[0].Dispose();
-                createText[0] = null;
-                root.Remove(createText[1]);
-                createText[1].Dispose();
-                createText[1] = null;
-
-                Window.Instance.Remove(root);
-                root.Dispose();
-            }
+                Normal = Color.Black,
+                Selected = color[index],
+            };
+            tab2.UnderLineBackgroundColor = color[index];
+            tab2.TextColorSelector = new ColorSelector
+            {
+                Normal = Color.Black,
+                Selected = color[index],
+            };
         }
     }
 }
