@@ -31,6 +31,13 @@ namespace Tizen.FH.NUI.Controls
         public ProgressCircle(string style) : base(style)
         {
             ImageList = new List<string>();
+
+            progressObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            progressObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            loadingObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            loadingObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            bufferObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            bufferObj.HeightResizePolicy = ResizePolicyType.FillToParent;
         }
         protected override void OnUpdate(Attributes attrs)
         {

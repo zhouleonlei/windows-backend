@@ -12,7 +12,7 @@
                         Normal=""
                         Disabled=""
                         />
-        <StringSelector x:Key="DAFoodStyleBInputFieldAddButtonTopResource"
+        <StringSelector x:Key="DAFoodStyleBInputFieldAddButtonFgResource"
                         Normal="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_ec7510_normal.png"
                         Pressed ="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_ec7510_press.png"
                         Disabled="*DemoRes*/images/FH3/7. Input Field/html/input_btn_add_ec7510_dim.png"
@@ -32,7 +32,7 @@
     <InputFieldAttributes 
         x:Name="InputFieldAttributes"
         Space="24"
-        SpaceBetweenTextFieldAndButton="56">
+        SpaceBetweenTextFieldAndRightButton="56">
 
         <InputFieldAttributes.BgImageAttributes>
             <ImageAttributes 
@@ -64,10 +64,10 @@
                 ResourceURL="{StaticResource DAFoodStyleBInputFieldAddButtonOverlayResource}"/>
         </InputFieldAttributes.AddButtonOverlayAttributes>
 
-        <InputFieldAttributes.AddButtonTopAttributes>
+        <InputFieldAttributes.AddButtonFgAttributes>
             <ImageAttributes
-                ResourceURL="{StaticResource DAFoodStyleBInputFieldAddButtonTopResource}"/>
-        </InputFieldAttributes.AddButtonTopAttributes>
+                ResourceURL="{StaticResource DAFoodStyleBInputFieldAddButtonFgResource}"/>
+        </InputFieldAttributes.AddButtonFgAttributes>
 
         <InputFieldAttributes.DeleteButtonAttributes>
             <ImageAttributes

@@ -22,10 +22,10 @@ namespace Tizen.NUI.Controls
     /// </code>
     public class Progress : Control
     {
-        public enum ProgressStateType
+        public enum ProgressStatusType
         {
-            Buffering,
-            Determinate,
+            Buffering,   //TrackImage
+            Determinate, //ProgressImage
             Indeterminate//loading
         }
 
@@ -52,7 +52,7 @@ namespace Tizen.NUI.Controls
         protected string loadingImageURL = null;
         protected string progressImageURL = null;
         protected string progressImageURLPre = null;
-        protected ProgressStateType? state = null;
+        protected ProgressStatusType? state = null;
 
         /// <summary>
         /// The Animation attributes.
@@ -635,7 +635,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public ProgressStateType? ProgressState
+        public ProgressStatusType? ProgressState
         {
             get
             {
@@ -736,21 +736,26 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(this, progressBarAttrs);
             ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
             ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);
-
+            ApplyAttributes(loadingObj, progressBarAttrs.LoadingImageAttributes);
+            ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
+            //loadingObj.Size2D = this.Size2D;
+            //progressObj.Size2D = this.Size2D;
+            //trackObj.Size2D = this.Size2D;
+            //Console.WriteLine("OnUpdate this"+this.Size2D.Height.ToString() +" " +this.Size2D.Width.ToString());
         }
 
         private void Initialize()
         {
             // create necessary components
-            //TNLog.I("create necessary components");
+
             InitializeTrack();
-            InitializeProgress();
             InitializeBuffer();
+            InitializeProgress();
+            InitializeLoading();
         }
 
         private void InitializeTrack()
         {
-            //TNLog.I("create track object");
             trackObj = new ImageView
             {
                 WidthResizePolicy = ResizePolicyType.FillToParent,
@@ -772,6 +777,7 @@ namespace Tizen.NUI.Controls
                 PositionUsesPivotPoint = true,
                 ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft
+
             };
             Add(progressObj);
         }
@@ -780,7 +786,6 @@ namespace Tizen.NUI.Controls
         {
             if (bufferObj == null)
             {
-                //TNLog.I("create buffer object");
                 bufferObj = new ImageView
                 {
                     WidthResizePolicy = ResizePolicyType.Fixed,
@@ -790,6 +795,22 @@ namespace Tizen.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                 };
                 Add(bufferObj);
+            }
+        }
+
+        private void InitializeLoading()
+        {
+            if (loadingObj == null)
+            {
+                loadingObj = new ImageView
+                {
+                    WidthResizePolicy = ResizePolicyType.Fixed,
+                    HeightResizePolicy = ResizePolicyType.Fixed,
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft
+                };
+                Add(loadingObj);
             }
         }
 
@@ -1070,25 +1091,24 @@ namespace Tizen.NUI.Controls
 
         private void UpdateStates()
         {
-            if (state == ProgressStateType.Buffering)
+            Console.WriteLine("before update pro" + progressObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
+            if (state == ProgressStatusType.Buffering)
             {
                 bufferObj.Show();
-                //loadingObj.Hide();
+                loadingObj.Hide();
                 progressObj.Hide();
             }
-            else if (state == ProgressStateType.Determinate)
+            else if (state == ProgressStatusType.Determinate)
             {
-                trackObj.Hide();
                 bufferObj.Hide();
-                //loadingObj.Hide();
-                progressObj.Size2D = new Size2D(90,90);
+                loadingObj.Hide();
                 progressObj.Show();
                 UpdateValue();
             }
             else
             {
                 bufferObj.Hide();
-                //loadingObj.Show();
+                loadingObj.Show();
                 progressObj.Hide();
             }
             //if (aniForLoading != null)

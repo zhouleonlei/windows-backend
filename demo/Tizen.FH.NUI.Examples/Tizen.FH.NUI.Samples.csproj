@@ -55,8 +55,11 @@
     <Compile Include="Samples\ProgressSample.cs" />
     <Compile Include="Samples\RadioButtonSample.cs" />
     <Compile Include="Samples\ScrollbarSample.cs" />
+    <Compile Include="Samples\SearchBarSample.cs" />
     <Compile Include="Samples\SliderSample.cs" />
     <Compile Include="Samples\SwitchSample.cs" />
+    <Compile Include="Samples\TabSample.cs" />
+    <Compile Include="Samples\ToastSample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

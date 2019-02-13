@@ -2,17 +2,18 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <AttributesContainer.XamlResources>
-        <ColorSelector x:Key="DAKitchenTextFieldInputFieldTextColor"
+        <ColorSelector x:Key="DADefaultSearchInputFieldTextColor"
                         Normal="0, 0, 0, 1.0"
                         Pressed ="0, 0, 0, 1.0"
                         Disabled="0, 0, 0, 0.4"
                         />
     </AttributesContainer.XamlResources>
-    
+
     <InputFieldAttributes 
         x:Name="InputFieldAttributes"
         Space="24"
-        SpaceBetweenTextFieldAndButton="56">
+        SpaceBetweenTextFieldAndLeftButton="16"
+        SpaceBetweenTextFieldAndRightButton="56">
 
         <InputFieldAttributes.BgImageAttributes>
             <ImageAttributes 
@@ -22,7 +23,7 @@
 
         <InputFieldAttributes.InputBoxAttributes>
             <TextFieldAttributes 
-                TextColor="{StaticResource DAKitchenTextFieldInputFieldTextColor}"
+                TextColor="{StaticResource DADefaultSearchInputFieldTextColor}"
                 PlaceholderTextColor="0, 0, 0, 0.4"
                 PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
                 SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
@@ -36,8 +37,14 @@
         <InputFieldAttributes.CancelButtonAttributes>
             <ImageAttributes
                 Size2D="56,56"
-                ResourceURL="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_ic_cancel_9762d9.png"/>
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/field_ic_cancel.png"/>
         </InputFieldAttributes.CancelButtonAttributes>
+
+        <InputFieldAttributes.SearchButtonAttributes>
+            <ImageAttributes
+                Size2D="56,56"
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/search_ic_search.png"/>
+        </InputFieldAttributes.SearchButtonAttributes>
 
     </InputFieldAttributes>
 

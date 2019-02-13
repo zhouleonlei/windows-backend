@@ -8,14 +8,20 @@ namespace Tizen.FH.NUI.Samples
     {
         private TextLabel board1, board2, board3, board, tl, tl2;
         private Button button1, button2, button3, button4;
-
+        private ScrollBar scrollBar1, scrollBar2;
         private ScrollBar daScrollBar1, daScrollBar2;
         private ScrollBar vdScrollBar1, vdScrollBar2;
-
+        private View root;
 
         public void Activate()
         {
             Window window = Window.Instance;
+
+            root = new View()
+            {
+                Size2D = new Size2D(1920, 1080),
+            };
+
 
             board = new TextLabel();
             board.Size2D = new Size2D(1000, 100);
@@ -25,7 +31,7 @@ namespace Tizen.FH.NUI.Samples
             board.VerticalAlignment = VerticalAlignment.Center;
             board.BackgroundColor = Color.Magenta;
             board.Text = "Hello World!";
-            window.Add(board);
+            root.Add(board);
             board.Focusable = true;
             board.FocusGained += Board_FocusGained;
             board.FocusLost += Board_FocusLost;
@@ -38,7 +44,7 @@ namespace Tizen.FH.NUI.Samples
             board1.VerticalAlignment = VerticalAlignment.Center;
             board1.BackgroundColor = Color.Magenta;
             board1.Text = "Honrizal";
-            window.Add(board1);
+            root.Add(board1);
             board1.Focusable = true;
             board1.FocusGained += Board_FocusGained;
             board1.FocusLost += Board_FocusLost;
@@ -51,7 +57,7 @@ namespace Tizen.FH.NUI.Samples
             board2.VerticalAlignment = VerticalAlignment.Center;
             board2.BackgroundColor = Color.Magenta;
             board2.Text = "vertical";
-            window.Add(board2);
+            root.Add(board2);
             board2.Focusable = true;
             board2.FocusGained += Board_FocusGained;
             board2.FocusLost += Board_FocusLost;
@@ -64,7 +70,7 @@ namespace Tizen.FH.NUI.Samples
             board3.VerticalAlignment = VerticalAlignment.Center;
             board3.BackgroundColor = Color.Magenta;
             board3.Text = "VD";
-            window.Add(board3);
+            root.Add(board3);
             board3.Focusable = true;
             board3.FocusGained += Board_FocusGained;
             board3.FocusLost += Board_FocusLost;
@@ -74,7 +80,7 @@ namespace Tizen.FH.NUI.Samples
             button1.Position2D = new Position2D(100, 700);
             button1.Size2D = new Size2D(80, 50);
             button1.Text = "+";
-            window.Add(button1);
+            root.Add(button1);
             button1.Focusable = true;
             button1.ClickEvent += Scroll1Add;
 
@@ -83,7 +89,7 @@ namespace Tizen.FH.NUI.Samples
             button2.Position2D = new Position2D(200, 700);
             button2.Size2D = new Size2D(80, 50);
             button2.Text = "-";
-            window.Add(button2);
+            root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += Scroll1Minus;
 
@@ -92,7 +98,7 @@ namespace Tizen.FH.NUI.Samples
             button3.Position2D = new Position2D(450, 700);
             button3.Size2D = new Size2D(80, 50);
             button3.Text = "+";
-            window.Add(button3);
+            root.Add(button3);
             button3.Focusable = true;
             button3.ClickEvent += Scroll2Add;
 
@@ -101,20 +107,59 @@ namespace Tizen.FH.NUI.Samples
             button4.Position2D = new Position2D(550, 700);
             button4.Size2D = new Size2D(80, 50);
             button4.Text = "-";
-            window.Add(button4);
+            root.Add(button4);
             button4.Focusable = true;
             button4.ClickEvent += Scroll2Minus;
 
             daScrollBar1 = new ScrollBar("DAScrollbar");
-            daScrollBar1.Position2D = new Position2D(100, 500);
+            daScrollBar1.Position2D = new Position2D(100, 400);
             daScrollBar1.Size2D = new Size2D(300, 4);
             daScrollBar1.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
             daScrollBar1.MinValue = 0;
             daScrollBar1.CurrentValue = 0;
             daScrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
             daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
-            window.Add(daScrollBar1);
+            root.Add(daScrollBar1);
             daScrollBar1.TrackImageURL = "*DemoRes*/images/VD/component/c_progressbar/c_progressbar_white_buffering.png";
+
+            scrollBar1 = new ScrollBar();
+            scrollBar1.Position2D = new Position2D(100, 500);
+            scrollBar1.Size2D = new Size2D(300, 4);
+            scrollBar1.TrackColor = Color.Green;
+            scrollBar1.MaxValue = (uint)scrollBar1.SizeWidth / 10;
+            scrollBar1.MinValue = 0;
+            scrollBar1.CurrentValue = 0;
+            scrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar1.ThumbColor = Color.Black;
+            root.Add(scrollBar1);
+
+            ScrollBarAttributes attr = new ScrollBarAttributes
+            {
+                TrackImageAttributes = new ImageAttributes
+                {
+                    BackgroundColor = new ColorSelector
+                    {
+                        All = new Color(0.43f, 0.43f, 0.43f, 0.1f),
+                    }
+                },
+                ThumbImageAttributes = new ImageAttributes
+                {
+                    BackgroundColor = new ColorSelector
+                    {
+                        All = new Color(0.0f, 0.0f, 0.0f, 0.2f),
+                    }
+                },
+
+            };
+
+            scrollBar2 = new ScrollBar(attr);
+            scrollBar2.Position2D = new Position2D(100, 600);
+            scrollBar2.Size2D = new Size2D(300, 4);
+            scrollBar2.MaxValue = (uint)scrollBar2.SizeWidth / 10;
+            scrollBar2.MinValue = 0;
+            scrollBar2.CurrentValue = 0;
+            scrollBar2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            root.Add(scrollBar2);
 
             daScrollBar2 = new ScrollBar("DAScrollbar");
             daScrollBar2.Position2D = new Position2D(450, 300);
@@ -124,7 +169,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar2.CurrentValue = 0;
             daScrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
             daScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
-            window.Add(daScrollBar2);
+            root.Add(daScrollBar2);
             daScrollBar2.PanGestureEvent += ScrollPan;
 
             vdScrollBar1 = new ScrollBar("VDScrollbar");
@@ -135,7 +180,7 @@ namespace Tizen.FH.NUI.Samples
             vdScrollBar1.CurrentValue = 0;
             vdScrollBar1.ThumbSize = new Size(30.0f, 3.0f, 0.0f);
             vdScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
-            window.Add(vdScrollBar1);
+            root.Add(vdScrollBar1);
             
 
 
@@ -147,9 +192,11 @@ namespace Tizen.FH.NUI.Samples
             vdScrollBar2.CurrentValue = 0;
             vdScrollBar2.ThumbSize = new Size(3.0f, 30.0f, 0.0f);
             vdScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
-            window.Add(vdScrollBar2);
+            root.Add(vdScrollBar2);
 
             board.UpFocusableView = button1;
+
+            window.Add(root);
 
             FocusManager.Instance.SetCurrentFocusView(button1);
         }
@@ -190,7 +237,11 @@ namespace Tizen.FH.NUI.Samples
 
         public void Deactivate()
         {
-            Window window = Window.Instance;
+            if (root != null)
+            {
+                Window.Instance.Remove(root);
+                root.Dispose();
+            }
         }
     }
 }

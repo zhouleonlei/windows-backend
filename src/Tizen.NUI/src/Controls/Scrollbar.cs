@@ -72,21 +72,25 @@ namespace Tizen.NUI.Controls
         /// <summary>
         /// For register type to View Registry
         /// </summary>
-        static ScrollBar()
+        public ScrollBar() : base()
         {
-        }
 
-        /// <summary>
-        /// The constructor of ScrollBar
-        /// </summary>
-        /// <version> 5.5.0 </version>
-        public ScrollBar(string style) : base(style)
-        {
-            scrollBarAttrs = attributes as ScrollbarAttributes;
+            Initialize();
             if (scrollBarAttrs == null)
             {
-                throw new Exception("ScrollBar attribute parse error.");
+                scrollBarAttrs = new ScrollBarAttributes();
+                Console.WriteLine("hahahahahahah");
             }
+        }
+
+        public ScrollBar(string style) : base(style)
+        {
+            Initialize();
+        }
+
+        public ScrollBar(ScrollBarAttributes attributes) : base()
+        {
+            this.attributes = scrollBarAttrs = attributes.Clone() as ScrollBarAttributes;
             Initialize();
         }
 
@@ -254,7 +258,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return scrollBarAttrs.MaxValue.Value;
+                return scrollBarAttrs?.MaxValue;
             }
             set
             {
@@ -444,9 +448,11 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            scrollBarAttrs = attrs as ScrollbarAttributes;
+            if (attrs != null)
+                scrollBarAttrs = attrs as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
+                Console.WriteLine("wc  null  null  nulll");
                 return;
             }
 
@@ -457,6 +463,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
+            scrollBarAttrs = attributes as ScrollBarAttributes;
             this.Focusable = false;
             //TNLog.I("create component");
             trackObj = new ImageView
@@ -908,7 +915,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private ScrollbarAttributes scrollBarAttrs;
+        private ScrollBarAttributes scrollBarAttrs;
 
         ViewLayoutDirectionType uiDirection = ViewLayoutDirectionType.LTR;
 

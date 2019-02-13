@@ -223,7 +223,6 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                System.Console.WriteLine("attr.prefix.set");
                 SetValue(ProgressImageURLPrefixProperty, value);
             }
         }

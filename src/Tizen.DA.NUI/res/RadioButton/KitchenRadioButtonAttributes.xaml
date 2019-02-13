@@ -17,7 +17,7 @@
 
     <SelectButtonAttributes x:Name="SelectButtonAttributes">
         <SelectButtonAttributes.CheckImageAttributes>
-            <ImageAttributes  Size2D="48, 48" Position2D="56, 28"
+            <ImageAttributes  Size2D="48, 48"
                               ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true"
                               ResourceURL ="{StaticResource DAKitchenRadioBackground}"
                               Opacity="{StaticResource DAKitchenRadioOpacity}"/>

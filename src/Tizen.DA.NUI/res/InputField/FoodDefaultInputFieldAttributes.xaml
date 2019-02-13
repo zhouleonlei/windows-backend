@@ -2,7 +2,7 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <AttributesContainer.XamlResources>
-        <ColorSelector x:Key="DAUtilityTextFieldInputFieldTextColor"
+        <ColorSelector x:Key="DAFoodDefaultInputFieldTextColor"
                         Normal="0, 0, 0, 1.0"
                         Pressed ="0, 0, 0, 1.0"
                         Disabled="0, 0, 0, 0.4"
@@ -12,7 +12,7 @@
     <InputFieldAttributes 
         x:Name="InputFieldAttributes"
         Space="24"
-        SpaceBetweenTextFieldAndButton="56">
+        SpaceBetweenTextFieldAndRightButton="56">
 
         <InputFieldAttributes.BgImageAttributes>
             <ImageAttributes 
@@ -22,7 +22,7 @@
 
         <InputFieldAttributes.InputBoxAttributes>
             <TextFieldAttributes 
-                TextColor="{StaticResource DAUtilityTextFieldInputFieldTextColor}"
+                TextColor="{StaticResource DAFoodDefaultInputFieldTextColor}"
                 PlaceholderTextColor="0, 0, 0, 0.4"
                 PrimaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
                 SecondaryCursorColor="0.0392, 0.6667, 0.9608, 1.0"
@@ -36,7 +36,7 @@
         <InputFieldAttributes.CancelButtonAttributes>
             <ImageAttributes
                 Size2D="56,56"
-                ResourceURL="*DemoRes*/images/FH3/7. Input Field/field_ic_cancel.png"/>
+                ResourceURL="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_ic_cancel_ec7510.png"/>
         </InputFieldAttributes.CancelButtonAttributes>
 
     </InputFieldAttributes>

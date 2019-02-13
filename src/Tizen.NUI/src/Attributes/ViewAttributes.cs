@@ -342,9 +342,14 @@ namespace Tizen.NUI.Controls
                 paddingLeft = attributes.paddingLeft.Clone() as IntSelector;
             }
 
+            if (attributes.paddingRight != null)
+            {
+                paddingRight = attributes.paddingRight.Clone() as IntSelector;
+            }
+
             if (attributes.paddingTop != null)
             {
-                paddingRight = attributes.paddingTop.Clone() as IntSelector;
+                paddingTop = attributes.paddingTop.Clone() as IntSelector;
             }
 
             if (attributes.paddingBottom != null)

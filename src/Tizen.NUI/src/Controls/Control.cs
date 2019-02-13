@@ -455,7 +455,7 @@ namespace Tizen.NUI.Controls
             if (styleToDelegate.ContainsKey(style))
             {
                 StyleContainer container = styleToDelegate[style]();
-                return container.Content as Attributes;
+                return (container.Content as Attributes).Clone();
             }
 
             return Attributes.GetAttributes(styleToAttributes[style]);

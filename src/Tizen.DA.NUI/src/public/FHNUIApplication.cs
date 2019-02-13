@@ -179,8 +179,8 @@ namespace Tizen.FH.NUI
             Switch.RegisterStyle("FamilySwitch", typeof(FamilySwitchAttributes));
             Switch.RegisterStyle("KitchenSwitch", typeof(KitchenSwitchAttributes));
 
-            ScrollBar.RegisterStyle("DAScrollbar", typeof(FH.NUI.Controls.DAScrollbarAttributes));
-            ScrollBar.RegisterStyle("VDScrollbar", typeof(FH.NUI.Controls.VDScrollbarAttributes));
+            ScrollBar.RegisterStyle("DAScrollbar", typeof(FH.NUI.Controls.DAScrollBarAttributes));
+            ScrollBar.RegisterStyle("VDScrollbar", typeof(FH.NUI.Controls.VDScrollBarAttributes));
 
             Progress.RegisterStyle("FamilyProgressbar", typeof(FH.NUI.Controls.FamilyProgressbarAttributes));
             Progress.RegisterStyle("FoodProgressbar", typeof(FH.NUI.Controls.FoodProgressbarAttributes));
@@ -193,8 +193,10 @@ namespace Tizen.FH.NUI
             Button.RegisterStyle("FoodPopupButton", typeof(FoodPopupButtonAttributes));
             Button.RegisterStyle("FamilyPopupButton", typeof(FamilyPopupButtonAttributes));
             Button.RegisterStyle("KitchenPopupButton", typeof(KitchenPopupButtonAttributes));
-			
-			Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
+
+            Tab.RegisterStyle("DATab", typeof(DATabAttributes));
+
+            Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
             Slider.RegisterStyle("FoodDefaultSlider", typeof(FoodDefaultSliderAttributes));
             Slider.RegisterStyle("FamilyDefaultSlider", typeof(FamilyDefaultSliderAttributes));
             Slider.RegisterStyle("KitchenDefaultSlider", typeof(KitchenDefaultSliderAttributes));
@@ -203,14 +205,19 @@ namespace Tizen.FH.NUI
             Slider.RegisterStyle("FamilyTextSlider", typeof(FamilyTextSliderAttributes));
             Slider.RegisterStyle("KitchenTextSlider", typeof(KitchenTextSliderAttributes));
 
-            InputField.RegisterStyle("FamilyTextFieldInputField", typeof(FamilyTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("FamilyStyleBFieldInputField", typeof(FamilyStyleBInputFieldAttributes));
-            InputField.RegisterStyle("FoodTextFieldInputField", typeof(FoodTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("FoodStyleBFieldInputField", typeof(FoodStyleBInputFieldAttributes));
-            InputField.RegisterStyle("KitchenTextFieldInputField", typeof(KitchenTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("KitchenStyleBFieldInputField", typeof(KitchenStyleBInputFieldAttributes));
-            InputField.RegisterStyle("UtilityTextFieldInputField", typeof(UtilityTextFieldInputFieldAttributes));
-            InputField.RegisterStyle("UtilityStyleBFieldInputField", typeof(UtilityStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FamilyDefaultInputField", typeof(FamilyDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FamilyStyleBInputField", typeof(FamilyStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FoodDefaultInputField", typeof(FoodDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("FoodStyleBInputField", typeof(FoodStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("KitchenDefaultInputField", typeof(KitchenDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("KitchenStyleBInputField", typeof(KitchenStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("UtilityDefaultInputField", typeof(UtilityDefaultInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("UtilityStyleBInputField", typeof(UtilityStyleBInputFieldAttributes));
+            Tizen.FH.NUI.Controls.InputField.RegisterStyle("DefaultSearchInputField", typeof(DefaultSearchInputFieldAttributes));
+
+            Tizen.FH.NUI.Controls.SearchBar.RegisterStyle("DefaultSearchBar", typeof(DefaultSearchBarAttributes));
+
+            Tizen.FH.NUI.Controls.Toast.RegisterStyle("BasicToast", typeof(BasicToastAttributes));
         }
         private void CleanupComponent()
         {

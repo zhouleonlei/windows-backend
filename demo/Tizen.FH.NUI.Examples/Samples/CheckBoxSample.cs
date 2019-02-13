@@ -78,7 +78,7 @@ namespace Tizen.FH.NUI.Samples
                 for (uint i = 1; i < rowNum; i++)
                 {
                     CheckBox checkBox = new CheckBox(applications[j - 1] + "CheckBox");
-                    checkBox.Size2D = new Size2D(204, 104);
+                    checkBox.Size2D = new Size2D(48, 48);
                     if (i == 3)
                     {
                         checkBox.IsEnabled = false;

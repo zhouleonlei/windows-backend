@@ -18,18 +18,198 @@ namespace Tizen.NUI.Controls
         {
             Initialize();
         }
+        public Switch(SwitchAttributes attrs) : base(attrs)
+        {
+            Initialize();
+        }
 
         public event EventHandler<SelectEventArgs> SelectedEvent;
 
-        public new bool IsSelected
+        public string SwitchBackgroundImageURL
         {
             get
             {
-                return base.IsSelected;
+                return switchAttributes?.SwitchBackgroundImageAttributes?.ResourceURL?.All;
             }
             set
             {
-                base.IsSelected = value;
+                if (value != null)
+                {
+                    CreateSwitchBackgroundImageAttributes();
+                    if (switchAttributes.SwitchBackgroundImageAttributes.ResourceURL == null)
+                    {
+                        switchAttributes.SwitchBackgroundImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    switchAttributes.SwitchBackgroundImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector SwitchBackgroundImageURLSelector
+        {
+            get
+            {
+                return switchAttributes?.SwitchBackgroundImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchBackgroundImageAttributes();
+                    switchAttributes.SwitchBackgroundImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public string SwitchHandlerImageURL
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    if (switchAttributes.SwitchHandlerImageAttributes.ResourceURL == null)
+                    {
+                        switchAttributes.SwitchHandlerImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    switchAttributes.SwitchHandlerImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector SwitchHandlerImageURLSelector
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    switchAttributes.SwitchHandlerImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Position SwitchHandlerParentOrigin
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.ParentOrigin?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    if (switchAttributes.SwitchHandlerImageAttributes.ParentOrigin == null)
+                    {
+                        switchAttributes.SwitchHandlerImageAttributes.ParentOrigin = new PositionSelector();
+                    }
+                    switchAttributes.SwitchHandlerImageAttributes.ParentOrigin.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public PositionSelector SwitchHandlerParentOriginSelector
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.ParentOrigin;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    switchAttributes.SwitchHandlerImageAttributes.ParentOrigin = value.Clone() as PositionSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Position SwitchHandlerPivotPoint
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.PivotPoint?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    if (switchAttributes.SwitchHandlerImageAttributes.PivotPoint == null)
+                    {
+                        switchAttributes.SwitchHandlerImageAttributes.PivotPoint = new PositionSelector();
+                    }
+                    switchAttributes.SwitchHandlerImageAttributes.PivotPoint.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public PositionSelector SwitchHandlerPivotPointSelector
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.PivotPoint;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateSwitchHandlerImageAttributes();
+                    switchAttributes.SwitchHandlerImageAttributes.PivotPoint = value.Clone() as PositionSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Size2D SwitchBackgroundImageSize2D
+        {
+            get
+            {
+                return switchAttributes?.SwitchBackgroundImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+            }
+            set
+            {
+                CreateSwitchBackgroundImageAttributes();
+                if (switchAttributes.SwitchBackgroundImageAttributes.Size2D == null)
+                {
+                    switchAttributes.SwitchBackgroundImageAttributes.Size2D = new Size2DSelector();
+                }
+                switchAttributes.SwitchBackgroundImageAttributes.Size2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Size2D SwitchHandlerImageSize2D
+        {
+            get
+            {
+                return switchAttributes?.SwitchHandlerImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+            }
+            set
+            {
+                CreateSwitchHandlerImageAttributes();
+                if (switchAttributes.SwitchHandlerImageAttributes.Size2D == null)
+                {
+                    switchAttributes.SwitchHandlerImageAttributes.Size2D = new Size2DSelector();
+                }
+                switchAttributes.SwitchHandlerImageAttributes.Size2D.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -42,17 +222,17 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
+                if (switchHandlerImage != null)
+                {
+                    switchBackgroundImage.Remove(switchHandlerImage);
+                    switchHandlerImage.Dispose();
+                    switchHandlerImage = null;
+                }
                 if (switchBackgroundImage != null)
                 {
                     Remove(switchBackgroundImage);
                     switchBackgroundImage.Dispose();
                     switchBackgroundImage = null;
-                }
-                if (switchHandlerImage != null)
-                {
-                    Remove(switchHandlerImage);
-                    switchHandlerImage.Dispose();
-                    switchHandlerImage = null;
                 }
             }
 
@@ -68,8 +248,27 @@ namespace Tizen.NUI.Controls
             }
             base.OnUpdate(attributtes);
 
-            ApplyAttributes(switchBackgroundImage, switchAttributes.SwitchBackgroundImageAttributes);
-            ApplyAttributes(switchHandlerImage, switchAttributes.SwitchHandlerImageAttributes);           
+            if (switchAttributes.SwitchBackgroundImageAttributes != null)
+            {
+                if (switchBackgroundImage == null)
+                {
+                    switchBackgroundImage = new ImageView();
+                    switchBackgroundImage.Name = "SwitchBackgroundImage";
+                    Add(switchBackgroundImage);
+                }
+                ApplyAttributes(switchBackgroundImage, switchAttributes.SwitchBackgroundImageAttributes);
+
+                if (switchAttributes.SwitchHandlerImageAttributes != null)
+                {
+                    if (switchHandlerImage == null)
+                    {
+                        switchHandlerImage = new ImageView();
+                        switchHandlerImage.Name = "SwitchHandlerImage";
+                        switchBackgroundImage.Add(switchHandlerImage);
+                    }
+                    ApplyAttributes(switchHandlerImage, switchAttributes.SwitchHandlerImageAttributes);
+                }
+            }                          
         }
 
         protected override bool OnKey(object source, KeyEventArgs e)
@@ -111,14 +310,7 @@ namespace Tizen.NUI.Controls
 
         protected override Attributes GetAttributes()
         {
-            return null;
-        }
-
-        /// <summary>
-        /// Overrides this method if want to handle behavior after pressing return key by user.
-        /// </summary>
-        protected virtual void OnSelected()
-        {
+            return new SwitchAttributes();
         }
 
         private void Initialize()
@@ -131,25 +323,34 @@ namespace Tizen.NUI.Controls
 
             switchAttributes.IsSelectable = true;
 
-            if (switchAttributes.SwitchBackgroundImageAttributes != null)
-            {
-                switchBackgroundImage = new ImageView();
-                switchBackgroundImage.Name = "SwitchBackgroundImage";
-                Add(switchBackgroundImage);
-            }
+        }
 
-            if (switchAttributes.SwitchHandlerImageAttributes != null)
+        private void CreateSwitchBackgroundImageAttributes()
+        {
+            if (switchAttributes.SwitchBackgroundImageAttributes == null)
             {
-                switchHandlerImage = new ImageView();
-                switchHandlerImage.Name = "SwitchHandlerImage";
-                Add(switchHandlerImage);
+                switchAttributes.SwitchBackgroundImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                };
+            }
+        }
+
+        private void CreateSwitchHandlerImageAttributes()
+        {
+            if (switchAttributes.SwitchHandlerImageAttributes == null)
+            {
+                switchAttributes.SwitchHandlerImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                };
             }
         }
 
         private void OnSelect()
-        {    
-            OnSelected();
-
+        {
             if (SelectedEvent != null)
             {
                 SelectEventArgs eventArgs = new SelectEventArgs();

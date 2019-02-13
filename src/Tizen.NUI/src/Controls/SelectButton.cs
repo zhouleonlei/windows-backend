@@ -15,10 +15,26 @@ namespace Tizen.NUI.Controls
 
         public SelectButton() : base()
         {
+            selectButtonAttributes = attributes as SelectButtonAttributes;
+            if (selectButtonAttributes == null)
+            {
+                throw new Exception("SelectButton attribute parse error.");
+            }
             Initialize();
         }
         public SelectButton(string style) : base(style)
         {
+            selectButtonAttributes = attributes as SelectButtonAttributes;
+            if (selectButtonAttributes == null)
+            {
+                throw new Exception("SelectButton attribute parse error.");
+            }
+            Initialize();
+        }
+
+        public SelectButton(SelectButtonAttributes attributes) : base()
+        {
+            this.attributes = selectButtonAttributes = attributes.Clone() as SelectButtonAttributes;
             Initialize();
         }
 
@@ -37,6 +53,333 @@ namespace Tizen.NUI.Controls
                 }
 
                 return -1;
+            }
+        }
+
+        public string CheckImageURL
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckImageAttributes();
+                    if (selectButtonAttributes.CheckImageAttributes.ResourceURL == null)
+                    {
+                        selectButtonAttributes.CheckImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    selectButtonAttributes.CheckImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector CheckImageURLSelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckImageAttributes();
+                    selectButtonAttributes.CheckImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public float CheckImageOpacity
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.Opacity?.All ?? 0;
+            }
+            set
+            {
+                CreateCheckImageAttributes();
+                if (selectButtonAttributes.CheckImageAttributes.Opacity == null)
+                {
+                    selectButtonAttributes.CheckImageAttributes.Opacity = new FloatSelector();
+                }
+                selectButtonAttributes.CheckImageAttributes.Opacity.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public FloatSelector CheckImageOpacitySelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.Opacity;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckImageAttributes();
+                    selectButtonAttributes.CheckImageAttributes.Opacity = value.Clone() as FloatSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Size2D CheckImageSize2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+            }
+            set
+            {
+                CreateCheckImageAttributes();
+                if (selectButtonAttributes.CheckImageAttributes.Size2D == null)
+                {
+                    selectButtonAttributes.CheckImageAttributes.Size2D = new Size2DSelector();
+                }
+                selectButtonAttributes.CheckImageAttributes.Size2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Position2D CheckImagePosition2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+            }
+            set
+            {
+                CreateCheckImageAttributes();
+                if (selectButtonAttributes.CheckImageAttributes.Position2D == null)
+                {
+                    selectButtonAttributes.CheckImageAttributes.Position2D = new Position2DSelector();
+                }
+                selectButtonAttributes.CheckImageAttributes.Position2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string CheckBackgroundImageURL
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckBackgroundImageAttributes();
+                    if (selectButtonAttributes.CheckBackgroundImageAttributes.ResourceURL == null)
+                    {
+                        selectButtonAttributes.CheckBackgroundImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    selectButtonAttributes.CheckBackgroundImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector CheckBackgroundImageURLSelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckBackgroundImageAttributes();
+                    selectButtonAttributes.CheckBackgroundImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public float CheckBackgroundImageOpacity
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Opacity?.All ?? 0;
+            }
+            set
+            {
+                CreateCheckBackgroundImageAttributes();
+                if (selectButtonAttributes.CheckBackgroundImageAttributes.Opacity == null)
+                {
+                    selectButtonAttributes.CheckBackgroundImageAttributes.Opacity = new FloatSelector();
+                }
+                selectButtonAttributes.CheckBackgroundImageAttributes.Opacity.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public FloatSelector CheckBackgroundImageOpacitySelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Opacity;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckBackgroundImageAttributes();
+                    selectButtonAttributes.CheckBackgroundImageAttributes.Opacity = value.Clone() as FloatSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Size2D CheckBackgroundImageSize2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+            }
+            set
+            {
+                CreateCheckBackgroundImageAttributes();
+                if (selectButtonAttributes.CheckBackgroundImageAttributes.Size2D == null)
+                {
+                    selectButtonAttributes.CheckBackgroundImageAttributes.Size2D = new Size2DSelector();
+                }
+                selectButtonAttributes.CheckBackgroundImageAttributes.Size2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Position2D CheckBackgroundImagePosition2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+            }
+            set
+            {
+                CreateCheckBackgroundImageAttributes();
+                if (selectButtonAttributes.CheckBackgroundImageAttributes.Position2D == null)
+                {
+                    selectButtonAttributes.CheckBackgroundImageAttributes.Position2D = new Position2DSelector();
+                }
+                selectButtonAttributes.CheckBackgroundImageAttributes.Position2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string CheckShadowImageURL
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckShadowImageAttributes();
+                    if (selectButtonAttributes.CheckShadowImageAttributes.ResourceURL == null)
+                    {
+                        selectButtonAttributes.CheckShadowImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    selectButtonAttributes.CheckShadowImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public StringSelector CheckShadowImageURLSelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckShadowImageAttributes();
+                    selectButtonAttributes.CheckShadowImageAttributes.ResourceURL = value.Clone() as StringSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public float CheckShadowImageOpacity
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Opacity?.All ?? 0;
+            }
+            set
+            {
+                CreateCheckShadowImageAttributes();
+                if (selectButtonAttributes.CheckShadowImageAttributes.Opacity == null)
+                {
+                    selectButtonAttributes.CheckShadowImageAttributes.Opacity = new FloatSelector();
+                }
+                selectButtonAttributes.CheckShadowImageAttributes.Opacity.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public FloatSelector CheckShadowImageOpacitySelector
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Opacity;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateCheckShadowImageAttributes();
+                    selectButtonAttributes.CheckShadowImageAttributes.Opacity = value.Clone() as FloatSelector;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Size2D CheckShadowImageSize2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+            }
+            set
+            {
+                CreateCheckShadowImageAttributes();
+                if (selectButtonAttributes.CheckShadowImageAttributes.Size2D == null)
+                {
+                    selectButtonAttributes.CheckShadowImageAttributes.Size2D = new Size2DSelector();
+                }
+                selectButtonAttributes.CheckShadowImageAttributes.Size2D.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Position2D CheckShadowImagePosition2D
+        {
+            get
+            {
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+            }
+            set
+            {
+                CreateCheckShadowImageAttributes();
+                if (selectButtonAttributes.CheckShadowImageAttributes.Position2D == null)
+                {
+                    selectButtonAttributes.CheckShadowImageAttributes.Position2D = new Position2DSelector();
+                }
+                selectButtonAttributes.CheckShadowImageAttributes.Position2D.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -81,9 +424,38 @@ namespace Tizen.NUI.Controls
             }
             base.OnUpdate(attributtes);
 
-            ApplyAttributes(checkShadowImage, selectButtonAttributes.CheckShadowImageAttributes);
-            ApplyAttributes(checkBackgroundImage, selectButtonAttributes.CheckBackgroundImageAttributes);
-            ApplyAttributes(checkImage, selectButtonAttributes.CheckImageAttributes);           
+            if (selectButtonAttributes.CheckShadowImageAttributes != null)
+            {
+                if (checkShadowImage == null)
+                {
+                    checkShadowImage = new ImageView();
+                    checkShadowImage.Name = "CheckShadowImage";
+                    Add(checkShadowImage);
+                }
+                ApplyAttributes(checkShadowImage, selectButtonAttributes.CheckShadowImageAttributes);
+            }
+
+            if (selectButtonAttributes.CheckBackgroundImageAttributes != null)
+            {
+                if (checkBackgroundImage == null)
+                {
+                    checkBackgroundImage = new ImageView();
+                    checkBackgroundImage.Name = "CheckBackgroundImage";
+                    Add(checkBackgroundImage);
+                }
+                ApplyAttributes(checkBackgroundImage, selectButtonAttributes.CheckBackgroundImageAttributes);
+            }
+
+            if (selectButtonAttributes.CheckImageAttributes != null)
+            {
+                if (checkImage == null)
+                {
+                    checkImage = new ImageView();
+                    checkImage.Name = "CheckImage";
+                    Add(checkImage);
+                }
+                ApplyAttributes(checkImage, selectButtonAttributes.CheckImageAttributes);
+            }
         }
 
         protected override bool OnKey(object source, KeyEventArgs e)
@@ -123,6 +495,11 @@ namespace Tizen.NUI.Controls
             return ret;
         }
 
+        protected override Attributes GetAttributes()
+        {
+            return new SelectButtonAttributes();
+        }
+
         /// <summary>
         /// Overrides this method if want to handle behavior after pressing return key by user.
         /// </summary>
@@ -132,34 +509,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                throw new Exception("SelectButton attribute parse error.");
-            }
-
-            selectButtonAttributes.IsSelectable = true;
-
-            if (selectButtonAttributes.CheckShadowImageAttributes != null)
-            {
-                checkShadowImage = new ImageView();
-                checkShadowImage.Name = "CheckShadowImage";
-                Add(checkShadowImage);
-            }
-
-            if (selectButtonAttributes.CheckBackgroundImageAttributes != null)
-            {
-                checkBackgroundImage = new ImageView();
-                checkBackgroundImage.Name = "CheckBackgroundImage";
-                Add(checkBackgroundImage);
-            }
-
-            if (selectButtonAttributes.CheckImageAttributes != null)
-            {
-                checkImage = new ImageView();
-                checkImage.Name = "CheckImage";
-                Add(checkImage);
-            }
+            selectButtonAttributes.IsSelectable = true;           
         }
 
         private void OnSelect()
@@ -171,6 +521,45 @@ namespace Tizen.NUI.Controls
                 SelectEventArgs eventArgs = new SelectEventArgs();
                 eventArgs.IsSelected = IsSelected;
                 SelectedEvent(this, eventArgs);
+            }
+        }
+
+        private void CreateCheckImageAttributes()
+        {
+            if (selectButtonAttributes.CheckImageAttributes == null)
+            {
+                selectButtonAttributes.CheckImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                };
+            }
+        }
+
+        private void CreateCheckBackgroundImageAttributes()
+        {
+            if (selectButtonAttributes.CheckBackgroundImageAttributes == null)
+            {
+                selectButtonAttributes.CheckBackgroundImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                };
+            }
+        }
+
+        private void CreateCheckShadowImageAttributes()
+        {
+            if (selectButtonAttributes.CheckShadowImageAttributes == null)
+            {
+                selectButtonAttributes.CheckShadowImageAttributes = new ImageAttributes()
+                {
+                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
+                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                };
             }
         }
 
