@@ -1393,7 +1393,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_ViewWrapperImpl_EmitKeyInputFocusSignal(void 
   arg2 = jarg2 ? true : false;
   {
     try {
-      //(arg1)->EmitKeyInputFocusSignal(arg2);
+      (arg1)->EmitKeyInputFocusSignal(arg2);
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
