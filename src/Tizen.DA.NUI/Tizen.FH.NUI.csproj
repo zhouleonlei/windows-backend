@@ -304,6 +304,7 @@
     <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\Tab\TabAttributes.xaml" />
     <EmbeddedResource Include="res\Toast\BasicToastAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

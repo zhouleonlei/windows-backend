@@ -193,8 +193,10 @@ namespace Tizen.FH.NUI
             Button.RegisterStyle("FoodPopupButton", typeof(FoodPopupButtonAttributes));
             Button.RegisterStyle("FamilyPopupButton", typeof(FamilyPopupButtonAttributes));
             Button.RegisterStyle("KitchenPopupButton", typeof(KitchenPopupButtonAttributes));
-			
-			Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
+
+            Tab.RegisterStyle("DATab", typeof(DATabAttributes));
+
+            Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
             Slider.RegisterStyle("FoodDefaultSlider", typeof(FoodDefaultSliderAttributes));
             Slider.RegisterStyle("FamilyDefaultSlider", typeof(FamilyDefaultSliderAttributes));
             Slider.RegisterStyle("KitchenDefaultSlider", typeof(KitchenDefaultSliderAttributes));
