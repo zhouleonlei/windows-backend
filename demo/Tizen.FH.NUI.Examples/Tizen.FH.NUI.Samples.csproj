@@ -50,6 +50,7 @@
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Samples\CheckBoxSample.cs" />
     <Compile Include="Samples\InputFieldSample.cs" />
+    <Compile Include="Samples\ListItemSample.cs" />
     <Compile Include="Samples\PaginationSample.cs" />
     <Compile Include="Samples\PopupSample.cs" />
     <Compile Include="Samples\ProgressSample.cs" />

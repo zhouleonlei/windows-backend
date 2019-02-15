@@ -1,0 +1,32 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ListItemAttributes 
+        x:Name="ListItemAttributes"
+        LeftSpace="56"
+        RightSpace="56"
+        SpaceBetweenRightItemAndText="0">
+
+        <ListItemAttributes.MainTextAttributes>
+            <TextAttributes 
+                HorizontalAlignment="Begin"
+                VerticalAlignment="Center"
+                PointSize="44"
+                FontFamily="SamsungOne 400"
+                TextColor="0, 0, 0, 1.0"/>
+        </ListItemAttributes.MainTextAttributes>
+
+        <ListItemAttributes.RightItemRootViewAttributes>
+            <ViewAttributes
+                Size2D="48,48"/>
+        </ListItemAttributes.RightItemRootViewAttributes>
+
+        <ListItemAttributes.RightIconAttributes>
+            <ImageAttributes
+                Size2D="48,48"
+                ResourceURL="*DemoRes*/images/FH3/6. List/list_ic_arrow_right.png"/>
+        </ListItemAttributes.RightIconAttributes>
+
+    </ListItemAttributes>
+    
+</AttributesContainer>
