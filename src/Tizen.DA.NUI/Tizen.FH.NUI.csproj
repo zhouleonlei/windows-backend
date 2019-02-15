@@ -125,6 +125,12 @@
     <None Remove="res\KitchenSwitchAttributes.xaml" />
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
+    <None Remove="res\ListItem\DefaultListItemAttributes.xaml" />
+    <None Remove="res\ListItem\EffectListItemAttributes.xaml" />
+    <None Remove="res\ListItem\GroupIndexListItemAttributes.xaml" />
+    <None Remove="res\ListItem\ItemAlignListItemAttributes.xaml" />
+    <None Remove="res\ListItem\MultiSubTextListItemAttributes.xaml" />
+    <None Remove="res\ListItem\NextDepthListItemAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
     <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
     <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
@@ -227,6 +233,12 @@
     <EmbeddedResource Include="res\InputField\FoodDefaultInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenDefaultInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityDefaultInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\DefaultListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\EffectListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\GroupIndexListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\ItemAlignListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\MultiSubTextListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\ListItem\NextDepthListItemAttributes.xaml" />
     <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
