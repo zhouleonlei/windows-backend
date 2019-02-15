@@ -35,10 +35,6 @@ namespace Tizen.NUI.Controls
             var attrs = (ProgressBarAttributes)bindable;
             if (newValue != null)
             {
-                System.Console.WriteLine("!!111111");
-                System.Console.WriteLine("!!111111");
-                System.Console.WriteLine("!!111111");
-                System.Console.WriteLine("!!111111");
                 attrs.progressImageURLPrefix = (StringSelector)newValue;
             }
         },
@@ -188,6 +184,16 @@ namespace Tizen.NUI.Controls
             if (attributes.progressImageAttrs != null)
             {
                 progressImageAttrs = attributes.progressImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.bufferImageAttrs != null)
+            {
+                bufferImageAttrs = attributes.bufferImageAttrs.Clone() as ImageAttributes;
+            }
+
+            if (attributes.loadingImageAttrs != null)
+            {
+                loadingImageAttrs = attributes.loadingImageAttrs.Clone() as ImageAttributes;
             }
         }
 

@@ -29,8 +29,6 @@ namespace Tizen.NUI.Controls
 
         //    }
 
-
-
         /// <summary>
         /// The PanGesture event args.
         /// </summary>
