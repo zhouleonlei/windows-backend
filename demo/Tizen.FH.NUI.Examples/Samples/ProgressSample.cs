@@ -219,7 +219,6 @@ namespace Tizen.FH.NUI.Samples
                 progressCircle1.ProgressState = Progress.ProgressStatusType.Indeterminate;
             }
         }
-        
 
         public void Deactivate()
         {

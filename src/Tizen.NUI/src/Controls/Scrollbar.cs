@@ -27,8 +27,6 @@ namespace Tizen.NUI.Controls
         ///// </code>
 
 
-        //    }
-
         /// <summary>
         /// The PanGesture event args.
         /// </summary>
@@ -48,7 +46,6 @@ namespace Tizen.NUI.Controls
         /// <summary>
         /// The PanGesture event handler.
         /// </summary>
-        /// <version> 5.5.0 </version>
         public event EventHandler<PanGestureEventArgs> PanGestureEvent
         {
             add
@@ -77,7 +74,6 @@ namespace Tizen.NUI.Controls
             if (scrollBarAttrs == null)
             {
                 scrollBarAttrs = new ScrollBarAttributes();
-                Console.WriteLine("hahahahahahah");
             }
         }
 
@@ -241,7 +237,6 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                //TNLog.D("thumbColor, r = " + value.R + ", g = " + value.G + ", b = " + value.B + ", a = " + value.A + ";");
                 if (thumbObj != null)
                 {
                     thumbObj.BackgroundColor = value;
