@@ -348,7 +348,6 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The Attributes object to initialize the ProgressBar.</param>
         public Progress(string style) : base(style)
         {
-            progressBarAttrs = attributes as ProgressBarAttributes;
             Initialize();
         }
 
@@ -749,10 +748,7 @@ namespace Tizen.NUI.Controls
         {
             // create necessary components
             progressBarAttrs = attributes as ProgressBarAttributes;
-            if (progressBarAttrs == null)
-            {
-                throw new Exception("Progress attribute parse error.");
-            }
+
             InitializeTrack();
             InitializeBuffer();
             InitializeProgress();

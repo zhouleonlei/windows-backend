@@ -20,20 +20,7 @@ namespace Tizen.NUI.Samples
                 Size2D = new Size2D(1920, 1080),
             };
 
-            board = new TextLabel();
-            board.Size2D = new Size2D(1000, 100);
-            board.Position2D = new Position2D(430, 900);
-            board.PointSize = 30;
-            board.HorizontalAlignment = HorizontalAlignment.Center;
-            board.VerticalAlignment = VerticalAlignment.Center;
-            board.BackgroundColor = Color.Magenta;
-            board.Text = "log pad";
-            root.Add(board);
-            board.Focusable = true;
-            board.FocusGained += Board_FocusGained;
-            board.FocusLost += Board_FocusLost;
-
-            CreateButtons();
+            CreateBoardAndButtons();
 
             scrollBar1_1 = new ScrollBar();
             scrollBar1_1.Position2D = new Position2D(100, 500);
@@ -94,8 +81,22 @@ namespace Tizen.NUI.Samples
             FocusManager.Instance.SetCurrentFocusView(button1);
         }
 
-        void CreateButtons()
+        void CreateBoardAndButtons()
         {
+
+            board = new TextLabel();
+            board.Size2D = new Size2D(1000, 100);
+            board.Position2D = new Position2D(430, 900);
+            board.PointSize = 30;
+            board.HorizontalAlignment = HorizontalAlignment.Center;
+            board.VerticalAlignment = VerticalAlignment.Center;
+            board.BackgroundColor = Color.Magenta;
+            board.Text = "log pad";
+            root.Add(board);
+            board.Focusable = true;
+            board.FocusGained += Board_FocusGained;
+            board.FocusLost += Board_FocusLost;
+
             board1 = new TextLabel();
             board1.Size2D = new Size2D(300, 70);
             board1.Position2D = new Position2D(50, 200);
