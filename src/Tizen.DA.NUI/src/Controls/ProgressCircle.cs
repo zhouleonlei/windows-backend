@@ -41,7 +41,8 @@ namespace Tizen.FH.NUI.Controls
         }
         protected override void OnUpdate(Attributes attrs)
         {
-            progressBarAttrs = attrs as ProgressBarAttributes;
+            if (attrs != null)
+                progressBarAttrs = attrs as ProgressBarAttributes;
             if (progressBarAttrs == null)
             {
                 return;
@@ -50,6 +51,8 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(this, progressBarAttrs);
             ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
             ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);
+            ApplyAttributes(loadingObj, progressBarAttrs.LoadingImageAttributes);
+            ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
             UpdateList();
             UpdateValue();
         }

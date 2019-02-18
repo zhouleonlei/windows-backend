@@ -335,6 +335,11 @@ namespace Tizen.NUI.Controls
         /// <version> 5.5.0 </version>
         public Progress() : base()
         {
+            Initialize();
+            if (progressBarAttrs == null)
+            {
+                progressBarAttrs = new ProgressBarAttributes();
+            }
         }
 
         /// <summary>
@@ -343,12 +348,12 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The Attributes object to initialize the ProgressBar.</param>
         public Progress(string style) : base(style)
         {
-            //TNLog.I("ProgressBar(Attributes)");
-            progressBarAttrs = attributes as ProgressBarAttributes;
-            if (progressBarAttrs == null)
-            {
-                throw new Exception("Progress attribute parse error.");
-            }
+            Initialize();
+        }
+
+        public Progress(ProgressBarAttributes attributes) : base()
+        {
+            this.attributes = progressBarAttrs = attributes.Clone() as ProgressBarAttributes;
             Initialize();
         }
 
@@ -401,7 +406,6 @@ namespace Tizen.NUI.Controls
                 trackURL = value;
                 if (trackObj != null)
                 {
-                    //TNLog.I("value = " + trackURL);
                     trackObj.ResourceUrl = value;
                 }
             }
@@ -452,7 +456,6 @@ namespace Tizen.NUI.Controls
                 bufferURL = value;
                 if (bufferObj != null)
                 {
-                    //TNLog.I("value = " + bufferURL);
                     bufferObj.ResourceUrl = value;
                 }
             }
@@ -727,26 +730,24 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            progressBarAttrs = attrs as ProgressBarAttributes;
+            if (attrs != null)
+                progressBarAttrs = attrs as ProgressBarAttributes;
             if (progressBarAttrs == null)
             {
                 return;
-
             }
+
             ApplyAttributes(this, progressBarAttrs);
             ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
             ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);
             ApplyAttributes(loadingObj, progressBarAttrs.LoadingImageAttributes);
             ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
-            //loadingObj.Size2D = this.Size2D;
-            //progressObj.Size2D = this.Size2D;
-            //trackObj.Size2D = this.Size2D;
-            //Console.WriteLine("OnUpdate this"+this.Size2D.Height.ToString() +" " +this.Size2D.Width.ToString());
         }
 
         private void Initialize()
         {
             // create necessary components
+            progressBarAttrs = attributes as ProgressBarAttributes;
 
             InitializeTrack();
             InitializeBuffer();
@@ -772,30 +773,28 @@ namespace Tizen.NUI.Controls
             //TNLog.I("create progress object");
             progressObj = new ImageView
             {
-                WidthResizePolicy = ResizePolicyType.Fixed,
-                HeightResizePolicy = ResizePolicyType.Fixed,
+                WidthResizePolicy = ResizePolicyType.FillToParent,
+                HeightResizePolicy = ResizePolicyType.FillToParent,
                 PositionUsesPivotPoint = true,
                 ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft
-
             };
             Add(progressObj);
         }
 
         private void InitializeBuffer()
         {
-            if (bufferObj == null)
-            {
+
                 bufferObj = new ImageView
                 {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                 };
                 Add(bufferObj);
-            }
+            
         }
 
         private void InitializeLoading()
@@ -804,8 +803,8 @@ namespace Tizen.NUI.Controls
             {
                 loadingObj = new ImageView
                 {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft
@@ -851,65 +850,7 @@ namespace Tizen.NUI.Controls
             //}
         }
 
-        //private void UpdateAttribute(Attributes attrs)
-        //{
-        //    TNLog.I("update attributes");
-        //    if (attrs.TrackImageURL != null)
-        //    {
-        //        progressBarAttrs.TrackImageURL = attrs.TrackImageURL;
-        //    }
-        //    if (attrs.TrackColor != null)
-        //    {
-        //        progressBarAttrs.TrackColor = attrs.TrackColor;
-        //    }
-        //    if (attrs.ProgressImageURL != null)
-        //    {
-        //        progressBarAttrs.ProgressImageURL = attrs.ProgressImageURL;
-        //    }
-        //    if (attrs.ProgressColor != null)
-        //    {
-        //        progressBarAttrs.ProgressColor = attrs.ProgressColor;
-        //    }
-        //    if (attrs.BufferImageURL != null)
-        //    {
-        //        progressBarAttrs.BufferImageURL = attrs.BufferImageURL;
-        //    }
-        //    if (attrs.BufferColor != null)
-        //    {
-        //        progressBarAttrs.BufferColor = attrs.BufferColor;
-        //    }
-        //    if (attrs.LoadingImageURL != null)
-        //    {
-        //        progressBarAttrs.LoadingImageURL = attrs.LoadingImageURL;
-        //    }
-        //    if (attrs.MaxValue != null)
-        //    {
-        //        progressBarAttrs.MaxValue = attrs.MaxValue;
-        //    }
-        //    if (attrs.MinValue != null)
-        //    {
-        //        progressBarAttrs.MinValue = attrs.MinValue;
-        //    }
-        //    if (attrs.CurValue != null)
-        //    {
-        //        progressBarAttrs.CurValue = attrs.CurValue;
-        //    }
-        //    if (attrs.BufValue != null)
-        //    {
-        //        progressBarAttrs.BufValue = attrs.BufValue;
-        //    }
-        //    if (attrs.Direction != null)
-        //    {
-        //        progressBarAttrs.Direction = attrs.Direction;
-        //    }
-        //    if (attrs.DisabledOpacity != null)
-        //    {
-        //        progressBarAttrs.DisabledOpacity = attrs.DisabledOpacity;
-        //    }
-        //    UpdateAnimation(attrs);
 
-        //    progressBarAttrs.style = attrs.style;
-        //}
 
         private void UpdateAnimation()//Attributes attrs)
         {
@@ -1091,7 +1032,11 @@ namespace Tizen.NUI.Controls
 
         private void UpdateStates()
         {
-            Console.WriteLine("before update pro" + progressObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
+            Console.WriteLine("before update progress" + progressObj.Size2D.Height.ToString() + progressObj.Size2D.Width.ToString());
+            Console.WriteLine("before update load" + loadingObj.Size2D.Height.ToString() + loadingObj.Size2D.Width.ToString());
+            Console.WriteLine(bufferObj.ResourceUrl);
+            Console.WriteLine("before update buffer" + bufferObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
+
             if (state == ProgressStatusType.Buffering)
             {
                 bufferObj.Show();

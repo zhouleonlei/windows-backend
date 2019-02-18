@@ -1,0 +1,154 @@
+﻿using Tizen.NUI.BaseComponents;
+using Tizen.NUI.Controls;
+using System;
+using Tizen.NUI;
+
+namespace Tizen.FH.NUI.Samples
+{
+    public class ListItemSample : IExample
+    {
+        private const int COUNT = 12;
+        private View rootView = null;
+        private Tizen.FH.NUI.Controls.ListItem[] listItemArray = null;
+        private int itemPosY, itemPosX;
+        private int itemPosYOffset;
+        private uint index;
+
+        public void Activate()
+        {
+            CreateRootView();
+
+            itemPosX = 100;
+            itemPosY = 50;
+            itemPosYOffset = 20;
+            listItemArray = new Controls.ListItem[COUNT];
+
+            index = 0;
+            CreateListItem(index, "DefaultListItem", 100, 0, "default");
+            
+            index++;
+            CreateListItem(index, "MultiSubTextListItem", 160, 1, "sub text 1line");
+
+            index++;
+            CreateListItem(index, "MultiSubTextListItem", 232, 2, "sub text 2line");
+            listItemArray[index].StateDividerEnabled = false;
+
+            index++;
+            // checkBox + text
+            CreateListItem(index, "ItemAlignListItem", 100, 0, "item align");
+            listItemArray[index].LeftItemRootViewSize = new Size2D(48, 48);
+            listItemArray[index].ItemAlignType = Controls.ListItem.ItemAlignTypes.CheckIcon;
+            listItemArray[index].RightItemRootViewSize = new Size2D(200, 90);            
+            listItemArray[index].RightText = "Sub text";
+
+            index++;
+            // icon
+            CreateListItem(index, "ItemAlignListItem", 100, 0, "item align, icon");
+            listItemArray[index].LeftItemRootViewSize = new Size2D(48, 48);
+            listItemArray[index].ItemAlignType = Controls.ListItem.ItemAlignTypes.Icon;
+            listItemArray[index].LeftIconURL = @"../../../demo/csharp-demo/res/images/FH3/0. Softkey/softkey_ic_home.png";
+
+            index++;
+            CreateListItem(index, "EffectListItem", 100, 0, "effect");
+            
+            index++;
+            itemPosX = 100 + 800 + 100;
+            itemPosY = 50;
+            CreateListItem(index, "NextDepthListItem", 100, 0, "next depth");
+
+            index++;
+            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, default");
+            listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.None;
+            
+            index++;
+            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, next button");
+            listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.Next;
+            listItemArray[index].RightItemRootViewSize = new Size2D(48, 48);
+
+            index++;
+            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, switch");
+            listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.Switch;
+            listItemArray[index].RightItemRootViewSize = new Size2D(72, 48);
+
+            index++;
+            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, drop down");
+            listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.DropDown;
+            listItemArray[index].RightItemRootViewSize = new Size2D(48, 48);
+            
+            Window.Instance.KeyEvent += OnWindowsKeyEvent;
+        }
+
+        private void CreateRootView()
+        {
+            rootView = new View();
+            rootView.WidthResizePolicy = ResizePolicyType.FillToParent;
+            rootView.HeightResizePolicy = ResizePolicyType.FillToParent;
+            rootView.BackgroundColor = Color.White;// new Color(78.0f / 255.0f, 216.0f / 255.0f, 231.0f / 255.0f, 1.0f);
+            rootView.Focusable = true;
+            Window.Instance.Add(rootView);
+        }
+
+        private void CreateListItem(uint idx, string str, int height, uint subTextCount, string mainTextStr)
+        {
+            listItemArray[idx] = new Controls.ListItem(str);
+            rootView.Add(listItemArray[idx]);
+            listItemArray[idx].MainText = mainTextStr;
+            listItemArray[idx].Size2D = new Size2D(800, height);
+            listItemArray[idx].Position2D = new Position2D(itemPosX, itemPosY);
+            itemPosY += height;
+            itemPosY += itemPosYOffset;
+            Random randomGenerator = new Random();
+            float r = (float)randomGenerator.NextDouble();
+            float g = (float)randomGenerator.NextDouble();
+            float b = (float)randomGenerator.NextDouble();
+            listItemArray[idx].BackgroundColor = new Color(r, g, b, 0.2f);
+            listItemArray[idx].SubTextCount = subTextCount;
+            string[] strArray = new string[subTextCount];
+            for (int i = 0; i < subTextCount; ++i)
+            {
+                strArray[i] = "sub text" + (i + 1).ToString();
+            }
+            listItemArray[idx].SubTextContentArray = strArray;
+        }
+
+        private void OnWindowsKeyEvent(object sender, Window.KeyEventArgs e)
+        {
+            if (e.Key.State == Key.StateType.Down)
+            {
+                if (e.Key.KeyPressedName == "Right")
+                {
+                    listItemArray[5].StateSelectedEnabled = !listItemArray[5].StateSelectedEnabled;
+                }
+                else if (e.Key.KeyPressedName == "Left")
+                {
+                    listItemArray[5].StateEnabled = !listItemArray[5].StateEnabled;
+                }
+            }
+        }
+
+        public void Deactivate()
+        {
+            Window window = Window.Instance;
+            window.KeyEvent -= OnWindowsKeyEvent;
+            if (listItemArray != null)
+            {
+                for (int i = 0; i < COUNT; ++i)
+                {
+                    if (listItemArray[i] != null)
+                    {
+                        rootView.Remove(listItemArray[i]);
+                        listItemArray[i].Dispose();
+                        listItemArray[i] = null;
+                    }
+                }
+                listItemArray = null;
+            }
+            if (rootView != null)
+            {
+                Window.Instance.Remove(rootView);
+                rootView.Dispose();
+                rootView = null;
+            }
+        }
+    }
+}

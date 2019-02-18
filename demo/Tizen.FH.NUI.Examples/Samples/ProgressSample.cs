@@ -12,10 +12,15 @@ namespace Tizen.FH.NUI.Samples
         int status = 0;
         private ProgressCircle progressCircle1, familyProgressBar2;
         private Progress progressBar1, progressBar2, progressBar3, progressBar4;
+        private View root;
 
         public void Activate()
         {
             Window window = Window.Instance;
+            root = new View()
+            {
+                Size2D = new Size2D(1920, 1080),
+            };
 
             board = new TextLabel();
             board.Size2D = new Size2D(1000, 100);
@@ -25,7 +30,7 @@ namespace Tizen.FH.NUI.Samples
             board.VerticalAlignment = VerticalAlignment.Center;
             board.BackgroundColor = Color.Magenta;
             board.Text = "Hello World!";
-            window.Add(board);
+            root.Add(board);
             board.Focusable = true;
             board.FocusGained += Board_FocusGained;
             board.FocusLost += Board_FocusLost;
@@ -38,7 +43,7 @@ namespace Tizen.FH.NUI.Samples
             board1.VerticalAlignment = VerticalAlignment.Center;
             board1.BackgroundColor = Color.Magenta;
             board1.Text = "DA";
-            window.Add(board1);
+            root.Add(board1);
             board1.Focusable = true;
             board1.FocusGained += Board_FocusGained;
             board1.FocusLost += Board_FocusLost;
@@ -51,7 +56,7 @@ namespace Tizen.FH.NUI.Samples
             board2.VerticalAlignment = VerticalAlignment.Center;
             board2.BackgroundColor = Color.Magenta;
             board2.Text = "Circle";
-            window.Add(board2);
+            root.Add(board2);
             board2.Focusable = true;
             board2.FocusGained += Board_FocusGained;
             board2.FocusLost += Board_FocusLost;
@@ -61,7 +66,7 @@ namespace Tizen.FH.NUI.Samples
             button1.Position2D = new Position2D(100, 600);
             button1.Size2D = new Size2D(50, 50);
             button1.Text = "+";
-            window.Add(button1);
+            root.Add(button1);
             button1.Focusable = true;
             button1.ClickEvent += bar1Add;
 
@@ -70,7 +75,7 @@ namespace Tizen.FH.NUI.Samples
             button2.Position2D = new Position2D(200, 600);
             button2.Size2D = new Size2D(50, 50);
             button2.Text = "-";
-            window.Add(button2);
+            root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += bar1Minus;
 
@@ -79,7 +84,7 @@ namespace Tizen.FH.NUI.Samples
             button3.Position2D = new Position2D(450, 600);
             button3.Size2D = new Size2D(50, 50);
             button3.Text = "+";
-            window.Add(button3);
+            root.Add(button3);
             button3.Focusable = true;
             button3.ClickEvent += circle1Add;
 
@@ -88,7 +93,7 @@ namespace Tizen.FH.NUI.Samples
             button4.Position2D = new Position2D(550, 600);
             button4.Size2D = new Size2D(50, 50);
             button4.Text = "-";
-            window.Add(button4);
+            root.Add(button4);
             button4.Focusable = true;
             button4.ClickEvent += circle1Minus;
 
@@ -97,7 +102,7 @@ namespace Tizen.FH.NUI.Samples
             button5.Position2D = new Position2D(650, 600);
             button5.Size2D = new Size2D(200, 60);
             button5.Text = "change status";
-            window.Add(button5);
+            root.Add(button5);
             button5.Focusable = true;
             button5.ClickEvent += circleStatusChanged;
 
@@ -108,17 +113,17 @@ namespace Tizen.FH.NUI.Samples
             progressCircle1.CurrentValue = 45;
             progressCircle1.ProgressState = Progress.ProgressStatusType.Determinate;
             progressCircle1.Direction = Progress.DirectionType.Horizontal;
-            window.Add(progressCircle1);
+            root.Add(progressCircle1);
 
             progressBar1 = new Progress("UtilityProgressbar");
             progressBar1.Position2D = new Position2D(80, 350);
-            progressBar1.Size2D = new Size2D(140, 4);    
+            progressBar1.Size2D = new Size2D(140, 4);
             progressBar1.MaxValue = 100;
             progressBar1.MinValue = 0;
             progressBar1.CurrentValue = 45;
             progressBar1.UpdateValue();
             progressBar1.Direction = Progress.DirectionType.Horizontal;
-            window.Add(progressBar1);
+            root.Add(progressBar1);
 
             progressBar2 = new Progress("FoodProgressbar");
             progressBar2.Position2D = new Position2D(80, 420);
@@ -128,7 +133,7 @@ namespace Tizen.FH.NUI.Samples
             progressBar2.CurrentValue = 15;
             progressBar2.UpdateValue();
             progressBar2.Direction = Progress.DirectionType.Horizontal;
-            window.Add(progressBar2);
+            root.Add(progressBar2);
 
             progressBar3 = new Progress("FamilyProgressbar");
             progressBar3.Position2D = new Position2D(80, 490);
@@ -138,7 +143,7 @@ namespace Tizen.FH.NUI.Samples
             progressBar3.CurrentValue = 30;
             progressBar3.UpdateValue();
             progressBar3.Direction = Progress.DirectionType.Horizontal;
-            window.Add(progressBar3);
+            root.Add(progressBar3);
 
             progressBar4 = new Progress("KitchenProgressbar");
             progressBar4.Position2D = new Position2D(80, 560);
@@ -148,9 +153,10 @@ namespace Tizen.FH.NUI.Samples
             progressBar4.CurrentValue = 75;
             progressBar4.UpdateValue();
             progressBar4.Direction = Progress.DirectionType.Horizontal;
-            window.Add(progressBar4);
+            root.Add(progressBar4);
 
             board.UpFocusableView = button1;
+            window.Add(root);
             FocusManager.Instance.SetCurrentFocusView(button1);
 
         }
@@ -213,11 +219,14 @@ namespace Tizen.FH.NUI.Samples
                 progressCircle1.ProgressState = Progress.ProgressStatusType.Indeterminate;
             }
         }
-        
 
         public void Deactivate()
         {
-            Window window = Window.Instance;
+            if (root != null)
+            {
+                Window.Instance.Remove(root);
+                root.Dispose();
+            }
         }
     }
 }

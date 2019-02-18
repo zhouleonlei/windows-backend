@@ -123,7 +123,20 @@ namespace Tizen.NUI.Controls
         private ImageAttributes trackImageAttrs;
         private ImageAttributes thumbImageAttrs;
 
-        public ScrollBarAttributes () : base() { }
+        public ScrollBarAttributes() : base()
+        {
+
+            TrackImageAttributes = new ImageAttributes
+            {
+
+            };
+            ThumbImageAttributes = new ImageAttributes
+            {
+
+            };
+
+            
+        }
 
         public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)
         {
