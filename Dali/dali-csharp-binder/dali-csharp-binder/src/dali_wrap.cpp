@@ -474,6 +474,7 @@ void SWIG_CSharpException(int code, const char *msg) {
 
 #include <dali-toolkit/devel-api/controls/web-view/web-view.h>
 
+#include <dali-toolkit/public-api/frame-update-callback/frame-update-callback.h>
 
 // add here SWIG version check
 
@@ -104491,6 +104492,432 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Emit(void * jarg1, vo
   }
 }
 
+SWIGEXPORT char * SWIGSTDCALL CSharp_Dali_GetEnvironmentVariable(char * jarg1) {
+  const char * result = EnvironmentVariable::GetEnvironmentVariable(jarg1);
+  char * jresult = SWIG_csharp_string_callback((const char *)result);
+  return jresult;
+}
+
+SWIGEXPORT bool SWIGSTDCALL CSharp_Dali_SetEnvironmentVariable(char * jarg1, char * jarg2) {
+  bool result = EnvironmentVariable::SetEnvironmentVariable(jarg1, jarg2);
+  return result;
+}
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_New() {
+  Dali::ToolKit::FrameUpdateCallback result = Dali::ToolKit::FrameUpdateCallback::New();
+  void * jresult = new Dali::ToolKit::FrameUpdateCallback( result );
+
+  return jresult;
+}
+
+SWIGEXPORT Dali::ToolKit::FrameUpdateCallback * SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SWIGUpcast( Dali::ToolKit::FrameUpdateCallback *jarg1 ) {
+  return jarg1;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_AddCallback( Dali::ToolKit::FrameUpdateCallback *jarg1, Dali::ToolKit::FrameCallbackFunction callback )
+{
+  jarg1->AddCallback( callback );
+}
+
+SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetPosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 result;
+
+  {
+    try {
+      arg1->GetPosition( actorID, result );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
+      };
+    }
+  }
+
+  jresult = (void *)&result;
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetPosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 position )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->SetPosition( actorID, position );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakePosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 position )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->BakePosition( actorID, position );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 result;
+
+  {
+    try {
+      arg1->GetSize( actorID, result );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
+      };
+    }
+  }
+
+  jresult = (void *)&result;
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 size )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->SetSize( actorID, size );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 size )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->BakeSize( actorID, size );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 result;
+
+  {
+    try {
+      arg1->GetScale( actorID, result );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
+      };
+    }
+  }
+
+  jresult = (void *)&result;
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 scale )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->SetScale( actorID, scale );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 scale )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->BakeScale( actorID, scale );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector4 result;
+
+  {
+    try {
+      arg1->GetColor( actorID, result );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return 0;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return 0;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return 0;
+      };
+    }
+  }
+
+  jresult = (void *)&result;
+  return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector4 color )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->SetColor( actorID, color );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector4 color )
+{
+  void * jresult;
+  Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+
+  {
+    try {
+      arg1->BakeColor( actorID, color );
+    }
+    catch( std::out_of_range& e ) {
+      {
+        SWIG_CSharpException( SWIG_IndexError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( std::exception& e ) {
+      {
+        SWIG_CSharpException( SWIG_RuntimeError, const_cast<char*>( e.what() ) ); return;
+      };
+    }
+    catch( Dali::DaliException e ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, e.condition ); return;
+      };
+    }
+    catch( ... ) {
+      {
+        SWIG_CSharpException( SWIG_UnknownError, "unknown error" ); return;
+      };
+    }
+  }
+}
 #ifdef __cplusplus
 }
 #endif

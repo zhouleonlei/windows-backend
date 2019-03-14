@@ -68196,6 +68196,275 @@ namespace Tizen.NUI
         }
 
 
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_New")]
+        public static extern global::System.IntPtr FrameUpdateCallback_New_gl();
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_New")]
+        public static extern global::System.IntPtr FrameUpdateCallback_New_vulkan();
+
+        public static global::System.IntPtr FrameUpdateCallback_New()
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_New_vulkan();
+            }
+            else
+            {
+                return FrameUpdateCallback_New_gl();
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SWIGUpcast")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SWIGUpcast_gl(global::System.IntPtr jarg1);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SWIGUpcast")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SWIGUpcast_vulkan(global::System.IntPtr jarg1);
+
+        public static global::System.IntPtr FrameUpdateCallback_SWIGUpcast(global::System.IntPtr jarg1)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_SWIGUpcast_vulkan(jarg1);
+            }
+            else
+            {
+                return FrameUpdateCallback_SWIGUpcast_gl(jarg1);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_AddCallback")]
+        public static extern global::System.IntPtr FrameUpdateCallback_AddCallback_gl(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_AddCallback")]
+        public static extern global::System.IntPtr FrameUpdateCallback_AddCallback_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+        public static global::System.IntPtr FrameUpdateCallback_AddCallback(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_AddCallback_vulkan(jarg1, jarg2);
+            }
+            else
+            {
+                return FrameUpdateCallback_AddCallback_gl(jarg1, jarg2);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetPosition_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetPosition_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        public static global::System.IntPtr FrameUpdateCallback_GetPosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_GetPosition_vulkan(jarg1, jarg2);
+            }
+            else
+            {
+                return FrameUpdateCallback_GetPosition_gl(jarg1, jarg2);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetPosition_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetPosition_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_SetPosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_SetPosition_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_SetPosition_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakePosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakePosition_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakePosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakePosition_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_BakePosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_BakePosition_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_BakePosition_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetSize")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetSize_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetSize_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        public static global::System.IntPtr FrameUpdateCallback_GetSize(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_GetSize_vulkan(jarg1, jarg2);
+            }
+            else
+            {
+                return FrameUpdateCallback_GetSize_gl(jarg1, jarg2);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetSize")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetSize_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetSize")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetSize_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_SetSize(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_SetSize_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_SetSize_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeSize")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeSize_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeSize")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeSize_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_BakeSize(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_BakeSize_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_BakeSize_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetScale_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetScale_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        public static global::System.IntPtr FrameUpdateCallback_GetScale(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_GetScale_vulkan(jarg1, jarg2);
+            }
+            else
+            {
+                return FrameUpdateCallback_GetScale_gl(jarg1, jarg2);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetScale_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetScale_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_SetScale(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_SetScale_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_SetScale_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeScale_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeScale")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeScale_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_BakeScale(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_BakeScale_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_BakeScale_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetColor")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetColor_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
+        public static extern global::System.IntPtr FrameUpdateCallback_GetColor_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+        public static global::System.IntPtr FrameUpdateCallback_GetColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_GetColor_vulkan(jarg1, jarg2);
+            }
+            else
+            {
+                return FrameUpdateCallback_GetColor_gl(jarg1, jarg2);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetColor")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetColor_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_SetColor")]
+        public static extern global::System.IntPtr FrameUpdateCallback_SetColor_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_SetColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_SetColor_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_SetColor_gl(jarg1, jarg2, jarg3);
+            }
+        }
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeColor")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeColor_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_BakeColor")]
+        public static extern global::System.IntPtr FrameUpdateCallback_BakeColor_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+        public static global::System.IntPtr FrameUpdateCallback_BakeColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_BakeColor_vulkan(jarg1, jarg2, jarg3);
+            }
+            else
+            {
+                return FrameUpdateCallback_BakeColor_gl(jarg1, jarg2, jarg3);
+            }
+        }
     }
 }
 

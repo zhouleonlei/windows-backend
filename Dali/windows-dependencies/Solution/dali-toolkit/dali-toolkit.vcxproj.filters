@@ -796,6 +796,15 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\controls\web-view\web-view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\frame-update-callback\frame-update-callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-update-callback-impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
