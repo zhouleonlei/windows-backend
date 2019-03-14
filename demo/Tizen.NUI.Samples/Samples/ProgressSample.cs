@@ -76,7 +76,6 @@ namespace Tizen.NUI.Samples
             progressBar2_1.MaxValue = 100;
             progressBar2_1.MinValue = 0;
             progressBar2_1.CurrentValue = 30;
-            progressBar2_1.UpdateValue();
             progressBar2_1.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar2_1);
 

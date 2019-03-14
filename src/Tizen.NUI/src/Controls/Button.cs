@@ -6,6 +6,14 @@ namespace Tizen.NUI.Controls
 {
     public class Button : Control
     {
+        public enum IconOrientation
+        {
+            Top,
+            Bottom,
+            Left,
+            Right,
+        }
+
         private ImageView backgroundImage;
         private ImageView shadowImage;
         private ImageView overlayImage;
@@ -32,7 +40,8 @@ namespace Tizen.NUI.Controls
 
         public Button(ButtonAttributes attributes) : base()
         {
-            this.attributes = buttonAttributes = attributes.Clone() as ButtonAttributes;
+            this.attributes = attributes.Clone() as ButtonAttributes;
+            Initialize();
         }
 
         public event EventHandler<ClickEventArgs> ClickEvent;
@@ -57,26 +66,6 @@ namespace Tizen.NUI.Controls
             set
             {
                 buttonAttributes.IsSelectable = value;
-            }
-        }
-
-        public new Color BackgroundColor
-        {
-            get
-            {
-                return buttonAttributes?.BackgroundColor.All;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    if (buttonAttributes.BackgroundColor == null)
-                    {
-                        buttonAttributes.BackgroundColor = new ColorSelector();
-                    }
-                    buttonAttributes.BackgroundColor.All = value;
-                    RelayoutRequest();
-                }
             }
         }
 
@@ -204,24 +193,6 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public float OverlayImageOpacity
-        {
-            get
-            {
-                return buttonAttributes?.OverlayImageAttributes?.Opacity?.All ?? 0.0f;
-            }
-            set
-            {
-                CreateOverlayAttributes();
-                if (buttonAttributes.OverlayImageAttributes.Opacity == null)
-                {
-                    buttonAttributes.OverlayImageAttributes.Opacity = new FloatSelector();
-                }
-                buttonAttributes.OverlayImageAttributes.Opacity.All = value;
-                RelayoutRequest();
-            }
-        }
-
         public string Text
         {
             get
@@ -288,16 +259,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return buttonAttributes?.TextAttributes?.FontFamily?.All;
+                return buttonAttributes?.TextAttributes?.FontFamily;
             }
             set
             {
                 CreateTextAttributes();
-                if (buttonAttributes.TextAttributes.FontFamily == null)
-                {
-                    buttonAttributes.TextAttributes.FontFamily = new StringSelector();
-                }
-                buttonAttributes.TextAttributes.FontFamily.All = value;
+                buttonAttributes.TextAttributes.FontFamily = value;
                 RelayoutRequest();
             }
         }
@@ -324,16 +291,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return buttonAttributes?.TextAttributes?.HorizontalAlignment?.All ?? HorizontalAlignment.Center;
+                return buttonAttributes?.TextAttributes?.HorizontalAlignment ?? HorizontalAlignment.Center;
             }
             set
             {
                 CreateTextAttributes();
-                if (buttonAttributes.TextAttributes.HorizontalAlignment == null)
-                {
-                    buttonAttributes.TextAttributes.HorizontalAlignment = new HorizontalAlignmentSelector();
-                }
-                buttonAttributes.TextAttributes.HorizontalAlignment.All = value;
+                buttonAttributes.TextAttributes.HorizontalAlignment = value;
                 RelayoutRequest();
             }
         }
@@ -426,37 +389,6 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public StringSelector FontFamilySelector
-        {
-            get
-            {
-                return buttonAttributes?.TextAttributes?.FontFamily;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    CreateTextAttributes();
-                    buttonAttributes.TextAttributes.FontFamily = value.Clone() as StringSelector;
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public HorizontalAlignmentSelector TextAlignmentSelector
-        {
-            get
-            {
-                return buttonAttributes?.TextAttributes?.HorizontalAlignment;
-            }
-            set
-            {
-                CreateTextAttributes();
-                buttonAttributes.TextAttributes.HorizontalAlignment = value;
-                RelayoutRequest();
-            }
-        }
-
         public StringSelector IconURLSelector
         {
             get
@@ -467,7 +399,7 @@ namespace Tizen.NUI.Controls
             {
                 if (value != null)
                 {
-                    CreateTextAttributes();
+                    CreateIconAttributes();
                     buttonAttributes.IconAttributes.ResourceURL = value.Clone() as StringSelector;
                     RelayoutRequest();
                 }
@@ -573,38 +505,6 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public FloatSelector OverlayImageOpacitySelector
-        {
-            get
-            {
-                return buttonAttributes?.OverlayImageAttributes?.Opacity;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    CreateOverlayAttributes();
-                    buttonAttributes.OverlayImageAttributes.Opacity = value.Clone() as FloatSelector;
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public ColorSelector BackgroundColorSelector
-        {
-            get
-            {
-                return buttonAttributes?.BackgroundColor;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    buttonAttributes.BackgroundColor = value.Clone() as ColorSelector;
-                    RelayoutRequest();
-                }
-            }
-        }
         public bool IsSelected
         {
             get
@@ -631,6 +531,142 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        //Work only when show icon and text 
+        public IconOrientation? IconRelativeOrientation
+        {
+            get
+            {
+                return buttonAttributes?.IconRelativeOrientation;
+            }
+            set
+            {
+                if(buttonAttributes != null && buttonAttributes.IconRelativeOrientation != value)
+                {
+                    buttonAttributes.IconRelativeOrientation = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        //Work only when show icon and text 
+        public int IconPaddingLeft
+        {
+            get
+            {
+                return buttonAttributes?.IconAttributes?.PaddingLeft ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.IconAttributes.PaddingLeft = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int IconPaddingRight
+        {
+            get
+            {
+                return buttonAttributes?.IconAttributes?.PaddingRight ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.IconAttributes.PaddingRight = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int IconPaddingTop
+        {
+            get
+            {
+                return buttonAttributes?.IconAttributes?.PaddingTop ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.IconAttributes.PaddingTop = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int IconPaddingBottom
+        {
+            get
+            {
+                return buttonAttributes?.IconAttributes?.PaddingBottom ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.IconAttributes.PaddingBottom = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int TextPaddingLeft
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PaddingLeft ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.TextAttributes.PaddingLeft = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int TextPaddingRight
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PaddingRight ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.TextAttributes.PaddingRight = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int TextPaddingTop
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PaddingTop ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.TextAttributes.PaddingTop = value;
+                RelayoutRequest();
+            }
+        }
+
+        //Work only when show icon and text 
+        public int TextPaddingBottom
+        {
+            get
+            {
+                return buttonAttributes?.TextAttributes?.PaddingBottom ?? 0;
+            }
+            set
+            {
+                CreateIconAttributes();
+                buttonAttributes.TextAttributes.PaddingBottom = value;
+                RelayoutRequest();
+            }
+        }
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -642,6 +678,7 @@ namespace Tizen.NUI.Controls
             {
                 if (buttonIcon != null)
                 {
+                    buttonIcon.Relayout -= OnIconRelayout;
                     this.Remove(buttonIcon);
                     buttonIcon.Dispose();
                     buttonIcon = null;
@@ -763,8 +800,6 @@ namespace Tizen.NUI.Controls
                 return;
             }
 
-            ApplyAttributes(this, buttonAttributes);
-
             if (buttonAttributes.ShadowImageAttributes != null)
             {
                 if(shadowImage == null)
@@ -776,7 +811,6 @@ namespace Tizen.NUI.Controls
                     };
                     this.Add(shadowImage);
                 }
-                /////////////// Shadow  ///////////////////////
                 ApplyAttributes(shadowImage, buttonAttributes.ShadowImageAttributes);
             }
 
@@ -791,7 +825,6 @@ namespace Tizen.NUI.Controls
                     };
                     this.Add(backgroundImage);
                 }
-                /////////////// Background ////////////////////
                 ApplyAttributes(backgroundImage, buttonAttributes.BackgroundImageAttributes);
             }
 
@@ -806,7 +839,6 @@ namespace Tizen.NUI.Controls
                     };
                     this.Add(overlayImage);
                 }
-                /////////////// Overlay ///////////////////////
                 ApplyAttributes(overlayImage, buttonAttributes.OverlayImageAttributes);
             }
 
@@ -817,7 +849,6 @@ namespace Tizen.NUI.Controls
                     buttonText = new TextLabel();
                     this.Add(buttonText);
                 }
-                /////////////// Text //////////////////////////
                 ApplyAttributes(buttonText, buttonAttributes.TextAttributes);
             }
 
@@ -826,12 +857,16 @@ namespace Tizen.NUI.Controls
                 if(buttonIcon == null)
                 {
                     buttonIcon = new ImageView();
+                    buttonIcon.Relayout += OnIconRelayout;
                     this.Add(buttonIcon);
                 }
-                /////////////// Icon //////////////////////////
                 ApplyAttributes(buttonIcon, buttonAttributes.IconAttributes);
             }
 
+            MeasureText();
+            LayoutChild();
+
+            Sensitive = isEnabled ? true : false;
         }
 
         protected void UpdateState()
@@ -864,14 +899,21 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private void Initialize()
+        protected void Initialize()
         {
             buttonAttributes = attributes as ButtonAttributes;
             if (buttonAttributes == null)
             {
                 throw new Exception("Button attribute parse error.");
             }
-     
+            ApplyAttributes(this, buttonAttributes);
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            MeasureText();
+            LayoutChild();
         }
 
         private void PlayMotion(States sourceState, States targetState)
@@ -891,17 +933,23 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        private void OnIconRelayout(object sender, EventArgs e)
+        {
+            MeasureText();
+            LayoutChild();
+        }
+
         private void CreateBackgroundAttributes()
         {
             if (buttonAttributes.BackgroundImageAttributes == null)
             {
                 buttonAttributes.BackgroundImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent}
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent
                 };
             }
         }
@@ -912,11 +960,11 @@ namespace Tizen.NUI.Controls
             {
                 buttonAttributes.ShadowImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent
                 };
             }
         }
@@ -927,11 +975,11 @@ namespace Tizen.NUI.Controls
             {
                 buttonAttributes.OverlayImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent
                 };
             }
         }
@@ -942,11 +990,13 @@ namespace Tizen.NUI.Controls
             {
                 buttonAttributes.TextAttributes = new TextAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center},
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center}
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
                 };
             }
         }
@@ -957,12 +1007,141 @@ namespace Tizen.NUI.Controls
             {
                 buttonAttributes.IconAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.UseNaturalSize },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.UseNaturalSize },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                    HeightResizePolicy = ResizePolicyType.UseNaturalSize,
                 };
+            }
+        }
+
+        protected virtual void MeasureText()
+        {
+            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
+            {
+                return;
+            }
+            buttonText.WidthResizePolicy = ResizePolicyType.Fixed;
+            buttonText.HeightResizePolicy = ResizePolicyType.Fixed;
+            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
+            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
+            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
+            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
+
+            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
+            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
+            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
+            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
+
+            if (IconRelativeOrientation == IconOrientation.Top || IconRelativeOrientation == IconOrientation.Bottom)
+            {
+                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight;
+                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom - iconPaddingTop - iconPaddingBottom - buttonIcon.SizeHeight;
+            }
+            else
+            {
+                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight - iconPaddingLeft - iconPaddingRight - buttonIcon.SizeWidth;
+                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom;
+            }
+        }
+
+        protected virtual void LayoutChild()
+        {
+            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
+            {
+                return;
+            }
+
+            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
+            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
+            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
+            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
+
+            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
+            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
+            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
+            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
+
+            switch (IconRelativeOrientation)
+            {
+                case IconOrientation.Top:
+                    buttonIcon.PositionUsesPivotPoint = true;
+                    buttonIcon.ParentOrigin = NUI.ParentOrigin.TopCenter;
+                    buttonIcon.PivotPoint = NUI.PivotPoint.TopCenter;
+                    buttonIcon.Position2D = new Position2D(0, iconPaddingTop);
+
+                    buttonText.PositionUsesPivotPoint = true;
+                    buttonText.ParentOrigin = NUI.ParentOrigin.BottomCenter;
+                    buttonText.PivotPoint = NUI.PivotPoint.BottomCenter;
+                    buttonText.Position2D = new Position2D(0, -textPaddingBottom);
+                    break;
+                case IconOrientation.Bottom:
+                    buttonIcon.PositionUsesPivotPoint = true;
+                    buttonIcon.ParentOrigin = NUI.ParentOrigin.BottomCenter;
+                    buttonIcon.PivotPoint = NUI.PivotPoint.BottomCenter;
+                    buttonIcon.Position2D = new Position2D(0, -iconPaddingBottom);
+
+                    buttonText.PositionUsesPivotPoint = true;
+                    buttonText.ParentOrigin = NUI.ParentOrigin.TopCenter;
+                    buttonText.PivotPoint = NUI.PivotPoint.TopCenter;
+                    buttonText.Position2D = new Position2D(0, textPaddingTop);
+                    break;
+                case IconOrientation.Left:
+                    if(LayoutDirection == ViewLayoutDirectionType.LTR)
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonIcon.Position2D = new Position2D(iconPaddingLeft, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonText.Position2D = new Position2D(-textPaddingRight, 0);
+                    }
+                    else
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonIcon.Position2D = new Position2D(-iconPaddingLeft, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonText.Position2D = new Position2D(textPaddingRight, 0);
+                    }
+
+                    break;
+                case IconOrientation.Right:
+                    if (LayoutDirection == ViewLayoutDirectionType.RTL)
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonIcon.Position2D = new Position2D(iconPaddingRight, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonText.Position2D = new Position2D(-textPaddingLeft, 0);
+                    }
+                    else
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonIcon.Position2D = new Position2D(-iconPaddingRight, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonText.Position2D = new Position2D(textPaddingLeft, 0);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 

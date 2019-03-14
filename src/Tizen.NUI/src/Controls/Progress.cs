@@ -325,9 +325,6 @@ namespace Tizen.NUI.Controls
         /// <summary>
         /// For register type to View Registry
         /// </summary>
-        static Progress()
-        {
-        }
 
         /// <summary>
         /// The constructor of ProgressBar
@@ -335,11 +332,11 @@ namespace Tizen.NUI.Controls
         /// <version> 5.5.0 </version>
         public Progress() : base()
         {
-            Initialize();
             if (progressBarAttrs == null)
             {
                 progressBarAttrs = new ProgressBarAttributes();
             }
+            Initialize();
         }
 
         /// <summary>
@@ -747,8 +744,6 @@ namespace Tizen.NUI.Controls
         private void Initialize()
         {
             // create necessary components
-            progressBarAttrs = attributes as ProgressBarAttributes;
-
             InitializeTrack();
             InitializeBuffer();
             InitializeProgress();
@@ -1030,7 +1025,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private void UpdateStates()
+        protected virtual void UpdateStates()
         {
             Console.WriteLine("before update progress" + progressObj.Size2D.Height.ToString() + progressObj.Size2D.Width.ToString());
             Console.WriteLine("before update load" + loadingObj.Size2D.Height.ToString() + loadingObj.Size2D.Width.ToString());
@@ -1123,7 +1118,7 @@ namespace Tizen.NUI.Controls
             //aniForOpacity.Play();
         }
 
-        public virtual void UpdateValue()
+        protected virtual void UpdateValue()
         {
             if (trackObj == null || progressObj == null ||
                 (progressBarAttrs.MaxValue == null && maxValue == null) ||

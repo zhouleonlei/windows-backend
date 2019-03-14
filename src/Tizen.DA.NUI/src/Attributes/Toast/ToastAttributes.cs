@@ -5,40 +5,40 @@ namespace Tizen.FH.NUI.Controls
 {
     internal class ToastAttributes : Tizen.NUI.Controls.ToastAttributes
     {
-        private ImageAttributes iconAttrs;
+        private LoadingAttributes loadingAttrs;
 
         public ToastAttributes() : base() { }
         public ToastAttributes(ToastAttributes attributes) : base(attributes)
         {
-            if(attributes.IconAttributes != null)
+            if(attributes.LoadingAttributes != null)
             {
-                iconAttrs = attributes.iconAttrs.Clone() as ImageAttributes;
+                loadingAttrs = attributes.loadingAttrs.Clone() as LoadingAttributes;
             }
         }
 
-        public static readonly BindableProperty IconAttributesProperty = BindableProperty.Create("IconAttributes", typeof(ImageAttributes), typeof(ToastAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty LoadingAttributesProperty = BindableProperty.Create("LoadingAttributes", typeof(LoadingAttributes), typeof(ToastAttributes), default(LoadingAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ToastAttributes)bindable;
             if (newValue != null)
             {
-                attrs.iconAttrs = (ImageAttributes)newValue;
+                attrs.loadingAttrs = (LoadingAttributes)newValue;
             }
         },
        defaultValueCreator: (bindable) =>
        {
            var attrs = (ToastAttributes)bindable;
-           return attrs.iconAttrs;
+           return attrs.loadingAttrs;
        });
 
-        public ImageAttributes IconAttributes
+        public LoadingAttributes LoadingAttributes
         {
             get
             {
-                return (ImageAttributes)GetValue(IconAttributesProperty);
+                return (LoadingAttributes)GetValue(LoadingAttributesProperty);
             }
             set
             {
-                SetValue(IconAttributesProperty, value);
+                SetValue(LoadingAttributesProperty, value);
             }
         }
 

@@ -89,7 +89,6 @@ namespace Tizen.NUI.Xaml
                 }
             }
 
-            Console.WriteLine("============= Got xaml text is {0} ===========", xaml);
             Load(view, xaml);
         }
 

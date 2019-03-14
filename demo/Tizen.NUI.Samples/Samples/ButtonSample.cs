@@ -13,6 +13,8 @@ namespace Tizen.NUI.Samples
         Button textButton;
         Button iconButton;
 
+        Button iconTextButton;
+
         Button utilityBasicButton;
         Button utilityServiceButton;
         Button utilityToggleButton;
@@ -32,6 +34,7 @@ namespace Tizen.NUI.Samples
                 Size2D = new Size2D(1920, 1080),
             };
             window.Add(root);
+            window.KeyEvent += Window_KeyEvent;
 
             textButton = new Button();
             textButton.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
@@ -49,6 +52,25 @@ namespace Tizen.NUI.Samples
             iconButton.IconURL = CommonReosurce.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
             root.Add(iconButton);
 
+            iconTextButton = new Button();
+            iconTextButton.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            iconTextButton.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
+            iconTextButton.IconRelativeOrientation = Button.IconOrientation.Left;
+            iconTextButton.IconURL = CommonReosurce.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
+            iconTextButton.IconPaddingTop = 20;
+            iconTextButton.IconPaddingBottom = 20;
+            iconTextButton.IconPaddingLeft = 20;
+            iconTextButton.IconPaddingRight = 20;
+            iconTextButton.Text = "IconTextButton";
+            iconTextButton.TextPaddingTop = 20;
+            iconTextButton.TextPaddingBottom = 20;
+            iconTextButton.TextPaddingLeft = 20;
+            iconTextButton.TextPaddingRight = 50;
+            iconTextButton.Size2D = new Size2D(500, 300);
+            iconTextButton.Position2D = new Position2D(800, 100);
+            root.Add(iconTextButton);
+
+
             ///////////////////////////////////////////////Create by Property//////////////////////////////////////////////////////////
             utilityBasicButton = new Button();
             utilityBasicButton.IsSelectable = true;
@@ -56,13 +78,12 @@ namespace Tizen.NUI.Samples
             utilityBasicButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
             utilityBasicButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityBasicButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityBasicButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
-            utilityBasicButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityBasicButton.OverlayImageOpacitySelector = new FloatSelector
+            utilityBasicButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = 1,
-                Other = 0
+                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Other = ""
             };
+            utilityBasicButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
 
             utilityBasicButton.TextColorSelector = new ColorSelector
             {
@@ -86,14 +107,12 @@ namespace Tizen.NUI.Samples
             utilityServiceButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
             utilityServiceButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityServiceButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityServiceButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
-            utilityServiceButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityServiceButton.OverlayImageOpacitySelector = new FloatSelector
+            utilityServiceButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = 1,
-                Other = 0
+                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Other = ""
             };
-
+            utilityServiceButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
             utilityServiceButton.TextColorSelector = new ColorSelector
             {
                 Normal = new Color(1, 1, 1, 1),
@@ -118,13 +137,13 @@ namespace Tizen.NUI.Samples
             utilityToggleButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
             utilityToggleButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityToggleButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityToggleButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png";
-            utilityToggleButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityToggleButton.OverlayImageOpacitySelector = new FloatSelector
+            utilityToggleButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = 1,
-                Other = 0
+                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Other = ""
             };
+            utilityToggleButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
+     
 
             utilityToggleButton.TextColorSelector = new ColorSelector
             {
@@ -152,13 +171,12 @@ namespace Tizen.NUI.Samples
             utilityOvalButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
             utilityOvalButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png";
             utilityOvalButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityOvalButton.OverlayImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png";
-            utilityOvalButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityOvalButton.OverlayImageOpacitySelector = new FloatSelector
+            utilityOvalButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = 1,
-                Other = 0
+                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png",
+                Other = ""
             };
+            utilityOvalButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
 
             utilityOvalButton.Size2D = new Size2D(104, 104);
             utilityOvalButton.Position2D = new Position2D(XBase, 900);
@@ -183,18 +201,17 @@ namespace Tizen.NUI.Samples
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
-                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
                 },
 
                 TextAttributes = new TextAttributes
                 {
                     PointSize = new FloatSelector { All = 20 },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent},
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
 
                     TextColor = new ColorSelector
                     {
@@ -230,18 +247,17 @@ namespace Tizen.NUI.Samples
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
-                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
                 },
 
                 TextAttributes = new TextAttributes
                 {
                     PointSize = new FloatSelector { All = 20 },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
 
                     TextColor = new ColorSelector
                     {
@@ -280,18 +296,17 @@ namespace Tizen.NUI.Samples
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png" },
+                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
-                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
                 },
 
                 TextAttributes = new TextAttributes
                 {
                     PointSize = new FloatSelector { All = 20 },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
 
                     TextColor = new ColorSelector
                     {
@@ -333,9 +348,8 @@ namespace Tizen.NUI.Samples
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png" },
+                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
-                    Opacity = new FloatSelector { Pressed = 1, Other = 0 }
                 },
             };
             familyOvalButton = new Button(familyOvalButtonAttributes);
@@ -346,6 +360,39 @@ namespace Tizen.NUI.Samples
 
         }
 
+        private void Window_KeyEvent(object sender, Window.KeyEventArgs e)
+        {
+            if(e.Key.State == Key.StateType.Down)
+            {
+                switch(e.Key.KeyPressedName)
+                {
+                    case "1":
+                        iconTextButton.IconRelativeOrientation = Button.IconOrientation.Right;
+                        break;
+                    case "2":
+                        iconTextButton.IconRelativeOrientation = Button.IconOrientation.Top;
+                        break;
+                    case "3":
+                        iconTextButton.IconRelativeOrientation = Button.IconOrientation.Bottom;
+                        break;
+                    case "4":
+                        iconTextButton.IconRelativeOrientation = Button.IconOrientation.Left;
+                        break;
+                    case "5":
+                        iconTextButton.IconPaddingLeft = 50;
+                        break;
+                    case "6":
+                        iconTextButton.IconPaddingRight = 50;
+                        break;
+                    case "7":
+                        iconTextButton.LayoutDirection = ViewLayoutDirectionType.RTL;
+                        break;
+                    case "8":
+                        iconTextButton.LayoutDirection = ViewLayoutDirectionType.LTR;
+                        break;
+                }
+            }
+        }
 
         public void Deactivate()
         {

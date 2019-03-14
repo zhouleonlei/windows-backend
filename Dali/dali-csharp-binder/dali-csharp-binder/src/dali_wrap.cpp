@@ -104492,16 +104492,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_WebViewSignalProxy_Emit(void * jarg1, vo
   }
 }
 
-SWIGEXPORT char * SWIGSTDCALL CSharp_Dali_GetEnvironmentVariable(char * jarg1) {
-  const char * result = EnvironmentVariable::GetEnvironmentVariable(jarg1);
-  char * jresult = SWIG_csharp_string_callback((const char *)result);
-  return jresult;
-}
-
-SWIGEXPORT bool SWIGSTDCALL CSharp_Dali_SetEnvironmentVariable(char * jarg1, char * jarg2) {
-  bool result = EnvironmentVariable::SetEnvironmentVariable(jarg1, jarg2);
-  return result;
-}
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_New() {
   Dali::ToolKit::FrameUpdateCallback result = Dali::ToolKit::FrameUpdateCallback::New();

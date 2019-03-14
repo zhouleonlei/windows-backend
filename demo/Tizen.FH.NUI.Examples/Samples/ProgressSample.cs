@@ -114,6 +114,7 @@ namespace Tizen.FH.NUI.Samples
             progressCircle1.ProgressState = Progress.ProgressStatusType.Determinate;
             progressCircle1.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressCircle1);
+            progressCircle1.IsTextEnabled = true;
 
             progressBar1 = new Progress("UtilityProgressbar");
             progressBar1.Position2D = new Position2D(80, 350);
@@ -121,7 +122,6 @@ namespace Tizen.FH.NUI.Samples
             progressBar1.MaxValue = 100;
             progressBar1.MinValue = 0;
             progressBar1.CurrentValue = 45;
-            progressBar1.UpdateValue();
             progressBar1.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar1);
 
@@ -131,7 +131,6 @@ namespace Tizen.FH.NUI.Samples
             progressBar2.MaxValue = 100;
             progressBar2.MinValue = 0;
             progressBar2.CurrentValue = 15;
-            progressBar2.UpdateValue();
             progressBar2.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar2);
 
@@ -141,7 +140,6 @@ namespace Tizen.FH.NUI.Samples
             progressBar3.MaxValue = 100;
             progressBar3.MinValue = 0;
             progressBar3.CurrentValue = 30;
-            progressBar3.UpdateValue();
             progressBar3.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar3);
 
@@ -151,7 +149,6 @@ namespace Tizen.FH.NUI.Samples
             progressBar4.MaxValue = 100;
             progressBar4.MinValue = 0;
             progressBar4.CurrentValue = 75;
-            progressBar4.UpdateValue();
             progressBar4.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar4);
 

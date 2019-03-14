@@ -9,9 +9,10 @@
                         Selected ="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_select.png"
                         />
 
-        <FloatSelector x:Key="DAOverlayOpacity"
-                        Normal="0"
-                        Pressed ="1"
+        <StringSelector x:Key="DAOvalButtonOverlayImage"
+                        Normal =""
+                        Pressed ="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_press_overlay.png"
+                        Selected=""
                         />
 
     </AttributesContainer.XamlResources>
@@ -34,10 +35,9 @@
 
         <ButtonAttributes.OverlayImageAttributes>
             <ImageAttributes 
-                ResourceURL="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_press_overlay.png" 
+                ResourceURL="{StaticResource DAOvalButtonOverlayImage}" 
                 Border="5, 5, 5, 5"
-                Opacity="{StaticResource DAOverlayOpacity}"
                 />
-        </ButtonAttributes.OverlayImageAttributes>
+        </ButtonAttributes.OverlayImageAttributes> >
     </ButtonAttributes>
 </AttributesContainer>

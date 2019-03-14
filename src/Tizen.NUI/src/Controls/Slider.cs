@@ -919,11 +919,11 @@ namespace Tizen.NUI.Controls
             {
                 if (lowIndicatorImage != null && sliderAttrs != null && sliderAttrs.LowIndicatorImageAttributes != null && sliderAttrs.LowIndicatorImageAttributes.Size2D != null)
                 {
-                    lowIndicatorImage.Size2D = sliderAttrs.LowIndicatorImageAttributes.Size2D.All;
+                    lowIndicatorImage.Size2D = sliderAttrs.LowIndicatorImageAttributes.Size2D;
                 }
                 if (lowIndicatorText != null && sliderAttrs != null && sliderAttrs.LowIndicatorTextAttributes != null && sliderAttrs.LowIndicatorTextAttributes.Size2D != null)
                 {
-                    lowIndicatorText.Size2D = sliderAttrs.LowIndicatorTextAttributes.Size2D.All;
+                    lowIndicatorText.Size2D = sliderAttrs.LowIndicatorTextAttributes.Size2D;
                 }
             }
         }
@@ -945,11 +945,11 @@ namespace Tizen.NUI.Controls
             {
                 if (highIndicatorImage != null && sliderAttrs != null && sliderAttrs.HighIndicatorImageAttributes != null && sliderAttrs.HighIndicatorImageAttributes.Size2D != null)
                 {
-                    highIndicatorImage.Size2D = sliderAttrs.HighIndicatorImageAttributes.Size2D.All;
+                    highIndicatorImage.Size2D = sliderAttrs.HighIndicatorImageAttributes.Size2D;
                 }
                 if (highIndicatorText != null && sliderAttrs != null && sliderAttrs.HighIndicatorTextAttributes != null && sliderAttrs.HighIndicatorTextAttributes.Size2D != null)
                 {
-                    highIndicatorText.Size2D = sliderAttrs.HighIndicatorTextAttributes.Size2D.All;
+                    highIndicatorText.Size2D = sliderAttrs.HighIndicatorTextAttributes.Size2D;
                 }
             }
         }
@@ -1105,7 +1105,7 @@ namespace Tizen.NUI.Controls
             {
                 if (sliderAttrs != null && sliderAttrs.LowIndicatorImageAttributes != null && sliderAttrs.LowIndicatorImageAttributes.Size2D != null)
                 {
-                    size = sliderAttrs.LowIndicatorImageAttributes.Size2D.All;
+                    size = sliderAttrs.LowIndicatorImageAttributes.Size2D;
                 }
             }
             return size;
@@ -1122,7 +1122,7 @@ namespace Tizen.NUI.Controls
             {
                 if (sliderAttrs != null && sliderAttrs.HighIndicatorImageAttributes != null && sliderAttrs.HighIndicatorImageAttributes.Size2D != null)
                 {
-                    size = sliderAttrs.HighIndicatorImageAttributes.Size2D.All;
+                    size = sliderAttrs.HighIndicatorImageAttributes.Size2D;
                 }
             }
             return size;
@@ -1139,7 +1139,7 @@ namespace Tizen.NUI.Controls
             {
                 if (sliderAttrs != null && sliderAttrs.LowIndicatorTextAttributes != null && sliderAttrs.LowIndicatorTextAttributes.Size2D != null)
                 {
-                    size = sliderAttrs.LowIndicatorTextAttributes.Size2D.All;
+                    size = sliderAttrs.LowIndicatorTextAttributes.Size2D;
                 }
             }
             return size;
@@ -1156,7 +1156,7 @@ namespace Tizen.NUI.Controls
             {
                 if (sliderAttrs != null && sliderAttrs.HighIndicatorTextAttributes != null && sliderAttrs.HighIndicatorTextAttributes.Size2D != null)
                 {
-                    size = sliderAttrs.HighIndicatorTextAttributes.Size2D.All;
+                    size = sliderAttrs.HighIndicatorTextAttributes.Size2D;
                 }
             }
             return size;

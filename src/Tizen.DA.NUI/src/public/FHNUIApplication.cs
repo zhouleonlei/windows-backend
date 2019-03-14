@@ -196,6 +196,23 @@ namespace Tizen.FH.NUI
 
             Tab.RegisterStyle("DATab", typeof(DATabAttributes));
 
+            Navigation.RegisterStyle("Back", typeof(BackNavigationAttributes));
+            Navigation.RegisterStyle("WhiteCondition", typeof(WhiteConditionNavigationAttributes));
+            Navigation.RegisterStyle("BlackCondition", typeof(BlackConditionNavigationAttributes));
+            Navigation.RegisterStyle("WhiteEditMode", typeof(WhiteEditModeNavigationAttributes));
+            Navigation.RegisterStyle("BlackEditMode", typeof(BlackEditModeNavigationAttributes));
+
+            Navigation.NavigationItem.RegisterStyle("WhiteBackItem", typeof(WhiteBackNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("BlackBackItem", typeof(BlackBackNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("WhiteConditionItem", typeof(WhiteConditionNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("BlackConditionItem", typeof(BlackConditionNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("WhiteEditModeItem", typeof(WhiteEditModeNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("WhiteEditModeFirstItem", typeof(WhiteEditModeFirstNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("WhiteEditModeLastItem", typeof(WhiteEditModeLastNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("BlackEditModeItem", typeof(BlackEditModeNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("BlackEditModeFirstItem", typeof(BlackEditModeFirstNavigationItemAttributes));
+            Navigation.NavigationItem.RegisterStyle("BlackEditModeLastItem", typeof(BlackEditModeLastNavigationItemAttributes));
+
             Slider.RegisterStyle("UtilityDefaultSlider", typeof(UtilityDefaultSliderAttributes));
             Slider.RegisterStyle("FoodDefaultSlider", typeof(FoodDefaultSliderAttributes));
             Slider.RegisterStyle("FamilyDefaultSlider", typeof(FamilyDefaultSliderAttributes));
@@ -224,6 +241,8 @@ namespace Tizen.FH.NUI
             ListItem.RegisterStyle("ItemAlignListItem", typeof(ItemAlignListItemAttributes));
             ListItem.RegisterStyle("NextDepthListItem", typeof(NextDepthListItemAttributes));
             ListItem.RegisterStyle("GroupIndexListItem", typeof(GroupIndexListItemAttributes));
+
+            Loading.RegisterStyle("DefaultLoading", typeof(DefaultLoadingAttributes));
         }
         private void CleanupComponent()
         {

@@ -85,8 +85,22 @@ namespace Tizen.NUI.Controls
             return attrs.isSelectable;
         });
 
+        public static readonly BindableProperty IconRelativeOrientationProperty = BindableProperty.Create("IconRelativeOrientation", typeof(Button.IconOrientation?), typeof(ButtonAttributes), default(Button.IconOrientation?), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (ButtonAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.iconRelativeOrientation = (Button.IconOrientation?)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (ButtonAttributes)bindable;
+            return attrs.iconRelativeOrientation;
+        });
 
         private bool? isSelectable;
+        private Button.IconOrientation? iconRelativeOrientation;
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
         private ImageAttributes overlayImageAttrs;
@@ -96,10 +110,8 @@ namespace Tizen.NUI.Controls
         public ButtonAttributes() : base() { }
         public ButtonAttributes(ButtonAttributes attributes) : base(attributes)
         {
-            if(attributes.isSelectable != null)
-            {
-                isSelectable = attributes.isSelectable;
-            }
+            isSelectable = attributes.isSelectable;
+            iconRelativeOrientation = attributes.iconRelativeOrientation;
 
             if (attributes.shadowImageAttrs != null)
             {
@@ -196,6 +208,17 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(IsSelectableProperty, value);
+            }
+        }
+        public Button.IconOrientation? IconRelativeOrientation
+        {
+            get
+            {
+                return (Button.IconOrientation?)GetValue(IconRelativeOrientationProperty);
+            }
+            set
+            {
+                SetValue(IconRelativeOrientationProperty, value);
             }
         }
 

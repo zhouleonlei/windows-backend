@@ -6,11 +6,14 @@ namespace Tizen.NUI.Controls
 {
     public class Tab : Control
     {
+        private const int aniTime = 100; // will be defined in const file later
         private List<TabItem> itemList = new List<TabItem>();
         private int curIndex = 0;
-        private View underLine = null;
+        private View underline = null;
         private EventHandler<ItemChangeEventArgs> itemChangeHander;
         private TabAttributes tabAttributes = null;
+        private Animation underlineAni = null;
+        private bool isNeedAnimation = false;
 
         public Tab() : base()
         {
@@ -75,36 +78,12 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                if (tabAttributes == null)
-                {
-                    tabAttributes.IsNatureTextWidth = value;
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public int PaddingLeft
-        {
-            get
-            {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
-                return tabAttributes.PaddingLeft.All.Value;
-            }
-            set
-            {
-                if(tabAttributes.PaddingLeft == null)
-                {
-                    tabAttributes.PaddingLeft = new IntSelector { All = value };
-                }
-                tabAttributes.PaddingLeft.All = value;
+                tabAttributes.IsNatureTextWidth = value;
                 RelayoutRequest();
             }
         }
 
-        public int PaddingBottom
+        public int ItemGap
         {
             get
             {
@@ -112,20 +91,16 @@ namespace Tizen.NUI.Controls
                 {
                     return 0;
                 }
-                return tabAttributes.PaddingBottom.All.Value;
+                return tabAttributes.ItemGap;
             }
             set
             {
-                if (tabAttributes.PaddingBottom == null)
-                {
-                    tabAttributes.PaddingBottom = new IntSelector { All = value };
-                }
-                tabAttributes.PaddingBottom.All = value;
+                tabAttributes.ItemGap = value;
                 RelayoutRequest();
             }
         }
 
-        public int PaddingRight
+        public int LeftSpace
         {
             get
             {
@@ -133,20 +108,16 @@ namespace Tizen.NUI.Controls
                 {
                     return 0;
                 }
-                return tabAttributes.PaddingRight.All.Value;
+                return (int)tabAttributes.Space.X;
             }
             set
             {
-                if (tabAttributes.PaddingRight == null)
-                {
-                    tabAttributes.PaddingRight = new IntSelector { All = value };
-                }
-                tabAttributes.PaddingRight.All = value;
+                tabAttributes.Space.X = value;
                 RelayoutRequest();
             }
         }
 
-        public int PaddingTop
+        public int BottomSpace
         {
             get
             {
@@ -154,15 +125,45 @@ namespace Tizen.NUI.Controls
                 {
                     return 0;
                 }
-                return tabAttributes.PaddingTop.All.Value;
+                return (int)tabAttributes.Space.W;
             }
             set
             {
-                if (tabAttributes.PaddingTop == null)
+                tabAttributes.Space.W = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int RightSpace
+        {
+            get
+            {
+                if (tabAttributes == null)
                 {
-                    tabAttributes.PaddingTop = new IntSelector { All = value };
+                    return 0;
                 }
-                tabAttributes.PaddingTop.All = value;
+                return (int)tabAttributes.Space.Y;
+            }
+            set
+            {
+                tabAttributes.Space.Y = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int TopSpace
+        {
+            get
+            {
+                if (tabAttributes == null)
+                {
+                    return 0;
+                }
+                return (int)tabAttributes.Space.Z;
+            }
+            set
+            {
+                tabAttributes.Space.Z = value;
                 RelayoutRequest();
             }
         }
@@ -171,18 +172,14 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.UnderLineAttributes?.Size2D?.All;
+                return tabAttributes?.UnderLineAttributes?.Size2D;
             }
             set
             {
                 if (value != null)
                 {
                     CreateUnderLineAttributes();
-                    if (tabAttributes.UnderLineAttributes.Size2D == null)
-                    {
-                        tabAttributes.UnderLineAttributes.Size2D = new Size2DSelector();
-                    }
-                    tabAttributes.UnderLineAttributes.Size2D.All = value;
+                    tabAttributes.UnderLineAttributes.Size2D = value;
                     RelayoutRequest();
                 }
             }
@@ -231,16 +228,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.TextAttributes?.FontFamily?.All;
+                return tabAttributes?.TextAttributes?.FontFamily;
             }
             set
             {
                 CreateTextAttributes();
-                if (tabAttributes.TextAttributes.FontFamily == null)
-                {
-                    tabAttributes.TextAttributes.FontFamily = new StringSelector();
-                }
-                tabAttributes.TextAttributes.FontFamily.All = value;
+                tabAttributes.TextAttributes.FontFamily = value;
                 RelayoutRequest();
             }
         }
@@ -283,18 +276,14 @@ namespace Tizen.NUI.Controls
         public void AddItem(TabItem item)
         {
             int h = 0;
-            int paddingTop = 0;
+            int topSpace = (int)tabAttributes.Space.Z;
             if(tabAttributes.UnderLineAttributes != null && tabAttributes.UnderLineAttributes.Size2D != null)
             {
-                h = tabAttributes.UnderLineAttributes.Size2D.All.Height;
+                h = tabAttributes.UnderLineAttributes.Size2D.Height;
             }
-            if(tabAttributes.PaddingTop != null)
-            {
-                paddingTop = tabAttributes.PaddingTop.All.Value;
-            }
-            item.Size2D.Height = Size2D.Height - h - paddingTop;
-            item.Position2D.Y = paddingTop;
-            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);
+            item.Size2D.Height = Size2D.Height - h - topSpace;
+            item.Position2D.Y = topSpace;
+            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);       
             item.TouchEvent += ItemTouchEvent;
             Add(item);
             item.Index = itemList.Count;
@@ -303,7 +292,6 @@ namespace Tizen.NUI.Controls
             UpdateItem();
             itemList[curIndex].State = States.Selected;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
-
             UpdateUnderLinePos();
         }
 
@@ -316,11 +304,20 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
-                if (underLine != null)
+                if(underlineAni != null)
                 {
-                    Remove(underLine);
-                    underLine.Dispose();
-                    underLine = null;
+                    if(underlineAni.State == Animation.States.Playing)
+                    {
+                        underlineAni.Stop();
+                    }
+                    underlineAni.Dispose();
+                    underlineAni = null;
+                }
+                if (underline != null)
+                {
+                    Remove(underline);
+                    underline.Dispose();
+                    underline = null;
                 }
             }
 
@@ -339,13 +336,13 @@ namespace Tizen.NUI.Controls
 
             if (tabAttributes.UnderLineAttributes != null)
             {
-                if (underLine == null)
+                if (underline == null)
                 {
-                    underLine = new View();
-                    Add(underLine);
+                    underline = new View();
+                    Add(underline);
                 }
                 UpdateUnderLinePos();
-                ApplyAttributes(underLine, tabAttributes.UnderLineAttributes);               
+                ApplyAttributes(underline, tabAttributes.UnderLineAttributes);               
             }
 
             if(tabAttributes.TextAttributes != null)
@@ -354,6 +351,11 @@ namespace Tizen.NUI.Controls
                 {
                     itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
                 }
+            }
+
+            if (tabAttributes.IsNatureTextWidth == true)
+            {
+                UpdateItem();
             }
         }
 
@@ -371,12 +373,13 @@ namespace Tizen.NUI.Controls
         {
             if (tabAttributes.UnderLineAttributes != null)
             {
-                if (underLine == null)
+                if (underline == null)
                 {
-                    underLine = new View();
-                    Add(underLine);
+                    underline = new View();
+                    Add(underline);
                 }
-                ApplyAttributes(underLine, tabAttributes.UnderLineAttributes);
+                ApplyAttributes(underline, tabAttributes.UnderLineAttributes);
+                CreateUnderLineAnimation();
             }
         }
 
@@ -386,9 +389,9 @@ namespace Tizen.NUI.Controls
             {
                 tabAttributes.UnderLineAttributes = new ViewAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.BottomLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.BottomLeft },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
                 };
             }
         }
@@ -399,14 +402,22 @@ namespace Tizen.NUI.Controls
             {
                 tabAttributes.TextAttributes = new TextAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                    PositionUsesPivotPoint =  true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    WidthResizePolicy =  ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent
                 };
+            }
+        }
+
+        private void CreateUnderLineAnimation()
+        {
+            if (underlineAni == null)
+            {
+                underlineAni = new Animation(aniTime);
             }
         }
 
@@ -417,40 +428,57 @@ namespace Tizen.NUI.Controls
             {
                 return;
             }
-            int preX = tabAttributes.PaddingLeft.All.Value;
+            int preX = (int)tabAttributes.Space.X;
             int preW = 0;
+            int itemGap = tabAttributes.ItemGap;
             if (tabAttributes.IsNatureTextWidth == true)
             {                
                 for (int i = 0; i < totalNum; i++)
                 {
-                    preW = itemList[i].GetNaturalSize().Width;
+                    preW = itemList[i].TextItem.NaturalSize2D.Width;
                     itemList[i].Position2D.X = preX;
                     itemList[i].Size2D.Width = preW;
-                    preX = itemList[i].Position2D.X + preW;
+                    preX = itemList[i].Position2D.X + preW + itemGap;
                 }
             }
             else
             {
-                preW = (Size2D.Width - tabAttributes.PaddingLeft.All.Value - tabAttributes.PaddingRight.All.Value) / totalNum;
+                preW = (Size2D.Width - (int)tabAttributes.Space.X - (int)tabAttributes.Space.Y) / totalNum;
                 for (int i = 0; i < totalNum; i++)
                 {
                     itemList[i].Position2D.X = preX;
                     itemList[i].Size2D.Width = preW;
-                    preX = itemList[i].Position2D.X + preW;
+                    preX = itemList[i].Position2D.X + preW + itemGap;
                 }
             }          
         }
 
         private void UpdateUnderLinePos()
         {
-            if (underLine == null || tabAttributes.UnderLineAttributes == null || tabAttributes.UnderLineAttributes.Size2D == null)
+            if (underline == null || tabAttributes.UnderLineAttributes == null || tabAttributes.UnderLineAttributes.Size2D == null)
             {
                 return;
             }
-            tabAttributes.UnderLineAttributes.Size2D.All.Width = itemList[curIndex].Size2D.Width;
+            tabAttributes.UnderLineAttributes.Size2D.Width = itemList[curIndex].Size2D.Width;
 
-            underLine.Size2D = new Size2D(itemList[curIndex].Size2D.Width, tabAttributes.UnderLineAttributes.Size2D.All.Height);
-            underLine.Position2D.X = itemList[curIndex].Position2D.X;
+            underline.Size2D = new Size2D(itemList[curIndex].Size2D.Width, tabAttributes.UnderLineAttributes.Size2D.Height);
+
+            if (isNeedAnimation)
+            {
+                CreateUnderLineAnimation();
+                if (underlineAni.State == Animation.States.Playing)
+                {
+                    underlineAni.Stop();
+                }
+                underlineAni.Clear();
+                underlineAni.AnimateTo(underline, "PositionX", itemList[curIndex].Position2D.X);
+                underlineAni.Play();
+            }
+            else
+            {
+                underline.Position2D.X = itemList[curIndex].Position2D.X;
+                isNeedAnimation = true;
+            }
         }
 
         private void UpdateSelectedItem(TabItem item)

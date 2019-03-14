@@ -46,9 +46,39 @@ namespace Tizen.NUI.Controls
             return attrs.isNatureTextWidth;
         });
 
+        public static readonly BindableProperty ItemGapProperty = BindableProperty.Create("ItemGap", typeof(int), typeof(TabAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (TabAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.itemGap = (int)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (TabAttributes)bindable;
+            return attrs.itemGap;
+        });
+
+        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(TabAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (TabAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.space = (Vector4)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (TabAttributes)bindable;
+            return (object)attrs.space;
+        }));
+
         private TextAttributes textAttributes;
         private ViewAttributes underLineAttributes;
         private bool isNatureTextWidth = false;
+        private int itemGap = 0;
+        private Vector4 space = new Vector4(0, 0, 0, 0);
 
         public TabAttributes() : base() { }
         public TabAttributes(TabAttributes attributes) : base(attributes)
@@ -99,6 +129,30 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(IsNatureTextWidthProperty, value);
+            }
+        }
+
+        public int ItemGap
+        {
+            get
+            {
+                return (int)GetValue(ItemGapProperty);
+            }
+            set
+            {
+                SetValue(ItemGapProperty, value);
+            }
+        }
+
+        public Vector4 Space
+        {
+            get
+            {
+                return (Vector4)GetValue(SpaceProperty);
+            }
+            set
+            {
+                SetValue(SpaceProperty, value);
             }
         }
 

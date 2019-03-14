@@ -32,12 +32,12 @@ namespace Tizen.NUI.Controls
             return attrs.translatableText;
         });
 
-        public static readonly BindableProperty MultiLineProperty = BindableProperty.Create("MultiLine", typeof(BoolSelector), typeof(TextAttributes), default(BoolSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MultiLineProperty = BindableProperty.Create("MultiLine", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.multiLine = (BoolSelector)newValue;
+                attrs.multiLine = (bool?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -46,12 +46,12 @@ namespace Tizen.NUI.Controls
             return attrs.multiLine;
         });
 
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignmentSelector), typeof(TextAttributes), default(HorizontalAlignmentSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignment?), typeof(TextAttributes), default(HorizontalAlignment?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.horizontalAlignment = (HorizontalAlignmentSelector)newValue;
+                attrs.horizontalAlignment = (HorizontalAlignment?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -60,12 +60,12 @@ namespace Tizen.NUI.Controls
             return attrs.horizontalAlignment;
         });
 
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignmentSelector), typeof(TextAttributes), default(VerticalAlignmentSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignment?), typeof(TextAttributes), default(VerticalAlignment?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.verticalAlignment = (VerticalAlignmentSelector)newValue;
+                attrs.verticalAlignment = (VerticalAlignment?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -74,12 +74,12 @@ namespace Tizen.NUI.Controls
             return attrs.verticalAlignment;
         });
 
-        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(BoolSelector), typeof(TextAttributes), default(BoolSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.enableMarkup = (BoolSelector)newValue;
+                attrs.enableMarkup = (bool?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -88,12 +88,12 @@ namespace Tizen.NUI.Controls
             return attrs.enableMarkup;
         });
 
-        public static readonly BindableProperty EnableAutoScrollProperty = BindableProperty.Create("EnableAutoScroll", typeof(BoolSelector), typeof(TextAttributes), default(BoolSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty EnableAutoScrollProperty = BindableProperty.Create("EnableAutoScroll", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.enableAutoScroll = (BoolSelector)newValue;
+                attrs.enableAutoScroll = (bool?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -102,12 +102,12 @@ namespace Tizen.NUI.Controls
             return attrs.enableAutoScroll;
         });
 
-        public static readonly BindableProperty AutoScrollSpeedProperty = BindableProperty.Create("AutoScrollSpeed", typeof(IntSelector), typeof(TextAttributes), default(IntSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AutoScrollSpeedProperty = BindableProperty.Create("AutoScrollSpeed", typeof(int?), typeof(TextAttributes), default(int?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.autoScrollSpeed = (IntSelector)newValue;
+                attrs.autoScrollSpeed = (int?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -116,12 +116,12 @@ namespace Tizen.NUI.Controls
             return attrs.autoScrollSpeed;
         });
 
-        public static readonly BindableProperty AutoScrollLoopCountProperty = BindableProperty.Create("AutoScrollLoopCount", typeof(IntSelector), typeof(TextAttributes), default(IntSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AutoScrollLoopCountProperty = BindableProperty.Create("AutoScrollLoopCount", typeof(int?), typeof(TextAttributes), default(int?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.autoScrollLoopCount = (IntSelector)newValue;
+                attrs.autoScrollLoopCount = (int?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -130,12 +130,12 @@ namespace Tizen.NUI.Controls
             return attrs.autoScrollLoopCount;
         });
 
-        public static readonly BindableProperty AutoScrollGapProperty = BindableProperty.Create("AutoScrollGap", typeof(FloatSelector), typeof(TextAttributes), default(FloatSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AutoScrollGapProperty = BindableProperty.Create("AutoScrollGap", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.autoScrollGap = (FloatSelector)newValue;
+                attrs.autoScrollGap = (float?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -144,12 +144,12 @@ namespace Tizen.NUI.Controls
             return attrs.autoScrollGap;
         });
 
-        public static readonly BindableProperty AutoScrollLoopDelayProperty = BindableProperty.Create("AutoScrollLoopDelay", typeof(FloatSelector), typeof(TextAttributes), default(FloatSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AutoScrollLoopDelayProperty = BindableProperty.Create("AutoScrollLoopDelay", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.autoScrollLoopDelay = (FloatSelector)newValue;
+                attrs.autoScrollLoopDelay = (float?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -158,12 +158,12 @@ namespace Tizen.NUI.Controls
             return attrs.autoScrollLoopDelay;
         });
 
-        public static readonly BindableProperty AutoScrollStopModeProperty = BindableProperty.Create("AutoScrollStopMode", typeof(AutoScrollStopModeSelector), typeof(TextAttributes), default(AutoScrollStopModeSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AutoScrollStopModeProperty = BindableProperty.Create("AutoScrollStopMode", typeof(AutoScrollStopMode?), typeof(TextAttributes), default(AutoScrollStopMode?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.autoScrollStopMode = (AutoScrollStopModeSelector)newValue;
+                attrs.autoScrollStopMode = (AutoScrollStopMode?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -172,12 +172,12 @@ namespace Tizen.NUI.Controls
             return attrs.autoScrollStopMode;
         });
 
-        public static readonly BindableProperty LineSpacingProperty = BindableProperty.Create("LineSpacing", typeof(FloatSelector), typeof(TextAttributes), default(FloatSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty LineSpacingProperty = BindableProperty.Create("LineSpacing", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.lineSpacing = (FloatSelector)newValue;
+                attrs.lineSpacing = (float?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -201,12 +201,12 @@ namespace Tizen.NUI.Controls
             return attrs.textColor;
         });
 
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(StringSelector), typeof(TextAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string), typeof(TextAttributes), default(string), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TextAttributes)bindable;
             if (newValue != null)
             {
-                attrs.fontFamily = (StringSelector)newValue;
+                attrs.fontFamily = (string)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -287,20 +287,20 @@ namespace Tizen.NUI.Controls
 
         private StringSelector text;
         private StringSelector translatableText;
-        private BoolSelector multiLine;
-        private HorizontalAlignmentSelector horizontalAlignment;
-        private VerticalAlignmentSelector verticalAlignment;
-        private BoolSelector enableMarkup;
-        private BoolSelector enableAutoScroll;
-        private IntSelector autoScrollSpeed;
-        private IntSelector autoScrollLoopCount;
-        private FloatSelector autoScrollGap;
-        private FloatSelector autoScrollLoopDelay;
-        private AutoScrollStopModeSelector autoScrollStopMode;
-        private FloatSelector lineSpacing;
+        private bool? multiLine;
+        private HorizontalAlignment? horizontalAlignment;
+        private VerticalAlignment? verticalAlignment;
+        private bool? enableMarkup;
+        private bool? enableAutoScroll;
+        private int? autoScrollSpeed;
+        private int? autoScrollLoopCount;
+        private float? autoScrollGap;
+        private float? autoScrollLoopDelay;
+        private AutoScrollStopMode? autoScrollStopMode;
+        private float? lineSpacing;
 
         private ColorSelector textColor;
-        private StringSelector fontFamily;
+        private string fontFamily;
         private FloatSelector pointSize;
         private Vector2Selector shadowOffset;
         private ColorSelector shadowColor;
@@ -322,57 +322,57 @@ namespace Tizen.NUI.Controls
 
             if (attributes.multiLine != null)
             {
-                multiLine = attributes.multiLine.Clone() as BoolSelector;
+                multiLine = attributes.multiLine;
             }
 
             if (attributes.horizontalAlignment != null)
             {
-                horizontalAlignment = attributes.horizontalAlignment.Clone() as HorizontalAlignmentSelector;
+                horizontalAlignment = attributes.horizontalAlignment;
             }
 
             if (attributes.verticalAlignment != null)
             {
-                verticalAlignment = attributes.verticalAlignment.Clone() as VerticalAlignmentSelector;
+                verticalAlignment = attributes.verticalAlignment;
             }
 
             if (attributes.enableMarkup != null)
             {
-                enableMarkup = attributes.enableMarkup.Clone() as BoolSelector;
+                enableMarkup = attributes.enableMarkup;
             }
 
             if (attributes.enableAutoScroll != null)
             {
-                enableAutoScroll = attributes.enableAutoScroll.Clone() as BoolSelector;
+                enableAutoScroll = attributes.enableAutoScroll;
             }
 
             if (attributes.autoScrollSpeed != null)
             {
-                autoScrollSpeed = attributes.autoScrollSpeed.Clone() as IntSelector;
+                autoScrollSpeed = attributes.autoScrollSpeed;
             }
 
             if (attributes.autoScrollLoopCount != null)
             {
-                autoScrollLoopCount = attributes.autoScrollLoopCount.Clone() as IntSelector;
+                autoScrollLoopCount = attributes.autoScrollLoopCount;
             }
 
             if (attributes.autoScrollGap != null)
             {
-                autoScrollGap = attributes.autoScrollGap.Clone() as FloatSelector;
+                autoScrollGap = attributes.autoScrollGap;
             }
 
             if (attributes.autoScrollLoopDelay != null)
             {
-                autoScrollLoopDelay = attributes.autoScrollLoopDelay.Clone() as FloatSelector;
+                autoScrollLoopDelay = attributes.autoScrollLoopDelay;
             }
 
             if (attributes.autoScrollStopMode != null)
             {
-                autoScrollStopMode = attributes.autoScrollStopMode.Clone() as AutoScrollStopModeSelector;
+                autoScrollStopMode = attributes.autoScrollStopMode;
             }
 
             if (attributes.lineSpacing != null)
             {
-                lineSpacing = attributes.lineSpacing.Clone() as FloatSelector;
+                lineSpacing = attributes.lineSpacing;
             }
 
             if (attributes.textColor != null)
@@ -382,7 +382,7 @@ namespace Tizen.NUI.Controls
 
             if (attributes.fontFamily != null)
             {
-                fontFamily = attributes.fontFamily.Clone() as StringSelector;
+                fontFamily = attributes.fontFamily;
             }
 
             if (attributes.pointSize != null)
@@ -431,22 +431,22 @@ namespace Tizen.NUI.Controls
                 SetValue(TranslatableTextProperty, value);
             }
         }
-        public BoolSelector MultiLine
+        public bool? MultiLine
         {
             get
             {
-                return (BoolSelector)GetValue(MultiLineProperty);
+                return (bool?)GetValue(MultiLineProperty);
             }
             set
             {
                 SetValue(MultiLineProperty, value);
             }
         }
-        public HorizontalAlignmentSelector HorizontalAlignment
+        public HorizontalAlignment? HorizontalAlignment
         {
             get
             {
-                return (HorizontalAlignmentSelector)GetValue(HorizontalAlignmentProperty);
+                return (HorizontalAlignment?)GetValue(HorizontalAlignmentProperty);
             }
             set
             {
@@ -454,11 +454,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public VerticalAlignmentSelector VerticalAlignment
+        public VerticalAlignment? VerticalAlignment
         {
             get
             {
-                return (VerticalAlignmentSelector)GetValue(VerticalAlignmentProperty);
+                return (VerticalAlignment?)GetValue(VerticalAlignmentProperty);
             }
             set
             {
@@ -466,11 +466,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableMarkup
+        public bool? EnableMarkup
         {
             get
             {
-                return (BoolSelector)GetValue(EnableMarkupProperty);
+                return (bool?)GetValue(EnableMarkupProperty);
             }
             set
             {
@@ -478,11 +478,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableAutoScroll
+        public bool? EnableAutoScroll
         {
             get
             {
-                return (BoolSelector)GetValue(EnableAutoScrollProperty);
+                return (bool?)GetValue(EnableAutoScrollProperty);
             }
             set
             {
@@ -490,11 +490,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector AutoScrollSpeed
+        public int? AutoScrollSpeed
         {
             get
             {
-                return (IntSelector)GetValue(AutoScrollSpeedProperty);
+                return (int?)GetValue(AutoScrollSpeedProperty);
             }
             set
             {
@@ -502,11 +502,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector AutoScrollLoopCount
+        public int? AutoScrollLoopCount
 {
             get
             {
-                return (IntSelector)GetValue(AutoScrollLoopCountProperty);
+                return (int?)GetValue(AutoScrollLoopCountProperty);
             }
             set
             {
@@ -514,11 +514,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public FloatSelector AutoScrollGap
+        public float? AutoScrollGap
         {
             get
             {
-                return (FloatSelector)GetValue(AutoScrollGapProperty);
+                return (float?)GetValue(AutoScrollGapProperty);
             }
             set
             {
@@ -526,11 +526,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public FloatSelector AutoScrollLoopDelay
+        public float? AutoScrollLoopDelay
         {
             get
             {
-                return (FloatSelector)GetValue(AutoScrollLoopDelayProperty);
+                return (float?)GetValue(AutoScrollLoopDelayProperty);
             }
             set
             {
@@ -538,11 +538,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public AutoScrollStopModeSelector AutoScrollStopMode
+        public AutoScrollStopMode? AutoScrollStopMode
         {
             get
             {
-                return (AutoScrollStopModeSelector)GetValue(AutoScrollStopModeProperty);
+                return (AutoScrollStopMode?)GetValue(AutoScrollStopModeProperty);
             }
             set
             {
@@ -550,11 +550,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public FloatSelector LineSpacing
+        public float? LineSpacing
         {
             get
             {
-                return (FloatSelector)GetValue(LineSpacingProperty);
+                return (float?)GetValue(LineSpacingProperty);
             }
             set
             {
@@ -574,11 +574,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public StringSelector FontFamily
+        public string FontFamily
         {
             get
             {
-                return (StringSelector)GetValue(FontFamilyProperty);
+                return (string)GetValue(FontFamilyProperty);
             }
             set
             {

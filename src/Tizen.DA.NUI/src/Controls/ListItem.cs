@@ -935,7 +935,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 if (listItemAttrs != null && listItemAttrs.LeftItemRootViewAttributes != null && listItemAttrs.LeftItemRootViewAttributes.Size2D != null)
                 {
-                    width = listItemAttrs.LeftItemRootViewAttributes.Size2D.All.Width;
+                    width = listItemAttrs.LeftItemRootViewAttributes.Size2D.Width;
                 }
             }
             return width;
@@ -952,7 +952,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 if (listItemAttrs != null && listItemAttrs.RightItemRootViewAttributes != null && listItemAttrs.RightItemRootViewAttributes.Size2D != null)
                 {
-                    width = listItemAttrs.RightItemRootViewAttributes.Size2D.All.Width;
+                    width = listItemAttrs.RightItemRootViewAttributes.Size2D.Width;
                 }
             }
             return width;
@@ -963,7 +963,7 @@ namespace Tizen.FH.NUI.Controls
             Size2D size = new Size2D(0, 0);
             if (listItemAttrs != null && listItemAttrs.DividerViewAttributes != null && listItemAttrs.DividerViewAttributes.Size2D != null)
             {
-                size = listItemAttrs.DividerViewAttributes.Size2D.All;
+                size = listItemAttrs.DividerViewAttributes.Size2D;
             }
             return size;
         }

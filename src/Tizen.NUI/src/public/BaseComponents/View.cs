@@ -27,6 +27,7 @@ namespace Tizen.NUI.BaseComponents
     /// <since_tizen> 3 </since_tizen>
     public class View : Container, IResourcesProvider
     {
+
         /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsResourcesCreated
@@ -694,6 +695,7 @@ namespace Tizen.NUI.BaseComponents
             var view = (View)bindable;
             float temp = 0.0f;
             Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION_X).Get(out temp);
+            //return temp;
             return temp;
         });
         /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1249,6 +1251,11 @@ namespace Tizen.NUI.BaseComponents
                 PositionUsesPivotPoint = false;
             }
             _mergedStyle = new MergedStyle(GetType(), this);
+
+
+
+
+
         }
 
         internal static global::System.Runtime.InteropServices.HandleRef getCPtr(View obj)
@@ -5624,6 +5631,9 @@ namespace Tizen.NUI.BaseComponents
         {
             return (ResourceLoadingStatusType)NDalicManualPINVOKE.View_GetVisualResourceStatus(this.swigCPtr, Property.BACKGROUND);
         }
+
+
+
 
 
     }

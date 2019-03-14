@@ -1,4 +1,5 @@
 ﻿using System;
+using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Controls
@@ -6,9 +7,9 @@ namespace Tizen.NUI.Controls
     public class Toast : Control
     {
         private ImageView toastBackground;
-        private TextLabel toastText;
+        protected TextLabel toastText;
 
-        private ToastAttributes toastAttributes;
+        protected ToastAttributes toastAttributes;
 
         private Timer timer;
         private Animation showAnimation;
@@ -16,7 +17,39 @@ namespace Tizen.NUI.Controls
 
         private bool autoDestroy = false;
 
-        public Toast() : this(null) { }
+        public Toast() : base()
+        {
+            this.attributes = toastAttributes = new ToastAttributes
+            {
+                TextAttributes = new TextAttributes
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    PositionUsesPivotPoint = true,
+                    Position2D = "0,0",
+                }
+                ,
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    Border = new RectangleSelector()
+                    {
+                        All = new Rectangle(64, 64, 4, 4),
+                    }
+
+                },
+
+            };
+
+            Initialize();
+        }
+
+        public Toast(ToastAttributes attributes)
+        {
+            this.attributes = toastAttributes = attributes.Clone() as ToastAttributes;
+            Initialize();
+        }
 
         public Toast(string style) : base(style)
         {
@@ -33,6 +66,7 @@ namespace Tizen.NUI.Controls
             {
                 if (toastText != null)
                 {
+                    Console.WriteLine("text != null");
                     toastText.Text = value;
                 }
             }
@@ -266,6 +300,24 @@ namespace Tizen.NUI.Controls
                 this.Add(toastText);
             }
         }
+
+        public string BackgroundImageURL
+        {
+            get
+            {
+                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                return toastAttributes.BackgroundImageAttributes.ResourceURL.All;
+            }
+            set
+            {
+                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+            }
+        }
+
+
 
         protected override Attributes GetAttributes()
         {

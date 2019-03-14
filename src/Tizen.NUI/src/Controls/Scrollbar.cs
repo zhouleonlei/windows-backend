@@ -58,27 +58,20 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        //static ScrollBar CreateInstance()
-        //{
-        //    ////TNLog.D("CreateInstance();");
-        //    return new ScrollBar();
-        //}
-
-        /// <summary>
-        /// For register type to View Registry
-        /// </summary>
         public ScrollBar() : base()
         {
-
-            Initialize();
             if (scrollBarAttrs == null)
             {
                 scrollBarAttrs = new ScrollBarAttributes();
             }
+
+            Initialize();
         }
 
         public ScrollBar(string style) : base(style)
         {
+            if (attributes != null)
+                scrollBarAttrs = attributes as ScrollBarAttributes;
             Initialize();
         }
 
@@ -128,7 +121,6 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.Direction = value;
-                //TNLog.D("Direction value = " + scrollBarAttrs.Direction + ";");
                 UpdateValue();
             }
         }
@@ -164,7 +156,6 @@ namespace Tizen.NUI.Controls
                 }
                 if (thumbObj != null)
                 {
-                    //TNLog.D("ThumbSize, value.Width = " + value.Width + ", value.Height = " + value.Height + ";");
                     if (scrollBarAttrs.ThumbSize == null)
                     {
                         scrollBarAttrs.ThumbSize = new Size(value.Width, value.Height, 0);
@@ -198,8 +189,6 @@ namespace Tizen.NUI.Controls
                 }
             }
         }
-
-        //    public string ThumbImageURL = null;
 
         /// <summary>
         /// The property to get/set the color of the track object.
@@ -256,8 +245,7 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.MaxValue = value;
-                //TNLog.D("maxValue = " + maxValue);
-                UpdateValue();/////
+                UpdateValue();
             }
         }
 
@@ -273,30 +261,10 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.MinValue = value;
-                //TNLog.D("minValue = " + minValue);
                 UpdateValue();
             }
         }
 
-        /// <summary>
-        /// The property to get/set the current value of the ScrollBar.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Throw when Current value is less than Min value, or greater than Max value.</exception>
-        /// <example>
-        /// <code>
-        /// ScrollBar scroll;
-        /// scroll.MaxValue = 100;
-        /// scroll.MinValue = 0;
-        /// try
-        /// {
-        ///     scroll.CurrentValue = 50;
-        /// }
-        /// catch(ArgumentOutOfRangeException e)
-        /// {
-        ///     Tizen.Log.Error(LogTag, "Failed to set Current value : " + e.Message);
-        /// }
-        /// </code>
-        /// </example>
         public uint CurrentValue
         {
             get
@@ -307,11 +275,9 @@ namespace Tizen.NUI.Controls
             {
                 if (value < scrollBarAttrs.MinValue || value > scrollBarAttrs.MaxValue)
                 {
-                    //TNLog.E("Current value is less than the Min value, or greater than the Max value. value = " + value + ";");
                     throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
                 }
                 scrollBarAttrs.CurValue = value;
-                //TNLog.D("curValue = " + curValue);
                 UpdateValue();
             }
         }
@@ -327,7 +293,6 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                //TNLog.D("Duration value = " + value + ";");
                 scrollBarAttrs.Duration = value;
                 //if (scrollAniPlayer != null)
                 //{
@@ -364,7 +329,7 @@ namespace Tizen.NUI.Controls
                 //TNLog.E("Current value is less than the Min value, or greater than the Max value. currentValue = " + currentValue + ";");
                 throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
             }
-            //TNLog.D("currentValue = " + currentValue + ";");
+
             scrollBarAttrs.CurValue = currentValue;
 
             if (!enableAni)
@@ -415,15 +380,14 @@ namespace Tizen.NUI.Controls
                     thumbObj = null;
                 }
 
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Stop();
-                //    scrollAniPlayer.Clear();
-                //    scrollAniPlayer.Dispose();
-                //    scrollAniPlayer = null;
-                //}
-
-                // UIDirectionChangedEvent -= OnUIDirectionChangedEvent;
+                ///if (scrollAniPlayer != null)
+                ///{
+                ///    scrollAniPlayer.Stop();
+                ///    scrollAniPlayer.Clear();
+                ///    scrollAniPlayer.Dispose();
+                ///    scrollAniPlayer = null;
+                ///}
+                /// UIDirectionChangedEvent -= OnUIDirectionChangedEvent;
             }
 
             //Release your own unmanaged resources here.
@@ -445,7 +409,6 @@ namespace Tizen.NUI.Controls
                 scrollBarAttrs = attrs as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
-                Console.WriteLine("wc  null  null  nulll");
                 return;
             }
 
@@ -456,9 +419,8 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            scrollBarAttrs = attributes as ScrollBarAttributes;
             this.Focusable = false;
-            //TNLog.I("create component");
+
             trackObj = new ImageView
             {
                 Focusable = false,
@@ -490,51 +452,6 @@ namespace Tizen.NUI.Controls
 
             InitializePanGestureDetector();
         }
-
-        //private void UpdateAttribute(Attributes attrs)
-        //{
-        //    //TNLog.D("UpdateAttribute(attrs);");
-        //    if (attrs.Direction != null)
-        //    {
-        //        scrollBarAttrs.Direction = attrs.Direction;
-        //    }
-        //    if (attrs.TrackImageURL != null)
-        //    {
-        //        scrollBarAttrs.TrackImageURL = attrs.TrackImageURL;
-        //    }
-        //    if (attrs.TrackColor != null)
-        //    {
-        //        scrollBarAttrs.TrackColor = attrs.TrackColor;
-        //    }
-        //    if (attrs.ThumbImageURL != null)
-        //    {
-        //        scrollBarAttrs.ThumbImageURL = attrs.ThumbImageURL;
-        //    }
-        //    if (attrs.ThumbColor != null)
-        //    {
-        //        scrollBarAttrs.ThumbColor = attrs.ThumbColor;
-        //    }
-        //    if (attrs.ThumbSize != null)
-        //    {
-        //        scrollBarAttrs.ThumbSize = attrs.ThumbSize;
-        //    }
-        //    if (attrs.MaxValue != null)
-        //    {
-        //        scrollBarAttrs.MaxValue = attrs.MaxValue;
-        //    }
-        //    if (attrs.MinValue != null)
-        //    {
-        //        scrollBarAttrs.MinValue = attrs.MinValue;
-        //    }
-        //    if (attrs.CurValue != null)
-        //    {
-        //        scrollBarAttrs.CurValue = attrs.CurValue;
-        //    }
-        //    if (attrs.Duration != null)
-        //    {
-        //        scrollBarAttrs.Duration = attrs.Duration;
-        //    }
-        //}
 
         //private void ApplyAttributes()
         //{
@@ -604,33 +521,7 @@ namespace Tizen.NUI.Controls
         private void UpdateValue(bool enableAni = false)
         {
             if (trackObj == null || thumbObj == null || scrollBarAttrs.Direction == null || scrollBarAttrs.MaxValue == null || scrollBarAttrs.MinValue == null || scrollBarAttrs.CurValue == null)
-            {
-                if (trackObj == null)
-                {
-                    Console.WriteLine("01  ");
-                }
-                if (thumbObj == null)
-                {
-                    Console.WriteLine("02  ");
-                }
-                if (scrollBarAttrs.Direction == null)
-                {
-                    Console.WriteLine("03  ");
-                }
-                if (scrollBarAttrs.MaxValue == null)
-                {
-                    Console.WriteLine("04 ");
-                }
-                if (scrollBarAttrs.MinValue == null)
-                {
-                    Console.WriteLine("05 ");
-                }
-                if (scrollBarAttrs.CurValue == null)
-                {
-                    Console.WriteLine("06 ");
-                }
-                //TNLog.E("Null value, return;");
-                Console.WriteLine("  11111111111");
+            {             
                 return;
             }
             //TNLog.D("minValue = " + minValue + ", maxValue = " + maxValue + ", curValue = " + curValue);
@@ -648,7 +539,6 @@ namespace Tizen.NUI.Controls
                 }
                 return;
             }
-            Console.WriteLine("444444444444444");
             float width = (float)Size2D.Width;
             float height = (float)Size2D.Height;
             float thumbW = scrollBarAttrs.ThumbSize.Width;
@@ -731,8 +621,6 @@ namespace Tizen.NUI.Controls
         //    //TNLog.I("UIDirection callback, uiDirection = " + uiDirection);
         //    RelayoutComponents();
         //}
-
-
 
         private void InitializePanGestureDetector()
         {
@@ -828,7 +716,6 @@ namespace Tizen.NUI.Controls
             }
             else
             {
-                //TNLog.I("thumbObjPosY = " + thumbObjPosY + ", offset = " + offset);
                 thumbObjPosY += offset;
                 if (thumbObjPosY < 0)
                 {
@@ -846,13 +733,12 @@ namespace Tizen.NUI.Controls
                     scrollBarAttrs.CurValue = (uint)((thumbObjPosY / (float)(Size2D.Height - thumbObj.Size2D.Height)) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
                 }
             }
-            ////TNLog.I("***offsetX = " + offsetX + ", curValue = " + curValue + ", thumbObjPositionX = " + thumbObjPositionX);
+
             return (int)scrollBarAttrs.CurValue;
         }
 
         private void OnPanGestureEvent(object sender, PanGestureEventArgs e)
         {
-            //TNLog.I("on pan gesture move event");
             panGestureEventHandler?.Invoke(sender, e);
         }
 
@@ -917,8 +803,8 @@ namespace Tizen.NUI.Controls
 
         //private AnimationPlayer scrollAniPlayer;
         //private UIDirection uiDirection = UIDirection.LTR;
-        //private Color trackColor = null;
-        //private Color thumbColor = null;
+
+
         //private uint? curValue = null;
         //private uint? minValue = null;
         //private uint? maxValue = null;
@@ -929,7 +815,5 @@ namespace Tizen.NUI.Controls
 
         private float thumbObjPosX;  //move to attribute?
         private float thumbObjPosY;
-
-
     }
 }

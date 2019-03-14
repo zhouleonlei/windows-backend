@@ -9,10 +9,7 @@
                    ParentOrigin="TopLeft" 
                    PivotPoint="TopLeft"
                    PositionUsesPivotPoint="true" 
-                   PaddingLeft="56" 
-                   PaddingRight="56" 
-                   PaddingTop="1" 
-                   PaddingBottom="0"
+                   Space="56, 56, 1, 0"
                    BackgroundColor="1.0, 1.0, 1.0, 0.5">
         <TabAttributes.UnderLineAttributes>
             <ViewAttributes ParentOrigin="BottomLeft"

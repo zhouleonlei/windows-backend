@@ -176,8 +176,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(48, 48) },
-                    Position2D = new Position2DSelector{ All = new Position2D(0, 0) },
+                    Size2D =  new Size2D(48, 48),
+                    Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -198,8 +198,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(48, 48) },
-                    Position2D = new Position2DSelector { All = new Position2D(0, 0) },
+                    Size2D =  new Size2D(48, 48),
+                    Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -220,8 +220,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(48, 48) },
-                    Position2D = new Position2DSelector { All = new Position2D(0, 0) },
+                    Size2D = new Size2D(48, 48),
+                    Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -242,8 +242,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(48, 48) },
-                    Position2D = new Position2DSelector { All = new Position2D(0, 0) },
+                    Size2D = new Size2D(48, 48),
+                    Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",

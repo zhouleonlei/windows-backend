@@ -105,19 +105,16 @@ namespace Tizen.FH.NUI.Samples
 
         public void Deactivate()
         {
-            //for (uint i = 0; i < rowNum; i++)
-            //{
-            //    for (uint j = 0; j < colNum; j++)
-            //    {
-            //        View child = root.GetChildAt(new TableView.CellPosition(i, j));
-            //        if (child != null)
-            //        {
-            //            root.RemoveChildAt(new TableView.CellPosition(i, j));
-            //            child.Dispose();
-            //        }
-            //    }
-            //}
-
+            uint count = root.ChildCount;
+            List<View> viewlist = new List<View>(root.Children);
+            
+            for(uint i = 0; i < count; i++)
+            {
+                root.Remove(viewlist[(int)i]);
+                viewlist[(int)i].Dispose();
+            }
+            viewlist.Clear();
+            
             if (root != null)
             {
                 Window.Instance.Remove(root);

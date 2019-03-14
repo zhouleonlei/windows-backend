@@ -4,11 +4,11 @@
 
     <AttributesContainer.XamlResources>
 
-        <FloatSelector x:Key="DAOverlayOpacity"
-                        Normal="0"
-                        Pressed ="1"
-                        Selected="0"
-                        />
+        <StringSelector x:Key="DAOverlayImage"
+                    Normal =""
+                    Pressed ="*DemoRes*/images/FH3/3. Button/rectangle_btn_press_overlay.png"
+                    Selected=""/>
+
         <ColorSelector x:Key="DAFoodBasicButtonFont" 
                        Normal="#ff000000"
                        Pressed="0, 0, 0, 0.7"
@@ -36,9 +36,8 @@
 
         <ButtonAttributes.OverlayImageAttributes>
             <ImageAttributes 
-                ResourceURL="*DemoRes*/images/FH3/3. Button/rectangle_btn_press_overlay.png" 
+                ResourceURL="{StaticResource DAOverlayImage}" 
                 Border="5, 5, 5, 5"
-                Opacity="{StaticResource DAOverlayOpacity}"
                 />
         </ButtonAttributes.OverlayImageAttributes>
 

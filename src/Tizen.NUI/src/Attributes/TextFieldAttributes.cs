@@ -49,13 +49,13 @@ namespace Tizen.NUI.Controls
                 return attrs.translatablePlaceholderText;
             });
 
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignmentSelector), typeof(TextFieldAttributes), default(HorizontalAlignmentSelector), 
+        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignment?), typeof(TextFieldAttributes), default(HorizontalAlignment?), 
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.horizontalAlignment = (HorizontalAlignmentSelector)newValue;
+                    attrs.horizontalAlignment = (HorizontalAlignment?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -64,13 +64,13 @@ namespace Tizen.NUI.Controls
                 return attrs.horizontalAlignment;
             });
 
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignmentSelector), typeof(TextFieldAttributes), default(VerticalAlignmentSelector), 
+        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignment?), typeof(TextFieldAttributes), default(VerticalAlignment?), 
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.verticalAlignment = (VerticalAlignmentSelector)newValue;
+                    attrs.verticalAlignment = (VerticalAlignment?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -79,13 +79,13 @@ namespace Tizen.NUI.Controls
                 return attrs.verticalAlignment;
             });
 
-        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(BoolSelector), typeof(TextFieldAttributes), default(BoolSelector), 
+        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(bool?), typeof(TextFieldAttributes), default(bool?), 
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.enableMarkup = (BoolSelector)newValue;
+                    attrs.enableMarkup = (bool?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -154,13 +154,13 @@ namespace Tizen.NUI.Controls
                 return attrs.secondaryCursorColor;
             });
 
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(StringSelector), typeof(TextFieldAttributes), default(StringSelector), 
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string), typeof(TextFieldAttributes), default(string), 
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.fontFamily = (StringSelector)newValue;
+                    attrs.fontFamily = (string)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -184,13 +184,13 @@ namespace Tizen.NUI.Controls
                 return attrs.pointSize;
             });
 
-        public static readonly BindableProperty EnableCursorBlinkProperty = BindableProperty.Create("EnableCursorBlink", typeof(BoolSelector), typeof(TextFieldAttributes), default(BoolSelector),
+        public static readonly BindableProperty EnableCursorBlinkProperty = BindableProperty.Create("EnableCursorBlink", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.enableCursorBlink = (BoolSelector)newValue;
+                    attrs.enableCursorBlink = (bool?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -199,13 +199,13 @@ namespace Tizen.NUI.Controls
                 return attrs.enableCursorBlink;
             });
 
-        public static readonly BindableProperty EnableSelectionProperty = BindableProperty.Create("EnableSelection", typeof(BoolSelector), typeof(TextFieldAttributes), default(BoolSelector),
+        public static readonly BindableProperty EnableSelectionProperty = BindableProperty.Create("EnableSelection", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.enableSelection = (BoolSelector)newValue;
+                    attrs.enableSelection = (bool?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -214,13 +214,13 @@ namespace Tizen.NUI.Controls
                 return attrs.enableSelection;
             });
 
-        public static readonly BindableProperty CursorWidthProperty = BindableProperty.Create("CursorWidth", typeof(IntSelector), typeof(TextFieldAttributes), default(IntSelector),
+        public static readonly BindableProperty CursorWidthProperty = BindableProperty.Create("CursorWidth", typeof(int?), typeof(TextFieldAttributes), default(int?),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.cursorWidth = (IntSelector)newValue;
+                    attrs.cursorWidth = (int?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -229,13 +229,13 @@ namespace Tizen.NUI.Controls
                 return attrs.cursorWidth;
             });
 
-        public static readonly BindableProperty EnableEllipsisProperty = BindableProperty.Create("EnableEllipsis", typeof(BoolSelector), typeof(TextFieldAttributes), default(BoolSelector),
+        public static readonly BindableProperty EnableEllipsisProperty = BindableProperty.Create("EnableEllipsis", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (TextFieldAttributes)bindable;
                 if (newValue != null)
                 {
-                    attrs.enableEllipsis = (BoolSelector)newValue;
+                    attrs.enableEllipsis = (bool?)newValue;
                 }
             },
             defaultValueCreator: (bindable) =>
@@ -247,19 +247,19 @@ namespace Tizen.NUI.Controls
         private StringSelector text;
         private StringSelector placeholderText;
         private StringSelector translatablePlaceholderText;
-        private HorizontalAlignmentSelector horizontalAlignment;
-        private VerticalAlignmentSelector verticalAlignment;
-        private BoolSelector enableMarkup;
+        private HorizontalAlignment? horizontalAlignment;
+        private VerticalAlignment? verticalAlignment;
+        private bool? enableMarkup;
         private ColorSelector textColor;
         private ColorSelector placeholderTextColor;
         private ColorSelector primaryCursorColor;
         private ColorSelector secondaryCursorColor;
-        private StringSelector fontFamily;
+        private string fontFamily;
         private FloatSelector pointSize;
-        private BoolSelector enableCursorBlink;
-        private BoolSelector enableSelection;
-        private IntSelector cursorWidth;
-        private BoolSelector enableEllipsis;
+        private bool? enableCursorBlink;
+        private bool? enableSelection;
+        private int? cursorWidth;
+        private bool? enableEllipsis;
 
         public TextFieldAttributes() : base() { }
         public TextFieldAttributes(TextFieldAttributes attributes) : base(attributes)
@@ -278,15 +278,15 @@ namespace Tizen.NUI.Controls
             }
             if (attributes.horizontalAlignment != null)
             {
-                horizontalAlignment = attributes.horizontalAlignment.Clone() as HorizontalAlignmentSelector;
+                horizontalAlignment = attributes.horizontalAlignment;
             }
             if (attributes.verticalAlignment != null)
             {
-                verticalAlignment = attributes.verticalAlignment.Clone() as VerticalAlignmentSelector;
+                verticalAlignment = attributes.verticalAlignment;
             }
             if (attributes.enableMarkup != null)
             {
-                enableMarkup = attributes.enableMarkup.Clone() as BoolSelector;
+                enableMarkup = attributes.enableMarkup;
             }
             if (attributes.textColor != null)
             {
@@ -306,7 +306,7 @@ namespace Tizen.NUI.Controls
             }
             if (attributes.fontFamily != null)
             {
-                fontFamily = attributes.fontFamily.Clone() as StringSelector;
+                fontFamily = attributes.fontFamily;
             }
             if (attributes.pointSize != null)
             {
@@ -314,19 +314,19 @@ namespace Tizen.NUI.Controls
             }
             if (attributes.enableCursorBlink != null)
             {
-                enableCursorBlink = attributes.enableCursorBlink.Clone() as BoolSelector;
+                enableCursorBlink = attributes.enableCursorBlink;
             }
             if (attributes.enableSelection != null)
             {
-                enableSelection = attributes.enableSelection.Clone() as BoolSelector;
+                enableSelection = attributes.enableSelection;
             }
             if (attributes.cursorWidth != null)
             {
-                cursorWidth = attributes.cursorWidth.Clone() as IntSelector;
+                cursorWidth = attributes.cursorWidth;
             }
             if (attributes.enableEllipsis != null)
             {
-                enableEllipsis = attributes.enableEllipsis.Clone() as BoolSelector;
+                enableEllipsis = attributes.enableEllipsis;
             }
         }
         public StringSelector Text
@@ -365,11 +365,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public HorizontalAlignmentSelector HorizontalAlignment
+        public HorizontalAlignment? HorizontalAlignment
         {
             get
             {
-                return (HorizontalAlignmentSelector)GetValue(HorizontalAlignmentProperty);
+                return (HorizontalAlignment?)GetValue(HorizontalAlignmentProperty);
             }
             set
             {
@@ -377,11 +377,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public VerticalAlignmentSelector VerticalAlignment
+        public VerticalAlignment? VerticalAlignment
         {
             get
             {
-                return (VerticalAlignmentSelector)GetValue(VerticalAlignmentProperty);
+                return (VerticalAlignment?)GetValue(VerticalAlignmentProperty);
             }
             set
             {
@@ -389,11 +389,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableMarkup
+        public bool? EnableMarkup
         {
             get
             {
-                return (BoolSelector)GetValue(EnableMarkupProperty);
+                return (bool?)GetValue(EnableMarkupProperty);
             }
             set
             {
@@ -449,11 +449,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public StringSelector FontFamily
+        public string FontFamily
         {
             get
             {
-                return (StringSelector)GetValue(FontFamilyProperty);
+                return (string)GetValue(FontFamilyProperty);
             }
             set
             {
@@ -473,11 +473,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableCursorBlink
+        public bool? EnableCursorBlink
         {
             get
             {
-                return (BoolSelector)GetValue(EnableCursorBlinkProperty);
+                return (bool?)GetValue(EnableCursorBlinkProperty);
             }
             set
             {
@@ -485,11 +485,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableSelection
+        public bool? EnableSelection
         {
             get
             {
-                return (BoolSelector)GetValue(EnableSelectionProperty);
+                return (bool?)GetValue(EnableSelectionProperty);
             }
             set
             {
@@ -497,11 +497,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector CursorWidth
+        public int? CursorWidth
         {
             get
             {
-                return (IntSelector)GetValue(CursorWidthProperty);
+                return (int?)GetValue(CursorWidthProperty);
             }
             set
             {
@@ -509,11 +509,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public BoolSelector EnableEllipsis
+        public bool? EnableEllipsis
         {
             get
             {
-                return (BoolSelector)GetValue(EnableEllipsisProperty);
+                return (bool?)GetValue(EnableEllipsisProperty);
             }
             set
             {

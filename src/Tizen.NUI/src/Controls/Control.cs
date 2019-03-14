@@ -92,45 +92,45 @@ namespace Tizen.NUI.Controls
                 return;
             }
 
-            if (attrs.Position2D?.GetValue(State) != null)
+            if (attrs.Position2D != null)
             {
-                view.Position2D = attrs.Position2D.GetValue(State);
+                view.Position2D = attrs.Position2D;
             }
-            if (attrs.Size2D?.GetValue(State) != null)
+            if (attrs.Size2D != null)
             {
-                view.Size2D = attrs.Size2D.GetValue(State);
+                view.Size2D = attrs.Size2D;
             }
-            if (attrs.MinimumSize?.GetValue(State) != null)
+            if (attrs.MinimumSize != null)
             {
-                view.MinimumSize = attrs.MinimumSize.GetValue(State);
+                view.MinimumSize = attrs.MinimumSize;
             }
             if (attrs.BackgroundColor?.GetValue(State) != null)
             {
                 view.BackgroundColor = attrs.BackgroundColor.GetValue(State);
             }
-            if (attrs.PositionUsesPivotPoint?.GetValue(State) != null)
+            if (attrs.PositionUsesPivotPoint != null)
             {
-                view.PositionUsesPivotPoint = attrs.PositionUsesPivotPoint.GetValue(State).Value;
+                view.PositionUsesPivotPoint = attrs.PositionUsesPivotPoint.Value;
             }
-            if (attrs.ParentOrigin?.GetValue(State) != null)
+            if (attrs.ParentOrigin != null)
             {
-                view.ParentOrigin = attrs.ParentOrigin.GetValue(State);
+                view.ParentOrigin = attrs.ParentOrigin;
             }
-            if (attrs.PivotPoint?.GetValue(State) != null)
+            if (attrs.PivotPoint != null)
             {
-                view.PivotPoint = attrs.PivotPoint.GetValue(State);
+                view.PivotPoint = attrs.PivotPoint;
             }
-            if (attrs.WidthResizePolicy?.GetValue(State) != null)
+            if (attrs.WidthResizePolicy!= null)
             {
-                view.WidthResizePolicy = attrs.WidthResizePolicy.GetValue(State).Value;
+                view.WidthResizePolicy = attrs.WidthResizePolicy.Value;
             }
-            if (attrs.HeightResizePolicy?.GetValue(State) != null)
+            if (attrs.HeightResizePolicy != null)
             {
-                view.HeightResizePolicy = attrs.HeightResizePolicy.GetValue(State).Value;
+                view.HeightResizePolicy = attrs.HeightResizePolicy.Value;
             }
-            if (attrs.SizeModeFactor?.GetValue(State) != null)
+            if (attrs.SizeModeFactor != null)
             {
-                view.SizeModeFactor = attrs.SizeModeFactor.GetValue(State);
+                view.SizeModeFactor = attrs.SizeModeFactor;
             }
             if (attrs.Opacity?.GetValue(State) != null)
             {
@@ -164,53 +164,53 @@ namespace Tizen.NUI.Controls
                 {
                     text.TranslatableText = textAttrs.TranslatableText.GetValue(State);
                 }
-                if (textAttrs.MultiLine?.GetValue(State) != null)
+                if (textAttrs.MultiLine != null)
                 {
-                    text.MultiLine = textAttrs.MultiLine.GetValue(State).Value;
+                    text.MultiLine = textAttrs.MultiLine.Value;
                 }
-                if (textAttrs.HorizontalAlignment?.GetValue(State) != null)
+                if (textAttrs.HorizontalAlignment != null)
                 {
-                    text.HorizontalAlignment = textAttrs.HorizontalAlignment.GetValue(State).Value;
+                    text.HorizontalAlignment = textAttrs.HorizontalAlignment.Value;
                 }
-                if (textAttrs.VerticalAlignment?.GetValue(State) != null)
+                if (textAttrs.VerticalAlignment != null)
                 {
-                    text.VerticalAlignment = textAttrs.VerticalAlignment.GetValue(State).Value;
+                    text.VerticalAlignment = textAttrs.VerticalAlignment.Value;
                 }
-                if (textAttrs.EnableMarkup?.GetValue(State) != null)
+                if (textAttrs.EnableMarkup != null)
                 {
-                    text.EnableMarkup = textAttrs.EnableMarkup.GetValue(State).Value;
+                    text.EnableMarkup = textAttrs.EnableMarkup.Value;
                 }
-                if (textAttrs.AutoScrollLoopCount?.GetValue(State) != null)
+                if (textAttrs.AutoScrollLoopCount != null)
                 {
-                    text.AutoScrollLoopCount = textAttrs.AutoScrollLoopCount.GetValue(State).Value;
+                    text.AutoScrollLoopCount = textAttrs.AutoScrollLoopCount.Value;
                 }
-                if (textAttrs.AutoScrollSpeed?.GetValue(State) != null)
+                if (textAttrs.AutoScrollSpeed != null)
                 {
-                    text.AutoScrollSpeed = textAttrs.AutoScrollSpeed.GetValue(State).Value;
+                    text.AutoScrollSpeed = textAttrs.AutoScrollSpeed.Value;
                 }
                 if (textAttrs.AutoScrollGap != null)
                 {
-                    text.AutoScrollGap = textAttrs.AutoScrollGap.GetValue(State).Value;
+                    text.AutoScrollGap = textAttrs.AutoScrollGap.Value;
                 }
-                if (textAttrs.AutoScrollLoopDelay?.GetValue(State) != null)
+                if (textAttrs.AutoScrollLoopDelay != null)
                 {
-                    text.AutoScrollLoopDelay = textAttrs.AutoScrollLoopDelay.GetValue(State).Value;
+                    text.AutoScrollLoopDelay = textAttrs.AutoScrollLoopDelay.Value;
                 }
-                if (textAttrs.AutoScrollStopMode?.GetValue(State) != null)
+                if (textAttrs.AutoScrollStopMode != null)
                 {
-                    text.AutoScrollStopMode = textAttrs.AutoScrollStopMode.GetValue(State).Value;
+                    text.AutoScrollStopMode = textAttrs.AutoScrollStopMode.Value;
                 }
-                if (textAttrs.LineSpacing?.GetValue(State) != null)
+                if (textAttrs.LineSpacing != null)
                 {
-                    text.LineSpacing = textAttrs.LineSpacing.GetValue(State).Value;
+                    text.LineSpacing = textAttrs.LineSpacing.Value;
                 }
                 if (textAttrs.TextColor?.GetValue(State) != null)
                 {
                     text.TextColor = textAttrs.TextColor.GetValue(State);
                 }
-                if (textAttrs.FontFamily?.GetValue(State) != null)
+                if (textAttrs.FontFamily != null)
                 {
-                    text.FontFamily = textAttrs.FontFamily.GetValue(State);
+                    text.FontFamily = textAttrs.FontFamily;
                 }
                 if (textAttrs.PointSize?.GetValue(State) != null)
                 {
@@ -253,17 +253,17 @@ namespace Tizen.NUI.Controls
                 {
                     textField.TranslatablePlaceholderText = textFieldAttrs.TranslatablePlaceholderText.GetValue(State);
                 }
-                if (textFieldAttrs.HorizontalAlignment?.GetValue(State) != null)
+                if (textFieldAttrs.HorizontalAlignment != null)
                 {
-                    textField.HorizontalAlignment = textFieldAttrs.HorizontalAlignment.GetValue(State).Value;
+                    textField.HorizontalAlignment = textFieldAttrs.HorizontalAlignment.Value;
                 }
-                if (textFieldAttrs.VerticalAlignment?.GetValue(State) != null)
+                if (textFieldAttrs.VerticalAlignment != null)
                 {
-                    textField.VerticalAlignment = textFieldAttrs.VerticalAlignment.GetValue(State).Value;
+                    textField.VerticalAlignment = textFieldAttrs.VerticalAlignment.Value;
                 }
-                if (textFieldAttrs.EnableMarkup?.GetValue(State) != null)
+                if (textFieldAttrs.EnableMarkup != null)
                 {
-                    textField.EnableMarkup = textFieldAttrs.EnableMarkup.GetValue(State).Value;
+                    textField.EnableMarkup = textFieldAttrs.EnableMarkup.Value;
                 }
                 if (textFieldAttrs.TextColor?.GetValue(State) != null)
                 {
@@ -281,103 +281,32 @@ namespace Tizen.NUI.Controls
                 {
                     textField.SecondaryCursorColor = textFieldAttrs.SecondaryCursorColor.GetValue(State);
                 }
-                if (textFieldAttrs.FontFamily?.GetValue(State) != null)
+                if (textFieldAttrs.FontFamily != null)
                 {
-                    textField.FontFamily = textFieldAttrs.FontFamily.GetValue(State);
+                    textField.FontFamily = textFieldAttrs.FontFamily;
                 }
                 if (textFieldAttrs.PointSize?.GetValue(State) != null)
                 {
                     textField.PointSize = textFieldAttrs.PointSize.GetValue(State).Value;
                 }
-                if (textFieldAttrs.EnableCursorBlink?.GetValue(State) != null)
+                if (textFieldAttrs.EnableCursorBlink != null)
                 {
-                    textField.EnableCursorBlink = textFieldAttrs.EnableCursorBlink.GetValue(State).Value;
+                    textField.EnableCursorBlink = textFieldAttrs.EnableCursorBlink.Value;
                 }
-                if (textFieldAttrs.EnableSelection?.GetValue(State) != null)
+                if (textFieldAttrs.EnableSelection != null)
                 {
-                    textField.EnableSelection = textFieldAttrs.EnableSelection.GetValue(State).Value;
+                    textField.EnableSelection = textFieldAttrs.EnableSelection.Value;
                 }
-                if (textFieldAttrs.CursorWidth?.GetValue(State) != null)
+                if (textFieldAttrs.CursorWidth != null)
                 {
-                    textField.CursorWidth = textFieldAttrs.CursorWidth.GetValue(State).Value;
+                    textField.CursorWidth = textFieldAttrs.CursorWidth.Value;
                 }
-                if (textFieldAttrs.EnableEllipsis?.GetValue(State) != null)
+                if (textFieldAttrs.EnableEllipsis != null)
                 {
-                    textField.Ellipsis = textFieldAttrs.EnableEllipsis.GetValue(State).Value;
+                    textField.Ellipsis = textFieldAttrs.EnableEllipsis.Value;
                 }
             }
         }
-
-        //protected void ApplyAttributes(VisualMap visual, ViewAttributes attrs)
-        //{
-        //    if (visual == null || attrs == null)
-        //    {
-        //        return;
-        //    }
-
-        //    if (attrs.Position2D?.GetValue(State) != null)
-        //    {
-        //        visual.PositionPolicy = VisualTransformPolicyType.Absolute;
-        //        visual.Position = attrs.Position2D.GetValue(State);
-        //    }
-
-        //    if (attrs.Size2D?.GetValue(State) != null)
-        //    {
-        //        visual.SizePolicy = VisualTransformPolicyType.Absolute;
-        //        visual.Size = attrs.Size2D.GetValue(State);
-        //    }
-    
-        //    if (attrs.ParentOrigin?.GetValue(State) != null)
-        //    {
-        //        switch(attrs.ParentOrigin.GetValue(State))
-        //        {
-        //            case ParentOrigin.TopLeft:
-        //                visual.Origin = Visual.AlignType.TopBegin;
-        //                break;
-        //        }
-        //    }
-        //    if (attrs.PivotPoint?.GetValue(State) != null)
-        //    {
-        //        switch (attrs.PivotPoint.GetValue(State))
-        //        {
-        //            case NUI.PivotPoint.TopLeft:
-        //                visual.AnchorPoint = Visual.AlignType.TopBegin;
-        //                break;
-        //        }
-        //    }
-
-        //    if (attrs.WidthResizePolicy?.GetValue(State) != null)
-        //    {
-        //        view.WidthResizePolicy = attrs.WidthResizePolicy.GetValue(State).Value;
-        //    }
-        //    if (attrs.HeightResizePolicy?.GetValue(State) != null)
-        //    {
-        //        view.HeightResizePolicy = attrs.HeightResizePolicy.GetValue(State).Value;
-        //    }
-        //    if (attrs.SizeModeFactor?.GetValue(State) != null)
-        //    {
-        //        view.SizeModeFactor = attrs.SizeModeFactor.GetValue(State);
-        //    }
-        //    if (attrs.Opacity?.GetValue(State) != null)
-        //    {
-        //        view.Opacity = attrs.Opacity.GetValue(State).Value;
-        //    }
-
-        //    ImageView image = view as ImageView;
-        //    ImageAttributes imageAttrs = attrs as ImageAttributes;
-        //    if (image != null && imageAttrs != null)
-        //    {
-        //        if (imageAttrs.ResourceURL?.GetValue(State) != null)
-        //        {
-        //            image.ResourceUrl = imageAttrs.ResourceURL.GetValue(State);
-        //        }
-        //        if (imageAttrs.Border?.GetValue(State) != null)
-        //        {
-        //            image.Border = imageAttrs.Border.GetValue(State);
-        //        }
-
-        //    }
-        //}
 
         protected override void Dispose(DisposeTypes type)
         {

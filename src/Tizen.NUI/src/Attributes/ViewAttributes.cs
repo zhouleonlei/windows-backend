@@ -7,12 +7,12 @@ namespace Tizen.NUI.Controls
 {
     public class ViewAttributes : Attributes
     {
-        public static readonly BindableProperty Position2DProperty = BindableProperty.Create("Position2D", typeof(Position2DSelector), typeof(ViewAttributes), default(Position2DSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty Position2DProperty = BindableProperty.Create("Position2D", typeof(Position2D), typeof(ViewAttributes), default(Position2D), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.position2D = (Position2DSelector)newValue;
+                attrs.position2D = (Position2D)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -20,12 +20,12 @@ namespace Tizen.NUI.Controls
            var attrs = (ViewAttributes)bindable;
            return attrs.position2D;
         });
-        public static readonly BindableProperty Size2DProperty = BindableProperty.Create("Size2D", typeof(Size2DSelector), typeof(ViewAttributes), default(Size2DSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty Size2DProperty = BindableProperty.Create("Size2D", typeof(Size2D), typeof(ViewAttributes), default(Size2D), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.size2D = (Size2DSelector)newValue;
+                attrs.size2D = (Size2D)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -46,12 +46,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.backgroundColor;
         });
-        public static readonly BindableProperty PositionUsesPivotPointProperty = BindableProperty.Create("PositionUsesPivotPoint", typeof(BoolSelector), typeof(ViewAttributes), default(BoolSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PositionUsesPivotPointProperty = BindableProperty.Create("PositionUsesPivotPoint", typeof(bool?), typeof(ViewAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.positionUsesPivotPoint = (BoolSelector)newValue;
+                attrs.positionUsesPivotPoint = (bool?)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -59,12 +59,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.positionUsesPivotPoint;
         });
-        public static readonly BindableProperty ParentOriginProperty = BindableProperty.Create("ParentOrigin", typeof(PositionSelector), typeof(ViewAttributes), default(PositionSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ParentOriginProperty = BindableProperty.Create("ParentOrigin", typeof(Position), typeof(ViewAttributes), default(Position), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.parentOrigin = (PositionSelector)newValue;
+                attrs.parentOrigin = (Position)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -72,12 +72,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.parentOrigin;
         });
-        public static readonly BindableProperty PivotPointProperty = BindableProperty.Create("PivotPoint", typeof(PositionSelector), typeof(ViewAttributes), default(PositionSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PivotPointProperty = BindableProperty.Create("PivotPoint", typeof(Position), typeof(ViewAttributes), default(Position), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.pivotPoint = (PositionSelector)newValue;
+                attrs.pivotPoint = (Position)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -85,12 +85,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.pivotPoint;
         });
-        public static readonly BindableProperty WidthResizePolicyProperty = BindableProperty.Create("WidthResizePolicy", typeof(ResizePolicyTypeSelector), typeof(ViewAttributes), default(ResizePolicyTypeSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WidthResizePolicyProperty = BindableProperty.Create("WidthResizePolicy", typeof(ResizePolicyType), typeof(ViewAttributes), default(ResizePolicyType), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.widthResizePolicy = (ResizePolicyTypeSelector)newValue;
+                attrs.widthResizePolicy = (ResizePolicyType)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -98,12 +98,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.widthResizePolicy;
         });
-        public static readonly BindableProperty HeightResizePolicyProperty = BindableProperty.Create("HeightResizePolicy", typeof(ResizePolicyTypeSelector), typeof(ViewAttributes), default(ResizePolicyTypeSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty HeightResizePolicyProperty = BindableProperty.Create("HeightResizePolicy", typeof(ResizePolicyType), typeof(ViewAttributes), default(ResizePolicyType), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.heightResizePolicy = (ResizePolicyTypeSelector)newValue;
+                attrs.heightResizePolicy = (ResizePolicyType)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -112,12 +112,12 @@ namespace Tizen.NUI.Controls
             return attrs.heightResizePolicy;
         });
 
-        public static readonly BindableProperty MinimumSizeProperty = BindableProperty.Create("MinimumSize", typeof(Size2DSelector), typeof(ViewAttributes), default(Size2DSelector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MinimumSizeProperty = BindableProperty.Create("MinimumSize", typeof(Size2D), typeof(ViewAttributes), default(Size2D), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.minimumSize = (Size2DSelector)newValue;
+                attrs.minimumSize = (Size2D)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -125,12 +125,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.minimumSize;
         });
-        public static readonly BindableProperty SizeModeFactorProperty = BindableProperty.Create("SizeModeFactor", typeof(Vector3Selector), typeof(ViewAttributes), default(Vector3Selector), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty SizeModeFactorProperty = BindableProperty.Create("SizeModeFactor", typeof(Vector3), typeof(ViewAttributes), default(Vector3), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.sizeModeFactor = (Vector3Selector)newValue;
+                attrs.sizeModeFactor = (Vector3)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -152,12 +152,12 @@ namespace Tizen.NUI.Controls
             return attrs.opacity;
         });
 
-        public static readonly BindableProperty PaddingLeftProperty = BindableProperty.Create("PaddingLeft", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PaddingLeftProperty = BindableProperty.Create("PaddingLeft", typeof(int), typeof(ViewAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.paddingLeft = (IntSelector)newValue;
+                attrs.paddingLeft = (int)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -165,12 +165,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.paddingLeft;
         });
-        public static readonly BindableProperty PaddingRightProperty = BindableProperty.Create("PaddingRight", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PaddingRightProperty = BindableProperty.Create("PaddingRight", typeof(int), typeof(ViewAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.paddingRight = (IntSelector)newValue;
+                attrs.paddingRight = (int)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -178,12 +178,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.paddingRight;
         });
-        public static readonly BindableProperty PaddingTopProperty = BindableProperty.Create("PaddingTop", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PaddingTopProperty = BindableProperty.Create("PaddingTop", typeof(int), typeof(ViewAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.paddingTop = (IntSelector)newValue;
+                attrs.paddingTop = (int)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -191,12 +191,12 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.paddingTop;
         });
-        public static readonly BindableProperty PaddingBottomProperty = BindableProperty.Create("PaddingBottom", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty PaddingBottomProperty = BindableProperty.Create("PaddingBottom", typeof(int), typeof(ViewAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ViewAttributes)bindable;
             if (newValue != null)
             {
-                attrs.paddingBottom = (IntSelector)newValue;
+                attrs.paddingBottom = (int)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -204,79 +204,23 @@ namespace Tizen.NUI.Controls
             var attrs = (ViewAttributes)bindable;
             return attrs.paddingBottom;
         });
-        public static readonly BindableProperty MarginLeftProperty = BindableProperty.Create("MarginLeft", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.marginLeft = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            return attrs.marginLeft;
-        });
-        public static readonly BindableProperty MarginRightProperty = BindableProperty.Create("MarginRight", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.marginRight = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            return attrs.marginRight;
-        });
-        public static readonly BindableProperty MarginTopProperty = BindableProperty.Create("MarginTop", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.marginTop = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            return attrs.marginTop;
-        });
-        public static readonly BindableProperty MarginBottomProperty = BindableProperty.Create("MarginBottom", typeof(IntSelector), typeof(ViewAttributes), default(Selector<int?>), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.marginBottom = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ViewAttributes)bindable;
-            return attrs.marginBottom;
-        });
 
-        private Position2DSelector position2D;
-        private Size2DSelector size2D;
+        private Position2D position2D;
+        private Size2D size2D;
         private ColorSelector backgroundColor;
-        private BoolSelector positionUsesPivotPoint;
-        private PositionSelector parentOrigin;
-        private PositionSelector pivotPoint;
-        private ResizePolicyTypeSelector widthResizePolicy;
-        private ResizePolicyTypeSelector heightResizePolicy;
-        private Size2DSelector minimumSize;
-        private Vector3Selector sizeModeFactor;
+        private bool? positionUsesPivotPoint;
+        private Position parentOrigin;
+        private Position pivotPoint;
+        private ResizePolicyType? widthResizePolicy;
+        private ResizePolicyType? heightResizePolicy;
+        private Size2D minimumSize;
+        private Vector3 sizeModeFactor;
         private FloatSelector opacity;
 
-        private IntSelector paddingLeft;
-        private IntSelector paddingRight;
-        private IntSelector paddingTop;
-        private IntSelector paddingBottom;
-        private IntSelector marginLeft;
-        private IntSelector marginRight;
-        private IntSelector marginTop;
-        private IntSelector marginBottom;
+        private int paddingLeft;
+        private int paddingRight;
+        private int paddingTop;
+        private int paddingBottom;
 
         public ViewAttributes() : base() { }
 
@@ -284,12 +228,12 @@ namespace Tizen.NUI.Controls
         {
             if (attributes.position2D != null)
             {
-                position2D = attributes.position2D.Clone() as Position2DSelector;
+                position2D = new Position2D(attributes.position2D.X, attributes.position2D.Y);
             }
 
             if (attributes.size2D != null)
             {
-                size2D = attributes.size2D.Clone() as Size2DSelector;
+                size2D = new Size2D(attributes.size2D.Width, attributes.size2D.Height);
             }
 
             if (attributes.backgroundColor != null)
@@ -299,37 +243,37 @@ namespace Tizen.NUI.Controls
 
             if (attributes.positionUsesPivotPoint != null)
             {
-                positionUsesPivotPoint = attributes.positionUsesPivotPoint.Clone() as BoolSelector;
+                positionUsesPivotPoint = attributes.positionUsesPivotPoint;
             }
 
             if (attributes.parentOrigin != null)
             {
-                parentOrigin = attributes.parentOrigin.Clone() as PositionSelector;
+                parentOrigin = new Position(attributes.parentOrigin.X, attributes.parentOrigin.Y, attributes.parentOrigin.Z);
             }
 
             if (attributes.pivotPoint != null)
             {
-                pivotPoint = attributes.pivotPoint.Clone() as PositionSelector;
+                pivotPoint = new Position(attributes.pivotPoint.X, attributes.pivotPoint.Y, attributes.pivotPoint.Z);
             }
 
             if (attributes.widthResizePolicy != null)
             {
-                widthResizePolicy = attributes.widthResizePolicy.Clone() as ResizePolicyTypeSelector;
+                widthResizePolicy = attributes.widthResizePolicy;
             }
 
             if (attributes.heightResizePolicy != null)
             {
-                heightResizePolicy = attributes.heightResizePolicy.Clone() as ResizePolicyTypeSelector;
+                heightResizePolicy = attributes.heightResizePolicy;
             }
 
             if (attributes.minimumSize != null)
             {
-                minimumSize = attributes.minimumSize.Clone() as Size2DSelector;
+                minimumSize = new Size2D(attributes.minimumSize.Width, attributes.minimumSize.Height);
             }
 
             if (attributes.sizeModeFactor != null)
             {
-                sizeModeFactor = attributes.sizeModeFactor.Clone() as Vector3Selector;
+                sizeModeFactor = new Vector3(attributes.sizeModeFactor.X, attributes.sizeModeFactor.Y, attributes.sizeModeFactor.Z);
             }
 
             if (attributes.opacity != null)
@@ -337,52 +281,17 @@ namespace Tizen.NUI.Controls
                 opacity = attributes.opacity.Clone() as FloatSelector;
             }
 
-            if (attributes.paddingLeft != null)
-            {
-                paddingLeft = attributes.paddingLeft.Clone() as IntSelector;
-            }
-
-            if (attributes.paddingRight != null)
-            {
-                paddingRight = attributes.paddingRight.Clone() as IntSelector;
-            }
-
-            if (attributes.paddingTop != null)
-            {
-                paddingTop = attributes.paddingTop.Clone() as IntSelector;
-            }
-
-            if (attributes.paddingBottom != null)
-            {
-                paddingBottom = attributes.paddingBottom.Clone() as IntSelector;
-            }
-
-            if (attributes.marginLeft != null)
-            {
-                marginLeft = attributes.marginLeft.Clone() as IntSelector;
-            }
-
-            if (attributes.marginRight != null)
-            {
-                marginRight = attributes.marginRight.Clone() as IntSelector;
-            }
-
-            if (attributes.marginTop != null)
-            {
-                marginTop = attributes.marginTop.Clone() as IntSelector;
-            }
-
-            if (attributes.marginBottom != null)
-            {
-                marginBottom = attributes.marginBottom.Clone() as IntSelector;
-            }
+            paddingLeft = attributes.paddingLeft;
+            paddingRight = attributes.paddingRight;
+            paddingTop = attributes.paddingTop;
+            paddingBottom = attributes.paddingBottom;
         }
 
-        public Position2DSelector Position2D
+        public Position2D Position2D
         {
             get
             {
-                return (Position2DSelector)GetValue(Position2DProperty);
+                return (Position2D)GetValue(Position2DProperty);
             }
             set
             {
@@ -390,11 +299,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public Size2DSelector Size2D
+        public Size2D Size2D
         {
             get
             {
-                return (Size2DSelector)GetValue(Size2DProperty);
+                return (Size2D)GetValue(Size2DProperty);
             }
             set
             {
@@ -413,11 +322,11 @@ namespace Tizen.NUI.Controls
                 SetValue(BackgroundColorProperty, value);
             }
         }
-        public BoolSelector PositionUsesPivotPoint
+        public bool? PositionUsesPivotPoint
         {
             get
             {
-                return (BoolSelector)GetValue(PositionUsesPivotPointProperty);
+                return (bool?)GetValue(PositionUsesPivotPointProperty);
             }
             set
             {
@@ -425,11 +334,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public PositionSelector ParentOrigin
+        public Position ParentOrigin
         {
             get
             {
-                return (PositionSelector)GetValue(ParentOriginProperty);
+                return (Position)GetValue(ParentOriginProperty);
             }
             set
             {
@@ -437,11 +346,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public PositionSelector PivotPoint
+        public Position PivotPoint
         {
             get
             {
-                return (PositionSelector)GetValue(PivotPointProperty);
+                return (Position)GetValue(PivotPointProperty);
             }
             set
             {
@@ -449,11 +358,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public ResizePolicyTypeSelector WidthResizePolicy
+        public ResizePolicyType? WidthResizePolicy
         {
             get
             {
-                return (ResizePolicyTypeSelector)GetValue(WidthResizePolicyProperty);
+                return (ResizePolicyType?)GetValue(WidthResizePolicyProperty);
             }
 
             set
@@ -462,11 +371,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public ResizePolicyTypeSelector HeightResizePolicy
+        public ResizePolicyType? HeightResizePolicy
         {
             get
             {
-                return (ResizePolicyTypeSelector)GetValue(HeightResizePolicyProperty);
+                return (ResizePolicyType?)GetValue(HeightResizePolicyProperty);
             }
 
             set
@@ -475,11 +384,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public Size2DSelector MinimumSize
+        public Size2D MinimumSize
         {
             get
             {
-                return (Size2DSelector)GetValue(MinimumSizeProperty);
+                return (Size2D)GetValue(MinimumSizeProperty);
             }
             set
             {
@@ -487,11 +396,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public Vector3Selector SizeModeFactor
+        public Vector3 SizeModeFactor
         {
             get
             {
-                return (Vector3Selector)GetValue(SizeModeFactorProperty);
+                return (Vector3)GetValue(SizeModeFactorProperty);
             }
             set
             {
@@ -511,11 +420,11 @@ namespace Tizen.NUI.Controls
                 SetValue(OpacityProperty, value);
             }
         }
-        public IntSelector PaddingLeft
+        public int PaddingLeft
         {
             get
             {
-                return (IntSelector)GetValue(PaddingLeftProperty);
+                return (int)GetValue(PaddingLeftProperty);
             }
 
             set
@@ -524,11 +433,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector PaddingRight
+        public int PaddingRight
         {
             get
             {
-                return (IntSelector)GetValue(PaddingRightProperty);
+                return (int)GetValue(PaddingRightProperty);
             }
 
             set
@@ -537,11 +446,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector PaddingTop
+        public int PaddingTop
         {
             get
             {
-                return (IntSelector)GetValue(PaddingTopProperty);
+                return (int)GetValue(PaddingTopProperty);
             }
 
             set
@@ -550,68 +459,16 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public IntSelector PaddingBottom
+        public int PaddingBottom
         {
             get
             {
-                return (IntSelector)GetValue(PaddingBottomProperty);
+                return (int)GetValue(PaddingBottomProperty);
             }
 
             set
             {
                 SetValue(PaddingBottomProperty, value);
-            }
-        }
-
-        public IntSelector MarginLeft
-        {
-            get
-            {
-                return (IntSelector)GetValue(MarginLeftProperty);
-            }
-
-            set
-            {
-                SetValue(MarginLeftProperty, value);
-            }
-        }
-
-        public IntSelector MarginRight
-        {
-            get
-            {
-                return (IntSelector)GetValue(MarginRightProperty);
-            }
-
-            set
-            {
-                SetValue(MarginRightProperty, value);
-            }
-        }
-
-        public IntSelector MarginTop
-        {
-            get
-            {
-                return (IntSelector)GetValue(MarginTopProperty);
-            }
-
-            set
-            {
-                SetValue(MarginTopProperty, value);
-            }
-        }
-
-        public IntSelector MarginBottom
-        {
-            get
-            {
-                return (IntSelector)GetValue(MarginBottomProperty);
-            }
-
-            set
-            {
-                SetValue(MarginBottomProperty, value);
             }
         }
 

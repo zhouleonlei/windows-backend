@@ -13,18 +13,6 @@
                         Disabled ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
                         DisabledSelected ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
                         />
-        <PositionSelector x:Key="DAFoodSwitchHandlerParentOrigin"
-                        Normal="TopLeft"
-                        Selected ="TopRight"
-                        Disabled ="TopLeft"
-                        DisabledSelected ="TopRight"
-                        />
-        <PositionSelector x:Key="DAFoodSwitchHandlerPivotPoint"
-                        Normal="TopLeft"
-                        Selected ="TopRight"
-                        Disabled ="TopLeft"
-                        DisabledSelected ="TopRight"
-                        />
     </AttributesContainer.XamlResources>
 
     <SwitchAttributes x:Name="SwitchAttributes" MinimumSize="96, 60"
@@ -35,9 +23,7 @@
         </SwitchAttributes.SwitchBackgroundImageAttributes>
         <SwitchAttributes.SwitchHandlerImageAttributes>
             <ImageAttributes Size2D="60, 60" PositionUsesPivotPoint="true"
-                             ResourceURL ="{StaticResource DAFoodSwitchHandler}"
-                             ParentOrigin ="{StaticResource DAFoodSwitchHandlerParentOrigin}"
-                             PivotPoint ="{StaticResource DAFoodSwitchHandlerPivotPoint}"/>
+                             ResourceURL ="{StaticResource DAFoodSwitchHandler}"/>
         </SwitchAttributes.SwitchHandlerImageAttributes>
     </SwitchAttributes>
 </AttributesContainer>

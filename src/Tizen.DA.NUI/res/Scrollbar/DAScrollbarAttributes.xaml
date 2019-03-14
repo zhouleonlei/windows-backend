@@ -4,6 +4,7 @@
     <ScrollBarAttributes x:Name="ScrollBarAttributes" >
         <ScrollBarAttributes.TrackImageAttributes>
             <ImageAttributes BackgroundColor = "0.43, 0.43, 0.43, 0.1" />
+            
         </ScrollBarAttributes.TrackImageAttributes>
 
         <ScrollBarAttributes.ThumbImageAttributes>

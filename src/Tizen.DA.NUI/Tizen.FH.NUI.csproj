@@ -77,6 +77,7 @@
     <None Remove="res\Button\KitchenServiceButtonAttributes.xaml" />
     <None Remove="res\Button\KitchenToggleButtonAttributes.xaml" />
     <None Remove="res\Button\UtilityBasicButtonAttributes.xaml" />
+    <None Remove="res\Action\HeaderDefaultAttributes.xaml" />
     <None Remove="res\Button\UtilityOvalButtonAttributes.xaml" />
     <None Remove="res\Button\UtilityServiceButtonAttributes.xaml" />
     <None Remove="res\Button\UtilityToggleButtonAttributes.xaml" />
@@ -131,6 +132,7 @@
     <None Remove="res\ListItem\ItemAlignListItemAttributes.xaml" />
     <None Remove="res\ListItem\MultiSubTextListItemAttributes.xaml" />
     <None Remove="res\ListItem\NextDepthListItemAttributes.xaml" />
+    <None Remove="res\Loading\DefaultLoadingAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
     <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
     <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
@@ -210,6 +212,10 @@
     <EmbeddedResource Include="res\Button\UtilityOvalButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="res\Action\HeaderDefaultAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Button\UtilityServiceButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -239,6 +245,54 @@
     <EmbeddedResource Include="res\ListItem\ItemAlignListItemAttributes.xaml" />
     <EmbeddedResource Include="res\ListItem\MultiSubTextListItemAttributes.xaml" />
     <EmbeddedResource Include="res\ListItem\NextDepthListItemAttributes.xaml" />
+    <EmbeddedResource Include="res\Loading\DefaultLoadingAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BackNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackBackNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackEditModeFirstNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackEditModeLastNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteBackNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeFirstNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeLastNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -333,6 +387,54 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="res\Action\HeaderDefaultAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BackNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackBackNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackConditionNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackConditionNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackEditModeFirstNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackEditModeLastNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackEditModeNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\BlackEditModeNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteBackNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteConditionNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteConditionNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteEditModeFirstNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteEditModeLastNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteEditModeNavigationAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Navigation\WhiteEditModeNavigationItemAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="res\Popup\DAPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

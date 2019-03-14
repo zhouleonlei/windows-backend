@@ -802,6 +802,9 @@
     <ClCompile Include="..\..\..\dali-core\dali\devel-api\update\frame-callback-interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\dali-core\dali\devel-api\events\touch-data-devel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

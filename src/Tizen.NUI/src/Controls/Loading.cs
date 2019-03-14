@@ -1,303 +1,226 @@
-﻿//using System;
-//using Tizen.NUI;
-//using Tizen.NUI.BaseComponents;
+﻿using System;
+using System.Collections.Generic;
+using Tizen.NUI;
+using Tizen.NUI.BaseComponents;
 
-//namespace Tizen.NUI.Controls
-//{
-//    /// <summary>
-//    /// The Loading class of tv nui component. It's used to indicate informs users of the ongoing operation.
-//    /// </summary>
-//    /// <code>
-//    /// Loading loading = new Loading("C_Loading_WhiteSmall");
-//    /// </code>
-//    /// <code>
-//    /// Loading.Attributes attr = new Loading.Attributes();
-//    /// attr.FPS = 60;
-//    /// attr.ImageArray = new string[]
-//    /// {
-//    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_00.png",
-//    ///     ...
-//    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_35.png"
-//    /// };
-//    /// Loading loading = new Loading(attr); 
-//    /// </code>
-//    public class Loading : Control
-//    {
-//        protected override Attributes GetAttributes()
-//        {
-//            return null;
-//        }
+namespace Tizen.NUI.Controls
+{
+    /// <summary>
+    /// The Loading class of tv nui component. It's used to indicate informs users of the ongoing operation.
+    /// </summary>
+    /// <code>
+    /// Loading loading = new Loading("C_Loading_WhiteSmall");
+    /// </code>
+    /// <code>
+    /// Loading.Attributes attr = new Loading.Attributes();
+    /// attr.FPS = 60;
+    /// attr.ImageArray = new string[]
+    /// {
+    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_00.png",
+    ///     ...
+    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_35.png"
+    /// };
+    /// Loading loading = new Loading(attr); 
+    /// </code>
+    public class Loading : Control
+    {
+        protected override Attributes GetAttributes()
+        {
+            return null;
+        }
 
-//        public new class aAttributes : Control.Attributes
-//        {
-//            /// <summary>
-//            /// The default constructor of the Loading Attributes class.
-//            /// </summary>
-//            public Attributes()
-//            {
-//            }
+        public List<string> ImageArray = null;
 
-//            /// <summary>
-//            /// Copy Constructor of the Loading Attributes class.
-//            /// </summary>
-//            /// <param name="attrs">Attributes to be copied</param>
-//            public Attributes(Attributes attrs) : base(attrs)
-//            {
-//                if (attrs == null)
-//                {
-//                    return;
-//                }
-//                if (attrs.ImageArray != null)
-//                {
-//                    int length = attrs.ImageArray.Length;
-//                    if (length > 0)
-//                    {
-//                        ImageArray = new string[length];
-//                        for (int i = 0; i < length; i++)
-//                        {
-//                            ImageArray[i] = attrs.ImageArray[i];
-//                        }
-//                    }
-//                }
-//                if (attrs.FPS != null)
-//                {
-//                    FPS = attrs.FPS;
-//                }
-//            }
+        public Loading() : base()
+        {
+            if (loadingAttrs == null)
+            {
+                this.attributes = loadingAttrs = new LoadingAttributes
+                {
+                    LoadingImageURLPrefix = new StringSelector(),
 
-//            /// <summary>
-//            /// The method to clone the Loading Attributes.
-//            /// </summary>
-//            /// <returns>The Loading Attributes.</returns>
-//            public override Control.Attributes Clone()
-//            {
-//                return new Attributes(this);
-//            }
+                };
+            }
+            Initialize();
+        }
 
-//            /// <summary>
-//            /// The image array.
-//            /// </summary>
-//            public string[] ImageArray = null;
+        public Loading(string style) : base(style)
+        {
+            Initialize();
+        }
 
-//            /// <summary>
-//            /// The animation FPS.
-//            /// </summary>
-//            public int? FPS = null;
-//        }
+        public Loading(LoadingAttributes attributes) : base()
+        {
+            this.attributes = loadingAttrs = attributes.Clone() as LoadingAttributes;
+            Initialize();
+        }
 
-//        /// <summary>
-//        /// The static method to create Loading instance.
-//        /// </summary>
-//        /// <returns>The Loading instance.</returns>
-//        static Loading CreateInstance()
-//        {
-//            return new Loading();
-//        }
+        //public void Play()
+        //{
+        //    aniState = AnimationState.Play;
+        //    UpdateAnimationState();
+        //}
 
-//        /// <summary>
-//        /// For register type to View Registry
-//        /// </summary>
-//        static Loading()
-//        {
-//        }
+        //public void Stop()
+        //{
+        //    aniState = AnimationState.Stop;
+        //    UpdateAnimationState();
 
-//        /// <summary>
-//        /// The constructor of Loading
-//        /// </summary>
-//        public Loading() : base()
-//        {
-//            if (loadingAttrs == null)
-//            {
-//                loadingAttrs = new Attributes();
-//            }
-//            Initialize();
-//        }
-//        /// <summary>
-//        /// Constructor of the Loading class with special style.
-//        /// </summary>
-//        /// <param name="style">The string to initialize the Loading.</param>
-//        public Loading(string style) : base(style)
-//        {
-//            if (loadingAttrs == null)
-//            {
-//                loadingAttrs = new Attributes();
-//            }
-//            Initialize();
-//        }
+        //    imageVisual.
+        //}
 
-//        /// <summary>
-//        /// The constructor of the Loading class with specific Attributes.
-//        /// </summary>
-//        /// <param name="attrs">The Attributes object to initialize the Loading.</param>
-//        public Loading(Attributes attrs = null) : base(attrs, "Loading")
-//        {
-//            if (loadingAttrs == null)
-//            {
-//                loadingAttrs = new Attributes();
-//            }
-//            Initialize();
-//        }
+        //public void Pause()
+        //{
+        //    aniState = AnimationState.Pause;
+        //    UpdateAnimationState();
+        //}
 
-//        /// <summary>
-//        /// Function to Play the loading animation.
-//        /// </summary>
-//        public void Play()
-//        {
-//            aniState = AnimationState.Play;
-//            UpdateAnimationState();
-//        }
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
 
-//        /// <summary>
-//        /// Function to Stop the loading animation.
-//        /// </summary>
-//        public void Stop()
-//        {
-//            aniState = AnimationState.Stop;
-//            UpdateAnimationState();
-//        }
+            if (type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+                //frameAni.Stop();
+                //frameAni.Detach();
+                //frameAni = null;
 
-//        /// <summary>
-//        /// Function to Pause the loading animation.
-//        /// </summary>
-//        public void Pause()
-//        {
-//            aniState = AnimationState.Pause;
-//            UpdateAnimationState();
-//        }
+                // According to FrameAnimation spec, image source should be Disposed later than FrameAnimation.
+                RemoveVisual("imageVisual");
 
-//        /// <summary>
-//        /// Dispose Loading.
-//        /// </summary>
-//        /// <param name="type">The DisposeTypes value.</param>
-//        protected override void Dispose(DisposeTypes type)
-//        {
-//            if (disposed)
-//            {
-//                return;
-//            }
+            }
 
-//            if (type == DisposeTypes.Explicit)
-//            {
-//                //Called by User
-//                //Release your own managed resources here.
-//                //You should release all of your own disposable objects here.
-//                frameAni.Stop();
-//                frameAni.Detach();
-//                frameAni = null;
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+            //Unreference this from if a static instance refer to this. 
 
-//                // According to FrameAnimation spec, image source should be Disposed later than FrameAnimation.
-//                Remove(imageView);
-//                imageView.Dispose();
-//                imageView = null;
-//            }
+            //You must call base.Dispose(type) just before exit.
+            base.Dispose(type);
+        }
 
-//            //Release your own unmanaged resources here.
-//            //You should not access any managed member here except static instance.
-//            //because the execution order of Finalizes is non-deterministic.
-//            //Unreference this from if a static instance refer to this. 
+        protected override void OnUpdate(Attributes attrs)
+        {
+            //Console.WriteLine(" ----  OnUpdate");
+            //if (attrs != null)
+            //    loadingAttrs = attrs as LoadingAttributes;
+            //ApplyAttributes(this, loadingAttrs);
+            //UpdateList();
+        }
 
-//            //You must call base.Dispose(type) just before exit.
-//            base.Dispose(type);
-//        }
+        public string LoadingImageURLPrefix
+        {
+            get
+            {
+                return loadingAttrs.LoadingImageURLPrefix.All;
+            }
+            set
+            {
+                loadingAttrs.LoadingImageURLPrefix.All = value;
 
-//        /// <summary>
-//        /// The method to update Attributes.
-//        /// </summary>
-//        /// <param name="attrs">The specified attributes object.</param>
-//        protected override void OnUpdate(Control.Attributes attrs)
-//        {
-//            if (attrs is Attributes pAttrs)
-//            {
-//                UpdateAttributes(pAttrs);
-//                ApplyAttributes();
-//            }
-//        }
+                UpdateList();
 
-//        private void UpdateAttributes(Attributes attrs)
-//        {
-//            if (attrs.FPS != null)
-//            {
-//                loadingAttrs.FPS = attrs.FPS;
-//            }
-//            if (attrs.ImageArray != null)
-//            {
-//                int count = attrs.ImageArray.Length;
-//                if (count > 0)
-//                {
-//                    loadingAttrs.ImageArray = new string[count];
-//                    for (int i = 0; i < count; i++)
-//                    {
-//                        loadingAttrs.ImageArray[i] = attrs.ImageArray[i];
-//                    }
-//                }
-//            }
-//        }
+            }
+        }
 
-//        private void ApplyAttributes()
-//        {
-//            if (loadingAttrs.FPS != null)
-//            {
-//                frameAni.FPS = loadingAttrs.FPS.Value;
-//            }
-//            if (loadingAttrs.ImageArray != null)
-//            {
-//                frameAni.Detach();
-//                frameAni.ImageArray = loadingAttrs.ImageArray;
-//                frameAni.Attach(imageView);
-//            }
-//            UpdateAnimationState();
-//        }
+        public int FPS
+        {
+            get
+            {
+                if (loadingAttrs.FPS == null)
+                {
+                    loadingAttrs.FPS = new IntSelector();
+                    loadingAttrs.FPS.All = (int)(1000.0f / imageVisual.FrameDelay);
+                }
+                return loadingAttrs.FPS.All.Value;
+            }
+            set
+            {
+                if (loadingAttrs.FPS == null)
+                {
+                    loadingAttrs.FPS = new IntSelector();
+                    loadingAttrs.FPS.All = (int) (1000.0f / imageVisual.FrameDelay);
+                }
+                loadingAttrs.FPS.All = value;
+                Console.WriteLine("---------"+ imageVisual.FrameDelay.ToString());
+                imageVisual.FrameDelay = 1000.0f / (float)value;
 
-//        private void UpdateAnimationState()
-//        {
-//            if (frameAni == null)
-//            {
-//                return;
-//            }
+            }
+        }
 
-//            if (aniState == AnimationState.Play)
-//            {
-//                frameAni.Play();
-//            }
-//            else if (aniState == AnimationState.Pause)
-//            {
-//                frameAni.Pause();
-//            }
-//            else if (aniState == AnimationState.Stop)
-//            {
-//                frameAni.Stop();
-//            }
-//        }
+        private void UpdateList()
+        {
 
-//        private void Initialize()
-//        {
-//            imageView = new ImageView
-//            {
-//                WidthResizePolicy = ResizePolicyType.FillToParent,
-//                HeightResizePolicy = ResizePolicyType.FillToParent,
-//                PositionUsesPivotPoint = true,
-//                ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-//                PivotPoint = Tizen.NUI.PivotPoint.Center
-//            };
-//            Add(imageView);
+            if (ImageArray != null)
+            {
+                ImageArray.Clear();
+                Console.WriteLine("!!!!!!!!CLEAR");
+                if (loadingAttrs != null)
+                {
+                    Console.WriteLine("!!!!!!!!!169");
+                    if (loadingAttrs.LoadingImageURLPrefix != null)
+                    {
+                        for (int i = 0; i <= 35; i++)
+                        {
+                            string pre = loadingAttrs.LoadingImageURLPrefix.All;
+                            if (i < 10)
+                            {
 
-//            frameAni = new FrameAnimation
-//            {
-//                Looping = true
-//            };
-//        }
+                                ImageArray.Add(pre + "0" + i.ToString() + ".png");
+                            }
+                            else
+                            {
+                                ImageArray.Add(pre + i.ToString() + ".png");
+                            }
 
-//        internal enum AnimationState
-//        {
-//            None,
-//            Play,
-//            Pause,
-//            Stop
-//        }
+                        }
+                    }
+                }
+                imageVisual.URLS = ImageArray;
+            }
 
-//        private Attributes loadingAttrs = null;     // Loading Attributes
-//        private FrameAnimation frameAni = null;     // FrameAnimation
-//        private ImageView imageView = null;         // ImageView object
-//        private AnimationState aniState = AnimationState.None;  // Animation state
-//    }
-//}
+        }
+
+        private void Initialize()
+        {
+            ImageArray = new List<string>();
+            imageVisual = new AnimatedImageVisual()
+            {
+                URLS = ImageArray,
+                FrameDelay = 16.6f,
+                LoopCount = -1,
+                Size = new Size2D(100, 100),
+                Position = new Vector2(0, 0),
+                Origin = Visual.AlignType.TopEnd,
+                AnchorPoint = Visual.AlignType.TopEnd
+            };
+
+            loadingAttrs = attributes as LoadingAttributes;
+
+            UpdateList();
+
+            this.AddVisual("imageVisual", imageVisual);
+        }
+
+        internal enum AnimationState
+        {
+            None,
+            Play,
+            Pause,
+            Stop
+        }
+
+        private LoadingAttributes loadingAttrs = null;     // Loading Attributes
+        //private FrameAnimation frameAni = null;     // FrameAnimation
+        private ImageView imageView = null;         // ImageView object
+        private AnimatedImageVisual imageVisual = null;
+
+        //private AnimationState aniState = AnimationState.None;  // Animation state
+    }
+}

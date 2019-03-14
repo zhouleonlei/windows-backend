@@ -133,16 +133,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+                return selectButtonAttributes?.CheckImageAttributes?.Size2D ?? new Size2D(0, 0);
             }
             set
             {
                 CreateCheckImageAttributes();
-                if (selectButtonAttributes.CheckImageAttributes.Size2D == null)
-                {
-                    selectButtonAttributes.CheckImageAttributes.Size2D = new Size2DSelector();
-                }
-                selectButtonAttributes.CheckImageAttributes.Size2D.All = value;
+                selectButtonAttributes.CheckImageAttributes.Size2D = value;
                 RelayoutRequest();
             }
         }
@@ -151,16 +147,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+                return selectButtonAttributes?.CheckImageAttributes?.Position2D ?? new Position2D(0, 0);
             }
             set
             {
                 CreateCheckImageAttributes();
-                if (selectButtonAttributes.CheckImageAttributes.Position2D == null)
-                {
-                    selectButtonAttributes.CheckImageAttributes.Position2D = new Position2DSelector();
-                }
-                selectButtonAttributes.CheckImageAttributes.Position2D.All = value;
+                selectButtonAttributes.CheckImageAttributes.Position2D = value;
                 RelayoutRequest();
             }
         }
@@ -242,16 +234,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Size2D ?? new Size2D(0, 0);
             }
             set
             {
                 CreateCheckBackgroundImageAttributes();
-                if (selectButtonAttributes.CheckBackgroundImageAttributes.Size2D == null)
-                {
-                    selectButtonAttributes.CheckBackgroundImageAttributes.Size2D = new Size2DSelector();
-                }
-                selectButtonAttributes.CheckBackgroundImageAttributes.Size2D.All = value;
+                selectButtonAttributes.CheckBackgroundImageAttributes.Size2D = value;
                 RelayoutRequest();
             }
         }
@@ -260,16 +248,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+                return selectButtonAttributes?.CheckBackgroundImageAttributes?.Position2D ?? new Position2D(0, 0);
             }
             set
             {
                 CreateCheckBackgroundImageAttributes();
-                if (selectButtonAttributes.CheckBackgroundImageAttributes.Position2D == null)
-                {
-                    selectButtonAttributes.CheckBackgroundImageAttributes.Position2D = new Position2DSelector();
-                }
-                selectButtonAttributes.CheckBackgroundImageAttributes.Position2D.All = value;
+                selectButtonAttributes.CheckBackgroundImageAttributes.Position2D = value;
                 RelayoutRequest();
             }
         }
@@ -351,16 +335,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckShadowImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Size2D ?? new Size2D(0, 0);
             }
             set
             {
                 CreateCheckShadowImageAttributes();
-                if (selectButtonAttributes.CheckShadowImageAttributes.Size2D == null)
-                {
-                    selectButtonAttributes.CheckShadowImageAttributes.Size2D = new Size2DSelector();
-                }
-                selectButtonAttributes.CheckShadowImageAttributes.Size2D.All = value;
+                selectButtonAttributes.CheckShadowImageAttributes.Size2D = value;
                 RelayoutRequest();
             }
         }
@@ -369,16 +349,11 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return selectButtonAttributes?.CheckShadowImageAttributes?.Position2D?.All ?? new Position2D(0, 0);
+                return selectButtonAttributes?.CheckShadowImageAttributes?.Position2D ?? new Position2D(0, 0);
             }
             set
             {
-                CreateCheckShadowImageAttributes();
-                if (selectButtonAttributes.CheckShadowImageAttributes.Position2D == null)
-                {
-                    selectButtonAttributes.CheckShadowImageAttributes.Position2D = new Position2DSelector();
-                }
-                selectButtonAttributes.CheckShadowImageAttributes.Position2D.All = value;
+                selectButtonAttributes.CheckShadowImageAttributes.Position2D = value;
                 RelayoutRequest();
             }
         }
@@ -530,9 +505,9 @@ namespace Tizen.NUI.Controls
             {
                 selectButtonAttributes.CheckImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint =  Tizen.NUI.PivotPoint.TopLeft,
                 };
             }
         }
@@ -543,9 +518,9 @@ namespace Tizen.NUI.Controls
             {
                 selectButtonAttributes.CheckBackgroundImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 };
             }
         }
@@ -556,9 +531,9 @@ namespace Tizen.NUI.Controls
             {
                 selectButtonAttributes.CheckShadowImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint =  Tizen.NUI.PivotPoint.TopLeft,
                 };
             }
         }

@@ -69,26 +69,14 @@ namespace Tizen.NUI.Samples
                 {
                     All = new Color(0, 0, 0, 0.4f)
                 },
-                HorizontalAlignment = new HorizontalAlignmentSelector
-                {
-                    All = HorizontalAlignment.Begin
-                },
-                VerticalAlignment = new VerticalAlignmentSelector
-                {
-                    All = VerticalAlignment.Center
-                },
-                FontFamily = new StringSelector
-                {
-                    All = "SamsungOne 500"
-                },
+                HorizontalAlignment =  HorizontalAlignment.Begin,
+                VerticalAlignment =  VerticalAlignment.Center,
+                FontFamily = "SamsungOne 500",
                 PointSize = new FloatSelector
                 {
                     All = 38
                 },
-                CursorWidth = new IntSelector
-                {
-                    All = 2
-                },
+                CursorWidth = 2,
             };
 
             inputField = new InputField(inputFieldAttrs);

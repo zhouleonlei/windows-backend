@@ -3,11 +3,13 @@
 
     <ScrollBarAttributes x:Name="ScrollBarAttributes" >
         <ScrollBarAttributes.TrackImageAttributes>
-            <ImageAttributes BackgroundColor = "0.38, 0.38, 0.38, 0.6" />
+            <ImageAttributes BackgroundColor = "0.38, 0.41, 0.43, 0.6" />  <!--  #60696e  0.6-->
+        
+
         </ScrollBarAttributes.TrackImageAttributes>
 
         <ScrollBarAttributes.ThumbImageAttributes>
-            <ImageAttributes BackgroundColor = "0.01, 0.01, 0.01, 1" />
+            <ImageAttributes BackgroundColor = "0.05, 0.05, 0.05, 1.0" /> <!--#0d0d0d -->
         </ScrollBarAttributes.ThumbImageAttributes>
 
     </ScrollBarAttributes>

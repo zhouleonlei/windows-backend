@@ -9,10 +9,10 @@
                         Selected ="*DemoRes*/images/FH3/3. Button/rectangle_point_btn_normal.png"
                         />
 
-        <FloatSelector x:Key="DAOverlayOpacity"
-                        Normal="0"
-                        Pressed ="1"
-                        />
+        <StringSelector x:Key="DAOverlayImage"
+                    Normal =""
+                    Pressed ="*DemoRes*/images/FH3/3. Button/rectangle_btn_press_overlay.png"
+                    Selected=""/>
         <ColorSelector x:Key="DAUtilityToggleButtonFont" 
                        Normal="#ff0ea1e6"
                        Selected="#ffffffff"
@@ -38,9 +38,8 @@
 
         <ButtonAttributes.OverlayImageAttributes>
             <ImageAttributes 
-                ResourceURL="*DemoRes*/images/FH3/3. Button/rectangle_btn_press_overlay.png" 
+                ResourceURL="{StaticResource DAOverlayImage}" 
                 Border="5, 5, 5, 5"
-                Opacity="{StaticResource DAOverlayOpacity}"
                 />
         </ButtonAttributes.OverlayImageAttributes>
 

@@ -9,9 +9,29 @@ namespace Tizen.FH.NUI.Controls
 {
     public class ProgressCircle : Tizen.NUI.Controls.Progress
     {
-       // private VDProgressCircleAttributes progressBarAttrs = null;
-
+        // private VDProgressCircleAttributes progressBarAttrs = null;
+        private TextLabel textLabel;
+        private bool isTextEnabled;
         public List<string> ImageList = null;
+        public bool IsTextEnabled
+        {
+            get
+            {
+                return isTextEnabled;
+            }
+            set
+            {
+                isTextEnabled = value;
+                if (value == false)
+                {
+                    if (textLabel != null)
+                    {
+                        textLabel.Hide();
+                    }
+                }
+            }
+
+        }
 
         public override string ProgressImageURLPre
         {
@@ -38,6 +58,15 @@ namespace Tizen.FH.NUI.Controls
             loadingObj.HeightResizePolicy = ResizePolicyType.FillToParent;
             bufferObj.WidthResizePolicy = ResizePolicyType.FillToParent;
             bufferObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            textLabel = new TextLabel
+            {
+                WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                HeightResizePolicy = ResizePolicyType.UseNaturalSize,
+                PositionUsesPivotPoint = true,
+                ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                PivotPoint = Tizen.NUI.PivotPoint.Center
+            };
+            Add(textLabel);
         }
         protected override void OnUpdate(Attributes attrs)
         {
@@ -57,8 +86,32 @@ namespace Tizen.FH.NUI.Controls
             UpdateValue();
         }
 
+        protected override void UpdateStates()
+        {
+            if (state == ProgressStatusType.Buffering)
+            {
+                bufferObj.Show();
+                loadingObj.Hide();
+                progressObj.Hide();
+                textLabel.Text = "Buffering";
+            }
+            else if (state == ProgressStatusType.Determinate)
+            {
+                bufferObj.Hide();
+                loadingObj.Hide();
+                progressObj.Show();
+                UpdateValue();
+            }
+            else
+            {
+                bufferObj.Hide();
+                loadingObj.Show();
+                progressObj.Hide();
+                textLabel.Text = "Loading";
+            }
+        }
 
-        public override void UpdateValue()
+        protected override void UpdateValue()
         {
             if (progressObj == null || ImageList == null ||
                 (currentValue == null && currentValue == null) ||
@@ -140,31 +193,21 @@ namespace Tizen.FH.NUI.Controls
             }
             progressObj.ResourceUrl = ImageList[imageIndex]; //SetImage(ImageList[imageIndex]);
 
-            //if (textLabel != null)
-            //{
-            //    bool textEnabled = false;
-            //    if (isTextEnabled != null)
-            //    {
-            //        textEnabled = isTextEnabled.Value;
-            //    }
-            //    else
-            //    {
-            //        if (progressCircleAttrs.StateTextEnable != null)
-            //        {
-            //            textEnabled = progressCircleAttrs.StateTextEnable.Value;
-            //        }
-            //    }
+            if (textLabel != null)
+            {
+                if (isTextEnabled)
+                {
+                    Console.WriteLine("text label change text");
+                    textLabel.Text = rateIndex.ToString();
+                    textLabel.Show();
 
-            //    if (textEnabled)
-            //    {
-            //        textLabel.Text = rateIndex.ToString();
-            //        textLabel.Show();
-            //    }
-            //    else
-            //    {
-            //        textLabel.Hide();
-            //    }
-            //}
+                }
+                else
+                {
+                    textLabel.Hide();
+                }
+            }
+
         }
 
         private void UpdateList()

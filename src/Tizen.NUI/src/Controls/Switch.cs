@@ -5,9 +5,10 @@ namespace Tizen.NUI.Controls
 {
     public class Switch : Button
     {
+        private const int aniTime = 100; // will be defined in const file later
         private ImageView switchBackgroundImage;
         private ImageView switchHandlerImage;
-
+        private Animation handlerAni = null;
         private SwitchAttributes switchAttributes;
 
         public Switch() : base()
@@ -105,27 +106,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return switchAttributes?.SwitchHandlerImageAttributes?.ParentOrigin?.All;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    CreateSwitchHandlerImageAttributes();
-                    if (switchAttributes.SwitchHandlerImageAttributes.ParentOrigin == null)
-                    {
-                        switchAttributes.SwitchHandlerImageAttributes.ParentOrigin = new PositionSelector();
-                    }
-                    switchAttributes.SwitchHandlerImageAttributes.ParentOrigin.All = value;
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public PositionSelector SwitchHandlerParentOriginSelector
-        {
-            get
-            {
                 return switchAttributes?.SwitchHandlerImageAttributes?.ParentOrigin;
             }
             set
@@ -133,34 +113,13 @@ namespace Tizen.NUI.Controls
                 if (value != null)
                 {
                     CreateSwitchHandlerImageAttributes();
-                    switchAttributes.SwitchHandlerImageAttributes.ParentOrigin = value.Clone() as PositionSelector;
+                    switchAttributes.SwitchHandlerImageAttributes.ParentOrigin = value;
                     RelayoutRequest();
                 }
             }
         }
 
         public Position SwitchHandlerPivotPoint
-        {
-            get
-            {
-                return switchAttributes?.SwitchHandlerImageAttributes?.PivotPoint?.All;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    CreateSwitchHandlerImageAttributes();
-                    if (switchAttributes.SwitchHandlerImageAttributes.PivotPoint == null)
-                    {
-                        switchAttributes.SwitchHandlerImageAttributes.PivotPoint = new PositionSelector();
-                    }
-                    switchAttributes.SwitchHandlerImageAttributes.PivotPoint.All = value;
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public PositionSelector SwitchHandlerPivotPointSelector
         {
             get
             {
@@ -171,7 +130,7 @@ namespace Tizen.NUI.Controls
                 if (value != null)
                 {
                     CreateSwitchHandlerImageAttributes();
-                    switchAttributes.SwitchHandlerImageAttributes.PivotPoint = value.Clone() as PositionSelector;
+                    switchAttributes.SwitchHandlerImageAttributes.PivotPoint = value;
                     RelayoutRequest();
                 }
             }
@@ -181,16 +140,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return switchAttributes?.SwitchBackgroundImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+                return switchAttributes?.SwitchBackgroundImageAttributes?.Size2D ?? new Size2D(0, 0);
             }
             set
             {
                 CreateSwitchBackgroundImageAttributes();
-                if (switchAttributes.SwitchBackgroundImageAttributes.Size2D == null)
-                {
-                    switchAttributes.SwitchBackgroundImageAttributes.Size2D = new Size2DSelector();
-                }
-                switchAttributes.SwitchBackgroundImageAttributes.Size2D.All = value;
+                switchAttributes.SwitchBackgroundImageAttributes.Size2D = value;
                 RelayoutRequest();
             }
         }
@@ -199,16 +154,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return switchAttributes?.SwitchHandlerImageAttributes?.Size2D?.All ?? new Size2D(0, 0);
+                return switchAttributes?.SwitchHandlerImageAttributes?.Size2D ?? new Size2D(0, 0);
             }
             set
             {
                 CreateSwitchHandlerImageAttributes();
-                if (switchAttributes.SwitchHandlerImageAttributes.Size2D == null)
-                {
-                    switchAttributes.SwitchHandlerImageAttributes.Size2D = new Size2DSelector();
-                }
-                switchAttributes.SwitchHandlerImageAttributes.Size2D.All = value;
+                switchAttributes.SwitchHandlerImageAttributes.Size2D = value;
                 RelayoutRequest();
             }
         }
@@ -222,6 +173,16 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
+                if (handlerAni != null)
+                {
+                    if (handlerAni.State == Animation.States.Playing)
+                    {
+                        handlerAni.Stop();
+                    }
+                    handlerAni.Dispose();
+                    handlerAni = null;
+                }
+
                 if (switchHandlerImage != null)
                 {
                     switchBackgroundImage.Remove(switchHandlerImage);
@@ -252,7 +213,12 @@ namespace Tizen.NUI.Controls
             {
                 if (switchBackgroundImage == null)
                 {
-                    switchBackgroundImage = new ImageView();
+                    switchBackgroundImage = new ImageView()
+                    {
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        PositionUsesPivotPoint = true,
+                    };
                     switchBackgroundImage.Name = "SwitchBackgroundImage";
                     Add(switchBackgroundImage);
                 }
@@ -262,7 +228,12 @@ namespace Tizen.NUI.Controls
                 {
                     if (switchHandlerImage == null)
                     {
-                        switchHandlerImage = new ImageView();
+                        switchHandlerImage = new ImageView()
+                        {
+                            ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                            PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                            PositionUsesPivotPoint = true,
+                        };
                         switchHandlerImage.Name = "SwitchHandlerImage";
                         switchBackgroundImage.Add(switchHandlerImage);
                     }
@@ -322,7 +293,7 @@ namespace Tizen.NUI.Controls
             }
 
             switchAttributes.IsSelectable = true;
-
+            CreateHandlerAnimation();
         }
 
         private void CreateSwitchBackgroundImageAttributes()
@@ -331,9 +302,9 @@ namespace Tizen.NUI.Controls
             {
                 switchAttributes.SwitchBackgroundImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 };
             }
         }
@@ -344,13 +315,37 @@ namespace Tizen.NUI.Controls
             {
                 switchAttributes.SwitchHandlerImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
+                    PositionUsesPivotPoint = true,
                 };
+            }
+        }
+
+        private void CreateHandlerAnimation()
+        {
+            if (handlerAni == null)
+            {
+                handlerAni = new Animation(aniTime);
             }
         }
 
         private void OnSelect()
         {
+            if (handlerAni.State == Animation.States.Playing)
+            {
+                handlerAni.Stop();
+            }
+            handlerAni.Clear();
+            if (switchHandlerImage != null)
+            {
+                handlerAni.AnimateTo(switchHandlerImage, "PositionX", Size2D.Width - switchHandlerImage.Size2D.Width - switchHandlerImage.Position2D.X);
+            }
+            if (switchBackgroundImage != null)
+            {
+                switchBackgroundImage.Opacity = 0.5f; ///////need defined by UX
+                handlerAni.AnimateTo(switchBackgroundImage, "Opacity", 1);
+            }
+            handlerAni.Play();
+
             if (SelectedEvent != null)
             {
                 SelectEventArgs eventArgs = new SelectEventArgs();

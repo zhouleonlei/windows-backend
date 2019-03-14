@@ -63,20 +63,6 @@ namespace Tizen.NUI.Samples
                 utilitySwitch[i].Position2D = new Position2D(300, 300 + i * 100);
                 utilitySwitch[i].SwitchBackgroundImageSize2D = new Size2D(96, 60);
                 utilitySwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
-                utilitySwitch[i].SwitchHandlerParentOriginSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                    Selected = Tizen.NUI.ParentOrigin.TopRight,
-                    Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                    DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                };
-                utilitySwitch[i].SwitchHandlerPivotPointSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.PivotPoint.TopLeft,
-                    Selected = Tizen.NUI.PivotPoint.TopRight,
-                    Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                    DisabledSelected = Tizen.NUI.PivotPoint.TopRight
-                };
                 utilitySwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -98,20 +84,6 @@ namespace Tizen.NUI.Samples
                 familySwitch[i].Position2D = new Position2D(500, 300 + i * 100);
                 familySwitch[i].SwitchBackgroundImageSize2D = new Size2D(96, 60);
                 familySwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
-                familySwitch[i].SwitchHandlerParentOriginSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                    Selected = Tizen.NUI.ParentOrigin.TopRight,
-                    Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                    DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                };
-                familySwitch[i].SwitchHandlerPivotPointSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.PivotPoint.TopLeft,
-                    Selected = Tizen.NUI.PivotPoint.TopRight,
-                    Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                    DisabledSelected = Tizen.NUI.PivotPoint.TopRight
-                };
                 familySwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -132,20 +104,6 @@ namespace Tizen.NUI.Samples
                 foodSwitch[i].Position2D = new Position2D(700, 300 + i * 100);
                 foodSwitch[i].SwitchBackgroundImageSize2D = new Size2D(96, 60);
                 foodSwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
-                foodSwitch[i].SwitchHandlerParentOriginSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                    Selected = Tizen.NUI.ParentOrigin.TopRight,
-                    Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                    DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                };
-                foodSwitch[i].SwitchHandlerPivotPointSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.PivotPoint.TopLeft,
-                    Selected = Tizen.NUI.PivotPoint.TopRight,
-                    Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                    DisabledSelected = Tizen.NUI.PivotPoint.TopRight
-                };
                 foodSwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -167,20 +125,6 @@ namespace Tizen.NUI.Samples
                 kitchenSwitch[i].Position2D = new Position2D(900, 300 + i * 100);
                 kitchenSwitch[i].SwitchBackgroundImageSize2D = new Size2D(96, 60);
                 kitchenSwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
-                kitchenSwitch[i].SwitchHandlerParentOriginSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                    Selected = Tizen.NUI.ParentOrigin.TopRight,
-                    Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                    DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                };
-                kitchenSwitch[i].SwitchHandlerPivotPointSelector = new PositionSelector
-                {
-                    Normal = Tizen.NUI.PivotPoint.TopLeft,
-                    Selected = Tizen.NUI.PivotPoint.TopRight,
-                    Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                    DisabledSelected = Tizen.NUI.PivotPoint.TopRight
-                };
                 kitchenSwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -223,7 +167,7 @@ namespace Tizen.NUI.Samples
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(96, 60) },
+                    Size2D = new Size2D(96, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -231,34 +175,16 @@ namespace Tizen.NUI.Samples
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_on_dim.png",
                     },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(60, 60) },
+                    Size2D = new Size2D(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
-                    },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                        Selected = Tizen.NUI.ParentOrigin.TopRight,
-                        Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                        DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                    },
-                    PivotPoint = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.PivotPoint.TopLeft,
-                        Selected = Tizen.NUI.PivotPoint.TopRight,
-                        Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                        DisabledSelected = Tizen.NUI.PivotPoint.TopRight
                     },
                 },
             };         
@@ -267,7 +193,7 @@ namespace Tizen.NUI.Samples
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(96, 60) },
+                    Size2D = new Size2D(96, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -275,34 +201,16 @@ namespace Tizen.NUI.Samples
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_switch_bg_on_dim_24c447.png",
                     },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(60, 60) },
+                    Size2D = new Size2D(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
-                    },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                        Selected = Tizen.NUI.ParentOrigin.TopRight,
-                        Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                        DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                    },
-                    PivotPoint = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.PivotPoint.TopLeft,
-                        Selected = Tizen.NUI.PivotPoint.TopRight,
-                        Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                        DisabledSelected = Tizen.NUI.PivotPoint.TopRight
                     },
                 },
             };
@@ -311,7 +219,7 @@ namespace Tizen.NUI.Samples
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(96, 60) },
+                    Size2D = new Size2D(96, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -319,34 +227,16 @@ namespace Tizen.NUI.Samples
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_switch_bg_on_dim_ec7510.png",
                     },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(60, 60) },
+                    Size2D = new Size2D(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
-                    },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                        Selected = Tizen.NUI.ParentOrigin.TopRight,
-                        Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                        DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                    },
-                    PivotPoint = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.PivotPoint.TopLeft,
-                        Selected = Tizen.NUI.PivotPoint.TopRight,
-                        Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                        DisabledSelected = Tizen.NUI.PivotPoint.TopRight
                     },
                 },
             };
@@ -355,7 +245,7 @@ namespace Tizen.NUI.Samples
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(96, 60) },
+                    Size2D =  new Size2D(96, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -363,34 +253,16 @@ namespace Tizen.NUI.Samples
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_bg_off_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_switch_bg_on_dim_9762d9.png",
                     },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(60, 60) },
+                    Size2D =  new Size2D(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
                         Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
                         DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_switch_handler_dim.png",
-                    },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.ParentOrigin.TopLeft,
-                        Selected = Tizen.NUI.ParentOrigin.TopRight,
-                        Disabled = Tizen.NUI.ParentOrigin.TopLeft,
-                        DisabledSelected = Tizen.NUI.ParentOrigin.TopRight
-                    },
-                    PivotPoint = new PositionSelector
-                    {
-                        Normal = Tizen.NUI.PivotPoint.TopLeft,
-                        Selected = Tizen.NUI.PivotPoint.TopRight,
-                        Disabled = Tizen.NUI.PivotPoint.TopLeft,
-                        DisabledSelected = Tizen.NUI.PivotPoint.TopRight
                     },
                 },               
             };

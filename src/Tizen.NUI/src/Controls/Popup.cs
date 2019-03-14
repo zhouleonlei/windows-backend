@@ -211,16 +211,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.TitleTextAttributes?.FontFamily?.All;
+                return popupAttributes?.TitleTextAttributes?.FontFamily;
             }
             set
             {
                 CreateTitleTextAttributes();
-                if (popupAttributes.TitleTextAttributes.FontFamily == null)
-                {
-                    popupAttributes.TitleTextAttributes.FontFamily = new StringSelector();
-                }
-                popupAttributes.TitleTextAttributes.FontFamily.All = value;
+                popupAttributes.TitleTextAttributes.FontFamily = value;
                 RelayoutRequest();
             }
         }
@@ -247,16 +243,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.TitleTextAttributes?.HorizontalAlignment?.All ?? HorizontalAlignment.Center;
+                return popupAttributes?.TitleTextAttributes?.HorizontalAlignment ?? HorizontalAlignment.Center;
             }
             set
             {
                 CreateTitleTextAttributes();
-                if (popupAttributes.TitleTextAttributes.HorizontalAlignment == null)
-                {
-                    popupAttributes.TitleTextAttributes.HorizontalAlignment = new HorizontalAlignmentSelector();
-                }
-                popupAttributes.TitleTextAttributes.HorizontalAlignment.All = value;
+                popupAttributes.TitleTextAttributes.HorizontalAlignment = value;
                 RelayoutRequest();
             }
         }
@@ -265,16 +257,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.TitleTextAttributes?.Position2D?.All ?? new Position2D(0, 0);
+                return popupAttributes?.TitleTextAttributes?.Position2D ?? new Position2D(0, 0);
             }
             set
             {
                 CreateTitleTextAttributes();
-                if (popupAttributes.TitleTextAttributes.Position2D == null)
-                {
-                    popupAttributes.TitleTextAttributes.Position2D = new Position2DSelector();
-                }
-                popupAttributes.TitleTextAttributes.Position2D.All = value;
+                popupAttributes.TitleTextAttributes.Position2D = value;
                 RelayoutRequest();
             }
         }
@@ -283,16 +271,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.TitleTextAttributes?.Size2D?.All.Height ?? 0;
+                return popupAttributes?.TitleTextAttributes?.Size2D?.Height ?? 0;
             }
             set
             {
                 CreateTitleTextAttributes();
-                if (popupAttributes.TitleTextAttributes.Size2D == null)
-                {
-                    popupAttributes.TitleTextAttributes.Size2D = new Size2DSelector();
-                }
-                popupAttributes.TitleTextAttributes.Size2D.All.Height = value;
+                popupAttributes.TitleTextAttributes.Size2D.Height = value;
                 RelayoutRequest();
             }
         }
@@ -321,16 +305,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.ButtonAttributes?.Size2D?.All.Height ?? 0;
+                return popupAttributes?.ButtonAttributes?.Size2D?.Height ?? 0;
             }
             set
             {
                 CreateButtonAttributes();
-                if (popupAttributes.ButtonAttributes.Size2D == null)
-                {
-                    popupAttributes.ButtonAttributes.Size2D = new Size2DSelector();
-                }
-                popupAttributes.ButtonAttributes.Size2D.All.Height = value;
+                popupAttributes.ButtonAttributes.Size2D.Height = value;
                 RelayoutRequest();
             }
         }
@@ -357,16 +337,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.ButtonAttributes?.TextAttributes?.FontFamily?.All;
+                return popupAttributes?.ButtonAttributes?.TextAttributes?.FontFamily;
             }
             set
             {
                 CreateButtonAttributes();
-                if (popupAttributes.ButtonAttributes.TextAttributes.FontFamily == null)
-                {
-                    popupAttributes.ButtonAttributes.TextAttributes.FontFamily = new StringSelector();
-                }
-                popupAttributes.ButtonAttributes.TextAttributes.FontFamily.All = value;
+                popupAttributes.ButtonAttributes.TextAttributes.FontFamily = value;
                 RelayoutRequest();
             }
         }
@@ -410,16 +386,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return popupAttributes?.ButtonAttributes?.TextAttributes?.HorizontalAlignment?.All ?? HorizontalAlignment.Center;
+                return popupAttributes?.ButtonAttributes?.TextAttributes?.HorizontalAlignment ?? HorizontalAlignment.Center;
             }
             set
             {
                 CreateButtonAttributes();
-                if (popupAttributes.ButtonAttributes.TextAttributes.HorizontalAlignment == null)
-                {
-                    popupAttributes.ButtonAttributes.TextAttributes.HorizontalAlignment = new HorizontalAlignmentSelector();
-                }
-                popupAttributes.ButtonAttributes.TextAttributes.HorizontalAlignment.All = value;
+                popupAttributes.ButtonAttributes.TextAttributes.HorizontalAlignment = value;
                 RelayoutRequest();
             }
         }
@@ -622,17 +594,17 @@ namespace Tizen.NUI.Controls
             {
                 if (popupAttributes.TitleTextAttributes.Position2D != null)
                 {
-                    titleX = popupAttributes.TitleTextAttributes.Position2D.All.X;
-                    titleY = popupAttributes.TitleTextAttributes.Position2D.All.Y;
+                    titleX = popupAttributes.TitleTextAttributes.Position2D.X;
+                    titleY = popupAttributes.TitleTextAttributes.Position2D.Y;
                 }
                 if (popupAttributes.TitleTextAttributes.Size2D != null)
                 {
-                    titleH = popupAttributes.TitleTextAttributes.Size2D.All.Height;
+                    titleH = popupAttributes.TitleTextAttributes.Size2D.Height;
                 }
             }
             if (popupAttributes.ButtonAttributes != null && popupAttributes.ButtonAttributes.Size2D != null)
             {
-                buttonH = popupAttributes.ButtonAttributes.Size2D.All.Height;
+                buttonH = popupAttributes.ButtonAttributes.Size2D.Height;
             }
             contentView.Size2D = new Size2D(Size2D.Width - titleX * 2, Size2D.Height - titleY - titleH - buttonH);
             contentView.Position2D = new Position2D(titleX, titleY + titleH);
@@ -659,9 +631,9 @@ namespace Tizen.NUI.Controls
             {
                 popupAttributes.ShadowImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
                 };
             }
         }
@@ -672,11 +644,11 @@ namespace Tizen.NUI.Controls
             {
                 popupAttributes.BackgroundImageAttributes = new ImageAttributes()
                 {
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                    WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                    HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent }
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center, 
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent
                 };
             }
         }
@@ -687,12 +659,12 @@ namespace Tizen.NUI.Controls
             {
                 popupAttributes.TitleTextAttributes = new TextAttributes()
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(0, 0) },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.TopLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.TopLeft },
-                    HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Begin },
-                    VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Bottom }
+                    Size2D =  new Size2D(0, 0),
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    HorizontalAlignment = HorizontalAlignment.Begin,
+                    VerticalAlignment = VerticalAlignment.Bottom
                 };
             }
         }
@@ -703,34 +675,34 @@ namespace Tizen.NUI.Controls
             {
                 popupAttributes.ButtonAttributes = new ButtonAttributes()
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(0, 0) },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.BottomLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.BottomLeft },
+                    Size2D =  new Size2D(0, 0),
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin =  Tizen.NUI.ParentOrigin.BottomLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
                     TextAttributes = new TextAttributes
                     {
-                        PositionUsesPivotPoint = new BoolSelector { All = true },
-                        ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                        PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                        HorizontalAlignment = new HorizontalAlignmentSelector { All = HorizontalAlignment.Center },
-                        VerticalAlignment = new VerticalAlignmentSelector { All = VerticalAlignment.Center }
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                        PivotPoint = Tizen.NUI.PivotPoint.Center,
+                        HorizontalAlignment =  HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
                     },
                     BackgroundImageAttributes = new ImageAttributes
                     {
-                        PositionUsesPivotPoint = new BoolSelector { All = true },
-                        ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                        PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                        WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                        HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin =  Tizen.NUI.ParentOrigin.Center,
+                        PivotPoint = Tizen.NUI.PivotPoint.Center,
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
                         Border = new RectangleSelector { All = new Rectangle(0, 0, 0, 0) },
                     },
                     OverlayImageAttributes = new ImageAttributes
                     {
-                        PositionUsesPivotPoint = new BoolSelector { All = true },
-                        ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.Center },
-                        PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.Center },
-                        WidthResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
-                        HeightResizePolicy = new ResizePolicyTypeSelector { All = ResizePolicyType.FillToParent },
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                        PivotPoint = Tizen.NUI.PivotPoint.Center,
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
                         Border = new RectangleSelector { All = new Rectangle(0, 0, 0, 0) },
                     },
                 };
@@ -771,7 +743,7 @@ namespace Tizen.NUI.Controls
                 return;
             }
             int buttonWidth = Size2D.Width / count;
-            int buttonHeight = popupAttributes.ButtonAttributes.Size2D.All.Height;
+            int buttonHeight = popupAttributes.ButtonAttributes.Size2D.Height;
             int pos = 0;
             buttonList = new List<Button>();
             for (int i = 0; i < count; i++)
@@ -787,7 +759,7 @@ namespace Tizen.NUI.Controls
                 }
                 else
                 {
-                    popupAttributes.ButtonAttributes.Size2D.All.Width = buttonWidth;
+                    popupAttributes.ButtonAttributes.Size2D.Width = buttonWidth;
                     btn = new Button(popupAttributes.ButtonAttributes);
                 }
                 btn.Position2D = new Position2D(pos, 0);

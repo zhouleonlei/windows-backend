@@ -33,7 +33,6 @@ namespace Tizen.NUI.BaseComponents
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ResourceUrlProperty = BindableProperty.Create(nameof(ImageView.ResourceUrl), typeof(string), typeof(ImageView), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
         {
-            _nativeImagePropertySetFlag = false;
             var imageView = (ImageView)bindable;
             imageView._url = (string)newValue;
 
@@ -52,7 +51,7 @@ namespace Tizen.NUI.BaseComponents
             var imageView = (ImageView)bindable;
             if(imageView._url != null)
             {
-                if (!_nativeImagePropertySetFlag)
+                if(_imageType == ImageType.Normal)
                 {
                     Tizen.NUI.Object.GetProperty(imageView.swigCPtr, ImageView.Property.IMAGE).Get(out imageView._url);
                 }
@@ -706,7 +705,6 @@ namespace Tizen.NUI.BaseComponents
             Failed
         }
 
-
         private void UpdateImage()
         {
             if (_url != null && _url != "")
@@ -721,10 +719,8 @@ namespace Tizen.NUI.BaseComponents
                     if (_synchronousLoading != null) { _nPatchMap.Add(NpatchImageVisualProperty.SynchronousLoading, new PropertyValue((bool)_synchronousLoading)); }
                     if (_orientationCorrection != null) { _nPatchMap.Add(ImageVisualProperty.OrientationCorrection, new PropertyValue((bool)_orientationCorrection)); }
 
-                    string url = _url;
                     SetProperty(ImageView.Property.IMAGE, new PropertyValue(_nPatchMap));
-                    _url = url;
-                    _nativeImagePropertySetFlag = true;
+                    _imageType = ImageType.Npatch;
                 }
                 else if (_synchronousLoading != null || _orientationCorrection != null)
                 { // for normal image, with synchronous loading property
@@ -734,15 +730,18 @@ namespace Tizen.NUI.BaseComponents
                     if (_synchronousLoading != null) { imageMap.Add(ImageVisualProperty.SynchronousLoading, new PropertyValue((bool)_synchronousLoading)); }
                     if (_orientationCorrection != null) { imageMap.Add(ImageVisualProperty.OrientationCorrection, new PropertyValue((bool)_orientationCorrection)); }
                     SetProperty(ImageView.Property.IMAGE, new PropertyValue(imageMap));
+                    _imageType = ImageType.Specific;
                 }
                 else
                 { // just for normal image
                     SetProperty(ImageView.Property.IMAGE, new PropertyValue(_url));
+                    _imageType = ImageType.Normal;
                 }
             }
             else
             {
                 SetProperty(ImageView.Property.IMAGE, new PropertyValue(""));
+                _imageType = ImageType.Normal;
             }
         }
 
@@ -752,7 +751,7 @@ namespace Tizen.NUI.BaseComponents
         private bool? _borderOnly = null;
         private string _url = null;
         private bool? _orientationCorrection = null;
-        private static bool _nativeImagePropertySetFlag = false;
+        private static ImageType _imageType = ImageType.Normal;
 
 
         internal class ResourceLoadedEventArgs : EventArgs
@@ -815,6 +814,23 @@ namespace Tizen.NUI.BaseComponents
             return (ResourceLoadingStatusType)NDalicManualPINVOKE.View_GetVisualResourceStatus(this.swigCPtr, Property.IMAGE);
         }
 
+        private enum ImageType
+        {
+            /// <summary>
+            /// For Normal Image.
+            /// </summary>
+            Normal = 0,
+
+            /// <summary>
+            /// For normal image, with synchronous loading and orientation correction property
+            /// </summary>
+            Specific = 1,
+
+            /// <summary>
+            /// For nine-patch image
+            /// </summary>
+            Npatch = 2,
+        }
 
     }
 

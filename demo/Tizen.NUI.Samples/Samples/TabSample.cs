@@ -49,14 +49,15 @@ namespace Tizen.NUI.Samples
             root.Add(createText[0]);
 
             tab = new Tab();
-            tab.Size2D = new Size2D(500, 108);
+            tab.Size2D = new Size2D(700, 108);
             tab.Position2D = new Position2D(100, 300);
             tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            tab.IsNatureTextWidth = false;
-            tab.PaddingLeft = 56;
-            tab.PaddingRight = 56;
-            tab.PaddingTop = 1;
-            tab.PaddingBottom = 0;
+            tab.IsNatureTextWidth = true;
+            tab.ItemGap = 40;
+            tab.LeftSpace = 56;
+            tab.RightSpace = 56;
+            tab.TopSpace = 1;
+            tab.BottomSpace = 0;
             tab.UnderLineSize2D = new Size2D(1, 3);
             tab.UnderLineBackgroundColor = color[0];
             tab.PointSize = 25;
@@ -72,6 +73,10 @@ namespace Tizen.NUI.Samples
             {
                 Tab.TabItem item = new Tab.TabItem();
                 item.Text = "Tab " + i;
+                if(i==1)
+                {
+                    item.Text = "Long Tab " + i;
+                }
                 tab.AddItem(item);
             }
             tab.SelectedItemIndex = 0;
@@ -87,17 +92,14 @@ namespace Tizen.NUI.Samples
             TabAttributes attrs = new TabAttributes
             {
                 IsNatureTextWidth = false,
-                PaddingLeft = new IntSelector { All = 56 },
-                PaddingRight = new IntSelector { All = 56 },
-                PaddingTop = new IntSelector { All = 1 },
-                PaddingBottom = new IntSelector { All = 0 },
+                Space = new Vector4(56, 56, 1, 0),
                 UnderLineAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2DSelector { All = new Size2D(1, 3) },
-                    PositionUsesPivotPoint = new BoolSelector { All = true },
-                    ParentOrigin = new PositionSelector { All = Tizen.NUI.ParentOrigin.BottomLeft },
-                    PivotPoint = new PositionSelector { All = Tizen.NUI.PivotPoint.BottomLeft },
-                    BackgroundColor = new ColorSelector { All = color[0] },
+                    Size2D = new Size2D(1, 3),
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
+                    BackgroundColor = new ColorSelector { All = color[0]},
                 },
                 TextAttributes = new TextAttributes
                 {

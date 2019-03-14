@@ -114,7 +114,7 @@ namespace Tizen.NUI.Controls
             return attrs.duration;
         });
 
-        private ScrollBar.DirectionType? direction;
+        private ScrollBar.DirectionType? direction= ScrollBar.DirectionType.Horizontal;
         private Size thumbSize;
         private uint? maxValue;
         private uint? minValue;
@@ -134,8 +134,7 @@ namespace Tizen.NUI.Controls
             {
 
             };
-
-            
+         
         }
 
         public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)

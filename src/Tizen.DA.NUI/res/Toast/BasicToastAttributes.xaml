@@ -12,17 +12,8 @@
                 Opacity="1"
                 Border="64,64,4,4"/>
         </ToastAttributes.BackgroundImageAttributes>
-        <ToastAttributes.IconAttributes>
-            <ImageAttributes 
-                ResourceURL="*DemoRes*/images/FH3/9. Controller/Loading Sequence_Native/loading_05.png"
-                Position2D="30,0"
-                Size2D="60,60" 
-                ParentOrigin="CenterLeft" 
-                PivotPoint="CenterLeft" 
-                PositionUsesPivotPoint="True"
-                Opacity="1"
-                Border="5,5,4,4"/>
-        </ToastAttributes.IconAttributes>
+               
+            
         <ToastAttributes.TextAttributes>
             <TextAttributes 
                 HorizontalAlignment="Center" 

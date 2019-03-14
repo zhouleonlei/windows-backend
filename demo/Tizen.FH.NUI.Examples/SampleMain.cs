@@ -20,7 +20,7 @@ namespace Tizen.FH.NUI.Samples
         }
         public static string GetFHResourcePath()
         {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/FH3/";
+            return @"../../../demo/csharp-demo/res/images/FH3/";
         }
         public static string GetTVResourcePath()
         {
@@ -102,7 +102,7 @@ namespace Tizen.FH.NUI.Samples
             if (sampleStack.Count() == 1)
             {
                 Exit();
-                //System.Environment.Exit(0);
+                Environment.Exit(0);
                 return;
             }
 
