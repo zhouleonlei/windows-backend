@@ -18,10 +18,9 @@
             <TextAttributes 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
-                Position2D="0,0"
-                Size2D="352,56"
-                ParentOrigin="Center"
-                PivotPoint="Center"
+               BackgroundColor="#45612358"
+                Position2D="96,38"
+                PivotPoint="TopLeft"
                 PositionUsesPivotPoint="True"
                 PointSize="20"
                 TextColor="Black"/>

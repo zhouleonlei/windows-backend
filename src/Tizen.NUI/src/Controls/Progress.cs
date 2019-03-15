@@ -345,6 +345,11 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The Attributes object to initialize the ProgressBar.</param>
         public Progress(string style) : base(style)
         {
+            if (attributes != null)
+            {
+                progressBarAttrs = attributes as ProgressBarAttributes;
+            }
+            Console.WriteLine("Progress (SR ) style cons");
             Initialize();
         }
 

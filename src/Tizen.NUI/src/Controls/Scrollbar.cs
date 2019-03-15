@@ -109,6 +109,8 @@ namespace Tizen.NUI.Controls
         //    Initialize();
         //}
 
+        #region public property
+
         /// <summary>
         /// The property to get/set the direction of the ScrollBar.
         /// </summary>
@@ -300,6 +302,7 @@ namespace Tizen.NUI.Controls
                 //}
             }
         }
+        #endregion
 
         /// <summary>
         /// Method to set current value. The thumb object would move to the corresponding position with animation or not.

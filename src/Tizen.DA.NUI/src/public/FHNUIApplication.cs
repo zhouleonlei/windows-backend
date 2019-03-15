@@ -234,8 +234,10 @@ namespace Tizen.FH.NUI
 
             Tizen.FH.NUI.Controls.SearchBar.RegisterStyle("DefaultSearchBar", typeof(DefaultSearchBarAttributes));
 
-            Tizen.FH.NUI.Controls.Toast.RegisterStyle("BasicToast", typeof(BasicToastAttributes));
-			ListItem.RegisterStyle("DefaultListItem", typeof(DefaultListItemAttributes));
+            Tizen.FH.NUI.Controls.Toast.RegisterStyle("BasicShortToast", typeof(BasicShortToastAttributes));
+            Tizen.FH.NUI.Controls.Toast.RegisterStyle("BasicLongToast", typeof(BasicLongToastAttributes));
+
+            ListItem.RegisterStyle("DefaultListItem", typeof(DefaultListItemAttributes));
             ListItem.RegisterStyle("MultiSubTextListItem", typeof(MultiSubTextListItemAttributes));
             ListItem.RegisterStyle("EffectListItem", typeof(EffectListItemAttributes));
             ListItem.RegisterStyle("ItemAlignListItem", typeof(ItemAlignListItemAttributes));

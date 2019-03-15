@@ -46,6 +46,8 @@ namespace Tizen.NUI.Controls
 
         public Loading(string style) : base(style)
         {
+            if (attributes != null)
+                loadingAttrs = attributes as LoadingAttributes;
             Initialize();
         }
 
@@ -200,8 +202,6 @@ namespace Tizen.NUI.Controls
                 Origin = Visual.AlignType.TopEnd,
                 AnchorPoint = Visual.AlignType.TopEnd
             };
-
-            loadingAttrs = attributes as LoadingAttributes;
 
             UpdateList();
 

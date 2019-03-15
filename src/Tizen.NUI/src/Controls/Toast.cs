@@ -6,7 +6,7 @@ namespace Tizen.NUI.Controls
 {
     public class Toast : Control
     {
-        private ImageView toastBackground;
+        protected ImageView toastBackground;
         protected TextLabel toastText;
 
         protected ToastAttributes toastAttributes;
@@ -29,8 +29,8 @@ namespace Tizen.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.Center,
                     PositionUsesPivotPoint = true,
                     Position2D = "0,0",
-                }
-                ,
+                },
+
                 BackgroundImageAttributes = new ImageAttributes
                 {
                     Border = new RectangleSelector()
@@ -53,6 +53,14 @@ namespace Tizen.NUI.Controls
 
         public Toast(string style) : base(style)
         {
+            Console.WriteLine();
+            Console.WriteLine("Toast ( SR ) style constr");
+            if (attributes != null)
+                toastAttributes = attributes as ToastAttributes;
+            if (toastAttributes == null)
+            {
+                throw new Exception("Toast attribute parse error.");
+            }
             Initialize();
         }
 
@@ -64,11 +72,7 @@ namespace Tizen.NUI.Controls
             }
             set
             {
-                if (toastText != null)
-                {
-                    Console.WriteLine("text != null");
-                    toastText.Text = value;
-                }
+                toastText.Text = value;
             }
 
         }
@@ -253,6 +257,7 @@ namespace Tizen.NUI.Controls
 
         protected override void OnUpdate(Attributes attributes)
         {
+            Console.WriteLine("Toast SR OnUpdate");
             toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
             {
@@ -268,7 +273,8 @@ namespace Tizen.NUI.Controls
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
 
-            base.OnUpdate(attributes);
+            //base.OnUpdate(attributes);
+            Console.WriteLine("Toast SR OnUpdate done");
         }
 
         protected override void OnRelayout(object sender, EventArgs e)
@@ -278,27 +284,19 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            toastAttributes = attributes as ToastAttributes;
-            if(toastAttributes == null)
+            Console.WriteLine("Toast (SR) Initiali");
+            toastBackground = new ImageView()
             {
-                throw new Exception("Toast attribute parse error.");
-            }
+                WidthResizePolicy = ResizePolicyType.FillToParent,
+                HeightResizePolicy = ResizePolicyType.FillToParent,
+            };
+            this.Add(toastBackground);
 
-            if(toastAttributes.BackgroundImageAttributes != null)
+            toastText = new TextLabel()
             {
-                toastBackground = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent,
-                };
-                this.Add(toastBackground);
-            }
+            };
+            this.Add(toastText);
 
-            if(toastAttributes.TextAttributes != null)
-            {
-                toastText = new TextLabel();
-                this.Add(toastText);
-            }
         }
 
         public string BackgroundImageURL
@@ -316,8 +314,6 @@ namespace Tizen.NUI.Controls
                 toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
             }
         }
-
-
 
         protected override Attributes GetAttributes()
         {

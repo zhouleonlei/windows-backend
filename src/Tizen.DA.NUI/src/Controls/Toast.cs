@@ -13,10 +13,18 @@ namespace Tizen.FH.NUI.Controls
             LONG,
             CUSTOM
         };
-        //private ImageView toastIcon;
+        public enum ToastLinesType
+        {
+            ONE,
+            TWO,
+            THREE
+        };
         private Loading loading;
         private ToastAttributes toastAttributes;
+        private TextLabel toastText_2line;
+        private TextLabel toastText_3line;
         private ToastLengthType lengthType = ToastLengthType.CUSTOM;
+        private ToastLinesType linesType = ToastLinesType.ONE;
         private bool loadingEnable = false;
         public ToastLengthType LengthType
         {
@@ -38,6 +46,112 @@ namespace Tizen.FH.NUI.Controls
                     }
 
                     lengthType = value;
+                }
+
+            }
+        }
+
+        public ToastLinesType LinesType
+        {
+            get
+            {
+                return linesType;
+            }
+            set
+            {
+                if (value != linesType)
+                {
+                    if (value == ToastLinesType.ONE)
+                    {
+                        if (toastText_3line != null)
+                        {
+                            toastText_3line.Dispose();
+                        }
+                        if (toastText_2line != null)
+                        {
+                            toastText_2line.Dispose();
+                        }
+                        this.SizeHeight = 132;
+                        linesType = value;
+                    }
+                    else if (value == ToastLinesType.TWO)
+                    {
+                        if (toastText_3line != null)
+                        {
+                            toastText_3line.Dispose();
+                        }
+                        if (toastText_2line == null)
+                        {
+                            toastText_2line = new TextLabel()
+                            {
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                Position2D = "96,98",
+                                Size2D = new Size2D(808, 56),
+
+                                ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                                PivotPoint = Tizen.NUI.PivotPoint.Center,
+                                PositionUsesPivotPoint = true,
+                            };
+                            this.Add(toastText_2line);
+
+                        }
+                        toastText.Position2D = "96,38";
+                        this.SizeHeight = 192;
+                        linesType = value;
+                    }
+                    else if (value == ToastLinesType.THREE)
+                    {
+                        if (toastText_3line == null)
+                        {
+                            toastText_3line = new TextLabel()
+                            {
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                Position2D = "96,158",
+                                Size2D = new Size2D(808, 56),
+                                BackgroundColor=Color.Red,
+                                PointSize = 20,
+                                TextColor = Color.Black,
+
+                            };
+                        }
+                        if (toastText_2line == null)
+                        {
+                            toastText_2line = new TextLabel()
+                            {
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                Position2D = "96,98",
+                                Size2D = new Size2D(808, 56),
+                                //BackgroundColor = Color.Blue,
+                                PointSize = 20,
+                                TextColor = Color.Black,
+                            };
+
+                        }
+
+                        this.SizeHeight = 272;
+                        this.Add(toastText_2line);
+                        this.Add(toastText_3line);
+
+                        toastText = new TextLabel()
+                        {
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center,
+                            Position2D = "96,8",
+                            BackgroundColor = Color.Blue,
+                            PointSize = 20,
+                            TextColor = Color.Black,
+                        };
+                       
+
+                       this.Add(toastText);
+
+                        linesType = value;
+                        Console.WriteLine("3line set done");
+                    }
+
                 }
 
             }
@@ -68,17 +182,43 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        public string Text2Line
+        {
+            get
+            {
+                return toastText_2line?.Text;
+            }
+            set
+            {
+                if (linesType == ToastLinesType.TWO || linesType == ToastLinesType.THREE)
+                    toastText_2line.Text = value;
+            }
+
+        }
+
+        public string Text3Line
+        {
+            get
+            {
+                return toastText_3line?.Text;
+            }
+            set
+            {
+                if (linesType == ToastLinesType.THREE)
+                    toastText_3line.Text = value;
+            }
+
+        }
+
         public Toast() : base()
         {
             toastAttributes = attributes as ToastAttributes;
-            if (toastAttributes == null)
-            {
-                throw new Exception("Toast attribute parse error.");
-            }
+
         }
 
         public Toast(string style) : base(style)
         {
+            Console.WriteLine("Toast ( FH) style contr");
             toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
             {
@@ -109,21 +249,31 @@ namespace Tizen.FH.NUI.Controls
 
         protected override void OnUpdate(Attributes attributes)
         {
+            Console.WriteLine("Toast OnUpdate (FH )");
             toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
             {
+                Console.WriteLine("FH OnUpdate ==null return");
                 return;
             }
-
+            Console.WriteLine(toastAttributes.TextAttributes.Position2D.Y.ToString());
             ///////////////////// Loading ///////////////////////////////
+            /////////////////////////////////////////////////////
+            ApplyAttributes(this, toastAttributes);
             if (loadingEnable)
             {
                 ApplyAttributes(loading, toastAttributes.LoadingAttributes);
             }
 
-            base.OnUpdate(attributes);
-            Console.WriteLine("text wid = "+toastText.SizeWidth.ToString());
 
+            ///////////////////// Background ///////////////////////////////
+            ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
+
+            ////////////////////// Text //////////////////////////////
+            ApplyAttributes(toastText, toastAttributes.TextAttributes);
+
+            //base.OnUpdate(attributes);
+            Console.WriteLine("OnUpdate (FH ) done  Toast ");
         }
 
         protected override void OnRelayout(object sender, EventArgs e)
@@ -159,7 +309,7 @@ namespace Tizen.FH.NUI.Controls
                 loading.Dispose();
             }
 
-            toastAttributes.TextAttributes.Position2D.X = 0;
+            toastAttributes.TextAttributes.Position2D.X = 86;
             toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Center;
             toastAttributes.TextAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.Center;
             toastAttributes.TextAttributes.PivotPoint = Tizen.NUI.PivotPoint.Center;
