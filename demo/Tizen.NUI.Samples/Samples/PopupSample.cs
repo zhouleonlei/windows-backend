@@ -86,7 +86,7 @@ namespace Tizen.NUI.Samples
             root.Add(popup);
 
             contentText = new TextLabel();
-            contentText.Size2D = new Size2D(800, 100);
+            contentText.Size2D = new Size2D(904, 100);
             contentText.PointSize = 20;
             contentText.HorizontalAlignment = HorizontalAlignment.Begin;
             contentText.VerticalAlignment = VerticalAlignment.Center;
@@ -188,7 +188,7 @@ namespace Tizen.NUI.Samples
             root.Add(popup2);
 
             contentText2 = new TextLabel();
-            contentText2.Size2D = new Size2D(800, 100);
+            contentText2.Size2D = new Size2D(904, 100);
             contentText2.PointSize = 20;
             contentText2.HorizontalAlignment = HorizontalAlignment.Begin;
             contentText2.VerticalAlignment = VerticalAlignment.Center;
