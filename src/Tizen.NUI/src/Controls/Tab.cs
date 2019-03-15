@@ -289,7 +289,8 @@ namespace Tizen.NUI.Controls
             item.Index = itemList.Count;
             itemList.Add(item);
 
-            UpdateItem();
+            //UpdateItem();
+            LayoutChild();
             itemList[curIndex].State = States.Selected;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
             UpdateUnderLinePos();
@@ -353,10 +354,7 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            if (tabAttributes.IsNatureTextWidth == true)
-            {
-                UpdateItem();
-            }
+            LayoutChild();
         }
 
         protected override Attributes GetAttributes()
@@ -364,9 +362,81 @@ namespace Tizen.NUI.Controls
             return new TabAttributes();
         }
 
+        protected virtual void LayoutChild()
+        {
+            if (tabAttributes == null)
+            {
+                return;
+            }
+            int totalNum = itemList.Count;
+            if (totalNum == 0)
+            {
+                return;
+            }
+
+            int preX = (int)tabAttributes.Space.X;
+            int preW = 0;
+            int itemGap = tabAttributes.ItemGap;
+
+            if (LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                if (tabAttributes.IsNatureTextWidth == true)
+                {
+                    for (int i = 0; i < totalNum; i++)
+                    {
+                        preW = itemList[i].TextItem.NaturalSize2D.Width;
+                        itemList[i].Position2D.X = preX;
+                        itemList[i].Size2D.Width = preW;
+                        preX = itemList[i].Position2D.X + preW + itemGap;
+                    }
+                }
+                else
+                {
+                    preW = (Size2D.Width - (int)tabAttributes.Space.X - (int)tabAttributes.Space.Y) / totalNum;
+                    for (int i = 0; i < totalNum; i++)
+                    {
+                        itemList[i].Position2D.X = preX;
+                        itemList[i].Size2D.Width = preW;
+                        preX = itemList[i].Position2D.X + preW + itemGap;
+                    }
+                }
+            }
+            else
+            {
+                preX = (int)tabAttributes.Space.Y;
+                if (tabAttributes.IsNatureTextWidth == true)
+                {
+                    int w = Size2D.Width;
+                    for (int i = 0; i < totalNum; i++)
+                    {
+                        preW = itemList[i].TextItem.NaturalSize2D.Width;
+                        itemList[i].Position2D.X = w - preW - preX;
+                        itemList[i].Size2D.Width = preW;
+                        preX = w - itemList[i].Position2D.X + itemGap;
+                    }
+                }
+                else
+                {
+                    preW = (Size2D.Width - (int)tabAttributes.Space.X - (int)tabAttributes.Space.Y) / totalNum;
+                    for (int i = totalNum - 1; i >= 0; i--)
+                    {
+                        itemList[i].Position2D.X = preX;
+                        itemList[i].Size2D.Width = preW;
+                        preX = itemList[i].Position2D.X + preW + itemGap;
+                    }
+                }
+            }           
+        }
+
         private void Initialize()
         {
             CreateUnderLine();
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            LayoutChild();
         }
 
         private void CreateUnderLine()

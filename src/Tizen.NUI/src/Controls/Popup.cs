@@ -608,6 +608,8 @@ namespace Tizen.NUI.Controls
             }
             contentView.Size2D = new Size2D(Size2D.Width - titleX * 2, Size2D.Height - titleY - titleH - buttonH);
             contentView.Position2D = new Position2D(titleX, titleY + titleH);
+
+            LayoutChild();
         }
 
         protected virtual void LayoutChild()
@@ -619,7 +621,7 @@ namespace Tizen.NUI.Controls
 
             if(titleText != null)
             {
-                if(titleText.HorizontalAlignment == HorizontalAlignment.Begin)
+                if(LayoutDirection == ViewLayoutDirectionType.RTL)
                 {
                     if (popupAttributes.TitleTextAttributes != null)
                     {
@@ -627,7 +629,7 @@ namespace Tizen.NUI.Controls
                     }
                     titleText.HorizontalAlignment = HorizontalAlignment.End;
                 }
-                else if(titleText.HorizontalAlignment == HorizontalAlignment.End)
+                else if(LayoutDirection == ViewLayoutDirectionType.LTR)
                 {
                     if (popupAttributes.TitleTextAttributes != null)
                     {

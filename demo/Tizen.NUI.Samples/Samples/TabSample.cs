@@ -14,6 +14,7 @@ namespace Tizen.NUI.Samples
         private Tab tab2 = null;
 
         private Button button = null;
+        private Button button2 = null;
         private int index = 0;
 
         private static string[] mode = new string[]
@@ -135,6 +136,15 @@ namespace Tizen.NUI.Samples
             button.Text = mode[index];
             button.ClickEvent += ButtonClickEvent;
             root.Add(button);
+
+            button2 = new Button();
+            button2.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            button2.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
+            button2.Size2D = new Size2D(580, 80);
+            button2.Position2D = new Position2D(800, 500);
+            button2.Text = "LayoutDirection is left to right";
+            button2.ClickEvent += ButtonClickEvent2;
+            root.Add(button2);
         }
 
         private void TabItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
@@ -151,6 +161,13 @@ namespace Tizen.NUI.Samples
                     root.Remove(button);
                     button.Dispose();
                     button = null;
+                }
+
+                if (button2 != null)
+                {
+                    root.Remove(button2);
+                    button2.Dispose();
+                    button2 = null;
                 }
 
                 if (tab != null)
@@ -206,6 +223,22 @@ namespace Tizen.NUI.Samples
                 Normal = Color.Black,
                 Selected = color[index],
             };
+        }
+
+        private void ButtonClickEvent2(object sender, Button.ClickEventArgs e)
+        {
+            if (tab.LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                tab.LayoutDirection = ViewLayoutDirectionType.RTL;
+                tab2.LayoutDirection = ViewLayoutDirectionType.RTL;
+                button2.Text = "LayoutDirection is right to left";
+            }
+            else
+            {
+                tab.LayoutDirection = ViewLayoutDirectionType.LTR;
+                tab2.LayoutDirection = ViewLayoutDirectionType.LTR;
+                button2.Text = "LayoutDirection is left to right";
+            }
         }
     }
 }
