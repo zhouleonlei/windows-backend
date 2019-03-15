@@ -16,6 +16,7 @@ namespace Tizen.NUI.Samples
         private TextLabel contentText2 = null;
         private int index = 0;
         private int index2 = 0;
+        private Button button = null;
 
         private static string[] buttonStyles = new string[]
         {
@@ -45,13 +46,13 @@ namespace Tizen.NUI.Samples
             createText[0] = new TextLabel();
             createText[0].Text = "Create Popup just by properties";
             createText[0].Size2D = new Size2D(500, 100);
-            createText[0].Position2D = new Position2D(700, 50);
+            createText[0].Position2D = new Position2D(500, 50);
             root.Add(createText[0]);
 
             popup = new Popup();
             popup.MinimumSize = new Size2D(1032, 184);
             popup.Size2D = new Size2D(1032, 400);
-            popup.Position2D = new Position2D(400, 100);
+            popup.Position2D = new Position2D(200, 100);
 
             popup.TitlePointSize = 25;
             popup.TitleTextColor = Color.Black;
@@ -80,11 +81,12 @@ namespace Tizen.NUI.Samples
             popup.SetButtonText(0, "Yes");
             popup.SetButtonText(1, "Exit");
             popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.LayoutDirectionChanged += PopupLayoutDirectionChanged;
 
             root.Add(popup);
 
             contentText = new TextLabel();
-            contentText.Size2D = new Size2D(800, 100);
+            contentText.Size2D = new Size2D(904, 100);
             contentText.PointSize = 20;
             contentText.HorizontalAlignment = HorizontalAlignment.Begin;
             contentText.VerticalAlignment = VerticalAlignment.Center;
@@ -95,7 +97,7 @@ namespace Tizen.NUI.Samples
             createText[1] = new TextLabel();
             createText[1].Text = "Create Popup just by Attributes";
             createText[1].Size2D = new Size2D(500, 100);
-            createText[1].Position2D = new Position2D(700, 550);
+            createText[1].Position2D = new Position2D(500, 550);
             root.Add(createText[1]);
 
             PopupAttributes attrs = new PopupAttributes
@@ -177,21 +179,54 @@ namespace Tizen.NUI.Samples
 
             popup2 = new Popup(attrs);
             popup2.Size2D = new Size2D(1032, 400);
-            popup2.Position2D = new Position2D(400, 600);
+            popup2.Position2D = new Position2D(200, 600);
             popup2.ButtonCount = 2;
             popup2.SetButtonText(0, "Yes");
             popup2.SetButtonText(1, "Exit");
             popup2.PopupButtonClickedEvent += PopupButtonClickedEvent;
-
+            popup2.LayoutDirectionChanged += Popup2LayoutDirectionChanged;
             root.Add(popup2);
 
             contentText2 = new TextLabel();
-            contentText2.Size2D = new Size2D(800, 100);
+            contentText2.Size2D = new Size2D(904, 100);
             contentText2.PointSize = 20;
             contentText2.HorizontalAlignment = HorizontalAlignment.Begin;
             contentText2.VerticalAlignment = VerticalAlignment.Center;
             contentText2.Text = "Popup2 ButtonStyle is " + buttonStyles[index];
             popup2.ContentView.Add(contentText2);
+
+            button = new Button();
+            button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            button.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
+            button.Size2D = new Size2D(580, 80);
+            button.Position2D = new Position2D(1300, 500);
+            button.Text = "LayoutDirection is left to right";
+            button.ClickEvent += ButtonClickEvent;
+            root.Add(button);
+        }
+
+        private void Popup2LayoutDirectionChanged(object sender, View.LayoutDirectionChangedEventArgs e)
+        {
+            if (contentText2.HorizontalAlignment == HorizontalAlignment.Begin)
+            {
+                contentText2.HorizontalAlignment = HorizontalAlignment.End;
+            }
+            else if (contentText2.HorizontalAlignment == HorizontalAlignment.End)
+            {
+                contentText2.HorizontalAlignment = HorizontalAlignment.Begin;
+            }
+        }
+
+        private void PopupLayoutDirectionChanged(object sender, View.LayoutDirectionChangedEventArgs e)
+        {
+            if (contentText.HorizontalAlignment == HorizontalAlignment.Begin)
+            {
+                contentText.HorizontalAlignment = HorizontalAlignment.End;
+            }
+            else if (contentText.HorizontalAlignment == HorizontalAlignment.End)
+            {
+                contentText.HorizontalAlignment = HorizontalAlignment.Begin;
+            }
         }
 
         private void PopupButtonClickedEvent(object sender, Popup.ButtonClickEventArgs e)
@@ -216,32 +251,74 @@ namespace Tizen.NUI.Samples
             }
         }
 
+        private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
+        {
+            if (popup.LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                popup.LayoutDirection = ViewLayoutDirectionType.RTL;
+                popup2.LayoutDirection = ViewLayoutDirectionType.RTL;
+                button.Text = "LayoutDirection is right to left";
+            }
+            else
+            {
+                popup.LayoutDirection = ViewLayoutDirectionType.LTR;
+                popup2.LayoutDirection = ViewLayoutDirectionType.LTR;
+                button.Text = "LayoutDirection is left to right";
+            }           
+        }
+
         public void Deactivate()
         {
             if (root != null)
             {
-                popup.ContentView.Remove(contentText);
-                contentText.Dispose();
-                contentText = null;
+                if (popup != null)
+                {
+                    if (contentText != null)
+                    {
+                        popup.ContentView.Remove(contentText);
+                        contentText.Dispose();
+                        contentText = null;
+                    }
 
-                root.Remove(popup);
-                popup.Dispose();
-                popup = null;
+                    root.Remove(popup);
+                    popup.Dispose();
+                    popup = null;
+                }
 
-                popup2.ContentView.Remove(contentText2);
-                contentText2.Dispose();
-                contentText2 = null;
+                if (popup2 != null)
+                {
+                    if (contentText2 != null)
+                    {
+                        popup2.ContentView.Remove(contentText2);
+                        contentText2.Dispose();
+                        contentText2 = null;
+                    }
 
-                root.Remove(popup2);
-                popup2.Dispose();
-                popup2 = null;
-                
-                root.Remove(createText[0]);
-                createText[0].Dispose();
-                createText[0] = null;
-                root.Remove(createText[1]);
-                createText[1].Dispose();
-                createText[1] = null;
+                    root.Remove(popup2);
+                    popup2.Dispose();
+                    popup2 = null;
+                }
+
+                if (createText[0] != null)
+                {
+                    root.Remove(createText[0]);
+                    createText[0].Dispose();
+                    createText[0] = null;
+                }
+
+                if (createText[1] != null)
+                {
+                    root.Remove(createText[1]);
+                    createText[1].Dispose();
+                    createText[1] = null;
+                }
+
+                if (button != null)
+                {
+                    root.Remove(button);
+                    button.Dispose();
+                    button = null;
+                }
 
                 Window.Instance.Remove(root);
                 root.Dispose();

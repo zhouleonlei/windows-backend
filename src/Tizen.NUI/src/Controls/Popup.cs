@@ -608,6 +608,57 @@ namespace Tizen.NUI.Controls
             }
             contentView.Size2D = new Size2D(Size2D.Width - titleX * 2, Size2D.Height - titleY - titleH - buttonH);
             contentView.Position2D = new Position2D(titleX, titleY + titleH);
+
+            LayoutChild();
+        }
+
+        protected virtual void LayoutChild()
+        {
+            if (popupAttributes == null)
+            {
+                return;
+            }
+
+            if(titleText != null)
+            {
+                if(LayoutDirection == ViewLayoutDirectionType.RTL)
+                {
+                    if (popupAttributes.TitleTextAttributes != null)
+                    {
+                        popupAttributes.TitleTextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                    }
+                    titleText.HorizontalAlignment = HorizontalAlignment.End;
+                }
+                else if(LayoutDirection == ViewLayoutDirectionType.LTR)
+                {
+                    if (popupAttributes.TitleTextAttributes != null)
+                    {
+                        popupAttributes.TitleTextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                    }
+                    titleText.HorizontalAlignment = HorizontalAlignment.Begin;
+                }
+            }
+
+            if(buttonList.Count > 0)
+            {
+                int pos = 0;
+                if (LayoutDirection == ViewLayoutDirectionType.RTL)
+                {                   
+                    for (int i = buttonList.Count - 1; i >= 0; i--)
+                    {
+                        buttonList[i].PositionX = pos;
+                        pos += buttonList[i].Size2D.Width;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < buttonList.Count; i++)
+                    {
+                        buttonList[i].PositionX = pos;
+                        pos += buttonList[i].Size2D.Width;
+                    }
+                }
+            }
         }
 
         private void Initialize()
@@ -623,6 +674,13 @@ namespace Tizen.NUI.Controls
             };
             Add(contentView);
             contentView.RaiseToTop();
+
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            LayoutChild();
         }
 
         private void CreateShadowAttributes()
