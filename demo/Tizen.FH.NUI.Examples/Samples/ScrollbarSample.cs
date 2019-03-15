@@ -116,8 +116,9 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar1.Size2D = new Size2D(300, 4);
             daScrollBar1.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
             daScrollBar1.MinValue = 0;
-            daScrollBar1.CurrentValue = 0;
             daScrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            daScrollBar1.CurrentValue = 0;
+
             daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
             root.Add(daScrollBar1);
             daScrollBar1.TrackImageURL = "*DemoRes*/images/VD/component/c_progressbar/c_progressbar_white_buffering.png";
@@ -128,8 +129,9 @@ namespace Tizen.FH.NUI.Samples
             scrollBar1.TrackColor = Color.Green;
             scrollBar1.MaxValue = (uint)scrollBar1.SizeWidth / 10;
             scrollBar1.MinValue = 0;
-            scrollBar1.CurrentValue = 0;
             scrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar1.CurrentValue = 0;
+
             scrollBar1.ThumbColor = Color.Black;
             root.Add(scrollBar1);
 
@@ -157,8 +159,9 @@ namespace Tizen.FH.NUI.Samples
             scrollBar2.Size2D = new Size2D(300, 4);
             scrollBar2.MaxValue = (uint)scrollBar2.SizeWidth / 10;
             scrollBar2.MinValue = 0;
-            scrollBar2.CurrentValue = 0;
             scrollBar2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar2.CurrentValue = 0;
+
             root.Add(scrollBar2);
 
             daScrollBar2 = new ScrollBar("DAScrollbar");
@@ -166,8 +169,9 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar2.Size2D = new Size2D(4, 300);
             daScrollBar2.MaxValue = (uint)daScrollBar2.SizeHeight / 10;
             daScrollBar2.MinValue = 0;
-            daScrollBar2.CurrentValue = 0;
             daScrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            daScrollBar2.CurrentValue = 0;
+
             daScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
             root.Add(daScrollBar2);
             daScrollBar2.PanGestureEvent += ScrollPan;
@@ -177,8 +181,9 @@ namespace Tizen.FH.NUI.Samples
             vdScrollBar1.Size2D = new Size2D(300, 3);
             vdScrollBar1.MaxValue = (uint)vdScrollBar1.SizeWidth / 10;
             vdScrollBar1.MinValue = 0;
-            vdScrollBar1.CurrentValue = 0;
             vdScrollBar1.ThumbSize = new Size(30.0f, 3.0f, 0.0f);
+            vdScrollBar1.CurrentValue = 0;
+
             vdScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
             root.Add(vdScrollBar1);
             
@@ -189,8 +194,9 @@ namespace Tizen.FH.NUI.Samples
             vdScrollBar2.Size2D = new Size2D(3, 300);
             vdScrollBar2.MaxValue = (uint)vdScrollBar2.SizeHeight / 10;
             vdScrollBar2.MinValue = 0;
-            vdScrollBar2.CurrentValue = 0;
             vdScrollBar2.ThumbSize = new Size(3.0f, 30.0f, 0.0f);
+            vdScrollBar2.CurrentValue = 0;
+
             vdScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
             root.Add(vdScrollBar2);
 
