@@ -3616,7 +3616,7 @@ namespace Tizen.NUI.BaseComponents
         /// Once a raise or lower API is used that view will then have an exclusive sibling order independent of insertion.
         /// </remarks>
         /// <param name="target">Will be raised above this view.</param>
-        internal void RaiseAbove(View target)
+        public void RaiseAbove(View target)
         {
             var parentChildren = GetParent()?.Children;
 
@@ -3653,7 +3653,7 @@ namespace Tizen.NUI.BaseComponents
         /// Once a raise or lower API is used that view will then have an exclusive sibling order independent of insertion.
         /// </remarks>
         /// <param name="target">Will be lowered below this view.</param>
-        internal void LowerBelow(View target)
+        public void LowerBelow(View target)
         {
             var parentChildren = GetParent()?.Children;
 
