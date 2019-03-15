@@ -104509,6 +104509,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_AddCallback( Dali::T
   jarg1->AddCallback( callback );
 }
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_RemoveCallback(Dali::ToolKit::FrameUpdateCallback *jarg1)
+{
+	jarg1->RemoveCallback();
+}
+
 SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetPosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID )
 {
   void * jresult;
@@ -104545,10 +104550,11 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetPosition( Dali::
   return jresult;
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetPosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 position )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetPosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void * jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 position = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104577,10 +104583,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetPosition( Dali::T
   }
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakePosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 position )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakePosition( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void * jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 position = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104645,10 +104652,11 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetSize( Dali::Tool
   return jresult;
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 size )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 size = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104677,10 +104685,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetSize( Dali::ToolK
   }
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 size )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeSize( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 size = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104745,10 +104754,11 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetScale( Dali::Too
   return jresult;
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 scale )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 scale = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104777,10 +104787,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetScale( Dali::Tool
   }
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector3 scale )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeScale( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector3 scale = *((Dali::Vector3*)jarg2);
 
   {
     try {
@@ -104845,10 +104856,11 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetColor( Dali::Too
   return jresult;
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector4 color )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2 )
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector4 color = *((Dali::Vector4*)jarg2);
 
   {
     try {
@@ -104877,10 +104889,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetColor( Dali::Tool
   }
 }
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, Dali::Vector4 color )
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeColor( Dali::ToolKit::FrameUpdateCallback *jarg1, int actorID, void *jarg2)
 {
   void * jresult;
   Dali::ToolKit::FrameUpdateCallback *arg1 = jarg1;
+  Dali::Vector4 color = *((Dali::Vector4*)jarg2);
 
   {
     try {
