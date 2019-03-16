@@ -70,10 +70,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if(tabAttributes == null)
-                {
-                    return false;
-                }
                 return tabAttributes.IsNatureTextWidth;
             }
             set
@@ -87,10 +83,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
                 return tabAttributes.ItemGap;
             }
             set
@@ -104,10 +96,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
                 return (int)tabAttributes.Space.X;
             }
             set
@@ -121,10 +109,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
                 return (int)tabAttributes.Space.W;
             }
             set
@@ -138,10 +122,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
                 return (int)tabAttributes.Space.Y;
             }
             set
@@ -155,10 +135,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (tabAttributes == null)
-                {
-                    return 0;
-                }
                 return (int)tabAttributes.Space.Z;
             }
             set
@@ -172,7 +148,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.UnderLineAttributes?.Size2D;
+                return tabAttributes.UnderLineAttributes?.Size2D;
             }
             set
             {
@@ -189,7 +165,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.UnderLineAttributes?.BackgroundColor?.All;
+                return tabAttributes.UnderLineAttributes?.BackgroundColor?.All;
             }
             set
             {
@@ -210,7 +186,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.TextAttributes?.PointSize?.All ?? 0;
+                return tabAttributes.TextAttributes?.PointSize?.All ?? 0;
             }
             set
             {
@@ -228,7 +204,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.TextAttributes?.FontFamily;
+                return tabAttributes.TextAttributes?.FontFamily;
             }
             set
             {
@@ -242,7 +218,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.TextAttributes?.TextColor?.All;
+                return tabAttributes.TextAttributes?.TextColor?.All;
             }
             set
             {
@@ -260,7 +236,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return tabAttributes?.TextAttributes.TextColor;
+                return tabAttributes.TextAttributes.TextColor;
             }
             set
             {

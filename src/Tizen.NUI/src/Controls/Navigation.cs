@@ -91,10 +91,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (navigationAttributes == null)
-                {
-                    return 0;
-                }
                 return navigationAttributes.Space.X;
             }
             set
@@ -108,10 +104,6 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (navigationAttributes == null)
-                {
-                    return 0;
-                }
                 return navigationAttributes.Space.W;
             }
             set
@@ -544,10 +536,6 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
-                    if (itemAttributes == null)
-                    {
-                        return 0;
-                    }
                     return (int)itemAttributes.Space.X;
                 }
                 set
@@ -561,10 +549,6 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
-                    if (itemAttributes == null)
-                    {
-                        return 0;
-                    }
                     return (int)itemAttributes.Space.W;
                 }
                 set
@@ -578,10 +562,6 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
-                    if (itemAttributes == null)
-                    {
-                        return 0;
-                    }
                     return (int)itemAttributes.Space.Y;
                 }
                 set
@@ -595,10 +575,6 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
-                    if (itemAttributes == null)
-                    {
-                        return 0;
-                    }
                     return (int)itemAttributes.Space.Z;
                 }
                 set
