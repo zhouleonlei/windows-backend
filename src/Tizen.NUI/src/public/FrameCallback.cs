@@ -31,6 +31,12 @@ namespace Tizen.NUI
             }
         }
 
+        public void RemoveCallback()
+        {
+            NDalicPINVOKE.FrameUpdateCallback_RemoveCallback(swigCPtr);
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
         public Vector3 GetPosition(uint actorID)
         {
             Vector3 ret = new Vector3(NDalicPINVOKE.FrameUpdateCallback_GetPosition(swigCPtr, actorID), false);
@@ -53,14 +59,14 @@ namespace Tizen.NUI
             return ret;
         }
 
-        public void SetSize(uint actorID, Vector3 position)
+        public void SetSize(uint actorID, Vector3 size)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetSize(swigCPtr, actorID, Vector3.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetSize(swigCPtr, actorID, Vector3.getCPtr(size));
         }
 
-        public void BakeSize(uint actorID, Vector3 position)
+        public void BakeSize(uint actorID, Vector3 size)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetSize(swigCPtr, actorID, Vector3.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetSize(swigCPtr, actorID, Vector3.getCPtr(size));
         }
 
         public Vector3 GetScale(uint actorID)
@@ -69,14 +75,14 @@ namespace Tizen.NUI
             return ret;
         }
 
-        public void SetScale(uint actorID, Vector3 position)
+        public void SetScale(uint actorID, Vector3 scale)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetScale(swigCPtr, actorID, Vector3.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetScale(swigCPtr, actorID, Vector3.getCPtr(scale));
         }
 
-        public void BakeScale(uint actorID, Vector3 position)
+        public void BakeScale(uint actorID, Vector3 scale)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetScale(swigCPtr, actorID, Vector3.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetScale(swigCPtr, actorID, Vector3.getCPtr(scale));
         }
 
         public Vector4 GetColor(uint actorID)
@@ -85,14 +91,14 @@ namespace Tizen.NUI
             return ret;
         }
 
-        public void SetColor(uint actorID, Vector4 position)
+        public void SetColor(uint actorID, Vector4 color)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetColor(swigCPtr, actorID, Vector4.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetColor(swigCPtr, actorID, Vector4.getCPtr(color));
         }
 
-        public void BakeColor(uint actorID, Vector4 position)
+        public void BakeColor(uint actorID, Vector4 color)
         {
-            NDalicPINVOKE.FrameUpdateCallback_SetColor(swigCPtr, actorID, Vector4.getCPtr(position));
+            NDalicPINVOKE.FrameUpdateCallback_SetColor(swigCPtr, actorID, Vector4.getCPtr(color));
         }
     }
 }

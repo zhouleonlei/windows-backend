@@ -42,6 +42,8 @@ public:
 
   void AddCallback( FrameCallbackFunction updateCallback );
 
+  void RemoveCallback();
+
   /**
    * @brief Given the Actor ID, this retrieves that Actor's local position.
    * @param[in]  id  The Actor ID

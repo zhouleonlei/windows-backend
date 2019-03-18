@@ -68250,6 +68250,24 @@ namespace Tizen.NUI
             }
         }
 
+        [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_RemoveCallback")]
+        public static extern global::System.IntPtr FrameUpdateCallback_RemoveCallback_gl(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+        [global::System.Runtime.InteropServices.DllImport(Graphics.VulkanCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_RemoveCallback")]
+        public static extern global::System.IntPtr FrameUpdateCallback_RemoveCallback_vulkan(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+        public static global::System.IntPtr FrameUpdateCallback_RemoveCallback(global::System.Runtime.InteropServices.HandleRef jarg1)
+        {
+            if (Tizen.NUI.Graphics.Backend == Tizen.NUI.Graphics.BackendType.Vulkan)
+            {
+                return FrameUpdateCallback_RemoveCallback_vulkan(jarg1);
+            }
+            else
+            {
+                return FrameUpdateCallback_RemoveCallback_gl(jarg1);
+            }
+        }
+
         [global::System.Runtime.InteropServices.DllImport(Graphics.GlesCSharpBinder, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
         public static extern global::System.IntPtr FrameUpdateCallback_GetPosition_gl(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 

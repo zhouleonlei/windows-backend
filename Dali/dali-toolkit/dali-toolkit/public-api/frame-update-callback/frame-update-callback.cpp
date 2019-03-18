@@ -41,6 +41,11 @@ void FrameUpdateCallback::AddCallback( FrameCallbackFunction updateCallback )
   Internal::GetImplementation( *this ).AddCallback( updateCallback );
 }
 
+void FrameUpdateCallback::RemoveCallback()
+{
+	Internal::GetImplementation(*this).RemoveCallback();
+}
+
 bool FrameUpdateCallback::GetPosition( unsigned int id, Vector3& position )
 {
   return Internal::GetImplementation( *this ).GetPosition( id, position );
