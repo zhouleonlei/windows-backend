@@ -152,7 +152,7 @@ namespace Tizen.NUI.Samples
             flexibleView1.BackgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.4f);
 
             List<ListItemData> dataList = new List<ListItemData>();
-            for (int i = 0; i < 31; ++i)
+            for (int i = 0; i < 131; ++i)
             {
                 dataList.Add(new ListItemData(i));
             }

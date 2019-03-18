@@ -74,20 +74,20 @@ namespace Tizen.NUI.Controls
             if (mAnchorInfo.mLayoutFromEnd == true)
             {
                 UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                Fill(recycler, mLayoutState, state);
+                Fill(recycler, mLayoutState, state, true);
 
                 UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
                 mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
-                Fill(recycler, mLayoutState, state);
+                Fill(recycler, mLayoutState, state, true);
             }
             else
             {
                 UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                Fill(recycler, mLayoutState, state);
+                Fill(recycler, mLayoutState, state, true);
 
                 UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
                 mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
-                Fill(recycler, mLayoutState, state);
+                Fill(recycler, mLayoutState, state, true);
             }
 
             OnLayoutCompleted(state);
@@ -162,74 +162,25 @@ namespace Tizen.NUI.Controls
             return true;
         }
 
-        public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (mOrientation == VERTICAL)
             {
                 return 0;
             }
-            return ScrollBy(dx, recycler, state);
+            return ScrollBy(dx, recycler, state, immediate);
         }
 
-        public override float ScrollVerticallyBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        public override float ScrollVerticallyBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (mOrientation == HORIZONTAL)
             {
                 return 0;
             }
-            return ScrollBy(dy, recycler, state); ;
+            return ScrollBy(dy, recycler, state, immediate); ;
         }
 
-        public override void MoveFocus(string direction, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
-        {
-            int prevFocusPosition = state.FocusPosition;
-            int nextFocusPosition = GetNextPosition(state.FocusPosition, direction, state);
-            if (nextFocusPosition == NO_POSITION)
-            {
-                return;
-            }
-
-            FlexibleView.ViewHolder nextFocusChild = FindItemViewByPosition(nextFocusPosition);
-            if (nextFocusChild == null)
-            {
-                ScrollToPosition(nextFocusPosition);
-                return;
-            }
-
-            switch(direction)
-            {
-                case "Up":
-                    if (mOrientationHelper.GetViewHolderStart(nextFocusChild) < mOrientationHelper.GetStartAfterPadding())
-                    {
-                        ScrollVerticallyBy(mOrientationHelper.GetStartAfterPadding() - mOrientationHelper.GetViewHolderStart(nextFocusChild), recycler, state);
-                    }
-                    break;
-                case "Down":
-                    if (mOrientationHelper.GetViewHolderEnd(nextFocusChild) > mOrientationHelper.GetEndAfterPadding())
-                    {
-                        ScrollVerticallyBy(mOrientationHelper.GetEndAfterPadding() - mOrientationHelper.GetViewHolderEnd(nextFocusChild), recycler, state);
-                    }
-                    break;
-                case "Left":
-                    if (mOrientationHelper.GetViewHolderStart(nextFocusChild) < mOrientationHelper.GetStartAfterPadding())
-                    {
-                        ScrollHorizontallyBy(mOrientationHelper.GetStartAfterPadding() - mOrientationHelper.GetViewHolderStart(nextFocusChild), recycler, state);
-                    }
-                    break;
-                case "Right":
-                    if (mOrientationHelper.GetViewHolderEnd(nextFocusChild) > mOrientationHelper.GetEndAfterPadding())
-                    {
-                        ScrollHorizontallyBy(mOrientationHelper.GetEndAfterPadding() - mOrientationHelper.GetViewHolderEnd(nextFocusChild), recycler, state);
-                    }
-                    break;
-                default:
-                    return;
-            }
-            ChangeFocus(nextFocusPosition);
-
-        }
-
-        protected virtual int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
+        protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
         {
             if (mOrientation == HORIZONTAL)
             {
@@ -329,7 +280,7 @@ namespace Tizen.NUI.Controls
         }
 
 
-        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool flagCache = true)
+        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool immediate)
         {
             float start = layoutState.mAvailable;
             if (layoutState.mScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
@@ -339,7 +290,10 @@ namespace Tizen.NUI.Controls
                 {
                     layoutState.mScrollingOffset += layoutState.mAvailable;
                 }
-                RecycleByLayoutState(recycler, layoutState);
+                if (immediate == true)
+                {
+                    RecycleByLayoutState(recycler, layoutState, true);
+                }
             }
             float remainingSpace = layoutState.mAvailable + layoutState.mExtra;
             LayoutChunkResult layoutChunkResult = mLayoutChunkResult;
@@ -372,13 +326,21 @@ namespace Tizen.NUI.Controls
                     {
                         layoutState.mScrollingOffset += layoutState.mAvailable;
                     }
-                    RecycleByLayoutState(recycler, layoutState);
+                    if (immediate == true)
+                    {
+                        RecycleByLayoutState(recycler, layoutState, true);
+                    }
                 }
             }
+            if (immediate == false)
+            {
+                RecycleByLayoutState(recycler, layoutState, false);
+            }
+
             return start - layoutState.mAvailable;
         }
 
-        private void RecycleByLayoutState(FlexibleView.Recycler recycler, LayoutState layoutState)
+        private void RecycleByLayoutState(FlexibleView.Recycler recycler, LayoutState layoutState, bool immediate)
         {
             if (!layoutState.mRecycle)
             {
@@ -386,15 +348,15 @@ namespace Tizen.NUI.Controls
             }
             if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START)
             {
-                RecycleViewsFromEnd(recycler, layoutState.mScrollingOffset);
+                RecycleViewsFromEnd(recycler, layoutState.mScrollingOffset, immediate);
             }
             else
             {
-                RecycleViewsFromStart(recycler, layoutState.mScrollingOffset);
+                RecycleViewsFromStart(recycler, layoutState.mScrollingOffset, immediate);
             }
         }
 
-        private void RecycleViewsFromStart(FlexibleView.Recycler recycler, float dt)
+        private void RecycleViewsFromStart(FlexibleView.Recycler recycler, float dt, bool immediate)
         {
             if (dt < 0)
             {
@@ -411,7 +373,7 @@ namespace Tizen.NUI.Controls
                     if (mOrientationHelper.GetViewHolderEnd(child) > limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, childCount - 1, i);
+                        RecycleChildren(recycler, childCount - 1, i, immediate);
                         return;
                     }
                 }
@@ -424,14 +386,14 @@ namespace Tizen.NUI.Controls
                     if (mOrientationHelper.GetViewHolderEnd(child) > limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, 0, i);
+                        RecycleChildren(recycler, 0, i, immediate);
                         return;
                     }
                 }
             }
         }
 
-        private void RecycleViewsFromEnd(FlexibleView.Recycler recycler, float dt)
+        private void RecycleViewsFromEnd(FlexibleView.Recycler recycler, float dt, bool immediate)
         {
             int childCount = GetChildCount();
             if (dt < 0)
@@ -447,7 +409,7 @@ namespace Tizen.NUI.Controls
                     if (mOrientationHelper.GetViewHolderStart(child) < limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, 0, i);
+                        RecycleChildren(recycler, 0, i, immediate);
                         return;
                     }
                 }
@@ -460,7 +422,7 @@ namespace Tizen.NUI.Controls
                     if (mOrientationHelper.GetViewHolderStart(child) < limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, childCount - 1, i);
+                        RecycleChildren(recycler, childCount - 1, i, immediate);
                         return;
                     }
                 }
@@ -519,7 +481,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (GetChildCount() == 0 || dy == 0)
             {
@@ -529,19 +491,18 @@ namespace Tizen.NUI.Controls
             float absDy = Math.Abs(dy);
             UpdateLayoutState(layoutDirection, absDy, true, state);
             float consumed = mLayoutState.mScrollingOffset 
-                + Fill(recycler, mLayoutState, state, false);
+                + Fill(recycler, mLayoutState, state, immediate);
 
             if (consumed < 0)
             {
                 return 0;
             }
 
-            float scrolled = absDy > consumed ? layoutDirection * consumed : dy;
-            //Console.WriteLine($"scrolled:{scrolled} dy:{dy} scrollingOffset:{mLayoutState.mScrollingOffset}");
+            float scrolled = absDy > consumed ? -layoutDirection * consumed : dy;
+            Console.WriteLine($"scrolled:{scrolled} dy:{dy} layoutDirection:{layoutDirection} consumed:{consumed} scrollingOffset:{mLayoutState.mScrollingOffset}");
 
-            mOrientationHelper.OffsetChildren(scrolled);
+            mOrientationHelper.OffsetChildren(scrolled, immediate);
 
-            //UpdateVisibleItemInfo(recycler);
 
             return scrolled;
         }
@@ -691,41 +652,6 @@ namespace Tizen.NUI.Controls
             return null;
         }
 
-
-        private void UpdateVisibleItemInfo(FlexibleView.Recycler recycler)
-        {
-            int childCount = GetChildCount();
-            int mid = childCount / 2;
-            int recycleCount = 0;
-            int i = -1;
-            for (i = mid - 1; i >= 0; i--)
-            {
-                FlexibleView.ViewHolder itemView = GetChildAt(i);
-                if (mOrientationHelper.GetViewHolderEnd(itemView) < 0)
-                {
-                    break;
-                }
-            }
-            if (i - 1 >= 0)
-            {
-                RecycleChildren(recycler, i - 1, 0);
-                recycleCount = i;
-            }
-            mid -= recycleCount;
-            childCount -= recycleCount;
-            for (i = mid; i < childCount; i++)
-            {
-                FlexibleView.ViewHolder itemView = GetChildAt(i);
-                if (mOrientationHelper.GetViewHolderStart(itemView) > mOrientationHelper.GetEnd())
-                {
-                    break;
-                }
-            }
-            if (i + 1 < childCount)
-            {
-                RecycleChildren(recycler, i + 1, childCount - 1);
-            }
-        }
 
         /**
          * Helper class that keeps temporary state while {LayoutManager} is filling out the empty space.
