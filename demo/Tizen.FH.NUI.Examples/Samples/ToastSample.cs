@@ -9,7 +9,7 @@ namespace Tizen.FH.NUI.Samples
     {
         private TextLabel board1, board2, board;
         private Button button1, button2, button3, button4;
-        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2, toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
+        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,/*;private Tizen.NUI.Controls.Toast */toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
         private View root;
 
         public void Activate()
@@ -23,37 +23,29 @@ namespace Tizen.FH.NUI.Samples
 
             CreateBoardAndButtons();
 
-            toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
-            toast1_1.Position2D = new Position2D(50, 300);
-            root.Add(toast1_1);
-            toast1_1.Text = "Basic Short Toast";
-            //toast1_1.Size2D = new Size2D(52, 132);
+            //toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
+            //toast1_1.Position2D = new Position2D(50, 300);
+            //root.Add(toast1_1);
+            //toast1_1.Text = "Basic Short Toast";
 
             //toast2_1 = new FH.NUI.Controls.Toast("BasicLongToast");
             //toast2_1.Position2D = new Position2D(650, 300);
             //root.Add(toast2_1);
-            //toast2_1.Text = "Long Toast, I can have a loading";
+            //toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
             //toast2_1.LoadingEnable = true;
-            //toast2_1.BackgroundColor = Color.Magenta;
 
-            //toast2_2 = new FH.NUI.Controls.Toast("BasicShortToast");
-            //toast2_2.Position2D = new Position2D(650, 450);
-            //toast2_2.SizeHeight = 132;
-            //toast2_2.LengthType = Controls.Toast.ToastLengthType.LONG;
-            //root.Add(toast2_2);
-            //toast2_2.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
-
-            //toast2_3 = new FH.NUI.Controls.Toast();
-            //toast2_3.Position2D = new Position2D(650, 650);
-            //toast2_3.Size2D = new Size2D(1000, 272);
+            toast2_3 = new Tizen.FH.NUI.Controls.Toast();
+            toast2_3.Position2D = new Position2D(650, 650);
+            toast2_3.Size2D = new Size2D(1000, 272);
             //toast2_3.LengthType = Controls.Toast.ToastLengthType.LONG;
-            //root.Add(toast2_3);
-            //toast2_3.LinesType = Controls.Toast.ToastLinesType.THREE;
-            //toast2_3.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
-            //toast2_3.Text2Line = "This is my second line, I have a very long long text, I have a very long long text";
-            //toast2_3.Text3Line = "This is my third line, I have a very long long text, I have a very long long text";
-            //toast2_3.BackgroundImageURL = "*DemoRes*/images/FH/12. Toast Popup/toast_background.png";
-            //toast2_3.BackgroundColor = Color.Magenta;
+            root.Add(toast2_3);
+            toast2_3.LinesType = Controls.Toast.ToastLinesType.THREE;
+            toast2_3.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
+            toast2_3.Text2Line = "This is my second line, I have a very long long text, I have a very long long text";
+            toast2_3.Text3Line = "This is my thirdd line, I have a very long long text, I have a very long long text";
+            toast2_3.BackgroundImageURL = "*DemoRes*/images/FH3/12. Toast Popup/toast_background.png";
+            global::System.Console.WriteLine("set url");
+            // toast2_3.BackgroundColor = Color.Yellow;
             board.UpFocusableView = button1;
 
             window.Add(root);

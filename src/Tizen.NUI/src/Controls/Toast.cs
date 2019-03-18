@@ -6,10 +6,10 @@ namespace Tizen.NUI.Controls
 {
     public class Toast : Control
     {
-        protected ImageView toastBackground;
-        protected TextLabel toastText;
+        private ImageView toastBackground;
+        private TextLabel toastText;
 
-        protected ToastAttributes toastAttributes;
+        private ToastAttributes toastAttributes;
 
         private Timer timer;
         private Animation showAnimation;
@@ -261,15 +261,16 @@ namespace Tizen.NUI.Controls
             toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
             {
+                Console.WriteLine("OnUp att null (SR)");
                 return;
             }
 
             /////////////////////////////////////////////////////
             ApplyAttributes(this, toastAttributes);
-
+            
             ///////////////////// Background ///////////////////////////////
             ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
-
+            Console.WriteLine("Apply background "+toastAttributes.BackgroundImageAttributes.ResourceURL.All);
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
 
@@ -284,7 +285,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            Console.WriteLine("Toast (SR) Initiali");
+            Console.WriteLine("Initialize (SR)  Toast ");
             toastBackground = new ImageView()
             {
                 WidthResizePolicy = ResizePolicyType.FillToParent,
@@ -294,6 +295,7 @@ namespace Tizen.NUI.Controls
 
             toastText = new TextLabel()
             {
+                BackgroundColor=Color.Magenta
             };
             this.Add(toastText);
 
@@ -311,7 +313,25 @@ namespace Tizen.NUI.Controls
             {
                 if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
                     toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value; Console.WriteLine("set url in SR");
+                RelayoutRequest();
+            }
+        }
+
+        public Size2D TextSize2D
+        {
+            set
+            {
+                toastText.Size2D = toastAttributes.TextAttributes.Size2D = value;
+            }
+
+        }
+
+        public Position2D TextPosition2D
+        {
+            set
+            {
+                toastText.Position2D = toastAttributes.TextAttributes.Position2D = value;
             }
         }
 

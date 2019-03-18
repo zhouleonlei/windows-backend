@@ -96,7 +96,7 @@ namespace Tizen.FH.NUI.Controls
                             this.Add(toastText_2line);
 
                         }
-                        toastText.Position2D = "96,38";
+
                         this.SizeHeight = 192;
                         linesType = value;
                     }
@@ -126,6 +126,7 @@ namespace Tizen.FH.NUI.Controls
                                 Size2D = new Size2D(808, 56),
                                 //BackgroundColor = Color.Blue,
                                 PointSize = 20,
+                                BackgroundColor = Color.Red,
                                 TextColor = Color.Black,
                             };
 
@@ -135,18 +136,6 @@ namespace Tizen.FH.NUI.Controls
                         this.Add(toastText_2line);
                         this.Add(toastText_3line);
 
-                        toastText = new TextLabel()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
-                            Position2D = "96,8",
-                            BackgroundColor = Color.Blue,
-                            PointSize = 20,
-                            TextColor = Color.Black,
-                        };
-                       
-
-                       this.Add(toastText);
 
                         linesType = value;
                         Console.WriteLine("3line set done");
@@ -178,7 +167,7 @@ namespace Tizen.FH.NUI.Controls
 
                     loadingEnable = value;
                 }
-                Console.WriteLine(toastText.Position2D.X.ToString()) ;
+
             }
         }
 
@@ -212,8 +201,35 @@ namespace Tizen.FH.NUI.Controls
 
         public Toast() : base()
         {
-            toastAttributes = attributes as ToastAttributes;
+            //Console.WriteLine("FH NULL CONTR START");
+            this.attributes = toastAttributes = new ToastAttributes
+            {
+                TextAttributes = new TextAttributes
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    PositionUsesPivotPoint = true,
+                    Position2D = "96,38",
+                    BackgroundColor= new ColorSelector
+                    {
+                        All = Color.Blue
+                    }
+                },
 
+                BackgroundImageAttributes = new ImageAttributes
+                {
+                    Border = new RectangleSelector()
+                    {
+                        All = new Rectangle(64, 64, 4, 4),
+                    }
+                },
+            };
+
+            Initialize();
+            //ApplyAttributes(this, toastAttributes);
+            Console.WriteLine("FH NULL CONTR DONE");
         }
 
         public Toast(string style) : base(style)
@@ -224,6 +240,17 @@ namespace Tizen.FH.NUI.Controls
             {
                 throw new Exception("Toast attribute parse error.");
             }
+
+            ApplyAttributes(this, toastAttributes);
+        }
+
+        private void Initialize()
+        {
+            //TextSize2D = new Size2D();
+            // TextPosition2D = new Position2D(96, 38);
+            //toastAttributes = attributes as ToastAttributes;
+           // toastAttributes.TextAttributes.Position2D = new Position2D(96, 38);
+           // toastAttributes.TextAttributes.PositionUsesPivotPoint = true;
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -249,38 +276,21 @@ namespace Tizen.FH.NUI.Controls
 
         protected override void OnUpdate(Attributes attributes)
         {
-            Console.WriteLine("Toast OnUpdate (FH )");
+            Console.WriteLine("OnUpdate (FH ) Toast ");
             toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
             {
                 Console.WriteLine("FH OnUpdate ==null return");
                 return;
             }
-            Console.WriteLine(toastAttributes.TextAttributes.Position2D.Y.ToString());
-            ///////////////////// Loading ///////////////////////////////
-            /////////////////////////////////////////////////////
-            ApplyAttributes(this, toastAttributes);
+
             if (loadingEnable)
             {
                 ApplyAttributes(loading, toastAttributes.LoadingAttributes);
             }
 
+            base.OnUpdate(attributes);
 
-            ///////////////////// Background ///////////////////////////////
-            ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
-
-            ////////////////////// Text //////////////////////////////
-            ApplyAttributes(toastText, toastAttributes.TextAttributes);
-
-            //base.OnUpdate(attributes);
-            Console.WriteLine("OnUpdate (FH ) done  Toast ");
-        }
-
-        protected override void OnRelayout(object sender, EventArgs e)
-        {
-            OnUpdate(attributes);
-
-            base.OnRelayout(sender, e);
         }
 
         private void AddLoading()
@@ -294,8 +304,6 @@ namespace Tizen.FH.NUI.Controls
 
             loading.PositionUsesPivotPoint = true;
 
-            toastAttributes.TextAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
-            toastAttributes.TextAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
             toastAttributes.TextAttributes.Position2D.X = 204;
             toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
             OnUpdate(toastAttributes);
@@ -311,8 +319,6 @@ namespace Tizen.FH.NUI.Controls
 
             toastAttributes.TextAttributes.Position2D.X = 86;
             toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Center;
-            toastAttributes.TextAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.Center;
-            toastAttributes.TextAttributes.PivotPoint = Tizen.NUI.PivotPoint.Center;
             OnUpdate(toastAttributes);
         }
     }

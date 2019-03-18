@@ -24,7 +24,6 @@ namespace Tizen.NUI.Samples
 
             toast1_1 = new Toast();
             toast1_1.Position2D = new Position2D(50, 350);
-            toast1_1.Size2D = new Size2D(512, 110);
 
             root.Add(toast1_1);
             toast1_1.Text = "null parameter construction";
