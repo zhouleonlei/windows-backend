@@ -104546,7 +104546,7 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetPosition( Dali::
     }
   }
 
-  jresult = (void *)&result;
+  jresult = new Dali::Vector3( ( const Dali::Vector3 & )result );
   return jresult;
 }
 
@@ -104648,7 +104648,7 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetSize( Dali::Tool
     }
   }
 
-  jresult = (void *)&result;
+  jresult = new Dali::Vector3( ( const Dali::Vector3 & )result );
   return jresult;
 }
 
@@ -104750,7 +104750,7 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetScale( Dali::Too
     }
   }
 
-  jresult = (void *)&result;
+  jresult = new Dali::Vector3( ( const Dali::Vector3 & )result );
   return jresult;
 }
 
@@ -104852,7 +104852,7 @@ SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetColor( Dali::Too
     }
   }
 
-  jresult = (void *)&result;
+  jresult = new Dali::Vector4( ( const Dali::Vector4 & )result );
   return jresult;
 }
 

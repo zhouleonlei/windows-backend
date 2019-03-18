@@ -210,6 +210,11 @@ struct TTimerCallbackInfo
 
 void CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT_PTR nTimerid, DWORD dwTime)
 {
+  if( NULL == hWnd )
+  {
+    return;
+  }
+
   TTimerCallbackInfo *info = (TTimerCallbackInfo*)nTimerid;
   info->callback( info->data );
 }
