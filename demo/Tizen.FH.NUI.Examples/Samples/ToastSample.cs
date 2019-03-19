@@ -45,8 +45,8 @@ namespace Tizen.FH.NUI.Samples
             root.Add(toast2_3);
             toast2_3.LinesType = Controls.Toast.ToastLinesType.THREE;
             toast2_3.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
-            toast2_3.Text2Line = "This is my second line, I have a very long long text, I have a very long long text";
-            toast2_3.Text3Line = "This is my thirdd line, I have a very long long text, I have a very long long text";
+            toast2_3.Text2Line = "This is my 2 line, I have a very long long text, I have a very long long text";
+            toast2_3.Text3Line = "This is my 3 line, I have a very long long text, I have a very long long text";
             toast2_3.BackgroundImageURL = "*DemoRes*/images/FH3/12. Toast Popup/toast_background.png";
             global::System.Console.WriteLine("set url");
 

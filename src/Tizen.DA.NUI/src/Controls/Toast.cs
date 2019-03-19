@@ -104,9 +104,6 @@ namespace Tizen.FH.NUI.Controls
                             {
                                 HorizontalAlignment = HorizontalAlignment.Center,
                                 VerticalAlignment = VerticalAlignment.Center,
-                                BackgroundColor = Color.Red,//gwfdebug
-                                PointSize = 20,
-                                TextColor = Color.Black,
                             };
                         }
                         if (toastText_2line == null)
@@ -115,10 +112,6 @@ namespace Tizen.FH.NUI.Controls
                             {
                                 HorizontalAlignment = HorizontalAlignment.Center,
                                 VerticalAlignment = VerticalAlignment.Center,
-                                //BackgroundColor = Color.Blue,//gwfdebug
-                                PointSize = 20,
-                                BackgroundColor = Color.Red,//gwfdebug
-                                TextColor = Color.Black,
                             };
                         }
 
@@ -199,7 +192,6 @@ namespace Tizen.FH.NUI.Controls
 
         public Toast(string style) : base(style)
         {
-            Console.WriteLine("Toast ( FH) style contr");//gwfdebug
             SetAttribute();
             if (toastAttributes == null)
             {
@@ -207,7 +199,6 @@ namespace Tizen.FH.NUI.Controls
             }
             base.SetAttribute();
             ApplyAttributes(this, toastAttributes);
-            Console.WriteLine("ater");
         }
 
         private void Initialize()
@@ -245,10 +236,8 @@ namespace Tizen.FH.NUI.Controls
             Console.WriteLine("OnUpdate (FH ) Toast ");//gwfdebug
             if (toastAttributes == null)
             {
-                Console.WriteLine("FH OnUpdate ==null return");//gwfdebug
                 return;
             }
-            toastAttributes.TextAttributes.BackgroundColor = new ColorSelector { All = Color.Yellow };//gwfdebug
             DownSpace = UpSpace;
             if (loadingEnable)
             {
@@ -301,17 +290,13 @@ namespace Tizen.FH.NUI.Controls
             {
                 toastText_2line.Size2D = toastAttributes.TextAttributes.Size2D;
                 toastText_2line.Position2D.X = toastAttributes.TextAttributes.Position2D.X;
-                toastText_2line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 60;
-               // toastText_2line.Hide();
+                toastText_2line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 60;//TODO
             }
             if (toastText_3line != null)
             {
                 toastText_3line.Size2D = toastAttributes.TextAttributes.Size2D;
                 toastText_3line.Position2D.X = toastAttributes.TextAttributes.Position2D.X;
-                toastText_3line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 120;
-                Console.WriteLine("3 position "+toastAttributes.TextAttributes.Position2D.X+" "+ toastAttributes.TextAttributes.Position2D.Y);
-
-                //toastText_3line.Hide();
+                toastText_3line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 120;//TODO
             }
             
         }

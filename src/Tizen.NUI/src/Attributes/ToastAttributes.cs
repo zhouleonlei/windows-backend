@@ -20,6 +20,7 @@ namespace Tizen.NUI.Controls
             {
                 textAttrs = attrs.textAttrs.Clone() as TextAttributes;
             }
+            upSpace = attrs.upSpace;
         }
 
         public static readonly BindableProperty BackgroundImageAttributesProperty = BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(ToastAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
