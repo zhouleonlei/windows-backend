@@ -79,29 +79,17 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public class ClickEventArgs : EventArgs
+        public class ItemClickEventArgs : EventArgs
         {
-
-            private ViewHolder mHolder;
-            public ViewHolder ClickedView
-            {
-                get
-                {
-                    return mHolder;
-                }
-                set
-                {
-                    mHolder = value;
-                }
-            }
+            public ViewHolder ClickedView;
         }
 
-        public delegate void EventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
-        private EventHandler<ClickEventArgs> clickEventHandlers;
+        public delegate void ClickEventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
+        private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
         /// <summary>
-        /// Item clicked event.
+        /// Item click event.
         /// </summary>
-        internal event EventHandler<ClickEventArgs> ClickEvent
+        internal event ClickEventHandler<ItemClickEventArgs> ItemClickEvent
         {
             add
             {
@@ -114,9 +102,38 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private void OnClickEvent(object sender, ClickEventArgs e)
+        private void OnClickEvent(object sender, ItemClickEventArgs e)
         {
             clickEventHandlers?.Invoke(sender, e);
+        }
+
+
+        public class ItemTouchEventArgs : TouchEventArgs
+        {
+            public ViewHolder TouchedView;
+        }
+
+        public delegate void EventHandler<TouchEventArgs>(object sender, TouchEventArgs e);
+        private EventHandler<ItemTouchEventArgs> touchEventHandlers;
+        /// <summary>
+        /// Item touch event.
+        /// </summary>
+        internal event EventHandler<ItemTouchEventArgs> ItemTouchEvent
+        {
+            add
+            {
+                touchEventHandlers += value;
+            }
+
+            remove
+            {
+                touchEventHandlers -= value;
+            }
+        }
+
+        private void OnTouchEvent(object sender, ItemTouchEventArgs e)
+        {
+            touchEventHandlers?.Invoke(sender, e);
         }
 
 
@@ -332,9 +349,17 @@ namespace Tizen.NUI.Controls
 
         private void DispatchItemClicked(ViewHolder clickedHolder)
         {
-            ClickEventArgs args = new ClickEventArgs();
+            ItemClickEventArgs args = new ItemClickEventArgs();
             args.ClickedView = clickedHolder;
             OnClickEvent(this, args);
+        }
+
+        private void DispatchItemTouched(ViewHolder touchedHolder, Touch touchEvent)
+        {
+            ItemTouchEventArgs args = new ItemTouchEventArgs();
+            args.TouchedView = touchedHolder;
+            args.Touch = touchEvent;
+            OnTouchEvent(this, args);
         }
 
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
@@ -1350,6 +1375,8 @@ namespace Tizen.NUI.Controls
                 {
                     itemViewTable.Add(holder.ItemView.ID, holder);
                     mTapGestureDetector.Attach(holder.ItemView);
+                    holder.ItemView.TouchEvent += OnTouchEvent;
+                    //holder.ItemView.LeaveRequired = true;
                 }
             }
 
@@ -1407,6 +1434,20 @@ namespace Tizen.NUI.Controls
 
                     mFlexibleView.DispatchItemClicked(holder);
                 }
+            }
+
+            private bool OnTouchEvent(object source, TouchEventArgs e)
+            {
+                View itemView = source as View;
+                if (itemView != null && itemViewTable.ContainsKey(itemView.ID))
+                {
+                    ViewHolder holder = itemViewTable[itemView.ID];
+                    Console.WriteLine($"*Touch* {itemView.Name} index: {holder.AdapterPosition} {e.Touch.GetState(0)}");
+
+                    mFlexibleView.DispatchItemTouched(holder, e.Touch);
+                    return true;
+                }
+                return false;
             }
         }
 
