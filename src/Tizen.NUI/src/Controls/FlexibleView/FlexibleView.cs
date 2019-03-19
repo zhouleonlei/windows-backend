@@ -79,6 +79,47 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public class ClickEventArgs : EventArgs
+        {
+
+            private ViewHolder mHolder;
+            public ViewHolder ClickedView
+            {
+                get
+                {
+                    return mHolder;
+                }
+                set
+                {
+                    mHolder = value;
+                }
+            }
+        }
+
+        public delegate void EventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
+        private EventHandler<ClickEventArgs> clickEventHandlers;
+        /// <summary>
+        /// Item clicked event.
+        /// </summary>
+        internal event EventHandler<ClickEventArgs> ClickEvent
+        {
+            add
+            {
+                clickEventHandlers += value;
+            }
+
+            remove
+            {
+                clickEventHandlers -= value;
+            }
+        }
+
+        private void OnClickEvent(object sender, ClickEventArgs e)
+        {
+            clickEventHandlers?.Invoke(sender, e);
+        }
+
+
         public int FocusedItemIndex
         {
             get
@@ -287,6 +328,13 @@ namespace Tizen.NUI.Controls
             mAdapter.OnFocusChange(previousFocusView, currentFocusView);
 
             mFocusedItemIndex = nextFocusPosition;
+        }
+
+        private void DispatchItemClicked(ViewHolder clickedHolder)
+        {
+            ClickEventArgs args = new ClickEventArgs();
+            args.ClickedView = clickedHolder;
+            OnClickEvent(this, args);
         }
 
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
@@ -1257,7 +1305,7 @@ namespace Tizen.NUI.Controls
 
             private List<ViewHolder> mRemovePendingViews;
 
-            private Dictionary<uint, int> itemViewTable = new Dictionary<uint, int>();
+            private Dictionary<uint, ViewHolder> itemViewTable = new Dictionary<uint, ViewHolder>();
             private TapGestureDetector mTapGestureDetector;
 
             public ChildHelper(FlexibleView owner)
@@ -1296,11 +1344,11 @@ namespace Tizen.NUI.Controls
 
                 if (itemViewTable.ContainsKey(holder.ItemView.ID))
                 {
-                    itemViewTable[holder.ItemView.ID] = holder.AdapterPosition;
+                    itemViewTable[holder.ItemView.ID] = holder;
                 }
                 else
                 {
-                    itemViewTable.Add(holder.ItemView.ID, holder.AdapterPosition);
+                    itemViewTable.Add(holder.ItemView.ID, holder);
                     mTapGestureDetector.Attach(holder.ItemView);
                 }
             }
@@ -1353,9 +1401,11 @@ namespace Tizen.NUI.Controls
                 }
                 if (itemViewTable.ContainsKey(itemView.ID))
                 {
-                    int itemIndex = itemViewTable[itemView.ID];
-                    Console.WriteLine($"*Tap* {itemView.Name} index: {itemIndex}");
-                    mFlexibleView.FocusedItemIndex = itemIndex;
+                    ViewHolder holder = itemViewTable[itemView.ID];
+                    Console.WriteLine($"*Tap* {itemView.Name} index: {holder.AdapterPosition}");
+                    mFlexibleView.FocusedItemIndex = holder.AdapterPosition;
+
+                    mFlexibleView.DispatchItemClicked(holder);
                 }
             }
         }
