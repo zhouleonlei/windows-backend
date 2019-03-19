@@ -64,6 +64,10 @@ namespace Tizen.NUI.Samples
             dropDown.ButtonIconSize2D = new Size2D(48, 48);
             dropDown.LeftSpace = 56;
             dropDown.SpaceBetweenButtonTextAndIcon = 8;
+            dropDown.ListBackgroundImageURL = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png";
+            dropDown.ListBackgroundImageBorder = new Rectangle(51, 51, 51, 51);
+            dropDown.ListLeftMargin = 20;
+            dropDown.ListTopMargin = 20;
             dropDown.BackgroundColor = new Color(1, 1, 1, 1);
 
             root.Add(dropDown);

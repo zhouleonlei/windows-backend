@@ -93,6 +93,11 @@ namespace Tizen.NUI.Controls
                 textAttributes = attributes.textAttributes.Clone() as TextAttributes;
             }
 
+            if (attributes.space != null)
+            {
+                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+            }
+            itemGap = attributes.itemGap;
             isNatureTextWidth = attributes.isNatureTextWidth;
         }
 

@@ -46,7 +46,21 @@ namespace Tizen.NUI.Controls
             return attrs.spaceBetweenButtonTextAndIcon;
         });
 
-        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(DropDownAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ListBackgroundImageAttributesProperty = BindableProperty.Create("ListBackgroundImageAttributes", typeof(ImageAttributes), typeof(DropDownAttributes), default(ImageAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.listBackgroundAttributes = (ImageAttributes)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.listBackgroundAttributes;
+        }));
+		
+		public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(DropDownAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
         {
             var attrs = (DropDownAttributes)bindable;
             if (newValue != null)
@@ -60,10 +74,41 @@ namespace Tizen.NUI.Controls
             return (object)attrs.space;
         }));
 
+        public static readonly BindableProperty ListRelativeOrientationProperty = BindableProperty.Create("ListRelativeOrientation", typeof(DropDown.ListOrientation), typeof(DropDownAttributes), default(DropDown.ListOrientation), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.listOrientation = (DropDown.ListOrientation)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.listOrientation;
+        }));
+
+        public static readonly BindableProperty ListMarginProperty = BindableProperty.Create("ListMargin", typeof(Vector4), typeof(DropDownAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.listMargin = (Vector4)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.listMargin;
+        }));
+
         private ButtonAttributes buttonAttributes = null;
         private TextAttributes headerTextAttributes = null;
+        private ImageAttributes listBackgroundAttributes = null;
         private int spaceBetweenButtonTextAndIcon = 0;
         private Vector4 space = new Vector4(0, 0, 0, 0);
+        private DropDown.ListOrientation listOrientation = DropDown.ListOrientation.Left;
+        private Vector4 listMargin = new Vector4(0, 0, 0, 0);
 
         public DropDownAttributes() : base() { }
         public DropDownAttributes(DropDownAttributes attributes) : base(attributes)
@@ -78,7 +123,23 @@ namespace Tizen.NUI.Controls
                 headerTextAttributes = attributes.headerTextAttributes.Clone() as TextAttributes;
             }
 
+            if (attributes.listBackgroundAttributes != null)
+            {
+                listBackgroundAttributes = attributes.listBackgroundAttributes.Clone() as ImageAttributes;
+            }
+
+            if (attributes.space != null)
+            {
+                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+            }
+
+            if (attributes.listMargin != null)
+            {
+                listMargin = new Vector4(attributes.listMargin.X, attributes.listMargin.Y, attributes.listMargin.Z, attributes.listMargin.W);
+            }
+
             spaceBetweenButtonTextAndIcon = attributes.spaceBetweenButtonTextAndIcon;
+            listOrientation = attributes.listOrientation;
         }
 
         public ButtonAttributes ButtonAttributes
@@ -117,7 +178,19 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public Vector4 Space
+        public ImageAttributes ListBackgroundImageAttributes
+        {
+            get
+            {
+                return (ImageAttributes)GetValue(ListBackgroundImageAttributesProperty);
+            }
+            set
+            {
+                SetValue(ListBackgroundImageAttributesProperty, value);
+            }
+        }
+		
+		public Vector4 Space
         {
             get
             {
@@ -126,6 +199,30 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(SpaceProperty, value);
+            }
+        }
+
+        public DropDown.ListOrientation ListRelativeOrientation
+        {
+            get
+            {
+                return (DropDown.ListOrientation)GetValue(ListRelativeOrientationProperty);
+            }
+            set
+            {
+                SetValue(ListRelativeOrientationProperty, value);
+            }
+        }
+
+        public Vector4 ListMargin
+        {
+            get
+            {
+                return (Vector4)GetValue(ListMarginProperty);
+            }
+            set
+            {
+                SetValue(ListMarginProperty, value);
             }
         }
 

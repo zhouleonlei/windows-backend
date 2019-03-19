@@ -6,12 +6,19 @@ namespace Tizen.NUI.Controls
 {
     public class DropDown : Control
     {
+        #region DropDown
+        public enum ListOrientation
+        {
+            Left,
+            Right,
+        }
+
         private Button button;
         private TextLabel headerText;
         private TextLabel buttonText;
+        private ImageView listBackgroundImage;
         private FlexibleView list;
         private DropDownListBridge adapter;
-        List<DropDownItemData> dataList = new List<DropDownItemData>();
         private DropDownAttributes dropDownAttributes;
 
         public DropDown() : base()
@@ -313,9 +320,103 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public string ListBackgroundImageURL
+        {
+            get
+            {
+                return dropDownAttributes.ListBackgroundImageAttributes?.ResourceURL?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateListBackgroundAttributes();
+                    if (dropDownAttributes.ListBackgroundImageAttributes.ResourceURL == null)
+                    {
+                        dropDownAttributes.ListBackgroundImageAttributes.ResourceURL = new StringSelector();
+                    }
+                    dropDownAttributes.ListBackgroundImageAttributes.ResourceURL.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public Rectangle ListBackgroundImageBorder
+        {
+            get
+            {
+                return dropDownAttributes.ListBackgroundImageAttributes?.Border?.All;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CreateListBackgroundAttributes();
+                    if (dropDownAttributes.ListBackgroundImageAttributes.Border == null)
+                    {
+                        dropDownAttributes.ListBackgroundImageAttributes.Border = new RectangleSelector();
+                    }
+                    dropDownAttributes.ListBackgroundImageAttributes.Border.All = value;
+                    RelayoutRequest();
+                }
+            }
+        }
+
+        public ListOrientation ListRelativeOrientation
+        {
+            get
+            {
+                return dropDownAttributes.ListRelativeOrientation;
+            }
+            set
+            {
+                dropDownAttributes.ListRelativeOrientation = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int ListLeftMargin
+        {
+            get
+            {
+                return (int)dropDownAttributes.ListMargin.X;
+            }
+            set
+            {
+                dropDownAttributes.ListMargin.X = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int ListRigthMargin
+        {
+            get
+            {
+                return (int)dropDownAttributes.ListMargin.Y;
+            }
+            set
+            {
+                dropDownAttributes.ListMargin.Y = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int ListTopMargin
+        {
+            get
+            {
+                return (int)dropDownAttributes.ListMargin.Z;
+            }
+            set
+            {
+                dropDownAttributes.ListMargin.Z = value;
+                RelayoutRequest();
+            }
+        }
+
         public void AddItem(DropDownItemData item)
         {
-            dataList.Add(item);
+            adapter.InsertData(-1, item);
         }
 
         protected override void OnUpdate(Attributes attributes)
@@ -328,9 +429,18 @@ namespace Tizen.NUI.Controls
 
             ApplyAttributes(headerText, dropDownAttributes.HeaderTextAttributes);
             ApplyAttributes(buttonText, dropDownAttributes.ButtonAttributes.TextAttributes);
-            
+            ApplyAttributes(listBackgroundImage, dropDownAttributes.ListBackgroundImageAttributes);
+
             button.Position2D.X = (int)dropDownAttributes.Space.X;        
             button.SizeWidth = dropDownAttributes.ButtonAttributes.IconAttributes.Size2D.Width + dropDownAttributes.SpaceBetweenButtonTextAndIcon + buttonText.NaturalSize2D.Width;
+            if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Left)
+            {
+                listBackgroundImage.Position2D = new Position2D((int)dropDownAttributes.ListMargin.X, (int)dropDownAttributes.ListMargin.Z);
+            }
+            else if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Right)
+            {
+                listBackgroundImage.Position2D = new Position2D(Size2D.Width - list.Size2D.Width - (int)dropDownAttributes.ListMargin.Y, (int)dropDownAttributes.ListMargin.Z);
+            }
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -349,6 +459,13 @@ namespace Tizen.NUI.Controls
                     headerText = null;
                 }
 
+                if (buttonText != null)
+                {
+                    Remove(buttonText);
+                    buttonText.Dispose();
+                    buttonText = null;
+                }
+
                 if (button != null)
                 {
                     Remove(button);
@@ -358,6 +475,13 @@ namespace Tizen.NUI.Controls
 
                 if (list != null)
                 {
+                    if (listBackgroundImage != null)
+                    {
+                        list.Remove(listBackgroundImage);
+                        listBackgroundImage.Dispose();
+                        listBackgroundImage = null;
+                    }
+
                     Remove(list);
                     list.Dispose();
                     list = null;
@@ -374,10 +498,21 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
+            CreateHeaderText();
+            CreateButton();         
+            CreateListBackgroundImage();
+            CreateList();
+        }
+
+        private void CreateHeaderText()
+        {
             headerText = new TextLabel();
             headerText.Name = "DropDownHeaderText";
             Add(headerText);
+        }
 
+        private void CreateButton()
+        {
             button = new Button()
             {
                 PositionUsesPivotPoint = true,
@@ -399,20 +534,44 @@ namespace Tizen.NUI.Controls
                 HeightResizePolicy = ResizePolicyType.FillToParent,
             };
             buttonText.Name = "DropDownButtonText";
-            button.Add(buttonText);
+            Add(buttonText);
             buttonText.Hide();
+        }
 
+        private void CreateList()
+        {
             list = new FlexibleView();
             list.Name = "DropDownList";
-            Add(list);
-
-            adapter = new DropDownListBridge(dataList);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(LinearLayoutManager.VERTICAL);
+            list.SetLayoutManager(layoutManager);
+            adapter = new DropDownListBridge();
             list.SetAdapter(adapter);
+            list.Focusable = true;
+            list.FocusedItemIndex = 0;
+            list.Size2D = new Size2D(400, 500);
+            list.Padding = new Extents(4, 4, 4, 4);
+            listBackgroundImage.Add(list);
+            listBackgroundImage.Hide();
+        }
+
+        private void CreateListBackgroundImage()
+        {
+            listBackgroundImage = new ImageView
+            {
+                Name = "ListBackgroundImage",
+                PositionUsesPivotPoint = true,
+                ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                WidthResizePolicy = ResizePolicyType.FitToChildren,
+                HeightResizePolicy = ResizePolicyType.FitToChildren,
+            };
+            Add(listBackgroundImage);
         }
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            throw new NotImplementedException();
+            button.Hide();
+            listBackgroundImage.Show();
         }
 
         private void CreateHeaderTextAttributes()
@@ -475,6 +634,21 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        private void CreateListBackgroundAttributes()
+        {
+            if (dropDownAttributes.ListBackgroundImageAttributes == null)
+            {
+                dropDownAttributes.ListBackgroundImageAttributes = new ImageAttributes
+                {
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                };
+            }
+        }
+        #endregion
+
+        #region DropDownItemData
         public class DropDownItemData
         {
             public DropDownItemData()
@@ -493,20 +667,16 @@ namespace Tizen.NUI.Controls
                 set;
             }
         }
+        #endregion
 
+        #region DropDownItemView
         public class DropDownItemView : View
         {
-            private TextLabel mText;
-            private ImageView mIcon;
+            private TextLabel mText = null;
+            private ImageView mIcon = null;
+            private ImageView mCheck = null;
 
-            public DropDownItemView()
-            {
-                mText = new TextLabel();
-                Add(mText);
-
-                mIcon = new ImageView();
-                Add(mIcon);
-            }
+            public DropDownItemView() { }
 
             public string Text
             {
@@ -516,9 +686,63 @@ namespace Tizen.NUI.Controls
                 }
                 set
                 {
+                    CreateText();
                     mText.Text = value;
                 }
             }
+
+            public string FontFamily
+            {
+                get
+                {
+                    return mText.FontFamily;
+                }
+                set
+                {
+                    CreateText();
+                    mText.FontFamily = value;
+                }
+            }
+
+            public float PointSize
+            {
+                get
+                {
+                    return mText.PointSize;
+                }
+                set
+                {
+                    CreateText();
+                    mText.PointSize = value;
+                }
+            }
+
+            public Color TextColor
+            {
+                get
+                {
+                    return mText.TextColor;
+                }
+                set
+                {
+                    CreateText();
+                    mText.TextColor = value;
+                }
+            }
+
+            public Position2D TextPosition2D
+            {
+                get
+                {
+                    return mText.Position2D;
+                }
+                set
+                {
+                    CreateText();
+                    mText.Position2D = value;
+                }
+            }
+
             public string IconResourceUrl
             {
                 get
@@ -527,23 +751,176 @@ namespace Tizen.NUI.Controls
                 }
                 set
                 {
+                    CreateIcon();
                     mIcon.ResourceUrl = value;
                 }
             }
+
+            public Position2D IconPosition2D
+            {
+                get
+                {
+                    return mIcon.Position2D;
+                }
+                set
+                {
+                    CreateIcon();
+                    mIcon.Position2D = value;
+                }
+            }
+
+            public string CheckResourceUrl
+            {
+                get
+                {
+                    return mCheck.ResourceUrl;
+                }
+                set
+                {
+                    CreateCheckImage();
+                    mCheck.ResourceUrl = value;
+                }
+            }
+
+            public Position2D CheckPosition2D
+            {
+                get
+                {
+                    return mCheck.Position2D;
+                }
+                set
+                {
+                    CreateCheckImage();
+                    mCheck.Position2D = value;
+                }
+            }
+
+            public Size2D CheckImageSize2D
+            {
+                get
+                {
+                    return mCheck.Size2D;
+                }
+                set
+                {
+                    CreateCheckImage();
+                    mCheck.Size2D = value;
+                }
+            }
+
+            public bool ShowCheckImage
+            {
+                get
+                {
+                    return mCheck.Visibility;
+                }
+                set
+                {
+                    CreateCheckImage();
+                    if(value)
+                    {
+                        mCheck.Show();
+                    }
+                    else
+                    {
+                        mCheck.Hide();
+                    }
+                }
+            }
+
+            protected override void Dispose(DisposeTypes type)
+            {
+                if (disposed)
+                {
+                    return;
+                }
+
+                if (type == DisposeTypes.Explicit)
+                {
+                    if (mText != null)
+                    {
+                        Remove(mText);
+                        mText.Dispose();
+                        mText = null;
+                    }
+
+                    if (mIcon != null)
+                    {
+                        Remove(mIcon);
+                        mIcon.Dispose();
+                        mIcon = null;
+                    }
+
+                    if (mCheck != null)
+                    {
+                        Remove(mCheck);
+                        mCheck.Dispose();
+                        mCheck = null;
+                    }
+                }
+                base.Dispose(type);
+            }
+
+            private void CreateIcon()
+            {
+                if(mIcon == null)
+                {
+                    mIcon = new ImageView();
+                    Add(mIcon);
+                }
+            }
+
+            private void CreateText()
+            {
+                if (mText == null)
+                {
+                    mText = new TextLabel()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Begin,
+                    };
+                    Add(mText);
+                }
+            }
+
+            private void CreateCheckImage()
+            {
+                if (mCheck == null)
+                {
+                    mCheck = new ImageView()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    };
+                    Add(mCheck);
+                }
+            }
         }
+        #endregion
+
+        #region DropDownListBridge
 
         public class DropDownListBridge : FlexibleView.Adapter
         {
-            private List<DropDownItemData> mDatas;
+            private List<DropDownItemData> mDatas = new List<DropDownItemData>();
 
-            public DropDownListBridge(List<DropDownItemData> datas)
+            public DropDownListBridge()
             {
-                mDatas = datas;
             }
 
-            public void InsertData(int position)
+            public void InsertData(int position, DropDownItemData data)
             {
-                mDatas.Insert(position, new DropDownItemData());
+                if(position == -1)
+                {
+                    position = mDatas.Count;
+                }
+                mDatas.Insert(position, data);
                 NotifyItemInserted(position);
             }
 
@@ -562,26 +939,25 @@ namespace Tizen.NUI.Controls
 
             public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
             {
-                //Console.WriteLine($"OnBindItemView... position: {position}");
-                holder.Padding = new Vector4(1, 1, 1, 1);
-                holder.SizeWidth = 150;
-                holder.SizeHeight = 60;
+                //holder.Padding = new Vector4(0, 2, 0, 2);
+                holder.SizeWidth = 400;
+                holder.SizeHeight = 96;
 
                 DropDownItemData listItemData = mDatas[position];
 
                 DropDownItemView listItemView = holder.ItemView as DropDownItemView;
                 listItemView.Name = "Item" + position;
-                //Random rd = new Random();
-                //listItemView.SizeHeight = 60;
+
                 if (listItemView != null)
                 {
                     listItemView.Text = String.Format("{0:D2}", position) + " : " + listItemData.Text;
-                }
-                //listItemView.Margin = new Extents(1, 1, 1, 1);
-                if (position % 2 == 0)
-                    listItemView.BackgroundColor = Color.Cyan;
-                else
-                    listItemView.BackgroundColor = Color.Yellow;
+                    listItemView.PointSize = 12;
+                    listItemView.TextPosition2D = new Position2D(28, 0); //listItemView.BackgroundColor = Color.Green;
+
+                    listItemView.CheckResourceUrl = @"../../../demo/csharp-demo/res/images/FH3/10. Drop Down/dropdown_checkbox_on.png";
+                    listItemView.CheckImageSize2D = new Size2D(40, 40);
+                    listItemView.CheckPosition2D = new Position2D(listItemView.Size2D.Width - 16 - listItemView.CheckImageSize2D.Width, (listItemView.Size2D.Height - listItemView.CheckImageSize2D.Height) / 2);
+                }              
             }
 
             public override int GetItemCount()
@@ -593,25 +969,24 @@ namespace Tizen.NUI.Controls
             {
                 if (previousFocus != null)
                 {
-                    //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
-                    if (previousFocus.AdapterPosition % 2 == 0)
-                        previousFocus.ItemView.BackgroundColor = Color.Cyan;
-                    else
-                        previousFocus.ItemView.BackgroundColor = Color.Yellow;
-                    //previousFocus.SizeWidth = 150;
-                    //previousFocus.SizeHeight = 60;
-                    //NotifyItemChanged(previousFocus.AdapterPosition);
+                    DropDownItemView listItemView = previousFocus.ItemView as DropDownItemView;
+                    if (listItemView != null)
+                    {
+                        listItemView.ShowCheckImage = false;
+                        NotifyItemChanged(previousFocus.AdapterPosition);
+                    }
                 }
                 if (currentFocus != null)
                 {
-                    //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
-                    currentFocus.ItemView.BackgroundColor = Color.Magenta;
-                    //currentFocus.SizeWidth = 200;
-                    //currentFocus.SizeHeight = 100;
-                    //NotifyItemChanged(currentFocus.AdapterPosition);
+                    DropDownItemView listItemView = currentFocus.ItemView as DropDownItemView;
+                    if (listItemView != null)
+                    {
+                        listItemView.ShowCheckImage = true;
+                        NotifyItemChanged(currentFocus.AdapterPosition);
+                    }
                 }
             }
-
         }
+        #endregion
     }
 }
