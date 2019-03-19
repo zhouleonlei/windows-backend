@@ -102,7 +102,16 @@ namespace Tizen.NUI.Controls
                     return;
                 }
 
-                mLayout.ScrollToPosition(value);
+                ViewHolder nextFocusView = FindViewHolderForAdapterPosition(value);
+                if (nextFocusView == null)
+                {
+                    mLayout.ScrollToPosition(value);
+                }
+                else
+                {
+                    mLayout.RequestChildRectangleOnScreen(this, nextFocusView, mRecycler, mState, true);
+                    DispatchFocusChanged(value);
+                }
             }
         }
         public void ScrollToPositionWithOffset(int position, int offset)
@@ -284,7 +293,7 @@ namespace Tizen.NUI.Controls
         {
             if (e.PanGesture.State == Gesture.StateType.Started)
             {
-
+                mLayout.StopScroll();
             }
             else if (e.PanGesture.State == Gesture.StateType.Continuing)
             {
@@ -500,7 +509,7 @@ namespace Tizen.NUI.Controls
 
             private List<ViewHolder> mPendingRecycleViews = new List<ViewHolder>();
 
-            private Animation mAnimation;
+            private Animation mScrollAni;
 
             public abstract void OnLayoutChildren(Recycler recycler, ViewState state);
 
@@ -524,6 +533,17 @@ namespace Tizen.NUI.Controls
             public virtual float ScrollVerticallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
             {
                 return 0;
+            }
+
+            internal void StopScroll()
+            {
+                if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
+                {
+                    //Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~{code}~~");
+                    mScrollAni.Stop();
+                    mScrollAni.Clear();
+                    OnScrollAnimationFinished(mScrollAni, null);
+                }
             }
 
             public virtual void ScrollToPosition(int position)
@@ -677,13 +697,6 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            //public int GetItemCount()
-            //{
-            //    Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
-
-            //    return b != null ? b.GetItemCount() : 0;
-            //}
-
             public int GetChildCount()
             {
                 return mChildHelper != null ? mChildHelper.GetChildCount() : 0;
@@ -699,7 +712,7 @@ namespace Tizen.NUI.Controls
                 return mFlexibleView.FindViewHolderForLayoutPosition(position);
             }
 
-            private void OnAnimationFinished(object sender, EventArgs e)
+            private void OnScrollAnimationFinished(object sender, EventArgs e)
             {
                 Console.WriteLine($"OnAnimationFinished...{mPendingRecycleViews.Count}");
                 RecycleChildrenInt(mFlexibleView.mRecycler);
@@ -712,25 +725,25 @@ namespace Tizen.NUI.Controls
                     return;
                 }
 
-                if (mAnimation == null)
+                if (mScrollAni == null)
                 {
-                    mAnimation = new Animation(500);
-                    mAnimation.Finished += OnAnimationFinished;
+                    mScrollAni = new Animation(500);
+                    mScrollAni.Finished += OnScrollAnimationFinished;
                 }
-                else if (mAnimation.State == Animation.States.Playing)
+                else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    mAnimation.Stop();
-                    OnAnimationFinished(mAnimation, null);
-                    mAnimation.Duration = 100;
-                    mAnimation.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                    mScrollAni.Stop();
+                    OnScrollAnimationFinished(mScrollAni, null);
+                    mScrollAni.Duration = 100;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
                 }
                 else
                 {
-                    mAnimation.Duration = 500;
-                    mAnimation.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
+                    mScrollAni.Duration = 500;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
                 }
 
-                mAnimation.Clear();
+                mScrollAni.Clear();
 
                 int childCount = mChildHelper.GetChildCount();
                 if (immediate == true)
@@ -747,9 +760,9 @@ namespace Tizen.NUI.Controls
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
                         v.DestinationX = v.PositionX + dx;
-                        mAnimation.AnimateTo(v.ItemView, "PositionX", v.PositionX + v.Padding[0]);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionX", v.PositionX + v.Padding[0]);
                     }
-                    mAnimation.Play();
+                    mScrollAni.Play();
                 }
             }
 
@@ -760,25 +773,25 @@ namespace Tizen.NUI.Controls
                     return;
                 }
 
-                if (mAnimation == null)
+                if (mScrollAni == null)
                 {
-                    mAnimation = new Animation(500);
-                    mAnimation.Finished += OnAnimationFinished;
+                    mScrollAni = new Animation(500);
+                    mScrollAni.Finished += OnScrollAnimationFinished;
                 }
-                else if (mAnimation.State == Animation.States.Playing)
+                else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    mAnimation.Stop();
-                    OnAnimationFinished(mAnimation, null);
-                    mAnimation.Duration = 100;
-                    mAnimation.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                    mScrollAni.Stop();
+                    OnScrollAnimationFinished(mScrollAni, null);
+                    mScrollAni.Duration = 100;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
                 }
                 else
                 {
-                    mAnimation.Duration = 500;
-                    mAnimation.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
+                    mScrollAni.Duration = 500;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
                 }
 
-                mAnimation.Clear();
+                mScrollAni.Clear();
 
                 int childCount = mChildHelper.GetChildCount();
                 if (immediate == true)
@@ -797,10 +810,10 @@ namespace Tizen.NUI.Controls
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
                         v.DestinationY = v.PositionY + dy;
-                        mAnimation.AnimateTo(v.ItemView, "PositionY", v.PositionY + v.Padding[1]);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionY", v.PositionY + v.Padding[1]);
                         //Console.WriteLine($"{i} AdapterPosition:{v.AdapterPosition} Y:{v.PositionY}");
                     }
-                    mAnimation.Play();
+                    mScrollAni.Play();
                 }
             }
 
@@ -877,13 +890,6 @@ namespace Tizen.NUI.Controls
                 }
 
                 recycler.ClearScrap();
-
-                //int childCount = mChildHelper.GetChildCount();
-                //for (int i = childCount - 1; i >= 0; i--)
-                //{
-                //    ItemView v = mChildHelper.GetChildAt(i);
-                //    ScrapOrRecycleView(recycler, i, v);
-                //}
 
                 mChildHelper.ScrapViews(recycler);
             }
@@ -1246,16 +1252,20 @@ namespace Tizen.NUI.Controls
         private class ChildHelper
         {
             private FlexibleView mFlexibleView;
-            //private List<ItemView> mScrapedViews = new List<ItemView>();
+            
             private List<ViewHolder> mViewList = new List<ViewHolder>();
 
-            //private Dictionary<ItemView, InfoRecord> mLayoutInfoMap = new Dictionary<ItemView, InfoRecord>();
-
             private List<ViewHolder> mRemovePendingViews;
+
+            private Dictionary<uint, int> itemViewTable = new Dictionary<uint, int>();
+            private TapGestureDetector mTapGestureDetector;
 
             public ChildHelper(FlexibleView owner)
             {
                 mFlexibleView = owner;
+
+                mTapGestureDetector = new TapGestureDetector();
+                mTapGestureDetector.Detected += OnTapGestureDetected;
             }
 
             public void ScrapViews(Recycler recycler)
@@ -1283,6 +1293,16 @@ namespace Tizen.NUI.Controls
                 mViewList.Insert(index, holder);
 
                 mFlexibleView.Add(holder.ItemView);
+
+                if (itemViewTable.ContainsKey(holder.ItemView.ID))
+                {
+                    itemViewTable[holder.ItemView.ID] = holder.AdapterPosition;
+                }
+                else
+                {
+                    itemViewTable.Add(holder.ItemView.ID, holder.AdapterPosition);
+                    mTapGestureDetector.Attach(holder.ItemView);
+                }
             }
 
             public bool RemoveView(ViewHolder holder)
@@ -1322,6 +1342,21 @@ namespace Tizen.NUI.Controls
                     return null;
                 }
                 return mViewList[index];
+            }
+
+            private void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
+            {
+                View itemView = e.View as View;
+                if (itemView == null)
+                {
+                    return;
+                }
+                if (itemViewTable.ContainsKey(itemView.ID))
+                {
+                    int itemIndex = itemViewTable[itemView.ID];
+                    Console.WriteLine($"*Tap* {itemView.Name} index: {itemIndex}");
+                    mFlexibleView.FocusedItemIndex = itemIndex;
+                }
             }
         }
 

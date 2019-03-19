@@ -499,7 +499,7 @@ namespace Tizen.NUI.Controls
             }
 
             float scrolled = absDy > consumed ? -layoutDirection * consumed : dy;
-            Console.WriteLine($"scrolled:{scrolled} dy:{dy} layoutDirection:{layoutDirection} consumed:{consumed} scrollingOffset:{mLayoutState.mScrollingOffset}");
+            //Console.WriteLine($"scrolled:{scrolled} dy:{dy} layoutDirection:{layoutDirection} consumed:{consumed} scrollingOffset:{mLayoutState.mScrollingOffset}");
 
             mOrientationHelper.OffsetChildren(scrolled, immediate);
 
