@@ -23,20 +23,24 @@ namespace Tizen.FH.NUI.Samples
 
             CreateBoardAndButtons();
 
-            //toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
-            //toast1_1.Position2D = new Position2D(50, 300);
-            //root.Add(toast1_1);
-            //toast1_1.Text = "Basic Short Toast";
+            toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
+            toast1_1.Position2D = new Position2D(50, 300);
+            root.Add(toast1_1);
+            toast1_1.Text = "Basic Short Toast";
 
-            //toast2_1 = new FH.NUI.Controls.Toast("BasicLongToast");
-            //toast2_1.Position2D = new Position2D(650, 300);
-            //root.Add(toast2_1);
-            //toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
-            //toast2_1.LoadingEnable = true;
+
+            toast2_1 = new FH.NUI.Controls.Toast("BasicLongToast");
+            toast2_1.Position2D = new Position2D(650, 300);
+            root.Add(toast2_1);
+            toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
+            toast2_1.LoadingEnable = true;
 
             toast2_3 = new Tizen.FH.NUI.Controls.Toast();
+            toast2_3.BackgroundBorder = new Rectangle(64, 64, 4, 4);
             toast2_3.Position2D = new Position2D(650, 650);
             toast2_3.Size2D = new Size2D(1000, 272);
+            toast2_3.LeftSpace = 96;
+            toast2_3.UpSpace = 48;
             //toast2_3.LengthType = Controls.Toast.ToastLengthType.LONG;
             root.Add(toast2_3);
             toast2_3.LinesType = Controls.Toast.ToastLinesType.THREE;
@@ -45,7 +49,7 @@ namespace Tizen.FH.NUI.Samples
             toast2_3.Text3Line = "This is my thirdd line, I have a very long long text, I have a very long long text";
             toast2_3.BackgroundImageURL = "*DemoRes*/images/FH3/12. Toast Popup/toast_background.png";
             global::System.Console.WriteLine("set url");
-            // toast2_3.BackgroundColor = Color.Yellow;
+
             board.UpFocusableView = button1;
 
             window.Add(root);
@@ -75,7 +79,7 @@ namespace Tizen.FH.NUI.Samples
             board1.HorizontalAlignment = HorizontalAlignment.Center;
             board1.VerticalAlignment = VerticalAlignment.Center;
             board1.BackgroundColor = Color.Magenta;
-            board1.Text = "NULL parameter construction";
+            board1.Text = "Short style";
             root.Add(board1);
             board1.Focusable = true;
             board1.FocusGained += Board_FocusGained;
@@ -88,7 +92,7 @@ namespace Tizen.FH.NUI.Samples
             board2.HorizontalAlignment = HorizontalAlignment.Center;
             board2.VerticalAlignment = VerticalAlignment.Center;
             board2.BackgroundColor = Color.Magenta;
-            board2.Text = "Attribute construction";
+            board2.Text = "long style";
             root.Add(board2);
             board2.Focusable = true;
             board2.FocusGained += Board_FocusGained;

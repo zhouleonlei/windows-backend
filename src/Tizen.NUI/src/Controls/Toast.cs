@@ -14,33 +14,34 @@ namespace Tizen.NUI.Controls
         private Timer timer;
         private Animation showAnimation;
         private Animation hideAnimation;
-
+        private int downSpace;
         private bool autoDestroy = false;
 
         public Toast() : base()
         {
-            this.attributes = toastAttributes = new ToastAttributes
-            {
-                TextAttributes = new TextAttributes
-                {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-                    PivotPoint = Tizen.NUI.PivotPoint.Center,
-                    PositionUsesPivotPoint = true,
-                    Position2D = "0,0",
-                },
+            SetAttribute();
+            //this.attributes = toastAttributes = new ToastAttributes
+            //{
+            //    TextAttributes = new TextAttributes
+            //    {
+            //        HorizontalAlignment = HorizontalAlignment.Center,
+            //        VerticalAlignment = VerticalAlignment.Center,
+            //        ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+            //        PivotPoint = Tizen.NUI.PivotPoint.Center,
+            //        PositionUsesPivotPoint = true,
+            //        Position2D = "0,0",
+            //    },
 
-                BackgroundImageAttributes = new ImageAttributes
-                {
-                    Border = new RectangleSelector()
-                    {
-                        All = new Rectangle(64, 64, 4, 4),
-                    }
+            //    BackgroundImageAttributes = new ImageAttributes
+            //    {
+            //        Border = new RectangleSelector()
+            //        {
+            //            All = new Rectangle(64, 64, 4, 4),
+            //        }
 
-                },
+            //    },
 
-            };
+            //};
 
             Initialize();
         }
@@ -73,6 +74,31 @@ namespace Tizen.NUI.Controls
             set
             {
                 toastText.Text = value;
+            }
+
+        }
+
+        public Size2D TextSize
+        {
+            get
+            {
+                return toastAttributes.TextAttributes.Size2D;
+            }
+        }
+
+        public Rectangle BackgroundBorder
+        {
+            get
+            {
+                return toastAttributes?.BackgroundImageAttributes?.Border.All;
+            }
+            set
+            {
+                if (toastAttributes.BackgroundImageAttributes.Border == null)
+                {
+                    toastAttributes.BackgroundImageAttributes.Border = new RectangleSelector();
+                }
+                toastAttributes.BackgroundImageAttributes.Border.All = value;
             }
 
         }
@@ -257,13 +283,15 @@ namespace Tizen.NUI.Controls
 
         protected override void OnUpdate(Attributes attributes)
         {
-            Console.WriteLine("Toast SR OnUpdate");
-            toastAttributes = attributes as ToastAttributes;
+            Console.WriteLine("Toast SR OnUpdate");//gwfdebug
+
             if (toastAttributes == null)
             {
-                Console.WriteLine("OnUp att null (SR)");
+                Console.WriteLine("OnUp att null (SR)");//gwfdebug
                 return;
             }
+
+            UpdateText();
 
             /////////////////////////////////////////////////////
             ApplyAttributes(this, toastAttributes);
@@ -274,7 +302,7 @@ namespace Tizen.NUI.Controls
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
 
-            //base.OnUpdate(attributes);
+
             Console.WriteLine("Toast SR OnUpdate done");
         }
 
@@ -295,10 +323,10 @@ namespace Tizen.NUI.Controls
 
             toastText = new TextLabel()
             {
-                BackgroundColor=Color.Magenta
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
             this.Add(toastText);
-
         }
 
         public string BackgroundImageURL
@@ -312,19 +340,78 @@ namespace Tizen.NUI.Controls
             set
             {
                 if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                {
                     toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value; Console.WriteLine("set url in SR");
+                }
+
+                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                Console.WriteLine("set url in SR");//gwfdebug
                 RelayoutRequest();
+            }
+        }
+
+        public int LeftSpace
+        {
+            get
+            {
+                if (toastAttributes.TextAttributes.Position2D == null)
+                {
+                    toastAttributes.TextAttributes.Position2D = new Position2D();
+                }
+                return toastAttributes.TextAttributes.Position2D.X;
+            }
+            set
+            {
+                if (toastAttributes.TextAttributes.Position2D == null)
+                {
+                    toastAttributes.TextAttributes.Position2D = new Position2D();
+                }
+                toastAttributes.TextAttributes.Position2D.X = value;
+
+            }
+        }
+
+        public int UpSpace
+        {
+            get
+            {
+                if (toastAttributes.UpSpace == null)
+                {
+                    toastAttributes.UpSpace = new int();
+                }
+                return toastAttributes.UpSpace.Value;
+            }
+            set
+            {
+                if (toastAttributes.UpSpace == null)
+                {
+                    toastAttributes.UpSpace = new int();
+                }
+                toastAttributes.UpSpace = value;
+                downSpace = value;
+                Console.WriteLine("Call set upspace done");
             }
         }
 
         public Size2D TextSize2D
         {
+            get
+            {
+                return toastAttributes?.TextAttributes?.Size2D;
+            }
             set
             {
                 toastText.Size2D = toastAttributes.TextAttributes.Size2D = value;
             }
 
+        }
+
+        protected Size2D GetTextSize()
+        {
+            Size2D size = new Size2D();
+            size.Width = this.Size2D.Width - (2 * LeftSpace);
+            size.Height = this.Size2D.Height - (2 * UpSpace);
+            return size;
         }
 
         public Position2D TextPosition2D
@@ -335,9 +422,47 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        private void UpdateText()
+        {
+            if (toastAttributes.TextAttributes.Size2D == null)
+            {
+                toastAttributes.TextAttributes.Size2D = new Size2D();
+            }
+            toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
+            Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());
+            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
+            toastAttributes.TextAttributes.Position2D.X = LeftSpace;
+            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
+        }
+
+        public int DownSpace
+        {
+            set
+            {
+                downSpace = value;
+            }
+        }
+
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new ToastAttributes
+            {
+                TextAttributes = new TextAttributes
+                {
+
+                },
+
+                BackgroundImageAttributes = new ImageAttributes
+                {
+
+                }
+
+            };
+        }
+
+        protected void SetAttribute()
+        {
+            toastAttributes = this.attributes as ToastAttributes;
         }
 
     }

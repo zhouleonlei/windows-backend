@@ -7,7 +7,7 @@ namespace Tizen.NUI.Controls
     {
         private ImageAttributes backgroundImageAttrs = null;
         private TextAttributes textAttrs= null;
-
+        private int? upSpace;
         public ToastAttributes() : base() { }
 
         public ToastAttributes(ToastAttributes attrs) : base(attrs)
@@ -50,6 +50,20 @@ namespace Tizen.NUI.Controls
             return attrs.textAttrs;
         });
 
+        public static readonly BindableProperty UpSpaceProperty = BindableProperty.Create("UpSpace", typeof(int), typeof(ToastAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (ToastAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.upSpace = (int?)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (ToastAttributes)bindable;
+            return attrs.upSpace;
+        });
+
         public ImageAttributes BackgroundImageAttributes
         {
             get
@@ -71,6 +85,18 @@ namespace Tizen.NUI.Controls
             set
             {
                 SetValue(TextAttributesProperty, value);
+            }
+        }
+
+        public int? UpSpace
+        {
+            get
+            {
+                return (int?)GetValue(UpSpaceProperty);
+            }
+            set
+            {
+                SetValue(UpSpaceProperty, value);
             }
         }
 

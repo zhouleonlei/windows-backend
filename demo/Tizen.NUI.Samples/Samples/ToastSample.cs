@@ -24,19 +24,19 @@ namespace Tizen.NUI.Samples
 
             toast1_1 = new Toast();
             toast1_1.Position2D = new Position2D(50, 350);
-
+            toast1_1.Size2D = new Size2D(512, 132);
+            toast1_1.BackgroundBorder = new Rectangle(64, 64, 4, 4);
+            
             root.Add(toast1_1);
             toast1_1.Text = "null parameter construction";
             toast1_1.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
-
+            toast1_1.UpSpace = 38;
+            toast1_1.LeftSpace = 96;
 
             ToastAttributes attr = new ToastAttributes
             {
-
                 TextAttributes = new TextAttributes
                 {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
                     //    Position2D = "0,0"
                     //Size2D = "352,56"
                     //ParentOrigin = "Center"

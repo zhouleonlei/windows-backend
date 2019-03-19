@@ -1,7 +1,7 @@
 ﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <ToastAttributes x:Name="ToastAttributes"  Size2D="1000, 132">
+    <ToastAttributes x:Name="ToastAttributes"  Size2D="1000, 132" UpSpace="38">
         <ToastAttributes.BackgroundImageAttributes>
             <ImageAttributes 
                 Size2D="1000,132"
@@ -19,7 +19,6 @@
                 Size2D="808,56"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
-                BackgroundColor="#45612358"
                 Position2D="96,38"
                 PivotPoint="TopLeft"
                 PositionUsesPivotPoint="True"
