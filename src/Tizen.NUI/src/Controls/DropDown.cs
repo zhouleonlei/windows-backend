@@ -13,13 +13,13 @@ namespace Tizen.NUI.Controls
             Right,
         }
 
-        private Button button;
-        private TextLabel headerText;
-        private TextLabel buttonText;
-        private ImageView listBackgroundImage;
-        private FlexibleView list;
-        private DropDownListBridge adapter;
-        private DropDownAttributes dropDownAttributes;
+        private Button button = null;
+        private TextLabel headerText = null;
+        private TextLabel buttonText = null;
+        private ImageView listBackgroundImage = null;
+        private FlexibleView list = null;
+        private DropDownListBridge adapter = new DropDownListBridge();
+        private DropDownAttributes dropDownAttributes = null;
 
         public DropDown() : base()
         {
@@ -153,9 +153,6 @@ namespace Tizen.NUI.Controls
                         dropDownAttributes.ButtonAttributes.TextAttributes.Text = new StringSelector();
                     }
                     dropDownAttributes.ButtonAttributes.TextAttributes.Text.All = value;
-
-                    button.Text = value;
-
                     RelayoutRequest();
                 }
             }
@@ -175,9 +172,6 @@ namespace Tizen.NUI.Controls
                     dropDownAttributes.ButtonAttributes.TextAttributes.PointSize = new FloatSelector();
                 }
                 dropDownAttributes.ButtonAttributes.TextAttributes.PointSize.All = value;
-
-                button.PointSize = value;
-
                 RelayoutRequest();
             }
         }
@@ -191,10 +185,7 @@ namespace Tizen.NUI.Controls
             set
             {
                 CreateButtonTextAttributes();
-                dropDownAttributes.ButtonAttributes.TextAttributes.FontFamily = value;
-
-                button.FontFamily = value;
-
+                dropDownAttributes.ButtonAttributes.TextAttributes.FontFamily = value;                
                 RelayoutRequest();
             }
         }
@@ -212,10 +203,7 @@ namespace Tizen.NUI.Controls
                 {
                     dropDownAttributes.ButtonAttributes.TextAttributes.TextColor = new ColorSelector();
                 }
-                dropDownAttributes.ButtonAttributes.TextAttributes.TextColor.All = value;
-
-                button.TextColor = value;
-
+                dropDownAttributes.ButtonAttributes.TextAttributes.TextColor.All = value;               
                 RelayoutRequest();
             }
         }
@@ -231,10 +219,7 @@ namespace Tizen.NUI.Controls
                 CreateButtonTextAttributes();
                 if (value != null)
                 {
-                    dropDownAttributes.ButtonAttributes.TextAttributes.TextColor = value.Clone() as ColorSelector;
-
-                    button.TextColorSelector = value;
-
+                    dropDownAttributes.ButtonAttributes.TextAttributes.TextColor = value.Clone() as ColorSelector;                    
                     RelayoutRequest();
                 }
             }
@@ -256,9 +241,6 @@ namespace Tizen.NUI.Controls
                         dropDownAttributes.ButtonAttributes.IconAttributes.ResourceURL = new StringSelector();
                     }
                     dropDownAttributes.ButtonAttributes.IconAttributes.ResourceURL.All = value;
-
-                    button.IconURL = value;
-
                     RelayoutRequest();
                 }
             }
@@ -466,24 +448,91 @@ namespace Tizen.NUI.Controls
                 return;
             }
 
-            ApplyAttributes(headerText, dropDownAttributes.HeaderTextAttributes);
-            ApplyAttributes(buttonText, dropDownAttributes.ButtonAttributes.TextAttributes);
-            ApplyAttributes(listBackgroundImage, dropDownAttributes.ListBackgroundImageAttributes);
-
-            button.Position2D.X = (int)dropDownAttributes.Space.X;        
-            button.SizeWidth = dropDownAttributes.ButtonAttributes.IconAttributes.Size2D.Width + dropDownAttributes.SpaceBetweenButtonTextAndIcon + buttonText.NaturalSize2D.Width;
-
-            list.FocusedItemIndex = dropDownAttributes.FocusedItemIndex;
-            list.Size2D = dropDownAttributes.ListSize2D;
-            list.Padding = dropDownAttributes.ListPadding;
-
-            if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Left)
+            if (dropDownAttributes.HeaderTextAttributes != null)
             {
-                listBackgroundImage.Position2D = new Position2D((int)dropDownAttributes.ListMargin.X, (int)dropDownAttributes.ListMargin.Z);
+                if (headerText == null)
+                {
+                    CreateHeaderText();
+                }
+                ApplyAttributes(headerText, dropDownAttributes.HeaderTextAttributes);
             }
-            else if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Right)
+
+
+            if (dropDownAttributes.ButtonAttributes != null)
             {
-                listBackgroundImage.Position2D = new Position2D(Size2D.Width - list.Size2D.Width - (int)dropDownAttributes.ListMargin.Y, (int)dropDownAttributes.ListMargin.Z);
+                if (button == null)
+                {
+                    CreateButton();
+                }
+                if (dropDownAttributes.Space != null)
+                {
+                    button.Position2D.X = (int)dropDownAttributes.Space.X;
+                }
+
+                if (dropDownAttributes.ButtonAttributes.TextAttributes != null)
+                {
+                    ApplyAttributes(buttonText, dropDownAttributes.ButtonAttributes.TextAttributes);
+                    button.TextSelector = dropDownAttributes.ButtonAttributes.TextAttributes.Text;
+                    if (dropDownAttributes.ButtonAttributes.TextAttributes.PointSize != null)
+                    {
+                        button.PointSize = dropDownAttributes.ButtonAttributes.TextAttributes.PointSize.All.Value;
+                    }
+                    button.FontFamily = dropDownAttributes.ButtonAttributes.TextAttributes.FontFamily;
+                    button.TextColorSelector = dropDownAttributes.ButtonAttributes.TextAttributes.TextColor;
+                }
+                if (dropDownAttributes.ButtonAttributes.IconAttributes != null)
+                {
+                    button.IconURLSelector = dropDownAttributes.ButtonAttributes.IconAttributes.ResourceURL;
+                    int iconWidth = 0;
+                    int buttonTextWidth = 0;
+                    if (dropDownAttributes.ButtonAttributes.IconAttributes.Size2D != null)
+                    {
+                        iconWidth = dropDownAttributes.ButtonAttributes.IconAttributes.Size2D.Width;
+                    }
+                    if (buttonText.NaturalSize2D != null)
+                    {
+                        buttonTextWidth = buttonText.NaturalSize2D.Width;
+                    }
+                    button.SizeWidth = iconWidth + dropDownAttributes.SpaceBetweenButtonTextAndIcon + buttonTextWidth;
+                }
+            }
+
+            if (dropDownAttributes.ListBackgroundImageAttributes != null)
+            {
+                if (listBackgroundImage == null)
+                {
+                    CreateListBackgroundImage();
+                    CreateList();
+                }
+                ApplyAttributes(listBackgroundImage, dropDownAttributes.ListBackgroundImageAttributes);
+                list.FocusedItemIndex = dropDownAttributes.FocusedItemIndex;
+                list.Size2D = dropDownAttributes.ListSize2D;
+                list.Padding = dropDownAttributes.ListPadding;
+
+                int listBackgroundImageX = 0;
+                int listBackgroundImageY = 0;
+                if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Left)
+                {
+                    if (dropDownAttributes.ListMargin != null)
+                    {
+                        listBackgroundImageX = (int)dropDownAttributes.ListMargin.X;
+                        listBackgroundImageY = (int)dropDownAttributes.ListMargin.Z;
+                    }
+                }
+                else if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Right)
+                {
+                    if (dropDownAttributes.ListMargin != null)
+                    {
+                        int listWidth = 0;
+                        if (list.Size2D != null)
+                        {
+                            listWidth = list.Size2D.Width;
+                        }
+                        listBackgroundImageX = Size2D.Width - listWidth - (int)dropDownAttributes.ListMargin.Y;
+                        listBackgroundImageY = (int)dropDownAttributes.ListMargin.Z;
+                    }
+                }
+                listBackgroundImage.Position2D = new Position2D(listBackgroundImageX, listBackgroundImageY);
             }
         }
 
@@ -552,11 +601,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
-            ApplyAttributes(this, dropDownAttributes);
-            CreateHeaderText();
-            CreateButton();         
-            CreateListBackgroundImage();
-            CreateList();
+            ApplyAttributes(this, dropDownAttributes);                  
         }
 
         private void CreateHeaderText()
@@ -599,7 +644,6 @@ namespace Tizen.NUI.Controls
             list.Name = "DropDownList";
             LinearLayoutManager layoutManager = new LinearLayoutManager(LinearLayoutManager.VERTICAL);
             list.SetLayoutManager(layoutManager);
-            adapter = new DropDownListBridge();
             list.SetAdapter(adapter);
             list.Focusable = true;
             list.ItemTouchEvent += ListItemTouchEvent;

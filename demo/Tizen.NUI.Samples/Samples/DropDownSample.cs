@@ -49,6 +49,7 @@ namespace Tizen.NUI.Samples
             createText[0].MultiLine = true;
             root.Add(createText[0]);
 
+            #region CreateByProperty
             dropDown = new DropDown();
             dropDown.Size2D = new Size2D(900, 108);
             dropDown.Position2D = new Position2D(50, 300);
@@ -93,7 +94,7 @@ namespace Tizen.NUI.Samples
                 item.CheckImageRightSpace = 16;
                 dropDown.AddItem(item);
             }
-
+            #endregion
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
             createText[1].Text = "Create DropDown just by Attributes";
@@ -101,6 +102,8 @@ namespace Tizen.NUI.Samples
             createText[1].Position2D = new Position2D(1000, 100);
             createText[1].MultiLine = true;
             root.Add(createText[1]);
+
+            #region CreateByAttributes
 
             DropDownAttributes attrs = new DropDownAttributes
             {
@@ -168,13 +171,36 @@ namespace Tizen.NUI.Samples
             dropDown2.Position2D = new Position2D(1000, 300);
             root.Add(dropDown2);
 
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    DropDown.DropDownItem item = new DropDown.DropDownItem();
-            //    item.Text = "DropDown " + i;
-            //    dropDown2.AddItem(item);
-            //}
-            //dropDown2.SelectedItemIndex = 0;
+            DropDownItemAttributes itemAttrs = new DropDownItemAttributes
+            {
+                BackgroundColor = new ColorSelector
+                {
+                    Pressed = new Color(0, 0, 0, 0.4f),
+                    Other = new Color(1, 1, 1, 0),
+                },
+                TextAttributes = new TextAttributes
+                {
+                    PointSize = new FloatSelector { All = 18 },
+                    FontFamily = "SamsungOne 500",
+                    Position2D = new Position2D(28, 0),
+                },
+                CheckImageAttributes = new ImageAttributes
+                {
+                    Size2D = new Size2D(40, 40),
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
+                },
+                CheckImageRightSpace = 16,
+            };
+
+            for (int i = 0; i < 8; i++)
+            {
+                DropDown.DropDownItemData item = new DropDown.DropDownItemData(itemAttrs);
+                item.Size2D = new Size2D(360, 96);
+                item.Text = "Normal list " + i;
+                dropDown2.AddItem(item);
+            }
+
+            #endregion
 
             //button = new Button();
             //button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
