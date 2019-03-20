@@ -46,7 +46,7 @@ namespace Tizen.NUI.Controls
             return attrs.titleTextAttributes;
         });
 
-		public static readonly BindableProperty ShadowOffsetProperty = BindableProperty.Create("ShadowOffset", typeof(Vector4), typeof(TimePickerAttributes), default(Vector4), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ShadowOffsetProperty = BindableProperty.Create("ShadowOffset", typeof(Vector4), typeof(TimePickerAttributes), default(Vector4), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -60,7 +60,7 @@ namespace Tizen.NUI.Controls
             return attrs.shadowOffset;
         });
 
-		public static readonly BindableProperty HourSpinAttributesProperty = BindableProperty.Create("HourSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty HourSpinAttributesProperty = BindableProperty.Create("HourSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -74,7 +74,7 @@ namespace Tizen.NUI.Controls
             return attrs.hourSpinAttributes;
         });
 
-		public static readonly BindableProperty MinuteSpinAttributesProperty = BindableProperty.Create("MinuteSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MinuteSpinAttributesProperty = BindableProperty.Create("MinuteSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -88,7 +88,7 @@ namespace Tizen.NUI.Controls
             return attrs.minuteSpinAttributes;
         });
 
-		public static readonly BindableProperty SecondSpinAttributesProperty = BindableProperty.Create("SecondSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty SecondSpinAttributesProperty = BindableProperty.Create("SecondSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -102,7 +102,7 @@ namespace Tizen.NUI.Controls
             return attrs.secondSpinAttributes;
         });
 
-		public static readonly BindableProperty AMPMSpinAttributesProperty = BindableProperty.Create("AMPMSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AMPMSpinAttributesProperty = BindableProperty.Create("AMPMSpinAttributes", typeof(SpinAttributes), typeof(TimePickerAttributes), default(SpinAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -116,7 +116,7 @@ namespace Tizen.NUI.Controls
             return attrs.aMPMSpinAttributes;
         });
 
-		public static readonly BindableProperty ColonImageAttributesProperty = BindableProperty.Create("ColonImageAttributes", typeof(ImageAttributes), typeof(TimePickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ColonImageAttributesProperty = BindableProperty.Create("ColonImageAttributes", typeof(ImageAttributes), typeof(TimePickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -130,7 +130,7 @@ namespace Tizen.NUI.Controls
             return attrs.colonImageAttrs;
         });
 
-		public static readonly BindableProperty WeekViewAttributesProperty = BindableProperty.Create("WeekViewAttributes", typeof(ViewAttributes), typeof(TimePickerAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WeekViewAttributesProperty = BindableProperty.Create("WeekViewAttributes", typeof(ViewAttributes), typeof(TimePickerAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -144,7 +144,7 @@ namespace Tizen.NUI.Controls
             return attrs.weekViewAttributes;
         });
 
-		public static readonly BindableProperty WeekSelectImageAttributesProperty  = BindableProperty.Create("WeekSelectImageAttributes", typeof(ImageAttributes), typeof(TimePickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WeekSelectImageAttributesProperty  = BindableProperty.Create("WeekSelectImageAttributes", typeof(ImageAttributes), typeof(TimePickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -158,7 +158,7 @@ namespace Tizen.NUI.Controls
             return attrs.weekSelectImageAttributes;
         });
 
-		public static readonly BindableProperty WeekTextAttributesProperty = BindableProperty.Create("WeekTextAttributes", typeof(TextAttributes), typeof(TimePickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WeekTextAttributesProperty = BindableProperty.Create("WeekTextAttributes", typeof(TextAttributes), typeof(TimePickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -172,7 +172,7 @@ namespace Tizen.NUI.Controls
             return attrs.weekTextAttributes;
         });
 
-		public static readonly BindableProperty WeekTitleTextAttributesProperty = BindableProperty.Create("WeekTTitleTextAttributes", typeof(TextAttributes), typeof(TimePickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WeekTitleTextAttributesProperty = BindableProperty.Create("WeekTTitleTextAttributes", typeof(TextAttributes), typeof(TimePickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (TimePickerAttributes)bindable;
             if (newValue != null)
@@ -185,21 +185,21 @@ namespace Tizen.NUI.Controls
             var attrs = (TimePickerAttributes)bindable;
             return attrs.weekTitleTextAttributes;
         });
-		
+        
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
         private TextAttributes titleTextAttributes;
         private Vector4 shadowOffset;
-		private SpinAttributes hourSpinAttributes;
-		private SpinAttributes minuteSpinAttributes;
-		private SpinAttributes secondSpinAttributes;
-		private SpinAttributes aMPMSpinAttributes;
-		private ImageAttributes colonImageAttrs;
+        private SpinAttributes hourSpinAttributes;
+        private SpinAttributes minuteSpinAttributes;
+        private SpinAttributes secondSpinAttributes;
+        private SpinAttributes aMPMSpinAttributes;
+        private ImageAttributes colonImageAttrs;
 
-		private ViewAttributes weekViewAttributes;
-		private TextAttributes weekTitleTextAttributes;
-		private ImageAttributes weekSelectImageAttributes;
-		private TextAttributes weekTextAttributes;
+        private ViewAttributes weekViewAttributes;
+        private TextAttributes weekTitleTextAttributes;
+        private ImageAttributes weekSelectImageAttributes;
+        private TextAttributes weekTextAttributes;
 
         public TimePickerAttributes() : base() { }
         public TimePickerAttributes(TimePickerAttributes attributes) : base(attributes)
@@ -218,50 +218,50 @@ namespace Tizen.NUI.Controls
             {
                 titleTextAttributes = attributes.titleTextAttributes.Clone() as TextAttributes;
             }
-			
+            
             shadowOffset = new Vector4(attributes.shadowOffset.W, attributes.shadowOffset.X, attributes.shadowOffset.Y, attributes.shadowOffset.Z);
 
-			if (attributes.hourSpinAttributes != null)
-			{
-				hourSpinAttributes = attributes.hourSpinAttributes.Clone() as SpinAttributes;
-			}
+            if (attributes.hourSpinAttributes != null)
+            {
+                hourSpinAttributes = attributes.hourSpinAttributes.Clone() as SpinAttributes;
+            }
 
-			if (attributes.minuteSpinAttributes != null)
-			{
-				minuteSpinAttributes = attributes.minuteSpinAttributes.Clone() as SpinAttributes;
-			}
+            if (attributes.minuteSpinAttributes != null)
+            {
+                minuteSpinAttributes = attributes.minuteSpinAttributes.Clone() as SpinAttributes;
+            }
 
-			if (attributes.secondSpinAttributes != null)
-			{
-				secondSpinAttributes = attributes.secondSpinAttributes.Clone() as SpinAttributes;
-			}
+            if (attributes.secondSpinAttributes != null)
+            {
+                secondSpinAttributes = attributes.secondSpinAttributes.Clone() as SpinAttributes;
+            }
 
-			if (attributes.aMPMSpinAttributes != null)
-			{
-				aMPMSpinAttributes = attributes.aMPMSpinAttributes.Clone() as SpinAttributes;
-			}
+            if (attributes.aMPMSpinAttributes != null)
+            {
+                aMPMSpinAttributes = attributes.aMPMSpinAttributes.Clone() as SpinAttributes;
+            }
 
-			if (attributes.colonImageAttrs != null)
+            if (attributes.colonImageAttrs != null)
             {
                 colonImageAttrs = attributes.colonImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.weekViewAttributes != null)
+            if (attributes.weekViewAttributes != null)
             {
                 weekViewAttributes = attributes.weekViewAttributes.Clone() as ViewAttributes;
             }
 
-			if (attributes.weekTitleTextAttributes != null)
+            if (attributes.weekTitleTextAttributes != null)
             {
                 weekTitleTextAttributes = attributes.weekTitleTextAttributes.Clone() as TextAttributes;
             }
 
-			if (attributes.weekSelectImageAttributes != null)
+            if (attributes.weekSelectImageAttributes != null)
             {
                 weekSelectImageAttributes = attributes.weekSelectImageAttributes.Clone() as ImageAttributes;
             }
 
-			if (attributes.weekTextAttributes != null)
+            if (attributes.weekTextAttributes != null)
             {
                 weekTextAttributes = attributes.weekTextAttributes.Clone() as TextAttributes;
             }
@@ -302,7 +302,7 @@ namespace Tizen.NUI.Controls
                 SetValue(TitleTextAttributesProperty, value);
             }
         }
-		
+        
         public Vector4 ShadowOffset
         {
             get
@@ -315,7 +315,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public SpinAttributes HourSpinAttributes
+        public SpinAttributes HourSpinAttributes
         {
             get
             {
@@ -327,7 +327,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public SpinAttributes MinuteSpinAttributes
+        public SpinAttributes MinuteSpinAttributes
         {
             get
             {
@@ -339,7 +339,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public SpinAttributes SecondSpinAttributes
+        public SpinAttributes SecondSpinAttributes
         {
             get
             {
@@ -351,7 +351,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public SpinAttributes AMPMSpinAttributes
+        public SpinAttributes AMPMSpinAttributes
         {
             get
             {
@@ -363,7 +363,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes ColonImageAttributes
+        public ImageAttributes ColonImageAttributes
         {
             get
             {
@@ -374,10 +374,10 @@ namespace Tizen.NUI.Controls
                 SetValue(ColonImageAttributesProperty, value);
             }
         }
-		
-		public ViewAttributes WeekViewAttributes
-		{
-			get
+        
+        public ViewAttributes WeekViewAttributes
+        {
+            get
             {
                 return (ViewAttributes)GetValue(WeekViewAttributesProperty);
             }
@@ -385,9 +385,9 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(WeekViewAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes WeekTitleTextAttributes
+        public TextAttributes WeekTitleTextAttributes
         {
             get
             {
@@ -399,9 +399,9 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes WeekSelectImageAttributes
-		{
-			get
+        public ImageAttributes WeekSelectImageAttributes
+        {
+            get
             {
                 return (ImageAttributes)GetValue(WeekSelectImageAttributesProperty);
             }
@@ -409,11 +409,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(WeekSelectImageAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes WeekTextAttributes
-		{
-			get
+        public TextAttributes WeekTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(WeekTextAttributesProperty);
             }
@@ -421,7 +421,7 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(WeekTextAttributesProperty, value);
             }
-		}
+        }
         public override Attributes Clone()
         {
             return new TimePickerAttributes(this);
