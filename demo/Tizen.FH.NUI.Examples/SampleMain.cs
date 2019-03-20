@@ -5,6 +5,7 @@ using System.Reflection;
 using Tizen.FH.NUI;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -160,6 +161,23 @@ namespace Tizen.FH.NUI.Samples
 
                     return true;
                 }
+                switch(e.Key.KeyPressedName)
+                {
+                    case "1":
+                        StyleManager.Instance.Theme = "Utility";
+                        break;
+                    case "2":
+                        StyleManager.Instance.Theme = "Food";
+                        break;
+                    case "3":
+                        StyleManager.Instance.Theme = "Family";
+                        break;
+                    case "4":
+                        StyleManager.Instance.Theme = "Kitchen";
+                        break;
+                }
+
+                
             }
 
             return false;
