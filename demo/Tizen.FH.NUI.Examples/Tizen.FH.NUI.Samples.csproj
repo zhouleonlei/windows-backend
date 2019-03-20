@@ -59,6 +59,7 @@
     <Compile Include="Samples\PopupSample.cs" />
     <Compile Include="Samples\ProgressSample.cs" />
     <Compile Include="Samples\RadioButtonSample.cs" />
+    <Compile Include="Samples\SampleLayout.cs" />
     <Compile Include="Samples\ScrollbarSample.cs" />
     <Compile Include="Samples\SearchBarSample.cs" />
     <Compile Include="Samples\SliderSample.cs" />

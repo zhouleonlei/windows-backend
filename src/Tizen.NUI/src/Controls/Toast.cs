@@ -14,6 +14,7 @@ namespace Tizen.NUI.Controls
         private Timer timer;
         private Animation showAnimation;
         private Animation hideAnimation;
+        private int leftSpace;
         private int downSpace;
         private bool autoDestroy = false;
 
@@ -291,7 +292,7 @@ namespace Tizen.NUI.Controls
                 return;
             }
 
-            UpdateText();
+            LayoutChild();
 
             /////////////////////////////////////////////////////
             ApplyAttributes(this, toastAttributes);
@@ -324,7 +325,7 @@ namespace Tizen.NUI.Controls
             toastText = new TextLabel()
             {
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
             };
             this.Add(toastText);
         }
@@ -354,20 +355,12 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                if (toastAttributes.TextAttributes.Position2D == null)
-                {
-                    toastAttributes.TextAttributes.Position2D = new Position2D();
-                }
-                return toastAttributes.TextAttributes.Position2D.X;
+                return leftSpace;
             }
             set
             {
-                if (toastAttributes.TextAttributes.Position2D == null)
-                {
-                    toastAttributes.TextAttributes.Position2D = new Position2D();
-                }
-                toastAttributes.TextAttributes.Position2D.X = value;
-
+                leftSpace = value;
+                RelayoutRequest();
             }
         }
 
@@ -422,14 +415,18 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        private void UpdateText()
+        protected virtual void LayoutChild()
         {
             if (toastAttributes.TextAttributes.Size2D == null)
             {
                 toastAttributes.TextAttributes.Size2D = new Size2D();
             }
+            if (toastAttributes.TextAttributes.Position2D == null)
+            {
+                toastAttributes.TextAttributes.Position2D = new Position2D();
+            }
             toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
-            Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());
+            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
             toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
             toastAttributes.TextAttributes.Position2D.X = LeftSpace;
             toastAttributes.TextAttributes.Position2D.Y = UpSpace;
@@ -437,6 +434,10 @@ namespace Tizen.NUI.Controls
 
         public int DownSpace
         {
+            get
+            {
+                return downSpace;
+            }
             set
             {
                 downSpace = value;

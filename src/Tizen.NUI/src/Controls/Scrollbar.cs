@@ -123,7 +123,7 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.Direction = value;
-                UpdateValue();
+                RelayoutRequest();
             }
         }
 
@@ -168,7 +168,7 @@ namespace Tizen.NUI.Controls
                         scrollBarAttrs.ThumbSize.Height = value.Height;
                     }
                     thumbObj.Size2D = new Size2D((int)value.Width, (int)value.Height);
-                    UpdateValue();
+                    RelayoutRequest();
                 }
             }
         }
@@ -247,7 +247,7 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.MaxValue = value;
-                UpdateValue();
+                RelayoutRequest();
             }
         }
 
@@ -263,7 +263,7 @@ namespace Tizen.NUI.Controls
             set
             {
                 scrollBarAttrs.MinValue = value;
-                UpdateValue();
+                RelayoutRequest();
             }
         }
 
@@ -280,7 +280,7 @@ namespace Tizen.NUI.Controls
                     throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
                 }
                 scrollBarAttrs.CurValue = value;
-                UpdateValue();
+                RelayoutRequest();
             }
         }
 
@@ -418,6 +418,7 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(this, scrollBarAttrs);
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
+            UpdateValue();
         }
 
         private void Initialize()
@@ -454,6 +455,12 @@ namespace Tizen.NUI.Controls
             //uiDirection = SystemProperty.Instance.UIDirection;
 
             InitializePanGestureDetector();
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            RelayoutRequest();
         }
 
         //private void ApplyAttributes()
@@ -550,11 +557,11 @@ namespace Tizen.NUI.Controls
             //TNLog.I("width = " + width + ", height = " + height + ", ratio = " + ratio);
             if (scrollBarAttrs.Direction == DirectionType.Horizontal)
             {
-                //if (uiDirection == UIDirection.RTL)
-                //{
-                //    ratio = 1.0f - ratio;
-                //    //TNLog.I("RTL, ratio = " + ratio);
-                //}
+                if (LayoutDirection == ViewLayoutDirectionType.RTL)
+                {
+                    ratio = 1.0f - ratio;
+                    //TNLog.I("RTL, ratio = " + ratio);
+                }
                 Console.WriteLine("555555555555555555");
                 float posX = ratio * (width - thumbW);
                 float posY = (height - thumbH) / 2.0f;
@@ -798,8 +805,6 @@ namespace Tizen.NUI.Controls
         }
 
         private ScrollBarAttributes scrollBarAttrs;
-
-        ViewLayoutDirectionType uiDirection = ViewLayoutDirectionType.LTR;
 
         private ImageView trackObj;// = null;
         private ImageView thumbObj;// = null;

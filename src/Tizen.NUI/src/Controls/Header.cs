@@ -127,18 +127,14 @@ namespace Tizen.NUI.Controls
             {
                 return;
             }
-            ApplyAttributes(this, HeaderAttribute);
             if (HeaderAttribute.TextAttributes != null)
             {
                 if (HeaderTitle== null)
                 {
                     HeaderTitle= new TextLabel
                     {
-                        FontFamily = "SamsungOne 500",
-                        Position2D = new Position2D(55, 0),
-                        SizeHeight=128,
-                        SizeWidth= 968,
-                        PointSize=50,
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
                         HorizontalAlignment =   HorizontalAlignment.Center,
                         VerticalAlignment =  VerticalAlignment.Center,
                     };
@@ -152,10 +148,12 @@ namespace Tizen.NUI.Controls
                 {
                     HeaderLine = new View
                     {
-                        Position2D = new Position2D(0, 127),
-                       Size2D = new Size2D(1080, 1),
-                       
-                };
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        Size2D = new Size2D(1080, 1),
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = NUI.ParentOrigin.BottomLeft,
+                        PivotPoint = NUI.PivotPoint.TopLeft
+                    };
                     this.Add(HeaderLine);
                 }
                 ApplyAttributes(HeaderLine, HeaderAttribute.LineAttributes);
@@ -186,6 +184,7 @@ namespace Tizen.NUI.Controls
             {
                 throw new Exception("Header attribute parse error.");
             }
+            ApplyAttributes(this, HeaderAttribute);
         }
      
     }

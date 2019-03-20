@@ -34,6 +34,7 @@ namespace Tizen.FH.NUI.Samples
             root.Add(toast2_1);
             toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
             toast2_1.LoadingEnable = true;
+            toast2_1.LeftSpace = 96;
 
             toast2_3 = new Tizen.FH.NUI.Controls.Toast();
             toast2_3.BackgroundBorder = new Rectangle(64, 64, 4, 4);
@@ -116,14 +117,14 @@ namespace Tizen.FH.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += toast2_1Show;
 
-            //button3 = new Button();
-            //button3.BackgroundColor = Color.Green;
-            //button3.Position2D = new Position2D(450, 600);
-            //button3.Size2D = new Size2D(80, 50);
-            //button3.Text = "+";
-            //root.Add(button3);
-            //button3.Focusable = true;
-            //button3.ClickEvent += Scroll2Add;
+            button3 = new Button();
+            button3.BackgroundColor = Color.Green;
+            button3.Position2D = new Position2D(1300, 600);
+            button3.Size2D = new Size2D(200, 50);
+            button3.Text = "changed Direction";
+            root.Add(button3);
+            button3.Focusable = true;
+            button3.ClickEvent += toast2_1ChangeDirection;
 
             button4 = new Button();
             button4.BackgroundColor = Color.Green;
@@ -154,6 +155,15 @@ namespace Tizen.FH.NUI.Samples
         private void toast2_1Show(object sender, global::System.EventArgs e)
         {
             board.Text = "toast2_1 show: ";
+            toast2_1.Show(3000, false);
+        }
+
+        private void toast2_1ChangeDirection(object sender, global::System.EventArgs e)
+        {
+            if (toast2_1.LayoutDirection == ViewLayoutDirectionType.LTR)
+                toast2_1.LayoutDirection = ViewLayoutDirectionType.RTL;
+            else
+                toast2_1.LayoutDirection = ViewLayoutDirectionType.LTR;
             toast2_1.Show(3000, false);
         }
 

@@ -60,6 +60,7 @@ namespace Tizen.NUI.Controls
 
         public override void OnLayoutChildren(FlexibleView.Recycler recycler, FlexibleView.ViewState state)
         {
+            mLayoutState.mRecycle = false;
             if (!mAnchorInfo.mValid || mPendingScrollPosition != NO_POSITION)
             {
                 mAnchorInfo.Reset();
@@ -180,6 +181,16 @@ namespace Tizen.NUI.Controls
                 return 0;
             }
             return ScrollBy(dy, recycler, state, immediate); ;
+        }
+
+        public override int ComputeScrollOffset(FlexibleView.ViewState state)
+        {
+            return state.FocusPosition != -1 ? state.FocusPosition : 0;
+        }
+
+        public override int ComputeScrollRange(FlexibleView.ViewState state)
+        {
+            return state.ItemCount - 1;
         }
 
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)

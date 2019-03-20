@@ -9,7 +9,7 @@ namespace Tizen.NUI.Xaml
         public AttributesContainer()
         {
             IsCreateByXaml = true;
-            InitializeComponent();
+            //InitializeComponent();
         }
 
         public bool IsResourcesCreated
