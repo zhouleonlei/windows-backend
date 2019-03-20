@@ -680,10 +680,10 @@ namespace Tizen.NUI.Controls
                         }
                     }
                     break;
-                case PointStateType.Leave:
-                    if (e.TouchedView != null && e.TouchedView.ItemView == touchedView)
+                case PointStateType.Motion:
+                    if (touchedView != null)
                     {
-                        touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Selected);
+                        touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Normal);
                     }
                     break;
                 case PointStateType.Up:
@@ -1406,8 +1406,7 @@ namespace Tizen.NUI.Controls
                 listItemView.Name = "Item" + position;
                 if (listItemData.Size2D != null)
                 {
-                    holder.ItemView.SizeWidth = listItemData.Size2D.Width;
-                    holder.ItemView.SizeHeight = listItemData.Size2D.Height;
+                    holder.ItemView.Size2D = listItemData.Size2D;
                 }
 
                 if (listItemView != null)
