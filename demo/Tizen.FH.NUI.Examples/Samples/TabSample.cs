@@ -33,6 +33,7 @@ namespace Tizen.FH.NUI.Samples
             tab.IsNatureTextWidth = false;
             tab.Size2D = new Size2D(1000, 108);
             tab.Position2D = new Position2D(200, 300);
+            tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
             window.Add(tab);
 
             for (int i = 0; i < 3; i++)
@@ -42,7 +43,7 @@ namespace Tizen.FH.NUI.Samples
                 tab.AddItem(item);
             }
 
-            button = new Button("UtilityServiceButton");
+            button = new Button("ServiceButton");
             button.Size2D = new Size2D(280, 80);
             button.Position2D = new Position2D(500, 700);
             button.Text = mode[index];
