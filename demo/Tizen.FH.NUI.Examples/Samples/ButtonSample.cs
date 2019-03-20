@@ -7,119 +7,101 @@ namespace Tizen.FH.NUI.Samples
 {
     public class ButtonSample : IExample
     {
-        private static readonly float Height = 150;
-        private static readonly float Width = 300;
-        private static readonly Size2D Padding = new Size2D(50, 50);
+        private SampleLayout root;
 
-        private uint colNum;
-        private uint rowNum;
+        private Button BasicButtonNormal;
+        private Button BasicButtonDisabled;
 
-        private static string[] styles = new string[]
-        {
-            "Basic",
-            "Service",
-            "Toggle",
-            "Oval"
-        };
+        private Button ServiceButtonNormal;
+        private Button ServiceButtonDisabled;
 
-        private static string[] applications = new string[]
-        {
-            "Utility",
-            "Family",
-            "Food",
-            "Kitchen",
-        };
+        private Button ToggleButtonNormal;
+        private Button ToggleButtonDisabled;
 
-        private View root;
+        private Button OvalButtonNormal;
+        private Button OvalButtonDisabled;
 
         public void Activate()
         {
-            Window window = Window.Instance;
+            root = new SampleLayout();
+            root.HeaderText = "Button";
 
-            if (styles.Length == 0 || applications.Length == 0)
-            {
-                return;
-            }
-            colNum = (uint)applications.Length + 1;
-            rowNum = (uint)styles.Length + 1;
+            BasicButtonNormal = new Button("BasicButton");
+            BasicButtonNormal.Size2D = new Size2D(300, 80);
+            BasicButtonNormal.Position2D = new Position2D(156, 50);
+            BasicButtonNormal.Text = "BasicButton";
+            root.Add(BasicButtonNormal);
 
-            root = new View()
-            {
-                Size2D = new Size2D(1920, 1080),
-            };
-            for (int i = 1; i < rowNum; i++)
-            {
-                TextLabel text = new TextLabel();
-                text.Size2D = new Size2D(100, 50);
-                text.Position2D = new Position2D(50 , 150 * i);
-                text.PointSize = 20;
-                text.Focusable = true;
-                text.HorizontalAlignment = HorizontalAlignment.Center;
-                text.VerticalAlignment = VerticalAlignment.Center;
-                text.Text = styles[i - 1];
-                root.Add(text);
-            }
+            BasicButtonDisabled = new Button("BasicButton");
+            BasicButtonDisabled.Size2D = new Size2D(300, 80);
+            BasicButtonDisabled.Position2D = new Position2D(624, 50);
+            BasicButtonDisabled.Text = "BasicButton";
+            BasicButtonDisabled.IsEnabled = false;
+            root.Add(BasicButtonDisabled);
 
-            for (int i = 1; i < colNum; i++)
-            {
-                TextLabel text = new TextLabel();
-                text.Size2D = new Size2D(100, 50);
-                text.Position2D = new Position2D(300 * i, 50);
-                text.PointSize = 20;
-                text.HorizontalAlignment = HorizontalAlignment.Center;
-                text.VerticalAlignment = VerticalAlignment.Center;
-                text.Text = applications[i - 1];
-                text.Focusable = true;
-                root.Add(text);
-            }
-            for (int i = 1; i < rowNum; i++)
-            {
-                for (int j = 1; j < colNum; j++)
-                {
-                    Button button = new Button(applications[j - 1] + styles[i - 1] + "Button");
-                    button.Position2D = new Position2D(300 * j, 150 * i);
-                    if(i != 4)
-                    {
-                        button.Size2D = new Size2D(280, 80);
-                        button.Text = applications[j - 1] + styles[i - 1] + "Button";
-                    }
-                    else
-                    {
-                        button.Size2D = new Size2D(104, 104);
-                    }
-                    
-                    if (i == 3)
-                    {
-                        button.TextSelector = new StringSelector() { Normal = "Toggle Off", Selected = "Toggle On" };
-                    }
-                    else if(i == 4)
-                    {
+            ServiceButtonNormal = new Button("ServiceButton");
+            ServiceButtonNormal.Size2D = new Size2D(300, 80);
+            ServiceButtonNormal.Position2D = new Position2D(156, 200);
+            ServiceButtonNormal.Text = "ServiceButton";
+            root.Add(ServiceButtonNormal);
 
-                    }
-                    root.Add(button);
-                }
-            }
+            ServiceButtonDisabled = new Button("ServiceButton");
+            ServiceButtonDisabled.Size2D = new Size2D(300, 80);
+            ServiceButtonDisabled.Position2D = new Position2D(624, 200);
+            ServiceButtonDisabled.Text = "ServiceButton";
+            ServiceButtonDisabled.IsEnabled = false;
+            root.Add(ServiceButtonDisabled);
 
-            window.Add(root);
+            ToggleButtonNormal = new Button("ToggleButton");
+            ToggleButtonNormal.Size2D = new Size2D(300, 80);
+            ToggleButtonNormal.Position2D = new Position2D(156, 350);
+            ToggleButtonNormal.Text = "ToggleButton";
+            root.Add(ToggleButtonNormal);
+
+            ToggleButtonDisabled = new Button("ToggleButton");
+            ToggleButtonDisabled.Size2D = new Size2D(300, 80);
+            ToggleButtonDisabled.Position2D = new Position2D(624, 350);
+            ToggleButtonDisabled.Text = "ToggleButton";
+            root.Add(ToggleButtonDisabled);
+
+            OvalButtonNormal = new Button("OvalButton");
+            OvalButtonNormal.Size2D = new Size2D(100, 100);
+            OvalButtonNormal.Position2D = new Position2D(156, 500);
+            root.Add(OvalButtonNormal);
+
+            OvalButtonDisabled = new Button("OvalButton");
+            OvalButtonDisabled.Size2D = new Size2D(100, 100);
+            OvalButtonDisabled.Position2D = new Position2D(624, 500);
+            OvalButtonDisabled.IsEnabled = false;
+            root.Add(OvalButtonDisabled);
         }
 
         public void Deactivate()
         {
-            uint count = root.ChildCount;
-            List<View> viewlist = new List<View>(root.Children);
-            
-            for(uint i = 0; i < count; i++)
-            {
-                root.Remove(viewlist[(int)i]);
-                viewlist[(int)i].Dispose();
-            }
-            viewlist.Clear();
-            
-            if (root != null)
-            {
-                Window.Instance.Remove(root);
-                root.Dispose();
-            }
+            root.Remove(BasicButtonNormal);
+            BasicButtonNormal.Dispose();
+
+            root.Remove(BasicButtonDisabled);
+            BasicButtonDisabled.Dispose();
+
+            root.Remove(ServiceButtonNormal);
+            ServiceButtonNormal.Dispose();
+
+            root.Remove(ServiceButtonDisabled);
+            ServiceButtonDisabled.Dispose();
+
+            root.Remove(ToggleButtonNormal);
+            ToggleButtonNormal.Dispose();
+
+            root.Remove(ToggleButtonDisabled);
+            ToggleButtonDisabled.Dispose();
+
+            root.Remove(OvalButtonNormal);
+            OvalButtonNormal.Dispose();
+            root.Remove(OvalButtonDisabled);
+            OvalButtonDisabled.Dispose();
+    
+            root.Dispose();
         }
     }
 }

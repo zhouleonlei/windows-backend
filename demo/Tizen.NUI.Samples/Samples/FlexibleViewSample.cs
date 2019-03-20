@@ -83,21 +83,18 @@ namespace Tizen.NUI.Samples
         public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
         {
             //Console.WriteLine($"OnBindItemView... position: {position}");
-            holder.Padding = new Vector4(1, 1, 1, 1);
-            holder.SizeWidth = 150;
-            holder.SizeHeight = 60;
-
             ListItemData listItemData = mDatas[position];
 
             ListItemView listItemView = holder.ItemView as ListItemView;
             listItemView.Name = "Item" + position;
             //Random rd = new Random();
-            //listItemView.SizeHeight = 60;
+            listItemView.SizeWidth = 150;
+            listItemView.SizeHeight = 60;
             if (listItemView != null)
             {
                 listItemView.MainText = String.Format("{0:D2}", position) + " : " + listItemData.TextString;
             }
-            //listItemView.Margin = new Extents(1, 1, 1, 1);
+            listItemView.Margin = new Extents(2, 2, 2, 2);
             if (position % 2 == 0)
                 listItemView.BackgroundColor = Color.Cyan;
             else
@@ -109,23 +106,25 @@ namespace Tizen.NUI.Samples
             return mDatas.Count;
         }
 
-        public override void OnFocusChange(FlexibleView.ViewHolder previousFocus, FlexibleView.ViewHolder currentFocus)
+        public override void OnFocusChange(FlexibleView flexibleView, int previousFocus, int currentFocus)
         {
-            if (previousFocus != null)
+            FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
+            if (previousFocusView != null)
             {
                 //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
-                if (previousFocus.AdapterPosition % 2 == 0)
-                    previousFocus.ItemView.BackgroundColor = Color.Cyan;
+                if (previousFocusView.AdapterPosition % 2 == 0)
+                    previousFocusView.ItemView.BackgroundColor = Color.Cyan;
                 else
-                    previousFocus.ItemView.BackgroundColor = Color.Yellow;
+                    previousFocusView.ItemView.BackgroundColor = Color.Yellow;
                 //previousFocus.SizeWidth = 150;
                 //previousFocus.SizeHeight = 60;
                 //NotifyItemChanged(previousFocus.AdapterPosition);
             }
-            if (currentFocus != null)
+            FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
+            if (currentFocusView != null)
             {
                 //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
-                currentFocus.ItemView.BackgroundColor = Color.Magenta;
+                currentFocusView.ItemView.BackgroundColor = Color.Magenta;
                 //currentFocus.SizeWidth = 200;
                 //currentFocus.SizeHeight = 100;
                 //NotifyItemChanged(currentFocus.AdapterPosition);
@@ -139,6 +138,9 @@ namespace Tizen.NUI.Samples
         private FlexibleView flexibleView1;
         private FlexibleView flexibleView2;
         private ListBridge adapter;
+
+        private ScrollBar scrollBar1;
+        private ScrollBar scrollBar2;
 
         public void Activate()
         {
@@ -173,6 +175,16 @@ namespace Tizen.NUI.Samples
             flexibleView1.FocusGained += FlexibleView_FocusGained;
             flexibleView1.FocusLost += FlexibleView_FocusLost;
 
+            scrollBar1 = new ScrollBar();
+            scrollBar1.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar1.Position2D = new Position2D(394, 2);
+            scrollBar1.Size2D = new Size2D(4, 446);
+            scrollBar1.TrackColor = Color.Green;
+            scrollBar1.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar1.ThumbColor = Color.Yellow;
+            scrollBar1.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            flexibleView1.AttachScrollBar(scrollBar1);
+
 
             flexibleView2 = new FlexibleView();
             flexibleView2.Name = "RecyclerView";
@@ -195,6 +207,16 @@ namespace Tizen.NUI.Samples
             flexibleView2.KeyEvent += RecyclerView_KeyEvent;
             flexibleView2.FocusGained += FlexibleView_FocusGained;
             flexibleView2.FocusLost += FlexibleView_FocusLost;
+
+            scrollBar2 = new ScrollBar();
+            scrollBar2.Position2D = new Position2D(2, 194);
+            scrollBar2.Size2D = new Size2D(696, 4);
+            scrollBar2.TrackColor = Color.Green;
+            scrollBar2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar2.ThumbColor = Color.Yellow;
+            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            flexibleView2.AttachScrollBar(scrollBar2);
+
 
             FocusManager.Instance.SetCurrentFocusView(flexibleView1);
         }
@@ -280,11 +302,17 @@ namespace Tizen.NUI.Samples
 
         public void Deactivate()
         {
+            flexibleView1.DetachScrollBar();
+            scrollBar1.Dispose();
+            flexibleView2.DetachScrollBar();
+            scrollBar2.Dispose();
+
             Window window = Window.Instance;
             window.Remove(flexibleView1);
             flexibleView1.Dispose();
             window.Remove(flexibleView2);
             flexibleView2.Dispose();
+
         }
     }
 }

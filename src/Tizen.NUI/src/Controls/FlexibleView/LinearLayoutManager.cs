@@ -11,6 +11,8 @@ namespace Tizen.NUI.Controls
         public static readonly int NO_POSITION = FlexibleView.NO_POSITION;
         public static readonly int INVALID_OFFSET = -10000;
 
+        private static readonly float MAX_SCROLL_FACTOR = 1 / 3f;
+
         protected int mOrientation;
         protected OrientationHelper mOrientationHelper;
 
@@ -58,6 +60,7 @@ namespace Tizen.NUI.Controls
 
         public override void OnLayoutChildren(FlexibleView.Recycler recycler, FlexibleView.ViewState state)
         {
+            mLayoutState.mRecycle = false;
             if (!mAnchorInfo.mValid || mPendingScrollPosition != NO_POSITION)
             {
                 mAnchorInfo.Reset();
@@ -74,20 +77,20 @@ namespace Tizen.NUI.Controls
             if (mAnchorInfo.mLayoutFromEnd == true)
             {
                 UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                Fill(recycler, mLayoutState, state, true);
+                Fill(recycler, mLayoutState, state, false, true);
 
                 UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
                 mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
-                Fill(recycler, mLayoutState, state, true);
+                Fill(recycler, mLayoutState, state, false, true);
             }
             else
             {
                 UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                Fill(recycler, mLayoutState, state, true);
+                Fill(recycler, mLayoutState, state, false, true);
 
                 UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
                 mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
-                Fill(recycler, mLayoutState, state, true);
+                Fill(recycler, mLayoutState, state, false, true);
             }
 
             OnLayoutCompleted(state);
@@ -180,6 +183,16 @@ namespace Tizen.NUI.Controls
             return ScrollBy(dy, recycler, state, immediate); ;
         }
 
+        public override int ComputeScrollOffset(FlexibleView.ViewState state)
+        {
+            return state.FocusPosition != -1 ? state.FocusPosition : 0;
+        }
+
+        public override int ComputeScrollRange(FlexibleView.ViewState state)
+        {
+            return state.ItemCount - 1;
+        }
+
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
         {
             if (mOrientation == HORIZONTAL)
@@ -246,10 +259,69 @@ namespace Tizen.NUI.Controls
             return child == null ? NO_POSITION : child.LayoutPosition;
         }
 
-        //public void RequestItemViewRectangleOnScreen(FlexibleView.ViewHolder child)
-        //{
+        protected override FlexibleView.ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        {
+            if (GetChildCount() == 0)
+            {
+                return null;
+            }
+            int layoutDir = ConvertFocusDirectionToLayoutDirection(direction);
+            if (layoutDir == LayoutState.INVALID_LAYOUT)
+            {
+                return null;
+            }
+            int maxScroll = (int)(MAX_SCROLL_FACTOR * mOrientationHelper.GetTotalSpace());
+            UpdateLayoutState(layoutDir, maxScroll, false, state);
+            mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
+            mLayoutState.mRecycle = false;
+            Fill(recycler, mLayoutState, state, true, true);
 
-        //}
+            FlexibleView.ViewHolder nextFocus;
+            if (layoutDir == LayoutState.LAYOUT_START)
+            {
+                nextFocus = GetChildAt(0);
+            }
+            else
+            {
+                nextFocus = GetChildAt(GetChildCount() - 1);
+            }
+            return nextFocus;
+        }
+
+        /**
+     * Converts a focusDirection to orientation.
+     *
+     * @param focusDirection One of {@link View#FOCUS_UP}, {@link View#FOCUS_DOWN},
+     *                       {@link View#FOCUS_LEFT}, {@link View#FOCUS_RIGHT},
+     *                       {@link View#FOCUS_BACKWARD}, {@link View#FOCUS_FORWARD}
+     *                       or 0 for not applicable
+     * @return {@link LayoutState#LAYOUT_START} or {@link LayoutState#LAYOUT_END} if focus direction
+     * is applicable to current state, {@link LayoutState#INVALID_LAYOUT} otherwise.
+     */
+        int ConvertFocusDirectionToLayoutDirection(string focusDirection)
+        {
+            switch (focusDirection)
+            {
+                case "Up":
+                    return mOrientation == VERTICAL ? LayoutState.LAYOUT_START
+                            : LayoutState.INVALID_LAYOUT;
+                case "Down":
+                    return mOrientation == VERTICAL ? LayoutState.LAYOUT_END
+                            : LayoutState.INVALID_LAYOUT;
+                case "Left":
+                    return mOrientation == HORIZONTAL ? LayoutState.LAYOUT_START
+                            : LayoutState.INVALID_LAYOUT;
+                case "Right":
+                    return mOrientation == HORIZONTAL ? LayoutState.LAYOUT_END
+                            : LayoutState.INVALID_LAYOUT;
+                default:
+                    {
+                        Console.WriteLine($"Unknown focus request:{focusDirection}");
+                    }
+                    return LayoutState.INVALID_LAYOUT;
+            }
+
+        }
 
         public override void ScrollToPosition(int position)
         {
@@ -280,7 +352,7 @@ namespace Tizen.NUI.Controls
         }
 
 
-        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool immediate)
+        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool stopOnFocusable, bool immediate)
         {
             float start = layoutState.mAvailable;
             if (layoutState.mScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
@@ -330,6 +402,10 @@ namespace Tizen.NUI.Controls
                     {
                         RecycleByLayoutState(recycler, layoutState, true);
                     }
+                }
+                if (stopOnFocusable && layoutChunkResult.mFocusable)
+                {
+                    break;
                 }
             }
             if (immediate == false)
@@ -479,6 +555,8 @@ namespace Tizen.NUI.Controls
                 }
                 LayoutChild(holder, left, top, width, height);
             }
+
+            result.mFocusable = true;
         }
 
         float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
@@ -487,11 +565,12 @@ namespace Tizen.NUI.Controls
             {
                 return 0;
             }
+            mLayoutState.mRecycle = true;
             int layoutDirection = dy < 0 ? LayoutState.LAYOUT_END : LayoutState.LAYOUT_START;
             float absDy = Math.Abs(dy);
             UpdateLayoutState(layoutDirection, absDy, true, state);
             float consumed = mLayoutState.mScrollingOffset 
-                + Fill(recycler, mLayoutState, state, immediate);
+                + Fill(recycler, mLayoutState, state, false, immediate);
 
             if (consumed < 0)
             {
@@ -662,7 +741,7 @@ namespace Tizen.NUI.Controls
 
             public static readonly int LAYOUT_END = 1;
 
-            //static final int INVALID_LAYOUT = Integer.MIN_VALUE;
+            public static readonly int INVALID_LAYOUT = -1000;
 
             public static readonly int ITEM_DIRECTION_HEAD = -1;
 
@@ -760,14 +839,14 @@ namespace Tizen.NUI.Controls
             public float mConsumed;
             public bool mFinished;
             public bool mIgnoreConsumed;
-            //public bool mFocusable;
+            public bool mFocusable;
 
             public void ResetInternal()
             {
                 mConsumed = 0;
                 mFinished = false;
                 mIgnoreConsumed = false;
-                //mFocusable = false;
+                mFocusable = false;
             }
         }
     }

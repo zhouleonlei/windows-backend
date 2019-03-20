@@ -9,7 +9,7 @@ namespace Tizen.NUI.Xaml
         public AttributesContainer()
         {
             IsCreateByXaml = true;
-            InitializeComponent();
+            //InitializeComponent();
         }
 
         public bool IsResourcesCreated
@@ -38,7 +38,7 @@ namespace Tizen.NUI.Xaml
             set;
         }
 
-        public Attributes GetAttributes()
+        protected internal virtual Attributes GetAttributes()
         {
             return Content as Attributes;
         }

@@ -908,6 +908,16 @@ namespace Tizen.NUI.Controls
             }
             ApplyAttributes(this, buttonAttributes);
             LayoutDirectionChanged += OnLayoutDirectionChanged;
+            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
+        }
+        private void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            ButtonAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ButtonAttributes;
+            if(tempAttributes != null)
+            {
+                attributes = buttonAttributes = tempAttributes;
+                RelayoutRequest();
+            }
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)

@@ -135,6 +135,7 @@
     <None Remove="res\Loading\DefaultLoadingAttributes.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
     <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
+    <None Remove="res\Picker\PickerAttributes.xaml" />
     <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\FoodPopupButtonAttributes.xaml" />
     <None Remove="res\Popup\KitchenPopupButtonAttributes.xaml" />
@@ -150,10 +151,15 @@
     <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
     <None Remove="res\RadioButton\UtilityRadioButtonAttributes.xaml" />
     <None Remove="res\SearchBar\DefaultSearchBarAttributes.xaml" />
+    <None Remove="res\Spin\SpinAttributes.xaml" />
+    <None Remove="res\Spin\StrSpinAttributes.xaml" />
     <None Remove="res\Switch\FamilySwitchAttributes.xaml" />
     <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
     <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
+    <None Remove="res\TimePicker\TimePickerAMPMAttributes.xaml" />
+    <None Remove="res\TimePicker\TimePickerAttributes.xaml" />
+    <None Remove="res\TimePicker\TimePickerRepeatAttributes.xaml" />
     <None Remove="res\Toast\BasicLongToastAttributes.xaml" />
     <None Remove="res\Toast\BasicShortToastAttributes.xaml" />
     <None Remove="res\UtilityBasicButtonAttributes.xaml" />
@@ -297,6 +303,9 @@
     <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="res\Picker\PickerAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Progress\FamilyProgressbarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -346,6 +355,12 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\SearchBar\DefaultSearchBarAttributes.xaml" />
+    <EmbeddedResource Include="res\Spin\SpinAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Spin\StrSpinAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Switch\FamilySwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -372,6 +387,15 @@
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\Tab\TabAttributes.xaml" />
+    <EmbeddedResource Include="res\TimePicker\TimePickerAMPMAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\TimePicker\TimePickerAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\TimePicker\TimePickerRepeatAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\Toast\BasicShortToastAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

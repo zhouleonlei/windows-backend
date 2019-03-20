@@ -142,6 +142,18 @@ namespace Tizen.NUI.Controls
             return NO_POSITION;
         }
 
+
+        public override int ComputeScrollOffset(FlexibleView.ViewState state)
+        {
+            return state.FocusPosition != -1 ? state.FocusPosition / mSpanCount : 0;
+        }
+
+        public override int ComputeScrollRange(FlexibleView.ViewState state)
+        {
+            return state.ItemCount / mSpanCount;
+        }
+
+
         private void AssignSpans(FlexibleView.Recycler recycler, FlexibleView.ViewState state, int count,
             int consumedSpanCount, bool layingOutInPrimaryDirection)
         {

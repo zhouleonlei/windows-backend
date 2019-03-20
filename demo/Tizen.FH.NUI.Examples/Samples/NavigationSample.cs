@@ -17,40 +17,40 @@ namespace Tizen.FH.NUI.Samples
 
         private static string[] itemPressImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_press.png",
         };
         private static string[] itemNormalImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy.png",
         };
         private static string[] itemDimImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_dim.png",
         };
 
         private static string[] itemBlackPressImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_press.png",
         };
         private static string[] itemBlackNormalImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b.png",
         };
         private static string[] itemBlackDimImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_dim.png",
         };
 
         public void Activate()
@@ -171,11 +171,11 @@ namespace Tizen.FH.NUI.Samples
             editLastItem.Text = "Cancel";
             editLastItem.IconURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
-                Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
+                Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
             };
             whiteEditNavigation.AddItem(editLastItem);
             #endregion
@@ -211,11 +211,11 @@ namespace Tizen.FH.NUI.Samples
             editLastItem2.Text = "Cancel";
             editLastItem2.IconURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
-                Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
+                Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
             };
             blackEditNavigation.AddItem(editLastItem2);
             #endregion

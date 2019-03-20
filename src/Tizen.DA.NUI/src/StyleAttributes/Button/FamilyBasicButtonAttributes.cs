@@ -1,27 +1,20 @@
-﻿using Tizen.NUI.Xaml;
+﻿using Tizen.NUI;
+using Tizen.NUI.Controls;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyBasicButtonAttributes.xaml", "FamilyBasicButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyBasicButtonAttributesContainer))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyBasicButtonAttributes.xaml", "FamilyBasicButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyBasicButtonAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    public partial class FamilyBasicButtonAttributesContainer : StyleContainer
+    internal class FamilyBasicButtonAttributes : TextButtonAttributes
     {
-        static private StyleContainer instance = null;
-        static internal StyleContainer Container
+        protected override Attributes GetAttributes()
         {
-            get
+            if(Content != null)
             {
-                if (null == instance)
-                {
-                    instance = new FamilyBasicButtonAttributesContainer();
-                }
-
-                return instance;
+                return (Content as Attributes).Clone();
             }
-        }
-
-        public FamilyBasicButtonAttributesContainer()
-        {
-            InitializeComponent();
+            ButtonAttributes attributes = base.GetAttributes() as ButtonAttributes;
+            attributes.TextAttributes.TextColor.Selected = Utility.Hex2Color(Constants.APP_COLOR_FAMILY, 1); 
+            return attributes;
         }
     }
 }

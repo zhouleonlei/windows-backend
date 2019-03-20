@@ -24,8 +24,9 @@ namespace Tizen.NUI.Controls
 
         private AdapterHelper mAdapteHelper;
 
+        private Extents mPadding = new Extents(0, 0, 0, 0);
 
-
+        private ScrollBar mScrollBar = null;
 
         public FlexibleView()
         {
@@ -136,6 +137,17 @@ namespace Tizen.NUI.Controls
             touchEventHandlers?.Invoke(sender, e);
         }
 
+        public new Extents Padding
+        {
+            get
+            {
+                return mPadding;
+            }
+            set
+            {
+                mPadding = value;
+            }
+        }
 
         public int FocusedItemIndex
         {
@@ -180,8 +192,52 @@ namespace Tizen.NUI.Controls
         public void MoveFocus(string direction)
         {
             mLayout.MoveFocus(direction, mRecycler, mState);
+        }
 
-            //RemoveAndRecycleScrapInt();
+        public void AttachScrollBar(ScrollBar scrollBar)
+        {
+            if (scrollBar == null)
+            {
+                return;
+            }
+            mScrollBar = scrollBar;
+            Add(mScrollBar);
+
+            if (mAdapteHelper != null)
+            {
+                InitializeScrollBar();
+            }
+        }
+
+        public void DetachScrollBar()
+        {
+            if (mScrollBar == null)
+            {
+                return;
+            }
+            Remove(mScrollBar);
+            mScrollBar = null;
+        }
+
+        private void InitializeScrollBar()
+        {
+            if (mScrollBar == null || mLayout == null)
+            {
+                return;
+            }
+            mScrollBar.MinValue = 0;
+            mScrollBar.MaxValue = (uint)mLayout.ComputeScrollRange(mState);
+
+            UpdateScrollBar();
+        }
+
+        private void UpdateScrollBar()
+        {
+            if (mScrollBar == null)
+            {
+                return;
+            }
+            mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
         }
 
         public ViewHolder FindViewHolderForLayoutPosition(int position)
@@ -340,11 +396,11 @@ namespace Tizen.NUI.Controls
 
         private void DispatchFocusChanged(int nextFocusPosition)
         {
-            ViewHolder previousFocusView = FindViewHolderForAdapterPosition(mFocusedItemIndex);
-            ViewHolder currentFocusView = FindViewHolderForAdapterPosition(nextFocusPosition);
-            mAdapter.OnFocusChange(previousFocusView, currentFocusView);
+            mAdapter.OnFocusChange(this, mFocusedItemIndex, nextFocusPosition);
 
             mFocusedItemIndex = nextFocusPosition;
+ 
+           UpdateScrollBar();
         }
 
         private void DispatchItemClicked(ViewHolder clickedHolder)
@@ -399,9 +455,11 @@ namespace Tizen.NUI.Controls
             {
                 case Adapter.ItemEventType.Insert:
                     mAdapteHelper.OnItemRangeInserted(e.param[0], e.param[1]);
+                    InitializeScrollBar();
                     break;
                 case Adapter.ItemEventType.Remove:
                     mAdapteHelper.OnItemRangeRemoved(e.param[0], e.param[1]);
+                    InitializeScrollBar();
                     break;
                 case Adapter.ItemEventType.Move:
                     break;
@@ -445,7 +503,7 @@ namespace Tizen.NUI.Controls
             {
             }
 
-            public virtual void OnFocusChange(ViewHolder previousFocus, ViewHolder currentFocus)
+            public virtual void OnFocusChange(FlexibleView flexibleView, int previousFocus, int currentFocus)
             {
             }
 
@@ -486,32 +544,34 @@ namespace Tizen.NUI.Controls
 
             public void NotifyItemInserted(int index)
             {
-                ItemEventArgs args = new ItemEventArgs
-                {
-                    EventType = ItemEventType.Insert,
-                };
-                args.param[0] = index;
-                args.param[1] = 1;
-                OnItemEvent(this, args);
+                NotifyItemRangeInserted(index, 1);
             }
 
             public void NotifyItemRangeInserted(int indexStart, int itemCount)
             {
+                ItemEventArgs args = new ItemEventArgs
+                {
+                    EventType = ItemEventType.Insert,
+                };
+                args.param[0] = indexStart;
+                args.param[1] = itemCount;
+                OnItemEvent(this, args);
             }
 
             public void NotifyItemRemoved(int index)
+            {
+                NotifyItemRangeRemoved(index, 1);
+            }
+
+            public void NotifyItemRangeRemoved(int indexStart, int itemCount)
             {
                 ItemEventArgs args = new ItemEventArgs
                 {
                     EventType = ItemEventType.Remove,
                 };
-                args.param[0] = index;
-                args.param[1] = 1;
+                args.param[0] = indexStart;
+                args.param[1] = itemCount;
                 OnItemEvent(this, args);
-            }
-
-            public void NotifyItemRangeRemoved(int indexStart, int itemCount)
-            {
             }
 
             public void NotifyItemMoved(int fromIndex, int toIndex)
@@ -608,6 +668,48 @@ namespace Tizen.NUI.Controls
                 return 0;
             }
 
+            public virtual int ComputeScrollExtent(ViewState state)
+            {
+                return 0;
+            }
+
+            /**
+             * <p>Override this method if you want to support scroll bars.</p>
+             *
+             * <p>Read {@link RecyclerView#computeHorizontalScrollOffset()} for details.</p>
+             *
+             * <p>Default implementation returns 0.</p>
+             *
+             * @param state Current State of RecyclerView where you can find total item count
+             * @return The horizontal offset of the scrollbar's thumb
+             * @see RecyclerView#computeHorizontalScrollOffset()
+             */
+            public virtual int ComputeScrollOffset(ViewState state)
+            {
+                return 0;
+            }
+
+            /**
+             * <p>Override this method if you want to support scroll bars.</p>
+             *
+             * <p>Read {@link RecyclerView#computeVerticalScrollRange()} for details.</p>
+             *
+             * <p>Default implementation returns 0.</p>
+             *
+             * @param state Current State of RecyclerView where you can find total item count
+             * @return The total vertical range represented by the vertical scrollbar
+             * @see RecyclerView#computeVerticalScrollRange()
+             */
+            public virtual int ComputeScrollRange(ViewState state)
+            {
+                return 0;
+            }
+
+            protected virtual ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, Recycler recycler, ViewState state)
+            {
+                return null;
+            }
+
             internal void StopScroll()
             {
                 if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
@@ -644,13 +746,15 @@ namespace Tizen.NUI.Controls
                 FlexibleView.ViewHolder nextFocusChild = FindItemViewByPosition(nextFocusPosition);
                 if (nextFocusChild == null)
                 {
-                    ScrollToPosition(nextFocusPosition);
-                    return;
+                    nextFocusChild = OnFocusSearchFailed(null, direction, recycler, state);
                 }
 
-                RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, state, false);
+                if (nextFocusChild != null)
+                {
+                    RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, state, false);
 
-                ChangeFocus(nextFocusPosition);
+                    ChangeFocus(nextFocusPosition);
+                }
             }
 
             /**
@@ -706,10 +810,10 @@ namespace Tizen.NUI.Controls
                 int parentTop = GetPaddingTop();
                 int parentRight = (int)GetWidth() - GetPaddingRight();
                 int parentBottom = (int)GetHeight() - GetPaddingBottom();
-                int childLeft = (int)child.PositionX;
-                int childTop = (int)child.PositionY;
-                int childRight = childLeft + (int)child.SizeWidth;
-                int childBottom = childTop + (int)child.SizeHeight;
+                int childLeft = (int)child.Left;
+                int childTop = (int)child.Top;
+                int childRight = (int)child.Right;
+                int childBottom = (int)child.Bottom;
 
                 int offScreenLeft = Math.Min(0, childLeft - parentLeft);
                 int offScreenTop = Math.Min(0, childTop - parentTop);
@@ -756,10 +860,11 @@ namespace Tizen.NUI.Controls
             public void LayoutChild(ViewHolder child, float left, float top, float width, float height)
             {
                 //Console.WriteLine($"LayoutChild... position:{child.AdapterPosition} {left},{top} {width}*{height}");
-                child.SizeWidth = width;
-                child.SizeHeight = height;
-                child.PositionX = left;
-                child.PositionY = top;
+                View itemView = child.ItemView;
+                itemView.SizeWidth = width - itemView.Margin.Start - itemView.Margin.End;
+                itemView.SizeHeight = height - itemView.Margin.Top - itemView.Margin.Bottom;
+                itemView.PositionX = left + itemView.Margin.Start;
+                itemView.PositionY = top + itemView.Margin.Top;
             }
 
             public void ChangeFocus(int focusPosition)
@@ -824,7 +929,7 @@ namespace Tizen.NUI.Controls
                     for (int i = childCount - 1; i >= 0; i--)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        v.PositionX += dx;
+                        v.ItemView.PositionX += dx;
                     }
                 }
                 else
@@ -832,8 +937,7 @@ namespace Tizen.NUI.Controls
                     for (int i = childCount - 1; i >= 0; i--)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        v.DestinationX = v.PositionX + dx;
-                        mScrollAni.AnimateTo(v.ItemView, "PositionX", v.PositionX + v.Padding[0]);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionX", v.ItemView.PositionX + dx);
                     }
                     mScrollAni.Play();
                 }
@@ -873,7 +977,7 @@ namespace Tizen.NUI.Controls
                     for (int i = childCount - 1; i >= 0; i--)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        v.PositionY += dy;
+                        v.ItemView.PositionY += dy;
                         //Console.WriteLine($"{i} AdapterPosition:{v.AdapterPosition} Y:{v.PositionY}");
                     }
                 }
@@ -882,8 +986,7 @@ namespace Tizen.NUI.Controls
                     for (int i = childCount - 1; i >= 0; i--)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        v.DestinationY = v.PositionY + dy;
-                        mScrollAni.AnimateTo(v.ItemView, "PositionY", v.PositionY + v.Padding[1]);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionY", v.ItemView.PositionY + dy);
                         //Console.WriteLine($"{i} AdapterPosition:{v.AdapterPosition} Y:{v.PositionY}");
                     }
                     mScrollAni.Play();
@@ -1084,11 +1187,6 @@ namespace Tizen.NUI.Controls
             private int mItemViewType = INVALID_TYPE;
             private int mPreLayoutPosition = NO_POSITION;
 
-            private Vector4 mPadding = Vector4.Zero;
-            private float mSizeWidth = 0;
-            private float mSizeHeight = 0;
-            private float mPositionX = 0;
-            private float mPositionY = 0;
 
             private FlexibleView.Recycler mScrapContainer;
 
@@ -1109,87 +1207,35 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            public Vector4 Padding
+            public float Left
             {
                 get
                 {
-                    return mPadding;
-                }
-                set
-                {
-                    mPadding = value;
+                    return mItemView.PositionX - mItemView.Margin.Start;
                 }
             }
 
-            public float SizeWidth
+            public float Right
             {
                 get
                 {
-                    return mSizeWidth;
-                }
-                set
-                {
-                    mSizeWidth = value;
-
-                    mItemView.SizeWidth = value - mPadding[0] - mPadding[2];
+                    return mItemView.PositionX + mItemView.SizeWidth + mItemView.Margin.End;
                 }
             }
 
-            public float SizeHeight
+            public float Top
             {
                 get
                 {
-                    return mSizeHeight;
-                }
-                set
-                {
-                    mSizeHeight = value;
-
-                    mItemView.SizeHeight = value - mPadding[1] - mPadding[3];
+                    return mItemView.PositionY - mItemView.Margin.Top;
                 }
             }
 
-            public float PositionX
+            public float Bottom
             {
                 get
                 {
-                    return mPositionX;
-                }
-                set
-                {
-                    mPositionX = value;
-
-                    mItemView.PositionX = value + mPadding[0];
-                }
-            }
-
-            public float PositionY
-            {
-                get
-                {
-                    return mPositionY;
-                }
-                set
-                {
-                    mPositionY = value;
-
-                    mItemView.PositionY = value + mPadding[1];
-                }
-            }
-
-            internal float DestinationX
-            {
-                set
-                {
-                    mPositionX = value;
-                }
-            }
-
-            internal float DestinationY
-            {
-                set
-                {
-                    mPositionY = value;
+                    return mItemView.PositionY + mItemView.SizeHeight + mItemView.Margin.Bottom;
                 }
             }
 
@@ -1442,7 +1488,10 @@ namespace Tizen.NUI.Controls
                 if (itemView != null && itemViewTable.ContainsKey(itemView.ID))
                 {
                     ViewHolder holder = itemViewTable[itemView.ID];
-                    Console.WriteLine($"*Touch* {itemView.Name} index: {holder.AdapterPosition} {e.Touch.GetState(0)}");
+                    if (e.Touch.GetState(0) != PointStateType.Motion)
+                    {
+                        Console.WriteLine($"*Touch* {itemView.Name} index: {holder.AdapterPosition} {e.Touch.GetState(0)}");
+                    }
 
                     mFlexibleView.DispatchItemTouched(holder, e.Touch);
                     return true;
