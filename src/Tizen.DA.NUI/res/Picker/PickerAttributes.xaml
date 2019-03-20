@@ -1,0 +1,189 @@
+<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <PickerAttributes x:Name="PickerAttributes" ParentOrigin="Center" PivotPoint="Center"
+                     PositionUsesPivotPoint="true">
+        <PickerAttributes.BackgroundImageAttributes>
+            <ImageAttributes ParentOrigin="Center"
+                             PivotPoint="Center"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1" 
+                             ResourceURL ="*DemoRes*/images/FH3/0. BG/background_default_overlay.png"/>
+        </PickerAttributes.BackgroundImageAttributes>
+        <PickerAttributes.FocusImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="80, 80" 
+                             ResourceURL ="*DemoRes*/images/FH3/9. Controller/picker_date_select.png"/>
+        </PickerAttributes.FocusImageAttributes>
+        <PickerAttributes.EndSelectedImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="80, 80"  
+                             ResourceURL ="*DemoRes*/images/FH3/9. Controller/picker_date_endscheduling.png"/>
+        </PickerAttributes.EndSelectedImageAttributes>
+        <PickerAttributes.LeftArrowImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="48, 48"
+                             Position2D="344, 42"
+                             ResourceURL ="*DemoRes*/images/FH3/9. Controller/picker_spin_btn_back.png"/>
+        </PickerAttributes.LeftArrowImageAttributes>
+        <PickerAttributes.RightArrowImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="48, 48"
+                             Position2D="640, 42"  
+                             ResourceURL ="*DemoRes*/images/FH3/9. Controller/picker_spin_btn_next.png"/>
+        </PickerAttributes.RightArrowImageAttributes>
+        <PickerAttributes.DownArrowImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="48, 48"
+                             Position2D="928, 42"  
+                             ResourceURL ="*DemoRes*/images/FH3/6. List/list_ic_dropdown.png"/>
+        </PickerAttributes.DownArrowImageAttributes>
+        <PickerAttributes.MonthTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="30"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="248, 68"
+                            Position2D="392, 32"/>
+        </PickerAttributes.MonthTextAttributes>
+        <PickerAttributes.YearTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="30"
+                            TextColor="Black"
+                            HorizontalAlignment="End"
+                            VerticalAlignment="Center"
+                            Size2D="220, 68"
+                            Position2D="688, 32"/>
+        </PickerAttributes.YearTextAttributes>
+        <PickerAttributes.DateViewAttributes>
+            <ViewAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            Size2D="1032, 528"
+                            Position2D="0, 132"/>
+        </PickerAttributes.DateViewAttributes>
+        <PickerAttributes.SunTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Sun"
+                            TextColor="Red"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="147, 88"
+                            Position2D="0, 0"/>
+        </PickerAttributes.SunTextAttributes>
+        <PickerAttributes.MonTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Mon"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="148, 88"
+                            Position2D="147, 0"/>
+        </PickerAttributes.MonTextAttributes>
+        <PickerAttributes.TueTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Tue"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="147, 88"
+                            Position2D="295, 0"/>
+        </PickerAttributes.TueTextAttributes>
+        <PickerAttributes.WenTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Wen"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="148, 88"
+                            Position2D="442, 0"/>
+        </PickerAttributes.WenTextAttributes>
+        <PickerAttributes.ThuTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Thu"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="147, 88"
+                            Position2D="590, 0"/>
+        </PickerAttributes.ThuTextAttributes>
+        <PickerAttributes.FriTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Fri"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="148, 88"
+                            Position2D="737, 0"/>
+        </PickerAttributes.FriTextAttributes>
+        <PickerAttributes.SatTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            Text="Sat"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="147, 88"
+                            Position2D="885, 1"/>
+        </PickerAttributes.SatTextAttributes>
+        <PickerAttributes.DateTextAttributes>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="147, 88"/>
+        </PickerAttributes.DateTextAttributes>
+        <PickerAttributes.DateTextAttributes2>
+            <TextAttributes ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            PointSize="20"
+                            TextColor="Black"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Size2D="148, 88"/>
+        </PickerAttributes.DateTextAttributes2>
+    </PickerAttributes>
+</AttributesContainer>
