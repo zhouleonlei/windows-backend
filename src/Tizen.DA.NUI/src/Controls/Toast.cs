@@ -203,11 +203,12 @@ namespace Tizen.FH.NUI.Controls
 
         private void Initialize()
         {
-            //TextSize2D = new Size2D();
-            // TextPosition2D = new Position2D(96, 38);
-            //toastAttributes = attributes as ToastAttributes;
-           // toastAttributes.TextAttributes.Position2D = new Position2D(96, 38);
-           // toastAttributes.TextAttributes.PositionUsesPivotPoint = true;
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            RelayoutRequest();
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -252,23 +253,19 @@ namespace Tizen.FH.NUI.Controls
                 DownSpace = 98;
             }
             base.OnUpdate(attributes);
-            UpdateTexts();
         }
 
         private void AddLoading()
         {
             loading = new Loading("DefaultLoading");
             this.Add(loading);
-            loading.Position2D.X = 96;
             loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
             loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
             loading.Size2D = new Size2D(100, 100);
-
             loading.PositionUsesPivotPoint = true;
-
-            toastAttributes.TextAttributes.Position2D.X = 204;
-            toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
-            OnUpdate(toastAttributes);
+            loading.Position2D.Y = 0;
+            loadingEnable = true;
+            RelayoutRequest();
         }
 
         private void RemoveLoading()
@@ -279,13 +276,50 @@ namespace Tizen.FH.NUI.Controls
                 loading.Dispose();
             }
 
-            toastAttributes.TextAttributes.Position2D.X = 86;
-            toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Center;
-            OnUpdate(toastAttributes);
+            loadingEnable = false;
+            RelayoutRequest();
         }
 
-        private void UpdateTexts()
+        protected override void LayoutChild()
         {
+            if (toastAttributes.TextAttributes.Size2D == null)
+            {
+                toastAttributes.TextAttributes.Size2D = new Size2D();
+            }
+            if (toastAttributes.TextAttributes.Position2D == null)
+            {
+                toastAttributes.TextAttributes.Position2D = new Position2D();
+            }
+            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - DownSpace;
+            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
+
+            if (loadingEnable)
+            {
+                toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace - 108;
+                if (LayoutDirection == ViewLayoutDirectionType.LTR)
+                {
+                    loading.Position2D.X = LeftSpace;
+                    toastAttributes.TextAttributes.Position2D.X = LeftSpace + 108;
+                    toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+
+                }
+                else
+                {
+                    loading.Position2D.X = this.Size2D.Width - LeftSpace - loading.Size2D.Width;
+                    toastAttributes.TextAttributes.Position2D.X = LeftSpace;
+                    toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                }
+                Console.WriteLine("loading.Position2D.X" + loading.Position2D.X + " leftSapce:" + LeftSpace.ToString() + "  downSpace= " + DownSpace.ToString());//gwfdebug
+            }
+            else
+            {
+                toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
+
+                toastAttributes.TextAttributes.Position2D.X = LeftSpace;
+
+            }
+            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
+
             if (toastText_2line != null)
             {
                 toastText_2line.Size2D = toastAttributes.TextAttributes.Size2D;
@@ -298,7 +332,10 @@ namespace Tizen.FH.NUI.Controls
                 toastText_3line.Position2D.X = toastAttributes.TextAttributes.Position2D.X;
                 toastText_3line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 120;//TODO
             }
-            
+
+
+
+
         }
 
         protected override Attributes GetAttributes()
