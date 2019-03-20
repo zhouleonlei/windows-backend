@@ -50,8 +50,8 @@ namespace Tizen.NUI.Samples
             root.Add(createText[0]);
 
             dropDown = new DropDown();
-            dropDown.Size2D = new Size2D(1000, 108);
-            dropDown.Position2D = new Position2D(100, 300);
+            dropDown.Size2D = new Size2D(900, 108);
+            dropDown.Position2D = new Position2D(50, 300);
             dropDown.HeaderText = "TitleArea";
             dropDown.HeaderTextColor = new Color(0, 0, 0, 1);
             dropDown.HeaderTextPointSize = 28;
@@ -69,53 +69,104 @@ namespace Tizen.NUI.Samples
             dropDown.ListLeftMargin = 20;
             dropDown.ListTopMargin = 20;
             dropDown.BackgroundColor = new Color(1, 1, 1, 1);
+            dropDown.ListSize2D = new Size2D(360, 500);
+            dropDown.ListPadding = new Extents(4, 4, 4, 4);
+            dropDown.FocusedItemIndex = 0;
 
             root.Add(dropDown);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 8; i++)
             {
                 DropDown.DropDownItemData item = new DropDown.DropDownItemData();
-                item.Text = "DropDown " + i;
+                item.Size2D = new Size2D(360, 96);
+                item.BackgroundColorSelector = new ColorSelector
+                {
+                    Pressed = new Color(0, 0, 0, 0.4f),
+                    Other = new Color(1, 1, 1, 0),
+                };
+                item.Text = "Normal list " + i;
+                item.PointSize = 18;
+                item.FontFamily = "SamsungOne 500";
+                item.TextPosition2D = new Position2D(28, 0);
+                item.CheckImageSize2D = new Size2D(40, 40);
+                item.CheckImageResourceUrl = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png";
+                item.CheckImageRightSpace = 16;
                 dropDown.AddItem(item);
             }
 
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
-            //createText[1] = new TextLabel();
-            //createText[1].Text = "Create DropDown just by Attributes";
-            //createText[1].Size2D = new Size2D(450, 100);
-            //createText[1].Position2D = new Position2D(1000, 100);
-            //createText[1].MultiLine = true;
-            //root.Add(createText[1]);
+            createText[1] = new TextLabel();
+            createText[1].Text = "Create DropDown just by Attributes";
+            createText[1].Size2D = new Size2D(450, 100);
+            createText[1].Position2D = new Position2D(1000, 100);
+            createText[1].MultiLine = true;
+            root.Add(createText[1]);
 
-            //DropDownAttributes attrs = new DropDownAttributes
-            //{
-            //    IsNatureTextWidth = false,
-            //    Space = new Vector4(56, 56, 1, 0),
-            //    UnderLineAttributes = new ViewAttributes
-            //    {
-            //        Size2D = new Size2D(1, 3),
-            //        PositionUsesPivotPoint = true,
-            //        ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
-            //        PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
-            //        BackgroundColor = new ColorSelector { All = color[0]},
-            //    },
-            //    TextAttributes = new TextAttributes
-            //    {
-            //        PointSize = new FloatSelector { All = 25 },
-            //        TextColor = new ColorSelector
-            //        {
-            //            Normal = Color.Black,
-            //            Selected = color[0],
-            //        },
-            //    },                
-            //};
+            DropDownAttributes attrs = new DropDownAttributes
+            {
+                HeaderTextAttributes = new TextAttributes
+                {
+                    Text = new StringSelector { All = "TitleArea" },
+                    PointSize = new FloatSelector { All = 28 },
+                    TextColor = new ColorSelector { All = new Color(0, 0, 0, 1) },
+                    FontFamily = "SamsungOneUI 500C",
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                },
 
-            //dropDown2 = new DropDown(attrs);
-            //dropDown2.Size2D = new Size2D(500, 108);
-            //dropDown2.Position2D = new Position2D(900, 300);
-            //dropDown2.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            //dropDown2.ItemChangedEvent += DropDown2ItemChangedEvent;
-            //root.Add(dropDown2);
+                ButtonAttributes = new ButtonAttributes
+                {
+                    TextAttributes = new TextAttributes
+                    {
+                        Text = new StringSelector { All = "DropDown Text" },
+                        PointSize = new FloatSelector { All = 20 },
+                        TextColor = new ColorSelector { All = new Color(0, 0, 0, 1) },
+                        FontFamily = "SamsungOneUI 500",
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
+                        Position2D = new Position2D(0, 0),
+                        HorizontalAlignment = HorizontalAlignment.Begin,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    },
+                    IconAttributes = new ImageAttributes
+                    {
+                        Size2D = new Size2D(48, 48),
+                        ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
+                        PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
+                    },
+                },
+                ListBackgroundImageAttributes = new ImageAttributes
+                {
+                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png" },
+                    Border = new RectangleSelector { All = new Rectangle(51, 51, 51, 51) },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    WidthResizePolicy = ResizePolicyType.FitToChildren,
+                    HeightResizePolicy = ResizePolicyType.FitToChildren,
+                },
+                Space = new Vector4(56, 0, 0, 0),
+                SpaceBetweenButtonTextAndIcon = 8,
+                ListMargin = new Vector4(20, 0, 20, 0),
+                BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
+                ListSize2D = new Size2D(360, 500),
+                ListPadding = new Extents(4, 4, 4, 4),
+            };
+
+            dropDown2 = new DropDown(attrs);
+            dropDown2.Size2D = new Size2D(900, 108);
+            dropDown2.Position2D = new Position2D(1000, 300);
+            root.Add(dropDown2);
 
             //for (int i = 0; i < 3; i++)
             //{

@@ -340,9 +340,9 @@ namespace Tizen.NUI.Controls
 
         private void DispatchFocusChanged(int nextFocusPosition)
         {
-            ViewHolder previousFocusView = FindViewHolderForAdapterPosition(mFocusedItemIndex);
-            ViewHolder currentFocusView = FindViewHolderForAdapterPosition(nextFocusPosition);
-            mAdapter.OnFocusChange(previousFocusView, currentFocusView);
+            //ViewHolder previousFocusView = FindViewHolderForAdapterPosition(mFocusedItemIndex);
+            //ViewHolder currentFocusView = FindViewHolderForAdapterPosition(nextFocusPosition);
+            mAdapter.OnFocusChange(this, mFocusedItemIndex, nextFocusPosition);
 
             mFocusedItemIndex = nextFocusPosition;
         }
@@ -445,7 +445,7 @@ namespace Tizen.NUI.Controls
             {
             }
 
-            public virtual void OnFocusChange(ViewHolder previousFocus, ViewHolder currentFocus)
+            public virtual void OnFocusChange(FlexibleView parent, int previousFocus, int currentFocus)
             {
             }
 

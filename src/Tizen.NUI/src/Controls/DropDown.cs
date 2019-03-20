@@ -414,6 +414,45 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public int FocusedItemIndex
+        {
+            get
+            {
+                return dropDownAttributes.FocusedItemIndex;
+            }
+            set
+            {
+                dropDownAttributes.FocusedItemIndex = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Size2D ListSize2D
+        {
+            get
+            {
+                return dropDownAttributes.ListSize2D;
+            }
+            set
+            {
+                dropDownAttributes.ListSize2D = value;
+                RelayoutRequest();
+            }
+        }
+
+        public Extents ListPadding
+        {
+            get
+            {
+                return dropDownAttributes.ListPadding;
+            }
+            set
+            {
+                dropDownAttributes.ListPadding = value;
+                RelayoutRequest();
+            }
+        }
+
         public void AddItem(DropDownItemData item)
         {
             adapter.InsertData(-1, item);
@@ -433,6 +472,11 @@ namespace Tizen.NUI.Controls
 
             button.Position2D.X = (int)dropDownAttributes.Space.X;        
             button.SizeWidth = dropDownAttributes.ButtonAttributes.IconAttributes.Size2D.Width + dropDownAttributes.SpaceBetweenButtonTextAndIcon + buttonText.NaturalSize2D.Width;
+
+            list.FocusedItemIndex = dropDownAttributes.FocusedItemIndex;
+            list.Size2D = dropDownAttributes.ListSize2D;
+            list.Padding = dropDownAttributes.ListPadding;
+
             if (dropDownAttributes.ListRelativeOrientation == ListOrientation.Left)
             {
                 listBackgroundImage.Position2D = new Position2D((int)dropDownAttributes.ListMargin.X, (int)dropDownAttributes.ListMargin.Z);
@@ -482,6 +526,16 @@ namespace Tizen.NUI.Controls
                         listBackgroundImage = null;
                     }
 
+                    uint childCount = list.GetChildCount();
+                    for (uint i = 0; i < childCount; i++)
+                    {
+                        DropDownItemView child = list.GetChildAt(i) as DropDownItemView;
+                        if (child != null)
+                        {
+                            child.Dispose();
+                        }
+                    }
+
                     Remove(list);
                     list.Dispose();
                     list = null;
@@ -498,6 +552,7 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
+            ApplyAttributes(this, dropDownAttributes);
             CreateHeaderText();
             CreateButton();         
             CreateListBackgroundImage();
@@ -547,12 +602,56 @@ namespace Tizen.NUI.Controls
             adapter = new DropDownListBridge();
             list.SetAdapter(adapter);
             list.Focusable = true;
-            list.FocusedItemIndex = 0;
-            list.Size2D = new Size2D(400, 500);
-            list.Padding = new Extents(4, 4, 4, 4);
+            list.ItemTouchEvent += ListItemTouchEvent;
+            list.ItemClickEvent += ListItemClickEvent;
             listBackgroundImage.Add(list);
             listBackgroundImage.Hide();
         }
+
+        private void ListItemClickEvent(object sender, FlexibleView.ItemClickEventArgs e)
+        {
+            if (e.ClickedView != null)
+            {
+                DropDownItemView view = e.ClickedView.ItemView as DropDownItemView;
+                if (view != null)
+                {
+                    button.Text = view.Text;
+                }
+            }
+            listBackgroundImage.Hide();
+        }
+        private DropDownItemView touchedView = null;
+        private void ListItemTouchEvent(object sender, FlexibleView.ItemTouchEventArgs e)
+        {
+            PointStateType state = e.Touch.GetState(0);
+            switch (state)
+            {
+                case PointStateType.Down:
+                    if (e.TouchedView != null)
+                    {
+                        touchedView = e.TouchedView.ItemView as DropDownItemView;
+                        if (touchedView != null)
+                        {
+                            touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Pressed);
+                        }
+                    }
+                    break;
+                case PointStateType.Leave:
+                    if (e.TouchedView != null && e.TouchedView.ItemView == touchedView)
+                    {
+                        touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Selected);
+                    }
+                    break;
+                case PointStateType.Up:
+                    if (touchedView != null)
+                    {
+                        touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Selected);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }      
 
         private void CreateListBackgroundImage()
         {
@@ -570,7 +669,6 @@ namespace Tizen.NUI.Controls
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            button.Hide();
             listBackgroundImage.Show();
         }
 
@@ -651,37 +749,285 @@ namespace Tizen.NUI.Controls
         #region DropDownItemData
         public class DropDownItemData
         {
+            private DropDownItemAttributes itemDataAttributes = new DropDownItemAttributes();
             public DropDownItemData()
             {               
             }
 
-            public string Text
+            public DropDownItemData(DropDownItemAttributes attributes)
             {
-                get;
-                set;
+                itemDataAttributes = attributes.Clone() as DropDownItemAttributes;
+                if (itemDataAttributes == null)
+                {
+                    throw new Exception("DropDown item attribute parse error.");
+                }
             }
 
-            public string IconResourceUrl
+            public Size2D Size2D
             {
-                get;
-                set;
+                get
+                {
+                    return itemDataAttributes.Size2D;
+                }
+                set
+                {
+                    itemDataAttributes.Size2D = value;
+                }
             }
-        }
-        #endregion
 
-        #region DropDownItemView
-        public class DropDownItemView : View
-        {
-            private TextLabel mText = null;
-            private ImageView mIcon = null;
-            private ImageView mCheck = null;
-
-            public DropDownItemView() { }
+            public ColorSelector BackgroundColorSelector
+            {
+                get
+                {
+                    return itemDataAttributes.BackgroundColor;
+                }
+                set
+                {
+                    if (itemDataAttributes.BackgroundColor == null)
+                    {
+                        itemDataAttributes.BackgroundColor = value.Clone() as ColorSelector;
+                    }
+                    itemDataAttributes.BackgroundColor = value.Clone();
+                }
+            }
 
             public string Text
             {
                 get
                 {
+                    return itemDataAttributes.TextAttributes?.Text?.All;
+                }
+                set
+                {
+                    CreateTextAttributes();
+                    if (itemDataAttributes.TextAttributes.Text == null)
+                    {
+                        itemDataAttributes.TextAttributes.Text = new StringSelector { All = value };
+                    }
+                    else
+                    {
+                        itemDataAttributes.TextAttributes.Text.All = value;
+                    }
+                }
+            }
+
+            public float PointSize
+            {
+                get
+                {
+                    return itemDataAttributes.TextAttributes?.PointSize?.All ?? 0; ;
+                }
+                set
+                {
+                    CreateTextAttributes();
+                    if (itemDataAttributes.TextAttributes.PointSize == null)
+                    {
+                        itemDataAttributes.TextAttributes.PointSize = new FloatSelector { All = value };
+                    }
+                    else
+                    {
+                        itemDataAttributes.TextAttributes.PointSize.All = value;
+                    }
+                }
+            }
+
+            public string FontFamily
+            {
+                get
+                {
+                    return itemDataAttributes.TextAttributes?.FontFamily;
+                }
+                set
+                {
+                    CreateTextAttributes();
+                    itemDataAttributes.TextAttributes.FontFamily = value;
+                }
+            }
+
+            public Position2D TextPosition2D
+            {
+                get
+                {
+                    return itemDataAttributes.TextAttributes?.Position2D;
+                }
+                set
+                {
+                    CreateTextAttributes();
+                    itemDataAttributes.TextAttributes.Position2D = value;
+                }
+            }
+
+            public string IconResourceUrl
+            {
+                get
+                {
+                    return itemDataAttributes.IconAttributes?.ResourceURL?.All;
+                }
+                set
+                {
+                    CreateIconAttributes();
+                    if (itemDataAttributes.IconAttributes.ResourceURL == null)
+                    {
+                        itemDataAttributes.IconAttributes.ResourceURL = new StringSelector { All = value };
+                    }
+                    else
+                    {
+                        itemDataAttributes.IconAttributes.ResourceURL.All = value;
+                    }
+                }
+            }
+
+            public Size2D IconSize2D
+            {
+                get
+                {
+                    return itemDataAttributes.IconAttributes?.Size2D;
+                }
+                set
+                {
+                    CreateIconAttributes();
+                    itemDataAttributes.IconAttributes.Size2D = value;
+                }
+            }
+
+            public Position2D IconPosition2D
+            {
+                get
+                {
+                    return itemDataAttributes.IconAttributes.Position2D;
+                }
+                set
+                {
+                    CreateIconAttributes();
+                    itemDataAttributes.IconAttributes.Position2D = value;
+                }
+            }
+
+            public string CheckImageResourceUrl
+            {
+                get
+                {
+                    return itemDataAttributes.CheckImageAttributes?.ResourceURL?.All;
+                }
+                set
+                {
+                    CreateCheckImageAttributes();
+                    if (itemDataAttributes.CheckImageAttributes.ResourceURL == null)
+                    {
+                        itemDataAttributes.CheckImageAttributes.ResourceURL = new StringSelector { All = value };
+                    }
+                    else
+                    {
+                        itemDataAttributes.CheckImageAttributes.ResourceURL.All = value;
+                    }
+                }
+            }
+
+            public Size2D CheckImageSize2D
+            {
+                get
+                {
+                    return itemDataAttributes.CheckImageAttributes?.Size2D;
+                }
+                set
+                {
+                    CreateCheckImageAttributes();
+                    itemDataAttributes.CheckImageAttributes.Size2D = value;
+                }
+            }
+
+            public int CheckImageRightSpace
+            {
+                get
+                {
+                    return itemDataAttributes.CheckImageRightSpace;
+                }
+                set
+                {
+                    itemDataAttributes.CheckImageRightSpace = value;
+                }
+            }
+
+            public bool IsSelected
+            {
+                get
+                {
+                    return itemDataAttributes.IsSelected;
+                }
+                set
+                {
+                    itemDataAttributes.IsSelected = value;
+                }
+            }
+
+            private void CreateTextAttributes()
+            {
+                if(itemDataAttributes.TextAttributes == null)
+                {
+                    itemDataAttributes.TextAttributes = new TextAttributes
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Begin,
+                    };
+                }
+            }
+
+            private void CreateIconAttributes()
+            {
+                if (itemDataAttributes.IconAttributes == null)
+                {
+                    itemDataAttributes.IconAttributes = new ImageAttributes
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    };
+                }
+            }
+
+            private void CreateCheckImageAttributes()
+            {
+                if (itemDataAttributes.CheckImageAttributes == null)
+                {
+                    itemDataAttributes.CheckImageAttributes = new ImageAttributes
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    };
+                }
+            }
+        }
+        #endregion
+
+        #region DropDownItemView
+        public class DropDownItemView : Control
+        {
+            private TextLabel mText = null;
+            private ImageView mIcon = null;
+            private ImageView mCheck = null;
+
+            public DropDownItemView() { }           
+
+            public ColorSelector BackgroundColorSelector
+            {
+                get;
+                set;
+            }
+
+            public string Text
+            {
+                get
+                {
+                    if(mText == null)
+                    {
+                        return null;
+                    }
                     return mText.Text;
                 }
                 set
@@ -695,6 +1041,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mText == null)
+                    {
+                        return null;
+                    }
                     return mText.FontFamily;
                 }
                 set
@@ -708,6 +1058,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mText == null)
+                    {
+                        return 0;
+                    }
                     return mText.PointSize;
                 }
                 set
@@ -721,6 +1075,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mText == null)
+                    {
+                        return null;
+                    }
                     return mText.TextColor;
                 }
                 set
@@ -734,6 +1092,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mText == null)
+                    {
+                        return null;
+                    }
                     return mText.Position2D;
                 }
                 set
@@ -747,6 +1109,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mIcon == null)
+                    {
+                        return null;
+                    }
                     return mIcon.ResourceUrl;
                 }
                 set
@@ -756,10 +1122,31 @@ namespace Tizen.NUI.Controls
                 }
             }
 
+            public Size2D IconSize2D
+            {
+                get
+                {
+                    if (mIcon == null)
+                    {
+                        return null;
+                    }
+                    return mIcon.Size2D;
+                }
+                set
+                {
+                    CreateIcon();
+                    mIcon.Size2D = value;
+                }
+            }
+
             public Position2D IconPosition2D
             {
                 get
                 {
+                    if (mIcon == null)
+                    {
+                        return null;
+                    }
                     return mIcon.Position2D;
                 }
                 set
@@ -773,6 +1160,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mCheck == null)
+                    {
+                        return null;
+                    }
                     return mCheck.ResourceUrl;
                 }
                 set
@@ -786,6 +1177,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mCheck == null)
+                    {
+                        return null;
+                    }
                     return mCheck.Position2D;
                 }
                 set
@@ -799,6 +1194,10 @@ namespace Tizen.NUI.Controls
             {
                 get
                 {
+                    if (mCheck == null)
+                    {
+                        return null;
+                    }
                     return mCheck.Size2D;
                 }
                 set
@@ -808,10 +1207,14 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            public bool ShowCheckImage
+            public bool IsSelected
             {
                 get
                 {
+                    if (mCheck == null)
+                    {
+                        return false;
+                    }
                     return mCheck.Visibility;
                 }
                 set
@@ -861,11 +1264,21 @@ namespace Tizen.NUI.Controls
                 base.Dispose(type);
             }
 
+            protected override Attributes GetAttributes()
+            {
+                return null;
+            }
+
             private void CreateIcon()
             {
                 if(mIcon == null)
                 {
-                    mIcon = new ImageView();
+                    mIcon = new ImageView()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    };
                     Add(mIcon);
                 }
             }
@@ -900,6 +1313,7 @@ namespace Tizen.NUI.Controls
                     };
                     Add(mCheck);
                 }
+                mCheck.Hide();
             }
         }
         #endregion
@@ -939,24 +1353,47 @@ namespace Tizen.NUI.Controls
 
             public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
             {
-                //holder.Padding = new Vector4(0, 2, 0, 2);
-                holder.SizeWidth = 400;
-                holder.SizeHeight = 96;
-
                 DropDownItemData listItemData = mDatas[position];
-
+                if(listItemData == null)
+                {
+                    return;
+                }
                 DropDownItemView listItemView = holder.ItemView as DropDownItemView;
                 listItemView.Name = "Item" + position;
+                if (listItemData.Size2D != null)
+                {
+                    holder.SizeWidth = listItemData.Size2D.Width;
+                    holder.SizeHeight = listItemData.Size2D.Height;
+                }
 
                 if (listItemView != null)
                 {
-                    listItemView.Text = String.Format("{0:D2}", position) + " : " + listItemData.Text;
-                    listItemView.PointSize = 12;
-                    listItemView.TextPosition2D = new Position2D(28, 0); //listItemView.BackgroundColor = Color.Green;
+                    listItemView.BackgroundColorSelector = listItemData.BackgroundColorSelector;
+                    if (listItemData.Text != null)
+                    {
+                        listItemView.Text = listItemData.Text;
+                        listItemView.PointSize = listItemData.PointSize;
+                        listItemView.FontFamily = listItemData.FontFamily;
+                        listItemView.TextPosition2D = listItemData.TextPosition2D;
+                    }
 
-                    listItemView.CheckResourceUrl = @"../../../demo/csharp-demo/res/images/FH3/10. Drop Down/dropdown_checkbox_on.png";
-                    listItemView.CheckImageSize2D = new Size2D(40, 40);
-                    listItemView.CheckPosition2D = new Position2D(listItemView.Size2D.Width - 16 - listItemView.CheckImageSize2D.Width, (listItemView.Size2D.Height - listItemView.CheckImageSize2D.Height) / 2);
+                    if (listItemData.IconResourceUrl != null)
+                    {
+                        listItemView.IconResourceUrl = listItemData.IconResourceUrl;
+                        listItemView.IconSize2D = listItemData.IconSize2D;
+                        listItemView.IconPosition2D = listItemData.IconPosition2D;
+                    }
+
+                    if (listItemData.CheckImageResourceUrl != null)
+                    {
+                        listItemView.CheckResourceUrl = listItemData.CheckImageResourceUrl;
+                        listItemView.CheckImageSize2D = listItemData.CheckImageSize2D;
+                        listItemView.CheckPosition2D = new Position2D(listItemView.Size2D.Width - listItemData.CheckImageRightSpace - listItemView.CheckImageSize2D.Width, (listItemView.Size2D.Height - listItemView.CheckImageSize2D.Height) / 2);
+                        if (listItemData.IsSelected == true)
+                        {
+                            listItemView.IsSelected = true;
+                        }
+                    }
                 }              
             }
 
@@ -965,23 +1402,44 @@ namespace Tizen.NUI.Controls
                 return mDatas.Count;
             }
 
-            public override void OnFocusChange(FlexibleView.ViewHolder previousFocus, FlexibleView.ViewHolder currentFocus)
+            public override void OnFocusChange(FlexibleView parent, int previousFocusIndex, int currentFocusIndex)
             {
+                if (previousFocusIndex != -1)
+                {
+                    DropDownItemData preListItemData = mDatas[previousFocusIndex];
+                    if (preListItemData != null)
+                    {
+                        preListItemData.IsSelected = false;
+                    }
+                }
+
+                FlexibleView.ViewHolder previousFocus = parent.FindViewHolderForAdapterPosition(previousFocusIndex);
                 if (previousFocus != null)
                 {
                     DropDownItemView listItemView = previousFocus.ItemView as DropDownItemView;
                     if (listItemView != null)
                     {
-                        listItemView.ShowCheckImage = false;
+                        listItemView.IsSelected = false;
                         NotifyItemChanged(previousFocus.AdapterPosition);
                     }
                 }
+
+                if (currentFocusIndex != -1)
+                {
+                    DropDownItemData curListItemData = mDatas[currentFocusIndex];
+                    if (curListItemData != null)
+                    {
+                        curListItemData.IsSelected = true;
+                    }
+                }
+
+                FlexibleView.ViewHolder currentFocus = parent.FindViewHolderForAdapterPosition(currentFocusIndex);
                 if (currentFocus != null)
                 {
                     DropDownItemView listItemView = currentFocus.ItemView as DropDownItemView;
                     if (listItemView != null)
                     {
-                        listItemView.ShowCheckImage = true;
+                        listItemView.IsSelected = true;
                         NotifyItemChanged(currentFocus.AdapterPosition);
                     }
                 }

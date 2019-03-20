@@ -102,6 +102,48 @@ namespace Tizen.NUI.Controls
             return (object)attrs.listMargin;
         }));
 
+        public static readonly BindableProperty ListSize2DProperty = BindableProperty.Create("ListSize2D", typeof(Size2D), typeof(DropDownAttributes), default(Size2D), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.listSize2D = (Size2D)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.listSize2D;
+        }));
+
+        public static readonly BindableProperty FocusedItemIndexProperty = BindableProperty.Create("FocusedItemIndex", typeof(int), typeof(DropDownAttributes), default(int), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.focusItemIndex = (int)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.focusItemIndex;
+        }));
+
+        public static readonly BindableProperty ListPaddingProperty = BindableProperty.Create("ListPadding", typeof(Extents), typeof(DropDownAttributes), default(Extents), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.listPadding = (Extents)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownAttributes)bindable;
+            return (object)attrs.listPadding;
+        }));
+
         private ButtonAttributes buttonAttributes = null;
         private TextAttributes headerTextAttributes = null;
         private ImageAttributes listBackgroundAttributes = null;
@@ -109,6 +151,9 @@ namespace Tizen.NUI.Controls
         private Vector4 space = new Vector4(0, 0, 0, 0);
         private DropDown.ListOrientation listOrientation = DropDown.ListOrientation.Left;
         private Vector4 listMargin = new Vector4(0, 0, 0, 0);
+        private int focusItemIndex = 0;
+        private Size2D listSize2D = null;
+        private Extents listPadding = null;
 
         public DropDownAttributes() : base() { }
         public DropDownAttributes(DropDownAttributes attributes) : base(attributes)
@@ -138,8 +183,19 @@ namespace Tizen.NUI.Controls
                 listMargin = new Vector4(attributes.listMargin.X, attributes.listMargin.Y, attributes.listMargin.Z, attributes.listMargin.W);
             }
 
+            if (attributes.listSize2D != null)
+            {
+                listSize2D = new Size2D(attributes.listSize2D.Width, attributes.listSize2D.Height);
+            }
+
+            if (attributes.listPadding != null)
+            {
+                listPadding = attributes.listPadding;
+            }
+
             spaceBetweenButtonTextAndIcon = attributes.spaceBetweenButtonTextAndIcon;
             listOrientation = attributes.listOrientation;
+            focusItemIndex = attributes.focusItemIndex;
         }
 
         public ButtonAttributes ButtonAttributes
@@ -226,141 +282,205 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public int FocusedItemIndex
+        {
+            get
+            {
+                return (int)GetValue(FocusedItemIndexProperty);
+            }
+            set
+            {
+                SetValue(FocusedItemIndexProperty, value);
+            }
+        }
+
+        public Size2D ListSize2D
+        {
+            get
+            {
+                return (Size2D)GetValue(ListSize2DProperty);
+            }
+            set
+            {
+                SetValue(ListSize2DProperty, value);
+            }
+        }
+
+        public Extents ListPadding
+        {
+            get
+            {
+                return (Extents)GetValue(ListPaddingProperty);
+            }
+            set
+            {
+                SetValue(ListPaddingProperty, value);
+            }
+        }
+
         public override Attributes Clone()
         {
             return new DropDownAttributes(this);
         }
     }
 
-    public class DropDownItemAttributes : ButtonAttributes
+    public class DropDownItemAttributes : ViewAttributes
     {
-        public static readonly BindableProperty SubTextAttributesProperty = BindableProperty.Create("SubTextAttributes", typeof(TextAttributes), typeof(DropDownItemAttributes), default(TextAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TextAttributesProperty = BindableProperty.Create("TextAttributes", typeof(TextAttributes), typeof(DropDownItemAttributes), default(TextAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
             if (newValue != null)
             {
-                attrs.subTextAttributes = (TextAttributes)newValue;
+                attrs.textAttributes = (TextAttributes)newValue;
             }
         }),
         defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
-            return (object)attrs.subTextAttributes;
+            return (object)attrs.textAttributes;
         }));
 
-        public static readonly BindableProperty DividerLineAttributesProperty = BindableProperty.Create("DividerLineAttributes", typeof(ViewAttributes), typeof(DropDownItemAttributes), default(ViewAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public static readonly BindableProperty IconAttributesProperty = BindableProperty.Create("IconAttributes", typeof(ImageAttributes), typeof(DropDownItemAttributes), default(ImageAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
             if (newValue != null)
             {
-                attrs.dividerAttributes = (ViewAttributes)newValue;
+                attrs.iconAttributes = (ImageAttributes)newValue;
             }
         }),
         defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
-            return (object)attrs.dividerAttributes;
+            return (object)attrs.iconAttributes;
         }));
 
-        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(DropDownItemAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public static readonly BindableProperty CheckImageAttributesProperty = BindableProperty.Create("CheckImageAttributes", typeof(ImageAttributes), typeof(DropDownItemAttributes), default(ImageAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
             if (newValue != null)
             {
-                attrs.space = (Vector4)newValue;
+                attrs.checkImageAttributes = (ImageAttributes)newValue;
             }
         }),
         defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
-            return (object)attrs.space;
+            return (object)attrs.checkImageAttributes;
         }));
 
-        public static readonly BindableProperty EnableIconCenterProperty = BindableProperty.Create("EnableIconCenter", typeof(bool), typeof(DropDownItemAttributes), default(bool), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public static readonly BindableProperty CheckImageRightSpaceProperty = BindableProperty.Create("CheckImageRightSpace", typeof(int), typeof(DropDownItemAttributes), default(int), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
             if (newValue != null)
             {
-                attrs.enableIconCenter = (bool)newValue;
+                attrs.checkImageRightSpace = (int)newValue;
             }
         }),
         defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
         {
             var attrs = (DropDownItemAttributes)bindable;
-            return (object)attrs.enableIconCenter;
+            return (object)attrs.checkImageRightSpace;
         }));
 
-        private TextAttributes subTextAttributes;
-        private ViewAttributes dividerAttributes;
-        private Vector4 space = new Vector4(0, 0, 0, 0);
-        private bool enableIconCenter = false;
+        public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create("IsSelected", typeof(bool), typeof(DropDownItemAttributes), default(bool), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        {
+            var attrs = (DropDownItemAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.isSelected = (bool)newValue;
+            }
+        }),
+        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
+        {
+            var attrs = (DropDownItemAttributes)bindable;
+            return (object)attrs.isSelected;
+        }));
+
+        private TextAttributes textAttributes = null;
+        private ImageAttributes iconAttributes = null;
+        private ImageAttributes checkImageAttributes = null;
+        private int checkImageRightSpace = 0;
+        private bool isSelected = false;
 
         public DropDownItemAttributes() : base() { }
         public DropDownItemAttributes(DropDownItemAttributes attributes) : base(attributes)
         {
-            if (attributes.subTextAttributes != null)
+            if (attributes.textAttributes != null)
             {
-                subTextAttributes = attributes.subTextAttributes.Clone() as TextAttributes;
+                textAttributes = attributes.textAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dividerAttributes != null)
+            if (attributes.iconAttributes != null)
             {
-                dividerAttributes = attributes.dividerAttributes.Clone() as ViewAttributes;
+                iconAttributes = attributes.iconAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.space != null)
+            if (attributes.checkImageAttributes != null)
             {
-                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+                checkImageAttributes = attributes.checkImageAttributes.Clone() as ImageAttributes;
             }
 
-            enableIconCenter = attributes.enableIconCenter;
+            checkImageRightSpace = attributes.checkImageRightSpace;
+            isSelected = attributes.isSelected;
         }
 
-        public TextAttributes SubTextAttributes
+        public TextAttributes TextAttributes
         {
             get
             {
-                return (TextAttributes)GetValue(SubTextAttributesProperty);
+                return (TextAttributes)GetValue(TextAttributesProperty);
             }
             set
             {
-                SetValue(SubTextAttributesProperty, value);
+                SetValue(TextAttributesProperty, value);
             }
         }
 
-        public ViewAttributes DividerLineAttributes
+        public ImageAttributes IconAttributes
         {
             get
             {
-                return (ViewAttributes)GetValue(DividerLineAttributesProperty);
+                return (ImageAttributes)GetValue(IconAttributesProperty);
             }
             set
             {
-                SetValue(DividerLineAttributesProperty, value);
+                SetValue(IconAttributesProperty, value);
             }
         }
 
-        public Vector4 Space
+        public ImageAttributes CheckImageAttributes
         {
             get
             {
-                return (Vector4)GetValue(SpaceProperty);
+                return (ImageAttributes)GetValue(CheckImageAttributesProperty);
             }
             set
             {
-                SetValue(SpaceProperty, value);
+                SetValue(CheckImageAttributesProperty, value);
             }
         }
 
-        public bool EnableIconCenter
+        public int CheckImageRightSpace
         {
             get
             {
-                return (bool)GetValue(EnableIconCenterProperty);
+                return (int)GetValue(CheckImageRightSpaceProperty);
             }
             set
             {
-                SetValue(EnableIconCenterProperty, value);
+                SetValue(CheckImageRightSpaceProperty, value);
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return (bool)GetValue(IsSelectedProperty);
+            }
+            set
+            {
+                SetValue(IsSelectedProperty, value);
             }
         }
 

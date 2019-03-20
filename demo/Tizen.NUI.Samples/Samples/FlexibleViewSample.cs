@@ -109,27 +109,27 @@ namespace Tizen.NUI.Samples
             return mDatas.Count;
         }
 
-        public override void OnFocusChange(FlexibleView.ViewHolder previousFocus, FlexibleView.ViewHolder currentFocus)
+        public override void OnFocusChange(FlexibleView parent, int previousFocus, int currentFocus)
         {
-            if (previousFocus != null)
-            {
-                //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
-                if (previousFocus.AdapterPosition % 2 == 0)
-                    previousFocus.ItemView.BackgroundColor = Color.Cyan;
-                else
-                    previousFocus.ItemView.BackgroundColor = Color.Yellow;
-                //previousFocus.SizeWidth = 150;
-                //previousFocus.SizeHeight = 60;
-                //NotifyItemChanged(previousFocus.AdapterPosition);
-            }
-            if (currentFocus != null)
-            {
-                //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
-                currentFocus.ItemView.BackgroundColor = Color.Magenta;
-                //currentFocus.SizeWidth = 200;
-                //currentFocus.SizeHeight = 100;
-                //NotifyItemChanged(currentFocus.AdapterPosition);
-            }
+            //if (previousFocus != null)
+            //{
+            //    //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
+            //    if (previousFocus.AdapterPosition % 2 == 0)
+            //        previousFocus.ItemView.BackgroundColor = Color.Cyan;
+            //    else
+            //        previousFocus.ItemView.BackgroundColor = Color.Yellow;
+            //    //previousFocus.SizeWidth = 150;
+            //    //previousFocus.SizeHeight = 60;
+            //    //NotifyItemChanged(previousFocus.AdapterPosition);
+            //}
+            //if (currentFocus != null)
+            //{
+            //    //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
+            //    currentFocus.ItemView.BackgroundColor = Color.Magenta;
+            //    //currentFocus.SizeWidth = 200;
+            //    //currentFocus.SizeHeight = 100;
+            //    //NotifyItemChanged(currentFocus.AdapterPosition);
+            //}
         }
 
     }
