@@ -76,7 +76,7 @@ namespace Tizen.FH.NUI.Samples
             {
                 for (int j = 1; j < colNum; j++)
                 {
-                    Button button = new Button(applications[j - 1] + styles[i - 1] + "Button");
+                    Button button = new Button(styles[i - 1] + "Button");
                     button.Position2D = new Position2D(300 * j, 150 * i);
                     if(i != 4)
                     {

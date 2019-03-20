@@ -38,7 +38,7 @@ namespace Tizen.NUI.Xaml
             set;
         }
 
-        public Attributes GetAttributes()
+        protected internal virtual Attributes GetAttributes()
         {
             return Content as Attributes;
         }

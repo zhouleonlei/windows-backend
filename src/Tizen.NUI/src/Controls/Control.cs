@@ -24,6 +24,7 @@ namespace Tizen.NUI.Controls
         });
         private States state;
         private bool isFocused = false;
+        protected string style;
 
         public Control() : base()
         {
@@ -381,13 +382,13 @@ namespace Tizen.NUI.Controls
 
         private Attributes GetAttributes(string style)
         {
-            if (styleToDelegate.ContainsKey(style))
+            Attributes attributes = StyleManager.Instance.GetAttributes(style);
+            if(attributes == null)
             {
-                StyleContainer container = styleToDelegate[style]();
-                return (container.Content as Attributes).Clone();
+                throw new InvalidOperationException($"There is no style {style}");
             }
-
-            return Attributes.GetAttributes(styleToAttributes[style]);
+            this.style = style;
+            return attributes;
         }
 
         private static Dictionary<string, GetStyleContainer> styleToDelegate = new Dictionary<string, GetStyleContainer>();
