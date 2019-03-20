@@ -229,22 +229,22 @@ namespace Tizen.NUI.Controls
 
         public override float GetViewHolderMeasurement(FlexibleView.ViewHolder holder)
         {
-            return holder.SizeWidth;
+            return holder.Right - holder.Left;
         }
 
         public override float GetViewHolderMeasurementInOther(FlexibleView.ViewHolder holder)
         {
-            return holder.SizeHeight;
+            return holder.Bottom - holder.Top;
         }
 
         public override float GetViewHolderEnd(FlexibleView.ViewHolder holder)
         {
-            return holder.PositionX + holder.SizeWidth;
+            return holder.Right;
         }
 
         public override float GetViewHolderStart(FlexibleView.ViewHolder holder)
         {
-            return holder.PositionX;
+            return holder.Left;
         }
 
         public override float GetTotalSpace()
@@ -255,7 +255,7 @@ namespace Tizen.NUI.Controls
 
         public override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
         {
-            //view.offsetLeftAndRight(offset);
+            //holder.offsetLeftAndRight(offset);
         }
 
         public override float GetEndPadding()
@@ -294,22 +294,22 @@ namespace Tizen.NUI.Controls
 
         public override float GetViewHolderMeasurement(FlexibleView.ViewHolder holder)
         {
-            return holder.SizeHeight;
+            return holder.Bottom - holder.Top;
         }
 
         public override float GetViewHolderMeasurementInOther(FlexibleView.ViewHolder holder)
         {
-            return holder.SizeWidth;
+            return holder.Right - holder.Left;
         }
 
         public override float GetViewHolderEnd(FlexibleView.ViewHolder holder)
         {
-            return holder.PositionY + holder.SizeHeight;
+            return holder.Bottom;
         }
 
         public override float GetViewHolderStart(FlexibleView.ViewHolder holder)
         {
-            return holder.PositionY;
+            return holder.Top;
         }
 
         public override float GetTotalSpace()
@@ -318,9 +318,9 @@ namespace Tizen.NUI.Controls
                     - mLayoutManager.GetPaddingBottom();
         }
 
-        public override void OffsetChild(FlexibleView.ViewHolder view, int offset)
+        public override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
         {
-            //view.offsetTopAndBottom(offset);
+            //holder.offsetTopAndBottom(offset);
         }
 
         public override float GetEndPadding()

@@ -1406,8 +1406,8 @@ namespace Tizen.NUI.Controls
                 listItemView.Name = "Item" + position;
                 if (listItemData.Size2D != null)
                 {
-                    holder.SizeWidth = listItemData.Size2D.Width;
-                    holder.SizeHeight = listItemData.Size2D.Height;
+                    holder.ItemView.SizeWidth = listItemData.Size2D.Width;
+                    holder.ItemView.SizeHeight = listItemData.Size2D.Height;
                 }
 
                 if (listItemView != null)

@@ -83,21 +83,18 @@ namespace Tizen.NUI.Samples
         public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
         {
             //Console.WriteLine($"OnBindItemView... position: {position}");
-            holder.Padding = new Vector4(1, 1, 1, 1);
-            holder.SizeWidth = 150;
-            holder.SizeHeight = 60;
-
             ListItemData listItemData = mDatas[position];
 
             ListItemView listItemView = holder.ItemView as ListItemView;
             listItemView.Name = "Item" + position;
             //Random rd = new Random();
-            //listItemView.SizeHeight = 60;
+            listItemView.SizeWidth = 150;
+            listItemView.SizeHeight = 60;
             if (listItemView != null)
             {
                 listItemView.MainText = String.Format("{0:D2}", position) + " : " + listItemData.TextString;
             }
-            //listItemView.Margin = new Extents(1, 1, 1, 1);
+            listItemView.Margin = new Extents(2, 2, 2, 2);
             if (position % 2 == 0)
                 listItemView.BackgroundColor = Color.Cyan;
             else
@@ -109,27 +106,29 @@ namespace Tizen.NUI.Samples
             return mDatas.Count;
         }
 
-        public override void OnFocusChange(FlexibleView parent, int previousFocus, int currentFocus)
+        public override void OnFocusChange(FlexibleView flexibleView, int previousFocus, int currentFocus)
         {
-            //if (previousFocus != null)
-            //{
-            //    //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
-            //    if (previousFocus.AdapterPosition % 2 == 0)
-            //        previousFocus.ItemView.BackgroundColor = Color.Cyan;
-            //    else
-            //        previousFocus.ItemView.BackgroundColor = Color.Yellow;
-            //    //previousFocus.SizeWidth = 150;
-            //    //previousFocus.SizeHeight = 60;
-            //    //NotifyItemChanged(previousFocus.AdapterPosition);
-            //}
-            //if (currentFocus != null)
-            //{
-            //    //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
-            //    currentFocus.ItemView.BackgroundColor = Color.Magenta;
-            //    //currentFocus.SizeWidth = 200;
-            //    //currentFocus.SizeHeight = 100;
-            //    //NotifyItemChanged(currentFocus.AdapterPosition);
-            //}
+            FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
+            if (previousFocusView != null)
+            {
+                //Console.WriteLine($"previousFocus {previousFocus.AdapterPosition}");
+                if (previousFocusView.AdapterPosition % 2 == 0)
+                    previousFocusView.ItemView.BackgroundColor = Color.Cyan;
+                else
+                    previousFocusView.ItemView.BackgroundColor = Color.Yellow;
+                //previousFocus.SizeWidth = 150;
+                //previousFocus.SizeHeight = 60;
+                //NotifyItemChanged(previousFocus.AdapterPosition);
+            }
+            FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
+            if (currentFocusView != null)
+            {
+                //Console.WriteLine($"currentFocus {currentFocus.AdapterPosition}");
+                currentFocusView.ItemView.BackgroundColor = Color.Magenta;
+                //currentFocus.SizeWidth = 200;
+                //currentFocus.SizeHeight = 100;
+                //NotifyItemChanged(currentFocus.AdapterPosition);
+            }
         }
 
     }
