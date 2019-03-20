@@ -246,6 +246,16 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("GroupIndexListItem", null, typeof(GroupIndexListItemAttributes));
 
             StyleManager.Instance.RegisterStyle("DefaultLoading", null, typeof(DefaultLoadingAttributes));
+
+            StyleManager.Instance.RegisterStyle("DAPicker", null, typeof(DAPickerAttributes));
+
+            StyleManager.Instance.RegisterStyle("DATimePicker", null, typeof(DATimePickerAttributes));
+            StyleManager.Instance.RegisterStyle("DATimePickerAMPM", null, typeof(DATimePickerAMPMAttributes));
+            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", null, typeof(DATimePickerRepeatAttributes));
+
+            StyleManager.Instance.RegisterStyle("DASpin", null, typeof(DASpinAttributes));
+            StyleManager.Instance.RegisterStyle("DAStrSpin", null, typeof(DAStrSpinAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultLoading", null, typeof(DefaultLoadingAttributes));
             StyleManager.Instance.RegisterStyle("DefaultHeader", null, typeof(DefaultHeaderAttributes));
             StyleManager.Instance.RegisterStyle("OpaqueHeader", null, typeof(OpaqueHeaderAttributes));
             StyleManager.Instance.RegisterStyle("TransparencyHeader", null, typeof(TransparencyHeaderAttributes));

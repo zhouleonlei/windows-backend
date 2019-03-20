@@ -1,0 +1,43 @@
+<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <TimePickerAttributes x:Name="TimePickerAttributes" MinimumSize="100, 184" ParentOrigin="Center" PivotPoint="Center"
+                     PositionUsesPivotPoint="true" ShadowOffset="1, 1, 1, 1">
+        <TimePickerAttributes.BackgroundImageAttributes>
+            <ImageAttributes ParentOrigin="Center"
+                             PivotPoint="Center"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 81, 81" 
+                             ResourceURL ="*DemoRes*/images/FH3/0. BG/background_default_overlay.png"/>
+        </TimePickerAttributes.BackgroundImageAttributes>
+        <TimePickerAttributes.HourSpinAttributes>
+           <SpinAttributes  ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            Position2D="108, 32"
+                            Size2D="200, 428"/>
+        </TimePickerAttributes.HourSpinAttributes>
+        <TimePickerAttributes.MinuteSpinAttributes>
+           <SpinAttributes  ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            Position2D="416, 32"
+                            Size2D="200, 428"/>
+        </TimePickerAttributes.MinuteSpinAttributes>
+        <TimePickerAttributes.SecondSpinAttributes>
+           <SpinAttributes  ParentOrigin="TopLeft"
+                            PivotPoint="TopLeft"
+                            PositionUsesPivotPoint="true"
+                            Position2D="724, 32"
+                            Size2D="200, 428"/>
+        </TimePickerAttributes.SecondSpinAttributes>
+        <TimePickerAttributes.ColonImageAttributes>
+            <ImageAttributes ParentOrigin="TopLeft"
+                             PivotPoint="TopLeft"
+                             PositionUsesPivotPoint="true"
+                             Border="0, 0, 1, 1"
+                             Size2D="12, 152"
+                             Position2D="0, 208" 
+                             ResourceURL ="*DemoRes*/images/FH3/9. Controller/picker_time_colon.png"/>
+        </TimePickerAttributes.ColonImageAttributes>
+    </TimePickerAttributes>
+</AttributesContainer>

@@ -49,6 +49,7 @@
     <Compile Include="SampleMain.cs" />
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Samples\CheckBoxSample.cs" />
+    <Compile Include="Samples\DatePickerSample.cs" />
     <Compile Include="Samples\NavigationSample.cs" />
     <Compile Include="Samples\RTLSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Samples\SliderSample.cs" />
     <Compile Include="Samples\SwitchSample.cs" />
     <Compile Include="Samples\TabSample.cs" />
+    <Compile Include="Samples\TimePickerSample.cs" />
     <Compile Include="Samples\ToastSample.cs" />
     <Compile Include="Samples\HeaderSample.cs" />
   </ItemGroup>
