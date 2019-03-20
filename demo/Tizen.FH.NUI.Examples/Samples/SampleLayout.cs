@@ -5,7 +5,7 @@ using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class SampleLayout : View
+    public class SampleLayout : ImageView
     {
         private Header LayoutHeader;
 
@@ -46,19 +46,19 @@ namespace Tizen.FH.NUI.Samples
                 IsSelectable = true,
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
+                    ResourceURL = new StringSelector { Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                 },
 
@@ -84,6 +84,7 @@ namespace Tizen.FH.NUI.Samples
             UtilityButton.ClickEvent += UtilityButton_ClickEvent;
             base.Add(UtilityButton);
 
+            buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_ec7510.png";
             FoodButton = new Button(buttonAttributes);
             FoodButton.Size2D = new Size2D(200, 80);
             FoodButton.Position2D = new Position2D(312, 150);
@@ -91,6 +92,7 @@ namespace Tizen.FH.NUI.Samples
             FoodButton.ClickEvent += FoodButton_ClickEvent;
             base.Add(FoodButton);
 
+            buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png";
             FamilyButton = new Button(buttonAttributes);
             FamilyButton.Size2D = new Size2D(200, 80);
             FamilyButton.Position2D = new Position2D(578, 150);
@@ -98,6 +100,7 @@ namespace Tizen.FH.NUI.Samples
             FamilyButton.ClickEvent += FamilyButton_ClickEvent;
             base.Add(FamilyButton);
 
+            buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_9762d9.png";
             KitchenButton = new Button(buttonAttributes);
             KitchenButton.Size2D = new Size2D(200, 80);
             KitchenButton.Position2D = new Position2D(834, 150);
@@ -112,6 +115,8 @@ namespace Tizen.FH.NUI.Samples
             };
 
             base.Add(Content);
+
+            //this.ResourceUrl = CommonResource.GetFHResourcePath() + "0. BG/background_default_overlay.png";
         }
 
         private void KitchenButton_ClickEvent(object sender, Button.ClickEventArgs e)

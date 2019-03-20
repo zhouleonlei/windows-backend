@@ -78,10 +78,30 @@ namespace Tizen.FH.NUI.Samples
 
         public void Deactivate()
         {
-            if (root != null)
-            {
-                root.Dispose();
-            }
+            root.Remove(BasicButtonNormal);
+            BasicButtonNormal.Dispose();
+
+            root.Remove(BasicButtonDisabled);
+            BasicButtonDisabled.Dispose();
+
+            root.Remove(ServiceButtonNormal);
+            ServiceButtonNormal.Dispose();
+
+            root.Remove(ServiceButtonDisabled);
+            ServiceButtonDisabled.Dispose();
+
+            root.Remove(ToggleButtonNormal);
+            ToggleButtonNormal.Dispose();
+
+            root.Remove(ToggleButtonDisabled);
+            ToggleButtonDisabled.Dispose();
+
+            root.Remove(OvalButtonNormal);
+            OvalButtonNormal.Dispose();
+            root.Remove(OvalButtonDisabled);
+            OvalButtonDisabled.Dispose();
+    
+            root.Dispose();
         }
     }
 }

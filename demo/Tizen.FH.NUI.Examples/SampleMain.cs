@@ -9,7 +9,7 @@ using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class CommonReosurce
+    public class CommonResource
     {
         public static string GetReosurceURL()
         {
