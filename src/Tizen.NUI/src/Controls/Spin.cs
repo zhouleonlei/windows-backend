@@ -315,8 +315,6 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(maskBottomImage,spinAttributes.MaskBottomImageAttributes);
             ApplyAttributes(maskTopImage, spinAttributes.MaskTopImageAttributes);
 
-            nMin = spinAttributes.Min;
-            nMax = spinAttributes.Max;
             ITEMHEIGHT = spinAttributes.ItemHeight;
             TEXTSIZE = spinAttributes.TextSize;
             TEXTSIZE_CENTER = spinAttributes.CenterTextSize;

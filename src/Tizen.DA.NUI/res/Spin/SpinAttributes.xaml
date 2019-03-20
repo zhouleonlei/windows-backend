@@ -1,7 +1,7 @@
 <AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <SpinAttributes x:Name="SpinAttributes" ParentOrigin="Center" PivotPoint="Center"
-                     PositionUsesPivotPoint="true" Min="0" Max="59" Cur="3" ItemHeight="116" TextSize="50" CenterTextSize="55">
+    <SpinAttributes x:Name="SpinAttributes" ParentOrigin="TopLeft" PivotPoint="TopLeft"
+                     PositionUsesPivotPoint="true" ItemHeight="116" TextSize="50" CenterTextSize="55">
         <SpinAttributes.BackgroundImageAttributes>
             <ImageAttributes ParentOrigin="Center"
                              PivotPoint="Center"

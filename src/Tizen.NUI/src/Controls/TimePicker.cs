@@ -240,11 +240,24 @@ namespace Tizen.NUI.Controls
             {
                 hourSpin.Max = 11;
                 hourSpin.Min = 0;
+
+                AMPMSpin.Max = 1;
+                AMPMSpin.Min = 0;
             }
             else
             {
                 hourSpin.Max = 23;
                 hourSpin.Min = 0;
+            }
+            if (minuteSpin !=null)
+            {
+                minuteSpin.Max = 59;
+                minuteSpin.Min = 0;
+            }
+            if (secondSpin !=null)
+            {
+                secondSpin.Max = 59;
+                secondSpin.Min = 0;
             }
         }
 
