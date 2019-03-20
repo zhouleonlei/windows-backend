@@ -144,22 +144,22 @@ namespace Tizen.FH.NUI
             NUIApplication.RegisterAssembly(typeof(FHNUIApplication).GetTypeInfo().Assembly);
 
             StyleManager.Instance.RegisterStyle("BasicButton", "Family", typeof(FamilyBasicButtonAttributes));
-            StyleManager.Instance.RegisterStyle("BasicButton", "Utility", typeof(UtilityBasicButtonAttributes));
+            StyleManager.Instance.RegisterStyle("BasicButton", "Utility", typeof(UtilityBasicButtonAttributes), true);
             StyleManager.Instance.RegisterStyle("BasicButton", "Food", typeof(FoodBasicButtonAttributes));
             StyleManager.Instance.RegisterStyle("BasicButton", "Kitchen", typeof(KitchenBasicButtonAttributes));
 
             StyleManager.Instance.RegisterStyle("ServiceButton", "Family", typeof(FamilyServiceButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ServiceButton", "Utility", typeof(UtilityServiceButtonAttributes));
+            StyleManager.Instance.RegisterStyle("ServiceButton", "Utility", typeof(UtilityServiceButtonAttributes), true);
             StyleManager.Instance.RegisterStyle("ServiceButton", "Food", typeof(FoodServiceButtonAttributes));
             StyleManager.Instance.RegisterStyle("ServiceButton", "Kitchen", typeof(KitchenServiceButtonAttributes));
 
             StyleManager.Instance.RegisterStyle("ToggleButton", "Family", typeof(FamilyToggleButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ToggleButton", "Utility", typeof(UtilityToggleButtonAttributes));
+            StyleManager.Instance.RegisterStyle("ToggleButton", "Utility", typeof(UtilityToggleButtonAttributes), true);
             StyleManager.Instance.RegisterStyle("ToggleButton", "Food", typeof(FoodToggleButtonAttributes));
             StyleManager.Instance.RegisterStyle("ToggleButton", "Kitchen", typeof(KitchenToggleButtonAttributes));
 
             StyleManager.Instance.RegisterStyle("OvalButton", "Family", typeof(FamilyOvalButtonAttributes));
-            StyleManager.Instance.RegisterStyle("OvalButton", "Utility", typeof(UtilityOvalButtonAttributes));
+            StyleManager.Instance.RegisterStyle("OvalButton", "Utility", typeof(UtilityOvalButtonAttributes), true);
             StyleManager.Instance.RegisterStyle("OvalButton", "Food", typeof(FoodOvalButtonAttributes));
             StyleManager.Instance.RegisterStyle("OvalButton", "Kitchen", typeof(KitchenOvalButtonAttributes));
 

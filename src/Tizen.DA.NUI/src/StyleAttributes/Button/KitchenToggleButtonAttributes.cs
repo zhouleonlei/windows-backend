@@ -21,7 +21,7 @@ namespace Tizen.FH.NUI.Controls
             };
             attributes.TextAttributes.TextColor = new ColorSelector
             {
-                Normal = new Color(0.592f, 0.384f, 0.851f, 1),
+                Normal = Utility.Hex2Color(Constants.APP_COLOR_KITCHEN, 1),
                 Selected = new Color(1, 1, 1, 1),
             };
             return attributes;

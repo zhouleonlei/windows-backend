@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Controls
                     {
                         Normal = new Color(0, 0, 0, 1),
                         Pressed = new Color(0, 0, 0, 0.7f),
-                        Selected = new Color(0.058f, 0.631f, 0.92f, 1),
+                        Selected = Utility.Hex2Color(Constants.APP_COLOR_UTILITY, 1),
                         Disabled = new Color(0, 0, 0, 0.4f),
                     },
                 }

@@ -13,7 +13,7 @@ namespace Tizen.FH.NUI.Controls
                 return (Content as Attributes).Clone();
             }
             ButtonAttributes attributes = base.GetAttributes() as ButtonAttributes;
-            attributes.TextAttributes.TextColor.Selected = new Color(0.141f, 0.769f, 0.278f, 1); 
+            attributes.TextAttributes.TextColor.Selected = Utility.Hex2Color(Constants.APP_COLOR_FAMILY, 1); 
             return attributes;
         }
     }
