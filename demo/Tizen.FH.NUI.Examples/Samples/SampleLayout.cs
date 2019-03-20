@@ -1,6 +1,7 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Controls;
+using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -12,6 +13,25 @@ namespace Tizen.FH.NUI.Samples
         private Button FoodButton;
         private Button FamilyButton;
         private Button KitchenButton;
+
+        private View Content;
+        public string HeaderText
+        {
+            get
+            {
+                return LayoutHeader.HeaderText;
+            }
+
+            set
+            {
+                LayoutHeader.HeaderText = value;
+            }
+        }
+
+        public new void Add(View view)
+        {
+            Content.Add(view);
+        }
 
 
         public SampleLayout()
@@ -44,7 +64,7 @@ namespace Tizen.FH.NUI.Samples
 
                 TextAttributes = new TextAttributes
                 {
-                    PointSize = new FloatSelector { All = 20 },
+                    PointSize = new FloatSelector { All = 30 },
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     WidthResizePolicy = ResizePolicyType.FillToParent,
@@ -52,34 +72,95 @@ namespace Tizen.FH.NUI.Samples
 
                     TextColor = new ColorSelector
                     {
-                        Normal = new Color(0, 0, 0, 1),
-                        Pressed = new Color(0, 0, 0, 0.7f),
-                        Selected = new Color(0.141f, 0.769f, 0.278f, 1),
-                        Disabled = new Color(0, 0, 0, 0.4f),
+                        All = new Color(0, 0, 0, 1),
                     },
                 }
             };
 
             UtilityButton = new Button(buttonAttributes);
-            UtilityButton.Size2D = new Size2D(200, 100);
-            UtilityButton.Position2D = new Position2D(100, 300);
-            UtilityButton.PointSize = 30;
+            UtilityButton.Size2D = new Size2D(200, 80);
+            UtilityButton.Position2D = new Position2D(56, 150);
             UtilityButton.Text = "Utility";
+            UtilityButton.ClickEvent += UtilityButton_ClickEvent;
             base.Add(UtilityButton);
 
+            FoodButton = new Button(buttonAttributes);
+            FoodButton.Size2D = new Size2D(200, 80);
+            FoodButton.Position2D = new Position2D(312, 150);
+            FoodButton.Text = "Food";
+            FoodButton.ClickEvent += FoodButton_ClickEvent;
+            base.Add(FoodButton);
+
+            FamilyButton = new Button(buttonAttributes);
+            FamilyButton.Size2D = new Size2D(200, 80);
+            FamilyButton.Position2D = new Position2D(578, 150);
+            FamilyButton.Text = "Family";
+            FamilyButton.ClickEvent += FamilyButton_ClickEvent;
+            base.Add(FamilyButton);
+
+            KitchenButton = new Button(buttonAttributes);
+            KitchenButton.Size2D = new Size2D(200, 80);
+            KitchenButton.Position2D = new Position2D(834, 150);
+            KitchenButton.Text = "Kitchen";
+            KitchenButton.ClickEvent += KitchenButton_ClickEvent;
+            base.Add(KitchenButton);
+
+            Content = new View
+            {
+                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128 - 150),
+                Position2D = new Position2D(0, 128 + 150),
+            };
+
+            base.Add(Content);
         }
 
-        public string HeaderText
+        private void KitchenButton_ClickEvent(object sender, Button.ClickEventArgs e)
         {
-            get
+            StyleManager.Instance.Theme = "Kitchen";
+        }
+
+        private void FamilyButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        {
+            StyleManager.Instance.Theme = "Family";
+        }
+
+        private void FoodButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        {
+            StyleManager.Instance.Theme = "Food";
+        }
+
+        private void UtilityButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        {
+            StyleManager.Instance.Theme = "Utility";
+        }
+
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
             {
-                return LayoutHeader.HeaderText;
+                return;
             }
 
-            set
+            if (type == DisposeTypes.Explicit)
             {
-                LayoutHeader.HeaderText = value;
+                Remove(Content);
+                Content.Dispose();
+                Remove(LayoutHeader);
+                LayoutHeader.Dispose();
+
+                Remove(UtilityButton);
+                UtilityButton.Dispose();
+                Remove(FoodButton);
+                FoodButton.Dispose();
+                Remove(FamilyButton);
+                FamilyButton.Dispose();
+                Remove(KitchenButton);
+                KitchenButton.Dispose();
+
+                Window.Instance.Remove(this);
             }
+
+            base.Dispose(type);
         }
     }
 }
