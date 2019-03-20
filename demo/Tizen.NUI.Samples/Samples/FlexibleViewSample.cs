@@ -139,6 +139,9 @@ namespace Tizen.NUI.Samples
         private FlexibleView flexibleView2;
         private ListBridge adapter;
 
+        private ScrollBar scrollBar1;
+        private ScrollBar scrollBar2;
+
         public void Activate()
         {
             Window window = Window.Instance;
@@ -172,6 +175,16 @@ namespace Tizen.NUI.Samples
             flexibleView1.FocusGained += FlexibleView_FocusGained;
             flexibleView1.FocusLost += FlexibleView_FocusLost;
 
+            scrollBar1 = new ScrollBar();
+            scrollBar1.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar1.Position2D = new Position2D(394, 2);
+            scrollBar1.Size2D = new Size2D(4, 446);
+            scrollBar1.TrackColor = Color.Green;
+            scrollBar1.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar1.ThumbColor = Color.Yellow;
+            scrollBar1.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            flexibleView1.AttachScrollBar(scrollBar1);
+
 
             flexibleView2 = new FlexibleView();
             flexibleView2.Name = "RecyclerView";
@@ -194,6 +207,16 @@ namespace Tizen.NUI.Samples
             flexibleView2.KeyEvent += RecyclerView_KeyEvent;
             flexibleView2.FocusGained += FlexibleView_FocusGained;
             flexibleView2.FocusLost += FlexibleView_FocusLost;
+
+            scrollBar2 = new ScrollBar();
+            scrollBar2.Position2D = new Position2D(2, 194);
+            scrollBar2.Size2D = new Size2D(696, 4);
+            scrollBar2.TrackColor = Color.Green;
+            scrollBar2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar2.ThumbColor = Color.Yellow;
+            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            flexibleView2.AttachScrollBar(scrollBar2);
+
 
             FocusManager.Instance.SetCurrentFocusView(flexibleView1);
         }
@@ -279,11 +302,17 @@ namespace Tizen.NUI.Samples
 
         public void Deactivate()
         {
+            flexibleView1.DetachScrollBar();
+            scrollBar1.Dispose();
+            flexibleView2.DetachScrollBar();
+            scrollBar2.Dispose();
+
             Window window = Window.Instance;
             window.Remove(flexibleView1);
             flexibleView1.Dispose();
             window.Remove(flexibleView2);
             flexibleView2.Dispose();
+
         }
     }
 }

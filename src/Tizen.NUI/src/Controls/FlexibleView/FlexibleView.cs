@@ -24,8 +24,9 @@ namespace Tizen.NUI.Controls
 
         private AdapterHelper mAdapteHelper;
 
+        private Extents mPadding = new Extents(0, 0, 0, 0);
 
-
+        private ScrollBar mScrollBar = null;
 
         public FlexibleView()
         {
@@ -136,6 +137,17 @@ namespace Tizen.NUI.Controls
             touchEventHandlers?.Invoke(sender, e);
         }
 
+        public new Extents Padding
+        {
+            get
+            {
+                return mPadding;
+            }
+            set
+            {
+                mPadding = value;
+            }
+        }
 
         public int FocusedItemIndex
         {
@@ -180,8 +192,52 @@ namespace Tizen.NUI.Controls
         public void MoveFocus(string direction)
         {
             mLayout.MoveFocus(direction, mRecycler, mState);
+        }
 
-            //RemoveAndRecycleScrapInt();
+        public void AttachScrollBar(ScrollBar scrollBar)
+        {
+            if (scrollBar == null)
+            {
+                return;
+            }
+            mScrollBar = scrollBar;
+            Add(mScrollBar);
+
+            if (mAdapteHelper != null)
+            {
+                InitializeScrollBar();
+            }
+        }
+
+        public void DetachScrollBar()
+        {
+            if (mScrollBar == null)
+            {
+                return;
+            }
+            Remove(mScrollBar);
+            mScrollBar = null;
+        }
+
+        private void InitializeScrollBar()
+        {
+            if (mScrollBar == null || mLayout == null)
+            {
+                return;
+            }
+            mScrollBar.MinValue = 0;
+            mScrollBar.MaxValue = (uint)mLayout.ComputeScrollRange(mState);
+
+            UpdateScrollBar();
+        }
+
+        private void UpdateScrollBar()
+        {
+            if (mScrollBar == null)
+            {
+                return;
+            }
+            mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
         }
 
         public ViewHolder FindViewHolderForLayoutPosition(int position)
@@ -340,11 +396,11 @@ namespace Tizen.NUI.Controls
 
         private void DispatchFocusChanged(int nextFocusPosition)
         {
-            //ViewHolder previousFocusView = FindViewHolderForAdapterPosition(mFocusedItemIndex);
-            //ViewHolder currentFocusView = FindViewHolderForAdapterPosition(nextFocusPosition);
             mAdapter.OnFocusChange(this, mFocusedItemIndex, nextFocusPosition);
 
             mFocusedItemIndex = nextFocusPosition;
+ 
+           UpdateScrollBar();
         }
 
         private void DispatchItemClicked(ViewHolder clickedHolder)
@@ -399,9 +455,11 @@ namespace Tizen.NUI.Controls
             {
                 case Adapter.ItemEventType.Insert:
                     mAdapteHelper.OnItemRangeInserted(e.param[0], e.param[1]);
+                    InitializeScrollBar();
                     break;
                 case Adapter.ItemEventType.Remove:
                     mAdapteHelper.OnItemRangeRemoved(e.param[0], e.param[1]);
+                    InitializeScrollBar();
                     break;
                 case Adapter.ItemEventType.Move:
                     break;
@@ -486,32 +544,34 @@ namespace Tizen.NUI.Controls
 
             public void NotifyItemInserted(int index)
             {
-                ItemEventArgs args = new ItemEventArgs
-                {
-                    EventType = ItemEventType.Insert,
-                };
-                args.param[0] = index;
-                args.param[1] = 1;
-                OnItemEvent(this, args);
+                NotifyItemRangeInserted(index, 1);
             }
 
             public void NotifyItemRangeInserted(int indexStart, int itemCount)
             {
+                ItemEventArgs args = new ItemEventArgs
+                {
+                    EventType = ItemEventType.Insert,
+                };
+                args.param[0] = indexStart;
+                args.param[1] = itemCount;
+                OnItemEvent(this, args);
             }
 
             public void NotifyItemRemoved(int index)
+            {
+                NotifyItemRangeRemoved(index, 1);
+            }
+
+            public void NotifyItemRangeRemoved(int indexStart, int itemCount)
             {
                 ItemEventArgs args = new ItemEventArgs
                 {
                     EventType = ItemEventType.Remove,
                 };
-                args.param[0] = index;
-                args.param[1] = 1;
+                args.param[0] = indexStart;
+                args.param[1] = itemCount;
                 OnItemEvent(this, args);
-            }
-
-            public void NotifyItemRangeRemoved(int indexStart, int itemCount)
-            {
             }
 
             public void NotifyItemMoved(int fromIndex, int toIndex)
@@ -604,6 +664,43 @@ namespace Tizen.NUI.Controls
             }
 
             public virtual float ScrollVerticallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
+            {
+                return 0;
+            }
+
+            public virtual int ComputeScrollExtent(ViewState state)
+            {
+                return 0;
+            }
+
+            /**
+             * <p>Override this method if you want to support scroll bars.</p>
+             *
+             * <p>Read {@link RecyclerView#computeHorizontalScrollOffset()} for details.</p>
+             *
+             * <p>Default implementation returns 0.</p>
+             *
+             * @param state Current State of RecyclerView where you can find total item count
+             * @return The horizontal offset of the scrollbar's thumb
+             * @see RecyclerView#computeHorizontalScrollOffset()
+             */
+            public virtual int ComputeScrollOffset(ViewState state)
+            {
+                return 0;
+            }
+
+            /**
+             * <p>Override this method if you want to support scroll bars.</p>
+             *
+             * <p>Read {@link RecyclerView#computeVerticalScrollRange()} for details.</p>
+             *
+             * <p>Default implementation returns 0.</p>
+             *
+             * @param state Current State of RecyclerView where you can find total item count
+             * @return The total vertical range represented by the vertical scrollbar
+             * @see RecyclerView#computeVerticalScrollRange()
+             */
+            public virtual int ComputeScrollRange(ViewState state)
             {
                 return 0;
             }
