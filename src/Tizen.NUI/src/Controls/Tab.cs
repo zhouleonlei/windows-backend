@@ -265,7 +265,6 @@ namespace Tizen.NUI.Controls
             item.Index = itemList.Count;
             itemList.Add(item);
 
-            //UpdateItem();
             LayoutChild();
             itemList[curIndex].State = States.Selected;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
@@ -307,9 +306,7 @@ namespace Tizen.NUI.Controls
             if (tabAttributes == null)
             {
                 return;
-            }
-
-            ApplyAttributes(this, tabAttributes);
+            }           
 
             if (tabAttributes.UnderLineAttributes != null)
             {
@@ -317,9 +314,7 @@ namespace Tizen.NUI.Controls
                 {
                     underline = new View();
                     Add(underline);
-                }
-                UpdateUnderLinePos();
-                ApplyAttributes(underline, tabAttributes.UnderLineAttributes);               
+                }                
             }
 
             if(tabAttributes.TextAttributes != null)
@@ -401,18 +396,32 @@ namespace Tizen.NUI.Controls
                         preX = itemList[i].Position2D.X + preW + itemGap;
                     }
                 }
-            }           
+            }
+            UpdateUnderLinePos();
         }
 
         private void Initialize()
         {
+            ApplyAttributes(this, tabAttributes);
             CreateUnderLine();
             LayoutDirectionChanged += OnLayoutDirectionChanged;
+            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
         {
             LayoutChild();
+        }
+
+        private void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            TabAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as TabAttributes;
+            if (tempAttributes != null)
+            {
+                tempAttributes.IsNatureTextWidth = tabAttributes.IsNatureTextWidth; // keep IsNatureTextWidth as original
+                attributes = tabAttributes = tempAttributes;              
+                RelayoutRequest();
+            }
         }
 
         private void CreateUnderLine()
@@ -466,39 +475,7 @@ namespace Tizen.NUI.Controls
                 underlineAni = new Animation(aniTime);
             }
         }
-
-        private void UpdateItem()
-        {
-            int totalNum = itemList.Count;
-            if(totalNum == 0)
-            {
-                return;
-            }
-            int preX = (int)tabAttributes.Space.X;
-            int preW = 0;
-            int itemGap = tabAttributes.ItemGap;
-            if (tabAttributes.IsNatureTextWidth == true)
-            {                
-                for (int i = 0; i < totalNum; i++)
-                {
-                    preW = itemList[i].TextItem.NaturalSize2D.Width;
-                    itemList[i].Position2D.X = preX;
-                    itemList[i].Size2D.Width = preW;
-                    preX = itemList[i].Position2D.X + preW + itemGap;
-                }
-            }
-            else
-            {
-                preW = (Size2D.Width - (int)tabAttributes.Space.X - (int)tabAttributes.Space.Y) / totalNum;
-                for (int i = 0; i < totalNum; i++)
-                {
-                    itemList[i].Position2D.X = preX;
-                    itemList[i].Size2D.Width = preW;
-                    preX = itemList[i].Position2D.X + preW + itemGap;
-                }
-            }          
-        }
-
+        
         private void UpdateUnderLinePos()
         {
             if (underline == null || tabAttributes.UnderLineAttributes == null || tabAttributes.UnderLineAttributes.Size2D == null)
@@ -508,7 +485,7 @@ namespace Tizen.NUI.Controls
             tabAttributes.UnderLineAttributes.Size2D.Width = itemList[curIndex].Size2D.Width;
 
             underline.Size2D = new Size2D(itemList[curIndex].Size2D.Width, tabAttributes.UnderLineAttributes.Size2D.Height);
-
+            underline.BackgroundColor = tabAttributes.UnderLineAttributes.BackgroundColor.All;
             if (isNeedAnimation)
             {
                 CreateUnderLineAnimation();

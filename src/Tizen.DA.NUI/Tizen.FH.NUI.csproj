@@ -85,6 +85,8 @@
     <None Remove="res\CheckBox\FoodCheckBoxAttributes.xaml" />
     <None Remove="res\CheckBox\KitchenCheckBoxAttributes.xaml" />
     <None Remove="res\CheckBox\UtilityCheckBoxAttributes.xaml" />
+    <None Remove="res\DropDown\HeaderSpinnerDropDownAttributes.xaml" />
+    <None Remove="res\DropDown\ListSpinnerDropDownAttributes.xaml" />
     <None Remove="res\FamilyBasicButtonAttributes.xaml" />
     <None Remove="res\FamilyBasicScrollbarAttributes.xaml" />
     <None Remove="res\FamilyCheckBoxAttributes.xaml" />
@@ -157,6 +159,10 @@
     <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
     <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
+    <None Remove="res\Tab\FamilyTabAttributes.xaml" />
+    <None Remove="res\Tab\FoodTabAttributes.xaml" />
+    <None Remove="res\Tab\KitchenTabAttributes.xaml" />
+    <None Remove="res\Tab\UtilityTabAttributes.xaml" />
     <None Remove="res\TimePicker\TimePickerAMPMAttributes.xaml" />
     <None Remove="res\TimePicker\TimePickerAttributes.xaml" />
     <None Remove="res\TimePicker\TimePickerRepeatAttributes.xaml" />
@@ -239,6 +245,12 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\DropDown\HeaderSpinnerDropDownAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\DropDown\ListSpinnerDropDownAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
@@ -386,7 +398,18 @@
     <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\Tab\TabAttributes.xaml" />
+    <EmbeddedResource Include="res\Tab\FamilyTabAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Tab\FoodTabAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Tab\KitchenTabAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Tab\UtilityTabAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="res\TimePicker\TimePickerAMPMAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

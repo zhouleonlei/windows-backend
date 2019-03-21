@@ -195,7 +195,10 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("FamilyPopupButton", null, typeof(FamilyPopupButtonAttributes));
             StyleManager.Instance.RegisterStyle("KitchenPopupButton", null, typeof(KitchenPopupButtonAttributes));
 
-            StyleManager.Instance.RegisterStyle("DATab", null, typeof(DATabAttributes));
+            StyleManager.Instance.RegisterStyle("DATab", "Family", typeof(FamilyTabAttributes));
+            StyleManager.Instance.RegisterStyle("DATab", "Utility", typeof(UtilityTabAttributes), true);
+            StyleManager.Instance.RegisterStyle("DATab", "Food", typeof(FoodTabAttributes));
+            StyleManager.Instance.RegisterStyle("DATab", "Kitchen", typeof(KitchenTabAttributes));
 
             StyleManager.Instance.RegisterStyle("Back", null, typeof(BackNavigationAttributes));
             StyleManager.Instance.RegisterStyle("WhiteCondition", null, typeof(WhiteConditionNavigationAttributes));
