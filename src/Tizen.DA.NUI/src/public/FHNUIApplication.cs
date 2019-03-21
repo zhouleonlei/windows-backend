@@ -189,15 +189,15 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("UtilityProgressbar", null, typeof(FH.NUI.Controls.UtilityProgressbarAttributes));
             StyleManager.Instance.RegisterStyle("VDProgressCircle", null, typeof(FH.NUI.Controls.VDProgressCircleAttributes));
 
-            StyleManager.Instance.RegisterStyle("DAPopup", "Family", typeof(FamilyPopupAttributes));
-            StyleManager.Instance.RegisterStyle("DAPopup", "Utility", typeof(UtilityPopupAttributes), true);
-            StyleManager.Instance.RegisterStyle("DAPopup", "Food", typeof(FoodPopupAttributes));
-            StyleManager.Instance.RegisterStyle("DAPopup", "Kitchen", typeof(KitchenPopupAttributes));           
+            StyleManager.Instance.RegisterStyle("Popup", "Family", typeof(FamilyPopupAttributes));
+            StyleManager.Instance.RegisterStyle("Popup", "Utility", typeof(UtilityPopupAttributes), true);
+            StyleManager.Instance.RegisterStyle("Popup", "Food", typeof(FoodPopupAttributes));
+            StyleManager.Instance.RegisterStyle("Popup", "Kitchen", typeof(KitchenPopupAttributes));           
 
-            StyleManager.Instance.RegisterStyle("DATab", "Family", typeof(FamilyTabAttributes));
-            StyleManager.Instance.RegisterStyle("DATab", "Utility", typeof(UtilityTabAttributes), true);
-            StyleManager.Instance.RegisterStyle("DATab", "Food", typeof(FoodTabAttributes));
-            StyleManager.Instance.RegisterStyle("DATab", "Kitchen", typeof(KitchenTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Family", typeof(FamilyTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Utility", typeof(UtilityTabAttributes), true);
+            StyleManager.Instance.RegisterStyle("Tab", "Food", typeof(FoodTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Kitchen", typeof(KitchenTabAttributes));
 
             StyleManager.Instance.RegisterStyle("Back", null, typeof(BackNavigationAttributes));
             StyleManager.Instance.RegisterStyle("WhiteCondition", null, typeof(WhiteConditionNavigationAttributes));

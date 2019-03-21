@@ -21,7 +21,7 @@ namespace Tizen.FH.NUI.Samples
         {
             "No Title",
             "No title with No button",
-            "title with button",
+            "Title with button",
         };
 
         public void Activate()
@@ -37,7 +37,7 @@ namespace Tizen.FH.NUI.Samples
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(160 + i * 260, 700);
                 button[i].Text = mode[i];
-                button[i].PointSize = 12;
+                button[i].PointSize = 11;
                 button[i].ClickEvent += ButtonClickEvent;
                 root.Add(button[i]);
             }
@@ -47,7 +47,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("DAPopup");
+            popup = new Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Popup Title";
@@ -71,7 +71,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("DAPopup");
+            popup = new Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.ButtonCount = 2;
@@ -95,7 +95,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("DAPopup");
+            popup = new Popup("Popup");
             popup.Size2D = new Size2D(1032, 200);
             popup.Position2D = new Position2D(24, 50);
 
