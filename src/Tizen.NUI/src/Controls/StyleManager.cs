@@ -76,7 +76,7 @@ namespace Tizen.NUI.Controls
                 ThemeStyleSet[style].Add(theme, styleType);
         }
 
-        internal Attributes GetAttributes(string style)
+        public Attributes GetAttributes(string style)
         {
             if(style == null)
             {

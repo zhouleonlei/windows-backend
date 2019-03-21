@@ -2,6 +2,7 @@
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Controls;
+using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -194,6 +195,15 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(inputField, searchBarAttrs.SearchBoxAttributes);
             ApplyAttributes(resultListRoot, searchBarAttrs.ResultListAttributes);
             RelayoutComponents();
+        }
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            SearchBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(base.style) as SearchBarAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = searchBarAttrs = tempAttributes;
+                RelayoutRequest();
+            }
         }
 
         private void Initialize()

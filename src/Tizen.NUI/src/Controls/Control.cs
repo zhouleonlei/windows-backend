@@ -359,6 +359,9 @@ namespace Tizen.NUI.Controls
         protected virtual void OnUpdate(Attributes attributtes)
         {
         }
+        protected virtual void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+        }
 
         private void Initialize(string style)
         {
@@ -378,6 +381,8 @@ namespace Tizen.NUI.Controls
 
             tapGestureDetector.Attach(this);
             tapGestureDetector.Detected += OnTapGestureDetected;
+
+            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
         }
 
         private Attributes GetAttributes(string style)

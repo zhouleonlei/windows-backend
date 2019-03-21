@@ -2,6 +2,7 @@
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.Controls;
+using StyleManager = Tizen.NUI.Controls.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -231,6 +232,15 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(searchBtn, inputFieldAttrs.SearchButtonAttributes);
             RelayoutComponents();
             UpdateComponentsByStateEnabledChanged(base.StateEnabled);
+        }
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            InputFieldAttributes tempAttributes = StyleManager.Instance.GetAttributes(base.style) as InputFieldAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = inputFieldAttrs = tempAttributes;
+                RelayoutRequest();
+            }
         }
 
         private void Initialize()

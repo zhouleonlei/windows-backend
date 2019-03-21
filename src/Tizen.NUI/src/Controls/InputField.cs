@@ -14,7 +14,7 @@ namespace Tizen.NUI.Controls
 
         // the flag indicate should relayout the textField in base class
         private bool relayoutTextField = true;
-        
+
         static InputField()
         {
             RegisterStyle("DefaultInputField", typeof(InputFieldAttributes));
@@ -187,10 +187,17 @@ namespace Tizen.NUI.Controls
                 textField.FocusLost += OnTextFieldFocusLost;
                 textField.TextChanged += OnTextFieldTextChanged;
                 textField.KeyEvent += OnTextFieldKeyEvent;
-                textField.TouchEvent += OnTextFieldTouchEvent;
             }
         }
-        
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            InputFieldAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as InputFieldAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = inputFieldAttrs = tempAttributes;
+                RelayoutRequest();
+            }
+        }
         private void RelayoutComponent()
         {
             if (!relayoutTextField)
