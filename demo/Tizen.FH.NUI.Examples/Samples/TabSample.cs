@@ -6,78 +6,87 @@ namespace Tizen.FH.NUI.Samples
 {
     public class TabSample : IExample
     {
+        private SampleLayout root;
         private Tab tab = null;
-        private Button button = null;
-        private int index = 0;
+        private Button[] button = new Button[2];
+        private int num = 2;
 
         private static string[] mode = new string[]
         {
-            "Utility Tab",
-            "Family Tab",
-            "Food Tab",
-            "Kitchen Tab",
-        };
-        private static Color[] color = new Color[]
-        {
-            new Color(0.05f, 0.63f, 0.9f, 1),//#ff0ea1e6 Utility
-            new Color(0.14f, 0.77f, 0.28f, 1),//#ff24c447 Family
-            new Color(0.75f, 0.46f, 0.06f, 1),//#ffec7510 Food
-            new Color(0.59f, 0.38f, 0.85f, 1),//#ff9762d9 Kitchen
+            "LargeTab",
+            "Small Tab",
         };
 
         public void Activate()
         {
-            Window window = Window.Instance;
+            root = new SampleLayout();
+            root.HeaderText = "Tab";
 
             tab = new Tab("DATab");
             tab.IsNatureTextWidth = false;
-            tab.Size2D = new Size2D(1000, 108);
-            tab.Position2D = new Position2D(200, 300);
+            tab.Size2D = new Size2D(1080, 108);
+            tab.Position2D = new Position2D(0, 300);
             tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            window.Add(tab);
+            root.Add(tab);
 
             for (int i = 0; i < 3; i++)
             {
                 Tab.TabItem item = new Tab.TabItem();
                 item.Text = "Tab " + i;
+                if(i == 1)
+                {
+                    item.Text = "Long long Tab " + i;
+                }
                 tab.AddItem(item);
             }
 
-            button = new Button("ServiceButton");
-            button.Size2D = new Size2D(280, 80);
-            button.Position2D = new Position2D(500, 700);
-            button.Text = mode[index];
-            button.ClickEvent += ButtonClickEvent;
-            window.Add(button);
+            for (int i = 0; i < num; i++)
+            {
+                button[i] = new Button("ServiceButton");
+                button[i].Size2D = new Size2D(240, 80);
+                button[i].Position2D = new Position2D(280 + i * 260, 700);
+                button[i].Text = mode[i];
+                button[i].ClickEvent += ButtonClickEvent;
+                root.Add(button[i]);
+            }
         }
 
         public void Deactivate()
-        {           
-            if(tab != null)
+        {
+            if (root != null)
             {
-                Window.Instance.Remove(tab);
-                tab.Dispose();
-                tab = null;
-            }
+                if (tab != null)
+                {
+                    root.Remove(tab);
+                    tab.Dispose();
+                    tab = null;
+                }
 
-            if (button != null)
-            {
-                Window.Instance.Remove(button);
-                button.Dispose();
-                button = null;
+                for (int i = 0; i < num; i++)
+                {
+                    if (button[i] != null)
+                    {
+                        root.Remove(button[i]);
+                        button[i].Dispose();
+                        button[i] = null;
+                    }
+                }
+
+                root.Dispose();
             }
         }
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            index = (index + 1) % 4;
-            button.Text = mode[index];
-            tab.UnderLineBackgroundColor = color[index];
-            tab.TextColorSelector = new ColorSelector
+            Button btn = sender as Button;
+            if(button[0] == btn)
             {
-                Normal = Color.Black,
-                Selected = color[index],
-            };
+                tab.IsNatureTextWidth = false;
+            }
+            else if (button[1] == btn)
+            {
+                tab.IsNatureTextWidth = true;
+            }
         }
     }
 }

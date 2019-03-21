@@ -32,7 +32,7 @@ namespace Tizen.NUI.Controls
             return attrs.backgroundImageAttrs;
         });
 
-		public static readonly BindableProperty FocusImageAttributesProperty = BindableProperty.Create("FocusImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty FocusImageAttributesProperty = BindableProperty.Create("FocusImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -46,7 +46,7 @@ namespace Tizen.NUI.Controls
             return attrs.focusImageAttributes;
         });
 
-		public static readonly BindableProperty EndSelectedImageAttributesProperty = BindableProperty.Create("EndSelectedImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty EndSelectedImageAttributesProperty = BindableProperty.Create("EndSelectedImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -60,7 +60,7 @@ namespace Tizen.NUI.Controls
             return attrs.endSelectedImageAttributes;
         });
 
-		public static readonly BindableProperty DateViewAttributesProperty = BindableProperty.Create("DateViewAttributes", typeof(ViewAttributes), typeof(PickerAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DateViewAttributesProperty = BindableProperty.Create("DateViewAttributes", typeof(ViewAttributes), typeof(PickerAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -73,7 +73,7 @@ namespace Tizen.NUI.Controls
             var attrs = (PickerAttributes)bindable;
             return attrs.dateViewAttributes;
         });
-		public static readonly BindableProperty MonTextAttributesProperty = BindableProperty.Create("MonTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MonTextAttributesProperty = BindableProperty.Create("MonTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -87,7 +87,7 @@ namespace Tizen.NUI.Controls
             return attrs.monTextAttributes;
         });
 
-		public static readonly BindableProperty TueTextAttributesProperty = BindableProperty.Create("TueTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TueTextAttributesProperty = BindableProperty.Create("TueTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -101,7 +101,7 @@ namespace Tizen.NUI.Controls
             return attrs.tueTextAttributes;
         });
 
-		public static readonly BindableProperty SunTextAttributesProperty = BindableProperty.Create("SunTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty SunTextAttributesProperty = BindableProperty.Create("SunTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -115,7 +115,7 @@ namespace Tizen.NUI.Controls
             return attrs.sunTextAttributes;
         });
 
-		public static readonly BindableProperty WenTextAttributesProperty = BindableProperty.Create("WenTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty WenTextAttributesProperty = BindableProperty.Create("WenTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -129,7 +129,7 @@ namespace Tizen.NUI.Controls
             return attrs.wenTextAttributes;
         });
 
-		public static readonly BindableProperty ThuTextAttributesProperty = BindableProperty.Create("ThuTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ThuTextAttributesProperty = BindableProperty.Create("ThuTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -143,7 +143,7 @@ namespace Tizen.NUI.Controls
             return attrs.thuTextAttributes;
         });
 
-		public static readonly BindableProperty FriTextAttributesProperty = BindableProperty.Create("FriTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty FriTextAttributesProperty = BindableProperty.Create("FriTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -157,7 +157,7 @@ namespace Tizen.NUI.Controls
             return attrs.friTextAttributes;
         });
 
-		public static readonly BindableProperty SatTextAttributesProperty = BindableProperty.Create("SatTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty SatTextAttributesProperty = BindableProperty.Create("SatTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -171,7 +171,7 @@ namespace Tizen.NUI.Controls
             return attrs.satTextAttributes;
         });
 
-		public static readonly BindableProperty DateTextAttributesProperty = BindableProperty.Create("DateTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DateTextAttributesProperty = BindableProperty.Create("DateTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -185,7 +185,7 @@ namespace Tizen.NUI.Controls
             return attrs.dateTextAttributes;
         });
 
-		public static readonly BindableProperty DateTextAttributes2Property = BindableProperty.Create("DateTextAttributes2", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DateTextAttributes2Property = BindableProperty.Create("DateTextAttributes2", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -199,7 +199,7 @@ namespace Tizen.NUI.Controls
             return attrs.dateTextAttributes2;
         });
 
-		public static readonly BindableProperty LeftArrowImageAttributesProperty = BindableProperty.Create("LeftArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty LeftArrowImageAttributesProperty = BindableProperty.Create("LeftArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -213,7 +213,7 @@ namespace Tizen.NUI.Controls
             return attrs.leftArrowImageAttrs;
         });
 
-		public static readonly BindableProperty RightArrowImageAttributesProperty = BindableProperty.Create("RightArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty RightArrowImageAttributesProperty = BindableProperty.Create("RightArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -227,7 +227,7 @@ namespace Tizen.NUI.Controls
             return attrs.rightArrowImageAttrs;
         });
 
-		public static readonly BindableProperty DownArrowImageAttributesProperty = BindableProperty.Create("DownArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DownArrowImageAttributesProperty = BindableProperty.Create("DownArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -241,7 +241,7 @@ namespace Tizen.NUI.Controls
             return attrs.downArrowImageAttrs;
         });
 
-		public static readonly BindableProperty MonthTextAttributesProperty = BindableProperty.Create("MonthTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MonthTextAttributesProperty = BindableProperty.Create("MonthTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -255,7 +255,7 @@ namespace Tizen.NUI.Controls
             return attrs.monthTextAttributes;
         });
 
-		public static readonly BindableProperty YearTextAttributesProperty = BindableProperty.Create("YearTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty YearTextAttributesProperty = BindableProperty.Create("YearTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -271,24 +271,24 @@ namespace Tizen.NUI.Controls
 
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
-		private ImageAttributes focusImageAttributes;
-		private ImageAttributes endSelectedImageAttributes;
-		private ViewAttributes dateViewAttributes;
-		private TextAttributes sunTextAttributes;
-		private TextAttributes monTextAttributes;
-		private TextAttributes tueTextAttributes;
-		private TextAttributes wenTextAttributes;
-		private TextAttributes thuTextAttributes;
-		private TextAttributes friTextAttributes;
-		private TextAttributes satTextAttributes;
-		private TextAttributes dateTextAttributes;
-		private TextAttributes dateTextAttributes2;
+        private ImageAttributes focusImageAttributes;
+        private ImageAttributes endSelectedImageAttributes;
+        private ViewAttributes dateViewAttributes;
+        private TextAttributes sunTextAttributes;
+        private TextAttributes monTextAttributes;
+        private TextAttributes tueTextAttributes;
+        private TextAttributes wenTextAttributes;
+        private TextAttributes thuTextAttributes;
+        private TextAttributes friTextAttributes;
+        private TextAttributes satTextAttributes;
+        private TextAttributes dateTextAttributes;
+        private TextAttributes dateTextAttributes2;
 
-		private ImageAttributes leftArrowImageAttrs;
-		private ImageAttributes rightArrowImageAttrs;
-		private ImageAttributes downArrowImageAttrs;
-		private TextAttributes monthTextAttributes;
-		private TextAttributes yearTextAttributes;
+        private ImageAttributes leftArrowImageAttrs;
+        private ImageAttributes rightArrowImageAttrs;
+        private ImageAttributes downArrowImageAttrs;
+        private TextAttributes monthTextAttributes;
+        private TextAttributes yearTextAttributes;
 
         public PickerAttributes() : base() { }
         public PickerAttributes(PickerAttributes attributes) : base(attributes)
@@ -303,90 +303,90 @@ namespace Tizen.NUI.Controls
                 backgroundImageAttrs = attributes.backgroundImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.focusImageAttributes != null)
+            if (attributes.focusImageAttributes != null)
             {
                 focusImageAttributes = attributes.focusImageAttributes.Clone() as ImageAttributes;
             }
 
-			if (attributes.endSelectedImageAttributes != null)
+            if (attributes.endSelectedImageAttributes != null)
             {
                 endSelectedImageAttributes = attributes.endSelectedImageAttributes.Clone() as ImageAttributes;
             }
 
-			if (attributes.sunTextAttributes != null)
-			{
-				sunTextAttributes = attributes.sunTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.sunTextAttributes != null)
+            {
+                sunTextAttributes = attributes.sunTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.dateViewAttributes != null)
-			{
-				dateViewAttributes = attributes.dateViewAttributes.Clone() as ViewAttributes;
-			}
+            if (attributes.dateViewAttributes != null)
+            {
+                dateViewAttributes = attributes.dateViewAttributes.Clone() as ViewAttributes;
+            }
 
-			if (attributes.monTextAttributes != null)
-			{
-				monTextAttributes = attributes.monTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.monTextAttributes != null)
+            {
+                monTextAttributes = attributes.monTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.tueTextAttributes != null)
-			{
-				tueTextAttributes = attributes.tueTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.tueTextAttributes != null)
+            {
+                tueTextAttributes = attributes.tueTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.wenTextAttributes != null)
-			{
-				wenTextAttributes = attributes.wenTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.wenTextAttributes != null)
+            {
+                wenTextAttributes = attributes.wenTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.thuTextAttributes != null)
-			{
-				thuTextAttributes = attributes.thuTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.thuTextAttributes != null)
+            {
+                thuTextAttributes = attributes.thuTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.friTextAttributes != null)
-			{
-				friTextAttributes = attributes.friTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.friTextAttributes != null)
+            {
+                friTextAttributes = attributes.friTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.satTextAttributes != null)
-			{
-				satTextAttributes = attributes.satTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.satTextAttributes != null)
+            {
+                satTextAttributes = attributes.satTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.dateTextAttributes != null)
-			{
-				dateTextAttributes = attributes.dateTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.dateTextAttributes != null)
+            {
+                dateTextAttributes = attributes.dateTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.dateTextAttributes2 != null)
-			{
-				dateTextAttributes2 = attributes.dateTextAttributes2.Clone() as TextAttributes;
-			}
+            if (attributes.dateTextAttributes2 != null)
+            {
+                dateTextAttributes2 = attributes.dateTextAttributes2.Clone() as TextAttributes;
+            }
 
-			if (attributes.leftArrowImageAttrs != null)
+            if (attributes.leftArrowImageAttrs != null)
             {
                 leftArrowImageAttrs = attributes.leftArrowImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.rightArrowImageAttrs != null)
+            if (attributes.rightArrowImageAttrs != null)
             {
                 rightArrowImageAttrs = attributes.rightArrowImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.downArrowImageAttrs != null)
+            if (attributes.downArrowImageAttrs != null)
             {
                 downArrowImageAttrs = attributes.downArrowImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.monthTextAttributes != null)
-			{
-				monthTextAttributes = attributes.monthTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.monthTextAttributes != null)
+            {
+                monthTextAttributes = attributes.monthTextAttributes.Clone() as TextAttributes;
+            }
 
-			if (attributes.yearTextAttributes != null)
-			{
-				yearTextAttributes = attributes.yearTextAttributes.Clone() as TextAttributes;
-			}
+            if (attributes.yearTextAttributes != null)
+            {
+                yearTextAttributes = attributes.yearTextAttributes.Clone() as TextAttributes;
+            }
         }
 
         public ImageAttributes ShadowImageAttributes
@@ -413,7 +413,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes FocusImageAttributes
+        public ImageAttributes FocusImageAttributes
         {
             get
             {
@@ -425,7 +425,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes EndSelectedImageAttributes
+        public ImageAttributes EndSelectedImageAttributes
         {
             get
             {
@@ -436,10 +436,10 @@ namespace Tizen.NUI.Controls
                 SetValue(EndSelectedImageAttributesProperty, value);
             }
         }
-		
-		public ViewAttributes DateViewAttributes
-		{
-			get
+        
+        public ViewAttributes DateViewAttributes
+        {
+            get
             {
                 return (ViewAttributes)GetValue(DateViewAttributesProperty);
             }
@@ -447,11 +447,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(DateViewAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes SunTextAttributes
-		{
-			get
+        public TextAttributes SunTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(SunTextAttributesProperty);
             }
@@ -459,11 +459,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(SunTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes MonTextAttributes
-		{
-			get
+        public TextAttributes MonTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(MonTextAttributesProperty);
             }
@@ -471,11 +471,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(MonTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes TueTextAttributes
-		{
-			get
+        public TextAttributes TueTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(TueTextAttributesProperty);
             }
@@ -483,11 +483,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(TueTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes WenTextAttributes
-		{
-			get
+        public TextAttributes WenTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(WenTextAttributesProperty);
             }
@@ -495,11 +495,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(WenTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes ThuTextAttributes
-		{
-			get
+        public TextAttributes ThuTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(ThuTextAttributesProperty);
             }
@@ -507,11 +507,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(ThuTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes FriTextAttributes
-		{
-			get
+        public TextAttributes FriTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(FriTextAttributesProperty);
             }
@@ -519,11 +519,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(FriTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes SatTextAttributes
-		{
-			get
+        public TextAttributes SatTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(SatTextAttributesProperty);
             }
@@ -531,11 +531,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(SatTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes DateTextAttributes
-		{
-			get
+        public TextAttributes DateTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(DateTextAttributesProperty);
             }
@@ -543,11 +543,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(DateTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes DateTextAttributes2
-		{
-			get
+        public TextAttributes DateTextAttributes2
+        {
+            get
             {
                 return (TextAttributes)GetValue(DateTextAttributes2Property);
             }
@@ -555,9 +555,9 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(DateTextAttributes2Property, value);
             }
-		}
+        }
 
-		public ImageAttributes LeftArrowImageAttributes
+        public ImageAttributes LeftArrowImageAttributes
         {
             get
             {
@@ -569,7 +569,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes RightArrowImageAttributes
+        public ImageAttributes RightArrowImageAttributes
         {
             get
             {
@@ -581,7 +581,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes DownArrowImageAttributes
+        public ImageAttributes DownArrowImageAttributes
         {
             get
             {
@@ -593,9 +593,9 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public TextAttributes MonthTextAttributes
-		{
-			get
+        public TextAttributes MonthTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(MonthTextAttributesProperty);
             }
@@ -603,11 +603,11 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(MonthTextAttributesProperty, value);
             }
-		}
+        }
 
-		public TextAttributes YearTextAttributes
-		{
-			get
+        public TextAttributes YearTextAttributes
+        {
+            get
             {
                 return (TextAttributes)GetValue(YearTextAttributesProperty);
             }
@@ -615,7 +615,7 @@ namespace Tizen.NUI.Controls
             {
                 SetValue(YearTextAttributesProperty, value);
             }
-		}
+        }
         public override Attributes Clone()
         {
             return new PickerAttributes(this);

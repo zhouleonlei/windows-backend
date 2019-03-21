@@ -18,7 +18,7 @@ namespace Tizen.NUI.Controls
             return attrs.backgroundImageAttrs;
         });
 
-		public static readonly BindableProperty TextAttrsProperty = BindableProperty.Create("TextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TextAttrsProperty = BindableProperty.Create("TextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -32,7 +32,7 @@ namespace Tizen.NUI.Controls
             return attrs.textAttrs;
         });
 
-		public static readonly BindableProperty NameTextAttrsProperty = BindableProperty.Create("NameTextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty NameTextAttrsProperty = BindableProperty.Create("NameTextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -46,7 +46,7 @@ namespace Tizen.NUI.Controls
             return attrs.nameTextAttrs;
         });
 
-		public static readonly BindableProperty MaskTopImageAttributesProperty = BindableProperty.Create("MaskTopImageAttributes", typeof(ImageAttributes), typeof(SpinAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MaskTopImageAttributesProperty = BindableProperty.Create("MaskTopImageAttributes", typeof(ImageAttributes), typeof(SpinAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -60,7 +60,7 @@ namespace Tizen.NUI.Controls
             return attrs.maskTopImageAttrs;
         });
 
-		public static readonly BindableProperty MaskBottomImageAttributesProperty = BindableProperty.Create("MaskBottomImageAttributes", typeof(ImageAttributes), typeof(SpinAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MaskBottomImageAttributesProperty = BindableProperty.Create("MaskBottomImageAttributes", typeof(ImageAttributes), typeof(SpinAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -74,7 +74,7 @@ namespace Tizen.NUI.Controls
             return attrs.maskBottomImageAttrs;
         });
 
-		public static readonly BindableProperty AniViewAttributesProperty = BindableProperty.Create("AniViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty AniViewAttributesProperty = BindableProperty.Create("AniViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -88,7 +88,7 @@ namespace Tizen.NUI.Controls
             return attrs.aniViewAttrs;
         });
 
-		public static readonly BindableProperty ClipViewAttributesProperty = BindableProperty.Create("ClipViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ClipViewAttributesProperty = BindableProperty.Create("ClipViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -101,7 +101,7 @@ namespace Tizen.NUI.Controls
             var attrs = (SpinAttributes)bindable;
             return attrs.clipViewAttrs;
         });
-		public static readonly BindableProperty NameViewAttributesProperty = BindableProperty.Create("NameViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty NameViewAttributesProperty = BindableProperty.Create("NameViewAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -115,7 +115,7 @@ namespace Tizen.NUI.Controls
             return attrs.nameViewAttrs;
         });
 
-		public static readonly BindableProperty DividerRecAttrsProperty = BindableProperty.Create("DividerRecAttrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DividerRecAttrsProperty = BindableProperty.Create("DividerRecAttrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -129,7 +129,7 @@ namespace Tizen.NUI.Controls
             return attrs.dividerRecAttrs;
         });
 
-		public static readonly BindableProperty DividerRec2AttrsProperty = BindableProperty.Create("DividerRec2Attrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DividerRec2AttrsProperty = BindableProperty.Create("DividerRec2Attrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -143,7 +143,7 @@ namespace Tizen.NUI.Controls
             return attrs.dividerRec2Attrs;
         });
 
-		public static readonly BindableProperty TextFieldAttrsProperty = BindableProperty.Create("TextFieldAttrs", typeof(TextFieldAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TextFieldAttrsProperty = BindableProperty.Create("TextFieldAttrs", typeof(TextFieldAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -157,7 +157,7 @@ namespace Tizen.NUI.Controls
             return attrs.textFieldAttrs;
         });
 
-		public static readonly BindableProperty MinProperty = BindableProperty.Create("Min", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MinProperty = BindableProperty.Create("Min", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -171,7 +171,7 @@ namespace Tizen.NUI.Controls
             return attrs.min;
         });
 
-		public static readonly BindableProperty MaxProperty = BindableProperty.Create("Max", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty MaxProperty = BindableProperty.Create("Max", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -185,7 +185,7 @@ namespace Tizen.NUI.Controls
             return attrs.max;
         });
 
-		public static readonly BindableProperty CurProperty = BindableProperty.Create("Cur", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty CurProperty = BindableProperty.Create("Cur", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -199,7 +199,7 @@ namespace Tizen.NUI.Controls
             return attrs.cur;
         });
 
-		public static readonly BindableProperty ItemHeightProperty = BindableProperty.Create("ItemHeight", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ItemHeightProperty = BindableProperty.Create("ItemHeight", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -213,7 +213,7 @@ namespace Tizen.NUI.Controls
             return attrs.itemHeight;
         });
 
-		public static readonly BindableProperty TextSizeProperty = BindableProperty.Create("TextSize", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create("TextSize", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -226,8 +226,8 @@ namespace Tizen.NUI.Controls
             var attrs = (SpinAttributes)bindable;
             return attrs.textSize;
         });
-		
-		public static readonly BindableProperty CenterTextSizeProperty = BindableProperty.Create("CenterTextSize", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
+        
+        public static readonly BindableProperty CenterTextSizeProperty = BindableProperty.Create("CenterTextSize", typeof(int), typeof(SpinAttributes), 0, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -242,24 +242,24 @@ namespace Tizen.NUI.Controls
         });
 
         private ImageAttributes backgroundImageAttrs;
-		private ViewAttributes nameViewAttrs;
-		private ViewAttributes clipViewAttrs;
-		private ViewAttributes aniViewAttrs;
-		private TextAttributes textAttrs;
-		private TextAttributes nameTextAttrs;
-		private ImageAttributes maskTopImageAttrs;
-		private ImageAttributes maskBottomImageAttrs;
-		private ViewAttributes dividerRecAttrs;
-		private ViewAttributes dividerRec2Attrs;
-		private TextFieldAttributes textFieldAttrs;
+        private ViewAttributes nameViewAttrs;
+        private ViewAttributes clipViewAttrs;
+        private ViewAttributes aniViewAttrs;
+        private TextAttributes textAttrs;
+        private TextAttributes nameTextAttrs;
+        private ImageAttributes maskTopImageAttrs;
+        private ImageAttributes maskBottomImageAttrs;
+        private ViewAttributes dividerRecAttrs;
+        private ViewAttributes dividerRec2Attrs;
+        private TextFieldAttributes textFieldAttrs;
 
-		private int min;
-		private int max;
-		private int cur;
-		private int itemHeight;
-		private int textSize;
-		private int centerTextSize;
-		
+        private int min;
+        private int max;
+        private int cur;
+        private int itemHeight;
+        private int textSize;
+        private int centerTextSize;
+        
         public SpinAttributes() : base() { }
         public SpinAttributes(SpinAttributes attributes) : base(attributes)
         {
@@ -268,62 +268,62 @@ namespace Tizen.NUI.Controls
                 backgroundImageAttrs = attributes.backgroundImageAttrs.Clone() as ImageAttributes;
             }
 
-			if (attributes.textAttrs != null)
-			{
-				textAttrs = attributes.textAttrs.Clone() as TextAttributes;
-			}
+            if (attributes.textAttrs != null)
+            {
+                textAttrs = attributes.textAttrs.Clone() as TextAttributes;
+            }
 
-			if (attributes.nameTextAttrs != null)
-			{
-				nameTextAttrs = attributes.nameTextAttrs.Clone() as TextAttributes;
-			}
+            if (attributes.nameTextAttrs != null)
+            {
+                nameTextAttrs = attributes.nameTextAttrs.Clone() as TextAttributes;
+            }
 
-			if (attributes.maskTopImageAttrs != null)
-			{
-				maskTopImageAttrs = attributes.maskTopImageAttrs.Clone() as ImageAttributes;
-			}
+            if (attributes.maskTopImageAttrs != null)
+            {
+                maskTopImageAttrs = attributes.maskTopImageAttrs.Clone() as ImageAttributes;
+            }
 
-			if (attributes.maskBottomImageAttrs != null)
-			{
-				maskBottomImageAttrs = attributes.maskBottomImageAttrs.Clone() as ImageAttributes;
-			}
+            if (attributes.maskBottomImageAttrs != null)
+            {
+                maskBottomImageAttrs = attributes.maskBottomImageAttrs.Clone() as ImageAttributes;
+            }
 
-			if (attributes.aniViewAttrs != null)
-			{
-				aniViewAttrs = attributes.aniViewAttrs.Clone() as ViewAttributes;
-			}
-			
-			if (attributes.clipViewAttrs != null)
-			{
-				clipViewAttrs = attributes.clipViewAttrs.Clone() as ViewAttributes;
-			}
+            if (attributes.aniViewAttrs != null)
+            {
+                aniViewAttrs = attributes.aniViewAttrs.Clone() as ViewAttributes;
+            }
+            
+            if (attributes.clipViewAttrs != null)
+            {
+                clipViewAttrs = attributes.clipViewAttrs.Clone() as ViewAttributes;
+            }
 
-			if (attributes.nameViewAttrs != null)
-			{
-				nameViewAttrs = attributes.nameViewAttrs.Clone() as ViewAttributes;
-			}
+            if (attributes.nameViewAttrs != null)
+            {
+                nameViewAttrs = attributes.nameViewAttrs.Clone() as ViewAttributes;
+            }
 
-			if (attributes.dividerRecAttrs != null)
-			{
-				dividerRecAttrs = attributes.dividerRecAttrs.Clone() as ViewAttributes;
-			}
+            if (attributes.dividerRecAttrs != null)
+            {
+                dividerRecAttrs = attributes.dividerRecAttrs.Clone() as ViewAttributes;
+            }
 
-			if (attributes.dividerRec2Attrs != null)
-			{
-				dividerRec2Attrs = attributes.dividerRec2Attrs.Clone() as ViewAttributes;
-			}
+            if (attributes.dividerRec2Attrs != null)
+            {
+                dividerRec2Attrs = attributes.dividerRec2Attrs.Clone() as ViewAttributes;
+            }
 
-			if (attributes.textFieldAttrs != null)
-			{
-				textFieldAttrs = attributes.textFieldAttrs.Clone() as TextFieldAttributes;
-			}
+            if (attributes.textFieldAttrs != null)
+            {
+                textFieldAttrs = attributes.textFieldAttrs.Clone() as TextFieldAttributes;
+            }
 
-			min = attributes.min;
-			max = attributes.max;
-			cur = attributes.cur;
-			itemHeight = attributes.itemHeight;
-			textSize = attributes.textSize;
-			centerTextSize = attributes.centerTextSize;
+            min = attributes.min;
+            max = attributes.max;
+            cur = attributes.cur;
+            itemHeight = attributes.itemHeight;
+            textSize = attributes.textSize;
+            centerTextSize = attributes.centerTextSize;
         }
 
         public ImageAttributes BackgroundImageAttributes
@@ -338,7 +338,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public TextAttributes TextAttrs
+        public TextAttributes TextAttrs
         {
             get
             {
@@ -350,7 +350,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public TextAttributes NameTextAttrs
+        public TextAttributes NameTextAttrs
         {
             get
             {
@@ -362,7 +362,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes MaskTopImageAttributes
+        public ImageAttributes MaskTopImageAttributes
         {
             get
             {
@@ -374,7 +374,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ImageAttributes MaskBottomImageAttributes
+        public ImageAttributes MaskBottomImageAttributes
         {
             get
             {
@@ -386,7 +386,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes AniViewAttributes
+        public ViewAttributes AniViewAttributes
         {
             get
             {
@@ -398,7 +398,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes ClipViewAttributes
+        public ViewAttributes ClipViewAttributes
         {
             get
             {
@@ -410,7 +410,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes NameViewAttributes
+        public ViewAttributes NameViewAttributes
         {
             get
             {
@@ -422,7 +422,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes DividerRecAttrs
+        public ViewAttributes DividerRecAttrs
         {
             get
             {
@@ -434,7 +434,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes DividerRec2Attrs
+        public ViewAttributes DividerRec2Attrs
         {
             get
             {
@@ -446,7 +446,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public ViewAttributes TextFieldAttrs
+        public ViewAttributes TextFieldAttrs
         {
             get
             {
@@ -458,7 +458,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int Min
+        public int Min
         {
             get
             {
@@ -470,7 +470,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int Max
+        public int Max
         {
             get
             {
@@ -482,7 +482,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int Cur
+        public int Cur
         {
             get
             {
@@ -494,7 +494,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int ItemHeight
+        public int ItemHeight
         {
             get
             {
@@ -506,7 +506,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int TextSize
+        public int TextSize
         {
             get
             {
@@ -518,7 +518,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-		public int CenterTextSize
+        public int CenterTextSize
         {
             get
             {

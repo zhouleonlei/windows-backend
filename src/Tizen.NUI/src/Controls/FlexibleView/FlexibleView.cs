@@ -27,6 +27,7 @@ namespace Tizen.NUI.Controls
         private Extents mPadding = new Extents(0, 0, 0, 0);
 
         private ScrollBar mScrollBar = null;
+        private Timer mScrollBarShowTimer = null;
 
         public FlexibleView()
         {
@@ -79,6 +80,44 @@ namespace Tizen.NUI.Controls
                 mPanGestureDetector.AddDirection(PanGestureDetector.DirectionVertical);
             }
         }
+
+        public LayoutManager GetLayoutManager()
+        {
+            return mLayout;
+        }
+
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                if (mAdapter != null)
+                {
+                    mAdapter.ItemEvent -= OnItemEvent;
+                }
+
+                if (mPanGestureDetector != null)
+                {
+                    mPanGestureDetector.Detected -= OnPanGestureDetected;
+                    mPanGestureDetector.Dispose();
+                    mPanGestureDetector = null;
+                }
+
+                if (mScrollBarShowTimer != null)
+                {
+                    mScrollBarShowTimer.Tick -= OnShowTimerTick;
+                    mScrollBarShowTimer.Stop();
+                    mScrollBarShowTimer.Dispose();
+                    mScrollBarShowTimer = null;
+                }
+            }
+            base.Dispose(type);
+        }
+
 
         public class ItemClickEventArgs : EventArgs
         {
@@ -202,11 +241,6 @@ namespace Tizen.NUI.Controls
             }
             mScrollBar = scrollBar;
             Add(mScrollBar);
-
-            if (mAdapteHelper != null)
-            {
-                InitializeScrollBar();
-            }
         }
 
         public void DetachScrollBar()
@@ -219,7 +253,7 @@ namespace Tizen.NUI.Controls
             mScrollBar = null;
         }
 
-        private void InitializeScrollBar()
+        private void ShowScrollBar(uint millisecond = 700)
         {
             if (mScrollBar == null || mLayout == null)
             {
@@ -227,17 +261,26 @@ namespace Tizen.NUI.Controls
             }
             mScrollBar.MinValue = 0;
             mScrollBar.MaxValue = (uint)mLayout.ComputeScrollRange(mState);
-
-            UpdateScrollBar();
+            mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
+            //Console.WriteLine("Show scrollbar! ");
+            if (mScrollBarShowTimer == null)
+            {
+                mScrollBarShowTimer = new Timer(millisecond);
+                mScrollBarShowTimer.Tick += OnShowTimerTick;
+            }
+            mScrollBar.Show();
+            mScrollBarShowTimer.Start();
         }
 
-        private void UpdateScrollBar()
+        private bool OnShowTimerTick(object source, EventArgs e)
         {
-            if (mScrollBar == null)
+            if (mScrollBar != null)
             {
-                return;
+                mScrollBar.Hide();
             }
-            mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
+
+            //Console.WriteLine("Time out callback, scrollbar is hidden! ");
+            return false;
         }
 
         public ViewHolder FindViewHolderForLayoutPosition(int position)
@@ -400,7 +443,7 @@ namespace Tizen.NUI.Controls
 
             mFocusedItemIndex = nextFocusPosition;
  
-           UpdateScrollBar();
+           ShowScrollBar();
         }
 
         private void DispatchItemClicked(ViewHolder clickedHolder)
@@ -455,11 +498,11 @@ namespace Tizen.NUI.Controls
             {
                 case Adapter.ItemEventType.Insert:
                     mAdapteHelper.OnItemRangeInserted(e.param[0], e.param[1]);
-                    InitializeScrollBar();
+                    ShowScrollBar();
                     break;
                 case Adapter.ItemEventType.Remove:
                     mAdapteHelper.OnItemRangeRemoved(e.param[0], e.param[1]);
-                    InitializeScrollBar();
+                    ShowScrollBar();
                     break;
                 case Adapter.ItemEventType.Move:
                     break;
