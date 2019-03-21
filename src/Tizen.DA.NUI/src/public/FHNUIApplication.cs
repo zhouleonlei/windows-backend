@@ -216,14 +216,14 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("BlackEditModeFirstItem", null, typeof(BlackEditModeFirstNavigationItemAttributes));
             StyleManager.Instance.RegisterStyle("BlackEditModeLastItem", null, typeof(BlackEditModeLastNavigationItemAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityDefaultSlider", null, typeof(UtilityDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FoodDefaultSlider", null, typeof(FoodDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyDefaultSlider", null, typeof(FamilyDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenDefaultSlider", null, typeof(KitchenDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityTextSlider", null, typeof(UtilityTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FoodTextSlider", null, typeof(FoodTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyTextSlider", null, typeof(FamilyTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenTextSlider", null, typeof(KitchenTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Utility", typeof(UtilityDefaultSliderAttributes), true);
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Food", typeof(FoodDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Family", typeof(FamilyDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Kitchen", typeof(KitchenDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Utility", typeof(UtilityTextSliderAttributes), true);
+            StyleManager.Instance.RegisterStyle("TextSlider", "Food", typeof(FoodTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Family", typeof(FamilyTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Kitchen", typeof(KitchenTextSliderAttributes));
 
             StyleManager.Instance.RegisterStyle("DefaultInputField", "Family", typeof(FamilyDefaultInputFieldAttributes));
             StyleManager.Instance.RegisterStyle("StyleBInputField", "Family", typeof(FamilyStyleBInputFieldAttributes));

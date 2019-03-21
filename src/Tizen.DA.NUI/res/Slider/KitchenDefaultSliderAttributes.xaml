@@ -18,9 +18,9 @@
         x:Name="SliderAttributes"
         TrackThickness="4">
 
-        <SliderAttributes.BgTrackAttributes>
+        <SliderAttributes.BackgroundTrackAttributes>
             <ImageAttributes BackgroundColor="0, 0, 0, 0.1"/>
-        </SliderAttributes.BgTrackAttributes>
+        </SliderAttributes.BackgroundTrackAttributes>
 
         <SliderAttributes.SlidedTrackAttributes>
             <ImageAttributes BackgroundColor="0.592, 0.384, 0.851, 1"/>
@@ -32,12 +32,12 @@
             </ImageAttributes>
         </SliderAttributes.ThumbAttributes>
 
-        <SliderAttributes.ThumbBgAttributes>
+        <SliderAttributes.ThumbBackgroundAttributes>
             <ImageAttributes 
                 Size2D="60,60"
                 ResourceURL="{StaticResource DAKitchenDefaultSliderThumbBgImageResource}">
             </ImageAttributes>
-        </SliderAttributes.ThumbBgAttributes>
+        </SliderAttributes.ThumbBackgroundAttributes>
 
     </SliderAttributes>
 
