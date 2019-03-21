@@ -175,10 +175,10 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("FamilyRadioButton", null, typeof(FamilyRadioButtonAttributes));
             StyleManager.Instance.RegisterStyle("KitchenRadioButton", null,typeof(KitchenRadioButtonAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilitySwitch", null, typeof(UtilitySwitchAttributes));
-            StyleManager.Instance.RegisterStyle("FoodSwitch", null, typeof(FoodSwitchAttributes));
-            StyleManager.Instance.RegisterStyle("FamilySwitch", null, typeof(FamilySwitchAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenSwitch", null, typeof(KitchenSwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Utility", typeof(UtilitySwitchAttributes), true);
+            StyleManager.Instance.RegisterStyle("Switch", "Food", typeof(FoodSwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Family", typeof(FamilySwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Kitchen", typeof(KitchenSwitchAttributes));
 
             StyleManager.Instance.RegisterStyle("DAScrollbar", null, typeof(FH.NUI.Controls.DAScrollBarAttributes));
             StyleManager.Instance.RegisterStyle("VDScrollbar", null, typeof(FH.NUI.Controls.VDScrollBarAttributes));
