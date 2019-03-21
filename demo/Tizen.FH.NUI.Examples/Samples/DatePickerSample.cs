@@ -35,7 +35,6 @@ namespace Tizen.FH.NUI.Samples
 
 
             popup = new Popup("DAPopup");
-            popup.ButtonStyle = buttonStyles[index];
             popup.Size2D = new Size2D(1032, 982);
             popup.TitleText = "Set Date";
             popup.ButtonCount = 2;

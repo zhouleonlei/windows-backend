@@ -41,7 +41,6 @@ namespace Tizen.FH.NUI.Samples
             root[0] = FHView;
 
             popup = new Popup("DAPopup");
-            popup.ButtonStyle = buttonStyles[index];
             popup.Size2D = new Size2D(1032, 776);
             popup.TitleText = "Timer 01";
             popup.ButtonCount = 2;
@@ -65,7 +64,6 @@ namespace Tizen.FH.NUI.Samples
             root[1] = FHViewAMPM;
             
             popupAMPM = new Popup("DAPopup");
-            popupAMPM.ButtonStyle = buttonStyles[index];
             popupAMPM.Size2D = new Size2D(1032, 776);
             popupAMPM.TitleText = "Timer 02";
             popupAMPM.ButtonCount = 2;
@@ -88,7 +86,6 @@ namespace Tizen.FH.NUI.Samples
             root[2] = FHViewRepeat;
 
             popupRepeat = new Popup("DAPopup");
-            popupRepeat.ButtonStyle = buttonStyles[index];
             popupRepeat.Size2D = new Size2D(1032, 1064);
             popupRepeat.TitleText = "Time Setting";
             popupRepeat.ButtonCount = 2;
