@@ -165,15 +165,15 @@ namespace Tizen.FH.NUI
 
             StyleManager.Instance.RegisterStyle("BasicPagination", null, typeof(BasicPaginationAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityCheckBox",null, typeof(UtilityCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("FoodCheckBox", null, typeof(FoodCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyCheckBox", null, typeof(FamilyCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenCheckBox", null, typeof(KitchenCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Utility", typeof(UtilityCheckBoxAttributes), true);
+            StyleManager.Instance.RegisterStyle("CheckBox", "Food", typeof(FoodCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Family", typeof(FamilyCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Kitchen", typeof(KitchenCheckBoxAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityRadioButton", null, typeof(UtilityRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FoodRadioButton", null, typeof(FoodRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyRadioButton", null, typeof(FamilyRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenRadioButton", null,typeof(KitchenRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Utility", typeof(UtilityRadioButtonAttributes), true);
+            StyleManager.Instance.RegisterStyle("RadioButton", "Food", typeof(FoodRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Family", typeof(FamilyRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Kitchen", typeof(KitchenRadioButtonAttributes));
 
             StyleManager.Instance.RegisterStyle("Switch", "Utility", typeof(UtilitySwitchAttributes), true);
             StyleManager.Instance.RegisterStyle("Switch", "Food", typeof(FoodSwitchAttributes));
