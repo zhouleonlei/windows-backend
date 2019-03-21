@@ -594,7 +594,15 @@ namespace Tizen.NUI.Controls
             UpdateHighIndicatorSize();
             UpdateValue();
         }
-
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            SliderAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as SliderAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = sliderAttrs = tempAttributes;
+                RelayoutRequest();
+            }
+        }
         private void Initialize()
         {
             sliderAttrs = attributes as SliderAttributes;
