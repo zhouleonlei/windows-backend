@@ -63,7 +63,7 @@ namespace Tizen.NUI.Controls
             var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
-                attrs.maxValue = (uint?)newValue;
+                attrs.maxValue = (uint)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -77,7 +77,7 @@ namespace Tizen.NUI.Controls
             var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
-                attrs.minValue = (uint?)newValue;
+                attrs.minValue = (uint)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -91,7 +91,7 @@ namespace Tizen.NUI.Controls
             var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
-                attrs.curValue = (uint?)newValue;
+                attrs.curValue = (uint)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -125,16 +125,7 @@ namespace Tizen.NUI.Controls
 
         public ScrollBarAttributes() : base()
         {
-
-            TrackImageAttributes = new ImageAttributes
-            {
-
-            };
-            ThumbImageAttributes = new ImageAttributes
-            {
-
-            };
-         
+        
         }
 
         public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)
@@ -198,11 +189,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public uint? MaxValue
+        public uint MaxValue
         {
             get
             {
-                return (uint?)GetValue(MaxValueProperty);
+                return (uint)GetValue(MaxValueProperty);
             }
             set
             {
@@ -210,11 +201,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public uint? MinValue
+        public uint MinValue
         {
             get
             {
-                return (uint?)GetValue(MinValueProperty);
+                return (uint)GetValue(MinValueProperty);
             }
             set
             {
@@ -223,11 +214,11 @@ namespace Tizen.NUI.Controls
         }
 
         // can't change the pos of thumb
-        public uint? CurValue
+        public uint CurValue
         {
             get
             {
-                return (uint?)GetValue(CurValueProperty);
+                return (uint)GetValue(CurValueProperty);
             }
             set
             {
@@ -235,11 +226,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public uint? Duration
+        public uint Duration
         {
             get
             {
-                return (uint?)GetValue(DurationProperty);
+                return (uint)GetValue(DurationProperty);
             }
             set
             {

@@ -23,7 +23,7 @@ namespace Tizen.NUI.Samples
             CreateBoardAndButtons();
 
             scrollBar1_1 = new ScrollBar();
-            scrollBar1_1.Position2D = new Position2D(100, 500);
+            scrollBar1_1.Position2D = new Position2D(50, 300);
             scrollBar1_1.Size2D = new Size2D(300, 4);
             scrollBar1_1.TrackColor = Color.Green;           
             scrollBar1_1.MaxValue = (uint)scrollBar1_1.SizeWidth / 10;
@@ -34,7 +34,7 @@ namespace Tizen.NUI.Samples
             root.Add(scrollBar1_1);
 
             scrollBar1_2 = new ScrollBar();
-            scrollBar1_2.Position2D = new Position2D(100, 600);
+            scrollBar1_2.Position2D = new Position2D(50, 400);
             scrollBar1_2.Size2D = new Size2D(300, 4);
             scrollBar1_2.TrackColor = Color.Green;
             scrollBar1_2.MaxValue = (uint)scrollBar1_2.SizeWidth / 10;
@@ -66,7 +66,7 @@ namespace Tizen.NUI.Samples
             };
 
             scrollBar2_1 = new ScrollBar(attr);
-            scrollBar2_1.Position2D = new Position2D(500, 500);
+            scrollBar2_1.Position2D = new Position2D(500, 300);
             scrollBar2_1.Size2D = new Size2D(300, 4);
             scrollBar2_1.MaxValue = (uint)scrollBar2_1.SizeWidth / 10;
             scrollBar2_1.MinValue = 0;
@@ -99,7 +99,7 @@ namespace Tizen.NUI.Samples
 
             board1 = new TextLabel();
             board1.Size2D = new Size2D(300, 70);
-            board1.Position2D = new Position2D(50, 200);
+            board1.Position2D = new Position2D(50, 150);
             board1.PointSize = 20;
             board1.HorizontalAlignment = HorizontalAlignment.Center;
             board1.VerticalAlignment = VerticalAlignment.Center;
@@ -112,7 +112,7 @@ namespace Tizen.NUI.Samples
 
             board2 = new TextLabel();
             board2.Size2D = new Size2D(300, 70);
-            board2.Position2D = new Position2D(400, 200);
+            board2.Position2D = new Position2D(500, 150);
             board2.PointSize = 20;
             board2.HorizontalAlignment = HorizontalAlignment.Center;
             board2.VerticalAlignment = VerticalAlignment.Center;
@@ -140,6 +140,15 @@ namespace Tizen.NUI.Samples
             root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += Scroll1Minus;
+
+            Button  button22 = new Button();
+            button22.BackgroundColor = Color.Green;
+            button22.Position2D = new Position2D(100, 800);
+            button22.Size2D = new Size2D(200, 50);
+            button22.Text = "change direction";
+            root.Add(button22);
+            button22.Focusable = true;
+            button22.ClickEvent += Scroll1_2Changed;
 
             button3 = new Button();
             button3.BackgroundColor = Color.Green;
@@ -185,6 +194,14 @@ namespace Tizen.NUI.Samples
         private void Scroll2Minus(object sender, global::System.EventArgs e)
         {
             scrollBar2_1.CurrentValue--;
+        }
+
+        private void Scroll1_2Changed(object sender, global::System.EventArgs e)
+        {
+            if(scrollBar1_2.LayoutDirection == ViewLayoutDirectionType.LTR)
+                scrollBar1_2.LayoutDirection= ViewLayoutDirectionType.RTL;
+            else
+                scrollBar1_2.LayoutDirection = ViewLayoutDirectionType.LTR;
         }
 
         private void ScrollPan(object sender, global::System.EventArgs e)

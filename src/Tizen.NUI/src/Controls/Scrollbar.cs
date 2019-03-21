@@ -7,7 +7,18 @@ namespace Tizen.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new ScrollBarAttributes()
+            {
+                ThumbImageAttributes = new ImageAttributes
+                {
+
+                },
+                TrackImageAttributes = new ImageAttributes
+                {
+
+                }
+
+            };
         }
 
         public enum DirectionType
@@ -15,17 +26,6 @@ namespace Tizen.NUI.Controls
             Horizontal,
             Vertical
         }
-
-        ///// <summary>
-        ///// The Attributes class of ScrollBar. User can set Direction, ImageURL, Color and value, duration attributes to ScrollBar.
-        ///// </summary>
-        ///// <code>
-        ///// ScrollBar.Attributes attrs = new ScrollBar.Attributes();
-        ///// attrs.Direction = ScrollBar.DirectionType.Horizontal;
-        ///// attr.ThumbColor = new Color(13.0f / 255.0f, 13.0f / 255.0f, 13.0f / 255.0f, 1.0f);    //Color #0d0d0d
-        ///// attr.TrackColor = new Color(96.0f / 255.0f, 105.0f / 255.0f, 110.0f / 255.0f, 0.6f);  //Color #60696e (Opacity : 60%)
-        ///// </code>
-
 
         /// <summary>
         /// The PanGesture event args.
@@ -60,11 +60,7 @@ namespace Tizen.NUI.Controls
 
         public ScrollBar() : base()
         {
-            if (scrollBarAttrs == null)
-            {
-                scrollBarAttrs = new ScrollBarAttributes();
-            }
-
+            scrollBarAttrs = this.attributes as ScrollBarAttributes;
             Initialize();
         }
 
@@ -238,11 +234,11 @@ namespace Tizen.NUI.Controls
         /// <summary>
         /// The property to get/set the max value of the ScrollBar.
         /// </summary>
-        public uint? MaxValue
+        public uint MaxValue
         {
             get
             {
-                return scrollBarAttrs?.MaxValue;
+                return scrollBarAttrs.MaxValue;
             }
             set
             {
@@ -258,7 +254,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return scrollBarAttrs.MinValue.Value;
+                return scrollBarAttrs.MinValue;
             }
             set
             {
@@ -271,7 +267,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return scrollBarAttrs.CurValue.Value;
+                return scrollBarAttrs.CurValue;
             }
             set
             {
@@ -291,7 +287,7 @@ namespace Tizen.NUI.Controls
         {
             get
             {
-                return scrollBarAttrs.Duration.Value;
+                return scrollBarAttrs.Duration;
             }
             set
             {
@@ -408,8 +404,6 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            if (attrs != null)
-                scrollBarAttrs = attrs as ScrollBarAttributes;
             if (scrollBarAttrs == null)
             {
                 return;
@@ -451,11 +445,10 @@ namespace Tizen.NUI.Controls
 
             //scrollAniPlayer = new AnimationPlayer();
 
-            //UIDirectionChangedEvent += OnUIDirectionChangedEvent;
             //uiDirection = SystemProperty.Instance.UIDirection;
 
             InitializePanGestureDetector();
-            LayoutDirectionChanged += OnLayoutDirectionChanged;
+            LayoutDirectionChanged += OnLayoutDirectionChanged;            //UIDirectionChangedEvent += OnUIDirectionChangedEvent;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
@@ -534,18 +527,16 @@ namespace Tizen.NUI.Controls
             {             
                 return;
             }
-            //TNLog.D("minValue = " + minValue + ", maxValue = " + maxValue + ", curValue = " + curValue);
+
             if (scrollBarAttrs.MinValue >= scrollBarAttrs.MaxValue || scrollBarAttrs.CurValue < scrollBarAttrs.MinValue || scrollBarAttrs.CurValue > scrollBarAttrs.MaxValue)
             {
                 if (scrollBarAttrs.MinValue >= scrollBarAttrs.MaxValue)
                 {
-                    //TNLog.E("Min value >= Max value;");
-                    Console.WriteLine("222222222222");
+                    Console.WriteLine("[Scrollbar] Min value>= Max value");//gwfdebug
                 }
                 if (scrollBarAttrs.CurValue < scrollBarAttrs.MinValue || scrollBarAttrs.CurValue > scrollBarAttrs.MaxValue)
                 {
-                    //TNLog.E("Current value < Min value || Current value > Max value;");
-                    Console.WriteLine("333333333333333");
+                    Console.WriteLine("[Scrollbar] Current value error");//gwfdebug
                 }
                 return;
             }
@@ -554,18 +545,17 @@ namespace Tizen.NUI.Controls
             float thumbW = scrollBarAttrs.ThumbSize.Width;
             float thumbH = scrollBarAttrs.ThumbSize.Height;
             float ratio = (float)(scrollBarAttrs.CurValue - scrollBarAttrs.MinValue) / (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue);
-            //TNLog.I("width = " + width + ", height = " + height + ", ratio = " + ratio);
+
             if (scrollBarAttrs.Direction == DirectionType.Horizontal)
             {
                 if (LayoutDirection == ViewLayoutDirectionType.RTL)
                 {
                     ratio = 1.0f - ratio;
-                    //TNLog.I("RTL, ratio = " + ratio);
                 }
-                Console.WriteLine("555555555555555555");
+
                 float posX = ratio * (width - thumbW);
                 float posY = (height - thumbH) / 2.0f;
-                //TNLog.I("posX = " + posX + ", posY = " + posY + ";");
+
                 thumbObjPosX = posX;
                 //if (scrollAniPlayer != null)
                 //{
@@ -590,7 +580,7 @@ namespace Tizen.NUI.Controls
             {
                 float posX = (width - thumbW) / 2.0f;
                 float posY = ratio * (height - thumbH);
-                //TNLog.I("posX = " + posX + ", posY = " + posY + ";");
+
                 thumbObjPosY = posY;
                 //if (scrollAniPlayer != null)
                 //{

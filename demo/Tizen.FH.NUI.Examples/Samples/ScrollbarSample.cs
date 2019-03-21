@@ -75,7 +75,7 @@ namespace Tizen.FH.NUI.Samples
             board3.FocusGained += Board_FocusGained;
             board3.FocusLost += Board_FocusLost;
 
-            button1 = new Button("FamilyBasicButton");
+            button1 = new Button();
             button1.BackgroundColor = Color.Green;
             button1.Position2D = new Position2D(100, 700);
             button1.Size2D = new Size2D(80, 50);
@@ -84,7 +84,7 @@ namespace Tizen.FH.NUI.Samples
             button1.Focusable = true;
             button1.ClickEvent += Scroll1Add;
 
-            button2 = new Button("FamilyBasicButton");
+            button2 = new Button();
             button2.BackgroundColor = Color.Green;
             button2.Position2D = new Position2D(200, 700);
             button2.Size2D = new Size2D(80, 50);
@@ -93,7 +93,7 @@ namespace Tizen.FH.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += Scroll1Minus;
 
-            button3 = new Button("FamilyBasicButton");
+            button3 = new Button();
             button3.BackgroundColor = Color.Green;
             button3.Position2D = new Position2D(450, 700);
             button3.Size2D = new Size2D(80, 50);
@@ -102,7 +102,7 @@ namespace Tizen.FH.NUI.Samples
             button3.Focusable = true;
             button3.ClickEvent += Scroll2Add;
 
-            button4 = new Button("FamilyBasicButton");
+            button4 = new Button();
             button4.BackgroundColor = Color.Green;
             button4.Position2D = new Position2D(550, 700);
             button4.Size2D = new Size2D(80, 50);
