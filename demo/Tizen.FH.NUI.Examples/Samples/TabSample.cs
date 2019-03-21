@@ -8,8 +8,8 @@ namespace Tizen.FH.NUI.Samples
     {
         private SampleLayout root;
         private Tab tab = null;
-        private Button button = null;
-        private int index = 0;
+        private Button[] button = new Button[2];
+        private int num = 2;
 
         private static string[] mode = new string[]
         {
@@ -40,12 +40,15 @@ namespace Tizen.FH.NUI.Samples
                 tab.AddItem(item);
             }
 
-            button = new Button("ServiceButton");
-            button.Size2D = new Size2D(280, 80);
-            button.Position2D = new Position2D(400, 700);
-            button.Text = mode[index];
-            button.ClickEvent += ButtonClickEvent;
-            root.Add(button);
+            for (int i = 0; i < num; i++)
+            {
+                button[i] = new Button("ServiceButton");
+                button[i].Size2D = new Size2D(240, 80);
+                button[i].Position2D = new Position2D(280 + i * 260, 700);
+                button[i].Text = mode[i];
+                button[i].ClickEvent += ButtonClickEvent;
+                root.Add(button[i]);
+            }
         }
 
         public void Deactivate()
@@ -59,11 +62,14 @@ namespace Tizen.FH.NUI.Samples
                     tab = null;
                 }
 
-                if (button != null)
+                for (int i = 0; i < num; i++)
                 {
-                    root.Remove(button);
-                    button.Dispose();
-                    button = null;
+                    if (button[i] != null)
+                    {
+                        root.Remove(button[i]);
+                        button[i].Dispose();
+                        button[i] = null;
+                    }
                 }
 
                 root.Dispose();
@@ -72,13 +78,12 @@ namespace Tizen.FH.NUI.Samples
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            index = (index + 1) % 2;
-            button.Text = mode[index];
-            if(index == 0)
+            Button btn = sender as Button;
+            if(button[0] == btn)
             {
                 tab.IsNatureTextWidth = false;
             }
-            else if (index == 1)
+            else if (button[1] == btn)
             {
                 tab.IsNatureTextWidth = true;
             }

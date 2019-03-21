@@ -15,8 +15,6 @@ namespace Tizen.NUI.Controls
 
         private PopupAttributes popupAttributes;
         private int buttonCount = 0;
-        private string buttonPreStyle = "";
-        private string buttonStyle = "";
 
         public Popup() : base()
         {
@@ -60,22 +58,6 @@ namespace Tizen.NUI.Controls
                     }
                     popupAttributes.TitleTextAttributes.Text.All = value;
 
-                    RelayoutRequest();
-                }
-            }
-        }
-
-        public string ButtonStyle
-        {
-            get
-            {
-                return buttonStyle;
-            }
-            set
-            {
-                if (buttonStyle != value)
-                {
-                    buttonStyle = value;
                     RelayoutRequest();
                 }
             }
@@ -525,7 +507,12 @@ namespace Tizen.NUI.Controls
                 return;
             }
 
-            ApplyAttributes(this, popupAttributes);
+            int w = 0;
+            int h = 0;
+            int titleX = 0;
+            int titleY = 0;
+            int titleH = 0;
+            int buttonH = 0;
 
             if (popupAttributes.ShadowImageAttributes != null)
             {
@@ -535,6 +522,15 @@ namespace Tizen.NUI.Controls
                     Add(shadowImage);
                 }
                 ApplyAttributes(shadowImage, popupAttributes.ShadowImageAttributes);
+                w = Size2D.Width;
+                h = Size2D.Height;
+                if (popupAttributes.ShadowOffset != null)
+                {
+                    w = (int)(Size2D.Width + popupAttributes.ShadowOffset.W + popupAttributes.ShadowOffset.X);
+                    h = (int)(Size2D.Height + popupAttributes.ShadowOffset.Y + popupAttributes.ShadowOffset.Z);
+                }
+
+                shadowImage.Size2D = new Size2D(w, h);
             }
 
             if (popupAttributes.BackgroundImageAttributes != null)
@@ -558,51 +554,38 @@ namespace Tizen.NUI.Controls
                     titleText = new TextLabel();
                     Add(titleText);
                 }
-                ApplyAttributes(titleText, popupAttributes.TitleTextAttributes);
-            }
 
+                ApplyAttributes(titleText, popupAttributes.TitleTextAttributes);
+
+                if (titleText.Text != null && titleText.Text != "")
+                {
+                    popupAttributes.TitleTextAttributes.Text = new StringSelector { All = titleText.Text };
+                    w = (int)(Size2D.Width - titleText.PositionX * 2);
+
+                    if (popupAttributes.TitleTextAttributes.Size2D != null)
+                    {
+                        titleH = titleText.Size2D.Height;
+                    }
+                    titleText.Size2D = new Size2D(w, titleH);
+
+                    if (popupAttributes.TitleTextAttributes.Position2D != null)
+                    {
+                        titleX = popupAttributes.TitleTextAttributes.Position2D.X;
+                        titleY = popupAttributes.TitleTextAttributes.Position2D.Y;
+                    }
+                }
+                else
+                {
+                    titleText.Size2D = new Size2D(0, 0);
+                }
+
+               
+            }
             contentView.RaiseToTop();
 
-            int w = 0;
-            int h = 0;
-            if (shadowImage != null)
-            {
-                w = Size2D.Width;
-                h = Size2D.Height;
-                if (popupAttributes.ShadowOffset != null)
-                {
-                    w = (int)(Size2D.Width + popupAttributes.ShadowOffset.W + popupAttributes.ShadowOffset.X);
-                    h = (int)(Size2D.Height + popupAttributes.ShadowOffset.Y + popupAttributes.ShadowOffset.Z);
-                }
-                
-                shadowImage.Size2D = new Size2D(w, h);
-            }
-            if (titleText != null)
-            {
-                w = (int)(Size2D.Width - titleText.PositionX * 2);
-                h = titleText.Size2D.Height;
-                titleText.Size2D = new Size2D(w, h);
-            }
-
             UpdateButton(buttonCount);
-
-            int titleX = 0;
-            int titleY = 0;
-            int titleH = 0;
-            int buttonH = 0;
-            if (popupAttributes.TitleTextAttributes != null)
-            {
-                if (popupAttributes.TitleTextAttributes.Position2D != null)
-                {
-                    titleX = popupAttributes.TitleTextAttributes.Position2D.X;
-                    titleY = popupAttributes.TitleTextAttributes.Position2D.Y;
-                }
-                if (popupAttributes.TitleTextAttributes.Size2D != null)
-                {
-                    titleH = popupAttributes.TitleTextAttributes.Size2D.Height;
-                }
-            }
-            if (popupAttributes.ButtonAttributes != null && popupAttributes.ButtonAttributes.Size2D != null)
+           
+            if (buttonList != null && popupAttributes.ButtonAttributes != null && popupAttributes.ButtonAttributes.Size2D != null)
             {
                 buttonH = popupAttributes.ButtonAttributes.Size2D.Height;
             }
@@ -639,7 +622,7 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            if(buttonList.Count > 0)
+            if(buttonList != null && buttonList.Count > 0)
             {
                 int pos = 0;
                 if (LayoutDirection == ViewLayoutDirectionType.RTL)
@@ -663,6 +646,8 @@ namespace Tizen.NUI.Controls
 
         private void Initialize()
         {
+            ApplyAttributes(this, popupAttributes);
+
             StateFocusableOnTouchMode = true;
             LeaveRequired = true;
 
@@ -676,11 +661,22 @@ namespace Tizen.NUI.Controls
             contentView.RaiseToTop();
 
             LayoutDirectionChanged += OnLayoutDirectionChanged;
+            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
         {
             LayoutChild();
+        }
+
+        private void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            PopupAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PopupAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = popupAttributes = tempAttributes;
+                RelayoutRequest();
+            }
         }
 
         private void CreateShadowAttributes()
@@ -769,20 +765,13 @@ namespace Tizen.NUI.Controls
 
         private void UpdateButton(int count)
         {
-            if(buttonCount == count)
+            if(buttonList != null && buttonCount == buttonList.Count)
             {
-                if (buttonList != null && buttonStyle != "" && buttonStyle == buttonPreStyle)
+                for (int i = 0; i < count; i++)
                 {
-                    return;
+                    buttonList[i].TextColor = popupAttributes.ButtonAttributes.TextAttributes.TextColor.All;
                 }
-                if (buttonList != null && buttonStyle == "")
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        buttonList[i].TextColor = popupAttributes.ButtonAttributes.TextAttributes.TextColor.All;
-                    }
-                    return;
-                }
+                return;
             }
            
             if (buttonList != null)
@@ -807,19 +796,8 @@ namespace Tizen.NUI.Controls
             for (int i = 0; i < count; i++)
             {
                 Button btn = null;
-                if (buttonStyle != "")
-                {
-                    btn = new Button(buttonStyle);
-                    btn.Size2D = new Size2D(buttonWidth, buttonHeight);
-                    btn.ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft;
-                    btn.PivotPoint = Tizen.NUI.PivotPoint.BottomLeft;
-                    btn.PositionUsesPivotPoint = true;
-                }
-                else
-                {
-                    popupAttributes.ButtonAttributes.Size2D.Width = buttonWidth;
-                    btn = new Button(popupAttributes.ButtonAttributes);
-                }
+                popupAttributes.ButtonAttributes.Size2D.Width = buttonWidth;
+                btn = new Button(popupAttributes.ButtonAttributes);
                 btn.Position2D = new Position2D(pos, 0);
 
                 if (i >= buttonTextList.Count)
@@ -832,7 +810,6 @@ namespace Tizen.NUI.Controls
                 this.Add(btn);
                 buttonList.Add(btn);
             }
-            buttonPreStyle = buttonStyle;
         }
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)

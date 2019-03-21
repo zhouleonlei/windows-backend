@@ -189,11 +189,10 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("UtilityProgressbar", null, typeof(FH.NUI.Controls.UtilityProgressbarAttributes));
             StyleManager.Instance.RegisterStyle("VDProgressCircle", null, typeof(FH.NUI.Controls.VDProgressCircleAttributes));
 
-            StyleManager.Instance.RegisterStyle("DAPopup", null, typeof(DAPopupAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityPopupButton", null, typeof(UtilityPopupButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FoodPopupButton", null, typeof(FoodPopupButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyPopupButton", null, typeof(FamilyPopupButtonAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenPopupButton", null, typeof(KitchenPopupButtonAttributes));
+            StyleManager.Instance.RegisterStyle("DAPopup", "Family", typeof(FamilyPopupAttributes));
+            StyleManager.Instance.RegisterStyle("DAPopup", "Utility", typeof(UtilityPopupAttributes), true);
+            StyleManager.Instance.RegisterStyle("DAPopup", "Food", typeof(FoodPopupAttributes));
+            StyleManager.Instance.RegisterStyle("DAPopup", "Kitchen", typeof(KitchenPopupAttributes));           
 
             StyleManager.Instance.RegisterStyle("DATab", "Family", typeof(FamilyTabAttributes));
             StyleManager.Instance.RegisterStyle("DATab", "Utility", typeof(UtilityTabAttributes), true);

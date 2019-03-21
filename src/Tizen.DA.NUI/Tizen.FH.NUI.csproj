@@ -58,6 +58,7 @@
     <Compile Remove="src\StyleAttributes\KitchenDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\KitchenTextSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\PaginationAttributes.cs" />
+    <Compile Remove="src\StyleAttributes\Popup\DAPopupAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityTextSliderAttributes.cs" />
   </ItemGroup>
@@ -138,11 +139,10 @@
     <None Remove="res\PaginationAttributes.xaml" />
     <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
     <None Remove="res\Picker\PickerAttributes.xaml" />
-    <None Remove="res\Popup\FamilyPopupButtonAttributes.xaml" />
-    <None Remove="res\Popup\FoodPopupButtonAttributes.xaml" />
-    <None Remove="res\Popup\KitchenPopupButtonAttributes.xaml" />
-    <None Remove="res\Popup\PopupAttributes.xaml" />
-    <None Remove="res\Popup\UtilityPopupButtonAttributes.xaml" />
+    <None Remove="res\Popup\FamilyPopupAttributes.xaml" />
+    <None Remove="res\Popup\FoodPopupAttributes.xaml" />
+    <None Remove="res\Popup\KitchenPopupAttributes.xaml" />
+    <None Remove="res\Popup\UtilityPopupAttributes.xaml" />
     <None Remove="res\Progress\FamilyProgressbarAttributes.xaml" />
     <None Remove="res\Progress\FoodProgressbarAttributes.xaml" />
     <None Remove="res\Progress\KitchenProgressbarAttributes.xaml" />
@@ -339,19 +339,16 @@
     <EmbeddedResource Include="res\Scrollbar\DAScrollBarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\FamilyPopupButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\FamilyPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\FoodPopupButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\FoodPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\KitchenPopupButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\KitchenPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\PopupAttributes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\UtilityPopupButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\UtilityPopupAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonAttributes.xaml">
