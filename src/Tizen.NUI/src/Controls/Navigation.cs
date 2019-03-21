@@ -820,11 +820,9 @@ namespace Tizen.NUI.Controls
                 LayoutIconAndText();
 
                 base.OnUpdate(attrs);
-                Console.WriteLine("!!!!!! text is " + base.Text);
                 if (subText != null)
                 {
                     ApplyAttributes(subText, itemAttributes.SubTextAttributes);
-                    Console.WriteLine("!!!!!! subtext is " + subText.Text);
                 }
 
                 if (dividerLine != null)

@@ -6,7 +6,8 @@ namespace Tizen.FH.NUI.Samples
 {
     public class NavigationSample : IExample
     {
-        private View root;
+        private SampleLayout root;
+
         private TextLabel text = null;
         private Navigation whiteNavigation = null;
         private Navigation blackNavigation = null;
@@ -55,18 +56,13 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
-            Window window = Window.Instance;
-
-            root = new View()
-            {
-                Size2D = new Size2D(1920, 1080),
-            };
-            window.Add(root);
+            root = new SampleLayout();
+            root.HeaderText = "Navigation";
 
             text = new TextLabel();
             text.Text = "Create Navigation by style";
-            text.Size2D = new Size2D(450, 100);
-            text.Position2D = new Position2D(500, 60);
+            text.Size2D = new Size2D(480, 100);
+            text.Position2D = new Position2D(300, 10);
             text.MultiLine = true;
             root.Add(text);
 
@@ -95,13 +91,14 @@ namespace Tizen.FH.NUI.Samples
             //////condition navigation//////////
             #region WhiteConditionNavigation
             conditionNavigation = new Navigation("WhiteCondition");
-            conditionNavigation.Position2D = new Position2D(500, 150);
+            conditionNavigation.Position2D = new Position2D(100, 400);
             conditionNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(conditionNavigation);
 
             for (int i = 0; i < 3; i++)
             {
                 Navigation.NavigationItem conditionItem = new Navigation.NavigationItem("WhiteConditionItem");
+                conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
                 conditionItem.IconURLSelector = new StringSelector
@@ -119,13 +116,14 @@ namespace Tizen.FH.NUI.Samples
             //////black condition navigation//////////
             #region BlackConditionNavigation
             blackConditionNavigation = new Navigation("BlackCondition");
-            blackConditionNavigation.Position2D = new Position2D(700, 150);
+            blackConditionNavigation.Position2D = new Position2D(300, 400);
             blackConditionNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(blackConditionNavigation);
 
             for (int i = 0; i < 3; i++)
             {
                 Navigation.NavigationItem conditionItem = new Navigation.NavigationItem("BlackConditionItem");
+                conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
                 conditionItem.IconURLSelector = new StringSelector
@@ -144,11 +142,12 @@ namespace Tizen.FH.NUI.Samples
             #region WhiteEditModeNavigation
             whiteEditNavigation = new Navigation("WhiteEditMode");
             whiteEditNavigation.Size2D = new Size2D(178, 800);
-            whiteEditNavigation.Position2D = new Position2D(900, 150);
+            whiteEditNavigation.Position2D = new Position2D(500, 150);
             whiteEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(whiteEditNavigation);
 
-            Navigation.NavigationItem firstEditItem = new Navigation.NavigationItem("WhiteEditModeFirstItem");            
+            Navigation.NavigationItem firstEditItem = new Navigation.NavigationItem("WhiteEditModeFirstItem");
+            firstEditItem.Size2D = new Size2D(178, 184);
             firstEditItem.Text = "1";
             firstEditItem.SubText = "SELECTED";
             whiteEditNavigation.AddItem(firstEditItem);
@@ -156,6 +155,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 2; i++)
             {
                 Navigation.NavigationItem editItem = new Navigation.NavigationItem("WhiteEditModeItem");
+                editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
                 {
@@ -168,6 +168,7 @@ namespace Tizen.FH.NUI.Samples
                 whiteEditNavigation.AddItem(editItem);
             }
             Navigation.NavigationItem editLastItem = new Navigation.NavigationItem("WhiteEditModeLastItem");
+            editLastItem.Size2D = new Size2D(178, 166);
             editLastItem.Text = "Cancel";
             editLastItem.IconURLSelector = new StringSelector
             {
@@ -184,11 +185,12 @@ namespace Tizen.FH.NUI.Samples
             #region BlackEditModeNavigation
             blackEditNavigation = new Navigation("BlackEditMode");
             blackEditNavigation.Size2D = new Size2D(178, 800);
-            blackEditNavigation.Position2D = new Position2D(1100, 150);
+            blackEditNavigation.Position2D = new Position2D(700, 150);
             blackEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(blackEditNavigation);
 
             Navigation.NavigationItem firstEditItem2 = new Navigation.NavigationItem("BlackEditModeFirstItem");
+            firstEditItem2.Size2D = new Size2D(178, 184);
             firstEditItem2.Text = "1";
             firstEditItem2.SubText = "SELECTED";
             blackEditNavigation.AddItem(firstEditItem2);
@@ -196,6 +198,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 2; i++)
             {
                 Navigation.NavigationItem editItem = new Navigation.NavigationItem("BlackEditModeItem");
+                editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
                 {
@@ -208,6 +211,7 @@ namespace Tizen.FH.NUI.Samples
                 blackEditNavigation.AddItem(editItem);
             }
             Navigation.NavigationItem editLastItem2 = new Navigation.NavigationItem("BlackEditModeLastItem");
+            editLastItem2.Size2D = new Size2D(178, 166);
             editLastItem2.Text = "Cancel";
             editLastItem2.IconURLSelector = new StringSelector
             {

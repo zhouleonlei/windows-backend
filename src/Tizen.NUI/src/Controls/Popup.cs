@@ -659,9 +659,6 @@ namespace Tizen.NUI.Controls
             };
             Add(contentView);
             contentView.RaiseToTop();
-
-            LayoutDirectionChanged += OnLayoutDirectionChanged;
-            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
@@ -669,7 +666,7 @@ namespace Tizen.NUI.Controls
             LayoutChild();
         }
 
-        private void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             PopupAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PopupAttributes;
             if (tempAttributes != null)

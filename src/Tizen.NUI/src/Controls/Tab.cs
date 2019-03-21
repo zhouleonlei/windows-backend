@@ -405,7 +405,6 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(this, tabAttributes);
             CreateUnderLine();
             LayoutDirectionChanged += OnLayoutDirectionChanged;
-            StyleManager.Instance.ThemeChangedEvent += OnThemeChangedEvent;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
@@ -413,7 +412,7 @@ namespace Tizen.NUI.Controls
             LayoutChild();
         }
 
-        private void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             TabAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as TabAttributes;
             if (tempAttributes != null)
