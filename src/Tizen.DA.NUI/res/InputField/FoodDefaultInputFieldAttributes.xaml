@@ -14,11 +14,11 @@
         Space="24"
         SpaceBetweenTextFieldAndRightButton="56">
 
-        <InputFieldAttributes.BgImageAttributes>
+        <InputFieldAttributes.BackgroundImageAttributes>
             <ImageAttributes 
                 ResourceURL="*DemoRes*/images/FH3/1. Action bar/search_bg.png"
                 Border="45, 45, 0, 0"/>
-        </InputFieldAttributes.BgImageAttributes>
+        </InputFieldAttributes.BackgroundImageAttributes>
 
         <InputFieldAttributes.InputBoxAttributes>
             <TextFieldAttributes 

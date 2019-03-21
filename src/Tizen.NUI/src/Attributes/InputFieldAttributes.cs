@@ -27,8 +27,8 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public static readonly BindableProperty BgImageAttributesProperty = 
-            BindableProperty.Create("BgImageAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
+        public static readonly BindableProperty BackgroundImageAttributesProperty = 
+            BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (InputFieldAttributes)bindable;
@@ -75,10 +75,10 @@ namespace Tizen.NUI.Controls
                 return attrs.space;
             });
 
-        public ImageAttributes BgImageAttributes
+        public ImageAttributes BackgroundImageAttributes
         {
-            get { return (ImageAttributes)GetValue(BgImageAttributesProperty); }
-            set { SetValue(BgImageAttributesProperty, value); }
+            get { return (ImageAttributes)GetValue(BackgroundImageAttributesProperty); }
+            set { SetValue(BackgroundImageAttributesProperty, value); }
         }
 
         public TextFieldAttributes InputBoxAttributes

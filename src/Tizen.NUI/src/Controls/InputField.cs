@@ -148,7 +148,7 @@ namespace Tizen.NUI.Controls
                 return;
             }
             ApplyAttributes(this, inputFieldAttrs);
-            ApplyAttributes(bgImage, inputFieldAttrs.BgImageAttributes);
+            ApplyAttributes(bgImage, inputFieldAttrs.BackgroundImageAttributes);
             ApplyAttributes(textField, inputFieldAttrs.InputBoxAttributes);
             RelayoutComponent();
         }
@@ -160,7 +160,7 @@ namespace Tizen.NUI.Controls
             {
                 throw new Exception("Fail to get the base inputField attributes.");
             }
-            if (inputFieldAttrs.BgImageAttributes != null && bgImage == null)
+            if (inputFieldAttrs.BackgroundImageAttributes != null && bgImage == null)
             {
                 bgImage = new ImageView()
                 {

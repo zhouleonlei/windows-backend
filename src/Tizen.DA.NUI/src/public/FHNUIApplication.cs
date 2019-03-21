@@ -225,17 +225,17 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("FamilyTextSlider", null, typeof(FamilyTextSliderAttributes));
             StyleManager.Instance.RegisterStyle("KitchenTextSlider", null, typeof(KitchenTextSliderAttributes));
 
-            StyleManager.Instance.RegisterStyle("FamilyDefaultInputField", null, typeof(FamilyDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyStyleBInputField", null, typeof(FamilyStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FoodDefaultInputField", null, typeof(FoodDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FoodStyleBInputField", null, typeof(FoodStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenDefaultInputField", null, typeof(KitchenDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenStyleBInputField", null, typeof(KitchenStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityDefaultInputField", null, typeof(UtilityDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityStyleBInputField", null, typeof(UtilityStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Family", typeof(FamilyDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Family", typeof(FamilyStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Food", typeof(FoodDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Food", typeof(FoodStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Kitchen", typeof(KitchenDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Kitchen", typeof(KitchenStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Utility", typeof(UtilityDefaultInputFieldAttributes), true);
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Utility", typeof(UtilityStyleBInputFieldAttributes), true);
             StyleManager.Instance.RegisterStyle("DefaultSearchInputField", null, typeof(DefaultSearchInputFieldAttributes));
 
-            StyleManager.Instance.RegisterStyle("DefaultSearchBar", null, typeof(DefaultSearchBarAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSearchBar", null, typeof(DefaultSearchBarAttributes), true);
 
             StyleManager.Instance.RegisterStyle("BasicShortToast", null, typeof(BasicShortToastAttributes));
             StyleManager.Instance.RegisterStyle("BasicLongToast", null, typeof(BasicLongToastAttributes));
