@@ -11,6 +11,7 @@ namespace Tizen.FH.NUI.Controls
         {
             SelectButtonAttributes attributes = new SelectButtonAttributes
             {
+                IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(48, 48),

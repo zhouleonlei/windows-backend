@@ -777,6 +777,10 @@ namespace Tizen.NUI.Controls
                 set;
             }
 
+            protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+            {
+            }
+
             protected override void Dispose(DisposeTypes type)
             {
                 if (disposed)
@@ -911,10 +915,16 @@ namespace Tizen.NUI.Controls
 
             private void LayoutIconAndText()
             {
+                if (itemAttributes.IconAttributes == null)
+                {
+                    return;
+                }
+
                 int leftSpace = (int)itemAttributes.Space.X;
                 int rightSpace = (int)itemAttributes.Space.Y;
                 int topSpace = (int)itemAttributes.Space.Z;
                 int bottomSpace = (int)itemAttributes.Space.W;
+             
                 itemAttributes.IconAttributes.PositionUsesPivotPoint = true;
                 if (itemAttributes.EnableIconCenter == true)
                 {
@@ -936,7 +946,10 @@ namespace Tizen.NUI.Controls
                     if (itemAttributes.TextAttributes != null)
                     {
                         itemAttributes.TextAttributes.Position2D = new Position2D(textPosX, textPosY);
-                        textPosY += itemAttributes.TextAttributes.Size2D.Height;
+                        if (itemAttributes.TextAttributes.Size2D != null)
+                        {
+                            textPosY += itemAttributes.TextAttributes.Size2D.Height;
+                        }
                     }
                     if (itemAttributes.SubTextAttributes != null)
                     {

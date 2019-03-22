@@ -20,7 +20,7 @@ namespace Tizen.NUI.Controls
             {
                 throw new Exception("SelectButton attribute parse error.");
             }
-            Initialize();
+            InitializeAttributes();
         }
         public SelectButton(string style) : base(style)
         {
@@ -29,13 +29,13 @@ namespace Tizen.NUI.Controls
             {
                 throw new Exception("SelectButton attribute parse error.");
             }
-            Initialize();
+            InitializeAttributes();
         }
 
         public SelectButton(SelectButtonAttributes attributes) : base()
         {
             this.attributes = selectButtonAttributes = attributes.Clone() as SelectButtonAttributes;
-            Initialize();
+            InitializeAttributes();
         }
 
         public event EventHandler<SelectEventArgs> SelectedEvent;
@@ -358,6 +358,16 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            SelectButtonAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as SelectButtonAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = selectButtonAttributes = tempAttributes;
+                RelayoutRequest();
+            }
+        }
+
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -409,6 +419,15 @@ namespace Tizen.NUI.Controls
                 }
                 ApplyAttributes(checkShadowImage, selectButtonAttributes.CheckShadowImageAttributes);
             }
+            else
+            {
+                if (checkShadowImage != null)
+                {
+                    Remove(checkShadowImage);
+                    checkShadowImage.Dispose();
+                    checkShadowImage = null;
+                }
+            }
 
             if (selectButtonAttributes.CheckBackgroundImageAttributes != null)
             {
@@ -420,6 +439,15 @@ namespace Tizen.NUI.Controls
                 }
                 ApplyAttributes(checkBackgroundImage, selectButtonAttributes.CheckBackgroundImageAttributes);
             }
+            else
+            {
+                if (checkBackgroundImage != null)
+                {
+                    Remove(checkBackgroundImage);
+                    checkBackgroundImage.Dispose();
+                    checkBackgroundImage = null;
+                }
+            }
 
             if (selectButtonAttributes.CheckImageAttributes != null)
             {
@@ -430,6 +458,16 @@ namespace Tizen.NUI.Controls
                     Add(checkImage);
                 }
                 ApplyAttributes(checkImage, selectButtonAttributes.CheckImageAttributes);
+                checkImage.RaiseToTop();
+            }
+            else
+            {
+                if (checkImage != null)
+                {
+                    Remove(checkImage);
+                    checkImage.Dispose();
+                    checkImage = null;
+                }
             }
         }
 
@@ -482,7 +520,7 @@ namespace Tizen.NUI.Controls
         {
         }
 
-        private void Initialize()
+        private void InitializeAttributes()
         {
             selectButtonAttributes.IsSelectable = true;           
         }
