@@ -458,6 +458,24 @@ namespace Tizen.NUI.Controls
             adapter.InsertData(-1, item);
         }
 
+        public void AttachScrollBar(ScrollBar scrollBar)
+        {
+            if (list == null)
+            {
+                return;
+            }
+            list.AttachScrollBar(scrollBar);
+        }
+
+        public void DetachScrollBar()
+        {
+            if (list == null)
+            {
+                return;
+            }
+            list.DetachScrollBar();
+        }
+
         protected override void OnUpdate(Attributes attributes)
         {
             dropDownAttributes = attributes as DropDownAttributes;
@@ -674,11 +692,6 @@ namespace Tizen.NUI.Controls
         {
             if (e.ClickedView != null)
             {
-                DropDownItemView curView = e.ClickedView.ItemView as DropDownItemView;
-                if (curView != null)
-                {
-                    button.Text = curView.Text;
-                }
                 UpdateSelectedItem(e.ClickedView.AdapterPosition);
             }
 
@@ -694,20 +707,20 @@ namespace Tizen.NUI.Controls
                     if (e.TouchedView != null)
                     {
                         touchedView = e.TouchedView.ItemView as DropDownItemView;
-                        if (touchedView != null)
+                        if (touchedView != null && touchedView.BackgroundColorSelector != null)
                         {
                             touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Pressed);
                         }
                     }
                     break;
                 case PointStateType.Motion:
-                    if (touchedView != null)
+                    if (touchedView != null && touchedView.BackgroundColorSelector != null)
                     {
                         touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Normal);
                     }
                     break;
                 case PointStateType.Up:
-                    if (touchedView != null)
+                    if (touchedView != null && touchedView.BackgroundColorSelector != null)
                     {
                         touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Selected);
                     }
@@ -744,6 +757,7 @@ namespace Tizen.NUI.Controls
                 if (view != null)
                 {
                     view.IsSelected = true;
+                    button.Text = view.Text;
                 }
             }
 
@@ -766,7 +780,7 @@ namespace Tizen.NUI.Controls
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            listBackgroundImage.Show();        
+            listBackgroundImage.Show();
         }
 
         private void CreateHeaderTextAttributes()
@@ -844,23 +858,26 @@ namespace Tizen.NUI.Controls
         #endregion
 
         #region DropDownItemData
-        public class DropDownItemData
+        public class DropDownItemData : Control
         {
             private DropDownItemAttributes itemDataAttributes = new DropDownItemAttributes();
-            public DropDownItemData()
-            {               
-            }
-
-            public DropDownItemData(DropDownItemAttributes attributes)
+            public DropDownItemData() : base()
             {
-                itemDataAttributes = attributes.Clone() as DropDownItemAttributes;
-                if (itemDataAttributes == null)
-                {
-                    throw new Exception("DropDown item attribute parse error.");
-                }
+                Initalize();
             }
 
-            public Size2D Size2D
+            public DropDownItemData(string style) : base(style)
+            {
+                Initalize();
+            }
+
+            public DropDownItemData(DropDownItemAttributes attributes) : base()
+            {
+                this.attributes = attributes.Clone() as DropDownItemAttributes;
+                Initalize();
+            }
+
+            public new Size2D Size2D
             {
                 get
                 {
@@ -1054,6 +1071,20 @@ namespace Tizen.NUI.Controls
                 set
                 {
                     itemDataAttributes.IsSelected = value;
+                }
+            }
+
+            protected override Attributes GetAttributes()
+            {
+                return new DropDownItemAttributes();
+            }
+
+            private void Initalize()
+            {
+                itemDataAttributes = attributes as DropDownItemAttributes;
+                if (itemDataAttributes == null)
+                {
+                    throw new Exception("Button attribute parse error.");
                 }
             }
 
@@ -1482,7 +1513,7 @@ namespace Tizen.NUI.Controls
                     {
                         listItemView.IconResourceUrl = listItemData.IconResourceUrl;
                         listItemView.IconSize2D = listItemData.IconSize2D;
-                        listItemView.IconPosition2D = listItemData.IconPosition2D;
+                        listItemView.IconPosition2D = new Position2D(listItemData.IconPosition2D.X, (listItemView.Size2D.Height - listItemView.IconSize2D.Height) / 2);
                     }
 
                     if (listItemData.CheckImageResourceUrl != null)

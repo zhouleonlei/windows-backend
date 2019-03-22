@@ -6,71 +6,105 @@ namespace Tizen.FH.NUI.Samples
 {
     public class DropDownSample : IExample
     {
+        private SampleLayout root;
         private DropDown dropDown = null;
-        private Button button = null;
-        private int index = 0;
+        private DropDown dropDown2 = null;
+        private ScrollBar scrollBar = null;
 
-        private static string[] mode = new string[]
+        private static string[] iconImage = new string[]
         {
-            "Utility DropDown",
-            "Family DropDown",
-            "Food DropDown",
-            "Kitchen DropDown",
-        };
-        private static Color[] color = new Color[]
-        {
-            new Color(0.05f, 0.63f, 0.9f, 1),//#ff0ea1e6 Utility
-            new Color(0.14f, 0.77f, 0.28f, 1),//#ff24c447 Family
-            new Color(0.75f, 0.46f, 0.06f, 1),//#ffec7510 Food
-            new Color(0.59f, 0.38f, 0.85f, 1),//#ff9762d9 Kitchen
+            CommonResource.GetFHResourcePath() + "10. Drop Down/img_dropdown_fahrenheit.png",
+            CommonResource.GetFHResourcePath() + "10. Drop Down/img_dropdown_celsius.png",
         };
 
         public void Activate()
         {
-            Window window = Window.Instance;
+            root = new SampleLayout();
+            root.HeaderText = "DropDown";
 
-            dropDown = new DropDown("HeaderSpinner");
-            dropDown.Size2D = new Size2D(1000, 108);
-            dropDown.Position2D = new Position2D(200, 300);
-            window.Add(dropDown);
+            dropDown = new DropDown("HeaderDropDown");
+            dropDown.Size2D = new Size2D(1080, 108);
+            dropDown.Position2D = new Position2D(0, 10);
+            dropDown.ListSize2D = new Size2D(360, 500);
+            dropDown.HeaderText = "Header area";
+            dropDown.ButtonText = "Normal list 1";
+            root.Add(dropDown);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 8; i++)
             {
-                DropDown.DropDownItemData itemData = new DropDown.DropDownItemData();
-                itemData.Text = "DropDown " + i;
-                dropDown.AddItem(itemData);
+                DropDown.DropDownItemData item = new DropDown.DropDownItemData("TextListItem");
+                item.Size2D = new Size2D(360, 96);
+                item.Text = "Normal list " + i;
+                dropDown.AddItem(item);
             }
 
-            button = new Button("UtilityServiceButton");
-            button.Size2D = new Size2D(280, 80);
-            button.Position2D = new Position2D(500, 700);
-            button.Text = mode[index];
-            button.ClickEvent += ButtonClickEvent;
-            window.Add(button);
+            dropDown.SelectedItemIndex = 1;
+            ////////Attach scrollbar///////////
+            scrollBar = new ScrollBar();
+            scrollBar.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar.Position2D = new Position2D(394, 2);
+            scrollBar.Size2D = new Size2D(4, 446);
+            scrollBar.TrackColor = Color.Green;
+            scrollBar.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar.ThumbColor = Color.Yellow;
+            scrollBar.TrackImageURL = CommonResource.GetFHResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            dropDown.AttachScrollBar(scrollBar);
+
+            //////////////////ListSpinner DropDown////////////////////////
+            dropDown2 = new DropDown("ListDropDown");
+            dropDown2.Size2D = new Size2D(1080, 108);
+            dropDown2.Position2D = new Position2D(0, 200);
+            dropDown2.ListSize2D = new Size2D(360, 192);
+            dropDown2.HeaderText = "List area";
+            dropDown2.ButtonText = "Menu";
+            root.Add(dropDown2);
+
+            for (int i = 0; i < 2; i++)
+            {
+                DropDown.DropDownItemData item = new DropDown.DropDownItemData("IconListItem");
+                item.Size2D = new Size2D(360, 96);
+                item.IconResourceUrl = iconImage[i];
+                dropDown2.AddItem(item);
+            }
+
+            dropDown2.SelectedItemIndex = 0;
+
+            dropDown.RaiseToTop();
         }
 
         public void Deactivate()
-        {           
-            if(dropDown != null)
+        {
+            if (root != null)
             {
-                Window.Instance.Remove(dropDown);
-                dropDown.Dispose();
-                dropDown = null;
-            }
+                if (dropDown != null)
+                {
+                    if (scrollBar != null)
+                    {
+                        dropDown.DetachScrollBar();
+                        scrollBar.Dispose();
+                        scrollBar = null;
+                    }
 
-            if (button != null)
-            {
-                Window.Instance.Remove(button);
-                button.Dispose();
-                button = null;
+                    root.Remove(dropDown);
+                    dropDown.Dispose();
+                    dropDown = null;
+                }
+
+                if (dropDown2 != null)
+                {
+                    root.Remove(dropDown2);
+                    dropDown2.Dispose();
+                    dropDown2 = null;
+                }
+
+                root.Dispose();
             }
         }
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
         {
-            index = (index + 1) % 4;
-            button.Text = mode[index];
-
+            Button btn = sender as Button;
+           
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Tizen.NUI.Samples
 
         private DropDown dropDown = null;
         private DropDown dropDown2 = null;
+        private ScrollBar scrollBar = null;
+        private ScrollBar scrollBar2 = null;
 
         private static string[] mode = new string[]
         {
@@ -90,6 +92,17 @@ namespace Tizen.NUI.Samples
             }
 
             dropDown.SelectedItemIndex = 3;
+
+            ////////Attach scrollbar///////////
+            scrollBar = new ScrollBar();
+            scrollBar.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar.Position2D = new Position2D(394, 2);
+            scrollBar.Size2D = new Size2D(4, 446);
+            scrollBar.TrackColor = Color.Green;
+            scrollBar.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar.ThumbColor = Color.Yellow;
+            scrollBar.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            dropDown.AttachScrollBar(scrollBar);
 
             #endregion
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
@@ -198,6 +211,17 @@ namespace Tizen.NUI.Samples
             }
             dropDown2.SelectedItemIndex = 0;
 
+            ////////Attach scrollbar///////////
+            scrollBar2 = new ScrollBar();
+            scrollBar2.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar2.Position2D = new Position2D(394, 2);
+            scrollBar2.Size2D = new Size2D(4, 446);
+            scrollBar2.TrackColor = Color.Green;
+            scrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar2.ThumbColor = Color.Yellow;
+            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            dropDown2.AttachScrollBar(scrollBar2);
+
             #endregion
         }
 
@@ -207,12 +231,26 @@ namespace Tizen.NUI.Samples
             {
                 if (dropDown != null)
                 {
+                    if (scrollBar != null)
+                    {
+                        dropDown.DetachScrollBar();
+                        scrollBar.Dispose();
+                        scrollBar = null;
+                    }
+
                     root.Remove(dropDown);
                     dropDown.Dispose();
                     dropDown = null;
                 }
                 if (dropDown2 != null)
                 {
+                    if (scrollBar2 != null)
+                    {
+                        dropDown2.DetachScrollBar();
+                        scrollBar2.Dispose();
+                        scrollBar2 = null;
+                    }
+
                     root.Remove(dropDown2);
                     dropDown2.Dispose();
                     dropDown2 = null;

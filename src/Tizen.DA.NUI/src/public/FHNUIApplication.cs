@@ -199,6 +199,11 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("Tab", "Food", typeof(FoodTabAttributes));
             StyleManager.Instance.RegisterStyle("Tab", "Kitchen", typeof(KitchenTabAttributes));
 
+            StyleManager.Instance.RegisterStyle("HeaderDropDown", null, typeof(HeaderSpinnerDropDownAttributes));
+            StyleManager.Instance.RegisterStyle("ListDropDown", null, typeof(ListSpinnerDropDownAttributes));
+            StyleManager.Instance.RegisterStyle("TextListItem", null, typeof(TextListItemAttributes));
+            StyleManager.Instance.RegisterStyle("IconListItem", null, typeof(IconListItemAttributes));
+
             StyleManager.Instance.RegisterStyle("Back", null, typeof(BackNavigationAttributes));
             StyleManager.Instance.RegisterStyle("WhiteCondition", null, typeof(WhiteConditionNavigationAttributes));
             StyleManager.Instance.RegisterStyle("BlackCondition", null, typeof(BlackConditionNavigationAttributes));
