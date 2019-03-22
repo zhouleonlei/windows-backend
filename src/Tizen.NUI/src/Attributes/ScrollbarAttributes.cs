@@ -116,9 +116,9 @@ namespace Tizen.NUI.Controls
 
         private ScrollBar.DirectionType? direction= ScrollBar.DirectionType.Horizontal;
         private Size thumbSize;
-        private uint? maxValue;
-        private uint? minValue;
-        private uint? curValue;
+        private uint maxValue;
+        private uint minValue;
+        private uint curValue;
         private uint? duration;
         private ImageAttributes trackImageAttrs;
         private ImageAttributes thumbImageAttrs;

@@ -26,21 +26,18 @@ namespace Tizen.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new LoadingAttributes
+            {
+                LoadingImageURLPrefix = new StringSelector(),
+
+            };
         }
 
         public List<string> ImageArray = null;
 
         public Loading() : base()
         {
-            if (loadingAttrs == null)
-            {
-                this.attributes = loadingAttrs = new LoadingAttributes
-                {
-                    LoadingImageURLPrefix = new StringSelector(),
-
-                };
-            }
+            loadingAttrs = this.attributes as LoadingAttributes;
             Initialize();
         }
 
