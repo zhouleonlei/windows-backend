@@ -165,20 +165,20 @@ namespace Tizen.FH.NUI
 
             StyleManager.Instance.RegisterStyle("BasicPagination", null, typeof(BasicPaginationAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityCheckBox",null, typeof(UtilityCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("FoodCheckBox", null, typeof(FoodCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyCheckBox", null, typeof(FamilyCheckBoxAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenCheckBox", null, typeof(KitchenCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Utility", typeof(UtilityCheckBoxAttributes), true);
+            StyleManager.Instance.RegisterStyle("CheckBox", "Food", typeof(FoodCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Family", typeof(FamilyCheckBoxAttributes));
+            StyleManager.Instance.RegisterStyle("CheckBox", "Kitchen", typeof(KitchenCheckBoxAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityRadioButton", null, typeof(UtilityRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FoodRadioButton", null, typeof(FoodRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyRadioButton", null, typeof(FamilyRadioButtonAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenRadioButton", null,typeof(KitchenRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Utility", typeof(UtilityRadioButtonAttributes), true);
+            StyleManager.Instance.RegisterStyle("RadioButton", "Food", typeof(FoodRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Family", typeof(FamilyRadioButtonAttributes));
+            StyleManager.Instance.RegisterStyle("RadioButton", "Kitchen", typeof(KitchenRadioButtonAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilitySwitch", null, typeof(UtilitySwitchAttributes));
-            StyleManager.Instance.RegisterStyle("FoodSwitch", null, typeof(FoodSwitchAttributes));
-            StyleManager.Instance.RegisterStyle("FamilySwitch", null, typeof(FamilySwitchAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenSwitch", null, typeof(KitchenSwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Utility", typeof(UtilitySwitchAttributes), true);
+            StyleManager.Instance.RegisterStyle("Switch", "Food", typeof(FoodSwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Family", typeof(FamilySwitchAttributes));
+            StyleManager.Instance.RegisterStyle("Switch", "Kitchen", typeof(KitchenSwitchAttributes));
 
             StyleManager.Instance.RegisterStyle("DAScrollbar", null, typeof(FH.NUI.Controls.DAScrollBarAttributes));
             StyleManager.Instance.RegisterStyle("VDScrollbar", null, typeof(FH.NUI.Controls.VDScrollBarAttributes));
@@ -189,15 +189,20 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("UtilityProgressbar", null, typeof(FH.NUI.Controls.UtilityProgressbarAttributes));
             StyleManager.Instance.RegisterStyle("VDProgressCircle", null, typeof(FH.NUI.Controls.VDProgressCircleAttributes));
 
-            StyleManager.Instance.RegisterStyle("DAPopup", "Family", typeof(FamilyPopupAttributes));
-            StyleManager.Instance.RegisterStyle("DAPopup", "Utility", typeof(UtilityPopupAttributes), true);
-            StyleManager.Instance.RegisterStyle("DAPopup", "Food", typeof(FoodPopupAttributes));
-            StyleManager.Instance.RegisterStyle("DAPopup", "Kitchen", typeof(KitchenPopupAttributes));           
+            StyleManager.Instance.RegisterStyle("Popup", "Family", typeof(FamilyPopupAttributes));
+            StyleManager.Instance.RegisterStyle("Popup", "Utility", typeof(UtilityPopupAttributes), true);
+            StyleManager.Instance.RegisterStyle("Popup", "Food", typeof(FoodPopupAttributes));
+            StyleManager.Instance.RegisterStyle("Popup", "Kitchen", typeof(KitchenPopupAttributes));           
 
-            StyleManager.Instance.RegisterStyle("DATab", "Family", typeof(FamilyTabAttributes));
-            StyleManager.Instance.RegisterStyle("DATab", "Utility", typeof(UtilityTabAttributes), true);
-            StyleManager.Instance.RegisterStyle("DATab", "Food", typeof(FoodTabAttributes));
-            StyleManager.Instance.RegisterStyle("DATab", "Kitchen", typeof(KitchenTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Family", typeof(FamilyTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Utility", typeof(UtilityTabAttributes), true);
+            StyleManager.Instance.RegisterStyle("Tab", "Food", typeof(FoodTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Kitchen", typeof(KitchenTabAttributes));
+
+            StyleManager.Instance.RegisterStyle("HeaderDropDown", null, typeof(HeaderSpinnerDropDownAttributes));
+            StyleManager.Instance.RegisterStyle("ListDropDown", null, typeof(ListSpinnerDropDownAttributes));
+            StyleManager.Instance.RegisterStyle("TextListItem", null, typeof(TextListItemAttributes));
+            StyleManager.Instance.RegisterStyle("IconListItem", null, typeof(IconListItemAttributes));
 
             StyleManager.Instance.RegisterStyle("Back", null, typeof(BackNavigationAttributes));
             StyleManager.Instance.RegisterStyle("WhiteCondition", null, typeof(WhiteConditionNavigationAttributes));
@@ -216,26 +221,26 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("BlackEditModeFirstItem", null, typeof(BlackEditModeFirstNavigationItemAttributes));
             StyleManager.Instance.RegisterStyle("BlackEditModeLastItem", null, typeof(BlackEditModeLastNavigationItemAttributes));
 
-            StyleManager.Instance.RegisterStyle("UtilityDefaultSlider", null, typeof(UtilityDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FoodDefaultSlider", null, typeof(FoodDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyDefaultSlider", null, typeof(FamilyDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenDefaultSlider", null, typeof(KitchenDefaultSliderAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityTextSlider", null, typeof(UtilityTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FoodTextSlider", null, typeof(FoodTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyTextSlider", null, typeof(FamilyTextSliderAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenTextSlider", null, typeof(KitchenTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Utility", typeof(UtilityDefaultSliderAttributes), true);
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Food", typeof(FoodDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Family", typeof(FamilyDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSlider", "Kitchen", typeof(KitchenDefaultSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Utility", typeof(UtilityTextSliderAttributes), true);
+            StyleManager.Instance.RegisterStyle("TextSlider", "Food", typeof(FoodTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Family", typeof(FamilyTextSliderAttributes));
+            StyleManager.Instance.RegisterStyle("TextSlider", "Kitchen", typeof(KitchenTextSliderAttributes));
 
-            StyleManager.Instance.RegisterStyle("FamilyDefaultInputField", null, typeof(FamilyDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FamilyStyleBInputField", null, typeof(FamilyStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FoodDefaultInputField", null, typeof(FoodDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("FoodStyleBInputField", null, typeof(FoodStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenDefaultInputField", null, typeof(KitchenDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenStyleBInputField", null, typeof(KitchenStyleBInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityDefaultInputField", null, typeof(UtilityDefaultInputFieldAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityStyleBInputField", null, typeof(UtilityStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Family", typeof(FamilyDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Family", typeof(FamilyStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Food", typeof(FoodDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Food", typeof(FoodStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Kitchen", typeof(KitchenDefaultInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Kitchen", typeof(KitchenStyleBInputFieldAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultInputField", "Utility", typeof(UtilityDefaultInputFieldAttributes), true);
+            StyleManager.Instance.RegisterStyle("StyleBInputField", "Utility", typeof(UtilityStyleBInputFieldAttributes), true);
             StyleManager.Instance.RegisterStyle("DefaultSearchInputField", null, typeof(DefaultSearchInputFieldAttributes));
 
-            StyleManager.Instance.RegisterStyle("DefaultSearchBar", null, typeof(DefaultSearchBarAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultSearchBar", null, typeof(DefaultSearchBarAttributes), true);
 
             StyleManager.Instance.RegisterStyle("BasicShortToast", null, typeof(BasicShortToastAttributes));
             StyleManager.Instance.RegisterStyle("BasicLongToast", null, typeof(BasicLongToastAttributes));

@@ -64,8 +64,8 @@ namespace Tizen.NUI.Controls
             indicatorType = attrs.indicatorType;
         }
 
-        public static readonly BindableProperty BgTrackAttributesProperty = 
-            BindableProperty.Create("BgTrackAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
+        public static readonly BindableProperty BackgroundTrackAttributesProperty = 
+            BindableProperty.Create("BackgroundTrackAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (SliderAttributes)bindable;
@@ -112,8 +112,8 @@ namespace Tizen.NUI.Controls
                 return attrs.thumbAttrs;
             });
 
-        public static readonly BindableProperty ThumbBgAttributesProperty =
-            BindableProperty.Create("ThumbBgAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
+        public static readonly BindableProperty ThumbBackgroundAttributesProperty =
+            BindableProperty.Create("ThumbBackgroundAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 var attrs = (SliderAttributes)bindable;
@@ -240,10 +240,10 @@ namespace Tizen.NUI.Controls
                 return attrs.indicatorType;
             });
 
-        public ImageAttributes BgTrackAttributes
+        public ImageAttributes BackgroundTrackAttributes
         {
-            get { return (ImageAttributes)GetValue(BgTrackAttributesProperty); }
-            set { SetValue(BgTrackAttributesProperty, value); }
+            get { return (ImageAttributes)GetValue(BackgroundTrackAttributesProperty); }
+            set { SetValue(BackgroundTrackAttributesProperty, value); }
         }
 
         public ImageAttributes SlidedTrackAttributes
@@ -258,10 +258,10 @@ namespace Tizen.NUI.Controls
             set { SetValue(ThumbAttributesProperty, value); }
         }
 
-        public ImageAttributes ThumbBgAttributes
+        public ImageAttributes ThumbBackgroundAttributes
         {
-            get { return (ImageAttributes)GetValue(ThumbBgAttributesProperty); }
-            set { SetValue(ThumbBgAttributesProperty, value); }
+            get { return (ImageAttributes)GetValue(ThumbBackgroundAttributesProperty); }
+            set { SetValue(ThumbBackgroundAttributesProperty, value); }
         }
 
         public ImageAttributes LowIndicatorImageAttributes

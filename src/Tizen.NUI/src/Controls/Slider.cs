@@ -578,9 +578,9 @@ namespace Tizen.NUI.Controls
             }
             ApplyAttributes(this, sliderAttrs);
 
-            ApplyAttributes(bgTrackImage, sliderAttrs.BgTrackAttributes);
+            ApplyAttributes(bgTrackImage, sliderAttrs.BackgroundTrackAttributes);
             ApplyAttributes(slidedTrackImage, sliderAttrs.SlidedTrackAttributes);
-            ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBgAttributes);
+            ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBackgroundAttributes);
             ApplyAttributes(thumbImage, sliderAttrs.ThumbAttributes);
             ApplyAttributes(lowIndicatorImage, sliderAttrs.LowIndicatorImageAttributes);
             ApplyAttributes(highIndicatorImage, sliderAttrs.HighIndicatorImageAttributes);
@@ -594,7 +594,15 @@ namespace Tizen.NUI.Controls
             UpdateHighIndicatorSize();
             UpdateValue();
         }
-
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            SliderAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as SliderAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = sliderAttrs = tempAttributes;
+                RelayoutRequest();
+            }
+        }
         private void Initialize()
         {
             sliderAttrs = attributes as SliderAttributes;
@@ -603,7 +611,7 @@ namespace Tizen.NUI.Controls
                 throw new Exception("Fail to get the slider attributes.");
             }
 
-            if (sliderAttrs.BgTrackAttributes != null && bgTrackImage == null)
+            if (sliderAttrs.BackgroundTrackAttributes != null && bgTrackImage == null)
             {
                 bgTrackImage = new ImageView()
                 {
@@ -628,7 +636,7 @@ namespace Tizen.NUI.Controls
                     bgTrackImage.Add(slidedTrackImage);
                 }
             }
-            if (sliderAttrs.ThumbBgAttributes != null && bgThumbImage == null)
+            if (sliderAttrs.ThumbBackgroundAttributes != null && bgThumbImage == null)
             {
                 bgThumbImage = new ImageView()
                 {
@@ -1259,7 +1267,7 @@ namespace Tizen.NUI.Controls
             if (!isFocused && !isPressed)
             {
                 State = States.Normal;
-                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBgAttributes);
+                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBackgroundAttributes);
                 ApplyAttributes(thumbImage, sliderAttrs.ThumbAttributes);
                 if (stateChangedHandler != null)
                 {
@@ -1271,7 +1279,7 @@ namespace Tizen.NUI.Controls
             else if (isPressed)
             {
                 State = States.Pressed;
-                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBgAttributes);
+                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBackgroundAttributes);
                 ApplyAttributes(thumbImage, sliderAttrs.ThumbAttributes);
 
                 if (stateChangedHandler != null)
@@ -1284,7 +1292,7 @@ namespace Tizen.NUI.Controls
             else if (!isPressed && isFocused)
             {
                 State = States.Focused;
-                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBgAttributes);
+                ApplyAttributes(bgThumbImage, sliderAttrs.ThumbBackgroundAttributes);
                 ApplyAttributes(thumbImage, sliderAttrs.ThumbAttributes);
 
                 if (stateChangedHandler != null)

@@ -6,9 +6,10 @@ namespace Tizen.FH.NUI.Samples
 {
     public class SwitchSample : IExample
     {
-        private static readonly float Height = 150;
-        private static readonly float Width = 300;
-        private static readonly Size2D Padding = new Size2D(50, 50);
+        private SampleLayout root;
+
+        private static readonly int Height = 150;
+        private static readonly int Width = 216;
 
         private uint colNum;
         private uint rowNum;
@@ -23,17 +24,18 @@ namespace Tizen.FH.NUI.Samples
 
         private static string[] applications = new string[]
         {
-            "Utility",
-            "Family",
-            "Food",
-            "Kitchen",
+            "Group1",
+            "Group2",
+            "Group3",
+            "Group4",
         };
 
-        private TableView root;
+        private TableView table;
 
         public void Activate()
         {
-            Window window = Window.Instance;
+            root = new SampleLayout();
+            root.HeaderText = "Switch";
 
             if (styles.Length == 0 || applications.Length == 0)
             {
@@ -42,39 +44,39 @@ namespace Tizen.FH.NUI.Samples
             colNum = (uint)applications.Length + 1;
             rowNum = (uint)styles.Length + 1;
 
-            root = new TableView(rowNum, colNum)
+            table = new TableView(rowNum, colNum)
             {
-                Size2D = new Size2D(1920, 1080),
+                Size2D = new Size2D(1080, 1920),
             };
             for (uint i = 1; i < rowNum; i++)
             {
                 TextLabel text = new TextLabel();
-                text.Size2D = new Size2D(300, 50);
-                text.PointSize = 20;
+                text.Size2D = new Size2D(Width, 150);
+                text.PointSize = 12;
                 text.Focusable = true;
                 text.HorizontalAlignment = HorizontalAlignment.Center;
                 text.VerticalAlignment = VerticalAlignment.Center;
                 text.Text = styles[i - 1];
-                root.AddChild(text, new TableView.CellPosition(i, 0));
+                table.AddChild(text, new TableView.CellPosition(i, 0));
             }
 
             for (uint i = 1; i < colNum; i++)
             {
                 TextLabel text = new TextLabel();
-                text.Size2D = new Size2D(100, 50);
-                text.PointSize = 20;
+                text.Size2D = new Size2D(Width, 150);
+                text.PointSize = 12;
                 text.HorizontalAlignment = HorizontalAlignment.Center;
                 text.VerticalAlignment = VerticalAlignment.Center;
                 text.Text = applications[i - 1];
                 text.Focusable = true;
-                root.AddChild(text, new TableView.CellPosition(0, i));
+                table.AddChild(text, new TableView.CellPosition(0, i));
             }
 
             for (uint j = 1; j < colNum; j++)
             {
                 for (uint i = 1; i < rowNum; i++)
                 {
-                    Switch switchControl = new Switch(applications[j - 1] + "Switch");
+                    Switch switchControl = new Switch("Switch");
                     switchControl.Size2D = new Size2D(96, 60);
                     if (i == 3)
                     {
@@ -85,23 +87,21 @@ namespace Tizen.FH.NUI.Samples
                         switchControl.IsEnabled = false;
                         switchControl.IsSelected = true;
                     }
-                    root.AddChild(switchControl, new TableView.CellPosition(i, j));                   
+                    table.AddChild(switchControl, new TableView.CellPosition(i, j));                   
                 }
             }
 
             for (uint i = 0; i < rowNum; i++)
             {
-                root.SetFixedHeight(i, Height);
+                table.SetFixedHeight(i, Height);
                 for (uint j = 0; j < colNum; j++)
                 {
-                    root.SetFixedWidth(j, Width);
-                    root.SetCellAlignment(new TableView.CellPosition(i, j), HorizontalAlignmentType.Center, VerticalAlignmentType.Center);
+                    table.SetFixedWidth(j, Width);
+                    table.SetCellAlignment(new TableView.CellPosition(i, j), HorizontalAlignmentType.Center, VerticalAlignmentType.Center);
                 }
             }
 
-            window.Add(root);
-
-            FocusManager.Instance.SetCurrentFocusView(root);
+            root.Add(table);
         }
 
         public void Deactivate()
@@ -110,10 +110,10 @@ namespace Tizen.FH.NUI.Samples
             {
                 for (uint j = 0; j < colNum; j++)
                 {
-                    View child = root.GetChildAt(new TableView.CellPosition(i, j));
+                    View child = table.GetChildAt(new TableView.CellPosition(i, j));
                     if (child != null)
                     {
-                        root.RemoveChildAt(new TableView.CellPosition(i, j));
+                        table.RemoveChildAt(new TableView.CellPosition(i, j));
                         child.Dispose();
                     }
                 }
@@ -121,7 +121,11 @@ namespace Tizen.FH.NUI.Samples
 
             if (root != null)
             {
-                Window.Instance.Remove(root);
+                if (table != null)
+                {
+                    root.Remove(table);
+                    table.Dispose();
+                }
                 root.Dispose();
             }
         }

@@ -22,7 +22,7 @@ namespace Tizen.FH.NUI.Samples
             root = new SampleLayout();
             root.HeaderText = "Tab";
 
-            tab = new Tab("DATab");
+            tab = new Tab("Tab");
             tab.IsNatureTextWidth = false;
             tab.Size2D = new Size2D(1080, 108);
             tab.Position2D = new Position2D(0, 300);

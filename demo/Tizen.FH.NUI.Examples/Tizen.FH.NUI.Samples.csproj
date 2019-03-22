@@ -50,6 +50,7 @@
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Samples\CheckBoxSample.cs" />
     <Compile Include="Samples\DatePickerSample.cs" />
+    <Compile Include="Samples\DropDownSample.cs" />
     <Compile Include="Samples\NavigationSample.cs" />
     <Compile Include="Samples\RTLSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />

@@ -12,10 +12,8 @@ namespace Tizen.NUI.Samples
 
         private DropDown dropDown = null;
         private DropDown dropDown2 = null;
-
-        private Button button = null;
-        private Button button2 = null;
-        private int index = 0;
+        private ScrollBar scrollBar = null;
+        private ScrollBar scrollBar2 = null;
 
         private static string[] mode = new string[]
         {
@@ -72,8 +70,6 @@ namespace Tizen.NUI.Samples
             dropDown.BackgroundColor = new Color(1, 1, 1, 1);
             dropDown.ListSize2D = new Size2D(360, 500);
             dropDown.ListPadding = new Extents(4, 4, 4, 4);
-            dropDown.FocusedItemIndex = 0;
-
             root.Add(dropDown);
 
             for (int i = 0; i < 8; i++)
@@ -94,6 +90,20 @@ namespace Tizen.NUI.Samples
                 item.CheckImageRightSpace = 16;
                 dropDown.AddItem(item);
             }
+
+            dropDown.SelectedItemIndex = 3;
+
+            ////////Attach scrollbar///////////
+            scrollBar = new ScrollBar();
+            scrollBar.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar.Position2D = new Position2D(394, 2);
+            scrollBar.Size2D = new Size2D(4, 446);
+            scrollBar.TrackColor = Color.Green;
+            scrollBar.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar.ThumbColor = Color.Yellow;
+            scrollBar.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            dropDown.AttachScrollBar(scrollBar);
+
             #endregion
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
@@ -163,7 +173,7 @@ namespace Tizen.NUI.Samples
                 ListMargin = new Vector4(20, 0, 20, 0),
                 BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
                 ListSize2D = new Size2D(360, 500),
-                ListPadding = new Extents(4, 4, 4, 4),
+                ListPadding = new Extents(4, 4, 4, 4),               
             };
 
             dropDown2 = new DropDown(attrs);
@@ -199,54 +209,48 @@ namespace Tizen.NUI.Samples
                 item.Text = "Normal list " + i;
                 dropDown2.AddItem(item);
             }
+            dropDown2.SelectedItemIndex = 0;
+
+            ////////Attach scrollbar///////////
+            scrollBar2 = new ScrollBar();
+            scrollBar2.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar2.Position2D = new Position2D(394, 2);
+            scrollBar2.Size2D = new Size2D(4, 446);
+            scrollBar2.TrackColor = Color.Green;
+            scrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar2.ThumbColor = Color.Yellow;
+            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            dropDown2.AttachScrollBar(scrollBar2);
 
             #endregion
-
-            //button = new Button();
-            //button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
-            //button.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
-            //button.Size2D = new Size2D(280, 80);
-            //button.Position2D = new Position2D(500, 700);
-            //button.Text = mode[index];
-            //button.ClickEvent += ButtonClickEvent;
-            //root.Add(button);
-
-            //button2 = new Button();
-            //button2.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
-            //button2.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
-            //button2.Size2D = new Size2D(580, 80);
-            //button2.Position2D = new Position2D(800, 500);
-            //button2.Text = "LayoutDirection is left to right";
-            //button2.ClickEvent += ButtonClickEvent2;
-            //root.Add(button2);
         }
 
         public void Deactivate()
         {
             if (root != null)
             {
-                if (button != null)
-                {
-                    root.Remove(button);
-                    button.Dispose();
-                    button = null;
-                }
-
-                if (button2 != null)
-                {
-                    root.Remove(button2);
-                    button2.Dispose();
-                    button2 = null;
-                }
-
                 if (dropDown != null)
                 {
+                    if (scrollBar != null)
+                    {
+                        dropDown.DetachScrollBar();
+                        scrollBar.Dispose();
+                        scrollBar = null;
+                    }
+
                     root.Remove(dropDown);
                     dropDown.Dispose();
                     dropDown = null;
                 }
                 if (dropDown2 != null)
                 {
+                    if (scrollBar2 != null)
+                    {
+                        dropDown2.DetachScrollBar();
+                        scrollBar2.Dispose();
+                        scrollBar2 = null;
+                    }
+
                     root.Remove(dropDown2);
                     dropDown2.Dispose();
                     dropDown2 = null;

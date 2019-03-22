@@ -20,6 +20,8 @@ namespace Tizen.NUI.Controls
         private FlexibleView list = null;
         private DropDownListBridge adapter = new DropDownListBridge();
         private DropDownAttributes dropDownAttributes = null;
+        private DropDownItemView touchedView = null;
+        private int selectedItemIndex = -1;
 
         public DropDown() : base()
         {
@@ -409,6 +411,22 @@ namespace Tizen.NUI.Controls
             }
         }
 
+        public int SelectedItemIndex
+        {
+            get
+            {
+                return selectedItemIndex;
+            }
+            set
+            {
+                if (value == selectedItemIndex || adapter == null || value >= adapter.GetItemCount())
+                {
+                    return;
+                }
+                UpdateSelectedItem(value);
+            }
+        }
+
         public Size2D ListSize2D
         {
             get
@@ -438,6 +456,24 @@ namespace Tizen.NUI.Controls
         public void AddItem(DropDownItemData item)
         {
             adapter.InsertData(-1, item);
+        }
+
+        public void AttachScrollBar(ScrollBar scrollBar)
+        {
+            if (list == null)
+            {
+                return;
+            }
+            list.AttachScrollBar(scrollBar);
+        }
+
+        public void DetachScrollBar()
+        {
+            if (list == null)
+            {
+                return;
+            }
+            list.DetachScrollBar();
         }
 
         protected override void OnUpdate(Attributes attributes)
@@ -656,15 +692,12 @@ namespace Tizen.NUI.Controls
         {
             if (e.ClickedView != null)
             {
-                DropDownItemView view = e.ClickedView.ItemView as DropDownItemView;
-                if (view != null)
-                {
-                    button.Text = view.Text;
-                }
+                UpdateSelectedItem(e.ClickedView.AdapterPosition);
             }
+
             listBackgroundImage.Hide();
         }
-        private DropDownItemView touchedView = null;
+
         private void ListItemTouchEvent(object sender, FlexibleView.ItemTouchEventArgs e)
         {
             PointStateType state = e.Touch.GetState(0);
@@ -674,20 +707,20 @@ namespace Tizen.NUI.Controls
                     if (e.TouchedView != null)
                     {
                         touchedView = e.TouchedView.ItemView as DropDownItemView;
-                        if (touchedView != null)
+                        if (touchedView != null && touchedView.BackgroundColorSelector != null)
                         {
                             touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Pressed);
                         }
                     }
                     break;
                 case PointStateType.Motion:
-                    if (touchedView != null)
+                    if (touchedView != null && touchedView.BackgroundColorSelector != null)
                     {
                         touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Normal);
                     }
                     break;
                 case PointStateType.Up:
-                    if (touchedView != null)
+                    if (touchedView != null && touchedView.BackgroundColorSelector != null)
                     {
                         touchedView.BackgroundColor = touchedView.BackgroundColorSelector.GetValue(States.Selected);
                     }
@@ -696,6 +729,40 @@ namespace Tizen.NUI.Controls
                     break;
             }
         }      
+
+        private void UpdateSelectedItem(int index)
+        {
+            if (selectedItemIndex != -1)
+            {
+                DropDownItemData data = adapter.GetData(selectedItemIndex);
+                if(data != null)
+                {
+                    data.IsSelected = false;
+                }
+                DropDownItemView view = list?.FindViewHolderForAdapterPosition(selectedItemIndex)?.ItemView as DropDownItemView;
+                if (view != null)
+                {
+                    view.IsSelected = false;
+                }
+            }
+
+            if (index != -1)
+            {
+                DropDownItemData data = adapter.GetData(index);
+                if (data != null)
+                {
+                    data.IsSelected = true;
+                }
+                DropDownItemView view = list?.FindViewHolderForAdapterPosition(index)?.ItemView as DropDownItemView;
+                if (view != null)
+                {
+                    view.IsSelected = true;
+                    button.Text = view.Text;
+                }
+            }
+
+            selectedItemIndex = index;
+        }
 
         private void CreateListBackgroundImage()
         {
@@ -791,23 +858,26 @@ namespace Tizen.NUI.Controls
         #endregion
 
         #region DropDownItemData
-        public class DropDownItemData
+        public class DropDownItemData : Control
         {
             private DropDownItemAttributes itemDataAttributes = new DropDownItemAttributes();
-            public DropDownItemData()
-            {               
-            }
-
-            public DropDownItemData(DropDownItemAttributes attributes)
+            public DropDownItemData() : base()
             {
-                itemDataAttributes = attributes.Clone() as DropDownItemAttributes;
-                if (itemDataAttributes == null)
-                {
-                    throw new Exception("DropDown item attribute parse error.");
-                }
+                Initalize();
             }
 
-            public Size2D Size2D
+            public DropDownItemData(string style) : base(style)
+            {
+                Initalize();
+            }
+
+            public DropDownItemData(DropDownItemAttributes attributes) : base()
+            {
+                this.attributes = attributes.Clone() as DropDownItemAttributes;
+                Initalize();
+            }
+
+            public new Size2D Size2D
             {
                 get
                 {
@@ -1001,6 +1071,20 @@ namespace Tizen.NUI.Controls
                 set
                 {
                     itemDataAttributes.IsSelected = value;
+                }
+            }
+
+            protected override Attributes GetAttributes()
+            {
+                return new DropDownItemAttributes();
+            }
+
+            private void Initalize()
+            {
+                itemDataAttributes = attributes as DropDownItemAttributes;
+                if (itemDataAttributes == null)
+                {
+                    throw new Exception("Button attribute parse error.");
                 }
             }
 
@@ -1388,6 +1472,11 @@ namespace Tizen.NUI.Controls
                 NotifyItemRemoved(position);
             }
 
+            public DropDownItemData GetData(int position)
+            {
+                return mDatas[position];
+            }
+
             public override FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
             {
                 FlexibleView.ViewHolder viewHolder = new FlexibleView.ViewHolder(new DropDownItemView());
@@ -1424,7 +1513,7 @@ namespace Tizen.NUI.Controls
                     {
                         listItemView.IconResourceUrl = listItemData.IconResourceUrl;
                         listItemView.IconSize2D = listItemData.IconSize2D;
-                        listItemView.IconPosition2D = listItemData.IconPosition2D;
+                        listItemView.IconPosition2D = new Position2D(listItemData.IconPosition2D.X, (listItemView.Size2D.Height - listItemView.IconSize2D.Height) / 2);
                     }
 
                     if (listItemData.CheckImageResourceUrl != null)
@@ -1432,61 +1521,16 @@ namespace Tizen.NUI.Controls
                         listItemView.CheckResourceUrl = listItemData.CheckImageResourceUrl;
                         listItemView.CheckImageSize2D = listItemData.CheckImageSize2D;
                         listItemView.CheckPosition2D = new Position2D(listItemView.Size2D.Width - listItemData.CheckImageRightSpace - listItemView.CheckImageSize2D.Width, (listItemView.Size2D.Height - listItemView.CheckImageSize2D.Height) / 2);
-                        if (listItemData.IsSelected == true)
-                        {
-                            listItemView.IsSelected = true;
-                        }
                     }
+
+                    listItemView.IsSelected = listItemData.IsSelected;
                 }              
             }
 
             public override int GetItemCount()
             {
                 return mDatas.Count;
-            }
-
-            public override void OnFocusChange(FlexibleView parent, int previousFocusIndex, int currentFocusIndex)
-            {
-                if (previousFocusIndex != -1)
-                {
-                    DropDownItemData preListItemData = mDatas[previousFocusIndex];
-                    if (preListItemData != null)
-                    {
-                        preListItemData.IsSelected = false;
-                    }
-                }
-
-                FlexibleView.ViewHolder previousFocus = parent.FindViewHolderForAdapterPosition(previousFocusIndex);
-                if (previousFocus != null)
-                {
-                    DropDownItemView listItemView = previousFocus.ItemView as DropDownItemView;
-                    if (listItemView != null)
-                    {
-                        listItemView.IsSelected = false;
-                        NotifyItemChanged(previousFocus.AdapterPosition);
-                    }
-                }
-
-                if (currentFocusIndex != -1)
-                {
-                    DropDownItemData curListItemData = mDatas[currentFocusIndex];
-                    if (curListItemData != null)
-                    {
-                        curListItemData.IsSelected = true;
-                    }
-                }
-
-                FlexibleView.ViewHolder currentFocus = parent.FindViewHolderForAdapterPosition(currentFocusIndex);
-                if (currentFocus != null)
-                {
-                    DropDownItemView listItemView = currentFocus.ItemView as DropDownItemView;
-                    if (listItemView != null)
-                    {
-                        listItemView.IsSelected = true;
-                        NotifyItemChanged(currentFocus.AdapterPosition);
-                    }
-                }
-            }
+            }        
         }
         #endregion
     }
