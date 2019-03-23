@@ -850,7 +850,15 @@ namespace Tizen.NUI.Controls
             //}
         }
 
-
+        //protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        //{
+        //    ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
+        //    if (tempAttributes != null)
+        //    {
+        //        attributes = progressBarAttrs = tempAttributes;
+        //        RelayoutRequest();
+        //    }
+        //}
 
         private void UpdateAnimation()//Attributes attrs)
         {

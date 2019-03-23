@@ -183,11 +183,10 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("DAScrollbar", null, typeof(FH.NUI.Controls.DAScrollBarAttributes));
             StyleManager.Instance.RegisterStyle("VDScrollbar", null, typeof(FH.NUI.Controls.VDScrollBarAttributes));
 
-            StyleManager.Instance.RegisterStyle("FamilyProgressbar", null, typeof(FH.NUI.Controls.FamilyProgressbarAttributes));
-            StyleManager.Instance.RegisterStyle("FoodProgressbar", null, typeof(FH.NUI.Controls.FoodProgressbarAttributes));
-            StyleManager.Instance.RegisterStyle("KitchenProgressbar", null, typeof(FH.NUI.Controls.KitchenProgressbarAttributes));
-            StyleManager.Instance.RegisterStyle("UtilityProgressbar", null, typeof(FH.NUI.Controls.UtilityProgressbarAttributes));
-            StyleManager.Instance.RegisterStyle("VDProgressCircle", null, typeof(FH.NUI.Controls.VDProgressCircleAttributes));
+            StyleManager.Instance.RegisterStyle("Progressbar","Family", typeof(FH.NUI.Controls.FamilyProgressbarAttributes));
+            StyleManager.Instance.RegisterStyle("Progressbar","Food", typeof(FH.NUI.Controls.FoodProgressbarAttributes));
+            StyleManager.Instance.RegisterStyle("Progressbar","Kitchen", typeof(FH.NUI.Controls.KitchenProgressbarAttributes));
+            StyleManager.Instance.RegisterStyle("Progressbar", "Utility", typeof(FH.NUI.Controls.UtilityProgressbarAttributes));
 
             StyleManager.Instance.RegisterStyle("Popup", "Family", typeof(FamilyPopupAttributes));
             StyleManager.Instance.RegisterStyle("Popup", "Utility", typeof(UtilityPopupAttributes), true);
