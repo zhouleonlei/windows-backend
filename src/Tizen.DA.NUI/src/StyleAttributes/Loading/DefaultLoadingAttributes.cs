@@ -10,11 +10,15 @@ namespace Tizen.FH.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
+            if (Content != null)
+            {
+                return (Content as Attributes).Clone();
+            }
             LoadingAttributes attributes = new LoadingAttributes
             {
                 LoadingImageURLPrefix = new StringSelector
                 {
-                    All = "*DemoRes*/images/FH3/9. Controller/Loading Sequence_Native/loading_",
+                    All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
                 }
             };
             return attributes;

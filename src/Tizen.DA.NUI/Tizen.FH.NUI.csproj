@@ -58,7 +58,6 @@
     <Compile Remove="src\StyleAttributes\KitchenDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\KitchenTextSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\PaginationAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\Popup\DAPopupAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityTextSliderAttributes.cs" />
   </ItemGroup>

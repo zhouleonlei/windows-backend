@@ -9,6 +9,10 @@ namespace Tizen.FH.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
+            if (Content != null)
+            {
+                return (Content as Attributes).Clone();
+            }
             PaginationAttributes attributes = new PaginationAttributes
             {
                 IndicatorSize = new Size2D(26, 26),
