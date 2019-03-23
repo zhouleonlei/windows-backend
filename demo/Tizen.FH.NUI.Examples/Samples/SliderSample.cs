@@ -96,7 +96,6 @@ namespace Tizen.FH.NUI.Samples
 
         private void DestroyDA()
         {
-            inforText.Dispose();
             if (slider_da != null)
             {
                 for (int i = 0; i < DA_COUNT; ++i)

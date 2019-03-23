@@ -318,6 +318,7 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
+                StyleManager.Instance.ThemeChangedEvent -= OnThemeChangedEvent;
                 KeyEvent -= OnKey;
                 Relayout -= OnRelayout;
                 FocusGained -= OnFocusGained;

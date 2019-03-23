@@ -130,7 +130,7 @@ namespace Tizen.NUI.Controls
                     textField.FocusLost -= OnTextFieldFocusLost;
                     textField.TextChanged -= OnTextFieldTextChanged;
                     textField.KeyEvent -= OnTextFieldKeyEvent;
-                    textField.TouchEvent -= OnTextFieldTouchEvent;
+                    //textField.TouchEvent -= OnTextFieldTouchEvent;
                     this.Remove(textField);
                     textField.Dispose();
                     textField = null;

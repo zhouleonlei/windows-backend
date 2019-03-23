@@ -20,7 +20,7 @@ namespace Tizen.FH.NUI.Controls
                     Size2D = new Tizen.NUI.Size2D(1000, 132),
                     ResourceURL = new StringSelector
                     {
-                        All = "*DemoRes*/images/FH3/12. Toast Popup/toast_background.png",
+                        All = CommonResource.Instance.GetFHResourcePath() + "12. Toast Popup/toast_background.png",
                     },
                     Position2D = "0,0",
                     ParentOrigin = Tizen.NUI.ParentOrigin.Center,

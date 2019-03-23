@@ -58,7 +58,6 @@
     <Compile Remove="src\StyleAttributes\KitchenDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\KitchenTextSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\PaginationAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\Popup\DAPopupAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityDefaultSliderAttributes.cs" />
     <Compile Remove="src\StyleAttributes\UtilityTextSliderAttributes.cs" />
   </ItemGroup>
@@ -160,6 +159,7 @@
     <None Remove="res\Switch\FamilySwitchAttributes.xaml" />
     <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
+    <None Remove="res\Switch\ListIndexSwitchAttributes.xaml" />
     <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
     <None Remove="res\Tab\FamilyTabAttributes.xaml" />
     <None Remove="res\Tab\FoodTabAttributes.xaml" />
@@ -376,6 +376,9 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Spin\StrSpinAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\Switch\ListIndexSwitchAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Switch\FamilySwitchAttributes.xaml">

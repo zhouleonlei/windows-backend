@@ -8,9 +8,10 @@ namespace Tizen.FH.NUI.Controls
     internal class KitchenCheckBoxAttributes : AttributesContainer
     {
         protected override Attributes GetAttributes()
-        {
+        {           
             SelectButtonAttributes attributes = new SelectButtonAttributes
             {
+                IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(48, 48),

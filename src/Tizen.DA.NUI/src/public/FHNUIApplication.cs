@@ -179,6 +179,7 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("Switch", "Food", typeof(FoodSwitchAttributes));
             StyleManager.Instance.RegisterStyle("Switch", "Family", typeof(FamilySwitchAttributes));
             StyleManager.Instance.RegisterStyle("Switch", "Kitchen", typeof(KitchenSwitchAttributes));
+            StyleManager.Instance.RegisterStyle("ListIndexSwitch", null, typeof(ListIndexSwitchAttributes));
 
             StyleManager.Instance.RegisterStyle("DAScrollbar", null, typeof(FH.NUI.Controls.DAScrollBarAttributes));
             StyleManager.Instance.RegisterStyle("VDScrollbar", null, typeof(FH.NUI.Controls.VDScrollBarAttributes));

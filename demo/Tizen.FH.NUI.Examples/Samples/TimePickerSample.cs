@@ -36,11 +36,11 @@ namespace Tizen.FH.NUI.Samples
             FHView = new View()
             {
                 Size2D = new Size2D(1920, 1080),
-                BackgroundColor = Color.Cyan,
+                BackgroundColor = Color.White,
             };
             root[0] = FHView;
 
-            popup = new Popup("DAPopup");
+            popup = new Popup("Popup");
             popup.Size2D = new Size2D(1032, 776);
             popup.TitleText = "Timer 01";
             popup.ButtonCount = 2;
@@ -63,7 +63,7 @@ namespace Tizen.FH.NUI.Samples
             };
             root[1] = FHViewAMPM;
             
-            popupAMPM = new Popup("DAPopup");
+            popupAMPM = new Popup("Popup");
             popupAMPM.Size2D = new Size2D(1032, 776);
             popupAMPM.TitleText = "Timer 02";
             popupAMPM.ButtonCount = 2;
@@ -85,7 +85,7 @@ namespace Tizen.FH.NUI.Samples
             };
             root[2] = FHViewRepeat;
 
-            popupRepeat = new Popup("DAPopup");
+            popupRepeat = new Popup("Popup");
             popupRepeat.Size2D = new Size2D(1032, 1064);
             popupRepeat.TitleText = "Time Setting";
             popupRepeat.ButtonCount = 2;

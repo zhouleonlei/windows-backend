@@ -7,7 +7,7 @@ namespace Tizen.FH.NUI.Samples
 {
     public class SearchBarSample : IExample
     {
-        private View rootView = null;
+        private SampleLayout rootView = null;
         private Tizen.FH.NUI.Controls.SearchBar searchBar = null;
         private TextLabel guideText = null;
 
@@ -21,33 +21,26 @@ namespace Tizen.FH.NUI.Samples
 
         private void CreateRootView()
         {
-            rootView = new View();
-            rootView.WidthResizePolicy = ResizePolicyType.FillToParent;
-            rootView.HeightResizePolicy = ResizePolicyType.FillToParent;
-            rootView.BackgroundColor = new Color(78.0f / 255.0f, 216.0f / 255.0f, 231.0f / 255.0f, 1.0f);
-            rootView.Focusable = true;
-            Window.Instance.Add(rootView);
-            rootView.TouchEvent += OnRootViewTouchEvent;
+            rootView = new SampleLayout();
+            rootView.HeaderText = "SearchBar";
         }
 
         private void CreateSearchBar()
         {
             searchBar = new FH.NUI.Controls.SearchBar("DefaultSearchBar");
-            searchBar.Size2D = new Size2D(1600, 95);
-            searchBar.Position2D = new Position2D(100, 350);
             searchBar.HintText = "DefaultSearchBar";
             searchBar.ResultListHeight = 536;
             rootView.Add(searchBar);
-            searchBar.BackgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.8f);
             searchBar.SearchButtonClickEvent += OnSearchButtonClickEvent;
             searchBar.CancelButtonClickEvent += OnCancelButtonClickEvent;
+            rootView.AttachSearchBar(searchBar);
         }
 
         private void CreateGuideText()
         {
             guideText = new TextLabel();
-            guideText.Size2D = new Size2D(1100, 280);
-            guideText.Position2D = new Position2D(30, 30);
+            guideText.Size2D = new Size2D(1000, 280);
+            guideText.Position2D = new Position2D(40, 30);
             guideText.TextColor = Color.Blue;
             guideText.BackgroundColor = Color.White;
             guideText.PointSize = 15;
@@ -75,12 +68,6 @@ namespace Tizen.FH.NUI.Samples
                 {
                 }
             }
-        }
-
-        private bool OnRootViewTouchEvent(object sender, View.TouchEventArgs e)
-        {
-            FocusManager.Instance.SetCurrentFocusView(rootView);
-            return false;
         }
 
         private void OnCancelButtonClickEvent(object sender, Tizen.FH.NUI.Controls.InputField.ButtonClickArgs args)
@@ -143,8 +130,6 @@ namespace Tizen.FH.NUI.Samples
             }
             if (rootView != null)
             {
-                rootView.TouchEvent -= OnRootViewTouchEvent;
-                Window.Instance.Remove(rootView);
                 rootView.Dispose();
                 rootView = null;
             }

@@ -7,7 +7,7 @@
         RightSpace="56"
         SpaceBetweenRightItemAndText="0"
         BackgroundColor="#0d282828"
-        SwitchStyle="UtilitySwitch"
+        SwitchStyle="Switch"
         DropDownStyle="UtilityDropDown"
         StyleType="GroupIndex">
 
