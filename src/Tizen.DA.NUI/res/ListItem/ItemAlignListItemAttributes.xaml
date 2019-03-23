@@ -7,7 +7,7 @@
         RightSpace="56"
         SpaceBetweenLeftItemAndText="24"
         SpaceBetweenRightItemAndText="56"
-        CheckBoxStyle="UtilityCheckBox"
+        CheckBoxStyle="CheckBox"
         StyleType="ItemAlign">
 
         <ListItemAttributes.MainTextAttributes>
