@@ -139,6 +139,14 @@ namespace Tizen.NUI.Controls
             {
                 thumbImageAttrs = attributes.thumbImageAttrs.Clone() as ImageAttributes;
             }
+
+            direction = attributes.direction;
+            thumbSize = attributes.thumbSize;
+            maxValue = attributes.maxValue;
+            minValue = attributes.minValue;
+            curValue = attributes.curValue;
+            if (attributes.duration != null)
+                duration = attributes.duration;
         }
 
         public ImageAttributes TrackImageAttributes

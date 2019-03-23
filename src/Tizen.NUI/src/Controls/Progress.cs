@@ -60,7 +60,9 @@ namespace Tizen.NUI.Controls
         protected AnimationAttributes animationAttrs = null;
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new ProgressBarAttributes
+            {
+            };
         }
         /// <summary>
         /// The direction type of the ProgressBar.
@@ -332,10 +334,7 @@ namespace Tizen.NUI.Controls
         /// <version> 5.5.0 </version>
         public Progress() : base()
         {
-            if (progressBarAttrs == null)
-            {
-                progressBarAttrs = new ProgressBarAttributes();
-            }
+            progressBarAttrs = attributes as ProgressBarAttributes;
             Initialize();
         }
 
@@ -732,8 +731,7 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-            if (attrs != null)
-                progressBarAttrs = attrs as ProgressBarAttributes;
+
             if (progressBarAttrs == null)
             {
                 return;
