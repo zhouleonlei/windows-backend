@@ -140,7 +140,7 @@ namespace Tizen.NUI.Controls
         /// }
         /// </code>
         /// </example>
-        public Size ThumbSize
+        public Size2D ThumbSize
         {
             get
             {
@@ -156,14 +156,10 @@ namespace Tizen.NUI.Controls
                 {
                     if (scrollBarAttrs.ThumbSize == null)
                     {
-                        scrollBarAttrs.ThumbSize = new Size(value.Width, value.Height, 0);
+                        scrollBarAttrs.ThumbSize = new Size2D();
                     }
-                    else
-                    {
-                        scrollBarAttrs.ThumbSize.Width = value.Width;
-                        scrollBarAttrs.ThumbSize.Height = value.Height;
-                    }
-                    thumbObj.Size2D = new Size2D((int)value.Width, (int)value.Height);
+                    scrollBarAttrs.ThumbSize.Width = value.Width;
+                    scrollBarAttrs.ThumbSize.Height = value.Height;
                     RelayoutRequest();
                 }
             }
@@ -185,6 +181,7 @@ namespace Tizen.NUI.Controls
                     }
                     scrollBarAttrs.TrackImageAttributes.ResourceURL.All = value;
                 }
+                RelayoutRequest();
             }
         }
 

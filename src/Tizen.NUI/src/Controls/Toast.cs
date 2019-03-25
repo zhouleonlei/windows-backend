@@ -284,8 +284,6 @@ namespace Tizen.NUI.Controls
 
         protected override void OnUpdate(Attributes attributes)
         {
-            Console.WriteLine("Toast SR OnUpdate");//gwfdebug
-
             if (toastAttributes == null)
             {
                 Console.WriteLine("OnUp att null (SR)");//gwfdebug
@@ -302,9 +300,6 @@ namespace Tizen.NUI.Controls
             Console.WriteLine("Apply background "+toastAttributes.BackgroundImageAttributes.ResourceURL.All);
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
-
-
-            Console.WriteLine("Toast SR OnUpdate done");
         }
 
         protected override void OnRelayout(object sender, EventArgs e)

@@ -182,7 +182,6 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("ListIndexSwitch", null, typeof(ListIndexSwitchAttributes));
 
             StyleManager.Instance.RegisterStyle("DAScrollbar", null, typeof(FH.NUI.Controls.DAScrollBarAttributes));
-            StyleManager.Instance.RegisterStyle("VDScrollbar", null, typeof(FH.NUI.Controls.VDScrollBarAttributes));
 
             StyleManager.Instance.RegisterStyle("Progressbar","Family", typeof(FH.NUI.Controls.FamilyProgressbarAttributes));
             StyleManager.Instance.RegisterStyle("Progressbar","Food", typeof(FH.NUI.Controls.FoodProgressbarAttributes));

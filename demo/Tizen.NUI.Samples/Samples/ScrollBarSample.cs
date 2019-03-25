@@ -28,7 +28,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_1.TrackColor = Color.Green;           
             scrollBar1_1.MaxValue = (uint)scrollBar1_1.SizeWidth / 10;
             scrollBar1_1.MinValue = 0;
-            scrollBar1_1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar1_1.ThumbSize = new Size2D(30, 4);
             scrollBar1_1.CurrentValue = 0; //set after thumbsize
             scrollBar1_1.ThumbColor = Color.Black;
             root.Add(scrollBar1_1);
@@ -39,7 +39,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_2.TrackColor = Color.Green;
             scrollBar1_2.MaxValue = (uint)scrollBar1_2.SizeWidth / 10;
             scrollBar1_2.MinValue = 0;
-            scrollBar1_2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar1_2.ThumbSize = new Size2D(30, 4);
             scrollBar1_2.CurrentValue = 0;//set after thumbsize
             scrollBar1_2.ThumbColor = Color.Yellow;
             scrollBar1_2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
@@ -70,7 +70,7 @@ namespace Tizen.NUI.Samples
             scrollBar2_1.Size2D = new Size2D(300, 4);
             scrollBar2_1.MaxValue = (uint)scrollBar2_1.SizeWidth / 10;
             scrollBar2_1.MinValue = 0;
-            scrollBar2_1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar2_1.ThumbSize = new Size2D(30, 4);
             scrollBar2_1.CurrentValue = 0; //set after thumbsize
             root.Add(scrollBar2_1);
 

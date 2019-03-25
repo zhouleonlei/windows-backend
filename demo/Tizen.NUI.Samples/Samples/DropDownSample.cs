@@ -99,7 +99,7 @@ namespace Tizen.NUI.Samples
             scrollBar.Position2D = new Position2D(394, 2);
             scrollBar.Size2D = new Size2D(4, 446);
             scrollBar.TrackColor = Color.Green;
-            scrollBar.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar.ThumbSize = new Size2D(4, 30);
             scrollBar.ThumbColor = Color.Yellow;
             scrollBar.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             dropDown.AttachScrollBar(scrollBar);
@@ -217,7 +217,7 @@ namespace Tizen.NUI.Samples
             scrollBar2.Position2D = new Position2D(394, 2);
             scrollBar2.Size2D = new Size2D(4, 446);
             scrollBar2.TrackColor = Color.Green;
-            scrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar2.ThumbSize = new Size2D(4, 30);
             scrollBar2.ThumbColor = Color.Yellow;
             scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             dropDown2.AttachScrollBar(scrollBar2);

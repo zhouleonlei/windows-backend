@@ -731,7 +731,6 @@ namespace Tizen.NUI.Controls
         /// <param name="attrs">The specified attributes object.</param>
         protected override void OnUpdate(Attributes attrs)
         {
-
             if (progressBarAttrs == null)
             {
                 return;

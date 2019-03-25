@@ -44,18 +44,18 @@ namespace Tizen.NUI.Controls
             return attrs.direction;
         });
 
-        public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size), typeof(ScrollBarAttributes), default(Size), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size2D), typeof(ScrollBarAttributes), default(Size2D), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ScrollBarAttributes)bindable;
             if (newValue != null)
             {
-                attrs.thumbSize = (Size)newValue;
+                attrs.thumbImageAttrs.Size2D = (Size2D)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
         {
             var attrs = (ScrollBarAttributes)bindable;
-            return attrs.thumbSize;
+            return attrs.thumbImageAttrs.Size2D;
         });
 
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create("MaxValue", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
@@ -115,7 +115,6 @@ namespace Tizen.NUI.Controls
         });
 
         private ScrollBar.DirectionType? direction= ScrollBar.DirectionType.Horizontal;
-        private Size thumbSize;
         private uint maxValue;
         private uint minValue;
         private uint curValue;
@@ -141,7 +140,6 @@ namespace Tizen.NUI.Controls
             }
 
             direction = attributes.direction;
-            thumbSize = attributes.thumbSize;
             maxValue = attributes.maxValue;
             minValue = attributes.minValue;
             curValue = attributes.curValue;
@@ -185,11 +183,11 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public Size ThumbSize
+        public Size2D ThumbSize
         {
             get
             {
-                return (Size)GetValue(ThumbSizeProperty);
+                return (Size2D)GetValue(ThumbSizeProperty);
             }
             set
             {

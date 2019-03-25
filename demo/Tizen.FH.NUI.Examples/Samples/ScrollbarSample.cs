@@ -6,11 +6,10 @@ namespace Tizen.FH.NUI.Samples
 {
     public class ScrollbarSample : IExample
     {
-        private TextLabel board1, board2, board3, board, tl, tl2;
+        private TextLabel board1, board2, board3, board;
         private Button button1, button2, button3, button4;
         private ScrollBar scrollBar1, scrollBar2;
         private ScrollBar daScrollBar1, daScrollBar2;
-        private ScrollBar vdScrollBar1, vdScrollBar2;
         private View root;
 
         public void Activate()
@@ -116,7 +115,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar1.Size2D = new Size2D(300, 4);
             daScrollBar1.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
             daScrollBar1.MinValue = 0;
-            daScrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            daScrollBar1.ThumbSize = new Size2D(30, 4);
             daScrollBar1.CurrentValue = 0;
 
             daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
@@ -129,7 +128,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar1.TrackColor = Color.Green;
             scrollBar1.MaxValue = (uint)scrollBar1.SizeWidth / 10;
             scrollBar1.MinValue = 0;
-            scrollBar1.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar1.ThumbSize = new Size2D(30, 4);
             scrollBar1.CurrentValue = 0;
 
             scrollBar1.ThumbColor = Color.Black;
@@ -159,46 +158,10 @@ namespace Tizen.FH.NUI.Samples
             scrollBar2.Size2D = new Size2D(300, 4);
             scrollBar2.MaxValue = (uint)scrollBar2.SizeWidth / 10;
             scrollBar2.MinValue = 0;
-            scrollBar2.ThumbSize = new Size(30.0f, 4.0f, 0.0f);
+            scrollBar2.ThumbSize = new Size2D(30, 4);
             scrollBar2.CurrentValue = 0;
 
             root.Add(scrollBar2);
-
-            daScrollBar2 = new ScrollBar("DAScrollbar");
-            daScrollBar2.Position2D = new Position2D(450, 300);
-            daScrollBar2.Size2D = new Size2D(4, 300);
-            daScrollBar2.MaxValue = (uint)daScrollBar2.SizeHeight / 10;
-            daScrollBar2.MinValue = 0;
-            daScrollBar2.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
-            daScrollBar2.CurrentValue = 0;
-
-            daScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
-            root.Add(daScrollBar2);
-            daScrollBar2.PanGestureEvent += ScrollPan;
-
-            vdScrollBar1 = new ScrollBar("VDScrollbar");
-            vdScrollBar1.Position2D = new Position2D(800, 500);
-            vdScrollBar1.Size2D = new Size2D(300, 3);
-            vdScrollBar1.MaxValue = (uint)vdScrollBar1.SizeWidth / 10;
-            vdScrollBar1.MinValue = 0;
-            vdScrollBar1.ThumbSize = new Size(30.0f, 3.0f, 0.0f);
-            vdScrollBar1.CurrentValue = 0;
-
-            vdScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
-            root.Add(vdScrollBar1);
-            
-
-
-            vdScrollBar2 = new ScrollBar("VDScrollbar");
-            vdScrollBar2.Position2D = new Position2D(1150, 300);
-            vdScrollBar2.Size2D = new Size2D(3, 300);
-            vdScrollBar2.MaxValue = (uint)vdScrollBar2.SizeHeight / 10;
-            vdScrollBar2.MinValue = 0;
-            vdScrollBar2.ThumbSize = new Size(3.0f, 30.0f, 0.0f);
-            vdScrollBar2.CurrentValue = 0;
-
-            vdScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
-            root.Add(vdScrollBar2);
 
             board.UpFocusableView = button1;
 

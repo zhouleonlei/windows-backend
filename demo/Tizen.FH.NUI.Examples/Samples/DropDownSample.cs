@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar.Position2D = new Position2D(394, 2);
             scrollBar.Size2D = new Size2D(4, 446);
             scrollBar.TrackColor = Color.Green;
-            scrollBar.ThumbSize = new Size(4.0f, 30.0f, 0.0f);
+            scrollBar.ThumbSize = new Size2D(4, 30);
             scrollBar.ThumbColor = Color.Yellow;
             scrollBar.TrackImageURL = CommonResource.GetFHResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             dropDown.AttachScrollBar(scrollBar);
