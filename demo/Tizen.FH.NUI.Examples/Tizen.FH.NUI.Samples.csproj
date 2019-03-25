@@ -52,6 +52,7 @@
     <Compile Include="Samples\DatePickerSample.cs" />
     <Compile Include="Samples\DropDownSample.cs" />
     <Compile Include="Samples\NavigationSample.cs" />
+    <Compile Include="Samples\NaviFrameSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />
     <Compile Include="Samples\InputFieldSample.cs" />
     <Compile Include="Samples\ListItemSample.cs" />

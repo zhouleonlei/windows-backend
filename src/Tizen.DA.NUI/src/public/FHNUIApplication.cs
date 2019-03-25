@@ -265,6 +265,7 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("DefaultHeader", null, typeof(DefaultHeaderAttributes));
             StyleManager.Instance.RegisterStyle("OpaqueHeader", null, typeof(OpaqueHeaderAttributes));
             StyleManager.Instance.RegisterStyle("TransparencyHeader", null, typeof(TransparencyHeaderAttributes));
+            StyleManager.Instance.RegisterStyle("DefaultNaviFrame", null, typeof(DefaultNaviFrameAttributes));
         }
         private void CleanupComponent()
         {
