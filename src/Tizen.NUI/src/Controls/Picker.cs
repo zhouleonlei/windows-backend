@@ -104,6 +104,7 @@ namespace Tizen.NUI.Controls
                 }
                 if (dropDown != null)
                 {
+                    dropDown.ItemClickEvent -= DropDownItemClickEvent;
                     Remove(dropDown);
                     dropDown.Dispose();
                     dropDown = null;
@@ -237,7 +238,8 @@ namespace Tizen.NUI.Controls
 
             if (pickerAttributes.DropDownAttrs != null)
             {
-                dropDown = new DropDown(pickerAttributes.DropDownAttrs);          
+                dropDown = new DropDown(pickerAttributes.DropDownAttrs);  
+                dropDown.ItemClickEvent += DropDownItemClickEvent;
                 Add(dropDown);
             }
             
@@ -474,6 +476,30 @@ namespace Tizen.NUI.Controls
             }
             return false;
         }
+
+        private void DropDownItemClickEvent(object sender, DropDown.ItemClickEventArgs e)
+        {
+            int year = 0;
+            if (int.TryParse(e.Text, out year))
+            {
+                if (year == showDate.Year)
+                {
+                    return;
+                }
+                
+                int month = showDate.Month;
+                if (month == curDate.Month && year == curDate.Year)
+                {
+                    showDate = new DateTime(curDate.Year, curDate.Month ,curDate.Day);
+                }
+                else
+                {
+                    showDate = new DateTime(year, month ,1);
+                }
+                UpdateDate();
+            }
+        }
+        
         private bool NextMonth_TouchEvent(object source, View.TouchEventArgs e)
         {
             PointStateType state = e.Touch.GetState(0);
