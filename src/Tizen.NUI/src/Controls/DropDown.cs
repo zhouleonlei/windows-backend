@@ -22,6 +22,7 @@ namespace Tizen.NUI.Controls
         private DropDownAttributes dropDownAttributes = null;
         private DropDownItemView touchedView = null;
         private int selectedItemIndex = -1;
+        private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
 
         public DropDown() : base()
         {
@@ -49,6 +50,24 @@ namespace Tizen.NUI.Controls
                 throw new Exception("DropDown attribute parse error.");
             }
             Initialize();
+        }
+
+        public delegate void ClickEventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
+        
+        /// <summary>
+        /// Item click event.
+        /// </summary>
+        public event ClickEventHandler<ItemClickEventArgs> ItemClickEvent
+        {
+            add
+            {
+                clickEventHandlers += value;
+            }
+
+            remove
+            {
+                clickEventHandlers -= value;
+            }
         }
 
         public string HeaderText
@@ -640,6 +659,11 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(this, dropDownAttributes);                  
         }
 
+        private void OnClickEvent(object sender, ItemClickEventArgs e)
+        {
+            clickEventHandlers?.Invoke(sender, e);
+        }
+
         private void CreateHeaderText()
         {
             headerText = new TextLabel();
@@ -693,6 +717,11 @@ namespace Tizen.NUI.Controls
             if (e.ClickedView != null)
             {
                 UpdateSelectedItem(e.ClickedView.AdapterPosition);
+
+                ItemClickEventArgs args = new ItemClickEventArgs();
+                args.Index = e.ClickedView.AdapterPosition;
+                args.Text = (e.ClickedView.ItemView as DropDownItemView)?.Text;
+                OnClickEvent(this, args);
             }
 
             listBackgroundImage.Hide();
@@ -854,6 +883,14 @@ namespace Tizen.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 };
             }
+        }
+        #endregion
+
+        #region ItemClickEventArgs
+        public class ItemClickEventArgs : EventArgs
+        {
+            public int Index;
+            public String Text;
         }
         #endregion
 

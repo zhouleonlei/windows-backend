@@ -10,6 +10,7 @@ namespace Tizen.FH.NUI.Samples
         private DropDown dropDown = null;
         private DropDown dropDown2 = null;
         private ScrollBar scrollBar = null;
+        private TextLabel text = null;
 
         private static string[] iconImage = new string[]
         {
@@ -22,12 +23,21 @@ namespace Tizen.FH.NUI.Samples
             root = new SampleLayout();
             root.HeaderText = "DropDown";
 
+            text = new TextLabel();
+            text.Text = "DropDown Clicked item string is ";
+            text.Size2D = new Size2D(880, 50);
+            text.Position2D = new Position2D(100, 10);
+            text.HorizontalAlignment = HorizontalAlignment.Center;
+            text.MultiLine = true;
+            root.Add(text);
+
             dropDown = new DropDown("HeaderDropDown");
             dropDown.Size2D = new Size2D(1080, 108);
-            dropDown.Position2D = new Position2D(0, 10);
+            dropDown.Position2D = new Position2D(0, 100);
             dropDown.ListSize2D = new Size2D(360, 500);
             dropDown.HeaderText = "Header area";
             dropDown.ButtonText = "Normal list 1";
+            dropDown.ItemClickEvent += DropDownItemClickEvent;
             root.Add(dropDown);
 
             for (int i = 0; i < 8; i++)
@@ -53,7 +63,7 @@ namespace Tizen.FH.NUI.Samples
             //////////////////ListSpinner DropDown////////////////////////
             dropDown2 = new DropDown("ListDropDown");
             dropDown2.Size2D = new Size2D(1080, 108);
-            dropDown2.Position2D = new Position2D(0, 200);
+            dropDown2.Position2D = new Position2D(0, 300);
             dropDown2.ListSize2D = new Size2D(360, 192);
             dropDown2.HeaderText = "List area";
             dropDown2.ButtonText = "Menu";
@@ -72,10 +82,22 @@ namespace Tizen.FH.NUI.Samples
             dropDown.RaiseToTop();
         }
 
+        private void DropDownItemClickEvent(object sender, DropDown.ItemClickEventArgs e)
+        {
+            text.Text = "DropDown Clicked item string is " +e.Text;
+        }
+
         public void Deactivate()
         {
             if (root != null)
             {
+                if (text != null)
+                {
+                    root.Remove(text);
+                    text.Dispose();
+                    text = null;
+                }
+
                 if (dropDown != null)
                 {
                     if (scrollBar != null)
