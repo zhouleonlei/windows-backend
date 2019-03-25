@@ -114,6 +114,18 @@ namespace Tizen.NUI.Controls
                     mScrollBarShowTimer.Dispose();
                     mScrollBarShowTimer = null;
                 }
+
+                if (mRecyclerPool != null)
+                {
+                    mRecyclerPool.Clear();
+                    mRecyclerPool = null;
+                }
+
+                if (mChildHelper != null)
+                {
+                    mChildHelper.Clear();
+                    mChildHelper = null;
+                }
             }
             base.Dispose(type);
         }
@@ -260,15 +272,15 @@ namespace Tizen.NUI.Controls
                 return;
             }
             mScrollBar.MinValue = 0;
-            mScrollBar.MaxValue = (uint)mLayout.ComputeScrollRange(mState);
+            mScrollBar.MaxValue = (uint)(mLayout.ComputeScrollRange(mState) - mLayout.ComputeScrollExtent(mState));
             mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
+            mScrollBar.Show();
             //Console.WriteLine("Show scrollbar! ");
             if (mScrollBarShowTimer == null)
             {
                 mScrollBarShowTimer = new Timer(millisecond);
                 mScrollBarShowTimer.Tick += OnShowTimerTick;
             }
-            mScrollBar.Show();
             mScrollBarShowTimer.Start();
         }
 
@@ -446,6 +458,22 @@ namespace Tizen.NUI.Controls
            ShowScrollBar();
         }
 
+        private void DispatchChildAttached(ViewHolder holder)
+        {
+            if (mAdapter != null && holder != null)
+            {
+                mAdapter.OnViewAttachedToWindow(holder);
+            }
+        }
+
+        private void DispatchChildDetached(ViewHolder holder)
+        {
+            if (mAdapter != null && holder != null)
+            {
+                mAdapter.OnViewDetachedFromWindow(holder);
+            }
+        }
+
         private void DispatchItemClicked(ViewHolder clickedHolder)
         {
             ItemClickEventArgs args = new ItemClickEventArgs();
@@ -477,6 +505,8 @@ namespace Tizen.NUI.Controls
                 {
                     mLayout.ScrollHorizontallyBy((int)e.PanGesture.Displacement.X, mRecycler, mState, true);
                 }
+
+                ShowScrollBar();
             }
             else if (e.PanGesture.State == Gesture.StateType.Finished)
             {
@@ -935,7 +965,7 @@ namespace Tizen.NUI.Controls
 
             private void OnScrollAnimationFinished(object sender, EventArgs e)
             {
-                Console.WriteLine($"OnAnimationFinished...{mPendingRecycleViews.Count}");
+                //Console.WriteLine($"OnAnimationFinished...{mPendingRecycleViews.Count}");
                 RecycleChildrenInt(mFlexibleView.mRecycler);
             }
 
@@ -953,8 +983,7 @@ namespace Tizen.NUI.Controls
                 }
                 else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    mScrollAni.Stop();
-                    OnScrollAnimationFinished(mScrollAni, null);
+                    StopScroll();
                     mScrollAni.Duration = 100;
                     mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
                 }
@@ -1000,8 +1029,7 @@ namespace Tizen.NUI.Controls
                 }
                 else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    mScrollAni.Stop();
-                    OnScrollAnimationFinished(mScrollAni, null);
+                    StopScroll();
                     mScrollAni.Duration = 100;
                     mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
                 }
@@ -1096,9 +1124,27 @@ namespace Tizen.NUI.Controls
                 return mFlexibleView != null ? mFlexibleView.Padding.Bottom : 0;
             }
 
-            public void AddView(ViewHolder holder, int index = -1)
+            public void AddView(ViewHolder holder)
+            {
+                AddView(holder, -1);
+            }
+
+            public void AddView(ViewHolder holder, int index)
             {
                 mChildHelper.AddView(holder, index);
+            }
+
+            private void addViewInt(ViewHolder holder, int index, bool disappearing)
+            {
+                if (holder.IsScrap())
+                {
+                    holder.Unscrap();
+                    mChildHelper.AttachView(holder, index);
+                }
+                else
+                {
+                    mChildHelper.AddView(holder, index);
+                }
             }
 
             public void ScrapAttachedViews(Recycler recycler)
@@ -1417,7 +1463,7 @@ namespace Tizen.NUI.Controls
             
             private List<ViewHolder> mViewList = new List<ViewHolder>();
 
-            private List<ViewHolder> mRemovePendingViews;
+            //private List<ViewHolder> mRemovePendingViews;
 
             private Dictionary<uint, ViewHolder> itemViewTable = new Dictionary<uint, ViewHolder>();
             private TapGestureDetector mTapGestureDetector;
@@ -1428,6 +1474,15 @@ namespace Tizen.NUI.Controls
 
                 mTapGestureDetector = new TapGestureDetector();
                 mTapGestureDetector.Detected += OnTapGestureDetected;
+            }
+
+            public void Clear()
+            {
+                foreach(ViewHolder holder in mViewList)
+                {
+                    mFlexibleView.Remove(holder.ItemView);
+                }
+                mViewList.Clear();
             }
 
             public void ScrapViews(Recycler recycler)
@@ -1441,20 +1496,13 @@ namespace Tizen.NUI.Controls
                 mViewList.Clear();
             }
 
-            public void AddView(ViewHolder holder, int index)
+            public void AttachView(ViewHolder holder, int index)
             {
-                //Console.WriteLine($"ChildHelper.AddView {holder.AdapterPosition} to {index}");
-                if (holder.IsScrap())
-                {
-                    holder.Unscrap();
-                }
                 if (index == -1)
                 {
                     index = mViewList.Count;
                 }
                 mViewList.Insert(index, holder);
-
-                mFlexibleView.Add(holder.ItemView);
 
                 if (itemViewTable.ContainsKey(holder.ItemView.ID))
                 {
@@ -1469,10 +1517,23 @@ namespace Tizen.NUI.Controls
                 }
             }
 
+            public void AddView(ViewHolder holder, int index)
+            {
+                //Console.WriteLine($"ChildHelper.AddView {holder.AdapterPosition} to {index}");
+                mFlexibleView.Add(holder.ItemView);
+
+                mFlexibleView.DispatchChildAttached(holder);
+
+                AttachView(holder, index);
+            }
+
             public bool RemoveView(ViewHolder holder)
             {
                 //Console.WriteLine($"ChildHelper.RemoveView {holder.AdapterPosition}");
                 mFlexibleView.Remove(holder.ItemView);
+
+                mFlexibleView.DispatchChildDetached(holder);
+
                 return mViewList.Remove(holder);
             }
 
@@ -1518,7 +1579,7 @@ namespace Tizen.NUI.Controls
                 if (itemViewTable.ContainsKey(itemView.ID))
                 {
                     ViewHolder holder = itemViewTable[itemView.ID];
-                    Console.WriteLine($"*Tap* {itemView.Name} index: {holder.AdapterPosition}");
+                    //Console.WriteLine($"*Tap* {itemView.Name} index: {holder.AdapterPosition}");
                     mFlexibleView.FocusedItemIndex = holder.AdapterPosition;
 
                     mFlexibleView.DispatchItemClicked(holder);
@@ -1533,7 +1594,7 @@ namespace Tizen.NUI.Controls
                     ViewHolder holder = itemViewTable[itemView.ID];
                     if (e.Touch.GetState(0) != PointStateType.Motion)
                     {
-                        Console.WriteLine($"*Touch* {itemView.Name} index: {holder.AdapterPosition} {e.Touch.GetState(0)}");
+                        //Console.WriteLine($"*Touch* {itemView.Name} index: {holder.AdapterPosition} {e.Touch.GetState(0)}");
                     }
 
                     mFlexibleView.DispatchItemTouched(holder, e.Touch);
@@ -1713,6 +1774,16 @@ namespace Tizen.NUI.Controls
         }
 
 
+        /**
+         * <p>Contains useful information about the current RecyclerView state like target scroll
+         * position or view focus. State object can also keep arbitrary data, identified by resource
+         * ids.</p>
+         * <p>Often times, RecyclerView components will need to pass information between each other.
+         * To provide a well defined data bus between components, RecyclerView passes the same State
+         * object to component callbacks and these components can use it to exchange data.</p>
+         * <p>If you implement custom components, you can use State's put/get/remove methods to pass
+         * data between your components without needing to manage their lifecycles.</p>
+         */
         public class ViewState
         {
             static readonly int STEP_START = 1;
@@ -1928,7 +1999,14 @@ namespace Tizen.NUI.Controls
 
             public void Clear()
             {
-
+                for (int i = 0; i < mMaxTypeCount; i++)
+                {
+                    for (int j = 0; j < mScrap[i].Count; j++)
+                    {
+                        mScrap[i][j].ItemView.Dispose();
+                    }
+                    mScrap[i].Clear();
+                }
             }
         }
 

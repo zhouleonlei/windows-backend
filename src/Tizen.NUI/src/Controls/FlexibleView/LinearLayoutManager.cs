@@ -185,12 +185,53 @@ namespace Tizen.NUI.Controls
 
         public override int ComputeScrollOffset(FlexibleView.ViewState state)
         {
-            return state.FocusPosition != -1 ? state.FocusPosition : 0;
+            FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
+            FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
+            if (GetChildCount() == 0 || startChild == null || endChild == null)
+            {
+                return 0;
+            }
+            int minPosition = Math.Min(startChild.LayoutPosition, endChild.LayoutPosition);
+            int maxPosition = Math.Max(startChild.LayoutPosition, endChild.LayoutPosition);
+            int itemsBefore = mShouldReverseLayout
+                    ? Math.Max(0, state.ItemCount - maxPosition - 1)
+                    : Math.Max(0, minPosition);
+
+            float laidOutArea = mOrientationHelper.GetViewHolderEnd(endChild)
+                   - mOrientationHelper.GetViewHolderStart(startChild);
+            int itemRange = Math.Abs(startChild.LayoutPosition - endChild.LayoutPosition) + 1;
+            float avgSizePerRow = laidOutArea / itemRange;
+
+            return (int)Math.Round(itemsBefore * avgSizePerRow + (mOrientationHelper.GetStartAfterPadding()
+                    - mOrientationHelper.GetViewHolderStart(startChild)));
+        }
+
+        public override int ComputeScrollExtent(FlexibleView.ViewState state)
+        {
+            FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
+            FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
+            if (GetChildCount() == 0 || startChild == null || endChild == null)
+            {
+                return 0;
+            }
+            float extend = mOrientationHelper.GetViewHolderEnd(endChild)
+                - mOrientationHelper.GetViewHolderStart(startChild);
+            return (int)Math.Min(mOrientationHelper.GetTotalSpace(), extend);
         }
 
         public override int ComputeScrollRange(FlexibleView.ViewState state)
         {
-            return state.ItemCount - 1;
+            FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
+            FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
+            if (GetChildCount() == 0 || startChild == null || endChild == null)
+            {
+                return 0;
+            }
+            float laidOutArea = mOrientationHelper.GetViewHolderEnd(endChild)
+                    - mOrientationHelper.GetViewHolderStart(startChild);
+            int laidOutRange = Math.Abs(startChild.LayoutPosition - endChild.LayoutPosition) + 1;
+            // estimate a size for full list.
+            return (int)(laidOutArea / laidOutRange * state.ItemCount);
         }
 
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)

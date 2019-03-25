@@ -131,6 +131,16 @@ namespace Tizen.NUI.Samples
             }
         }
 
+        public override void OnViewAttachedToWindow(FlexibleView.ViewHolder holder)
+        {
+            Console.WriteLine($"+Attached: {holder.AdapterPosition}");
+        }
+
+        public override void OnViewDetachedFromWindow(FlexibleView.ViewHolder holder)
+        {
+            Console.WriteLine($" --Detached: {holder.AdapterPosition}");
+        }
+
     }
 
     public class FlexibleViewSample : IExample
@@ -288,12 +298,6 @@ namespace Tizen.NUI.Samples
                 }
                 else if (key.KeyPressedName == "7")
                 {
-                    uint childCount = flexibleView2.GetChildCount();
-                    for (uint i = 0; i < childCount; i++)
-                    {
-                        View child = flexibleView2.GetChildAt(i);
-                        Console.WriteLine($"{i} {child.ID} {child.Name} {child.PositionX},{child.PositionY}");
-                    }
                 }
             }
 
