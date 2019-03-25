@@ -61,6 +61,10 @@ namespace Tizen.FH.NUI.Controls
                     TextColor = new ColorSelector
                     {
                         All = new Color(0, 0, 0, 0.75f),
+                    },
+                    PointSize = new FloatSelector
+                    {
+                        All = 30,
                     }
                 }
             };
