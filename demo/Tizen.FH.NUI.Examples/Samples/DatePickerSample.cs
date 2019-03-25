@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-
+using Tizen.FH.NUI.Controls;
 
 namespace Tizen.FH.NUI.Samples
 {

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
 using System.Globalization;
+using Tizen.NUI.CommonUI;
+using Tizen.NUI;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class Picker : Control
     {

@@ -1,7 +1,7 @@
 ﻿using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
+using Tizen.NUI.CommonUI;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class HeaderAttributes : ViewAttributes
     {

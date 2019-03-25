@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.CommonUI;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class Header : Control
     {
@@ -151,8 +153,8 @@ namespace Tizen.NUI.CommonUI
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         Size2D = new Size2D(1080, 1),
                         PositionUsesPivotPoint = true,
-                        ParentOrigin = NUI.ParentOrigin.BottomLeft,
-                        PivotPoint = NUI.PivotPoint.TopLeft
+                        ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                     };
                     this.Add(HeaderLine);
                 }

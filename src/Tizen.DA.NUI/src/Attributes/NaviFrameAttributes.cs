@@ -1,6 +1,7 @@
 ﻿using Tizen.NUI.Binding;
+using Tizen.NUI.CommonUI;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class NaviFrameAttributes : ViewAttributes
     {

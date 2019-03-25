@@ -50,7 +50,7 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        internal bool StateFocusableOnTouchMode
+        public bool StateFocusableOnTouchMode
         {
             get;
             set;

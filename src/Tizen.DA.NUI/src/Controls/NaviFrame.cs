@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.CommonUI;
 
-
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class NaviFrame : Control
     {

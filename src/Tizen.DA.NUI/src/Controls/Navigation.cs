@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.CommonUI;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.FH.NUI.Controls
 {
     public class Navigation : Control
     {

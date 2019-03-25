@@ -1,10 +1,12 @@
 ﻿using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 using System;
+using Tizen.FH.NUI.Controls;
+using Tizen.NUI;
 
-namespace Tizen.NUI.Samples
+namespace Tizen.FH.NUI.Samples
 {
-    public class NavigationSample : IExample
+    public class NavigationAttributesSample : IExample
     {
         private View root;
 
@@ -25,40 +27,40 @@ namespace Tizen.NUI.Samples
         private Navigation blackEditNavigation2 = null;
         private static string[] itemPressImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_press.png",
         };
         private static string[] itemNormalImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy.png",
         };
         private static string[] itemDimImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_calendar_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_copy_dim.png",
         };
 
         private static string[] itemBlackPressImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_press.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_press.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_press.png",
         };
         private static string[] itemBlackNormalImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b.png",
         };
         private static string[] itemBlackDimImage = new string[]
         {
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_dim.png",
-            CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_copy_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_play_b_dim.png",
+            CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_search_b_dim.png",
         };
         public void Activate()
         {
@@ -88,11 +90,11 @@ namespace Tizen.NUI.Samples
             root.Add(whiteNavigation);
             Navigation.NavigationItemData backItem = new Navigation.NavigationItemData();
             backItem.Size2D = new Size2D(120, 140);
-            backItem.IconURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png";
-            backItem.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png";
+            backItem.IconURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png";
+            backItem.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png";
             backItem.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg_press_overlay.png",
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg_press_overlay.png",
                 Other = "",
             };
             backItem.IconSize2D = new Size2D(56, 56);
@@ -109,11 +111,11 @@ namespace Tizen.NUI.Samples
 
             Navigation.NavigationItemData blackBackItem = new Navigation.NavigationItemData();
             blackBackItem.Size2D = new Size2D(120, 140);
-            blackBackItem.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png";
+            blackBackItem.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png";
             blackBackItem.IconURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b_press.png",
-                Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b.png"
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b_press.png",
+                Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b.png"
             };
             blackBackItem.IconSize2D = new Size2D(56, 56);
             blackBackItem.EnableIconCenter = true;
@@ -123,7 +125,7 @@ namespace Tizen.NUI.Samples
             #region WhiteConditionNavigation
             conditionNavigation = new Navigation();
             conditionNavigation.Position2D = new Position2D(100, 300);
-            conditionNavigation.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_bg.png";
+            conditionNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_bg.png";
             conditionNavigation.BackgroundImageBorder = new Rectangle(0, 0, 103, 103);
             conditionNavigation.LeftSpace = 8;
             conditionNavigation.RightSpace = 0;
@@ -180,7 +182,7 @@ namespace Tizen.NUI.Samples
             #region BlackConditionNavigation
             blackConditionNavigation = new Navigation();
             blackConditionNavigation.Position2D = new Position2D(300, 300);
-            blackConditionNavigation.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_bg_b.png";
+            blackConditionNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_bg_b.png";
             blackConditionNavigation.BackgroundImageBorder = new Rectangle(0, 0, 103, 103);
             blackConditionNavigation.LeftSpace = 8;
             blackConditionNavigation.RightSpace = 0;
@@ -239,8 +241,8 @@ namespace Tizen.NUI.Samples
             whiteEditNavigation.Size2D = new Size2D(178, 800);
             whiteEditNavigation.ShadowImageSize2D = new Size2D(6, 800);
             whiteEditNavigation.Position2D = new Position2D(500, 150);
-            whiteEditNavigation.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_shadow.png";
-            whiteEditNavigation.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_bg.png";
+            whiteEditNavigation.ShadowImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_shadow.png";
+            whiteEditNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_bg.png";
             whiteEditNavigation.BackgroundColor = new Color(1, 1, 1, 0.9f);
             whiteEditNavigation.IsFitWithItems = false;
 
@@ -316,11 +318,11 @@ namespace Tizen.NUI.Samples
 
             lastEditItem.IconURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
-                Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
+                Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
             };
             lastEditItem.IconSize2D = new Size2D(56, 56);
 
@@ -336,8 +338,8 @@ namespace Tizen.NUI.Samples
             blackEditNavigation.Size2D = new Size2D(178, 800);
             blackEditNavigation.ShadowImageSize2D = new Size2D(6, 800);
             blackEditNavigation.Position2D = new Position2D(750, 150);
-            blackEditNavigation.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_shadow_b.png";
-            blackEditNavigation.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_bg_b.png";
+            blackEditNavigation.ShadowImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_shadow_b.png";
+            blackEditNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_bg_b.png";
             blackEditNavigation.BackgroundColor = new Color(1, 1, 1, 0.9f);
             blackEditNavigation.IsFitWithItems = false;
 
@@ -410,11 +412,11 @@ namespace Tizen.NUI.Samples
 
             bLastEditItem.IconURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
-                Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
+                Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
+                Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
             };
             bLastEditItem.IconSize2D = new Size2D(56, 56);
 
@@ -451,17 +453,17 @@ namespace Tizen.NUI.Samples
                 IconAttributes = new ImageAttributes()
                 {
                     Size2D = new Size2D(56, 56),
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png" },
                 },
                 BackgroundImageAttributes = new ImageAttributes()
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png" },
                 },
                 OverlayImageAttributes = new ImageAttributes()
                 {
                     ResourceURL = new StringSelector
                     {
-                        Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg_press_overlay.png",
+                        Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg_press_overlay.png",
                         Other = "",
                     },
                 },
@@ -490,13 +492,13 @@ namespace Tizen.NUI.Samples
                     Size2D = new Size2D(56, 56),
                     ResourceURL = new StringSelector
                     {
-                        Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b_press.png",
-                        Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b.png"
+                        Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b_press.png",
+                        Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_back_b.png"
                     },
                 },
                 BackgroundImageAttributes = new ImageAttributes()
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png" },
                 },
                 EnableIconCenter = true
             };
@@ -509,7 +511,7 @@ namespace Tizen.NUI.Samples
             {
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_bg.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_bg.png" },
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 103, 103) },
                 },
                 Space = new Vector4(8, 0, 40, 40),
@@ -588,7 +590,7 @@ namespace Tizen.NUI.Samples
             {
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_bg_b.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_bg_b.png" },
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 103, 103) },
                 },
                 Space = new Vector4(8, 0, 40, 40),
@@ -668,11 +670,11 @@ namespace Tizen.NUI.Samples
                 ShadowImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(6, 800),
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_shadow.png" },
                 },
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_bg.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_bg.png" },
                 },
                 BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 0.9f) },
                 IsFitWithItems = false,
@@ -788,11 +790,11 @@ namespace Tizen.NUI.Samples
                     Size2D = new Size2D(56, 56),
                     ResourceURL = new StringSelector
                     {
-                        Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                        DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
-                        Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
+                        Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_press.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                        DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel_dim.png",
+                        Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_cancel.png"
                     },
                 },
                 DividerLineAttributes = new ViewAttributes
@@ -817,11 +819,11 @@ namespace Tizen.NUI.Samples
                 ShadowImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(6, 800),
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_shadow_b.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_shadow_b.png" },
                 },
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_bg_b.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_editmode_bg_b.png" },
                 },
                 BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 0.9f) },
                 IsFitWithItems = false,
@@ -937,11 +939,11 @@ namespace Tizen.NUI.Samples
                     Size2D = new Size2D(56, 56),
                     ResourceURL = new StringSelector
                     {
-                        Pressed = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                        DisabledFocused = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
-                        Other = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
+                        Pressed = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                        DisabledFocused = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_dim.png",
+                        Other = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b.png"
                     },
                 },
                 DividerLineAttributes = new ViewAttributes
