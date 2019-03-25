@@ -73,7 +73,7 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(whiteNavigation);
 
-            Navigation.NavigationItem backItem = new Navigation.NavigationItem("WhiteBackItem");
+            Navigation.NavigationItemData backItem = new Navigation.NavigationItemData("WhiteBackItem");
             whiteNavigation.AddItem(backItem);
             #endregion
 
@@ -84,7 +84,7 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(blackNavigation);
 
-            Navigation.NavigationItem blackBackItem = new Navigation.NavigationItem("BlackBackItem");
+            Navigation.NavigationItemData blackBackItem = new Navigation.NavigationItemData("BlackBackItem");
             blackNavigation.AddItem(blackBackItem);
             #endregion
 
@@ -97,7 +97,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItem conditionItem = new Navigation.NavigationItem("WhiteConditionItem");
+                Navigation.NavigationItemData conditionItem = new Navigation.NavigationItemData("WhiteConditionItem");
                 conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
@@ -122,7 +122,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItem conditionItem = new Navigation.NavigationItem("BlackConditionItem");
+                Navigation.NavigationItemData conditionItem = new Navigation.NavigationItemData("BlackConditionItem");
                 conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
@@ -146,7 +146,7 @@ namespace Tizen.FH.NUI.Samples
             whiteEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(whiteEditNavigation);
 
-            Navigation.NavigationItem firstEditItem = new Navigation.NavigationItem("WhiteEditModeFirstItem");
+            Navigation.NavigationItemData firstEditItem = new Navigation.NavigationItemData("WhiteEditModeFirstItem");
             firstEditItem.Size2D = new Size2D(178, 184);
             firstEditItem.Text = "1";
             firstEditItem.SubText = "SELECTED";
@@ -154,7 +154,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem editItem = new Navigation.NavigationItem("WhiteEditModeItem");
+                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData("WhiteEditModeItem");
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -167,7 +167,7 @@ namespace Tizen.FH.NUI.Samples
                 };
                 whiteEditNavigation.AddItem(editItem);
             }
-            Navigation.NavigationItem editLastItem = new Navigation.NavigationItem("WhiteEditModeLastItem");
+            Navigation.NavigationItemData editLastItem = new Navigation.NavigationItemData("WhiteEditModeLastItem");
             editLastItem.Size2D = new Size2D(178, 166);
             editLastItem.Text = "Cancel";
             editLastItem.IconURLSelector = new StringSelector
@@ -189,7 +189,7 @@ namespace Tizen.FH.NUI.Samples
             blackEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(blackEditNavigation);
 
-            Navigation.NavigationItem firstEditItem2 = new Navigation.NavigationItem("BlackEditModeFirstItem");
+            Navigation.NavigationItemData firstEditItem2 = new Navigation.NavigationItemData("BlackEditModeFirstItem");
             firstEditItem2.Size2D = new Size2D(178, 184);
             firstEditItem2.Text = "1";
             firstEditItem2.SubText = "SELECTED";
@@ -197,7 +197,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem editItem = new Navigation.NavigationItem("BlackEditModeItem");
+                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData("BlackEditModeItem");
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -210,7 +210,7 @@ namespace Tizen.FH.NUI.Samples
                 };
                 blackEditNavigation.AddItem(editItem);
             }
-            Navigation.NavigationItem editLastItem2 = new Navigation.NavigationItem("BlackEditModeLastItem");
+            Navigation.NavigationItemData editLastItem2 = new Navigation.NavigationItemData("BlackEditModeLastItem");
             editLastItem2.Size2D = new Size2D(178, 166);
             editLastItem2.Text = "Cancel";
             editLastItem2.IconURLSelector = new StringSelector
@@ -227,6 +227,7 @@ namespace Tizen.FH.NUI.Samples
 
         private void NavigationItemChangedEvent(object sender, Navigation.ItemChangeEventArgs e)
         {
+            //conditionNavigation.DeleteItem(0);
             text.Text = "Create Navigation just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
 

@@ -86,7 +86,7 @@ namespace Tizen.NUI.Samples
             whiteNavigation.IsFitWithItems = true;
 
             root.Add(whiteNavigation);
-            Navigation.NavigationItem backItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData backItem = new Navigation.NavigationItemData();
             backItem.Size2D = new Size2D(120, 140);
             backItem.IconURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png";
             backItem.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png";
@@ -107,7 +107,7 @@ namespace Tizen.NUI.Samples
 
             root.Add(blackNavigation);
 
-            Navigation.NavigationItem blackBackItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData blackBackItem = new Navigation.NavigationItemData();
             blackBackItem.Size2D = new Size2D(120, 140);
             blackBackItem.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png";
             blackBackItem.IconURLSelector = new StringSelector
@@ -137,7 +137,7 @@ namespace Tizen.NUI.Samples
             root.Add(conditionNavigation);
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItem conditionItem = new Navigation.NavigationItem();
+                Navigation.NavigationItemData conditionItem = new Navigation.NavigationItemData();
                 conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
@@ -194,7 +194,7 @@ namespace Tizen.NUI.Samples
             root.Add(blackConditionNavigation);
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItem blackConditionItem = new Navigation.NavigationItem();
+                Navigation.NavigationItemData blackConditionItem = new Navigation.NavigationItemData();
                 blackConditionItem.Size2D = new Size2D(116, 128);
                 blackConditionItem.Text = "Text " + i;
                 blackConditionItem.SubText = "SubText " + i;
@@ -246,7 +246,7 @@ namespace Tizen.NUI.Samples
 
             root.Add(whiteEditNavigation);
 
-            Navigation.NavigationItem firstEditItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData firstEditItem = new Navigation.NavigationItemData();
             firstEditItem.Size2D = new Size2D(178, 184);
             firstEditItem.LeftSpace = 24;
             firstEditItem.RightSpace = 24;
@@ -272,7 +272,7 @@ namespace Tizen.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem editItem = new Navigation.NavigationItem();
+                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData();
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.TextColorSelector = new ColorSelector
@@ -302,7 +302,7 @@ namespace Tizen.NUI.Samples
                 whiteEditNavigation.AddItem(editItem);
             }
 
-            Navigation.NavigationItem lastEditItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData lastEditItem = new Navigation.NavigationItemData();
             lastEditItem.Size2D = new Size2D(178, 166);
             lastEditItem.LeftSpace = 24;
             lastEditItem.RightSpace = 24;
@@ -343,7 +343,7 @@ namespace Tizen.NUI.Samples
 
             root.Add(blackEditNavigation);
 
-            Navigation.NavigationItem bFirstEditItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData bFirstEditItem = new Navigation.NavigationItemData();
             bFirstEditItem.Size2D = new Size2D(178, 184);
             bFirstEditItem.LeftSpace = 24;
             bFirstEditItem.RightSpace = 24;
@@ -369,7 +369,7 @@ namespace Tizen.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem bEditItem = new Navigation.NavigationItem();
+                Navigation.NavigationItemData bEditItem = new Navigation.NavigationItemData();
                 bEditItem.Size2D = new Size2D(178, 108);
                 bEditItem.Text = "Text " + i;
                 bEditItem.TextColorSelector = new ColorSelector
@@ -396,7 +396,7 @@ namespace Tizen.NUI.Samples
                 blackEditNavigation.AddItem(bEditItem);
             }
 
-            Navigation.NavigationItem bLastEditItem = new Navigation.NavigationItem();
+            Navigation.NavigationItemData bLastEditItem = new Navigation.NavigationItemData();
             bLastEditItem.Size2D = new Size2D(178, 166);
             bLastEditItem.LeftSpace = 24;
             bLastEditItem.RightSpace = 24;
@@ -467,7 +467,7 @@ namespace Tizen.NUI.Samples
                 },
                 EnableIconCenter = true
             };
-            Navigation.NavigationItem backItem2 = new Navigation.NavigationItem(attrs);
+            Navigation.NavigationItemData backItem2 = new Navigation.NavigationItemData(attrs);
             whiteNavigation2.AddItem(backItem2);
             #endregion
 
@@ -500,7 +500,7 @@ namespace Tizen.NUI.Samples
                 },
                 EnableIconCenter = true
             };
-            Navigation.NavigationItem blackBackItem2 = new Navigation.NavigationItem(blackItemAttrs);
+            Navigation.NavigationItemData blackBackItem2 = new Navigation.NavigationItemData(blackItemAttrs);
             blackNavigation2.AddItem(blackBackItem2);
             #endregion
             //////condition navigation//////////
@@ -567,7 +567,7 @@ namespace Tizen.NUI.Samples
             };
             for (int i = 0; i < 3; i++)
             {               
-                Navigation.NavigationItem conditionItem2 = new Navigation.NavigationItem(conditionItemAttr2);
+                Navigation.NavigationItemData conditionItem2 = new Navigation.NavigationItemData(conditionItemAttr2);
                 conditionItem2.Size2D = new Size2D(116, 128);
                 conditionItem2.Text = "Text " + i;
                 conditionItem2.SubText = "SubText " + i;
@@ -646,7 +646,7 @@ namespace Tizen.NUI.Samples
             };
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItem conditionItem2 = new Navigation.NavigationItem(blackConditionItemAttr2);
+                Navigation.NavigationItemData conditionItem2 = new Navigation.NavigationItemData(blackConditionItemAttr2);
                 conditionItem2.Size2D = new Size2D(116, 128);
                 conditionItem2.Text = "Text " + i;
                 conditionItem2.SubText = "SubText " + i;
@@ -722,7 +722,7 @@ namespace Tizen.NUI.Samples
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 },
             };
-            Navigation.NavigationItem firstEditItem2 = new Navigation.NavigationItem(firstItemAttrs);
+            Navigation.NavigationItemData firstEditItem2 = new Navigation.NavigationItemData(firstItemAttrs);
             firstEditItem2.Size2D = new Size2D(178, 184);
             whiteEditNavigation2.AddItem(firstEditItem2);
 
@@ -753,7 +753,7 @@ namespace Tizen.NUI.Samples
             };
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem editItem = new Navigation.NavigationItem(itemAttributes2);
+                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData(itemAttributes2);
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -806,7 +806,7 @@ namespace Tizen.NUI.Samples
                 },
             };
 
-            Navigation.NavigationItem lastEditItem2 = new Navigation.NavigationItem(lastItemAttrs);
+            Navigation.NavigationItemData lastEditItem2 = new Navigation.NavigationItemData(lastItemAttrs);
             lastEditItem2.Size2D = new Size2D(178, 166);
             whiteEditNavigation2.AddItem(lastEditItem2);
             #endregion
@@ -871,7 +871,7 @@ namespace Tizen.NUI.Samples
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 },
             };
-            Navigation.NavigationItem blackFirstEditItem = new Navigation.NavigationItem(blackFirstItemAttrs);
+            Navigation.NavigationItemData blackFirstEditItem = new Navigation.NavigationItemData(blackFirstItemAttrs);
             blackFirstEditItem.Size2D = new Size2D(178, 184);
             blackEditNavigation2.AddItem(blackFirstEditItem);
 
@@ -902,7 +902,7 @@ namespace Tizen.NUI.Samples
             };
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItem editItem = new Navigation.NavigationItem(blackItemAttributes);
+                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData(blackItemAttributes);
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -955,7 +955,7 @@ namespace Tizen.NUI.Samples
                 },
             };
 
-            Navigation.NavigationItem blackLastEditItem = new Navigation.NavigationItem(blackLastItemAttrs);
+            Navigation.NavigationItemData blackLastEditItem = new Navigation.NavigationItemData(blackLastItemAttrs);
             blackLastEditItem.Size2D = new Size2D(178, 166);
             blackEditNavigation2.AddItem(blackLastEditItem);
             #endregion

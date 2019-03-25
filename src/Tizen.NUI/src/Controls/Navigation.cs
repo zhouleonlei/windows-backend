@@ -239,15 +239,32 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public void AddItem(NavigationItem item)
+        public void AddItem(NavigationItemData itemData)
         {
-            item.TouchEvent += ItemTouchEvent;
-            rootView.Add(item);
-            item.Index = itemList.Count;
-            item.Name = "Item" + item.Index;
-            itemList.Add(item);
+            AddItemByIndex(itemData, itemList.Count);
+        }
 
-            AddDividerLine();
+        public void InsertItem(NavigationItemData itemData, int index)
+        {
+            AddItemByIndex(itemData, index);
+        }
+
+        public void DeleteItem(int itemIndex)
+        {
+            if (itemList == null || itemIndex < 0 || itemIndex >= itemList.Count)
+            {
+                return;
+            }
+
+
+            if (curIndex > itemIndex || (curIndex == itemIndex && itemIndex == itemList.Count - 1))
+            {
+                curIndex--;
+            }
+
+            Remove(itemList[itemIndex]);
+            itemList[itemIndex].Dispose();
+            itemList.RemoveAt(itemIndex);
 
             UpdateItem();
             if (curIndex != -1)
@@ -270,29 +287,39 @@ namespace Tizen.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
-                for (int i = 0; i < dividerLineList.Count; i++)
-                {
-                    if(dividerLineList[i] != null)
-                    {
-                        rootView.Remove(dividerLineList[i]);
-                        dividerLineList[i].Dispose();
-                        dividerLineList[i] = null;
-                    }
-                }
-                dividerLineList.Clear();
-
-                for (int i = 0; i < itemList.Count; i++)
-                {
-                    if (itemList[i] != null)
-                    {
-                        rootView.Remove(itemList[i]);
-                        itemList[i] = null;
-                    }
-                }
-                itemList.Clear(); // Each item will be disposed by user
 
                 if (rootView != null)
                 {
+                    if (dividerLineList != null)
+                    {
+                        for (int i = 0; i < dividerLineList.Count; i++)
+                        {
+                            if (dividerLineList[i] != null)
+                            {
+                                rootView.Remove(dividerLineList[i]);
+                                dividerLineList[i].Dispose();
+                                dividerLineList[i] = null;
+                            }
+                        }
+                        dividerLineList.Clear();
+                        dividerLineList = null;
+                    }
+
+                    if (itemList != null)
+                    {
+                        for (int i = 0; i < itemList.Count; i++)
+                        {
+                            if (itemList[i] != null)
+                            {
+                                rootView.Remove(itemList[i]);
+                                itemList[i].Dispose();
+                                itemList[i] = null;
+                            }
+                        }
+                        itemList.Clear();
+                        itemList = null;
+                    }
+
                     Remove(rootView);
                     rootView.Dispose();
                     rootView = null;
@@ -327,6 +354,30 @@ namespace Tizen.NUI.Controls
             rootView = new View();
             rootView.Name = "RootView";
             Add(rootView);
+        }
+
+        private void AddItemByIndex(NavigationItemData itemData, int index)
+        {
+            NavigationItem item = new NavigationItem(itemData.ItemAttributes);
+            item.TouchEvent += ItemTouchEvent;
+            rootView.Add(item);
+            item.Size2D = itemData.ItemAttributes.Size2D;
+            if (index >= itemList.Count)
+            {
+                itemList.Add(item);
+            }
+            else
+            {
+                itemList.Insert(index, item);
+            }
+
+            AddDividerLine();
+
+            UpdateItem();
+            if (curIndex != -1)
+            {
+                itemList[curIndex].State = States.Selected;
+            }
         }
 
         private void CreateShadowImageAttributes()
@@ -377,12 +428,12 @@ namespace Tizen.NUI.Controls
         private void UpdateItem()
         {
             int totalNum = itemList.Count;
-            if(totalNum == 0)
+            if (totalNum == 0)
             {
                 return;
             }
             int leftSpace = (int)navigationAttributes.Space.X;
-            int topSpace= (int)navigationAttributes.Space.Z;
+            int topSpace = (int)navigationAttributes.Space.Z;
             int bottomSpace = (int)navigationAttributes.Space.W;
             int rightSpace = (int)navigationAttributes.Space.Y;
 
@@ -393,6 +444,9 @@ namespace Tizen.NUI.Controls
             int itemGap = navigationAttributes.ItemGap;
             for (int i = 0; i < totalNum; i++)
             {
+
+                itemList[i].Index = i;
+                itemList[i].Name = "Item" + i;
                 itemList[i].Position2D = new Position2D(preX, preY);
                 dividerLineList[i].Size2D = new Size2D(itemList[i].Size2D.Width, itemGap);
                 dividerLineList[i].Position2D = new Position2D(preX, preY + itemList[i].Size2D.Height);
@@ -410,11 +464,11 @@ namespace Tizen.NUI.Controls
             }
 
             if (navigationAttributes.IsFitWithItems == true)
-            {               
+            {
                 if (Size2D.EqualTo(new Size2D(parentW, parentH)) == false)
                 {
                     Size2D = new Size2D(parentW, parentH);
-                }              
+                }
             }
             else
             {
@@ -423,11 +477,11 @@ namespace Tizen.NUI.Controls
 
             UpdateBackgroundImage();
             UpdateShadowImage();
-        }      
+        }
 
         private void UpdateSelectedItem(NavigationItem item)
         {
-            if(item == null || curIndex == item.Index)
+            if (item == null || curIndex == item.Index)
             {
                 return;
             }
@@ -459,7 +513,7 @@ namespace Tizen.NUI.Controls
 
         private void UpdateBackgroundImage()
         {
-            if(navigationAttributes.BackgroundImageAttributes == null)
+            if (navigationAttributes.BackgroundImageAttributes == null)
             {
                 return;
             }
@@ -470,7 +524,7 @@ namespace Tizen.NUI.Controls
         private bool ItemTouchEvent(object source, TouchEventArgs e)
         {
             NavigationItem item = source as NavigationItem;
-            if(item == null)
+            if (item == null)
             {
                 return false;
             }
@@ -483,31 +537,12 @@ namespace Tizen.NUI.Controls
             return true;
         }
 
-        public class NavigationItem : Button
+        internal class NavigationItem : Button
         {
             private TextLabel subText;
             private View dividerLine;
             private NavigationItemAttributes itemAttributes;
 
-            public NavigationItem() : base()
-            {
-                itemAttributes = attributes as NavigationItemAttributes;
-                if (itemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
-                InitializeItem();
-            }
-
-            public NavigationItem(string style) : base(style)
-            {
-                itemAttributes = attributes as NavigationItemAttributes;
-                if (itemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
-                InitializeItem();
-            }
             public NavigationItem(NavigationItemAttributes attributes) : base()
             {
                 this.attributes = itemAttributes = attributes.Clone() as NavigationItemAttributes;
@@ -517,259 +552,7 @@ namespace Tizen.NUI.Controls
                 }
                 base.Initialize();
                 InitializeItem();
-            }
-
-            public Vector4 Space
-            {
-                get
-                {
-                    return itemAttributes.Space;
-                }
-                set
-                {
-                    itemAttributes.Space = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public int LeftSpace
-            {
-                get
-                {
-                    return (int)itemAttributes.Space.X;
-                }
-                set
-                {
-                    itemAttributes.Space.X = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public int BottomSpace
-            {
-                get
-                {
-                    return (int)itemAttributes.Space.W;
-                }
-                set
-                {
-                    itemAttributes.Space.W = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public int RightSpace
-            {
-                get
-                {
-                    return (int)itemAttributes.Space.Y;
-                }
-                set
-                {
-                    itemAttributes.Space.Y = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public int TopSpace
-            {
-                get
-                {
-                    return (int)itemAttributes.Space.Z;
-                }
-                set
-                {
-                    itemAttributes.Space.Z = value;
-                    RelayoutRequest();
-                }
             }           
-
-            public string SubText
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.Text?.All;
-                }
-                set
-                {
-                    if (value != null)
-                    {
-                        CreateSubTextAttributes();
-                        if (itemAttributes.SubTextAttributes.Text == null)
-                        {
-                            itemAttributes.SubTextAttributes.Text = new StringSelector();
-                        }
-                        itemAttributes.SubTextAttributes.Text.All = value;
-
-                        RelayoutRequest();
-                    }
-                }
-            }
-
-            public Size2D TextSize2D
-            {
-                get
-                {
-                    return itemAttributes.TextAttributes?.Size2D;
-                }
-                set
-                {
-                    itemAttributes.TextAttributes.Size2D = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public Size2D SubTextSize2D
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.Size2D;
-                }
-                set
-                {
-                    CreateSubTextAttributes();
-                    itemAttributes.SubTextAttributes.Size2D = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public float SubTextPointSize
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.PointSize?.All ?? 0;
-                }
-                set
-                {
-                    CreateSubTextAttributes();
-                    if (itemAttributes.SubTextAttributes.PointSize == null)
-                    {
-                        itemAttributes.SubTextAttributes.PointSize = new FloatSelector();
-                    }
-                    itemAttributes.SubTextAttributes.PointSize.All = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public string SubTextFontFamily
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.FontFamily;
-                }
-                set
-                {
-                    CreateSubTextAttributes();
-                    itemAttributes.SubTextAttributes.FontFamily = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public Color SubTextColor
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.TextColor?.All;
-                }
-                set
-                {
-                    CreateSubTextAttributes();
-                    if (itemAttributes.SubTextAttributes.TextColor == null)
-                    {
-                        itemAttributes.SubTextAttributes.TextColor = new ColorSelector();
-                    }
-                    itemAttributes.SubTextAttributes.TextColor.All = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public ColorSelector SubTextColorSelector
-            {
-                get
-                {
-                    return itemAttributes.SubTextAttributes?.TextColor;
-                }
-                set
-                {
-                    CreateSubTextAttributes();
-                    if (value != null)
-                    {
-                        itemAttributes.SubTextAttributes.TextColor = value.Clone() as ColorSelector;
-                        RelayoutRequest();
-                    }
-                }
-            }
-
-            public Size2D IconSize2D
-            {
-                get
-                {
-                    return itemAttributes.IconAttributes?.Size2D;
-                }
-                set
-                {
-                    itemAttributes.IconAttributes.Size2D = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public Color DividerLineColor
-            {
-                get
-                {
-                    return itemAttributes.DividerLineAttributes?.BackgroundColor?.All;
-                }
-                set
-                {
-                    CreateDividerLineAttributes();
-                    if (itemAttributes.DividerLineAttributes.BackgroundColor == null)
-                    {
-                        itemAttributes.DividerLineAttributes.BackgroundColor = new ColorSelector();
-                    }
-                    itemAttributes.DividerLineAttributes.BackgroundColor.All = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public Size2D DividerLineSize2D
-            {
-                get
-                {
-                    return itemAttributes.DividerLineAttributes?.Size2D;
-                }
-                set
-                {
-                    CreateDividerLineAttributes();
-                    itemAttributes.DividerLineAttributes.Size2D = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public Position2D DividerLinePosition2D
-            {
-                get
-                {
-                    return itemAttributes.DividerLineAttributes?.Position2D;
-                }
-                set
-                {
-                    CreateDividerLineAttributes();
-                    itemAttributes.DividerLineAttributes.Position2D = value;
-                    RelayoutRequest();
-                }
-            }
-
-            public bool EnableIconCenter
-            {
-                get
-                {
-                    return itemAttributes.EnableIconCenter;
-                }
-                set
-                {
-                    itemAttributes.EnableIconCenter = value;
-                }
-            }
 
             internal int Index
             {
@@ -813,6 +596,11 @@ namespace Tizen.NUI.Controls
                 return new NavigationItemAttributes();
             }
 
+            protected override void LayoutChild()
+            {
+
+            }
+
             protected override void OnUpdate(Attributes attrs)
             {
                 itemAttributes = attrs as NavigationItemAttributes;
@@ -837,45 +625,14 @@ namespace Tizen.NUI.Controls
 
             private void InitializeItem()
             {
-                if (itemAttributes.IconAttributes == null)
-                {
-                    itemAttributes.IconAttributes = new ImageAttributes();
-                    itemAttributes.IconAttributes.Size2D = new Size2D(0, 0);
-                }
-                CreateTextAttributes();
-                CreateSubTextAttributes();
-                CreateDividerLineAttributes();
+                CreateSubText();
+                CreateDividerLine();
+                ApplyAttributes(this, itemAttributes);
             }
 
-            private void CreateTextAttributes()
+            private void CreateSubText()
             {
-                if (itemAttributes.TextAttributes == null)
-                {
-                    itemAttributes.TextAttributes = new TextAttributes()
-                    {
-                        PositionUsesPivotPoint = true,
-                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Top,
-                    };
-                }
-            }
-
-            private void CreateSubTextAttributes()
-            {
-                if (itemAttributes.SubTextAttributes == null)
-                {
-                    itemAttributes.SubTextAttributes = new TextAttributes()
-                    {
-                        PositionUsesPivotPoint = true,
-                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    };                    
-                }
-                if (subText == null)
+                if (itemAttributes.SubTextAttributes != null)
                 {
                     subText = new TextLabel()
                     {
@@ -889,19 +646,9 @@ namespace Tizen.NUI.Controls
                 }
             }
 
-            private void CreateDividerLineAttributes()
+            private void CreateDividerLine()
             {
-                if (itemAttributes.DividerLineAttributes == null)
-                {
-                    itemAttributes.DividerLineAttributes = new ViewAttributes()
-                    {
-                        PositionUsesPivotPoint = true,
-                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    };
-                }
-
-                if(dividerLine == null)
+                if (itemAttributes.DividerLineAttributes != null)
                 {
                     dividerLine = new View()
                     {
@@ -924,7 +671,7 @@ namespace Tizen.NUI.Controls
                 int rightSpace = (int)itemAttributes.Space.Y;
                 int topSpace = (int)itemAttributes.Space.Z;
                 int bottomSpace = (int)itemAttributes.Space.W;
-             
+
                 itemAttributes.IconAttributes.PositionUsesPivotPoint = true;
                 if (itemAttributes.EnableIconCenter == true)
                 {
@@ -955,6 +702,363 @@ namespace Tizen.NUI.Controls
                     {
                         itemAttributes.SubTextAttributes.Position2D = new Position2D(textPosX, textPosY);
                     }
+                }
+            }
+        }
+
+        public class NavigationItemData : Button
+        {
+            public NavigationItemData() : base()
+            {
+                ItemAttributes = attributes as NavigationItemAttributes;
+                if (ItemAttributes == null)
+                {
+                    throw new Exception("NavigationItem attribute parse error.");
+                }
+                Initalize();
+            }
+
+            public NavigationItemData(string style) : base(style)
+            {
+                ItemAttributes = attributes as NavigationItemAttributes;
+                if (ItemAttributes == null)
+                {
+                    throw new Exception("NavigationItem attribute parse error.");
+                }
+                Initalize();
+            }
+            public NavigationItemData(NavigationItemAttributes attributes) : base()
+            {
+                this.attributes = ItemAttributes = attributes.Clone() as NavigationItemAttributes;
+                if (ItemAttributes == null)
+                {
+                    throw new Exception("NavigationItem attribute parse error.");
+                }
+                Initalize();
+            }
+
+            public new Size2D Size2D
+            {
+                get
+                {
+                    return ItemAttributes.Size2D;
+                }
+                set
+                {
+                    ItemAttributes.Size2D = value;
+                }
+            }
+
+            public Vector4 Space
+            {
+                get
+                {
+                    return ItemAttributes.Space;
+                }
+                set
+                {
+                    ItemAttributes.Space = value;
+                }
+            }
+
+            public int LeftSpace
+            {
+                get
+                {
+                    return (int)ItemAttributes.Space.X;
+                }
+                set
+                {
+                    ItemAttributes.Space.X = value;
+                }
+            }
+
+            public int BottomSpace
+            {
+                get
+                {
+                    return (int)ItemAttributes.Space.W;
+                }
+                set
+                {
+                    ItemAttributes.Space.W = value;
+                }
+            }
+
+            public int RightSpace
+            {
+                get
+                {
+                    return (int)ItemAttributes.Space.Y;
+                }
+                set
+                {
+                    ItemAttributes.Space.Y = value;
+                }
+            }
+
+            public int TopSpace
+            {
+                get
+                {
+                    return (int)ItemAttributes.Space.Z;
+                }
+                set
+                {
+                    ItemAttributes.Space.Z = value;
+                }
+            }
+
+            public string SubText
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.Text?.All;
+                }
+                set
+                {
+                    if (value != null)
+                    {
+                        CreateSubTextAttributes();
+                        if (ItemAttributes.SubTextAttributes.Text == null)
+                        {
+                            ItemAttributes.SubTextAttributes.Text = new StringSelector();
+                        }
+                        ItemAttributes.SubTextAttributes.Text.All = value;
+                    }
+                }
+            }
+
+            public Size2D TextSize2D
+            {
+                get
+                {
+                    return ItemAttributes.TextAttributes?.Size2D;
+                }
+                set
+                {
+                    CreateTextAttributes();
+                    ItemAttributes.TextAttributes.Size2D = value;
+                }
+            }
+
+            public Size2D SubTextSize2D
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.Size2D;
+                }
+                set
+                {
+                    CreateSubTextAttributes();
+                    ItemAttributes.SubTextAttributes.Size2D = value;
+                }
+            }
+
+            public float SubTextPointSize
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.PointSize?.All ?? 0;
+                }
+                set
+                {
+                    CreateSubTextAttributes();
+                    if (ItemAttributes.SubTextAttributes.PointSize == null)
+                    {
+                        ItemAttributes.SubTextAttributes.PointSize = new FloatSelector();
+                    }
+                    ItemAttributes.SubTextAttributes.PointSize.All = value;
+                }
+            }
+
+            public string SubTextFontFamily
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.FontFamily;
+                }
+                set
+                {
+                    CreateSubTextAttributes();
+                    ItemAttributes.SubTextAttributes.FontFamily = value;
+                }
+            }
+
+            public Color SubTextColor
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.TextColor?.All;
+                }
+                set
+                {
+                    CreateSubTextAttributes();
+                    if (ItemAttributes.SubTextAttributes.TextColor == null)
+                    {
+                        ItemAttributes.SubTextAttributes.TextColor = new ColorSelector();
+                    }
+                    ItemAttributes.SubTextAttributes.TextColor.All = value;
+                }
+            }
+
+            public ColorSelector SubTextColorSelector
+            {
+                get
+                {
+                    return ItemAttributes.SubTextAttributes?.TextColor;
+                }
+                set
+                {
+                    CreateSubTextAttributes();
+                    if (value != null)
+                    {
+                        ItemAttributes.SubTextAttributes.TextColor = value.Clone() as ColorSelector;
+                    }
+                }
+            }
+
+            public Size2D IconSize2D
+            {
+                get
+                {
+                    return ItemAttributes.IconAttributes?.Size2D;
+                }
+                set
+                {
+                    ItemAttributes.IconAttributes.Size2D = value;
+                }
+            }
+
+            public Color DividerLineColor
+            {
+                get
+                {
+                    return ItemAttributes.DividerLineAttributes?.BackgroundColor?.All;
+                }
+                set
+                {
+                    CreateDividerLineAttributes();
+                    if (ItemAttributes.DividerLineAttributes.BackgroundColor == null)
+                    {
+                        ItemAttributes.DividerLineAttributes.BackgroundColor = new ColorSelector();
+                    }
+                    ItemAttributes.DividerLineAttributes.BackgroundColor.All = value;
+                }
+            }
+
+            public Size2D DividerLineSize2D
+            {
+                get
+                {
+                    return ItemAttributes.DividerLineAttributes?.Size2D;
+                }
+                set
+                {
+                    CreateDividerLineAttributes();
+                    ItemAttributes.DividerLineAttributes.Size2D = value;
+                }
+            }
+
+            public Position2D DividerLinePosition2D
+            {
+                get
+                {
+                    return ItemAttributes.DividerLineAttributes?.Position2D;
+                }
+                set
+                {
+                    CreateDividerLineAttributes();
+                    ItemAttributes.DividerLineAttributes.Position2D = value;
+                }
+            }
+
+            public bool EnableIconCenter
+            {
+                get
+                {
+                    return ItemAttributes.EnableIconCenter;
+                }
+                set
+                {
+                    ItemAttributes.EnableIconCenter = value;
+                }
+            }
+
+            internal NavigationItemAttributes ItemAttributes
+            {
+                get;
+                set;
+            }
+
+            protected override Attributes GetAttributes()
+            {
+                return new NavigationItemAttributes();
+            }
+
+            protected override void OnUpdate(Attributes attributtes)
+            {
+                
+            }
+
+            private void Initalize()
+            {
+                base.Initialize();
+                CreateIconAttributes();
+                CreateTextAttributes();
+            }
+
+            private void CreateTextAttributes()
+            {
+                if (ItemAttributes.TextAttributes == null)
+                {
+                    ItemAttributes.TextAttributes = new TextAttributes()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Top,
+                    };
+                }
+            }
+
+            private void CreateSubTextAttributes()
+            {
+                if (ItemAttributes.SubTextAttributes == null)
+                {
+                    ItemAttributes.SubTextAttributes = new TextAttributes()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                }
+            }         
+
+            private void CreateDividerLineAttributes()
+            {
+                if (ItemAttributes.DividerLineAttributes == null)
+                {
+                    ItemAttributes.DividerLineAttributes = new ViewAttributes()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    };
+                }
+            }
+
+            private void CreateIconAttributes()
+            {
+                if (ItemAttributes.IconAttributes == null)
+                {
+                    ItemAttributes.IconAttributes = new ImageAttributes()
+                    {
+                        Size2D = new Size2D(0, 0),
+                    };
                 }
             }
         }
