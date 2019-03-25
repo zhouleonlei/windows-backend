@@ -87,6 +87,12 @@ namespace Tizen.FH.NUI.Samples
             {
                 tab.IsNatureTextWidth = true;
             }
+
+            //tab.DeleteItem(0);
+
+            //Tab.TabItemData item = new Tab.TabItemData();
+            //item.Text = "insert Tab ";
+            //tab.InsertItem(item, 1);
         }
     }
 }

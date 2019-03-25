@@ -251,36 +251,32 @@ namespace Tizen.NUI.Controls
 
         public void AddItem(TabItemData itemData)
         {
-            int h = 0;
-            int topSpace = (int)tabAttributes.Space.Z;
-            if(tabAttributes.UnderLineAttributes != null && tabAttributes.UnderLineAttributes.Size2D != null)
-            {
-                h = tabAttributes.UnderLineAttributes.Size2D.Height;
-            }
-            Tab.TabItem item = new TabItem();          
-            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);
-            item.TextItem.Text = itemData.Text;
-            item.Size2D.Height = Size2D.Height - h - topSpace;
-            item.Position2D.Y = topSpace;
-            item.TouchEvent += ItemTouchEvent;
-            Add(item);
-            item.Index = itemList.Count;
-            itemList.Add(item);
+            AddItemByIndex(itemData, itemList.Count);
+        }
 
-            LayoutChild();
-            itemList[curIndex].State = States.Selected;
-            itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
-            UpdateUnderLinePos();
+        public void InsertItem(TabItemData itemData, int index)
+        {
+            AddItemByIndex(itemData, index);
         }
 
         public void DeleteItem(int itemIndex)
         {
-            if(itemIndex < 0 || itemIndex >= itemList.Count)
+            if(itemList == null || itemIndex < 0 || itemIndex >= itemList.Count)
             {
                 return;
             }
 
 
+            if (curIndex > itemIndex || (curIndex == itemIndex && itemIndex == itemList.Count - 1))
+            {
+                curIndex--;
+            }
+
+            Remove(itemList[itemIndex]);
+            itemList[itemIndex].Dispose();
+            itemList.RemoveAt(itemIndex);
+
+            UpdateItems();
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -349,7 +345,7 @@ namespace Tizen.NUI.Controls
 
             if (tabAttributes.TextAttributes != null)
             {
-                if (curIndex < itemList.Count)
+                if (curIndex >= 0 && curIndex < itemList.Count)
                 {
                     itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
                 }
@@ -363,9 +359,20 @@ namespace Tizen.NUI.Controls
             return new TabAttributes();
         }
 
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            TabAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as TabAttributes;
+            if (tempAttributes != null)
+            {
+                tempAttributes.IsNatureTextWidth = tabAttributes.IsNatureTextWidth; // keep IsNatureTextWidth as original
+                attributes = tabAttributes = tempAttributes;
+                RelayoutRequest();
+            }
+        }
+
         protected virtual void LayoutChild()
         {
-            if (tabAttributes == null)
+            if (tabAttributes == null || itemList == null)
             {
                 return;
             }
@@ -389,6 +396,7 @@ namespace Tizen.NUI.Controls
                         itemList[i].Position2D.X = preX;
                         itemList[i].Size2D.Width = preW;
                         preX = itemList[i].Position2D.X + preW + itemGap;
+                        itemList[i].Index = i;
                     }
                 }
                 else
@@ -399,6 +407,7 @@ namespace Tizen.NUI.Controls
                         itemList[i].Position2D.X = preX;
                         itemList[i].Size2D.Width = preW;
                         preX = itemList[i].Position2D.X + preW + itemGap;
+                        itemList[i].Index = i;
                     }
                 }
             }
@@ -414,6 +423,7 @@ namespace Tizen.NUI.Controls
                         itemList[i].Position2D.X = w - preW - preX;
                         itemList[i].Size2D.Width = preW;
                         preX = w - itemList[i].Position2D.X + itemGap;
+                        itemList[i].Index = i;
                     }
                 }
                 else
@@ -424,6 +434,7 @@ namespace Tizen.NUI.Controls
                         itemList[i].Position2D.X = preX;
                         itemList[i].Size2D.Width = preW;
                         preX = itemList[i].Position2D.X + preW + itemGap;
+                        itemList[i].Index = i;
                     }
                 }
             }
@@ -441,14 +452,49 @@ namespace Tizen.NUI.Controls
             LayoutChild();
         }
 
-        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        private void AddItemByIndex(TabItemData itemData, int index)
         {
-            TabAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as TabAttributes;
-            if (tempAttributes != null)
+            int h = 0;
+            int topSpace = (int)tabAttributes.Space.Z;
+            if (tabAttributes.UnderLineAttributes != null && tabAttributes.UnderLineAttributes.Size2D != null)
             {
-                tempAttributes.IsNatureTextWidth = tabAttributes.IsNatureTextWidth; // keep IsNatureTextWidth as original
-                attributes = tabAttributes = tempAttributes;              
-                RelayoutRequest();
+                h = tabAttributes.UnderLineAttributes.Size2D.Height;
+            }
+            Tab.TabItem item = new TabItem();
+            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);
+            item.TextItem.Text = itemData.Text;
+            item.Size2D.Height = Size2D.Height - h - topSpace;
+            item.Position2D.Y = topSpace;
+            item.TouchEvent += ItemTouchEvent;
+            Add(item);
+
+            if(index >= itemList.Count)
+            {
+                itemList.Add(item);
+            }
+            else
+            {
+                itemList.Insert(index, item);
+            }
+
+            UpdateItems();
+        }
+
+        private void UpdateItems()
+        {
+            LayoutChild();
+            if (itemList != null && curIndex >= 0 && curIndex < itemList.Count)
+            {
+                itemList[curIndex].State = States.Selected;
+                itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
+                UpdateUnderLinePos();
+            }
+            else
+            {
+                if (underline != null)
+                {
+                    underline.Hide();
+                }
             }
         }
 
@@ -492,10 +538,12 @@ namespace Tizen.NUI.Controls
         
         private void UpdateUnderLinePos()
         {
-            if (underline == null || tabAttributes.UnderLineAttributes == null || tabAttributes.UnderLineAttributes.Size2D == null)
+            if (underline == null || tabAttributes.UnderLineAttributes == null || tabAttributes.UnderLineAttributes.Size2D == null
+                || itemList == null || itemList.Count <= 0)
             {
                 return;
             }
+
             tabAttributes.UnderLineAttributes.Size2D.Width = itemList[curIndex].Size2D.Width;
 
             underline.Size2D = new Size2D(itemList[curIndex].Size2D.Width, tabAttributes.UnderLineAttributes.Size2D.Height);
@@ -516,6 +564,8 @@ namespace Tizen.NUI.Controls
                 underline.Position2D.X = itemList[curIndex].Position2D.X;
                 isNeedAnimation = true;
             }
+
+            underline.Show();
         }
 
         private void UpdateSelectedItem(TabItem item)
