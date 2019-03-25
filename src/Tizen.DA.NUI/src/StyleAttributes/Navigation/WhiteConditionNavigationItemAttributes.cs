@@ -1,6 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.WhiteConditionNavigationItemAttributes.xaml", "WhiteConditionNavigationItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.WhiteConditionNavigationItemAttributes))]
 namespace Tizen.FH.NUI.Controls

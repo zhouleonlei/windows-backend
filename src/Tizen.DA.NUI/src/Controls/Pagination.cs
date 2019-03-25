@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class Pagination : Tizen.NUI.Controls.Pagination
+    public class Pagination : Tizen.NUI.CommonUI.Pagination
     {
         private PaginationAttributes paginationAttributes;
         private ImageView returnArrow;

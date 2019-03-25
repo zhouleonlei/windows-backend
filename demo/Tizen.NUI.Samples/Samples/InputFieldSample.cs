@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 namespace Tizen.NUI.Samples
 {

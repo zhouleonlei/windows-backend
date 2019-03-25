@@ -1,7 +1,4 @@
-﻿using Tizen.NUI;
-using Tizen.NUI.Binding;
-using Tizen.NUI.Controls;
-using Tizen.NUI.Xaml;
+﻿using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Loading.DefaultLoadingAttributes.xaml", "DefaultLoadingAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DefaultLoadingAttributes))]
 namespace Tizen.FH.NUI.Controls

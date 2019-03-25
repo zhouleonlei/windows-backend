@@ -1,12 +1,12 @@
 ﻿using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
-using StyleManager = Tizen.NUI.Controls.StyleManager;
+using Tizen.NUI.CommonUI;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class InputField : Tizen.NUI.Controls.InputField
+    public class InputField : Tizen.NUI.CommonUI.InputField
     {
         // the cancel button
         private ImageView cancelBtn = null;
@@ -23,7 +23,7 @@ namespace Tizen.FH.NUI.Controls
         
         private Style style = Style.None;
 
-        private States textFieldState = States.Normal;
+        private ControlStates textFieldState = ControlStates.Normal;
         private TextState textState = TextState.Guide;
         private bool isDoneKeyPressed = false;
 
@@ -345,14 +345,14 @@ namespace Tizen.FH.NUI.Controls
         {
             // when press on TextField, it will gain focus
             Console.WriteLine("--->>>, textField gained focus");
-            textFieldState = States.Selected;
+            textFieldState = ControlStates.Selected;
             RelayoutComponents(false, true, true, false);
         }
 
         protected override void OnTextFieldFocusLost(object source, EventArgs e)
         {
             Console.WriteLine("<<<---, textField lost focus");
-            textFieldState = States.Normal;
+            textFieldState = ControlStates.Normal;
             RelayoutComponents(false, true, true, false);
         }
 
@@ -444,7 +444,7 @@ namespace Tizen.FH.NUI.Controls
             // #1 TextField                 normal state, text's length == 0;
             // #2 TextField + CancelBtn     except #1.
             int space = Space();
-            if (textFieldState == States.Normal && textState == TextState.Guide)
+            if (textFieldState == ControlStates.Normal && textState == TextState.Guide)
             {
                 SetTextFieldSize2D(Size2D.Width - space * 2, Size2D.Height);
                 cancelBtn.Hide();
@@ -472,7 +472,7 @@ namespace Tizen.FH.NUI.Controls
             // #2 SearchBtn + TextField + CancelBtn     input state, text's length > 0, press "Done" key on IME;
             // #3 TextField + CancelBtn                 excepte #1 & #2.
             int space = Space();
-            if (textFieldState == States.Normal && textState == TextState.Guide)
+            if (textFieldState == ControlStates.Normal && textState == TextState.Guide)
             {// #1
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
                 SetTextFieldSize2D(Size2D.Width - space * 2 - searchBtn.Size2D.Width - spaceBetweenTextFieldAndLeftButton, Size2D.Height);
@@ -480,7 +480,7 @@ namespace Tizen.FH.NUI.Controls
                 searchBtn.Show();
                 cancelBtn.Hide();
             }
-            else if (textFieldState == States.Selected && textState == TextState.Input && isDoneKeyPressed)
+            else if (textFieldState == ControlStates.Selected && textState == TextState.Input && isDoneKeyPressed)
             {// #2
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
                 int spaceBetweenTextFieldAndRightButton = SpaceBetweenTextFieldAndRightButton();
@@ -548,30 +548,30 @@ namespace Tizen.FH.NUI.Controls
         {
             if (isEnabled)
             {
-                UpdateTextFieldTextColor(States.Selected);
-                UpdateDeleteBtnState(States.Normal);
-                UpdateAddBtnState(States.Normal);
+                UpdateTextFieldTextColor(ControlStates.Selected);
+                UpdateDeleteBtnState(ControlStates.Normal);
+                UpdateAddBtnState(ControlStates.Normal);
             }
             else
             {
-                UpdateTextFieldTextColor(States.Disabled);
-                UpdateDeleteBtnState(States.Disabled);
-                UpdateAddBtnState(States.Disabled);
+                UpdateTextFieldTextColor(ControlStates.Disabled);
+                UpdateDeleteBtnState(ControlStates.Disabled);
+                UpdateAddBtnState(ControlStates.Disabled);
             }
         }
         
-        private void UpdateTextFieldTextColor(States state)
+        private void UpdateTextFieldTextColor(ControlStates state)
         {
             if (inputFieldAttrs != null && inputFieldAttrs.InputBoxAttributes != null && inputFieldAttrs.InputBoxAttributes.TextColor != null)
             {
                 switch (state)
                 {
-                    case States.Disabled:
-                    case States.DisabledSelected:
+                    case ControlStates.Disabled:
+                    case ControlStates.DisabledSelected:
                         SetTextFieldTextColor(inputFieldAttrs.InputBoxAttributes.TextColor.Disabled);
                         break;
-                    case States.Normal:
-                    case States.Selected:
+                    case ControlStates.Normal:
+                    case ControlStates.Selected:
                         SetTextFieldTextColor(inputFieldAttrs.InputBoxAttributes.TextColor.Normal);
                         break;
                     default:
@@ -580,20 +580,20 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
-        private void UpdateDeleteBtnState(States state)
+        private void UpdateDeleteBtnState(ControlStates state)
         {
             if (deleteBtn != null && inputFieldAttrs != null && inputFieldAttrs.DeleteButtonAttributes != null && inputFieldAttrs.DeleteButtonAttributes.ResourceURL != null)
             {
                 switch (state)
                 {
-                    case States.Disabled:
-                    case States.DisabledSelected:
+                    case ControlStates.Disabled:
+                    case ControlStates.DisabledSelected:
                         deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Disabled;
                         break;
-                    case States.Selected:
+                    case ControlStates.Selected:
                         deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Pressed;
                         break;
-                    case States.Normal:
+                    case ControlStates.Normal:
                         deleteBtn.ResourceUrl = inputFieldAttrs.DeleteButtonAttributes.ResourceURL.Normal;
                         break;
                     default:
@@ -602,7 +602,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
-        private void UpdateAddBtnState(States state)
+        private void UpdateAddBtnState(ControlStates state)
         {
             if (inputFieldAttrs == null || addBtnBg == null || addBtnOverlay == null || addBtnFg == null)
             {
@@ -610,8 +610,8 @@ namespace Tizen.FH.NUI.Controls
             }
             switch (state)
             {
-                case States.Disabled:
-                case States.DisabledSelected:
+                case ControlStates.Disabled:
+                case ControlStates.DisabledSelected:
                     {
                         if (inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
                         {
@@ -627,7 +627,7 @@ namespace Tizen.FH.NUI.Controls
                         }
                     }
                     break;
-                case States.Selected:
+                case ControlStates.Selected:
                     {
                         if (inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
                         {
@@ -643,7 +643,7 @@ namespace Tizen.FH.NUI.Controls
                         }
                     }
                     break;
-                case States.Normal:
+                case ControlStates.Normal:
                     {
                         if (inputFieldAttrs.AddButtonBgAttributes != null && inputFieldAttrs.AddButtonBgAttributes.ResourceURL != null)
                         {
@@ -675,7 +675,7 @@ namespace Tizen.FH.NUI.Controls
                     args.State = ButtonClickState.PressDown;
                     deleteBtnClickHandler(this, args);
                 }
-                UpdateDeleteBtnState(States.Selected);
+                UpdateDeleteBtnState(ControlStates.Selected);
             }
             else if (state == PointStateType.Finished)
             {
@@ -685,7 +685,7 @@ namespace Tizen.FH.NUI.Controls
                     args.State = ButtonClickState.BounceUp;
                     deleteBtnClickHandler(this, args);
                 }
-                UpdateDeleteBtnState(States.Normal);
+                UpdateDeleteBtnState(ControlStates.Normal);
             }
             Console.WriteLine("------- OnDeleteBtnTouchEvent, state = " + state);
             //return false;
@@ -734,7 +734,7 @@ namespace Tizen.FH.NUI.Controls
                     args.State = ButtonClickState.PressDown;
                     addBtnClickHandler(this, args);
                 }
-                UpdateAddBtnState(States.Selected);
+                UpdateAddBtnState(ControlStates.Selected);
             }
             else if (state == PointStateType.Finished)
             {
@@ -744,7 +744,7 @@ namespace Tizen.FH.NUI.Controls
                     args.State = ButtonClickState.BounceUp;
                     addBtnClickHandler(this, args);
                 }
-                UpdateAddBtnState(States.Normal);
+                UpdateAddBtnState(ControlStates.Normal);
             }
             Console.WriteLine("------- OnAddBtnTouchEvent, state = " + state);
             //return false;

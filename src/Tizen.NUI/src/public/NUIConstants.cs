@@ -18,41 +18,6 @@ using System.ComponentModel;
 namespace Tizen.NUI
 {
     /// <summary>
-    /// Enumeration for describing the states of the view.
-    /// </summary>
-    /// <since_tizen> 3 </since_tizen>
-    public enum States
-    {
-        /// <summary>
-        /// The normal state.
-        /// </summary>
-        Normal,
-        /// <summary>
-        /// The focused state.
-        /// </summary>
-        Focused,
-        /// <summary>
-        /// The disabled state.
-        /// </summary>
-        Disabled,
-        /// <summary>
-        /// 
-        /// </summary>
-        Selected,
-        /// <summary>
-        /// 
-        /// </summary>
-        Pressed,
-
-        DisabledFocused,
-
-        SelectedFocused,
-
-        DisabledSelected,
-        MAX
-    }
-
-    /// <summary>
     /// This specifies all the scroll mode type.
     /// </summary>
     /// <since_tizen> 3 </since_tizen>

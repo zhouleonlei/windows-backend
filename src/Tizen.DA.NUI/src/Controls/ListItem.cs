@@ -1,11 +1,11 @@
 ﻿using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class ListItem : Tizen.NUI.Controls.Control
+    public class ListItem : Tizen.NUI.CommonUI.Control
     {
         private View textRootView = null;
         private TextLabel mainTextLabel = null;

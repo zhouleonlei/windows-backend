@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class ProgressCircle : Tizen.NUI.Controls.Progress
+    public class ProgressCircle : Tizen.NUI.CommonUI.Progress
     {
         // private VDProgressCircleAttributes progressBarAttrs = null;
         private TextLabel textLabel;

@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI.Xaml;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FoodToggleButtonAttributes.xaml", "FoodToggleButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodToggleButtonAttributes))]
 namespace Tizen.FH.NUI.Controls

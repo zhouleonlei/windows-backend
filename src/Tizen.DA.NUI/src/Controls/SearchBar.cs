@@ -1,12 +1,12 @@
 ﻿using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
-using StyleManager = Tizen.NUI.Controls.StyleManager;
+using Tizen.NUI.CommonUI;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class SearchBar : Tizen.NUI.Controls.Control
+    public class SearchBar : Control
     {
         private InputField inputField = null;
         private View resultListRoot = null;

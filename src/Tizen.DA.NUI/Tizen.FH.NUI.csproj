@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <UsingTask TaskName="Xamarin.Forms.Xaml.Build.Tasks.XamlGTask" AssemblyFile="$(MSBuildThisFileDirectory)..\Tizen.NUI.Xaml\Tizen.NUI.Xamarin.dll" />
+  <!--<UsingTask TaskName="Xamarin.Forms.Xaml.Build.Tasks.XamlGTask" AssemblyFile="$(MSBuildThisFileDirectory)..\Tizen.NUI.Xaml\Tizen.NUI.Xamarin.dll" />
   <UsingTask TaskName="Xamarin.Forms.Xaml.Build.Tasks.XamlCTask" AssemblyFile="$(MSBuildThisFileDirectory)..\Tizen.NUI.Xaml\Tizen.NUI.Xamarin.dll" />
 
-  <!-- XamlG -->
+  --><!-- XamlG --><!--
   <Target Name="UpdateDesignTimeXaml" DependsOnTargets="XamlG" />
 
   <PropertyGroup>
@@ -28,7 +28,7 @@
     </ItemGroup>
   </Target>
 
-  <!-- XamlC -->
+  --><!-- XamlC --><!--
   <PropertyGroup>
     <CompileDependsOn>
       $(CompileDependsOn);
@@ -42,7 +42,7 @@
     <ItemGroup>
       <FileWrites Include="$(IntermediateOutputPath)XamlC.stamp" />
     </ItemGroup>
-  </Target>
+  </Target>-->
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -63,7 +63,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="res\AppStyles.xaml" />
     <None Remove="res\Button\FamilyBasicButtonAttributes.xaml" />
     <None Remove="res\Button\FamilyOvalButtonAttributes.xaml" />
     <None Remove="res\Button\FamilyServiceButtonAttributes.xaml" />
@@ -182,9 +181,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="res\AppStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="res\Button\FamilyBasicButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -436,6 +432,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tizen.NUI.CommonUI\Tizen.NUI.CommonUI.csproj" />
     <ProjectReference Include="..\Tizen.NUI\Tizen.NUI.csproj" />
   </ItemGroup>
 

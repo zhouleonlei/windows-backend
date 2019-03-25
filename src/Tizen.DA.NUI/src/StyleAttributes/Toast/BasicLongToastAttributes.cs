@@ -1,6 +1,4 @@
-﻿using Tizen.NUI.Binding;
-using Tizen.NUI.Controls;
-using Tizen.NUI.Xaml;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Toast.BasicLongToastAttributes.xaml", "BasicLongToastAttributes.xaml", typeof(Tizen.FH.NUI.Controls.BasicLongToastAttributes))]

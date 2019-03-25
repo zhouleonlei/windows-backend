@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class ListItemAttributes : Tizen.NUI.Controls.ViewAttributes
+    public class ListItemAttributes : Tizen.NUI.CommonUI.ViewAttributes
     {
         // common part
         private TextAttributes mainTextAttrs = null;

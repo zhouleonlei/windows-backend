@@ -1,6 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.CheckBox.FoodCheckBoxAttributes.xaml", "FoodCheckBoxAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodCheckBoxAttributes))]
 namespace Tizen.FH.NUI.Controls

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class PaginationAttributes : Tizen.NUI.Controls.PaginationAttributes
+    internal class PaginationAttributes : Tizen.NUI.CommonUI.PaginationAttributes
     {
         public static readonly BindableProperty ReturnArrowAttributesProperty = BindableProperty.Create("ReturnArrowAttributes", typeof(ImageAttributes), typeof(PaginationAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {

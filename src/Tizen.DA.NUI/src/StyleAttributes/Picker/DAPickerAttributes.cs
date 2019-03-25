@@ -1,7 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
-using Tizen.NUI.BaseComponents;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Picker.PickerAttributes.xaml", "PickerAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DAPickerAttributes))]
 namespace Tizen.FH.NUI.Controls

@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 using System;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class Toast : Tizen.NUI.Controls.Toast
+    public class Toast : Tizen.NUI.CommonUI.Toast
     {
         public enum ToastLengthType
         {

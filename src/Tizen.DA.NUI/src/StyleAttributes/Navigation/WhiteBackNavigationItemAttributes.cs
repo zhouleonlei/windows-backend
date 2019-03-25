@@ -1,6 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.WhiteBackNavigationItemAttributes.xaml", "WhiteBackNavigationItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.WhiteBackNavigationItemAttributes))]
 namespace Tizen.FH.NUI.Controls

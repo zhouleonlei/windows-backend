@@ -1,9 +1,9 @@
-﻿using Tizen.NUI.Controls;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class ToastAttributes : Tizen.NUI.Controls.ToastAttributes
+    internal class ToastAttributes : Tizen.NUI.CommonUI.ToastAttributes
     {
         private LoadingAttributes loadingAttrs;
 

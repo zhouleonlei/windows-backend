@@ -1,6 +1,5 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.Controls;
-using Tizen.NUI.Xaml;
+using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {

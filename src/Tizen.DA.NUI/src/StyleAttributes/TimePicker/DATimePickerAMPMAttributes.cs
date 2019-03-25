@@ -1,7 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
-using Tizen.NUI.BaseComponents;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.TimePicker.TimePickerAMPMAttributes.xaml", "TimePickerAMPMAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DATimePickerAMPMAttributes))]
 namespace Tizen.FH.NUI.Controls

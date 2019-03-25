@@ -1,6 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.CheckBox.FamilyCheckBoxAttributes.xaml", "FamilyCheckBoxAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyCheckBoxAttributes))]
 namespace Tizen.FH.NUI.Controls

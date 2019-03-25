@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
 namespace Tizen.NUI.Samples

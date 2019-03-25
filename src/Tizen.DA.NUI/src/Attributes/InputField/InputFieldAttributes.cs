@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class InputFieldAttributes : Tizen.NUI.Controls.InputFieldAttributes
+    public class InputFieldAttributes : Tizen.NUI.CommonUI.InputFieldAttributes
     {
         private ImageAttributes cancelButtonAttrs = null;
         private ImageAttributes deleteButtonAttrs = null;

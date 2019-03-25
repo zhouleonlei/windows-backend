@@ -1,6 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.RadioButton.UtilityRadioButtonAttributes.xaml", "UtilityRadioButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityRadioButtonAttributes))]
 namespace Tizen.FH.NUI.Controls

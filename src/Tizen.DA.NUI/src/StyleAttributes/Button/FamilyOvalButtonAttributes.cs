@@ -1,5 +1,5 @@
 ﻿
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyOvalButtonAttributes.xaml", "FamilyOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyOvalButtonAttributes))]
 namespace Tizen.FH.NUI.Controls

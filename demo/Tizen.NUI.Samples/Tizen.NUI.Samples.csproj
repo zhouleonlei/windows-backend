@@ -50,7 +50,6 @@
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Samples\DropDownSample.cs" />
     <Compile Include="Samples\FlexibleViewSample.cs" />
-    <Compile Include="Samples\StepIndicatorSample.cs" />
     <Compile Include="Samples\ToastSample.cs" />
     <Compile Include="Samples\ProgressSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />
@@ -74,6 +73,10 @@
     <ProjectReference Include="..\..\src\Tizen.Log\Tizen.Log.csproj">
       <Project>{1c550c1f-9370-42ff-86fa-edcd6262b258}</Project>
       <Name>Tizen.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI.CommonUI\Tizen.NUI.CommonUI.csproj">
+      <Project>{7b7dd1ca-cfbb-4dde-9cca-f4190412975e}</Project>
+      <Name>Tizen.NUI.CommonUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Tizen.NUI\Tizen.NUI.csproj">
       <Project>{473c3bec-2f67-4285-85fc-bf4e96bfff1c}</Project>

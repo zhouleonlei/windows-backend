@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityServiceButtonAttributes.xaml", "UtilityServiceButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityServiceButtonAttributes))]
 namespace Tizen.FH.NUI.Controls

@@ -1,6 +1,4 @@
-﻿using Tizen.NUI.Binding;
-using Tizen.NUI.Controls;
-using Tizen.NUI.Xaml;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.FamilyProgressbarAttributes.xaml", "FamilyProgressbarAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyProgressbarAttributes))]

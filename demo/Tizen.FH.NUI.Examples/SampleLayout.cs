@@ -1,8 +1,8 @@
 ﻿using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
-using StyleManager = Tizen.NUI.Controls.StyleManager;
+using Tizen.NUI.CommonUI;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {

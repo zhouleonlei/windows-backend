@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.FH.NUI.Controls;
 
 namespace Tizen.FH.NUI.Samples
@@ -9,7 +9,7 @@ namespace Tizen.FH.NUI.Samples
     {
         private TextLabel board1, board2, board;
         private Button button1, button2, button3, button4;
-        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,/*;private Tizen.NUI.Controls.Toast */toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
+        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,/*;private Tizen.NUI.CommonUI.Toast */toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
         private View root;
 
         public void Activate()

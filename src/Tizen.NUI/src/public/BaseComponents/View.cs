@@ -141,10 +141,8 @@ namespace Tizen.NUI.BaseComponents
         public static readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(View), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var view = (View)bindable;
-            if (newValue != null && (int)newValue < (int)States.Pressed)
-            {
-                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.STATE, new Tizen.NUI.PropertyValue((int)newValue));
-            }
+      
+            Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.STATE, new Tizen.NUI.PropertyValue((int)newValue));
         },
         defaultValueCreator:(bindable) =>
         {
@@ -2717,6 +2715,21 @@ namespace Tizen.NUI.BaseComponents
                 background = Background;
             }
             return AnimateColor("background", destinationValue, startTime, endTime, alphaFunction, initialValue);
+        }
+        public enum States
+        {
+            /// <summary>
+            /// The normal state.
+            /// </summary>
+            Normal,
+            /// <summary>
+            /// The focused state.
+            /// </summary>
+            Focused,
+            /// <summary>
+            /// The disabled state.
+            /// </summary>
+            Disabled
         }
 
         /// <summary>

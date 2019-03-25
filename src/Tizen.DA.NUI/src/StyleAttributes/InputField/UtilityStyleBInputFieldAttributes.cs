@@ -1,6 +1,5 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.Controls;
-using Tizen.NUI.Xaml;
+using Tizen.NUI.CommonUI;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.InputField.UtilityStyleBInputFieldAttributes.xaml", "UtilityStyleBInputFieldAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityStyleBInputFieldAttributes))]
 namespace Tizen.FH.NUI.Controls

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class SearchBarAttributes : Tizen.NUI.Controls.ViewAttributes
+    public class SearchBarAttributes : Tizen.NUI.CommonUI.ViewAttributes
     {
         private InputFieldAttributes searchBoxAttributes = null;
         private ViewAttributes resultListAttributes = null;

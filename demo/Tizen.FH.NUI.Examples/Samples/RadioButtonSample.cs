@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -14,7 +14,7 @@ namespace Tizen.FH.NUI.Samples
         private uint colNum;
         private uint rowNum;
 
-        private Tizen.NUI.Controls.RadioButtonGroup[] group;
+        private Tizen.NUI.CommonUI.RadioButtonGroup[] group;
 
         private static string[] styles = new string[]
         {

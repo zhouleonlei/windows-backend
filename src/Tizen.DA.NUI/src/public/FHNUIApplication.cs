@@ -23,9 +23,9 @@ using System;
 using System.Reflection;
 using Tizen.NUI;
 using Tizen.NUI.Xaml;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using Tizen.FH.NUI.Controls;
-using StyleManager = Tizen.NUI.Controls.StyleManager;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.AppStyles.xaml", "AppStyles.xaml", typeof(Tizen.FH.NUI.FHNUIApplication))]
 

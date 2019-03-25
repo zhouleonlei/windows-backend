@@ -5,7 +5,7 @@ using System.Reflection;
 using Tizen.FH.NUI;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using StyleManager = Tizen.NUI.Controls.StyleManager;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {

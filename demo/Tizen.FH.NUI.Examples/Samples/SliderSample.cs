@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Controls;
+using Tizen.NUI.CommonUI;
 using System;
 using Tizen.NUI;
 
@@ -116,9 +116,9 @@ namespace Tizen.FH.NUI.Samples
         private void OnValueChanged(object sender, Slider.ValueChangedArgs args)
         {
             Console.WriteLine("args.CurrentValue = " + args.CurrentValue);
-            if (sender is Tizen.NUI.Controls.Slider)
+            if (sender is Tizen.NUI.CommonUI.Slider)
             {
-                Tizen.NUI.Controls.Slider slider = sender as Tizen.NUI.Controls.Slider;
+                Tizen.NUI.CommonUI.Slider slider = sender as Tizen.NUI.CommonUI.Slider;
                 if (slider != null)
                 {
                     inforText.Text = "name = " + slider.Name + ", currentValue = " + args.CurrentValue;
@@ -137,9 +137,9 @@ namespace Tizen.FH.NUI.Samples
         private void OnStateChanged(object sender, Slider.StateChangedArgs args)
         {
             Console.WriteLine("args.CurrentState = " + args.CurrentState);
-            if (sender is Tizen.NUI.Controls.Slider)
+            if (sender is Tizen.NUI.CommonUI.Slider)
             {
-                Tizen.NUI.Controls.Slider slider = sender as Tizen.NUI.Controls.Slider;
+                Tizen.NUI.CommonUI.Slider slider = sender as Tizen.NUI.CommonUI.Slider;
                 if (slider != null)
                 {
                     //if (args.CurrentState == States.Normal)

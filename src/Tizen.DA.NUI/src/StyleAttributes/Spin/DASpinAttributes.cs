@@ -1,7 +1,5 @@
-﻿using Tizen.NUI.Xaml;
-using Tizen.NUI.Controls;
+﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
-using Tizen.NUI.BaseComponents;
 
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Spin.SpinAttributes.xaml", "SpinAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DASpinAttributes))]
 namespace Tizen.FH.NUI.Controls
