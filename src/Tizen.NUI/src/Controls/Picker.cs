@@ -30,6 +30,8 @@ namespace Tizen.NUI.Controls
         private DateTime showDate;
         private DateTime curDate;
         private TextLabel preTouch;
+
+        private DataArgs data;
         
         private PickerAttributes pickerAttributes;
 
@@ -451,7 +453,8 @@ namespace Tizen.NUI.Controls
                         dateView.Add(dateTable[i,j]);
                     }
                 }
-
+                
+                data = new DataArgs();
                 showDate = DateTime.Now;
                 curDate = showDate;                
             }
@@ -515,6 +518,23 @@ namespace Tizen.NUI.Controls
         {
             TextLabel textLabel = source as TextLabel;
 
+            
+            int line = (textLabel.Position2D.Y - dateTable[0, 0].Position2D.Y)/dateTable[0, 0].Size2D.Height;
+            int i = 0;
+            for (i = 0; i < 7; i++)
+            {
+                if (dateTable[line, i].Position2D.X == textLabel.Position2D.X)
+                {
+                     break;
+                }
+            }
+
+            int index = line * 7 + i;
+            if (index < data.prenum || index >= (42 - data.nextnum))
+            {
+                return false;
+            }
+
             if (preTouch != null)
             {
                 int X = preTouch.Position2D.X;
@@ -546,7 +566,6 @@ namespace Tizen.NUI.Controls
             int lines = ((days + weekStart)%7 == 0)? (days + weekStart)/7 : ((days + weekStart)/7 +1);
             dateView.Size2D = new Size2D(dateView.Size2D.Width, dateTable[0,0].Size2D.Height*(lines+1));
 
-            DataArgs data = new DataArgs();
             data.curnum = days;
             data.prenum = weekStart;
             data.nextnum = 42-weekStart-days;
