@@ -10,6 +10,11 @@ namespace Tizen.FH.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
+            if (Content != null)
+            {
+                return base.GetAttributes();
+                
+            }
             PickerAttributes attributes = new PickerAttributes
             {
                 ParentOrigin = Tizen.NUI.ParentOrigin.Center,
@@ -61,16 +66,6 @@ namespace Tizen.FH.NUI.Controls
                     Position2D = new Position2D(640, 42),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/picker_spin_btn_next.png" }
                 },
-                DownArrowImageAttributes = new ImageAttributes
-                {
-                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    PositionUsesPivotPoint = true,
-                    Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
-                    Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(928, 42),
-                    ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "6. List/list_ic_dropdown.png" }
-                },
                 MonthTextAttributes = new TextAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
@@ -81,18 +76,6 @@ namespace Tizen.FH.NUI.Controls
                     Size2D = new Size2D(248, 68),
                     Position2D = new Position2D(392, 32),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
-                    VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
-                },
-                YearTextAttributes = new TextAttributes
-                {
-                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    PositionUsesPivotPoint = true,
-                    PointSize = new FloatSelector { All = 30 },
-                    TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(220, 68),
-                    Position2D = new Position2D(688, 32),
-                    HorizontalAlignment = Tizen.NUI.HorizontalAlignment.End,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
                 DateViewAttributes = new ViewAttributes
@@ -216,6 +199,76 @@ namespace Tizen.FH.NUI.Controls
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
+                DropDownAttrs = new DropDownAttributes
+                {
+                    ButtonAttributes = new ButtonAttributes
+                    {
+                        TextAttributes = new TextAttributes
+                        {
+                            Text = new StringSelector { All = "Year" },
+                            PointSize = new FloatSelector { All = 30 },
+                            TextColor = new ColorSelector { All = new Color(0, 0, 0, 1) },
+                            FontFamily = "SamsungOneUI 500",
+                            PositionUsesPivotPoint = true,
+                            ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                            PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                            WidthResizePolicy = ResizePolicyType.UseNaturalSize,
+                            HeightResizePolicy = ResizePolicyType.FillToParent,
+                            Position2D = new Position2D(0, 0),
+                            HorizontalAlignment = HorizontalAlignment.Begin,
+                            VerticalAlignment = VerticalAlignment.Center,
+                        },
+                        IconAttributes = new ImageAttributes
+                        {
+                            Size2D = new Size2D(48, 48),
+                            ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
+                            PositionUsesPivotPoint = true,
+                            ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
+                            PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
+                        },
+                    },
+                    ListBackgroundImageAttributes = new ImageAttributes
+                    {
+                        ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png" },
+                        Border = new RectangleSelector { All = new Rectangle(51, 51, 51, 51) },
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                        WidthResizePolicy = ResizePolicyType.FitToChildren,
+                        HeightResizePolicy = ResizePolicyType.FitToChildren,
+                    },
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    Space = new Vector4(56, 0, 0, 0),
+                    SpaceBetweenButtonTextAndIcon = 8,
+                    ListMargin = new Vector4(20, 0, 20, 0),
+                    BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
+                    ListSize2D = new Size2D(360, 500),
+                    ListPadding = new Extents(4, 4, 4, 4),
+                    Size2D = new Size2D(288, 68),
+                    Position2D = new Position2D(688, 32),
+                    FocusedItemIndex = 0
+                },
+                DropDownItemAttrs = new DropDownItemAttributes
+                {
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
+                    Size2D = new Size2D(300, 80),
+                    CheckImageRightSpace = 16,
+                    TextAttributes = new TextAttributes
+                    {
+                        Position2D = new Position2D(28, 0),
+                        PointSize = new FloatSelector { All = 18 }
+                    },
+                    CheckImageAttributes = new ImageAttributes
+                    {
+                        Size2D = new Size2D(40, 40),
+                        ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
+                    },
+                    BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
+                }
             };
             return attributes;
         }

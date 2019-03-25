@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
 using System.Globalization;
 
-
 namespace Tizen.NUI.Controls
 {
     public class Picker : Control
@@ -26,8 +25,7 @@ namespace Tizen.NUI.Controls
         private ImageView leftArrowImage;
         private ImageView rightArrowImage;
         private TextLabel monthText;
-        private TextLabel yearText;
-        private ImageView downArrowImage;
+        private DropDown dropDown;
 
         private DateTime showDate;
         private DateTime curDate;
@@ -90,11 +88,11 @@ namespace Tizen.NUI.Controls
                     rightArrowImage.Dispose();
                     rightArrowImage = null;
                 }
-                if (downArrowImage != null)
+                if (dropDown != null)
                 {
-                    Remove(downArrowImage);
-                    downArrowImage.Dispose();
-                    downArrowImage = null;
+                    Remove(dropDown);
+                    dropDown.Dispose();
+                    dropDown = null;
                 }
                 if (monthText != null)
                 {
@@ -102,11 +100,11 @@ namespace Tizen.NUI.Controls
                     monthText.Dispose();
                     monthText = null;
                 }
-                if (yearText != null)
+                if (dropDown != null)
                 {
-                    Remove(yearText);
-                    yearText.Dispose();
-                    yearText = null;
+                    Remove(dropDown);
+                    dropDown.Dispose();
+                    dropDown = null;
                 }
 
                 if (dateView != null)
@@ -232,10 +230,26 @@ namespace Tizen.NUI.Controls
             ApplyAttributes(satText, pickerAttributes.SatTextAttributes);
             
             ApplyAttributes(monthText, pickerAttributes.MonthTextAttributes);
-            ApplyAttributes(yearText, pickerAttributes.YearTextAttributes);
             ApplyAttributes(leftArrowImage, pickerAttributes.LeftArrowImageAttributes);
             ApplyAttributes(rightArrowImage, pickerAttributes.RightArrowImageAttributes);
-            ApplyAttributes(downArrowImage, pickerAttributes.DownArrowImageAttributes);
+
+            if (pickerAttributes.DropDownAttrs != null)
+            {
+                dropDown = new DropDown(pickerAttributes.DropDownAttrs);          
+                Add(dropDown);
+            }
+            
+            if (pickerAttributes.DropDownItemAttrs != null)
+            {
+                int value = showDate.Year;
+                for (int i = 0; i < 50; i++)
+                {
+                    DropDown.DropDownItemData item = new DropDown.DropDownItemData(pickerAttributes.DropDownItemAttrs);
+                    item.Text = (value + i).ToString();
+                    dropDown.AddItem(item);
+                }
+   
+            }
 
             ApplyAttributes(focusImage, pickerAttributes.FocusImageAttributes);
             ApplyAttributes(endSelectedImage, pickerAttributes.EndSelectedImageAttributes);
@@ -331,26 +345,16 @@ namespace Tizen.NUI.Controls
                 Add(rightArrowImage);
             }
 
-            if (pickerAttributes.DownArrowImageAttributes != null)
-            {
-                downArrowImage = new ImageView()
-                {
-                  WidthResizePolicy = ResizePolicyType.FillToParent,
-                  HeightResizePolicy = ResizePolicyType.FillToParent
-                };
-                Add(downArrowImage);
-            }
-
             if (pickerAttributes.MonthTextAttributes != null)
             {
                 monthText = new TextLabel();
                 Add(monthText);
             }
 
-            if (pickerAttributes.YearTextAttributes != null)
+            if (pickerAttributes.DropDownAttrs != null)
             {
-                yearText = new TextLabel();
-                Add(yearText);
+                //dropDown = new DropDown();
+                //Add(dropDown);
             }
 
             if (pickerAttributes.DateViewAttributes != null)
@@ -449,7 +453,7 @@ namespace Tizen.NUI.Controls
                 }
 
                 showDate = DateTime.Now;
-                curDate = showDate;
+                curDate = showDate;                
             }
             
         }
@@ -541,7 +545,7 @@ namespace Tizen.NUI.Controls
 
             int lines = ((days + weekStart)%7 == 0)? (days + weekStart)/7 : ((days + weekStart)/7 +1);
             dateView.Size2D = new Size2D(dateView.Size2D.Width, dateTable[0,0].Size2D.Height*(lines+1));
-        
+
             DataArgs data = new DataArgs();
             data.curnum = days;
             data.prenum = weekStart;
@@ -618,7 +622,7 @@ namespace Tizen.NUI.Controls
             preTouch = dateTable[focusidx/7,focusidx%7];
 
             monthText.Text =  showDate.ToString("MMMM", new CultureInfo("en-us"));
-            yearText.Text = showDate.Year.ToString();            
+            dropDown.ButtonText = showDate.Year.ToString(); 
         }
 
         private class DataArgs

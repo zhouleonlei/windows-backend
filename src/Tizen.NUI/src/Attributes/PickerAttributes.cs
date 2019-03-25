@@ -227,20 +227,6 @@ namespace Tizen.NUI.Controls
             return attrs.rightArrowImageAttrs;
         });
 
-        public static readonly BindableProperty DownArrowImageAttributesProperty = BindableProperty.Create("DownArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.downArrowImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.downArrowImageAttrs;
-        });
-
         public static readonly BindableProperty MonthTextAttributesProperty = BindableProperty.Create("MonthTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
@@ -255,18 +241,32 @@ namespace Tizen.NUI.Controls
             return attrs.monthTextAttributes;
         });
 
-        public static readonly BindableProperty YearTextAttributesProperty = BindableProperty.Create("YearTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DropDownAttrsProperty = BindableProperty.Create("DropDownAttrs", typeof(DropDownAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
             {
-                attrs.yearTextAttributes = (TextAttributes)newValue;
+                attrs.dropDownAttrs = (DropDownAttributes)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
         {
             var attrs = (PickerAttributes)bindable;
-            return attrs.yearTextAttributes;
+            return attrs.dropDownAttrs;
+        });
+
+        public static readonly BindableProperty DropDownItemAttrsProperty = BindableProperty.Create("DropDownItemAttrs", typeof(DropDownItemAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (PickerAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.dropDownItemAttrs = (DropDownItemAttributes)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (PickerAttributes)bindable;
+            return attrs.dropDownItemAttrs;
         });
 
         private ImageAttributes shadowImageAttrs;
@@ -286,9 +286,10 @@ namespace Tizen.NUI.Controls
 
         private ImageAttributes leftArrowImageAttrs;
         private ImageAttributes rightArrowImageAttrs;
-        private ImageAttributes downArrowImageAttrs;
         private TextAttributes monthTextAttributes;
-        private TextAttributes yearTextAttributes;
+
+        private DropDownAttributes dropDownAttrs;
+        private DropDownItemAttributes dropDownItemAttrs;
 
         public PickerAttributes() : base() { }
         public PickerAttributes(PickerAttributes attributes) : base(attributes)
@@ -373,19 +374,19 @@ namespace Tizen.NUI.Controls
                 rightArrowImageAttrs = attributes.rightArrowImageAttrs.Clone() as ImageAttributes;
             }
 
-            if (attributes.downArrowImageAttrs != null)
-            {
-                downArrowImageAttrs = attributes.downArrowImageAttrs.Clone() as ImageAttributes;
-            }
-
             if (attributes.monthTextAttributes != null)
             {
                 monthTextAttributes = attributes.monthTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.yearTextAttributes != null)
+            if (attributes.dropDownAttrs != null)
             {
-                yearTextAttributes = attributes.yearTextAttributes.Clone() as TextAttributes;
+                dropDownAttrs = attributes.dropDownAttrs.Clone() as DropDownAttributes;
+            }
+
+            if (attributes.dropDownItemAttrs != null)
+            {
+                dropDownItemAttrs = attributes.dropDownItemAttrs.Clone() as DropDownItemAttributes;
             }
         }
 
@@ -581,18 +582,6 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public ImageAttributes DownArrowImageAttributes
-        {
-            get
-            {
-                return (ImageAttributes)GetValue(DownArrowImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(DownArrowImageAttributesProperty, value);
-            }
-        }
-
         public TextAttributes MonthTextAttributes
         {
             get
@@ -605,15 +594,27 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public TextAttributes YearTextAttributes
+        public DropDownAttributes DropDownAttrs
         {
             get
             {
-                return (TextAttributes)GetValue(YearTextAttributesProperty);
+                return (DropDownAttributes)GetValue(DropDownAttrsProperty);
             }
             set
             {
-                SetValue(YearTextAttributesProperty, value);
+                SetValue(DropDownAttrsProperty, value);
+            }
+        }
+
+        public DropDownItemAttributes DropDownItemAttrs
+        {
+            get
+            {
+                return (DropDownItemAttributes)GetValue(DropDownItemAttrsProperty);
+            }
+            set
+            {
+                SetValue(DropDownItemAttrsProperty, value);
             }
         }
         public override Attributes Clone()
