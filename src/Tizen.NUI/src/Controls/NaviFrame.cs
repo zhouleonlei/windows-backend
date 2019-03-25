@@ -15,7 +15,7 @@ namespace Tizen.NUI.Controls
         private NaviItem currentItem;
         private NaviItem prevItem;
         private Animation flickAnimation;
-        private int stackPosition;
+        private bool popFlag;
         private float startcur, endcur, startpre, endpre;
         
         public NaviFrame() : base()
@@ -32,50 +32,39 @@ namespace Tizen.NUI.Controls
             this.attributes = naviframeAttributes = attributes.Clone() as NaviFrameAttributes;
             Initialize();
         }
-        public void NaviframeItemPush(View header,View content)
+        public void NaviFrameItemPush(View header,View content)
         {
             ManualStop();
-            
+            popFlag = false;
             NaviItem item = new NaviItem();
             item.Header = header;
             item.contentView = content;
             pushStack.Add(item);
+            contentView.Add(content);
+            headContent.Add(header);
+            prevItem = currentItem;
+            currentItem = pushStack[pushStack.Count - 1];
 
             if (pushStack.Count == 1)
             {
                 rootItem= item;
+                return;
             }
-            if(currentItem != null) currentItem.Hide();
-            currentItem = item;
-            stackPosition = pushStack.Count;
-            contentView.Add(content);
-            headContent.Add(header);
-        }
-        public void NaviFrameItemPre()
-        {
-            ManualStop();
-
-            if (pushStack.Count == 1) return;
-            if (stackPosition <= 1) return;
-            stackPosition--;
-            prevItem = currentItem;
-            currentItem = pushStack[stackPosition - 1];
             currentItem.Show();
             AnitMateContent(false);
         }
-        public void NaviFrameItemNext()
+        public void NaviFrameItemPop()
         {
             ManualStop();
-
-            if (stackPosition >= pushStack.Count) return;
-            stackPosition++;
-
+            if (pushStack.Count <= 1) return;
+            popFlag = true ;
             prevItem = currentItem;
-            currentItem = pushStack[stackPosition - 1];
-
+            currentItem = pushStack[pushStack.Count - 2];
             currentItem.Show();
             AnitMateContent(true);
-
+            NaviItem result = pushStack[pushStack.Count - 1];
+            pushStack.RemoveAt(pushStack.Count - 1);
+            result.Dispose();
         }
 
         protected override Attributes GetAttributes()
@@ -97,6 +86,7 @@ namespace Tizen.NUI.Controls
                     {
                         if (contentView != null) contentView.Remove(pushStack[i].contentView);
                         if(headContent != null) headContent.Remove(pushStack[i].Header);
+                        pushStack[i].Dispose();
                         pushStack[i] = null;
                     }
                 }
@@ -144,7 +134,8 @@ namespace Tizen.NUI.Controls
        
         private void Initialize()
         {
-            stackPosition = 0;
+            ClippingMode = ClippingModeType.ClipToBoundingBox;
+            popFlag = false;
             naviframeAttributes = attributes as NaviFrameAttributes;
             if (naviframeAttributes == null)
             {
@@ -162,10 +153,22 @@ namespace Tizen.NUI.Controls
 
         private void FlickFinish(object sender, EventArgs e)
         {
-            if (prevItem != null)
+            if(popFlag)
             {
-                prevItem.Hide();
+                if (prevItem != null)
+                {
+                    prevItem.Dispose();
+                    prevItem = null;
+                }
             }
+            else
+            {
+                if (prevItem != null)
+                {
+                    prevItem.Hide();
+                }
+            }
+           
         }
         private void ManualStop()
         {
@@ -188,12 +191,12 @@ namespace Tizen.NUI.Controls
             {
                 if (nextflag)
                 {
-                    startcur = currentItem.contentView.SizeWidth * (-1);
+                    startcur = prevItem.contentView.SizeWidth * (-1);
                     endcur = 0;
                 }
                 else
                 {
-                    startcur = currentItem.contentView.SizeWidth;
+                    startcur = prevItem.contentView.SizeWidth;
                     endcur = 0;
                 }
                 currentItem.SetX(startcur);
@@ -255,6 +258,11 @@ namespace Tizen.NUI.Controls
             {
                 Header.Hide();
                 contentView.Hide();
+            }
+            internal void Dispose()
+            {
+                Header.Dispose();
+                contentView.Dispose();
             }
         }
     }

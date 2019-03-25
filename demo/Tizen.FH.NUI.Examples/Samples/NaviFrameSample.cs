@@ -12,16 +12,12 @@ namespace Tizen.FH.NUI.Samples
         private Button NextButton;
         private Button BackButton;
         private NaviFrame  navi;
-        private Header h1;
-        private Header h2;
-        private Header h3;
-        private TextLabel c1;
-        private TextLabel c2;
-        private TextLabel c3;
+        private Header h;
+        private TextLabel c;
         int i;
         public void Activate()
         {
-            i = 0;
+            i = 1;
             Window window = Window.Instance;
               root = new View()
               {
@@ -32,31 +28,30 @@ namespace Tizen.FH.NUI.Samples
 
             navi = new NaviFrame("DefaultNaviFrame");
             root.Add(navi);
-            AddItem();
 
             BackButton = new Button()
             {
                 Size2D = new Size2D(90, 60),
                 BackgroundColor = Color.Cyan,
-                Text = "Back",
+                Text = "Push",
             };
             BackButton.PositionUsesPivotPoint = true;
             BackButton.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
             BackButton.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
-            BackButton.ClickEvent += ClickBack;
+            BackButton.ClickEvent += ClickPush;
 
             root.Add(BackButton);
             BackButton.RaiseToTop();
             NextButton = new Button()
             {
-                Text = "Next",
+                Text = "Pop",
                 Size2D = new Size2D(90, 60),
                 BackgroundColor = Color.Cyan,
             };
             NextButton.PositionUsesPivotPoint = true;
             NextButton.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
             NextButton.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
-            NextButton.ClickEvent += ClickNext;
+            NextButton.ClickEvent += ClickPop;
 
             root.Add(NextButton);
             NextButton.RaiseToTop();
@@ -82,34 +77,25 @@ namespace Tizen.FH.NUI.Samples
 
             return content;
         }
-        private void AddItem()
+
+        private void ClickPush(object sender, Button.ClickEventArgs e)
         {
-
-            h1 = MakeHeader("header1");
-            c1 = MakeLabel("label1");
-            h2 = MakeHeader("header2");
-            c2 = MakeLabel("label2");
-            h3 = MakeHeader("header3");
-            c3 = MakeLabel("label3");
-            navi.NaviframeItemPush(h1, c1);
-            navi.NaviframeItemPush(h2, c2);
-            navi.NaviframeItemPush(h3, c3);
-
-        }
-
-        private void ClickBack(object sender, Button.ClickEventArgs e)
-        {
-            if(navi!=null)
+            string head = "header" + i;
+            string lable = "lable" + i;
+            h = MakeHeader(head);
+            c = MakeLabel(lable);
+            i++;
+            if (navi!=null)
             {
-                navi.NaviFrameItemPre();
+                navi.NaviFrameItemPush(h, c);
             }
            
         }
-        private void ClickNext(object sender, Button.ClickEventArgs e)
+        private void ClickPop(object sender, Button.ClickEventArgs e)
         {
             if (navi != null)
             {
-                navi.NaviFrameItemNext();
+                navi.NaviFrameItemPop();
             }
         }
 
@@ -137,12 +123,6 @@ namespace Tizen.FH.NUI.Samples
                 Window.Instance.Remove(root);
                 root.Dispose();
             }
-            if (h1 != null) h1.Dispose();
-            if (h2 != null) h2.Dispose();
-            if (h3 != null) h3.Dispose();
-            if (c1 != null) c1.Dispose();
-            if (c2 != null) c2.Dispose();
-            if (c3 != null) c3.Dispose();
         }
     }
 }
