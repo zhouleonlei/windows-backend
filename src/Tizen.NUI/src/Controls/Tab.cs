@@ -249,7 +249,7 @@ namespace Tizen.NUI.Controls
             }
         }
 
-        public void AddItem(TabItem item)
+        public void AddItem(TabItemData itemData)
         {
             int h = 0;
             int topSpace = (int)tabAttributes.Space.Z;
@@ -257,9 +257,11 @@ namespace Tizen.NUI.Controls
             {
                 h = tabAttributes.UnderLineAttributes.Size2D.Height;
             }
+            Tab.TabItem item = new TabItem();          
+            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);
+            item.TextItem.Text = itemData.Text;
             item.Size2D.Height = Size2D.Height - h - topSpace;
             item.Position2D.Y = topSpace;
-            ApplyAttributes(item.TextItem, tabAttributes.TextAttributes);       
             item.TouchEvent += ItemTouchEvent;
             Add(item);
             item.Index = itemList.Count;
@@ -269,6 +271,16 @@ namespace Tizen.NUI.Controls
             itemList[curIndex].State = States.Selected;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);
             UpdateUnderLinePos();
+        }
+
+        public void DeleteItem(int itemIndex)
+        {
+            if(itemIndex < 0 || itemIndex >= itemList.Count)
+            {
+                return;
+            }
+
+
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -295,6 +307,17 @@ namespace Tizen.NUI.Controls
                     underline.Dispose();
                     underline = null;
                 }
+
+                if(itemList != null)
+                {
+                    for(int i = 0; i < itemList.Count; i++)
+                    {
+                        Remove(itemList[i]);
+                        itemList[i].Dispose();
+                    }
+                    itemList.Clear();
+                    itemList = null;
+                }
             }
 
             base.Dispose(type);
@@ -306,18 +329,25 @@ namespace Tizen.NUI.Controls
             if (tabAttributes == null)
             {
                 return;
-            }           
+            }
 
             if (tabAttributes.UnderLineAttributes != null)
             {
                 if (underline == null)
                 {
-                    underline = new View();
+                    underline = new View()
+                    {
+                        PositionUsesPivotPoint = true,
+                        ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
+                    };
                     Add(underline);
-                }                
+                    CreateUnderLineAnimation();
+                }
+                ApplyAttributes(underline, tabAttributes.UnderLineAttributes);
             }
 
-            if(tabAttributes.TextAttributes != null)
+            if (tabAttributes.TextAttributes != null)
             {
                 if (curIndex < itemList.Count)
                 {
@@ -403,7 +433,6 @@ namespace Tizen.NUI.Controls
         private void Initialize()
         {
             ApplyAttributes(this, tabAttributes);
-            CreateUnderLine();
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }
 
@@ -420,20 +449,6 @@ namespace Tizen.NUI.Controls
                 tempAttributes.IsNatureTextWidth = tabAttributes.IsNatureTextWidth; // keep IsNatureTextWidth as original
                 attributes = tabAttributes = tempAttributes;              
                 RelayoutRequest();
-            }
-        }
-
-        private void CreateUnderLine()
-        {
-            if (tabAttributes.UnderLineAttributes != null)
-            {
-                if (underline == null)
-                {
-                    underline = new View();
-                    Add(underline);
-                }
-                ApplyAttributes(underline, tabAttributes.UnderLineAttributes);
-                CreateUnderLineAnimation();
             }
         }
 
@@ -542,14 +557,11 @@ namespace Tizen.NUI.Controls
             return true;
         }
 
-        public class TabItem : Control
+        internal class TabItem : Control
         {
-            private TextLabel text;
-            private int index;
-
             public TabItem() : base()
             {
-                text = new TextLabel()
+                TextItem = new TextLabel()
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.Center,
                     PivotPoint = Tizen.NUI.PivotPoint.Center,
@@ -559,39 +571,31 @@ namespace Tizen.NUI.Controls
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center
                 };
-                Add(text);
+                Add(TextItem);
             }
 
             public string Text
             {
                 get
                 {
-                    return text.Text;
+                    return TextItem.Text;
                 }
                 set
                 {
-                    text.Text = value;
+                    TextItem.Text = value;
                 }
             }
 
             internal int Index
             {
-                get
-                {
-                    return index;
-                }
-                set
-                {
-                    index = value;
-                }
+                get;
+                set;
             }
 
             internal TextLabel TextItem
             {
-                get
-                {
-                    return text;
-                }
+                get;
+                set;
             }
 
             protected override void Dispose(DisposeTypes type)
@@ -603,11 +607,11 @@ namespace Tizen.NUI.Controls
 
                 if (type == DisposeTypes.Explicit)
                 {
-                    if (text != null)
+                    if (TextItem != null)
                     {
-                        Remove(text);
-                        text.Dispose();
-                        text = null;
+                        Remove(TextItem);
+                        TextItem.Dispose();
+                        TextItem = null;
                     }
                 }
 
@@ -621,7 +625,16 @@ namespace Tizen.NUI.Controls
 
             internal void UpdateItemText(TextAttributes attrs)
             {
-                ApplyAttributes(text, attrs);
+                ApplyAttributes(TextItem, attrs);
+            }
+        }
+
+        public class TabItemData
+        {
+            public string Text
+            {
+                get;
+                set;
             }
         }
 

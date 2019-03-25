@@ -72,7 +72,7 @@ namespace Tizen.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Tab.TabItem item = new Tab.TabItem();
+                Tab.TabItemData item = new Tab.TabItemData();
                 item.Text = "Tab " + i;
                 if(i==1)
                 {
@@ -122,7 +122,7 @@ namespace Tizen.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Tab.TabItem item = new Tab.TabItem();
+                Tab.TabItemData item = new Tab.TabItemData();
                 item.Text = "Tab " + i;
                 tab2.AddItem(item);
             }
@@ -132,7 +132,7 @@ namespace Tizen.NUI.Samples
             button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             button.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             button.Size2D = new Size2D(280, 80);
-            button.Position2D = new Position2D(500, 700);
+            button.Position2D = new Position2D(400, 700);
             button.Text = mode[index];
             button.ClickEvent += ButtonClickEvent;
             root.Add(button);
@@ -141,7 +141,7 @@ namespace Tizen.NUI.Samples
             button2.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             button2.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             button2.Size2D = new Size2D(580, 80);
-            button2.Position2D = new Position2D(800, 500);
+            button2.Position2D = new Position2D(250, 500);
             button2.Text = "LayoutDirection is left to right";
             button2.ClickEvent += ButtonClickEvent2;
             root.Add(button2);

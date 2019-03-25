@@ -31,7 +31,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Tab.TabItem item = new Tab.TabItem();
+                Tab.TabItemData item = new Tab.TabItemData();
                 item.Text = "Tab " + i;
                 if(i == 1)
                 {
