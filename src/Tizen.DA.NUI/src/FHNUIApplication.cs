@@ -27,8 +27,6 @@ using Tizen.NUI.CommonUI;
 using Tizen.FH.NUI.Controls;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.AppStyles.xaml", "AppStyles.xaml", typeof(Tizen.FH.NUI.FHNUIApplication))]
-
 namespace Tizen.FH.NUI
 {
     /// <summary>
