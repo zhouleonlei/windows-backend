@@ -5,23 +5,6 @@ using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.CommonUI
 {
-    /// <summary>
-    /// The Loading class of tv nui component. It's used to indicate informs users of the ongoing operation.
-    /// </summary>
-    /// <code>
-    /// Loading loading = new Loading("C_Loading_WhiteSmall");
-    /// </code>
-    /// <code>
-    /// Loading.Attributes attr = new Loading.Attributes();
-    /// attr.FPS = 60;
-    /// attr.ImageArray = new string[]
-    /// {
-    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_00.png",
-    ///     ...
-    ///     @"/usr/share/resources/image/loading/loading_whites/loading_whites_35.png"
-    /// };
-    /// Loading loading = new Loading(attr); 
-    /// </code>
     public class Loading : Control
     {
         protected override Attributes GetAttributes()
@@ -34,6 +17,10 @@ namespace Tizen.NUI.CommonUI
         }
 
         public List<string> ImageArray = null;
+
+        private LoadingAttributes loadingAttrs = null;  // Loading Attributes
+        private ImageView imageView = null;             // ImageView object
+        private AnimatedImageVisual imageVisual = null;
 
         public Loading() : base()
         {
@@ -52,65 +39,6 @@ namespace Tizen.NUI.CommonUI
         {
             this.attributes = loadingAttrs = attributes.Clone() as LoadingAttributes;
             Initialize();
-        }
-
-        //public void Play()
-        //{
-        //    aniState = AnimationState.Play;
-        //    UpdateAnimationState();
-        //}
-
-        //public void Stop()
-        //{
-        //    aniState = AnimationState.Stop;
-        //    UpdateAnimationState();
-
-        //    imageVisual.
-        //}
-
-        //public void Pause()
-        //{
-        //    aniState = AnimationState.Pause;
-        //    UpdateAnimationState();
-        //}
-
-        protected override void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if (type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-                //frameAni.Stop();
-                //frameAni.Detach();
-                //frameAni = null;
-
-                // According to FrameAnimation spec, image source should be Disposed later than FrameAnimation.
-                RemoveVisual("imageVisual");
-
-            }
-
-            //Release your own unmanaged resources here.
-            //You should not access any managed member here except static instance.
-            //because the execution order of Finalizes is non-deterministic.
-            //Unreference this from if a static instance refer to this. 
-
-            //You must call base.Dispose(type) just before exit.
-            base.Dispose(type);
-        }
-
-        protected override void OnUpdate(Attributes attrs)
-        {
-            //Console.WriteLine(" ----  OnUpdate");
-            //if (attrs != null)
-            //    loadingAttrs = attrs as LoadingAttributes;
-            //ApplyAttributes(this, loadingAttrs);
-            //UpdateList();
         }
 
         public string LoadingImageURLPrefix
@@ -153,6 +81,64 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+                //frameAni.Stop();
+                //frameAni.Detach();
+                //frameAni = null;
+
+                // According to FrameAnimation spec, image source should be Disposed later than FrameAnimation.
+                RemoveVisual("imageVisual");
+
+            }
+
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+            //Unreference this from if a static instance refer to this. 
+
+            //You must call base.Dispose(type) just before exit.
+            base.Dispose(type);
+        }
+
+        protected override void OnUpdate(Attributes attrs)
+        {
+            if (loadingAttrs == null)
+            {
+                return;
+            }
+            ApplyAttributes(this, loadingAttrs);
+        }
+
+        private void Initialize()
+        {
+            ImageArray = new List<string>();
+            imageVisual = new AnimatedImageVisual()
+            {
+                URLS = ImageArray,
+                FrameDelay = 16.6f,
+                LoopCount = -1,
+                Size = new Size2D(100, 100),
+                Position = new Vector2(0, 0),
+                Origin = Visual.AlignType.TopEnd,
+                AnchorPoint = Visual.AlignType.TopEnd
+            };
+
+            UpdateList();
+
+            this.AddVisual("imageVisual", imageVisual);
+        }
+
         private void UpdateList()
         {
 
@@ -185,39 +171,5 @@ namespace Tizen.NUI.CommonUI
             }
 
         }
-
-        private void Initialize()
-        {
-            ImageArray = new List<string>();
-            imageVisual = new AnimatedImageVisual()
-            {
-                URLS = ImageArray,
-                FrameDelay = 16.6f,
-                LoopCount = -1,
-                Size = new Size2D(100, 100),
-                Position = new Vector2(0, 0),
-                Origin = Visual.AlignType.TopEnd,
-                AnchorPoint = Visual.AlignType.TopEnd
-            };
-
-            UpdateList();
-
-            this.AddVisual("imageVisual", imageVisual);
-        }
-
-        internal enum AnimationState
-        {
-            None,
-            Play,
-            Pause,
-            Stop
-        }
-
-        private LoadingAttributes loadingAttrs = null;     // Loading Attributes
-        //private FrameAnimation frameAni = null;     // FrameAnimation
-        private ImageView imageView = null;         // ImageView object
-        private AnimatedImageVisual imageVisual = null;
-
-        //private AnimationState aniState = AnimationState.None;  // Animation state
     }
 }
