@@ -49,6 +49,21 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
+        /// Event for state change signal which can be used to subscribe/unsubscribe the event handler provided by the user.
+        /// </summary>
+        public event EventHandler<SelectGroupEventArgs> SelectionGroupEvent
+        {
+            add
+            {
+                selectionGroupHandlers += value;
+            }
+            remove
+            {
+                selectionGroupHandlers -= value;
+            }
+        }
+
+        /// <summary>
         /// Determine whether selection is in the SelectionGroup
         /// </summary>
         /// <param name="selection">selection in the SelectionGroup</param>
@@ -66,21 +81,6 @@ namespace Tizen.NUI.CommonUI
         public int GetIndex(SelectButton selection)
         {
             return itemGroup.IndexOf(selection);
-        }
-
-        /// <summary>
-        /// Event for state change signal which can be used to subscribe/unsubscribe the event handler provided by the user.
-        /// </summary>
-        public event EventHandler<SelectGroupEventArgs> SelectionGroupEvent
-        {
-            add
-            {
-                selectionGroupHandlers += value;
-            }
-            remove
-            {
-                selectionGroupHandlers -= value;
-            }
         }
 
         /// <summary>

@@ -51,6 +51,7 @@
     <Compile Include="Samples\DropDownSample.cs" />
     <Compile Include="Samples\FlexibleViewSample.cs" />
     <Compile Include="Samples\PaginationSample.cs" />
+    <Compile Include="Samples\SliderSample.cs" />
     <Compile Include="Samples\ToastSample.cs" />
     <Compile Include="Samples\ProgressSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />
