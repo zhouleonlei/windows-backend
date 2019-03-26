@@ -38,7 +38,7 @@ namespace Tizen.FH.NUI.Controls
             ManualStop();
             popFlag = false;
             NaviItem item = new NaviItem();
-            item.Header = header;
+            item.header = header;
             item.contentView = content;
             pushStack.Add(item);
             contentView.Add(content);
@@ -86,7 +86,7 @@ namespace Tizen.FH.NUI.Controls
                     if (pushStack[i] != null)
                     {
                         if (contentView != null) contentView.Remove(pushStack[i].contentView);
-                        if(headContent != null) headContent.Remove(pushStack[i].Header);
+                        if(headContent != null) headContent.Remove(pushStack[i].header);
                         pushStack[i].Dispose();
                         pushStack[i] = null;
                     }
@@ -202,7 +202,7 @@ namespace Tizen.FH.NUI.Controls
                 }
                 currentItem.SetX(startcur);
                 flickAnimation.AnimateTo(currentItem.contentView, "PositionX", endcur);
-                flickAnimation.AnimateTo(currentItem.Header, "PositionX", endcur);
+                flickAnimation.AnimateTo(currentItem.header, "PositionX", endcur);
             }
            
             if (prevItem != null)
@@ -220,7 +220,7 @@ namespace Tizen.FH.NUI.Controls
                 prevItem.Show();
                 prevItem.SetX(startpre); 
                 flickAnimation.AnimateTo(prevItem.contentView, "PositionX", endpre);
-                flickAnimation.AnimateTo(prevItem.Header, "PositionX", endpre);
+                flickAnimation.AnimateTo(prevItem.header, "PositionX", endpre);
             }
 
             flickAnimation.Play();
@@ -243,26 +243,26 @@ namespace Tizen.FH.NUI.Controls
         internal class NaviItem
         {
 
-            internal View Header;
+            internal View header;
             internal View contentView;
             internal void SetX(float x)
             {
-                Header.PositionX = x;
-                contentView.PositionX = x;
+                header.SetX(x);
+                contentView.SetX(x);
             }
             internal void Show()
             {
-                Header.Show();
+                header.Show();
                 contentView.Show();
             }
             internal void Hide()
             {
-                Header.Hide();
+                header.Hide();
                 contentView.Hide();
             }
             internal void Dispose()
             {
-                Header.Dispose();
+                header.Dispose();
                 contentView.Dispose();
             }
         }
