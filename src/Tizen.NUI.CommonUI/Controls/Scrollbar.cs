@@ -105,7 +105,7 @@ namespace Tizen.NUI.CommonUI
         //    Initialize();
         //}
 
-        #region public property
+        #region public property fields
 
         /// <summary>
         /// The property to get/set the direction of the ScrollBar.
@@ -376,13 +376,13 @@ namespace Tizen.NUI.CommonUI
                     thumbObj = null;
                 }
 
-                ///if (scrollAniPlayer != null)
-                ///{
-                ///    scrollAniPlayer.Stop();
-                ///    scrollAniPlayer.Clear();
-                ///    scrollAniPlayer.Dispose();
-                ///    scrollAniPlayer = null;
-                ///}
+                if (scrollAniPlayer != null)
+                {
+                 scrollAniPlayer.Stop();
+                 scrollAniPlayer.Clear();
+                 scrollAniPlayer.Dispose();
+                 scrollAniPlayer = null;
+                }
                 /// UIDirectionChangedEvent -= OnUIDirectionChangedEvent;
             }
 
@@ -440,7 +440,8 @@ namespace Tizen.NUI.CommonUI
             Add(trackObj);
             Add(thumbObj);
 
-            //scrollAniPlayer = new AnimationPlayer();
+            scrollAniPlayer = new Animation(334);
+            scrollAniPlayer.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
 
             //uiDirection = SystemProperty.Instance.UIDirection;
 
@@ -554,11 +555,11 @@ namespace Tizen.NUI.CommonUI
                 float posY = (height - thumbH) / 2.0f;
 
                 thumbObjPosX = posX;
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Stop();
-                //    scrollAniPlayer.Clear();
-                //}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Stop();
+                    scrollAniPlayer.Clear();
+                }
 
                 if (!enableAni)
                 {
@@ -566,11 +567,11 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    //if (scrollAniPlayer != null)
-                    //{
-                    //    scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX, AnimationCurve.Basic);
-                    //    scrollAniPlayer.Play();
-                    //}
+                    if (scrollAniPlayer != null)
+                    {
+                        scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX);
+                        scrollAniPlayer.Play();
+                    }
                 }
             }
             else
@@ -579,11 +580,11 @@ namespace Tizen.NUI.CommonUI
                 float posY = ratio * (height - thumbH);
 
                 thumbObjPosY = posY;
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Stop();
-                //    scrollAniPlayer.Clear();
-                //}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Stop();
+                    scrollAniPlayer.Clear();
+                }
 
                 if (!enableAni)
                 {
@@ -591,11 +592,11 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    //if (scrollAniPlayer != null)
-                    //{
-                    //    scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY, AnimationCurve.Basic);
-                    //    scrollAniPlayer.Play();
-                    //}
+                    if (scrollAniPlayer != null)
+                    {
+                        scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY);
+                        scrollAniPlayer.Play();
+                    }
                 }
             }
         }
@@ -806,8 +807,7 @@ namespace Tizen.NUI.CommonUI
 
         private PanGestureDetector panGestureDetector;
         private EventHandler<PanGestureEventArgs> panGestureEventHandler;
-
-
+        private Animation scrollAniPlayer = null;
         private float thumbObjPosX;  //move to attribute?
         private float thumbObjPosY;
     }
