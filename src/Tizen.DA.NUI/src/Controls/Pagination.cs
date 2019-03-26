@@ -19,10 +19,114 @@ namespace Tizen.FH.NUI.Controls
 
         private TapGestureDetector tapGestureDetector;
 
-        public Pagination() : this(null) { }
+        public Pagination() : base()
+        {
+            Initialize();
+        }
+
         public Pagination(string style) : base(style)
         {
             Initialize();
+        }
+
+        public StringSelector ReturnArrowURLs
+        {
+            get
+            {
+                return paginationAttributes?.ReturnArrowAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                if (paginationAttributes.ReturnArrowAttributes == null)
+                {
+                    paginationAttributes.ReturnArrowAttributes = new ImageAttributes
+                    {
+                        ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.CenterLeft,
+                        PositionUsesPivotPoint = true
+                    };
+                }
+                paginationAttributes.ReturnArrowAttributes.ResourceURL = value;
+            }
+        }
+
+        public StringSelector NextArrowURLs
+        {
+            get
+            {
+                return paginationAttributes?.NextArrowAttributes?.ResourceURL;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                if (paginationAttributes.NextArrowAttributes == null)
+                {
+                    paginationAttributes.NextArrowAttributes = new ImageAttributes
+                    {
+                        ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
+                        PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
+                        PositionUsesPivotPoint = true
+                    };
+                }
+                paginationAttributes.NextArrowAttributes.ResourceURL = value;
+            }
+        }
+
+        public Size2D ReturnArrowSize
+        {
+            get
+            {
+                return paginationAttributes?.ReturnArrowAttributes?.Size2D;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                if (paginationAttributes.ReturnArrowAttributes == null)
+                {
+                    paginationAttributes.ReturnArrowAttributes = new ImageAttributes
+                    {
+                        ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.CenterLeft,
+                        PositionUsesPivotPoint = true
+                    };
+                }
+                paginationAttributes.ReturnArrowAttributes.Size2D = value;
+            }
+        }
+
+        public Size2D NextArrowSize
+        {
+            get
+            {
+                return paginationAttributes?.NextArrowAttributes?.Size2D;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                if (paginationAttributes.NextArrowAttributes == null)
+                {
+                    paginationAttributes.NextArrowAttributes = new ImageAttributes
+                    {
+                        ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
+                        PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
+                        PositionUsesPivotPoint = true
+                    };
+                }
+                paginationAttributes.NextArrowAttributes.Size2D = value;
+            }
         }
 
         public new int IndicatorCount
@@ -90,6 +194,11 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
 
+        protected override Attributes GetAttributes()
+        {
+            return new PaginationAttributes();
+        }
+
         protected override void OnUpdate(Attributes attributtes)
         {
             base.OnUpdate(attributtes);
@@ -132,6 +241,12 @@ namespace Tizen.FH.NUI.Controls
             tapGestureDetector.Attach(returnArrow);
             tapGestureDetector.Attach(nextArrow);
             tapGestureDetector.Attach(container);
+
+            paginationAttributes = attributes as PaginationAttributes;
+            if (paginationAttributes == null)
+            {
+                throw new Exception("Pagination attributes is null.");
+            }
         }
 
         private void OnMyTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
@@ -159,7 +274,7 @@ namespace Tizen.FH.NUI.Controls
                         SelectedIndex = selectedIndex - 1;
                     }
                 }
-                else if (e.TapGesture.LocalPoint.X > selectIndicator.Position.X + indicatorWidth)
+                else if (e.TapGesture.LocalPoint.X > selectIndicator.Position.X + paginationAttributes.IndicatorSize.Width)
                 {
                     if (selectedIndex < indicatorCount - 1)
                     {
@@ -223,10 +338,7 @@ namespace Tizen.FH.NUI.Controls
                     indicatorWidth = paginationAttributes.IndicatorSize.Width;
                     indicatorHeight = paginationAttributes.IndicatorSize.Height;
                 }
-                if (paginationAttributes.IndicatorSpacing != null)
-                {
-                    indicatorSpacing = paginationAttributes.IndicatorSpacing.Value;
-                }
+                indicatorSpacing = paginationAttributes.IndicatorSpacing;
 
                 count = (int)((this.SizeWidth - returnArrowWidth - nextArrowWidth) / (indicatorWidth + indicatorSpacing));
             }

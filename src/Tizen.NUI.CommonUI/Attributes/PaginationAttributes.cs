@@ -48,7 +48,7 @@ namespace Tizen.NUI.CommonUI
             var attrs = (PaginationAttributes)bindable;
             if (newValue != null)
             {
-                attrs.indicatorSpacing = (int?)newValue;
+                attrs.indicatorSpacing = (int)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
@@ -60,7 +60,7 @@ namespace Tizen.NUI.CommonUI
         private Size2D indicatorSize;
         private string indicatorBackgroundURL;
         private string indicatorSelectURL;
-        private int? indicatorSpacing;
+        private int indicatorSpacing;
 
         public PaginationAttributes() : base() { }
         public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
@@ -116,11 +116,11 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public int? IndicatorSpacing
+        public int IndicatorSpacing
         {
             get
             {
-                return (int?)GetValue(IndicatorSpacingProperty);
+                return (int)GetValue(IndicatorSpacingProperty);
             }
             set
             {
