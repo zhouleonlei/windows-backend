@@ -153,8 +153,8 @@ namespace Tizen.FH.NUI.Controls
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         Size2D = new Size2D(1080, 1),
                         PositionUsesPivotPoint = true,
-                        ParentOrigin = NUI.ParentOrigin.BottomLeft,
-                        PivotPoint = NUI.PivotPoint.TopLeft
+                        ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
+                        PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                     };
                     this.Add(headerLine);
                 }

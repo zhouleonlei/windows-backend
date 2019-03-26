@@ -247,8 +247,8 @@ namespace Tizen.FH.NUI.Controls
             internal View contentView;
             internal void SetX(float x)
             {
-                header.SetX(x);
-                contentView.SetX(x);
+                header.PositionX = x;
+                contentView.PositionX = x;
             }
             internal void Show()
             {
