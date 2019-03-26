@@ -92,7 +92,23 @@ namespace Tizen.NUI.Samples
             }
 
             dropDown.SelectedItemIndex = 3;
+            //dropDown.DeleteItem(1);
 
+            //DropDown.DropDownItemData insertItem = new DropDown.DropDownItemData();
+            //insertItem.Size2D = new Size2D(360, 96);
+            //insertItem.BackgroundColorSelector = new ColorSelector
+            //{
+            //    Pressed = new Color(0, 0, 0, 0.4f),
+            //    Other = new Color(1, 1, 1, 0),
+            //};
+            //insertItem.Text = "Insert Normal list ";
+            //insertItem.PointSize = 18;
+            //insertItem.FontFamily = "SamsungOne 500";
+            //insertItem.TextPosition2D = new Position2D(28, 0);
+            //insertItem.CheckImageSize2D = new Size2D(40, 40);
+            //insertItem.CheckImageResourceUrl = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png";
+            //insertItem.CheckImageRightSpace = 16;
+            //dropDown.InsertItem(insertItem, 1);
             ////////Attach scrollbar///////////
             scrollBar = new ScrollBar();
             scrollBar.Direction = ScrollBar.DirectionType.Vertical;

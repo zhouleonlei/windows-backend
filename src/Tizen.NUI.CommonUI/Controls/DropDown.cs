@@ -477,6 +477,40 @@ namespace Tizen.NUI.CommonUI
             adapter.InsertData(-1, item);
         }
 
+        public void DeleteItem(int index)
+        {
+            if(index < 0 || index >= adapter.GetItemCount())
+            {
+                return;
+            }
+
+            if (selectedItemIndex == index)
+            {
+                selectedItemIndex = -1;
+            }
+            else if(selectedItemIndex > index)
+            {
+                selectedItemIndex--;
+            }
+
+            adapter.RemoveData(index);
+        }
+
+        public void InsertItem(DropDownItemData item, int index)
+        {
+            if (index < 0 || index >= adapter.GetItemCount())
+            {
+                return;
+            }
+
+            if (selectedItemIndex >= index)
+            {
+                selectedItemIndex++;
+            }
+
+            adapter.InsertData(index, item);
+        }
+
         public void AttachScrollBar(ScrollBar scrollBar)
         {
             if (list == null)
