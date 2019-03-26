@@ -6,6 +6,7 @@ namespace Tizen.NUI.Samples
     public class PaginationSample : IExample
     {
         private Pagination pagination1;
+        private Pagination pagination2;
 
         private readonly int PAGE_COUNT = 5;
 
@@ -13,6 +14,7 @@ namespace Tizen.NUI.Samples
         {
             Window window = Window.Instance;
 
+            ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
             pagination1 = new Pagination();
             pagination1.Name = "Pagination1";
             pagination1.Position2D = new Position2D(500, 450);
@@ -26,6 +28,22 @@ namespace Tizen.NUI.Samples
             pagination1.SelectedIndex = 0;
             pagination1.Focusable = true;
             window.Add(pagination1);
+
+            ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
+            PaginationAttributes attrs = new PaginationAttributes();
+            attrs.IndicatorSize = new Size2D(15, 15);
+            attrs.IndicatorBackgroundURL = CommonResource.GetTVResourcePath() + "component/c_pagination/c_paganation_medium_dot_normal.png";
+            attrs.IndicatorSelectURL = CommonResource.GetTVResourcePath() + "component/c_pagination/c_paganation_medium_dot_focus.png";
+            attrs.IndicatorSpacing = 14;
+            pagination2 = new Pagination(attrs);
+            pagination2.Name = "Pagination2";
+            pagination2.Position2D = new Position2D(500, 500);
+            pagination2.Size2D = new Size2D(400, 30);
+            pagination2.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
+            pagination2.IndicatorCount = PAGE_COUNT;
+            pagination2.SelectedIndex = 0;
+            pagination2.Focusable = true;
+            window.Add(pagination2);
 
             window.KeyEvent += Window_KeyEvent;
 
@@ -41,12 +59,20 @@ namespace Tizen.NUI.Samples
                     {
                         pagination1.SelectedIndex = pagination1.SelectedIndex - 1;
                     }
+                    if (pagination2.SelectedIndex > 0)
+                    {
+                        pagination2.SelectedIndex = pagination2.SelectedIndex - 1;
+                    }
                 }
                 else if (e.Key.KeyPressedName == "Right")
                 {
                     if (pagination1.SelectedIndex < pagination1.IndicatorCount - 1)
                     {
                         pagination1.SelectedIndex = pagination1.SelectedIndex + 1;
+                    }
+                    if (pagination2.SelectedIndex < pagination2.IndicatorCount - 1)
+                    {
+                        pagination2.SelectedIndex = pagination2.SelectedIndex + 1;
                     }
                 }
             }
@@ -56,8 +82,10 @@ namespace Tizen.NUI.Samples
         {
             Window window = Window.Instance;
             window.Remove(pagination1);
+            window.Remove(pagination2);
 
             pagination1.Dispose();
+            pagination2.Dispose();
         }
     }
 }

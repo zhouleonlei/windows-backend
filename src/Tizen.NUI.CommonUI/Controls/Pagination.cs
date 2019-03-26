@@ -27,6 +27,12 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
+        public Pagination(PaginationAttributes attributes) : base()
+        {
+            this.attributes = attributes.Clone() as PaginationAttributes;
+            Initialize();
+        }
+
         public Size2D IndicatorSize
         {
             get

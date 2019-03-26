@@ -15,6 +15,7 @@ namespace Tizen.FH.NUI.Samples
         {
             Window window = Window.Instance;
 
+            ///////////////////////////////////////////////Create by Style//////////////////////////////////////////////////////////
             DAPagination1 = new Pagination("BasicPagination");
             DAPagination1.Name = "DAAppPagination1";
             DAPagination1.Position2D = new Position2D(500, 450);
@@ -35,6 +36,7 @@ namespace Tizen.FH.NUI.Samples
             DAPagination2.Focusable = true;
             window.Add(DAPagination2);
 
+            ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
             DAPagination3 = new Pagination();
             DAPagination3.Name = "DAAppPagination3";
             DAPagination3.Position2D = new Position2D(500, 550);
