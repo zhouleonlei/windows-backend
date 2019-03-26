@@ -7,12 +7,6 @@ namespace Tizen.NUI.CommonUI
     public class DropDown : Control
     {
         #region DropDown
-        public enum ListOrientation
-        {
-            Left,
-            Right,
-        }
-
         private Button button = null;
         private TextLabel headerText = null;
         private TextLabel buttonText = null;
@@ -68,6 +62,12 @@ namespace Tizen.NUI.CommonUI
             {
                 clickEventHandlers -= value;
             }
+        }
+
+        public enum ListOrientation
+        {
+            Left,
+            Right,
         }
 
         public string HeaderText
