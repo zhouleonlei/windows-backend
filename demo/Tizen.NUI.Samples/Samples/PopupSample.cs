@@ -61,13 +61,13 @@ namespace Tizen.NUI.Samples
             popup.TitleTextPosition2D = new Position2D(64, 52);
             popup.TitleText = "Popup Title";
 
-            popup.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "11. Popup/popup_background_shadow.png";
+            popup.ShadowImageURL = CommonResource.GetFHResourcePath() + "11. Popup/popup_background_shadow.png";
             popup.ShadowImageBorder = new Rectangle(0, 0, 105, 105);
             popup.ShadowOffset = new Vector4(24, 24, 24, 24);
-            popup.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "11. Popup/popup_background.png";
+            popup.BackgroundImageURL = CommonResource.GetFHResourcePath() + "11. Popup/popup_background.png";
             popup.BackgroundImageBorder = new Rectangle(0, 0, 81, 81);
 
-            popup.ButtonBackgroundImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png";
+            popup.ButtonBackgroundImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png";
             popup.ButtonBackgroundImageBorder = new Rectangle(5, 5, 5, 5);
             popup.ButtonOverLayBackgroundColorSelector = new ColorSelector
             {
@@ -122,7 +122,7 @@ namespace Tizen.NUI.Samples
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.Center,
                     PivotPoint = Tizen.NUI.PivotPoint.Center,
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "11. Popup/popup_background_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "11. Popup/popup_background_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 105, 105) },
                 },
                 BackgroundImageAttributes = new ImageAttributes
@@ -132,7 +132,7 @@ namespace Tizen.NUI.Samples
                     PivotPoint = Tizen.NUI.PivotPoint.Center,
                     WidthResizePolicy = ResizePolicyType.FillToParent,
                     HeightResizePolicy = ResizePolicyType.FillToParent,
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "11. Popup/popup_background.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "11. Popup/popup_background.png" },
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 81, 81) },
                 },
                 ButtonAttributes = new ButtonAttributes
@@ -148,7 +148,7 @@ namespace Tizen.NUI.Samples
                         PivotPoint = Tizen.NUI.PivotPoint.Center,
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         HeightResizePolicy = ResizePolicyType.FillToParent,
-                        ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
+                        ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
                         Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                     },
                     OverlayImageAttributes = new ImageAttributes
@@ -196,7 +196,7 @@ namespace Tizen.NUI.Samples
             popup2.ContentView.Add(contentText2);
 
             button = new Button();
-            button.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            button.BackgroundImageURL = CommonResource.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             button.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             button.Size2D = new Size2D(580, 80);
             button.Position2D = new Position2D(1300, 500);

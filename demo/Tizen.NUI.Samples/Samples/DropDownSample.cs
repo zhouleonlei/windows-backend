@@ -59,11 +59,11 @@ namespace Tizen.NUI.Samples
             dropDown.ButtonTextColor = new Color(0, 0, 0, 1);
             dropDown.ButtonTextPointSize = 20;
             dropDown.ButtonTextFontFamily = "SamsungOneUI 500";
-            dropDown.ButtonIconImageURL = CommonReosurce.GetFHResourcePath() + "6. List/list_ic_dropdown.png";
+            dropDown.ButtonIconImageURL = CommonResource.GetFHResourcePath() + "6. List/list_ic_dropdown.png";
             dropDown.ButtonIconSize2D = new Size2D(48, 48);
             dropDown.LeftSpace = 56;
             dropDown.SpaceBetweenButtonTextAndIcon = 8;
-            dropDown.ListBackgroundImageURL = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png";
+            dropDown.ListBackgroundImageURL = CommonResource.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png";
             dropDown.ListBackgroundImageBorder = new Rectangle(51, 51, 51, 51);
             dropDown.ListLeftMargin = 20;
             dropDown.ListTopMargin = 20;
@@ -86,7 +86,7 @@ namespace Tizen.NUI.Samples
                 item.FontFamily = "SamsungOne 500";
                 item.TextPosition2D = new Position2D(28, 0);
                 item.CheckImageSize2D = new Size2D(40, 40);
-                item.CheckImageResourceUrl = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png";
+                item.CheckImageResourceUrl = CommonResource.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png";
                 item.CheckImageRightSpace = 16;
                 dropDown.AddItem(item);
             }
@@ -117,7 +117,7 @@ namespace Tizen.NUI.Samples
             scrollBar.TrackColor = Color.Green;
             scrollBar.ThumbSize = new Size2D(4, 30);
             scrollBar.ThumbColor = Color.Yellow;
-            scrollBar.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             dropDown.AttachScrollBar(scrollBar);
 
             #endregion
@@ -168,7 +168,7 @@ namespace Tizen.NUI.Samples
                     IconAttributes = new ImageAttributes
                     {
                         Size2D = new Size2D(48, 48),
-                        ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
+                        ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
                         PositionUsesPivotPoint = true,
                         ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
                         PivotPoint = Tizen.NUI.PivotPoint.CenterRight,
@@ -176,7 +176,7 @@ namespace Tizen.NUI.Samples
                 },
                 ListBackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "10. Drop Down/dropdown_bg.png" },
                     Border = new RectangleSelector { All = new Rectangle(51, 51, 51, 51) },
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
@@ -213,7 +213,7 @@ namespace Tizen.NUI.Samples
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(40, 40),
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
                 },
                 CheckImageRightSpace = 16,
             };
@@ -235,7 +235,7 @@ namespace Tizen.NUI.Samples
             scrollBar2.TrackColor = Color.Green;
             scrollBar2.ThumbSize = new Size2D(4, 30);
             scrollBar2.ThumbColor = Color.Yellow;
-            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar2.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             dropDown2.AttachScrollBar(scrollBar2);
 
             #endregion

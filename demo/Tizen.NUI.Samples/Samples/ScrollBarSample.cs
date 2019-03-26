@@ -42,7 +42,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_2.ThumbSize = new Size2D(30, 4);
             scrollBar1_2.CurrentValue = 0;//set after thumbsize
             scrollBar1_2.ThumbColor = Color.Yellow;
-            scrollBar1_2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar1_2.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
 
             root.Add(scrollBar1_2);
 

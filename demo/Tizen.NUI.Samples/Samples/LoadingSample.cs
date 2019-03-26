@@ -26,7 +26,7 @@ namespace Tizen.NUI.Samples
             loading1_1.Position2D = new Position2D(100, 350);
             loading1_1.Size2D = new Size2D(100, 100);
 
-            loading1_1.LoadingImageURLPrefix = CommonReosurce.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_";
+            loading1_1.LoadingImageURLPrefix = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_";
 
             root.Add(loading1_1);
 
@@ -34,7 +34,7 @@ namespace Tizen.NUI.Samples
             {
                 LoadingImageURLPrefix = new StringSelector
                 {
-                    All = CommonReosurce.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
+                    All = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
                 }
 
             };

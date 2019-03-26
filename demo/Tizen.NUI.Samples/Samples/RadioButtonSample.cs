@@ -75,10 +75,10 @@ namespace Tizen.NUI.Samples
                 };
                 utilityRadioButton[i].CheckImageURLSelector = new StringSelector
                 {
-                    Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
-                    Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
+                    Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    Selected = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
+                    Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
                 };
 
                 group[0].Add(utilityRadioButton[i]);
@@ -97,10 +97,10 @@ namespace Tizen.NUI.Samples
                 };
                 familyRadioButton[i].CheckImageURLSelector = new StringSelector
                 {
-                    Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
-                    Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
+                    Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
+                    Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
                 };
 
                 group[1].Add(familyRadioButton[i]);
@@ -119,10 +119,10 @@ namespace Tizen.NUI.Samples
                 };
                 foodRadioButton[i].CheckImageURLSelector = new StringSelector
                 {
-                    Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
-                    Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
+                    Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
+                    Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
                 };
 
                 group[2].Add(foodRadioButton[i]);
@@ -141,10 +141,10 @@ namespace Tizen.NUI.Samples
                 };
                 kitchenRadioButton[i].CheckImageURLSelector = new StringSelector
                 {
-                    Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
-                    Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                    DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
+                    Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
+                    Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                    DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
                 };
 
                 group[3].Add(kitchenRadioButton[i]);
@@ -180,10 +180,10 @@ namespace Tizen.NUI.Samples
                     Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
+                        Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        Selected = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_on.png",
                     },
                     Opacity = new FloatSelector
                     {
@@ -202,10 +202,10 @@ namespace Tizen.NUI.Samples
                     Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
+                        Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_24c447.png",
                     },
                     Opacity = new FloatSelector
                     {
@@ -224,10 +224,10 @@ namespace Tizen.NUI.Samples
                     Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
+                        Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
                     },
                     Opacity = new FloatSelector
                     {
@@ -246,10 +246,10 @@ namespace Tizen.NUI.Samples
                     Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
-                        Disabled = CommonReosurce.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
-                        DisabledSelected = CommonReosurce.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
+                        Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        Selected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
+                        Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
+                        DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_9762d9.png",
                     },
                     Opacity = new FloatSelector
                     {

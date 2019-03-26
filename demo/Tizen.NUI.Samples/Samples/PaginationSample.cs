@@ -19,8 +19,8 @@ namespace Tizen.NUI.Samples
             pagination1.Size2D = new Size2D(400, 30);
             pagination1.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
             pagination1.IndicatorSize = new Size2D(26, 26);
-            pagination1.IndicatorBackgroundURL = CommonReosurce.GetFHResourcePath() + "9. Controller/pagination_ic_nor.png";
-            pagination1.IndicatorSelectURL = CommonReosurce.GetFHResourcePath() + "9. Controller/pagination_ic_sel.png";
+            pagination1.IndicatorBackgroundURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_nor.png";
+            pagination1.IndicatorSelectURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_sel.png";
             pagination1.IndicatorSpacing = 8;
             pagination1.IndicatorCount = PAGE_COUNT;
             pagination1.SelectedIndex = 0;
