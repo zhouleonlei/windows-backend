@@ -8,17 +8,15 @@ namespace Tizen.FH.NUI.Samples
     {
         private TextLabel board1, board2, board;
         private Button button1, button2, button3, button4;
-        private Loading loading1_1, loading1_2, loading2_1, loading2_2;  //1-null para 2-attributes; X_1-color; X_2 image track
-        private View root;
+        private Loading loading1_1, loading2_1;  //1-style para 2-attributes;
+        private SampleLayout root;
 
         public void Activate()
         {
             Window window = Window.Instance;
 
-            root = new View()
-            {
-                Size2D = new Size2D(1920, 1080),
-            };
+            root = new SampleLayout(false);
+            root.HeaderText = "Loading";
 
             CreateBoardAndButtons();
 
@@ -53,7 +51,7 @@ namespace Tizen.FH.NUI.Samples
         {
             board = new TextLabel();
             board.Size2D = new Size2D(1000, 100);
-            board.Position2D = new Position2D(430, 900);
+            board.Position2D = new Position2D(80, 600);
             board.PointSize = 30;
             board.HorizontalAlignment = HorizontalAlignment.Center;
             board.VerticalAlignment = VerticalAlignment.Center;
@@ -66,12 +64,12 @@ namespace Tizen.FH.NUI.Samples
 
             board1 = new TextLabel();
             board1.Size2D = new Size2D(300, 70);
-            board1.Position2D = new Position2D(50, 200);
+            board1.Position2D = new Position2D(50, 100);
             board1.PointSize = 20;
             board1.HorizontalAlignment = HorizontalAlignment.Center;
             board1.VerticalAlignment = VerticalAlignment.Center;
             board1.BackgroundColor = Color.Magenta;
-            board1.Text = "NULL parameter construction";
+            board1.Text = "style construction";
             root.Add(board1);
             board1.Focusable = true;
             board1.FocusGained += Board_FocusGained;
@@ -79,7 +77,7 @@ namespace Tizen.FH.NUI.Samples
 
             board2 = new TextLabel();
             board2.Size2D = new Size2D(300, 70);
-            board2.Position2D = new Position2D(400, 200);
+            board2.Position2D = new Position2D(400, 100);
             board2.PointSize = 20;
             board2.HorizontalAlignment = HorizontalAlignment.Center;
             board2.VerticalAlignment = VerticalAlignment.Center;
@@ -92,8 +90,8 @@ namespace Tizen.FH.NUI.Samples
 
             button1 = new Button();
             button1.BackgroundColor = Color.Green;
-            button1.Position2D = new Position2D(80, 600);
-            button1.Size2D = new Size2D(100, 50);
+            button1.Position2D = new Position2D(80, 500);
+            button1.Size2D = new Size2D(100, 80);
             button1.Text = "FPS++";
             root.Add(button1);
             button1.Focusable = true;
@@ -101,30 +99,12 @@ namespace Tizen.FH.NUI.Samples
 
             button2 = new Button();
             button2.BackgroundColor = Color.Green;
-            button2.Position2D = new Position2D(200, 600);
-            button2.Size2D = new Size2D(100, 50);
+            button2.Position2D = new Position2D(200, 500);
+            button2.Size2D = new Size2D(100, 80);
             button2.Text = "FPS--";
             root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += loading1FPSMinus;
-
-            button3 = new Button();
-            button3.BackgroundColor = Color.Green;
-            button3.Position2D = new Position2D(450, 600);
-            button3.Size2D = new Size2D(80, 50);
-            button3.Text = "+";
-            root.Add(button3);
-            button3.Focusable = true;
-            //button3.ClickEvent += Scroll2Add;
-
-            button4 = new Button();
-            button4.BackgroundColor = Color.Green;
-            button4.Position2D = new Position2D(550, 600);
-            button4.Size2D = new Size2D(80, 50);
-            button4.Text = "-";
-            root.Add(button4);
-            button4.Focusable = true;
-            // button4.ClickEvent += Scroll2Minus;
         }
 
         private void Board_FocusLost(object sender, global::System.EventArgs e)

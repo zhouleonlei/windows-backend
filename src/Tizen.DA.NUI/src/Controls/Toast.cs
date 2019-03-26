@@ -119,7 +119,6 @@ namespace Tizen.FH.NUI.Controls
                         this.Add(toastText_3line);
 
                         linesType = value;
-                        Console.WriteLine("3line set done");//gwfdebug
                     }
 
                 }
@@ -182,12 +181,10 @@ namespace Tizen.FH.NUI.Controls
 
         public Toast() : base()
         {
-            //Console.WriteLine("FH NULL CONTR START");//gwfdebug
             SetAttribute();
 
             Initialize();
             base.SetAttribute();
-            Console.WriteLine("FH NULL CONTR DONE");//gwfdebug
         }
 
         public Toast(string style) : base(style)
