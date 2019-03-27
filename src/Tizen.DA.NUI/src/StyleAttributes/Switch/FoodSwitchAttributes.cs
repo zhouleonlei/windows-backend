@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Switch.FoodSwitchAttributes.xaml", "FoodSwitchAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodSwitchAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FoodSwitchAttributes : AttributesContainer
+    internal class FoodSwitchAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

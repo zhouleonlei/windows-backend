@@ -92,7 +92,7 @@ namespace Tizen.NUI.CommonUI
                 obj = Activator.CreateInstance(DefaultStyleSet[style]);
             }
 
-            return (obj as AttributesContainer)?.GetAttributes();
+            return (obj as StyleBase)?.GetAttributes();
         }
         public class ThemeChangeEventArgs : EventArgs
         {

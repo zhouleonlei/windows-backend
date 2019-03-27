@@ -3,7 +3,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DefaultNaviFrameAttributes : AttributesContainer
+    internal class DefaultNaviFrameAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

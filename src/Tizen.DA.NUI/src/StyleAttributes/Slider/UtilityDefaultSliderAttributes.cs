@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.UtilityDefaultSliderAttributes.xaml", "UtilityDefaultSliderAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityDefaultSliderAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityDefaultSliderAttributes : AttributesContainer
+    internal class UtilityDefaultSliderAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

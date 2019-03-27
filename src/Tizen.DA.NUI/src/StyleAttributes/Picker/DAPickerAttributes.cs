@@ -4,7 +4,7 @@ using Tizen.NUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Picker.PickerAttributes.xaml", "PickerAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DAPickerAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DAPickerAttributes : AttributesContainer
+    internal class DAPickerAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

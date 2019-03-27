@@ -3,7 +3,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class IconButtonAttributes : AttributesContainer
+    internal class IconButtonAttributes : StyleBase
     {
         public IconButtonAttributes()
         {

@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Pagination.BasicPaginationAttributes.xaml", "BasicPaginationAttributes.xaml", typeof(Tizen.FH.NUI.Controls.BasicPaginationAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class BasicPaginationAttributes : AttributesContainer
+    internal class BasicPaginationAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

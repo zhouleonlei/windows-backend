@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.BlackEditModeLastNavigationItemAttributes.xaml", "BlackEditModeLastNavigationItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.BlackEditModeLastNavigationItemAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class BlackEditModeLastNavigationItemAttributes : AttributesContainer
+    internal class BlackEditModeLastNavigationItemAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

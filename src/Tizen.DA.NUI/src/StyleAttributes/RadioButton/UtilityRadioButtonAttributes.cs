@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.RadioButton.UtilityRadioButtonAttributes.xaml", "UtilityRadioButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityRadioButtonAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityRadioButtonAttributes : AttributesContainer
+    internal class UtilityRadioButtonAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

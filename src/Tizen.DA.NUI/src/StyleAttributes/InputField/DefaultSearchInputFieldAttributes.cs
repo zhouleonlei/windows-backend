@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.InputField.DefaultSearchInputFieldAttributes.xaml", "DefaultSearchInputFieldAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DefaultSearchInputFieldAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DefaultSearchInputFieldAttributes : AttributesContainer
+    internal class DefaultSearchInputFieldAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

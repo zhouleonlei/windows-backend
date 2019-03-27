@@ -4,7 +4,7 @@ using Tizen.NUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.VDProgressCircleAttributes.xaml", "VDProgressCircleAttributes.xaml", typeof(Tizen.FH.NUI.Controls.VDProgressCircleAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class VDProgressCircleAttributes : AttributesContainer
+    internal class VDProgressCircleAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

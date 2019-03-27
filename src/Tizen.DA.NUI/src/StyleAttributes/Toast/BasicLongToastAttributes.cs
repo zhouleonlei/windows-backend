@@ -4,7 +4,7 @@ using Tizen.NUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Toast.BasicLongToastAttributes.xaml", "BasicLongToastAttributes.xaml", typeof(Tizen.FH.NUI.Controls.BasicLongToastAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class BasicLongToastAttributes : AttributesContainer
+    internal class BasicLongToastAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

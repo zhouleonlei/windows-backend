@@ -4,9 +4,9 @@ using Tizen.NUI.Xaml;
 namespace Tizen.NUI.CommonUI
 {
     [ContentProperty("Content")]
-    public class AttributesContainer : Element, IResourcesProvider
+    public class StyleBase : Element, IResourcesProvider
     {
-        public AttributesContainer()
+        public StyleBase()
         {
             IsCreateByXaml = true;
             //InitializeComponent();

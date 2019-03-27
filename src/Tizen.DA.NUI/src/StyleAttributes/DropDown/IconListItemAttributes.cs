@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.IconListItemAttributes.xaml", "IconListItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.IconListItemAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class IconListItemAttributes : AttributesContainer
+    internal class IconListItemAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

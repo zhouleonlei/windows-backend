@@ -215,3 +215,4 @@ CompilationErrors-*.txt
 src/Tizen.NUI/.vs/Tizen.NUI/v15/.suo
 src/Tizen.NUI/obj/Debug/netstandard2.0/Tizen.NUI.csproj.FileListAbsolute.txt
 >>>>>>> Add Tizen.NUI dependent module
+/Dali/dali-env/opt/share/com.samsung.dali-demo/res

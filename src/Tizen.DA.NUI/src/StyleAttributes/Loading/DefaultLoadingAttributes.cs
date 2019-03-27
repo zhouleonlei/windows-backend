@@ -3,7 +3,7 @@
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Loading.DefaultLoadingAttributes.xaml", "DefaultLoadingAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DefaultLoadingAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DefaultLoadingAttributes : AttributesContainer
+    internal class DefaultLoadingAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

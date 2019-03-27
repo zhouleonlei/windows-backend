@@ -3,7 +3,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DefaultHeaderAttributes : AttributesContainer
+    internal class DefaultHeaderAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {
