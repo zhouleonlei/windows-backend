@@ -191,10 +191,10 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("Popup", "Food", typeof(FoodPopupAttributes));
             StyleManager.Instance.RegisterStyle("Popup", "Kitchen", typeof(KitchenPopupAttributes));           
 
-            StyleManager.Instance.RegisterStyle("Tab", "Family", typeof(FamilyTabAttributes));
-            StyleManager.Instance.RegisterStyle("Tab", "Utility", typeof(UtilityTabAttributes), true);
-            StyleManager.Instance.RegisterStyle("Tab", "Food", typeof(FoodTabAttributes));
-            StyleManager.Instance.RegisterStyle("Tab", "Kitchen", typeof(KitchenTabAttributes));
+            StyleManager.Instance.RegisterStyle("Tab", "Family", typeof(FamilyTabStyle));
+            StyleManager.Instance.RegisterStyle("Tab", "Utility", typeof(UtilityTabStyle), true);
+            StyleManager.Instance.RegisterStyle("Tab", "Food", typeof(FoodTabStyle));
+            StyleManager.Instance.RegisterStyle("Tab", "Kitchen", typeof(KitchenTabStyle));
 
             StyleManager.Instance.RegisterStyle("HeaderDropDown", null, typeof(HeaderSpinnerDropDownAttributes));
             StyleManager.Instance.RegisterStyle("ListDropDown", null, typeof(ListSpinnerDropDownAttributes));

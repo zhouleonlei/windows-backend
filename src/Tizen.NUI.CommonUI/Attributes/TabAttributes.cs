@@ -3,162 +3,65 @@
 namespace Tizen.NUI.CommonUI
 {
     public class TabAttributes : ViewAttributes
-    {
-        public static readonly BindableProperty UnderLineAttributesProperty = BindableProperty.Create("UnderLineAttributes", typeof(ViewAttributes), typeof(TabAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+    {      
+        public TabAttributes() : base()
         {
-            var attrs = (TabAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.underLineAttributes = (ViewAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            return attrs.underLineAttributes;
-        });
-
-        public static readonly BindableProperty TextAttributesProperty = BindableProperty.Create("TextAttributes", typeof(TextAttributes), typeof(TabAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.textAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            return attrs.textAttributes;
-        });
-
-        public static readonly BindableProperty IsNatureTextWidthProperty = BindableProperty.Create("IsNatureTextWidth", typeof(bool), typeof(TabAttributes), default(bool), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.isNatureTextWidth = (bool)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            return attrs.isNatureTextWidth;
-        });
-
-        public static readonly BindableProperty ItemGapProperty = BindableProperty.Create("ItemGap", typeof(int), typeof(TabAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.itemGap = (int)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            return attrs.itemGap;
-        });
-
-        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(TabAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.space = (Vector4)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (TabAttributes)bindable;
-            return (object)attrs.space;
-        }));
-
-        private TextAttributes textAttributes;
-        private ViewAttributes underLineAttributes;
-        private bool isNatureTextWidth = false;
-        private int itemGap = 0;
-        private Vector4 space = new Vector4(0, 0, 0, 0);
-
-        public TabAttributes() : base() { }
+            Space = new Vector4(0, 0, 0, 0);
+            IsNatureTextWidth = false;
+            ItemGap = 0;
+        }
         public TabAttributes(TabAttributes attributes) : base(attributes)
         {
-            if (attributes.underLineAttributes != null)
+            if (attributes.UnderLineAttributes != null)
             {
-                underLineAttributes = attributes.underLineAttributes.Clone() as ViewAttributes;
+                UnderLineAttributes = attributes.UnderLineAttributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.textAttributes != null)
+            if (attributes.TextAttributes != null)
             {
-                textAttributes = attributes.textAttributes.Clone() as TextAttributes;
+                TextAttributes = attributes.TextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.space != null)
+            if (attributes.Space != null)
             {
-                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+                Space = new Vector4(attributes.Space.X, attributes.Space.Y, attributes.Space.Z, attributes.Space.W);
             }
-            itemGap = attributes.itemGap;
-            isNatureTextWidth = attributes.isNatureTextWidth;
+            else
+            {
+                Space = new Vector4(0, 0, 0, 0);
+            }
+            ItemGap = attributes.ItemGap;
+            IsNatureTextWidth = attributes.IsNatureTextWidth;
         }
 
         public ViewAttributes UnderLineAttributes
         {
-            get
-            {
-                return (ViewAttributes)GetValue(UnderLineAttributesProperty);
-            }
-            set
-            {
-                SetValue(UnderLineAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes TextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(TextAttributesProperty);
-            }
-            set
-            {
-                SetValue(TextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool IsNatureTextWidth
         {
-            get
-            {
-                return (bool)GetValue(IsNatureTextWidthProperty);
-            }
-            set
-            {
-                SetValue(IsNatureTextWidthProperty, value);
-            }
+            get;
+            set;
         }
 
         public int ItemGap
         {
-            get
-            {
-                return (int)GetValue(ItemGapProperty);
-            }
-            set
-            {
-                SetValue(ItemGapProperty, value);
-            }
+            get;
+            set;
         }
 
         public Vector4 Space
         {
-            get
-            {
-                return (Vector4)GetValue(SpaceProperty);
-            }
-            set
-            {
-                SetValue(SpaceProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()
