@@ -328,7 +328,7 @@ namespace Tizen.FH.NUI.Controls
             upDownItemTextSize = spinAttributes.TextSize;
             midItemTextSize = spinAttributes.CenterTextSize;           
             floatItemHeight = itemHeight;
-            floatItemHalfHeight = itemHeight/2;
+            floatItemHalfHeight = itemHeight / 2;
             midItemPositionY = itemHeight;
             
             if (itemLabel != null)
@@ -344,10 +344,10 @@ namespace Tizen.FH.NUI.Controls
                 itemLabel[midItemIndex].Position2D = new Position2D(0, itemHeight); 
                 itemLabel[midItemIndex].Opacity = 1.0f;
                 itemLabel[midItemIndex].PointSize = midItemTextSize;
-                itemLabel[downItemIndex].Position2D = new Position2D(0, itemHeight*2); 
+                itemLabel[downItemIndex].Position2D = new Position2D(0, itemHeight * 2); 
                 itemLabel[downItemIndex].Opacity = 0.4f;
                 itemLabel[downItemIndex].PointSize = upDownItemTextSize;
-                itemLabel[downItemIndex+1].Position2D = new Position2D(0, itemHeight*3); 
+                itemLabel[downItemIndex + 1].Position2D = new Position2D(0, itemHeight * 3); 
                 itemLabel[upItemIndex].Text = GetStrValue(curValue - 1);
                 itemLabel[midItemIndex].Text = GetStrValue(curValue);
                 itemLabel[downItemIndex].Text = GetStrValue(curValue + 1);
@@ -395,7 +395,7 @@ namespace Tizen.FH.NUI.Controls
                     textField.Focusable = true;
                     textField.MaxLength = 2;
                     textField.CursorWidth = 0;
-                    textField.BackgroundColor = new Color(0,0,0,0.5f);
+                    textField.BackgroundColor = new Color(0, 0, 0, 0.5f);
                     textField.FocusGained += OnTextFieldFocusGained;
                     textField.FocusLost += OnTextFieldFocusLost;
                     textField.TextChanged += OnTextFieldTextChanged;
@@ -806,7 +806,7 @@ namespace Tizen.FH.NUI.Controls
                 }
                 else if (e.PanGesture.Displacement.Y < 0)
                 {
-                    Console.WriteLine("----curValue : " + curValue +" " + maxMoveUpHeight +" " + curMoveHeight);
+                    Console.WriteLine("----curValue : " + curValue + " " + maxMoveUpHeight + " " + curMoveHeight);
                     
                     if (moveDirection == Direction.Down)
                     {
@@ -1001,9 +1001,9 @@ namespace Tizen.FH.NUI.Controls
             {
                 midItemPositionY -= itemHeight;
                 
-                upItemIndex = (upItemIndex == 0)? 3: upItemIndex-1;
-                midItemIndex = (midItemIndex == 0)? 3: midItemIndex-1;
-                downItemIndex = (downItemIndex == 0)? 3: downItemIndex-1;
+                upItemIndex = (upItemIndex == 0) ? 3 : upItemIndex - 1;
+                midItemIndex = (midItemIndex == 0) ? 3 : midItemIndex - 1;
+                downItemIndex = (downItemIndex == 0) ? 3 : downItemIndex - 1;
                 itemLabel[upItemIndex].Position2D = new Position2D(0, midItemPositionY - itemHeight);
                 itemLabel[upItemIndex].Text = GetStrValue(curValue - 2);
                 itemLabel[upItemIndex].Opacity = 0.4f;
@@ -1019,9 +1019,9 @@ namespace Tizen.FH.NUI.Controls
             {
                 midItemPositionY += itemHeight;
                 
-                upItemIndex = (upItemIndex == 3)? 0: upItemIndex+1;
-                midItemIndex = (midItemIndex == 3)? 0: midItemIndex+1;
-                downItemIndex = (downItemIndex == 3)? 0: downItemIndex+1;
+                upItemIndex = (upItemIndex == 3) ? 0 : upItemIndex + 1;
+                midItemIndex = (midItemIndex == 3) ? 0 : midItemIndex + 1;
+                downItemIndex = (downItemIndex == 3) ? 0 : downItemIndex + 1;
                 itemLabel[downItemIndex].Position2D = new Position2D(0, midItemPositionY + itemHeight);
                 itemLabel[downItemIndex].Text = GetStrValue(curValue + 2);
                 itemLabel[upItemIndex].Opacity = 0.4f;
@@ -1046,11 +1046,11 @@ namespace Tizen.FH.NUI.Controls
             downItemIndex = 2;
             aniView.Position2D = new Position2D(0, 0);
             itemLabel[0].Position2D = new Position2D(0, 0);
-            itemLabel[0].Text = GetStrValue(curValue-1);
+            itemLabel[0].Text = GetStrValue(curValue - 1);
             itemLabel[1].Position2D = new Position2D(0, itemHeight);
             itemLabel[1].Text = GetStrValue(curValue);
-            itemLabel[2].Position2D = new Position2D(0, itemHeight*2);
-            itemLabel[2].Text = GetStrValue(curValue+1);
+            itemLabel[2].Position2D = new Position2D(0, itemHeight * 2);
+            itemLabel[2].Text = GetStrValue(curValue + 1);
             itemLabel[upItemIndex].Opacity = 0.4f;
             itemLabel[upItemIndex].PointSize = upDownItemTextSize;
             itemLabel[midItemIndex].Opacity = 1.0f;
