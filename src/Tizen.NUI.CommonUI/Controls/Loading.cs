@@ -7,18 +7,9 @@ namespace Tizen.NUI.CommonUI
 {
     public class Loading : Control
     {
-        protected override Attributes GetAttributes()
-        {
-            return new LoadingAttributes
-            {
-                LoadingImageURLPrefix = new StringSelector(),
-
-            };
-        }
-
         public List<string> ImageArray = null;
-
         private LoadingAttributes loadingAttrs = null;  // Loading Attributes
+
         private ImageView imageView = null;             // ImageView object
         private AnimatedImageVisual imageVisual = null;
 
@@ -79,6 +70,14 @@ namespace Tizen.NUI.CommonUI
                 imageVisual.FrameDelay = 1000.0f / (float)value;
 
             }
+        }
+
+        protected override Attributes GetAttributes()
+        {
+            return new LoadingAttributes
+            {
+                LoadingImageURLPrefix = new StringSelector(),
+            };
         }
 
         protected override void Dispose(DisposeTypes type)

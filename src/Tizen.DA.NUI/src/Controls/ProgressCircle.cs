@@ -9,9 +9,25 @@ namespace Tizen.FH.NUI.Controls
 {
     public class ProgressCircle : Tizen.NUI.CommonUI.Progress
     {
+        public List<string> ImageList = null;
         private TextLabel textLabel;
         private bool isTextEnabled;
-        public List<string> ImageList = null;
+
+        public override string ProgressImageURLPre
+        {
+            get
+            {
+                return progressBarAttrs.ProgressImageURLPrefix.All;
+            }
+            set
+            {
+                progressBarAttrs.ProgressImageURLPrefix.All = value;
+
+                UpdateList();
+                UpdateValue();
+            }
+        }
+
         public bool IsTextEnabled
         {
             get
@@ -30,21 +46,6 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
-        }
-
-        public override string ProgressImageURLPre
-        {
-            get
-            {
-                return progressBarAttrs.ProgressImageURLPrefix.All;
-            }
-            set
-            {
-                progressBarAttrs.ProgressImageURLPrefix.All = value;
-
-                UpdateList();
-                UpdateValue();
-            }
         }
 
         public ProgressCircle(string style) : base(style)

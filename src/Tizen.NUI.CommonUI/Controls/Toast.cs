@@ -6,11 +6,9 @@ namespace Tizen.NUI.CommonUI
 {
     public class Toast : Control
     {
+        private ToastAttributes toastAttributes;
         private ImageView toastBackground;
         private TextLabel toastText;
-
-        private ToastAttributes toastAttributes;
-
         private Timer timer;
         private Animation showAnimation;
         private Animation hideAnimation;
@@ -21,28 +19,6 @@ namespace Tizen.NUI.CommonUI
         public Toast() : base()
         {
             SetAttribute();
-            //this.attributes = toastAttributes = new ToastAttributes
-            //{
-            //    TextAttributes = new TextAttributes
-            //    {
-            //        HorizontalAlignment = HorizontalAlignment.Center,
-            //        VerticalAlignment = VerticalAlignment.Center,
-            //        ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-            //        PivotPoint = Tizen.NUI.PivotPoint.Center,
-            //        PositionUsesPivotPoint = true,
-            //        Position2D = "0,0",
-            //    },
-
-            //    BackgroundImageAttributes = new ImageAttributes
-            //    {
-            //        Border = new RectangleSelector()
-            //        {
-            //            All = new Rectangle(64, 64, 4, 4),
-            //        }
-
-            //    },
-
-            //};
 
             Initialize();
         }
@@ -55,8 +31,6 @@ namespace Tizen.NUI.CommonUI
 
         public Toast(string style) : base(style)
         {
-            Console.WriteLine();
-            Console.WriteLine("Toast ( SR ) style constr");
             if (attributes != null)
                 toastAttributes = attributes as ToastAttributes;
             if (toastAttributes == null)
@@ -79,11 +53,71 @@ namespace Tizen.NUI.CommonUI
 
         }
 
-        public Size2D TextSize
+        public string BackgroundImageURL
         {
             get
             {
-                return toastAttributes.TextAttributes.Size2D;
+                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                return toastAttributes.BackgroundImageAttributes.ResourceURL.All;
+            }
+            set
+            {
+                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                {
+                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                }
+
+                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                Console.WriteLine("set url in SR");//gwfdebug
+                RelayoutRequest();
+            }
+        }
+
+        public int LeftSpace
+        {
+            get
+            {
+                return leftSpace;
+            }
+            set
+            {
+                leftSpace = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int UpSpace
+        {
+            get
+            {
+                if (toastAttributes.UpSpace == null)
+                {
+                    toastAttributes.UpSpace = new int();
+                }
+                return toastAttributes.UpSpace.Value;
+            }
+            set
+            {
+                if (toastAttributes.UpSpace == null)
+                {
+                    toastAttributes.UpSpace = new int();
+                }
+                toastAttributes.UpSpace = value;
+                downSpace = value;
+                Console.WriteLine("Call set upspace done");
+            }
+        }
+
+        public int DownSpace
+        {
+            get
+            {
+                return downSpace;
+            }
+            set
+            {
+                downSpace = value;
             }
         }
 
@@ -102,6 +136,142 @@ namespace Tizen.NUI.CommonUI
                 toastAttributes.BackgroundImageAttributes.Border.All = value;
             }
 
+        }
+
+        public Size2D TextSize2D
+        {
+            get
+            {
+                return toastAttributes?.TextAttributes?.Size2D;
+            }
+            set
+            {
+                toastText.Size2D = toastAttributes.TextAttributes.Size2D = value;
+            }
+
+        }
+
+        public Position2D TextPosition2D
+        {
+            set
+            {
+                toastText.Position2D = toastAttributes.TextAttributes.Position2D = value;
+            }
+        }
+
+        public void Show(uint millisecond, bool autoDestroy = false)
+        {
+            ShowWithAnimation(opacityDuration: 700, opacityStart: 0.5f, scaleDuration: 700, scaleStart: 0.97f);
+            CreateTimer(millisecond);
+        }
+
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                if (toastBackground != null)
+                {
+                    this.Remove(toastBackground);
+                    toastBackground.Dispose();
+                    toastBackground = null;
+                }
+
+                if (toastText != null)
+                {
+                    this.Remove(toastText);
+                    toastText.Dispose();
+                    toastText = null;
+                }
+            }
+
+            base.Dispose(type);
+        }
+
+        protected override void OnUpdate(Attributes attributes)
+        {
+            if (toastAttributes == null)
+            {
+                Console.WriteLine("OnUp att null (SR)");//gwfdebug
+                return;
+            }
+
+            LayoutChild();
+
+            /////////////////////////////////////////////////////
+            ApplyAttributes(this, toastAttributes);
+
+            ///////////////////// Background ///////////////////////////////
+            ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
+            Console.WriteLine("Apply background " + toastAttributes.BackgroundImageAttributes.ResourceURL.All);
+            ////////////////////// Text //////////////////////////////
+            ApplyAttributes(toastText, toastAttributes.TextAttributes);
+        }
+
+        protected override void OnRelayout(object sender, EventArgs e)
+        {
+            OnUpdate(attributes);
+        }
+
+        protected override Attributes GetAttributes()
+        {
+            return new ToastAttributes
+            {
+                TextAttributes = new TextAttributes
+                {
+
+                },
+
+                BackgroundImageAttributes = new ImageAttributes
+                {
+
+                }
+
+            };
+        }
+
+        protected virtual void LayoutChild()
+        {
+            if (toastAttributes.TextAttributes.Size2D == null)
+            {
+                toastAttributes.TextAttributes.Size2D = new Size2D();
+            }
+            if (toastAttributes.TextAttributes.Position2D == null)
+            {
+                toastAttributes.TextAttributes.Position2D = new Position2D();
+            }
+            toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
+            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
+            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
+            toastAttributes.TextAttributes.Position2D.X = LeftSpace;
+            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
+        }
+
+        protected void SetAttribute()
+        {
+            toastAttributes = this.attributes as ToastAttributes;
+        }
+
+        private void Initialize()
+        {
+            Console.WriteLine("Initialize (SR)  Toast ");
+            toastBackground = new ImageView()
+            {
+                WidthResizePolicy = ResizePolicyType.FillToParent,
+                HeightResizePolicy = ResizePolicyType.FillToParent,
+            };
+            this.Add(toastBackground);
+
+            toastText = new TextLabel()
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            this.Add(toastText);
         }
 
         private void ShowWithAnimation(float opacityStart = 0.5f,
@@ -248,218 +418,5 @@ namespace Tizen.NUI.CommonUI
 
             return false;
         }
-
-        public void Show(uint millisecond, bool autoDestroy = false)
-        {
-            ShowWithAnimation(opacityDuration: 700, opacityStart: 0.5f, scaleDuration: 700, scaleStart: 0.97f);
-            CreateTimer(millisecond);
-        }
-
-        protected override void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if (type == DisposeTypes.Explicit)
-            {
-                if (toastBackground != null)
-                {
-                    this.Remove(toastBackground);
-                    toastBackground.Dispose();
-                    toastBackground = null;
-                }
-
-                if (toastText != null)
-                {
-                    this.Remove(toastText);
-                    toastText.Dispose();
-                    toastText = null;
-                }
-            }
-
-            base.Dispose(type);
-        }
-
-        protected override void OnUpdate(Attributes attributes)
-        {
-            if (toastAttributes == null)
-            {
-                Console.WriteLine("OnUp att null (SR)");//gwfdebug
-                return;
-            }
-
-            LayoutChild();
-
-            /////////////////////////////////////////////////////
-            ApplyAttributes(this, toastAttributes);
-            
-            ///////////////////// Background ///////////////////////////////
-            ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
-            Console.WriteLine("Apply background "+toastAttributes.BackgroundImageAttributes.ResourceURL.All);
-            ////////////////////// Text //////////////////////////////
-            ApplyAttributes(toastText, toastAttributes.TextAttributes);
-        }
-
-        protected override void OnRelayout(object sender, EventArgs e)
-        {
-            OnUpdate(attributes);
-        }
-
-        private void Initialize()
-        {
-            Console.WriteLine("Initialize (SR)  Toast ");
-            toastBackground = new ImageView()
-            {
-                WidthResizePolicy = ResizePolicyType.FillToParent,
-                HeightResizePolicy = ResizePolicyType.FillToParent,
-            };
-            this.Add(toastBackground);
-
-            toastText = new TextLabel()
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-            this.Add(toastText);
-        }
-
-        public string BackgroundImageURL
-        {
-            get
-            {
-                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
-                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                return toastAttributes.BackgroundImageAttributes.ResourceURL.All;
-            }
-            set
-            {
-                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
-                {
-                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                }
-
-                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
-                Console.WriteLine("set url in SR");//gwfdebug
-                RelayoutRequest();
-            }
-        }
-
-        public int LeftSpace
-        {
-            get
-            {
-                return leftSpace;
-            }
-            set
-            {
-                leftSpace = value;
-                RelayoutRequest();
-            }
-        }
-
-        public int UpSpace
-        {
-            get
-            {
-                if (toastAttributes.UpSpace == null)
-                {
-                    toastAttributes.UpSpace = new int();
-                }
-                return toastAttributes.UpSpace.Value;
-            }
-            set
-            {
-                if (toastAttributes.UpSpace == null)
-                {
-                    toastAttributes.UpSpace = new int();
-                }
-                toastAttributes.UpSpace = value;
-                downSpace = value;
-                Console.WriteLine("Call set upspace done");
-            }
-        }
-
-        public Size2D TextSize2D
-        {
-            get
-            {
-                return toastAttributes?.TextAttributes?.Size2D;
-            }
-            set
-            {
-                toastText.Size2D = toastAttributes.TextAttributes.Size2D = value;
-            }
-
-        }
-
-        protected Size2D GetTextSize()
-        {
-            Size2D size = new Size2D();
-            size.Width = this.Size2D.Width - (2 * LeftSpace);
-            size.Height = this.Size2D.Height - (2 * UpSpace);
-            return size;
-        }
-
-        public Position2D TextPosition2D
-        {
-            set
-            {
-                toastText.Position2D = toastAttributes.TextAttributes.Position2D = value;
-            }
-        }
-
-        protected virtual void LayoutChild()
-        {
-            if (toastAttributes.TextAttributes.Size2D == null)
-            {
-                toastAttributes.TextAttributes.Size2D = new Size2D();
-            }
-            if (toastAttributes.TextAttributes.Position2D == null)
-            {
-                toastAttributes.TextAttributes.Position2D = new Position2D();
-            }
-            toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
-            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
-            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
-            toastAttributes.TextAttributes.Position2D.X = LeftSpace;
-            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
-        }
-
-        public int DownSpace
-        {
-            get
-            {
-                return downSpace;
-            }
-            set
-            {
-                downSpace = value;
-            }
-        }
-
-        protected override Attributes GetAttributes()
-        {
-            return new ToastAttributes
-            {
-                TextAttributes = new TextAttributes
-                {
-
-                },
-
-                BackgroundImageAttributes = new ImageAttributes
-                {
-
-                }
-
-            };
-        }
-
-        protected void SetAttribute()
-        {
-            toastAttributes = this.attributes as ToastAttributes;
-        }
-
     }
 }

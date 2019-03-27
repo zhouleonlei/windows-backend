@@ -5,44 +5,19 @@ using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.CommonUI
 {
-    /// <summary>
-    /// The ProgressBar class of tv nui component. It's used to show the ongoing status with a long narrow bar.
-    /// </summary>
-    /// <code>
-    /// ProgressBar progress = new ProgressBar("C_ProgressBar_White");
-    /// </code>
-    /// <code>
-    /// ProgressBar.Attributes attrs = new ProgressBar.Attributes();
-    /// attrs.Direction = DirectionType.Horizontal;
-    /// attrs.TrackColor = new Color(0.7f, 0.7f, 0.7f, 0.5f);
-    /// attrs.ProgressColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-    /// attrs.BufferColor = new Color(0.5f, 0.5f, 0.5f, 0.2f);
-    /// attrs.DisabledOpacity = 0.2f;
-    /// ProgressBar progress = new ProgressBar(attr);
-    /// </code>
     public class Progress : Control
     {
-        public enum ProgressStatusType
-        {
-            Buffering,   //TrackImage
-            Determinate, //ProgressImage
-            Indeterminate//loading
-        }
-
         protected ProgressBarAttributes progressBarAttrs = null;
         protected ImageView trackObj = null;
         protected ImageView progressObj = null;
         protected ImageView bufferObj = null;
         protected ImageView loadingObj = null;
-        //private AnimationPlayer aniForLoading = null;
-        //private AnimationPlayer aniForOpacity = null;
         protected bool isLoadingEnabled = false;
         protected bool isEnabled = true;
 
-        protected DirectionType? direction = null;
         protected uint? minValue = null;
-        protected uint? maxValue = null;//
-        protected uint? currentValue = null;//
+        protected uint? maxValue = null;
+        protected uint? currentValue = null;
         protected uint? bufferValue = null;
         protected Color trackColor = null;
         protected Color progressColor = null;
@@ -52,248 +27,8 @@ namespace Tizen.NUI.CommonUI
         protected string loadingImageURL = null;
         protected string progressImageURL = null;
         protected string progressImageURLPre = null;
+        protected DirectionType? direction = null;
         protected ProgressStatusType? state = null;
-
-        /// <summary>
-        /// The Animation attributes.
-        /// </summary>
-        protected AnimationAttributes animationAttrs = null;
-        protected override Attributes GetAttributes()
-        {
-            return new ProgressBarAttributes
-            {
-            };
-        }
-        /// <summary>
-        /// The direction type of the ProgressBar.
-        /// </summary>
-        public enum DirectionType
-        {
-            /// <summary> The progress moving follow horizontal direction. </summary>
-            Horizontal,
-            /// <summary> The progress moving follow vertical direction. </summary>
-            Vertical
-        }
-
-        /// <summary>
-        /// The animation attributes class.
-        /// </summary>
-        /// <code>
-        /// ProgressBar.AnimationAttributes attrs = new ProgressBar.AnimationAttributes();
-        /// attrs.Part1Duration = 167;
-        /// attrs.Part2Duration = 16400;
-        /// attrs.OpacityMin = 0;
-        /// attrs.OpacityMax = 1.0f;
-        /// attrs.OffsetX = 1127.4f;
-        /// </code>
-        public class AnimationAttributes
-        {
-            /// <summary>
-            /// Construct AnimationAttributes.
-            /// </summary>
-            public AnimationAttributes() { }
-
-            /// <summary>
-            /// Construct with specified attribute.
-            /// </summary>
-            /// <param name="attrs">The specified AnimationAttributes.</param>
-            public AnimationAttributes(AnimationAttributes attrs)
-            {
-                if (attrs == null)
-                {
-                    return;
-                }
-
-                Part1Duration = attrs.Part1Duration;
-                Part2Duration = attrs.Part2Duration;
-                OpacityMin = attrs.OpacityMin;
-                OpacityMax = attrs.OpacityMax;
-                OffsetX = attrs.OffsetX;
-            }
-
-            /// <summary> Clone a AnimationAttributes </summary>
-            /// <returns>The new AnimationAttributes instance.</returns>
-            public virtual AnimationAttributes Clone()
-            {
-                return new AnimationAttributes(this);
-            }
-
-            /// <summary>
-            /// The animation part1 duration.
-            /// </summary>
-            public uint? Part1Duration = null;
-            /// <summary>
-            /// The animation part2 duration.
-            /// </summary>
-            public uint? Part2Duration = null;
-            /// <summary>
-            /// The animation opacity min value.
-            /// </summary>
-            public float? OpacityMin = null;
-            /// <summary>
-            /// The animation opacity max value.
-            /// </summary>
-            public float? OpacityMax = null;
-            /// <summary>
-            /// The animation x-offset value.
-            /// </summary>
-            public float? OffsetX = null;
-        }
-
-        /// <summary>
-        /// The Attributes class of ProgressBar. User can set Direction, ImageURL, Color and the process value attributes to ProgressBar.
-        /// </summary>
-        /// <code>
-        /// ProgressBar.Attributes attrs = new ProgressBar.Attributes();
-        /// attrs.Direction = ProgressBar.DirectionType.Horizontal;
-        /// attrs.TrackColor = new Color(164.0f / 255.0f, 179.0f / 255.0f, 191.0f / 255.0f, 0.6f);    // Color #a4b3bf (Opacity : 60%)
-        /// attrs.ProgressColor = new Color(46.0f / 255.0f, 176.0f / 255.0f, 200.0f / 255.0f, 1.0f);  // Color #2eb0c8 
-        /// attrs.BufferColor = new Color(0.0f / 255.0f, 152.0f / 255.0f, 180.0f / 255.0f, 0.3f);     // Color #0098b4 (Opacity : 30%)
-        /// attrs.MaxValue = 100;
-        /// attrs.MinValue = 0;
-        /// attrs.CurValue = 50;
-        /// </code>
-        //public new class Attributes : Control.Attributes
-        //{
-        /// <summary>
-        /// The default constructor of the ProgressBar Attributes class.
-        /// </summary>
-        //public Attributes()
-        //{
-        //}
-
-        /// <summary>
-        /// Copy Constructor of the ProgressBar Attributes class.
-        /// </summary>
-        /// <param name="attrs">Attributes to be copied</param>
-        //public Attributes(Attributes attrs) : base(attrs)
-        //{
-        //    if (attrs == null)
-        //    {
-        //        return;
-        //    }
-        //    if (attrs.Direction != null)
-        //    {
-        //        Direction = attrs.Direction;
-        //    }
-        //    if (attrs.TrackColor != null)
-        //    {
-        //        TrackColor = attrs.TrackColor;
-        //    }
-        //    if (attrs.ProgressColor != null)
-        //    {
-        //        ProgressColor = attrs.ProgressColor;
-        //    }
-        //    if (attrs.BufferColor != null)
-        //    {
-        //        BufferColor = attrs.BufferColor;
-        //    }
-        //    if (attrs.TrackImageURL != null)
-        //    {
-        //        TrackImageURL = attrs.TrackImageURL;
-        //    }
-        //    if (attrs.ProgressImageURL != null)
-        //    {
-        //        ProgressImageURL = attrs.ProgressImageURL;
-        //    }
-        //    if (attrs.BufferImageURL != null)
-        //    {
-        //        BufferImageURL = attrs.BufferImageURL;
-        //    }
-        //    if (attrs.LoadingImageURL != null)
-        //    {
-        //        LoadingImageURL = attrs.LoadingImageURL;
-        //    }
-        //    if (attrs.MaxValue != null)
-        //    {
-        //        MaxValue = attrs.MaxValue;
-        //    }
-        //    if (attrs.MinValue != null)
-        //    {
-        //        MinValue = attrs.MinValue;
-        //    }
-        //    if (attrs.CurValue != null)
-        //    {
-        //        CurValue = attrs.CurValue;
-        //    }
-        //    if (attrs.BufValue != null)
-        //    {
-        //        BufValue = attrs.BufValue;
-        //    }
-        //    if (animationAttrs != null)
-        //    {
-        //        if (animationAttrs == null)
-        //        {
-        //            animationAttrs = new AnimationAttributes();
-        //        }
-        //        animationAttrs = animationAttrs.Clone() as AnimationAttributes;
-        //    }
-        //    if (attrs.DisabledOpacity != null)
-        //    {
-        //        DisabledOpacity = attrs.DisabledOpacity;
-        //    }
-        //    style = attrs.style;
-        //}
-
-        /// <summary>
-        /// The method to clone the ProgressBar Attributes.
-        /// </summary>
-        /// <returns>The ProgressBar Attributes.</returns>
-        //public override Control.Attributes Clone()
-        //{
-        //    TNLog.I("Clone Attributes;");
-        //    return new Attributes(this);
-        //}
-
-        /// <summary>
-        /// The progress direction.
-        /// </summary>
-        //public DirectionType? Direction = null;
-
-        /// <summary>
-        /// The track object background color.
-        /// </summary>
-        //public Color TrackColor = null;
-
-        /// <summary>
-        /// The progress object background color.
-        /// </summary>
-        //public Color ProgressColor = null;
-
-        /// <summary>
-        /// The buffer object background color.
-        /// </summary>
-        //public Color BufferColor = null;
-
-        /// <summary>
-        /// The track object image URL.
-        /// </summary>
-        //public string TrackImageURL = null;
-
-        /// <summary>
-        /// The progress object image URL.
-        /// </summary>
-        //public string ProgressImageURL = null;
-
-        /// <summary>
-        /// The buffer object image URL.
-        /// </summary>
-        //public string BufferImageURL = null;
-
-        /// <summary>
-        /// The loading object image URL.
-        /// </summary>
-        //public string LoadingImageURL = null;
-
-        /// <summary>
-        /// The progress max value.
-        /// </summary>
-        //public uint? MaxValue = null;
-
-        /// <summary>
-        /// The progress min value.
-        /// </summary>
-        //public uint? MinValue = null;
 
         public uint? BufValue
         {
@@ -308,25 +43,6 @@ namespace Tizen.NUI.CommonUI
                 UpdateValue();/////
             }
         }
-
-        /// <summary>
-        /// The Disabled state opacity value attributes.
-        /// </summary>
-        public float? DisabledOpacity = null;
-
-        /// <summary>
-        /// The static method to create ProgressBar instance.
-        /// </summary>
-        /// <returns>The ProgressBar instance.</returns>
-        static Progress CreateInstance()
-        {
-            //TNLog.I("CreateInstance();");
-            return new Progress();
-        }
-
-        /// <summary>
-        /// For register type to View Registry
-        /// </summary>
 
         /// <summary>
         /// The constructor of ProgressBar
@@ -348,7 +64,7 @@ namespace Tizen.NUI.CommonUI
             {
                 progressBarAttrs = attributes as ProgressBarAttributes;
             }
-            Console.WriteLine("Progress (SR ) style cons");
+
             Initialize();
         }
 
@@ -358,34 +74,33 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
-        /// <summary>
-        /// The constructor of the Progress class with specific style.
-        /// </summary>
-        /// <param name="style">The string to initialize the ProgressBar.</param>
-        //public ProgressBar(string style) : base(style, "ProgressBar")
-        //{
-        //    //TNLog.I("ProgressBar(style)");
-        //    if (progressBarAttrs == null)
-        //    {
-        //        progressBarAttrs = new Attributes();
-        //    }
-        //    Initialize();
-        //}
+        public enum ProgressStatusType
+        {
+            Buffering,   //TrackImage
+            Determinate, //ProgressImage
+            Indeterminate//loading
+        }
 
         /// <summary>
-        /// The property to get/set Direction of the ProgressBar.
+        /// The direction type of the ProgressBar.
         /// </summary>
-        public DirectionType Direction
+        public enum DirectionType
+        {
+            /// <summary> The progress moving follow horizontal direction. </summary>
+            Horizontal,
+            /// <summary> The progress moving follow vertical direction. </summary>
+            Vertical
+        }
+
+        public virtual string ProgressImageURLPre
         {
             get
             {
-                return direction.Value;
+                return progressImageURLPre;
             }
             set
             {
-                direction = value;
-                //TNLog.I("value = " + direction);
-                UpdateValue();
+                progressImageURLPre = value;
             }
         }
 
@@ -428,18 +143,6 @@ namespace Tizen.NUI.CommonUI
                 {
                     progressBarAttrs.ProgressImageAttributes.ResourceURL.All = value;
                 }
-            }
-        }
-
-        public virtual string ProgressImageURLPre
-        {
-            get
-            {
-                return progressImageURLPre;
-            }
-            set
-            {
-                progressImageURLPre = value;
             }
         }
 
@@ -639,6 +342,23 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// The property to get/set Direction of the ProgressBar.
+        /// </summary>
+        public DirectionType Direction
+        {
+            get
+            {
+                return direction.Value;
+            }
+            set
+            {
+                direction = value;
+                //TNLog.I("value = " + direction);
+                UpdateValue();
+            }
+        }
+
         public ProgressStatusType? ProgressState
         {
             get
@@ -743,6 +463,189 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
         }
 
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = progressBarAttrs = tempAttributes;
+                RelayoutRequest();
+            }
+        }
+
+        protected virtual void UpdateStates()
+        {
+            Console.WriteLine("before update progress" + progressObj.Size2D.Height.ToString() + progressObj.Size2D.Width.ToString());
+            Console.WriteLine("before update load" + loadingObj.Size2D.Height.ToString() + loadingObj.Size2D.Width.ToString());
+            Console.WriteLine(bufferObj.ResourceUrl);
+            Console.WriteLine("before update buffer" + bufferObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
+
+            if (state == ProgressStatusType.Buffering)
+            {
+                bufferObj.Show();
+                loadingObj.Hide();
+                progressObj.Hide();
+            }
+            else if (state == ProgressStatusType.Determinate)
+            {
+                bufferObj.Hide();
+                loadingObj.Hide();
+                progressObj.Show();
+                UpdateValue();
+            }
+            else
+            {
+                bufferObj.Hide();
+                loadingObj.Show();
+                progressObj.Hide();
+            }
+            //if (aniForLoading != null)
+            //{
+            //    aniForLoading.Stop();
+            //    aniForLoading.Clear();
+            //}
+            //if (aniForOpacity != null)
+            //{
+            //    aniForOpacity.Stop();
+            //    aniForOpacity.Clear();
+            //}
+            //PlayLoadingAnimation();
+        }
+
+        protected virtual void UpdateValue()
+        {
+            if (trackObj == null || progressObj == null ||
+                (progressBarAttrs.MaxValue == null && maxValue == null) ||
+                (progressBarAttrs.MinValue == null && minValue == null) ||
+                (progressBarAttrs.CurValue == null && currentValue == null))
+            {
+                return;
+            }
+
+            int minVal = 0;
+            if (minValue != null)
+            {
+                minVal = (int)minValue;
+            }
+            else
+            {
+                if (progressBarAttrs.MinValue != null)
+                {
+                    minVal = (int)progressBarAttrs.MinValue;
+                }
+
+            }
+            int maxVal = 0;
+            if (maxValue != null)
+            {
+                maxVal = (int)maxValue;
+            }
+            else
+            {
+                if (progressBarAttrs.MaxValue != null)
+                {
+                    maxVal = (int)progressBarAttrs.MaxValue;
+                }
+            }
+            int curVal = 0;
+            if (currentValue != null)
+            {
+                curVal = (int)currentValue;
+            }
+            else
+            {
+                if (progressBarAttrs.CurValue != null)
+                {
+                    curVal = (int)progressBarAttrs.CurValue;
+                }
+            }
+
+            //TNLog.I("minValue = " + minVal + ", maxValue = " + maxVal + ", curValue = " + curVal);
+
+            if (minVal >= maxVal || curVal < minVal || curVal > maxVal)
+            {
+                if (minVal >= maxVal)
+                {
+                    //TNLog.E("Min value >= Max value;");
+                }
+                if (curVal < minVal || curVal > maxVal)
+                {
+                    //TNLog.E("Current value < Min value || Current value > Max value;");
+                }
+                return;
+            }
+
+            float width = SizeWidth;
+            float height = SizeHeight;
+
+            float progressRatio = (float)curVal / (float)(maxVal - minVal);
+            DirectionType dir = DirectionType.Horizontal;
+            if (direction != null)
+            {
+                dir = direction.Value;
+            }
+            else
+            {
+                if (direction != null)
+                {
+                    dir = direction.Value;
+                }
+            }
+
+            if (dir == DirectionType.Horizontal)
+            {
+                float progressWidth = width * progressRatio;
+                progressObj.Size2D = new Size2D((int)progressWidth, (int)height);
+            }
+            else
+            {
+                float progressHeight = height * progressRatio;
+                progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
+            }
+
+            if (bufferObj != null && (BufValue != null || bufferValue != null))
+            {
+                int bufVal = 0;
+                if (bufferValue != null)
+                {
+                    bufVal = (int)bufferValue;
+                }
+                else
+                {
+                    if (BufValue != null)
+                    {
+                        bufVal = (int)BufValue;
+                    }
+                }
+                if (bufVal < minVal || bufVal > maxVal)
+                {
+                    //TNLog.E("Buffer value < Min value || Buffer value > Max value;");
+                    return;
+                }
+
+                float bufferRatio = (float)bufVal / (float)(maxVal - minVal);
+                if (dir == DirectionType.Horizontal)
+                {
+                    float bufferWidth = width * bufferRatio;
+                    bufferObj.Size2D = new Size2D((int)bufferWidth, (int)height);
+                    //TNLog.I("bufferWidth = " + bufferWidth + ";");
+                }
+                else
+                {
+                    float bufferHeight = height * bufferRatio;
+                    bufferObj.Size2D = new Size2D((int)width, (int)bufferHeight);
+                    //TNLog.I("bufferHeight = " + bufferHeight + ";");
+                }
+            }
+        }
+
+        protected override Attributes GetAttributes()
+        {
+            return new ProgressBarAttributes
+            {
+            };
+        }
+
         private void Initialize()
         {
             // create necessary components
@@ -810,25 +713,6 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        //private void InitializeLoading()
-        //{
-        //    if (loadingObj == null && (_style == ProgressStyle.WhiteBuffering || _style == ProgressStyle.BlackBuffering))
-        //    {
-        //        //TNLog.I("create loading object");
-        //        ClippingMode = ClippingModeType.ClipToBoundingBox;
-
-        //        loadingObj = new ImageView
-        //        {
-        //            WidthResizePolicy = ResizePolicyType.Fixed,
-        //            HeightResizePolicy = ResizePolicyType.Fixed,
-        //            PositionUsesPivotPoint = true,
-        //            ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
-        //            PivotPoint = Tizen.NUI.PivotPoint.TopLeft
-        //        };
-        //        Add(loadingObj);
-        //    }
-        //}
-
         private void InitializeAnimation()
         {
             //if (progressBarAttrs.style == ProgressStyle.WhiteBuffering || progressBarAttrs.style == ProgressStyle.BlackBuffering)
@@ -845,60 +729,7 @@ namespace Tizen.NUI.CommonUI
             //        aniForOpacity = new AnimationPlayer();
             //    }
             //}
-        }
-
-        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
-        {
-            ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
-            if (tempAttributes != null)
-            {
-                attributes = progressBarAttrs = tempAttributes;
-                RelayoutRequest();
-            }
-        }
-
-        private void UpdateAnimation()//Attributes attrs)
-        {
-            if (animationAttrs == null)
-            {
-                return;
-            }
-            if (animationAttrs == null)
-            {
-                //TNLog.I("animationAttrs == null");
-                animationAttrs = new AnimationAttributes();
-            }
-            if (animationAttrs.Part1Duration != null)
-            {
-                animationAttrs.Part1Duration = animationAttrs.Part1Duration;
-            }
-            if (animationAttrs.Part2Duration != null)
-            {
-                animationAttrs.Part2Duration = animationAttrs.Part2Duration;
-            }
-            if (animationAttrs.OpacityMin != null)
-            {
-                animationAttrs.OpacityMin = animationAttrs.OpacityMin;
-            }
-            if (animationAttrs.OpacityMax != null)
-            {
-                animationAttrs.OpacityMax = animationAttrs.OpacityMax;
-            }
-            if (animationAttrs.OffsetX != null)
-            {
-                animationAttrs.OffsetX = animationAttrs.OffsetX;
-            }
-        }
-
-        //private void ApplyAttributes()
-        //{
-        //    ApplyTrack();
-        //    ApplyProgress();
-        //    ApplyBuffer();
-        //    ApplyLoadingAnimation();
-        //    UpdateStates();
-        //    //UpdateEnabled();
-        //}
+        }   
 
         private void ApplyTrack()
         {
@@ -1034,225 +865,5 @@ namespace Tizen.NUI.CommonUI
                 loadingObj.ResourceUrl = url;
             }
         }
-
-        protected virtual void UpdateStates()
-        {
-            Console.WriteLine("before update progress" + progressObj.Size2D.Height.ToString() + progressObj.Size2D.Width.ToString());
-            Console.WriteLine("before update load" + loadingObj.Size2D.Height.ToString() + loadingObj.Size2D.Width.ToString());
-            Console.WriteLine(bufferObj.ResourceUrl);
-            Console.WriteLine("before update buffer" + bufferObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
-
-            if (state == ProgressStatusType.Buffering)
-            {
-                bufferObj.Show();
-                loadingObj.Hide();
-                progressObj.Hide();
-            }
-            else if (state == ProgressStatusType.Determinate)
-            {
-                bufferObj.Hide();
-                loadingObj.Hide();
-                progressObj.Show();
-                UpdateValue();
-            }
-            else
-            {
-                bufferObj.Hide();
-                loadingObj.Show();
-                progressObj.Hide();
-            }
-            //if (aniForLoading != null)
-            //{
-            //    aniForLoading.Stop();
-            //    aniForLoading.Clear();
-            //}
-            //if (aniForOpacity != null)
-            //{
-            //    aniForOpacity.Stop();
-            //    aniForOpacity.Clear();
-            //}
-            //PlayLoadingAnimation();
-        }
-
-        private void PlayLoadingAnimation()
-        {
-            if (loadingObj == null)// || aniForLoading == null || aniForOpacity == null)
-            {
-                return;
-            }
-            int rootWidth = Size2D.Width;
-            int rootHeight = Size2D.Height;
-            //TNLog.I("rootWidth = " + rootWidth + ", rootHeight = " + rootHeight);
-            float offsetX = 0;
-            uint part1Duration = 0;
-            uint part2Duration = 0;
-            float opacityMin = 0;
-            float opacityMax = 1.0f;
-            if (animationAttrs != null)
-            {
-                if (animationAttrs.OffsetX != null)
-                {
-                    offsetX = animationAttrs.OffsetX.Value;
-                }
-                if (animationAttrs.Part1Duration != null)
-                {
-                    part1Duration = animationAttrs.Part1Duration.Value;
-                }
-                if (animationAttrs.Part2Duration != null)
-                {
-                    part2Duration = animationAttrs.Part2Duration.Value;
-                }
-                if (animationAttrs.OpacityMin != null)
-                {
-                    opacityMin = animationAttrs.OpacityMin.Value;
-                }
-                if (animationAttrs.OpacityMax != null)
-                {
-                    opacityMax = animationAttrs.OpacityMax.Value;
-                }
-            }
-            //TNLog.I("offsetX = " + offsetX);
-            loadingObj.Size2D = new Size2D(rootWidth + (int)offsetX, rootHeight);
-            loadingObj.Position = new Position(-offsetX, 0, 0);
-
-            int duration = (int)(part1Duration + part2Duration);
-            //TNLog.I("Duration = " + duration);
-            //aniForLoading.Duration = duration;
-            //aniForLoading.AnimateTo(loadingObj, "PositionX", 0, 0, duration, AnimationCurve.Basic);
-
-            loadingObj.Opacity = opacityMin;
-            //aniForOpacity.AnimateTo(loadingObj, "Opacity", opacityMax, 0, (int)part1Duration, AnimationCurve.Basic);
-
-            //aniForLoading.Play();
-            //aniForOpacity.Play();
-        }
-
-        protected virtual void UpdateValue()
-        {
-            if (trackObj == null || progressObj == null ||
-                (progressBarAttrs.MaxValue == null && maxValue == null) ||
-                (progressBarAttrs.MinValue == null && minValue == null) ||
-                (progressBarAttrs.CurValue == null && currentValue == null))
-            {
-                return;
-            }
-
-            int minVal = 0;
-            if (minValue != null)
-            {
-                minVal = (int)minValue;
-            }
-            else
-            {
-                if (progressBarAttrs.MinValue != null)
-                {
-                    minVal = (int)progressBarAttrs.MinValue;
-                }
-
-            }
-            int maxVal = 0;
-            if (maxValue != null)
-            {
-                maxVal = (int)maxValue;
-            }
-            else
-            {
-                if (progressBarAttrs.MaxValue != null)
-                {
-                    maxVal = (int)progressBarAttrs.MaxValue;
-                }
-            }
-            int curVal = 0;
-            if (currentValue != null)
-            {
-                curVal = (int)currentValue;
-            }
-            else
-            {
-                if (progressBarAttrs.CurValue != null)
-                {
-                    curVal = (int)progressBarAttrs.CurValue;
-                }
-            }
-
-            //TNLog.I("minValue = " + minVal + ", maxValue = " + maxVal + ", curValue = " + curVal);
-
-            if (minVal >= maxVal || curVal < minVal || curVal > maxVal)
-            {
-                if (minVal >= maxVal)
-                {
-                    //TNLog.E("Min value >= Max value;");
-                }
-                if (curVal < minVal || curVal > maxVal)
-                {
-                    //TNLog.E("Current value < Min value || Current value > Max value;");
-                }
-                return;
-            }
-
-            float width = SizeWidth;
-            float height = SizeHeight;
-            //TNLog.I("width = " + width + ", height = " + height);
-            float progressRatio = (float)curVal / (float)(maxVal - minVal);
-            DirectionType dir = DirectionType.Horizontal;
-            if (direction != null)
-            {
-                dir = direction.Value;
-            }
-            else
-            {
-                if (direction != null)
-                {
-                    dir = direction.Value;
-                }
-            }
-
-            if (dir == DirectionType.Horizontal)
-            {
-                float progressWidth = width * progressRatio;
-                progressObj.Size2D = new Size2D((int)progressWidth, (int)height);
-            }
-            else
-            {
-                float progressHeight = height * progressRatio;
-                progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
-            }
-
-            if (bufferObj != null && (BufValue != null || bufferValue != null))
-            {
-                int bufVal = 0;
-                if (bufferValue != null)
-                {
-                    bufVal = (int)bufferValue;
-                }
-                else
-                {
-                    if (BufValue != null)
-                    {
-                        bufVal = (int)BufValue;
-                    }
-                }
-                if (bufVal < minVal || bufVal > maxVal)
-                {
-                    //TNLog.E("Buffer value < Min value || Buffer value > Max value;");
-                    return;
-                }
-
-                float bufferRatio = (float)bufVal / (float)(maxVal - minVal);
-                if (dir == DirectionType.Horizontal)
-                {
-                    float bufferWidth = width * bufferRatio;
-                    bufferObj.Size2D = new Size2D((int)bufferWidth, (int)height);
-                    //TNLog.I("bufferWidth = " + bufferWidth + ";");
-                }
-                else
-                {
-                    float bufferHeight = height * bufferRatio;
-                    bufferObj.Size2D = new Size2D((int)width, (int)bufferHeight);
-                    //TNLog.I("bufferHeight = " + bufferHeight + ";");
-                }
-            }
-        }
-
     }
 }
