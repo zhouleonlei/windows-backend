@@ -1,76 +1,35 @@
-﻿using Tizen.NUI.Binding;
-
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class SwitchAttributes : ButtonAttributes
     {
-        public static readonly BindableProperty SwitchHandlerImageAttributesProperty = BindableProperty.Create("SwitchHandlerImageAttributes", typeof(ImageAttributes), typeof(SwitchAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.switchHandlerImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            return attrs.switchHandlerImageAttrs;
-        });
-
-        public static readonly BindableProperty SwitchBackgroundImageAttributesProperty = BindableProperty.Create("SwitchBackgroundImageAttributes", typeof(ImageAttributes), typeof(SwitchAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.switchBackgroundImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (SwitchAttributes)bindable;
-            return attrs.switchBackgroundImageAttrs;
-        });
-
-        private ImageAttributes switchHandlerImageAttrs;
-        private ImageAttributes switchBackgroundImageAttrs;
-
         public SwitchAttributes() : base() { }
         public SwitchAttributes(SwitchAttributes attributes) : base(attributes)
         {
-            if (attributes.switchHandlerImageAttrs != null)
+            if(attributes == null)
             {
-                switchHandlerImageAttrs = attributes.switchHandlerImageAttrs.Clone() as ImageAttributes;
+                return;
+            }
+            if (attributes.SwitchHandlerImageAttributes != null)
+            {
+                SwitchHandlerImageAttributes = attributes.SwitchHandlerImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.switchBackgroundImageAttrs != null)
+            if (attributes.SwitchBackgroundImageAttributes != null)
             {
-                switchBackgroundImageAttrs = attributes.switchBackgroundImageAttrs.Clone() as ImageAttributes;
+                SwitchBackgroundImageAttributes = attributes.SwitchBackgroundImageAttributes.Clone() as ImageAttributes;
             }
         }
 
         public ImageAttributes SwitchHandlerImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(SwitchHandlerImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(SwitchHandlerImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes SwitchBackgroundImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(SwitchBackgroundImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(SwitchBackgroundImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()

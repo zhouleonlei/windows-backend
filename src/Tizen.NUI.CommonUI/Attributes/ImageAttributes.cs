@@ -4,73 +4,30 @@ namespace Tizen.NUI.CommonUI
 {
     public class ImageAttributes : ViewAttributes
     {
-        public static readonly BindableProperty ResourceURLProperty = BindableProperty.Create("ResourceURL", typeof(StringSelector), typeof(ImageAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ImageAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.resourceURL = (StringSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ImageAttributes)bindable;
-            return attrs.resourceURL;
-        });
-
-        public static readonly BindableProperty BorderProperty = BindableProperty.Create("Border", typeof(RectangleSelector), typeof(ImageAttributes), default(RectangleSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ImageAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.border = (RectangleSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ImageAttributes)bindable;
-            return attrs.border;
-        });
-
-        private StringSelector resourceURL;
-        private RectangleSelector border;
-
         public ImageAttributes() : base() { }
         public ImageAttributes(ImageAttributes attributes) : base(attributes)
         {
-            if (attributes.resourceURL != null)
+            if (attributes.ResourceURL != null)
             {
-                resourceURL = attributes.resourceURL.Clone() as StringSelector;
+                ResourceURL = attributes.ResourceURL.Clone() as StringSelector;
             }
 
-            if (attributes.border != null)
+            if (attributes.Border != null)
             {
-                border = attributes.border.Clone() as RectangleSelector;
+                Border = attributes.Border.Clone() as RectangleSelector;
             }
         }
 
         public StringSelector ResourceURL
         {
-            get
-            {
-                return (StringSelector)GetValue(ResourceURLProperty);
-            }
-            set
-            {
-                SetValue(ResourceURLProperty, value);
-            }
+            get;
+            set;
         }
 
         public RectangleSelector Border
         {
-            get
-            {
-                return (RectangleSelector)GetValue(BorderProperty);
-            }
-            set
-            {
-                SetValue(BorderProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()

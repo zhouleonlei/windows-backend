@@ -1,308 +1,132 @@
-﻿using Tizen.NUI.Binding;
-
+﻿
 namespace Tizen.NUI.CommonUI
 {
     public class SliderAttributes : ViewAttributes
     {
-        private ImageAttributes bgTrackAttrs = null;
-        private ImageAttributes slidedTrackAttrs = null;
-        private ImageAttributes thumbAttrs = null;
-        private ImageAttributes thumbBgAttrs = null;
-        private ImageAttributes lowIndicatorImageAttrs = null;
-        private ImageAttributes highIndicatorImageAttrs = null;
-        private TextAttributes lowIndicatorTextAttrs = null;
-        private TextAttributes highIndicatorTextAttrs = null;
-        private uint? trackThickness = null;
-        private uint? spaceBetweenTrackAndIndicator = null;
         private Slider.IndicatorType indicatorType = Slider.IndicatorType.None;
 
         public SliderAttributes() : base() { }
 
-        public SliderAttributes(SliderAttributes attrs) : base(attrs)
+        public SliderAttributes(SliderAttributes attributes) : base(attributes)
         {
-            if (attrs.bgTrackAttrs != null)
+            if(attributes == null)
             {
-                bgTrackAttrs = attrs.bgTrackAttrs.Clone() as ImageAttributes;
+                return;
             }
-            if (attrs.slidedTrackAttrs != null)
+            if (attributes.BgTrackAttributes != null)
             {
-                slidedTrackAttrs = attrs.slidedTrackAttrs.Clone() as ImageAttributes;
+                BgTrackAttributes = attributes.BgTrackAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.thumbBgAttrs != null)
+            if (attributes.SlidedTrackAttributes != null)
             {
-                thumbBgAttrs = attrs.thumbBgAttrs.Clone() as ImageAttributes;
+                SlidedTrackAttributes = attributes.SlidedTrackAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.thumbAttrs != null)
+            if (attributes.ThumbBgAttributes != null)
             {
-                thumbAttrs = attrs.thumbAttrs.Clone() as ImageAttributes;
+                ThumbBgAttributes = attributes.ThumbBgAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.lowIndicatorImageAttrs != null)
+            if (attributes.ThumbAttributes != null)
             {
-                lowIndicatorImageAttrs = attrs.lowIndicatorImageAttrs.Clone() as ImageAttributes;
+                ThumbAttributes = attributes.ThumbAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.highIndicatorImageAttrs != null)
+            if (attributes.LowIndicatorImageAttributes != null)
             {
-                highIndicatorImageAttrs = attrs.highIndicatorImageAttrs.Clone() as ImageAttributes;
+                LowIndicatorImageAttributes = attributes.LowIndicatorImageAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.lowIndicatorTextAttrs != null)
+            if (attributes.HighIndicatorImageAttributes != null)
             {
-                lowIndicatorTextAttrs = attrs.lowIndicatorTextAttrs.Clone() as TextAttributes;
+                HighIndicatorImageAttributes = attributes.HighIndicatorImageAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.highIndicatorTextAttrs != null)
+            if (attributes.LowIndicatorTextAttributes != null)
             {
-                highIndicatorTextAttrs = attrs.highIndicatorTextAttrs.Clone() as TextAttributes;
+                LowIndicatorTextAttributes = attributes.LowIndicatorTextAttributes.Clone() as TextAttributes;
             }
-            if (attrs.trackThickness != null)
+            if (attributes.HighIndicatorTextAttributes != null)
             {
-                trackThickness = attrs.trackThickness;
+                HighIndicatorTextAttributes = attributes.HighIndicatorTextAttributes.Clone() as TextAttributes;
             }
-            if (attrs.spaceBetweenTrackAndIndicator != null)
+            if (attributes.TrackThickness != null)
             {
-                spaceBetweenTrackAndIndicator = attrs.spaceBetweenTrackAndIndicator;
+                TrackThickness = attributes.TrackThickness;
             }
-            indicatorType = attrs.indicatorType;
+            if (attributes.SpaceBetweenTrackAndIndicator != null)
+            {
+                SpaceBetweenTrackAndIndicator = attributes.SpaceBetweenTrackAndIndicator;
+            }
+            indicatorType = attributes.indicatorType;
         }
 
-        public static readonly BindableProperty BackgroundTrackAttributesProperty = 
-            BindableProperty.Create("BackgroundTrackAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.bgTrackAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.bgTrackAttrs;
-            });
-
-        public static readonly BindableProperty SlidedTrackAttributesProperty = 
-            BindableProperty.Create("SlidedTrackAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.slidedTrackAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.slidedTrackAttrs;
-            });
-
-        public static readonly BindableProperty ThumbAttributesProperty = 
-            BindableProperty.Create("ThumbAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.thumbAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.thumbAttrs;
-            });
-
-        public static readonly BindableProperty ThumbBackgroundAttributesProperty =
-            BindableProperty.Create("ThumbBackgroundAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.thumbBgAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.thumbBgAttrs;
-            });
-
-        public static readonly BindableProperty LowIndicatorImageAttributesProperty =
-            BindableProperty.Create("LowIndicatorImageAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.lowIndicatorImageAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.lowIndicatorImageAttrs;
-            });
-
-        public static readonly BindableProperty HighIndicatorImageAttributesProperty =
-            BindableProperty.Create("HighIndicatorImageAttributes", typeof(ImageAttributes), typeof(SliderAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.highIndicatorImageAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.highIndicatorImageAttrs;
-            });
-
-        public static readonly BindableProperty LowIndicatorTextAttributesProperty =
-            BindableProperty.Create("LowIndicatorTextAttributes", typeof(TextAttributes), typeof(SliderAttributes), default(TextAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.lowIndicatorTextAttrs = (TextAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.lowIndicatorTextAttrs;
-            });
-
-        public static readonly BindableProperty HighIndicatorTextAttributesProperty =
-            BindableProperty.Create("HighIndicatorTextAttributes", typeof(TextAttributes), typeof(SliderAttributes), default(TextAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.highIndicatorTextAttrs = (TextAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.highIndicatorTextAttrs;
-            });
-
-        public static readonly BindableProperty TrackThicknessProperty =
-            BindableProperty.Create("TrackThickness", typeof(uint), typeof(SliderAttributes), default(uint),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.trackThickness = (uint?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.trackThickness;
-            });
-
-        public static readonly BindableProperty SpaceBetweenTrackAndIndicatorProperty =
-            BindableProperty.Create("SpaceBetweenTrackAndIndicator", typeof(uint), typeof(SliderAttributes), default(uint),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.spaceBetweenTrackAndIndicator = (uint?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.spaceBetweenTrackAndIndicator;
-            });
-
-        public static readonly BindableProperty IndicatorTypeProperty =
-            BindableProperty.Create("IndicatorType", typeof(Slider.IndicatorType), typeof(SliderAttributes), default(Slider.IndicatorType),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.indicatorType = (Slider.IndicatorType)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SliderAttributes)bindable;
-                return attrs.indicatorType;
-            });
-
-        public ImageAttributes BackgroundTrackAttributes
+        public ImageAttributes BgTrackAttributes
         {
-            get { return (ImageAttributes)GetValue(BackgroundTrackAttributesProperty); }
-            set { SetValue(BackgroundTrackAttributesProperty, value); }
+            get;
+            set;
         }
 
         public ImageAttributes SlidedTrackAttributes
         {
-            get { return (ImageAttributes)GetValue(SlidedTrackAttributesProperty); }
-            set { SetValue(SlidedTrackAttributesProperty, value); }
+            get;
+            set;
         }
 
         public ImageAttributes ThumbAttributes
         {
-            get { return (ImageAttributes)GetValue(ThumbAttributesProperty); }
-            set { SetValue(ThumbAttributesProperty, value); }
+            get;
+            set;
         }
 
-        public ImageAttributes ThumbBackgroundAttributes
+        public ImageAttributes ThumbBgAttributes
         {
-            get { return (ImageAttributes)GetValue(ThumbBackgroundAttributesProperty); }
-            set { SetValue(ThumbBackgroundAttributesProperty, value); }
+            get;
+            set;
         }
 
         public ImageAttributes LowIndicatorImageAttributes
         {
-            get { return (ImageAttributes)GetValue(LowIndicatorImageAttributesProperty); }
-            set { SetValue(LowIndicatorImageAttributesProperty, value); }
+            get;
+            set;
         }
 
         public ImageAttributes HighIndicatorImageAttributes
         {
-            get { return (ImageAttributes)GetValue(HighIndicatorImageAttributesProperty); }
-            set { SetValue(HighIndicatorImageAttributesProperty, value); }
+            get;
+            set;
         }
 
         public TextAttributes LowIndicatorTextAttributes
         {
-            get { return (TextAttributes)GetValue(LowIndicatorTextAttributesProperty); }
-            set { SetValue(LowIndicatorTextAttributesProperty, value); }
+            get;
+            set;
         }
 
         public TextAttributes HighIndicatorTextAttributes
         {
-            get { return (TextAttributes)GetValue(HighIndicatorTextAttributesProperty); }
-            set { SetValue(HighIndicatorTextAttributesProperty, value); }
+            get;
+            set;
         }
 
         public uint? TrackThickness
         {
-            get { return (uint?)GetValue(TrackThicknessProperty); }
-            set { SetValue(TrackThicknessProperty, value); }
+            get;
+            set;
         }
 
         public uint? SpaceBetweenTrackAndIndicator
         {
-            get { return (uint?)GetValue(SpaceBetweenTrackAndIndicatorProperty); }
-            set { SetValue(SpaceBetweenTrackAndIndicatorProperty, value); }
+            get;
+            set;
         }
 
         public Slider.IndicatorType IndicatorType
         {
-            get { return (Slider.IndicatorType)GetValue(IndicatorTypeProperty); }
-            set { SetValue(IndicatorTypeProperty, value); }
+            get
+            {
+                return indicatorType;
+            }
+
+            set
+            {
+                indicatorType = value;
+            }
         }
 
         public override Attributes Clone()

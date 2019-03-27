@@ -1,96 +1,41 @@
-﻿using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
-
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class InputFieldAttributes : ViewAttributes
     {
-        private ImageAttributes bgImageAttrs = null;
-        private TextFieldAttributes inputBoxAttrs = null;
-        private int? space = null;
-
         public InputFieldAttributes() : base() { }
 
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
         {
-            if (attrs.bgImageAttrs != null)
+            if (attrs.BackgroundImageAttributes != null)
             {
-                bgImageAttrs = attrs.bgImageAttrs.Clone() as ImageAttributes;
+                BackgroundImageAttributes = attrs.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.inputBoxAttrs != null)
+            if (attrs.InputBoxAttributes != null)
             {
-                inputBoxAttrs = attrs.inputBoxAttrs.Clone() as TextFieldAttributes;
+                InputBoxAttributes = attrs.InputBoxAttributes.Clone() as TextFieldAttributes;
             }
-            if (attrs.space != null)
+            if (attrs.Space != null)
             {
-                space = attrs.space;
+                Space = attrs.Space;
             }
         }
 
-        public static readonly BindableProperty BackgroundImageAttributesProperty = 
-            BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(InputFieldAttributes), default(ImageAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.bgImageAttrs = (ImageAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                return attrs.bgImageAttrs;
-            });
-
-        public static readonly BindableProperty InputBoxAttributesProperty =
-            BindableProperty.Create("InputBoxAttributes", typeof(TextFieldAttributes), typeof(InputFieldAttributes), default(TextFieldAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.inputBoxAttrs = (TextFieldAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                return attrs.inputBoxAttrs;
-            });
-
-        public static readonly BindableProperty SpaceProperty =
-            BindableProperty.Create("Space", typeof(int?), typeof(InputFieldAttributes), default(int?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.space = (int?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (InputFieldAttributes)bindable;
-                return attrs.space;
-            });
-
         public ImageAttributes BackgroundImageAttributes
         {
-            get { return (ImageAttributes)GetValue(BackgroundImageAttributesProperty); }
-            set { SetValue(BackgroundImageAttributesProperty, value); }
+            get;
+            set;
         }
 
         public TextFieldAttributes InputBoxAttributes
         {
-            get { return (TextFieldAttributes)GetValue(InputBoxAttributesProperty); }
-            set { SetValue(InputBoxAttributesProperty, value); }
+            get;
+            set;
         }
 
         public int? Space
         {
-            get { return (int?)GetValue(SpaceProperty); }
-            set { SetValue(SpaceProperty, value); }
+            get;
+            set;
         }
 
         public override Attributes Clone()
