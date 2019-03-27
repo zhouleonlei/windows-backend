@@ -106,7 +106,7 @@ namespace Tizen.NUI.Samples
                 group[1].Add(familyRadioButton[i]);
                 /////////
                 foodRadioButton[i] = new RadioButton();
-                foodRadioButton[i].Size2D = new Size2D(48, 48);
+                foodRadioButton[i].Size2D = new Size2D(150, 48);
                 foodRadioButton[i].Position2D = new Position2D(700, 300 + i * 100);
                 foodRadioButton[i].CheckImageSize2D = new Size2D(48, 48);
                 foodRadioButton[i].CheckImagePosition2D = new Position2D(0, 0);
@@ -124,6 +124,11 @@ namespace Tizen.NUI.Samples
                     Disabled = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
                     DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_radio_on_ec7510.png",
                 };
+
+                //foodRadioButton[i].Text = "Radio" + i;
+                //foodRadioButton[i].TextAlignment = HorizontalAlignment.Begin;
+                //foodRadioButton[i].PointSize = 12;
+                //foodRadioButton[i].TextPaddingLeft = 70;
 
                 group[2].Add(foodRadioButton[i]);
                 ////////
@@ -154,7 +159,7 @@ namespace Tizen.NUI.Samples
                 root.Add(foodRadioButton[i]);
                 root.Add(kitchenRadioButton[i]);
             }
-
+            //foodRadioButton[0].LayoutDirection = ViewLayoutDirectionType.RTL;
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
             createText[1].Text = "Create RadioButton just by Attributes";

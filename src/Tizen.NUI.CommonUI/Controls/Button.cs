@@ -6,14 +6,6 @@ namespace Tizen.NUI.CommonUI
 {
     public class Button : Control
     {
-        public enum IconOrientation
-        {
-            Top,
-            Bottom,
-            Left,
-            Right,
-        }
-
         private ImageView backgroundImage;
         private ImageView shadowImage;
         private ImageView overlayImage;
@@ -23,7 +15,6 @@ namespace Tizen.NUI.CommonUI
 
         private ButtonAttributes buttonAttributes;
         private EventHandler<StateChangeEventArgs> stateChangeHander;
-        private Dictionary<KeyValuePair<ControlStates, ControlStates>, Action> stateActionTable;
 
         private bool isSelected = false;
         private bool isEnabled = true;
@@ -55,6 +46,14 @@ namespace Tizen.NUI.CommonUI
             {
                 stateChangeHander -= value;
             }
+        }
+
+        public enum IconOrientation
+        {
+            Top,
+            Bottom,
+            Left,
+            Right,
         }
 
         public bool IsSelectable
@@ -711,7 +710,7 @@ namespace Tizen.NUI.CommonUI
 
             base.Dispose(type);
         }
-     
+
         protected override bool OnKey(object source, KeyEventArgs e)
         {
             if (e.Key.State == Key.StateType.Down)
@@ -894,8 +893,6 @@ namespace Tizen.NUI.CommonUI
                     CurrentState = targetState
                 };
                 stateChangeHander?.Invoke(this, e);
-
-                PlayMotion(sourceState, targetState);
             }
         }
 
@@ -908,6 +905,134 @@ namespace Tizen.NUI.CommonUI
             }
             ApplyAttributes(this, buttonAttributes);
             LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+        protected virtual void MeasureText()
+        {
+            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
+            {
+                return;
+            }
+            buttonText.WidthResizePolicy = ResizePolicyType.Fixed;
+            buttonText.HeightResizePolicy = ResizePolicyType.Fixed;
+            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
+            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
+            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
+            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
+
+            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
+            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
+            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
+            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
+
+            if (IconRelativeOrientation == IconOrientation.Top || IconRelativeOrientation == IconOrientation.Bottom)
+            {
+                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight;
+                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom - iconPaddingTop - iconPaddingBottom - buttonIcon.SizeHeight;
+            }
+            else
+            {
+                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight - iconPaddingLeft - iconPaddingRight - buttonIcon.SizeWidth;
+                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom;
+            }
+        }
+
+        protected virtual void LayoutChild()
+        {
+            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
+            {
+                return;
+            }
+
+            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
+            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
+            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
+            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
+
+            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
+            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
+            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
+            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
+
+            switch (IconRelativeOrientation)
+            {
+                case IconOrientation.Top:
+                    buttonIcon.PositionUsesPivotPoint = true;
+                    buttonIcon.ParentOrigin = NUI.ParentOrigin.TopCenter;
+                    buttonIcon.PivotPoint = NUI.PivotPoint.TopCenter;
+                    buttonIcon.Position2D = new Position2D(0, iconPaddingTop);
+
+                    buttonText.PositionUsesPivotPoint = true;
+                    buttonText.ParentOrigin = NUI.ParentOrigin.BottomCenter;
+                    buttonText.PivotPoint = NUI.PivotPoint.BottomCenter;
+                    buttonText.Position2D = new Position2D(0, -textPaddingBottom);
+                    break;
+                case IconOrientation.Bottom:
+                    buttonIcon.PositionUsesPivotPoint = true;
+                    buttonIcon.ParentOrigin = NUI.ParentOrigin.BottomCenter;
+                    buttonIcon.PivotPoint = NUI.PivotPoint.BottomCenter;
+                    buttonIcon.Position2D = new Position2D(0, -iconPaddingBottom);
+
+                    buttonText.PositionUsesPivotPoint = true;
+                    buttonText.ParentOrigin = NUI.ParentOrigin.TopCenter;
+                    buttonText.PivotPoint = NUI.PivotPoint.TopCenter;
+                    buttonText.Position2D = new Position2D(0, textPaddingTop);
+                    break;
+                case IconOrientation.Left:
+                    if (LayoutDirection == ViewLayoutDirectionType.LTR)
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonIcon.Position2D = new Position2D(iconPaddingLeft, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonText.Position2D = new Position2D(-textPaddingRight, 0);
+                    }
+                    else
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonIcon.Position2D = new Position2D(-iconPaddingLeft, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonText.Position2D = new Position2D(textPaddingRight, 0);
+                    }
+
+                    break;
+                case IconOrientation.Right:
+                    if (LayoutDirection == ViewLayoutDirectionType.RTL)
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonIcon.Position2D = new Position2D(iconPaddingRight, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonText.Position2D = new Position2D(-textPaddingLeft, 0);
+                    }
+                    else
+                    {
+                        buttonIcon.PositionUsesPivotPoint = true;
+                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
+                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
+                        buttonIcon.Position2D = new Position2D(-iconPaddingRight, 0);
+
+                        buttonText.PositionUsesPivotPoint = true;
+                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
+                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
+                        buttonText.Position2D = new Position2D(textPaddingLeft, 0);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -924,15 +1049,6 @@ namespace Tizen.NUI.CommonUI
         {
             MeasureText();
             LayoutChild();
-        }
-
-        private void PlayMotion(ControlStates sourceState, ControlStates targetState)
-        {
-            KeyValuePair<ControlStates, ControlStates> command = new KeyValuePair<ControlStates, ControlStates>(sourceState, targetState);
-            if (stateActionTable != null && stateActionTable.ContainsKey(command))
-            {
-                stateActionTable[command].Invoke();
-            }
         }
 
         private void OnClick(ClickEventArgs eventArgs)
@@ -1026,138 +1142,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        protected virtual void MeasureText()
-        {
-            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
-            {
-                return;
-            }
-            buttonText.WidthResizePolicy = ResizePolicyType.Fixed;
-            buttonText.HeightResizePolicy = ResizePolicyType.Fixed;
-            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
-            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
-            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
-            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
-
-            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
-            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
-            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
-            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
-
-            if (IconRelativeOrientation == IconOrientation.Top || IconRelativeOrientation == IconOrientation.Bottom)
-            {
-                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight;
-                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom - iconPaddingTop - iconPaddingBottom - buttonIcon.SizeHeight;
-            }
-            else
-            {
-                buttonText.SizeWidth = SizeWidth - textPaddingLeft - textPaddingRight - iconPaddingLeft - iconPaddingRight - buttonIcon.SizeWidth;
-                buttonText.SizeHeight = SizeHeight - textPaddingTop - textPaddingBottom;
-            }
-        }
-
-        protected virtual void LayoutChild()
-        {
-            if (buttonAttributes.IconRelativeOrientation == null || buttonIcon == null || buttonText == null)
-            {
-                return;
-            }
-
-            int textPaddingLeft = buttonAttributes.TextAttributes.PaddingLeft;
-            int textPaddingRight = buttonAttributes.TextAttributes.PaddingRight;
-            int textPaddingTop = buttonAttributes.TextAttributes.PaddingTop;
-            int textPaddingBottom = buttonAttributes.TextAttributes.PaddingBottom;
-
-            int iconPaddingLeft = buttonAttributes.IconAttributes.PaddingLeft;
-            int iconPaddingRight = buttonAttributes.IconAttributes.PaddingRight;
-            int iconPaddingTop = buttonAttributes.IconAttributes.PaddingTop;
-            int iconPaddingBottom = buttonAttributes.IconAttributes.PaddingBottom;
-
-            switch (IconRelativeOrientation)
-            {
-                case IconOrientation.Top:
-                    buttonIcon.PositionUsesPivotPoint = true;
-                    buttonIcon.ParentOrigin = NUI.ParentOrigin.TopCenter;
-                    buttonIcon.PivotPoint = NUI.PivotPoint.TopCenter;
-                    buttonIcon.Position2D = new Position2D(0, iconPaddingTop);
-
-                    buttonText.PositionUsesPivotPoint = true;
-                    buttonText.ParentOrigin = NUI.ParentOrigin.BottomCenter;
-                    buttonText.PivotPoint = NUI.PivotPoint.BottomCenter;
-                    buttonText.Position2D = new Position2D(0, -textPaddingBottom);
-                    break;
-                case IconOrientation.Bottom:
-                    buttonIcon.PositionUsesPivotPoint = true;
-                    buttonIcon.ParentOrigin = NUI.ParentOrigin.BottomCenter;
-                    buttonIcon.PivotPoint = NUI.PivotPoint.BottomCenter;
-                    buttonIcon.Position2D = new Position2D(0, -iconPaddingBottom);
-
-                    buttonText.PositionUsesPivotPoint = true;
-                    buttonText.ParentOrigin = NUI.ParentOrigin.TopCenter;
-                    buttonText.PivotPoint = NUI.PivotPoint.TopCenter;
-                    buttonText.Position2D = new Position2D(0, textPaddingTop);
-                    break;
-                case IconOrientation.Left:
-                    if(LayoutDirection == ViewLayoutDirectionType.LTR)
-                    {
-                        buttonIcon.PositionUsesPivotPoint = true;
-                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
-                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
-                        buttonIcon.Position2D = new Position2D(iconPaddingLeft, 0);
-
-                        buttonText.PositionUsesPivotPoint = true;
-                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
-                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
-                        buttonText.Position2D = new Position2D(-textPaddingRight, 0);
-                    }
-                    else
-                    {
-                        buttonIcon.PositionUsesPivotPoint = true;
-                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
-                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
-                        buttonIcon.Position2D = new Position2D(-iconPaddingLeft, 0);
-
-                        buttonText.PositionUsesPivotPoint = true;
-                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
-                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
-                        buttonText.Position2D = new Position2D(textPaddingRight, 0);
-                    }
-
-                    break;
-                case IconOrientation.Right:
-                    if (LayoutDirection == ViewLayoutDirectionType.RTL)
-                    {
-                        buttonIcon.PositionUsesPivotPoint = true;
-                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterLeft;
-                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterLeft;
-                        buttonIcon.Position2D = new Position2D(iconPaddingRight, 0);
-
-                        buttonText.PositionUsesPivotPoint = true;
-                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterRight;
-                        buttonText.PivotPoint = NUI.PivotPoint.CenterRight;
-                        buttonText.Position2D = new Position2D(-textPaddingLeft, 0);
-                    }
-                    else
-                    {
-                        buttonIcon.PositionUsesPivotPoint = true;
-                        buttonIcon.ParentOrigin = NUI.ParentOrigin.CenterRight;
-                        buttonIcon.PivotPoint = NUI.PivotPoint.CenterRight;
-                        buttonIcon.Position2D = new Position2D(-iconPaddingRight, 0);
-
-                        buttonText.PositionUsesPivotPoint = true;
-                        buttonText.ParentOrigin = NUI.ParentOrigin.CenterLeft;
-                        buttonText.PivotPoint = NUI.PivotPoint.CenterLeft;
-                        buttonText.Position2D = new Position2D(textPaddingLeft, 0);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
         public class ClickEventArgs : EventArgs
         {
-
         }
 
         public class StateChangeEventArgs : EventArgs

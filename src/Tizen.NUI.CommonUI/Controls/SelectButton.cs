@@ -20,7 +20,7 @@ namespace Tizen.NUI.CommonUI
             {
                 throw new Exception("SelectButton attribute parse error.");
             }
-            InitializeAttributes();
+            Initialize();
         }
         public SelectButton(string style) : base(style)
         {
@@ -29,13 +29,13 @@ namespace Tizen.NUI.CommonUI
             {
                 throw new Exception("SelectButton attribute parse error.");
             }
-            InitializeAttributes();
+            Initialize();
         }
 
         public SelectButton(SelectButtonAttributes attributes) : base()
         {
             this.attributes = selectButtonAttributes = attributes.Clone() as SelectButtonAttributes;
-            InitializeAttributes();
+            Initialize();
         }
 
         public event EventHandler<SelectEventArgs> SelectedEvent;
@@ -407,7 +407,27 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            base.OnUpdate(attributtes);
+
+            if (selectButtonAttributes.CheckImageAttributes != null)
+            {
+                if (checkImage == null)
+                {
+                    checkImage = new ImageView();
+                    checkImage.Name = "CheckImage";
+                    Add(checkImage);
+                }
+                ApplyAttributes(checkImage, selectButtonAttributes.CheckImageAttributes);  
+            }
+            else
+            {
+                if (checkImage != null)
+                {
+                    Remove(checkImage);
+                    checkImage.Dispose();
+                    checkImage = null;
+                }
+            }
+
 
             if (selectButtonAttributes.CheckShadowImageAttributes != null)
             {
@@ -417,6 +437,7 @@ namespace Tizen.NUI.CommonUI
                     checkShadowImage.Name = "CheckShadowImage";
                     Add(checkShadowImage);
                 }
+                selectButtonAttributes.CheckShadowImageAttributes.Position2D = checkImage?.Position2D;
                 ApplyAttributes(checkShadowImage, selectButtonAttributes.CheckShadowImageAttributes);
             }
             else
@@ -437,6 +458,7 @@ namespace Tizen.NUI.CommonUI
                     checkBackgroundImage.Name = "CheckBackgroundImage";
                     Add(checkBackgroundImage);
                 }
+                selectButtonAttributes.CheckBackgroundImageAttributes.Position2D = checkImage?.Position2D;
                 ApplyAttributes(checkBackgroundImage, selectButtonAttributes.CheckBackgroundImageAttributes);
             }
             else
@@ -449,26 +471,12 @@ namespace Tizen.NUI.CommonUI
                 }
             }
 
-            if (selectButtonAttributes.CheckImageAttributes != null)
-            {
-                if (checkImage == null)
-                {
-                    checkImage = new ImageView();
-                    checkImage.Name = "CheckImage";
-                    Add(checkImage);
-                }
-                ApplyAttributes(checkImage, selectButtonAttributes.CheckImageAttributes);
-                checkImage.RaiseToTop();
-            }
-            else
-            {
-                if (checkImage != null)
-                {
-                    Remove(checkImage);
-                    checkImage.Dispose();
-                    checkImage = null;
-                }
-            }
+            UpdateTextAttributes();
+            base.OnUpdate(attributtes);
+
+            checkShadowImage?.RaiseToTop();
+            checkBackgroundImage?.RaiseToTop();
+            checkImage?.RaiseToTop();
         }
 
         protected override bool OnKey(object source, KeyEventArgs e)
@@ -520,9 +528,60 @@ namespace Tizen.NUI.CommonUI
         {
         }
 
-        private void InitializeAttributes()
+        private new void Initialize()
         {
-            selectButtonAttributes.IsSelectable = true;           
+            selectButtonAttributes.IsSelectable = true;
+            LayoutDirectionChanged += SelectButtonLayoutDirectionChanged;
+        }
+
+        private void UpdateTextAttributes()
+        {
+            if (selectButtonAttributes.TextAttributes != null)
+            {
+                selectButtonAttributes.TextAttributes.PositionUsesPivotPoint = true;
+                selectButtonAttributes.TextAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft;
+                selectButtonAttributes.TextAttributes.PivotPoint = Tizen.NUI.PivotPoint.TopLeft;
+                selectButtonAttributes.TextAttributes.WidthResizePolicy = ResizePolicyType.Fixed;
+                selectButtonAttributes.TextAttributes.HeightResizePolicy = ResizePolicyType.Fixed;
+
+                if (selectButtonAttributes.TextAttributes.Size2D == null)
+                {
+                    selectButtonAttributes.TextAttributes.Size2D = new Size2D(Size2D.Width - selectButtonAttributes.TextAttributes.PaddingLeft - selectButtonAttributes.TextAttributes.PaddingRight, Size2D.Height);
+                }
+
+                if (selectButtonAttributes.TextAttributes.Position2D == null)
+                {
+                    selectButtonAttributes.TextAttributes.Position2D = new Position2D(selectButtonAttributes.TextAttributes.PaddingLeft, 0);
+                }
+                selectButtonAttributes.TextAttributes.VerticalAlignment = VerticalAlignment.Center;
+            }
+        }
+
+        private void SelectButtonLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            if (selectButtonAttributes == null || selectButtonAttributes.TextAttributes == null)
+            {
+                return;
+            }
+
+            UpdateTextAttributes();
+
+            if (LayoutDirection == ViewLayoutDirectionType.RTL)
+            {
+                selectButtonAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                selectButtonAttributes.TextAttributes.Position2D.X = Size2D.Width - selectButtonAttributes.TextAttributes.Size2D.Width - selectButtonAttributes.TextAttributes.PaddingLeft;
+
+            }
+            else if (LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                selectButtonAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                selectButtonAttributes.TextAttributes.Position2D.X = selectButtonAttributes.TextAttributes.PaddingLeft;
+            }
+
+            if (selectButtonAttributes.CheckImageAttributes != null && selectButtonAttributes.CheckImageAttributes.Position2D != null)
+            {
+                selectButtonAttributes.CheckImageAttributes.Position2D.X = Size2D.Width - selectButtonAttributes.CheckImageAttributes.Position2D.X - selectButtonAttributes.CheckImageAttributes.Size2D.Width;
+            }
         }
 
         private void OnSelect()
