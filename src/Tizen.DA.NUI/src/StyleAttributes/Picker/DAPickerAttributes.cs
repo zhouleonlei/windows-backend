@@ -18,6 +18,7 @@ namespace Tizen.FH.NUI.Controls
                 ParentOrigin = Tizen.NUI.ParentOrigin.Center,
                 PivotPoint = Tizen.NUI.PivotPoint.Center,
                 PositionUsesPivotPoint = true,
+                YearRange = new Vector2(1900, 2099),
                 BackgroundImageAttributes = new ImageAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.Center,
@@ -213,7 +214,7 @@ namespace Tizen.FH.NUI.Controls
                             WidthResizePolicy = ResizePolicyType.UseNaturalSize,
                             HeightResizePolicy = ResizePolicyType.FillToParent,
                             Position2D = new Position2D(0, 0),
-                            HorizontalAlignment = HorizontalAlignment.Begin,
+                            HorizontalAlignment = HorizontalAlignment.End,
                             VerticalAlignment = VerticalAlignment.Center,
                         },
                         IconAttributes = new ImageAttributes
@@ -238,11 +239,11 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    Space = new Vector4(56, 0, 0, 0),
-                    SpaceBetweenButtonTextAndIcon = 8,
+                    Space = new Vector4(100, 0, 0, 0),
+                    SpaceBetweenButtonTextAndIcon = 20,
                     ListMargin = new Vector4(20, 0, 20, 0),
                     BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
-                    ListSize2D = new Size2D(360, 500),
+                    ListSize2D = new Size2D(304, 500),
                     ListPadding = new Extents(4, 4, 4, 4),
                     Size2D = new Size2D(288, 68),
                     Position2D = new Position2D(688, 32),
@@ -253,7 +254,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    Size2D = new Size2D(300, 80),
+                    Size2D = new Size2D(250, 80),
                     CheckImageRightSpace = 16,
                     TextAttributes = new TextAttributes
                     {
@@ -265,7 +266,7 @@ namespace Tizen.FH.NUI.Controls
                         Size2D = new Size2D(40, 40),
                         ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
                     },
-                    BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
+                    BackgroundColor = new ColorSelector { Pressed = new Color(0, 0, 0, 0.4f), Other = new Color(1, 1, 1, 0)},
                 }
             };
             return attributes;

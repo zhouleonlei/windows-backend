@@ -661,11 +661,6 @@ namespace Tizen.NUI.CommonUI
             contentView.RaiseToTop();
         }
 
-        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
-        {
-            LayoutChild();
-        }
-
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             PopupAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PopupAttributes;

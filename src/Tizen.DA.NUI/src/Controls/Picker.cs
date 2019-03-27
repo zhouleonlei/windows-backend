@@ -178,11 +178,11 @@ namespace Tizen.FH.NUI.Controls
                     {
                         for(int j = 0; j < 7; j++)
                         {
-                            if (dateTable[i,j] != null)
+                            if (dateTable[i, j] != null)
                             {
-                                dateView.Remove(dateTable[i,j]);
-                                dateTable[i,j].Dispose();
-                                dateTable[i,j] = null;
+                                dateView.Remove(dateTable[i, j]);
+                                dateTable[i, j].Dispose();
+                                dateTable[i, j] = null;
                             }
                         }
                     }
@@ -247,14 +247,16 @@ namespace Tizen.FH.NUI.Controls
             if (pickerAttributes.DropDownItemAttrs != null)
             {
                 int value = showDate.Year;
-                for (int i = 0; i < 50; i++)
+                for (int i = (int)pickerAttributes.YearRange.X; i <= (int)pickerAttributes.YearRange.Y; i++)
                 {
                     DropDown.DropDownItemData item = new DropDown.DropDownItemData(pickerAttributes.DropDownItemAttrs);
-                    item.Text = (value + i).ToString();
+                    item.Text = i.ToString();
                     dropDown.AddItem(item);
                 }
-   
+                dropDown.FocusedItemIndex = value - (int)pickerAttributes.YearRange.X;
+                dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
             }
+            
 
             ApplyAttributes(focusImage, pickerAttributes.FocusImageAttributes);
             ApplyAttributes(endSelectedImage, pickerAttributes.EndSelectedImageAttributes);
@@ -263,34 +265,34 @@ namespace Tizen.FH.NUI.Controls
             { 
                 for (int j = 0; j < 7; j++)
                 {
-                    if (j%2 == 0)
+                    if (j % 2 == 0)
                     {
-                        ApplyAttributes(dateTable[i,j], pickerAttributes.DateTextAttributes);
+                        ApplyAttributes(dateTable[i, j], pickerAttributes.DateTextAttributes);
                     }
                     else
                     {
-                        ApplyAttributes(dateTable[i,j], pickerAttributes.DateTextAttributes2);
+                        ApplyAttributes(dateTable[i, j], pickerAttributes.DateTextAttributes2);
                     }
                 }
             }
                         
             int tableX = 0;
             int tableY = sunText.Size2D.Height;
-            int tableW = dateTable[0,0].Size2D.Width;
-            int tableH = dateTable[0,0].Size2D.Height;
+            int tableW = dateTable[0, 0].Size2D.Width;
+            int tableH = dateTable[0, 0].Size2D.Height;
             for (int i = 0; i < 6; i++)
             { 
                 tableX = 0;
                 for (int j = 0; j < 7; j++)
                 {
-                    dateTable[i,j].Position2D = new Position2D(tableX, tableY );
-                    if (j%2 == 0)
+                    dateTable[i, j].Position2D = new Position2D(tableX, tableY );
+                    if (j % 2 == 0)
                     {
-                        tableW = dateTable[0,0].Size2D.Width; 
+                        tableW = dateTable[0, 0].Size2D.Width; 
                     }
                     else
                     {
-                        tableW = dateTable[0,1].Size2D.Width; 
+                        tableW = dateTable[0, 1].Size2D.Width; 
                     }
                     tableX += tableW;
                 }
@@ -380,7 +382,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (pickerAttributes.EndSelectedImageAttributes != null)
                 {
-                    endSelectedImage= new ImageView()
+                    endSelectedImage = new ImageView()
                     {
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         HeightResizePolicy = ResizePolicyType.FillToParent
@@ -399,14 +401,14 @@ namespace Tizen.FH.NUI.Controls
                 
                 if (pickerAttributes.MonTextAttributes != null)
                 {
-                    monText= new TextLabel();
+                    monText = new TextLabel();
                     monText.Focusable = true;
                     monText.KeyEvent += Date_KeyEvent;
                     dateView.Add(monText);
                 }
                 if (pickerAttributes.TueTextAttributes != null)
                 {
-                    tueText= new TextLabel();
+                    tueText = new TextLabel();
                     tueText.Focusable = true;
                     tueText.KeyEvent += Date_KeyEvent;
                     dateView.Add(tueText);
@@ -414,7 +416,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (pickerAttributes.WenTextAttributes != null)
                 {
-                    wenText= new TextLabel();
+                    wenText = new TextLabel();
                     wenText.Focusable = true;
                     wenText.KeyEvent += Date_KeyEvent;
                     dateView.Add(wenText);
@@ -422,7 +424,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (pickerAttributes.ThuTextAttributes != null)
                 {
-                    thuText= new TextLabel();
+                    thuText = new TextLabel();
                     thuText.Focusable = true;
                     thuText.KeyEvent += Date_KeyEvent;
                     dateView.Add(thuText);
@@ -430,7 +432,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (pickerAttributes.FriTextAttributes != null)
                 {
-                    friText= new TextLabel();
+                    friText = new TextLabel();
                     friText.Focusable = true;
                     friText.KeyEvent += Date_KeyEvent;
                     dateView.Add(friText);
@@ -438,7 +440,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (pickerAttributes.SatTextAttributes != null)
                 {
-                    satText= new TextLabel();
+                    satText = new TextLabel();
                     satText.Focusable = true;
                     satText.KeyEvent += Date_KeyEvent;
                     dateView.Add(satText);
@@ -449,11 +451,11 @@ namespace Tizen.FH.NUI.Controls
                 {
                     for (int j = 0; j < 7; j++)
                     {
-                        dateTable[i,j] = new TextLabel();
-                        dateTable[i,j].Focusable = true;
-                        dateTable[i,j].KeyEvent += Date_KeyEvent;
-                        dateTable[i,j].TouchEvent += Date_TouchEvent;
-                        dateView.Add(dateTable[i,j]);
+                        dateTable[i, j] = new TextLabel();
+                        dateTable[i, j].Focusable = true;
+                        dateTable[i, j].KeyEvent += Date_KeyEvent;
+                        dateTable[i, j].TouchEvent += Date_TouchEvent;
+                        dateView.Add(dateTable[i, j]);
                     }
                 }
                 
@@ -497,6 +499,7 @@ namespace Tizen.FH.NUI.Controls
                 {
                     showDate = new DateTime(year, month ,1);
                 }
+                dropDown.FocusedItemIndex = dropDown.SelectedItemIndex;
                 UpdateDate();
             }
         }
@@ -506,16 +509,29 @@ namespace Tizen.FH.NUI.Controls
             PointStateType state = e.Touch.GetState(0);
             if (state == PointStateType.Down)
             {
-                int month = (showDate.Month == 12)? 1 : showDate.Month + 1;
-                int year = (showDate.Month == 12)? showDate.Year + 1 : showDate.Year;
+                if (showDate.Month == 12)
+                {
+                    if (showDate.Year == (int)pickerAttributes.YearRange.Y)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        dropDown.FocusedItemIndex += 1;
+                        dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
+                    }
+                }
+                int month = (showDate.Month == 12) ? 1 : showDate.Month + 1;
+                int year = (showDate.Month == 12) ? showDate.Year + 1 : showDate.Year;
                 if (month == curDate.Month && year == curDate.Year)
                 {
                     showDate = new DateTime(curDate.Year, curDate.Month ,curDate.Day);
                 }
                 else
                 {
-                    showDate = new DateTime(year, month ,1);
+                    showDate = new DateTime(year, month, 1);
                 }
+                
                 UpdateDate();
             }        
             return false;
@@ -526,16 +542,30 @@ namespace Tizen.FH.NUI.Controls
             PointStateType state = e.Touch.GetState(0);
             if (state == PointStateType.Down)
             {
-                int month = (showDate.Month == 1)? 12 : showDate.Month - 1;
-                int year = (showDate.Month == 1)? showDate.Year - 1 : showDate.Year;
+                if (showDate.Month == 1)
+                {
+                    if (showDate.Year == (int)pickerAttributes.YearRange.X)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        dropDown.FocusedItemIndex -= 1;
+                        dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
+                    }
+                }
+                
+                int month = (showDate.Month == 1) ? 12 : showDate.Month - 1;
+                int year = (showDate.Month == 1) ? showDate.Year - 1 : showDate.Year;
                 if (month == curDate.Month && year == curDate.Year)
                 {
                     showDate = new DateTime(curDate.Year, curDate.Month ,curDate.Day);
                 }
                 else
                 {
-                    showDate = new DateTime(year, month ,1);
+                    showDate = new DateTime(year, month, 1);
                 }
+                
                 UpdateDate();
             }
             return false;
@@ -544,7 +574,6 @@ namespace Tizen.FH.NUI.Controls
         private bool Date_TouchEvent(object source, View.TouchEventArgs e)
         {
             TextLabel textLabel = source as TextLabel;
-
             
             int line = (textLabel.Position2D.Y - dateTable[0, 0].Position2D.Y)/dateTable[0, 0].Size2D.Height;
             int i = 0;
@@ -590,64 +619,64 @@ namespace Tizen.FH.NUI.Controls
             int weekStart = Convert.ToInt32(dateTime.DayOfWeek);
             int days = DateTime.DaysInMonth(showDate.Year, showDate.Month); 
 
-            int lines = ((days + weekStart)%7 == 0)? (days + weekStart)/7 : ((days + weekStart)/7 +1);
-            dateView.Size2D = new Size2D(dateView.Size2D.Width, dateTable[0,0].Size2D.Height*(lines+1));
+            int lines = ((days + weekStart) % 7 == 0) ? (days + weekStart) / 7 : ((days + weekStart) / 7 + 1);
+            dateView.Size2D = new Size2D(dateView.Size2D.Width, dateTable[0, 0].Size2D.Height*(lines + 1));
 
             data.curnum = days;
             data.prenum = weekStart;
-            data.nextnum = 42-weekStart-days;
+            data.nextnum = 42 - weekStart - days;
 
             int[] value = new int[42];
             int idx = 0;
-            for (int i = 0; i< data.prenum; i++)
+            for (int i = 0; i < data.prenum; i++)
             {
                 value[idx++] = 0xFF;
             }
             
             int t = 1;
-            for(int i = 0; i< data.curnum; i++)
+            for(int i = 0; i < data.curnum; i++)
             {
                 value[idx++] = t++;
             }
             
-            for (int i = 0; i< data.nextnum; i++)
+            for (int i = 0; i < data.nextnum; i++)
             {
                 value[idx++] = 0xFF;
             }
 
             for (int i = 0; i < 42; i++)
             {
-                int x = i/7;
-                int y = i%7;
+                int x = i / 7;
+                int y = i % 7;
                 if (value[i] != 0xFF)
                 {
-                    dateTable[x,y].Text = value[i].ToString();
+                    dateTable[x, y].Text = value[i].ToString();
                 }
                 else
                 {
-                    dateTable[x,y].Text = " ";
+                    dateTable[x, y].Text = " ";
                 }
             }
 
-            for (int i = data.prenum; i< data.prenum+data.curnum; i++)
+            for (int i = data.prenum; i < data.prenum+data.curnum; i++)
             {
-                int x = i/7;
-                int y = i%7;
+                int x = i / 7;
+                int y = i % 7;
                 if(y == 0)
                 {
-                    dateTable[x,y].TextColor = Color.Red;
+                    dateTable[x, y].TextColor = Color.Red;
                 }
                 else
                 {
-                    dateTable[x,y].TextColor = Color.Black;
+                    dateTable[x, y].TextColor = Color.Black;
                 }
             }
 
             int focusidx = data.prenum + showDate.Day - 1;
-            dateTable[focusidx/7,focusidx%7].TextColor = Color.White;
+            dateTable[focusidx / 7, focusidx % 7].TextColor = Color.White;
 
-            int focusX = dateTable[focusidx/7,focusidx%7].Position2D.X + (dateTable[focusidx/7,focusidx%7].Size2D.Width - focusImage.Size2D.Width)/2;
-            int focusY = dateTable[focusidx/7,focusidx%7].Position2D.Y + (dateTable[focusidx/7,focusidx%7].Size2D.Height - focusImage.Size2D.Height)/2;
+            int focusX = dateTable[focusidx / 7, focusidx % 7].Position2D.X + (dateTable[focusidx / 7, focusidx % 7].Size2D.Width - focusImage.Size2D.Width) / 2;
+            int focusY = dateTable[focusidx / 7, focusidx % 7].Position2D.Y + (dateTable[focusidx / 7, focusidx % 7].Size2D.Height - focusImage.Size2D.Height) / 2;
             focusImage.Position2D = new Position2D(focusX, focusY);
             focusImage.Show();
 
@@ -665,10 +694,10 @@ namespace Tizen.FH.NUI.Controls
                 endSelectedImage.Hide();
             }
 
-            preTouch = dateTable[focusidx/7,focusidx%7];
+            preTouch = dateTable[focusidx / 7, focusidx % 7];
 
             monthText.Text =  showDate.ToString("MMMM", new CultureInfo("en-us"));
-            dropDown.ButtonText = showDate.Year.ToString(); 
+            dropDown.ButtonText = showDate.Year.ToString();
         }
 
         private class DataArgs

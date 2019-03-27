@@ -269,6 +269,20 @@ namespace Tizen.NUI.CommonUI
             return attrs.dropDownItemAttrs;
         });
 
+        public static readonly BindableProperty YearRangeProperty = BindableProperty.Create("YearRange", typeof(Vector2), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var attrs = (PickerAttributes)bindable;
+            if (newValue != null)
+            {
+                attrs.yearRange = (Vector2)newValue;
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var attrs = (PickerAttributes)bindable;
+            return attrs.yearRange;
+        });
+
         private ImageAttributes shadowImageAttrs;
         private ImageAttributes backgroundImageAttrs;
         private ImageAttributes focusImageAttributes;
@@ -290,6 +304,7 @@ namespace Tizen.NUI.CommonUI
 
         private DropDownAttributes dropDownAttrs;
         private DropDownItemAttributes dropDownItemAttrs;
+        private Vector2 yearRange;
 
         public PickerAttributes() : base() { }
         public PickerAttributes(PickerAttributes attributes) : base(attributes)
@@ -388,6 +403,9 @@ namespace Tizen.NUI.CommonUI
             {
                 dropDownItemAttrs = attributes.dropDownItemAttrs.Clone() as DropDownItemAttributes;
             }
+
+            yearRange = new Vector2(attributes.yearRange.X, attributes.yearRange.Y);
+
         }
 
         public ImageAttributes ShadowImageAttributes
@@ -615,6 +633,18 @@ namespace Tizen.NUI.CommonUI
             set
             {
                 SetValue(DropDownItemAttrsProperty, value);
+            }
+        }
+
+        public Vector2 YearRange
+        {
+            get
+            {
+                return (Vector2)GetValue(YearRangeProperty);
+            }
+            set
+            {
+                SetValue(YearRangeProperty, value);
             }
         }
         public override Attributes Clone()

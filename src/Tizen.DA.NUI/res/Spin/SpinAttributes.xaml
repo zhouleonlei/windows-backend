@@ -92,8 +92,8 @@
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
                              PointSize="55"
-                             Size2D="200, 116"
-                             Position2D="0,116"
+                             Size2D="200, 152"
+                             Position2D="0,100"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"/>
         </SpinAttributes.TextFieldAttrs>
