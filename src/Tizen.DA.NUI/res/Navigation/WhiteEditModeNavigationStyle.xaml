@@ -1,4 +1,4 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <NavigationAttributes x:Name="NavigationAttributes" IsFitWithItems ="false" Space ="0, 0, 0, 0"
@@ -11,4 +11,4 @@
             <ImageAttributes ResourceURL ="*DemoRes*/images/FH3/2. Side Navigation/sidenavi_editmode_bg.png"/>
         </NavigationAttributes.BackgroundImageAttributes>
     </NavigationAttributes>
-</AttributesContainer>
+</StyleBase>

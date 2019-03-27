@@ -1,7 +1,7 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <StringSelector x:Key="DAFoodStyleBInputFieldAddButtonBgResource"
                         Normal="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_ec7510.png"
                         Pressed ="*DemoRes*/images/FH3/7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_ec7510.png"
@@ -27,7 +27,7 @@
                         Pressed ="0, 0, 0, 1.0"
                         Disabled="0, 0, 0, 0.4"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
     
     <InputFieldAttributes 
         x:Name="InputFieldAttributes"
@@ -77,4 +77,4 @@
 
     </InputFieldAttributes>
 
-</AttributesContainer>
+</StyleBase>

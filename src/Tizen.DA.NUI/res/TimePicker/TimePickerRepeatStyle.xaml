@@ -1,4 +1,4 @@
-<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <TimePickerAttributes x:Name="TimePickerAttributes" MinimumSize="100, 184" ParentOrigin="Center" PivotPoint="Center"
                      PositionUsesPivotPoint="true" ShadowOffset="1, 1, 1, 1">
@@ -91,4 +91,4 @@
                             Position2D="0, 84" />
         </TimePickerAttributes.WeekTextAttributes>
     </TimePickerAttributes>
-</AttributesContainer>
+</StyleBase>

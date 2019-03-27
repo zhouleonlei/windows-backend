@@ -1,4 +1,4 @@
-﻿<Xaml:StyleContainer  x:Class="Tizen.FH.NUI.Controls.FamilyBasicButtonAttributesContainer"
+﻿<Xaml:StyleContainer  x:Class="Tizen.FH.NUI.Controls.FamilyBasicButtonStyleBase"
                       xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

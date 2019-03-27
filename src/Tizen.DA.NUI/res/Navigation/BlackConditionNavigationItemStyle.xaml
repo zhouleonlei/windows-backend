@@ -1,12 +1,12 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <ColorSelector x:Key="BlackConditionTextColor"
                        Pressed="1, 1, 1, 0.85"
                        Disabled="1, 1, 1, 0.4"
                        Other="1, 1, 1, 0.85"/>
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <NavigationItemAttributes x:Name="NavigationItemAttributes" Size2D="116, 128" EnableIconCenter ="false" Space="4, 4, 8, 16">
         <NavigationItemAttributes.IconAttributes>
@@ -25,4 +25,4 @@
                              TextColor="{StaticResource BlackConditionTextColor}"/>
         </NavigationItemAttributes.SubTextAttributes>
     </NavigationItemAttributes>
-</AttributesContainer>
+</StyleBase>

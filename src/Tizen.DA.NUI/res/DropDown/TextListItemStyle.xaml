@@ -1,10 +1,10 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <ColorSelector x:Key="TextItemBackgroundColor"
                         Pressed="0, 0, 0, 0.4"
                         Other ="1, 1, 1, 0"/>
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <DropDownItemAttributes BackgroundColor="{StaticResource TextItemBackgroundColor}"
                             CheckImageRightSpace="16">
@@ -15,4 +15,4 @@
             <ImageAttributes Size2D="40, 40" ResourceURL="*DemoRes*/images/FH3/10. Drop Down/dropdown_checkbox_on.png"/>
         </DropDownItemAttributes.CheckImageAttributes>
     </DropDownItemAttributes>
-</AttributesContainer>
+</StyleBase>
