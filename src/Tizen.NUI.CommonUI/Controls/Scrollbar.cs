@@ -15,6 +15,7 @@ namespace Tizen.NUI.CommonUI
         private Animation scrollAniPlayer = null;
         private float thumbObjPosX;  //move to attribute?
         private float thumbObjPosY;
+        private bool enableAni = false;
 
         public ScrollBar() : base()
         {
@@ -257,7 +258,8 @@ namespace Tizen.NUI.CommonUI
             {
                 if (value < scrollBarAttrs.MinValue || value > scrollBarAttrs.MaxValue)
                 {
-                    throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
+                    return;
+                    //throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
                 }
                 scrollBarAttrs.CurValue = value;
                 RelayoutRequest();
@@ -276,10 +278,10 @@ namespace Tizen.NUI.CommonUI
             set
             {
                 scrollBarAttrs.Duration = value;
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Duration = (int)value;
-                //}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Duration = (int)value;
+                }
             }
         }
         #endregion
@@ -305,7 +307,7 @@ namespace Tizen.NUI.CommonUI
         /// }
         /// </code>
         /// </example>
-        public void SetCurrentValue(uint currentValue, bool enableAni = true)
+        public void SetCurrentValue(uint currentValue, bool isEnableAni = true)
         {
             if (currentValue < scrollBarAttrs.MinValue || currentValue > scrollBarAttrs.MaxValue)
             {
@@ -314,15 +316,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             scrollBarAttrs.CurValue = currentValue;
-
-            if (!enableAni)
-            {
-                UpdateValue();
-            }
-            else
-            {
-                UpdateValue(true);
-            }
+            enableAni = isEnableAni;
+            RelayoutRequest();
         }
 
         /// <summary>
@@ -396,7 +391,10 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(this, scrollBarAttrs);
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
-            UpdateValue();
+            if (enableAni)
+                UpdateValue(true);
+            else
+                UpdateValue();
         }
 
         protected override Attributes GetAttributes()
