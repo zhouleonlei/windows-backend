@@ -392,9 +392,14 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
             if (enableAni)
+            {
                 UpdateValue(true);
+                enableAni = false;
+            }
             else
+            {
                 UpdateValue();
+            }
         }
 
         protected override Attributes GetAttributes()
