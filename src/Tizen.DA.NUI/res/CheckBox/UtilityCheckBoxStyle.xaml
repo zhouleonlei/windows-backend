@@ -1,6 +1,6 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <StringSelector x:Key="DAUtilityCheckBoxShadow"
                         Normal=""
                         Selected ="*DemoRes*/images/FH3/9. Controller/controller_btn_check_shadow.png"
@@ -25,7 +25,7 @@
                        Disabled="0.4"
                        DisabledSelected="0.4"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <SelectButtonAttributes x:Name="SelectButtonAttributes">
         <SelectButtonAttributes.CheckShadowImageAttributes>
@@ -47,4 +47,4 @@
                               Opacity="{StaticResource DAUtilityCheckBoxOpacity}"/>
         </SelectButtonAttributes.CheckImageAttributes>
     </SelectButtonAttributes>
-</AttributesContainer>
+</StyleBase>

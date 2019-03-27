@@ -1,8 +1,8 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
 
         <StringSelector x:Key="DAUtilityToggleButtonBackground"
                         Normal="*DemoRes*/images/FH3/3. Button/rectangle_toggle_btn_normal.png"
@@ -18,7 +18,7 @@
                        Selected="#ffffffff"
                        />
 
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
 
@@ -53,4 +53,4 @@
                 TextColor="{StaticResource DAUtilityToggleButtonFont}"/>
         </ButtonAttributes.TextAttributes>
     </ButtonAttributes>
-</AttributesContainer>
+</StyleBase>

@@ -1,12 +1,12 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <ColorSelector x:Key="EditModeTextColor"
                        Pressed="0, 0, 0, 1"
                        Disabled="0, 0, 0, 0.4"
                        Other="0, 0, 0, 1"/>
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <NavigationItemAttributes x:Name="NavigationItemAttributes" Size2D="178, 108" EnableIconCenter ="false" Space="24, 24, 24, 24">
         <NavigationItemAttributes.IconAttributes>
@@ -19,4 +19,4 @@
                              TextColor="{StaticResource EditModeTextColor}"/>
         </NavigationItemAttributes.TextAttributes>
     </NavigationItemAttributes>
-</AttributesContainer>
+</StyleBase>

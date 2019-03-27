@@ -1,8 +1,8 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <LoadingAttributes x:Name="DefaultLoadingAttributes"
                        LoadingImageURLPrefix="*DemoRes*/images/FH3/9. Controller/Loading Sequence_Native/loading_">
     </LoadingAttributes>
 
-</AttributesContainer>
+</StyleBase>

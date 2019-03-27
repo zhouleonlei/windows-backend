@@ -1,8 +1,8 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
 
         <StringSelector x:Key="DAOverlayImage"
                     Normal =""
@@ -15,7 +15,7 @@
                        Disabled="0, 0, 0, 0.4"
                        />
         
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
 
@@ -50,4 +50,4 @@
                 TextColor="{StaticResource DABasicButtonFont}"/>
         </ButtonAttributes.TextAttributes>
     </ButtonAttributes>
-</AttributesContainer>
+</StyleBase>

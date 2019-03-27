@@ -1,6 +1,6 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <StringSelector x:Key="DAFoodSwitchBackground"
                         Normal="*DemoRes*/images/FH3/9. Controller/controller_switch_bg_off.png"
                         Selected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_switch_bg_on_ec7510.png"
@@ -13,7 +13,7 @@
                         Disabled ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
                         DisabledSelected ="*DemoRes*/images/FH3/9. Controller/controller_switch_handler_dim.png"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <SwitchAttributes x:Name="SwitchAttributes" MinimumSize="96, 60"
                       ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true">
@@ -26,4 +26,4 @@
                              ResourceURL ="{StaticResource DAFoodSwitchHandler}"/>
         </SwitchAttributes.SwitchHandlerImageAttributes>
     </SwitchAttributes>
-</AttributesContainer>
+</StyleBase>

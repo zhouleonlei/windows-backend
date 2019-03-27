@@ -1,4 +1,4 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML" 
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML" 
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ProgressBarAttributes x:Name="VDProgressCircleAttributes" Size2D="90, 90" 
@@ -19,4 +19,4 @@
         </ProgressBarAttributes.BufferImageAttributes>
     </ProgressBarAttributes>
 
-</AttributesContainer>
+</StyleBase>

@@ -1,14 +1,14 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <ColorSelector x:Key="DAFamilyPopupButtonBackgroundColor" 
                        Normal="#ffffffff"
                        Pressed="0, 0, 0, 0.1"
                        Selected="#ffffffff"
                        />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <PopupAttributes x:Name="PopupAttributes" MinimumSize="1032, 184" ParentOrigin="Center" PivotPoint="Center"
                      PositionUsesPivotPoint="true" ShadowOffset="24, 24, 24, 24">
@@ -59,4 +59,4 @@
             </ButtonAttributes>
         </PopupAttributes.ButtonAttributes>
     </PopupAttributes>
-</AttributesContainer>
+</StyleBase>

@@ -1,4 +1,4 @@
-<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <PickerAttributes x:Name="PickerAttributes" ParentOrigin="Center" PivotPoint="Center"
                      PositionUsesPivotPoint="true" YearRange="1900, 2099">
@@ -227,4 +227,4 @@
                             Size2D="148, 88"/>
         </PickerAttributes.DateTextAttributes2>
     </PickerAttributes>
-</AttributesContainer>
+</StyleBase>
