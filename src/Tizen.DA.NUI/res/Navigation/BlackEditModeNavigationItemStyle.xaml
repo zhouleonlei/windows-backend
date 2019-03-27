@@ -1,0 +1,22 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <ColorSelector x:Key="BlackEditModeTextColor"
+                       Pressed="1, 1, 1, 0.85"
+                       Disabled="0, 0, 0, 0.4"
+                       Other="1, 1, 1, 0.85"/>
+    </AttributesContainer.XamlResources>
+
+    <NavigationItemAttributes x:Name="NavigationItemAttributes" Size2D="178, 108" EnableIconCenter ="false" Space="24, 24, 24, 24">
+        <NavigationItemAttributes.IconAttributes>
+            <ImageAttributes Size2D="56, 56"/>
+        </NavigationItemAttributes.IconAttributes>
+        <NavigationItemAttributes.TextAttributes>
+            <TextAttributes Size2D ="130, 52" PointSize="8" FontFamily="SamsungOneUI 500C"
+                             PositionUsesPivotPoint="true" ParentOrigin="TopLeft" PivotPoint="TopLeft"
+                             HorizontalAlignment="Center" VerticalAlignment="Top"
+                             TextColor="{StaticResource BlackEditModeTextColor}"/>
+        </NavigationItemAttributes.TextAttributes>
+    </NavigationItemAttributes>
+</AttributesContainer>

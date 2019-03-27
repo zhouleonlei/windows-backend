@@ -1,0 +1,11 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <NavigationAttributes x:Name="NavigationAttributes" IsFitWithItems ="true" Space ="8, 0, 40, 40"
+                          ItemGap="2" DividerLineColor="0, 0, 0, 0.1">
+        <NavigationAttributes.BackgroundImageAttributes>
+            <ImageAttributes Border="0, 0, 103, 103"
+                             ResourceURL ="*DemoRes*/images/FH3/2. Side Navigation/sidenavi_bg.png"/>
+        </NavigationAttributes.BackgroundImageAttributes>
+    </NavigationAttributes>
+</AttributesContainer>
