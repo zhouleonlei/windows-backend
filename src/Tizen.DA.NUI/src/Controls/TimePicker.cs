@@ -12,10 +12,10 @@ namespace Tizen.FH.NUI.Controls
         private ImageView colonImage;
         private ImageView colonImage2;
         
-        private FHSpin hourSpin;
-        private FHSpin minuteSpin;
-        private FHSpin secondSpin;
-        private FHSpin AMPMSpin;
+        private Spin hourSpin;
+        private Spin minuteSpin;
+        private Spin secondSpin;
+        private Spin AMPMSpin;
 
         private View weekView;
         private TextLabel titleText;
@@ -302,7 +302,7 @@ namespace Tizen.FH.NUI.Controls
 
             if (timePickerAttributes.HourSpinAttributes != null)
             {
-                hourSpin = new FHSpin("DASpin");
+                hourSpin = new Spin("DASpin");
                 hourSpin.NameText = "Hours";
                 if (timePickerAttributes.AMPMSpinAttributes != null)
                 {
@@ -318,7 +318,7 @@ namespace Tizen.FH.NUI.Controls
 
             if (timePickerAttributes.MinuteSpinAttributes != null)
             {
-                minuteSpin = new FHSpin("DASpin");
+                minuteSpin = new Spin("DASpin");
                 minuteSpin.NameText = "Minutes";
                 minuteSpin.CurValue = curTime.Minute;
                 Add(minuteSpin);
@@ -326,7 +326,7 @@ namespace Tizen.FH.NUI.Controls
 
             if (timePickerAttributes.SecondSpinAttributes != null)
             {
-                secondSpin = new FHSpin("DASpin");
+                secondSpin = new Spin("DASpin");
                 secondSpin.NameText = "Seconds";
                 secondSpin.CurValue = curTime.Second;
                 Add(secondSpin);
@@ -344,7 +344,7 @@ namespace Tizen.FH.NUI.Controls
 
             if (timePickerAttributes.AMPMSpinAttributes != null)
             {
-                AMPMSpin = new FHSpin("DAStrSpin");
+                AMPMSpin = new Spin("DAStrSpin");
                 AMPMSpin.CurValue = curTime.Hour/12;
                 Add(AMPMSpin);
             }

@@ -117,8 +117,8 @@ namespace Tizen.FH.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
                     PointSize = new FloatSelector { All = 55 },
-                    Size2D = new Size2D(200, 116),
-                    Position2D = new Position2D(0, 116),
+                    Size2D = new Size2D(200, 152),
+                    Position2D = new Position2D(0, 100),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 }
