@@ -1,4 +1,4 @@
-﻿namespace Tizen.NUI.Controls
+﻿namespace Tizen.NUI.CommonUI
 {
     public class SelectButtonAttributes : ButtonAttributes
     {
