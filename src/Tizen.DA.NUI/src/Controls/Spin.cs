@@ -5,7 +5,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    public class FHSpin : Control
+    public class Spin : Control
     {
         private enum Style
         {
@@ -71,16 +71,17 @@ namespace Tizen.FH.NUI.Controls
         private float FLOARTITEMHEIGHT_HALF;
         private int TEXTSIZE;
         private int TEXTSIZE_CENTER;
+		private bool notRelease = false;
         
         const int TAP_ANIMATION_TIME = 200;
         
         private SpinAttributes spinAttributes;
 
-        public FHSpin() : base()
+        public Spin() : base()
         {
             Initialize();
         }
-        public FHSpin(string style) : base(style)
+        public Spin(string style) : base(style)
         {
             if (style.Contains("str") || style.Contains("Str"))
             {
@@ -205,13 +206,7 @@ namespace Tizen.FH.NUI.Controls
 
                 if (tapGestureDetector != null)
                 {
-                    if (label != null)
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            tapGestureDetector.Detach(label[i]);
-                        }
-                    }
+                    tapGestureDetector.Detach(clipView);
                     tapGestureDetector.Detected -= OnTapGestureDetected;
                     tapGestureDetector.Dispose();
                     tapGestureDetector = null;
@@ -386,6 +381,8 @@ namespace Tizen.FH.NUI.Controls
                     };
                     textField.Focusable = true;
                     textField.MaxLength = 2;
+                    textField.CursorWidth = 0;
+                    textField.BackgroundColor = new Color(0,0,0,0.5f);
                     textField.TouchEvent += OnTextFieldTouchEvent;
                     textField.FocusGained += OnTextFieldFocusGained;
                     textField.FocusLost += OnTextFieldFocusLost;
@@ -409,13 +406,13 @@ namespace Tizen.FH.NUI.Controls
 
                 tapGestureDetector = new TapGestureDetector();
                 tapGestureDetector.Detected += OnTapGestureDetected;
+                tapGestureDetector.Attach(clipView);
                 if (spinAttributes.TextAttrs != null)
                 {
                     label = new TextLabel[4];
                     for (int i = 0; i < 4; i++)
                     {
                         label[i] = new TextLabel();
-                        tapGestureDetector.Attach(label[i]);
                         aniView.Add(label[i]);    
                     }
                 }
@@ -555,11 +552,15 @@ namespace Tizen.FH.NUI.Controls
                 if (state == PointStateType.Down)
                 {
                     finishedTimer.Stop();
-                    spinAnimation.Stop();
+                    ResetPositon();  
+                    notRelease = true;
                 }
-                else
+            }
+            else
+            {
+                if (state == PointStateType.Down)
                 {
-                    ResetPositon();  /// add animation and timer!
+                    notRelease = false;
                 }
             }            
             return false;
@@ -605,17 +606,42 @@ namespace Tizen.FH.NUI.Controls
         }
         private void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
         {
-            Console.WriteLine("----OnTapGestureDetected---, e.TapGesture.State = " + e.TapGesture.State);
-            
+            Console.WriteLine("----OnTapGestureDetected---, e.TapGesture.y = " + e.TapGesture.LocalPoint.Y);
             if (gestureState != 0)
             {
                 return;
             }
-                        
-            TextLabel t = e.View as TextLabel;
+            if (notRelease)
+            {
+                return;
+            }
             if (!finishedTimer.IsRunning())
             {
-                if (t == label[cur])
+                float Y = e.TapGesture.LocalPoint.Y;
+                if (Y < (dividerRec.Position2D.Y - clipView.Position2D.Y))
+                {
+                    if (curValue == nMin)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        moveState = 1;
+                        movelen = FLOARTITEMHEIGHT_HALF;
+                        calculateMove = FLOARTITEMHEIGHT - movelen;
+                        tapFinishedMove = ITEMHEIGHT - calculateMove;
+                        AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
+
+                        if (finishedTimer != null)
+                        {
+                            timeAniType = TimeAniType.TapFinishedAni;
+                            RepeatCnt = 1;
+                            finishedTimer.Interval = (uint)spinAnimation.Duration;
+                            finishedTimer.Start();
+                        }
+                    }
+                }
+                else if (Y >= (dividerRec.Position2D.Y - clipView.Position2D.Y) && Y <= (dividerRec2.Position2D.Y - clipView.Position2D.Y))
                 {
                     if (type != Style.IntStyle)
                     {
@@ -626,56 +652,29 @@ namespace Tizen.FH.NUI.Controls
                 }
                 else
                 {
-                    if(t.Text == " ")
+                    if (curValue == nMax)
                     {
                         return;
                     }
                     else
                     {
-                        if (curMove != 0)
+                        moveState = 2;
+                        movelen = -FLOARTITEMHEIGHT_HALF;
+                        calculateMove = -FLOARTITEMHEIGHT - movelen;
+                        tapFinishedMove = -ITEMHEIGHT - calculateMove;
+
+                        AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
+
+                        if (finishedTimer != null)
                         {
-                            Console.WriteLine("---Error:TAP---");    
+                            timeAniType = TimeAniType.TapFinishedAni;
+                            RepeatCnt = 1;
+                            finishedTimer.Interval = (uint)spinAnimation.Duration;
+                            finishedTimer.Start();
                         }
-                        
-                        int dir;
-                        if(t == label[0])
-                        {
-                            moveState = 1;
-                            movelen = FLOARTITEMHEIGHT_HALF;
-                            calculateMove = FLOARTITEMHEIGHT - movelen;
-                            tapFinishedMove = ITEMHEIGHT - calculateMove;
-                            AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
-
-                            if (finishedTimer != null)
-                            {
-                                timeAniType = TimeAniType.TapFinishedAni;
-                                RepeatCnt = 1;
-                                finishedTimer.Interval = (uint)spinAnimation.Duration;
-                                finishedTimer.Start();
-                            }
-                        }
-                        else
-                        {
-                            moveState = 2;
-                            movelen = -FLOARTITEMHEIGHT_HALF;
-                            calculateMove = -FLOARTITEMHEIGHT - movelen;
-                            tapFinishedMove = -ITEMHEIGHT - calculateMove;
-
-                            AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
-
-                            if (finishedTimer != null)
-                            {
-                                timeAniType = TimeAniType.TapFinishedAni;
-                                RepeatCnt = 1;
-                                finishedTimer.Interval = (uint)spinAnimation.Duration;
-                                finishedTimer.Start();
-                            }
-                        }                            
                     }
                 }
-
-            }
-            
+            }            
         }    
         private void PanGestureInit()
         {    
@@ -1054,6 +1053,7 @@ namespace Tizen.FH.NUI.Controls
             dividerRec.Hide();
             dividerRec2.Hide();
             panGestureDetector.Detach(clipView);
+            tapGestureDetector.Detach(clipView);
             textField.Show();
         }
 
@@ -1062,6 +1062,7 @@ namespace Tizen.FH.NUI.Controls
             textField.Hide();
             ResetPositon();
             panGestureDetector.Attach(clipView);
+            tapGestureDetector.Attach(clipView);
             aniView.Show();
             dividerRec.Show();
             dividerRec2.Show();
