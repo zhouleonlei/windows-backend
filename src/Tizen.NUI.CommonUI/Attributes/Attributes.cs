@@ -1,8 +1,6 @@
-﻿using Tizen.NUI.Binding;
-
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
-    public abstract class Attributes : Element
+    public abstract class Attributes
     {
         public abstract Attributes Clone();
     }

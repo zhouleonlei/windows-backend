@@ -4,521 +4,172 @@ namespace Tizen.NUI.CommonUI
 {
     public class TextFieldAttributes : ViewAttributes
     {
-        public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", typeof(StringSelector), typeof(TextFieldAttributes), default(StringSelector), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.text = (StringSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.text;
-            });
-
-        public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create("PlaceholderText", typeof(StringSelector), typeof(TextFieldAttributes), default(StringSelector),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.placeholderText = (StringSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.placeholderText;
-            });
-
-        public static readonly BindableProperty TranslatablePlaceholderTextProperty = BindableProperty.Create("TranslatablePlaceholderText", typeof(StringSelector), typeof(TextFieldAttributes), default(StringSelector),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.translatablePlaceholderText = (StringSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.translatablePlaceholderText;
-            });
-
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignment?), typeof(TextFieldAttributes), default(HorizontalAlignment?), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.horizontalAlignment = (HorizontalAlignment?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.horizontalAlignment;
-            });
-
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignment?), typeof(TextFieldAttributes), default(VerticalAlignment?), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.verticalAlignment = (VerticalAlignment?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.verticalAlignment;
-            });
-
-        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(bool?), typeof(TextFieldAttributes), default(bool?), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.enableMarkup = (bool?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.enableMarkup;
-            });
-
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(ColorSelector), typeof(TextFieldAttributes), default(ColorSelector), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.textColor = (ColorSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.textColor;
-            });
-
-        public static readonly BindableProperty PlaceholderTextColorProperty = BindableProperty.Create("PlaceholderTextColor", typeof(ColorSelector), typeof(TextFieldAttributes), default(ColorSelector), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.placeholderTextColor = (ColorSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.placeholderTextColor;
-            });
-
-        public static readonly BindableProperty PrimaryCursorColorProperty = BindableProperty.Create("PrimaryCursorColor", typeof(ColorSelector), typeof(TextFieldAttributes), default(ColorSelector),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.primaryCursorColor = (ColorSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.primaryCursorColor;
-            });
-
-        public static readonly BindableProperty SecondaryCursorColorProperty = BindableProperty.Create("SecondaryCursorColor", typeof(ColorSelector), typeof(TextFieldAttributes), default(ColorSelector),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.secondaryCursorColor = (ColorSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.secondaryCursorColor;
-            });
-
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string), typeof(TextFieldAttributes), default(string), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.fontFamily = (string)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.fontFamily;
-            });
-
-        public static readonly BindableProperty PointSizeProperty = BindableProperty.Create("PointSize", typeof(FloatSelector), typeof(TextFieldAttributes), default(FloatSelector), 
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.pointSize = (FloatSelector)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.pointSize;
-            });
-
-        public static readonly BindableProperty EnableCursorBlinkProperty = BindableProperty.Create("EnableCursorBlink", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.enableCursorBlink = (bool?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.enableCursorBlink;
-            });
-
-        public static readonly BindableProperty EnableSelectionProperty = BindableProperty.Create("EnableSelection", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.enableSelection = (bool?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.enableSelection;
-            });
-
-        public static readonly BindableProperty CursorWidthProperty = BindableProperty.Create("CursorWidth", typeof(int?), typeof(TextFieldAttributes), default(int?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.cursorWidth = (int?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.cursorWidth;
-            });
-
-        public static readonly BindableProperty EnableEllipsisProperty = BindableProperty.Create("EnableEllipsis", typeof(bool?), typeof(TextFieldAttributes), default(bool?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.enableEllipsis = (bool?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (TextFieldAttributes)bindable;
-                return attrs.enableEllipsis;
-            });
-
-        private StringSelector text;
-        private StringSelector placeholderText;
-        private StringSelector translatablePlaceholderText;
-        private HorizontalAlignment? horizontalAlignment;
-        private VerticalAlignment? verticalAlignment;
-        private bool? enableMarkup;
-        private ColorSelector textColor;
-        private ColorSelector placeholderTextColor;
-        private ColorSelector primaryCursorColor;
-        private ColorSelector secondaryCursorColor;
-        private string fontFamily;
-        private FloatSelector pointSize;
-        private bool? enableCursorBlink;
-        private bool? enableSelection;
-        private int? cursorWidth;
-        private bool? enableEllipsis;
-
         public TextFieldAttributes() : base() { }
         public TextFieldAttributes(TextFieldAttributes attributes) : base(attributes)
         {
-            if (attributes.text != null)
+            if(attributes == null)
             {
-                text = attributes.text.Clone() as StringSelector;
+                return;
             }
-            if (attributes.placeholderText != null)
+            if (attributes.Text != null)
             {
-                placeholderText = attributes.placeholderText.Clone() as StringSelector;
+                Text = attributes.Text.Clone() as StringSelector;
             }
-            if (attributes.translatablePlaceholderText != null)
+            if (attributes.PlaceholderText != null)
             {
-                translatablePlaceholderText = attributes.translatablePlaceholderText.Clone() as StringSelector;
+                PlaceholderText = attributes.PlaceholderText.Clone() as StringSelector;
             }
-            if (attributes.horizontalAlignment != null)
+            if (attributes.TranslatablePlaceholderText != null)
             {
-                horizontalAlignment = attributes.horizontalAlignment;
+                TranslatablePlaceholderText = attributes.TranslatablePlaceholderText.Clone() as StringSelector;
             }
-            if (attributes.verticalAlignment != null)
+            if (attributes.HorizontalAlignment != null)
             {
-                verticalAlignment = attributes.verticalAlignment;
+                HorizontalAlignment = attributes.HorizontalAlignment;
             }
-            if (attributes.enableMarkup != null)
+            if (attributes.VerticalAlignment != null)
             {
-                enableMarkup = attributes.enableMarkup;
+                VerticalAlignment = attributes.VerticalAlignment;
             }
-            if (attributes.textColor != null)
+            if (attributes.EnableMarkup != null)
             {
-                textColor = attributes.textColor.Clone() as ColorSelector;
+                EnableMarkup = attributes.EnableMarkup;
             }
-            if (attributes.placeholderTextColor != null)
+            if (attributes.TextColor != null)
             {
-                placeholderTextColor = attributes.placeholderTextColor.Clone() as ColorSelector;
+                TextColor = attributes.TextColor.Clone() as ColorSelector;
             }
-            if (attributes.primaryCursorColor != null)
+            if (attributes.PlaceholderTextColor != null)
             {
-                primaryCursorColor = attributes.primaryCursorColor.Clone() as ColorSelector;
+                PlaceholderTextColor = attributes.PlaceholderTextColor.Clone() as ColorSelector;
             }
-            if (attributes.secondaryCursorColor != null)
+            if (attributes.PrimaryCursorColor != null)
             {
-                secondaryCursorColor = attributes.secondaryCursorColor.Clone() as ColorSelector;
+                PrimaryCursorColor = attributes.PrimaryCursorColor.Clone() as ColorSelector;
             }
-            if (attributes.fontFamily != null)
+            if (attributes.SecondaryCursorColor != null)
             {
-                fontFamily = attributes.fontFamily;
+                SecondaryCursorColor = attributes.SecondaryCursorColor.Clone() as ColorSelector;
             }
-            if (attributes.pointSize != null)
+            if (attributes.FontFamily != null)
             {
-                pointSize = attributes.pointSize.Clone() as FloatSelector;
+                FontFamily = attributes.FontFamily;
             }
-            if (attributes.enableCursorBlink != null)
+            if (attributes.PointSize != null)
             {
-                enableCursorBlink = attributes.enableCursorBlink;
+                PointSize = attributes.PointSize.Clone() as FloatSelector;
             }
-            if (attributes.enableSelection != null)
+            if (attributes.EnableCursorBlink != null)
             {
-                enableSelection = attributes.enableSelection;
+                EnableCursorBlink = attributes.EnableCursorBlink;
             }
-            if (attributes.cursorWidth != null)
+            if (attributes.EnableSelection != null)
             {
-                cursorWidth = attributes.cursorWidth;
+                EnableSelection = attributes.EnableSelection;
             }
-            if (attributes.enableEllipsis != null)
+            if (attributes.CursorWidth != null)
             {
-                enableEllipsis = attributes.enableEllipsis;
+                CursorWidth = attributes.CursorWidth;
+            }
+            if (attributes.EnableEllipsis != null)
+            {
+                EnableEllipsis = attributes.EnableEllipsis;
             }
         }
         public StringSelector Text
         {
-            get
-            {
-                return (StringSelector)GetValue(TextProperty);
-            }
-            set
-            {
-                SetValue(TextProperty, value);
-            }
+            get;
+            set;
         }
 
         public StringSelector PlaceholderText
         {
-            get
-            {
-                return (StringSelector)GetValue(PlaceholderTextProperty);
-            }
-            set
-            {
-                SetValue(PlaceholderTextProperty, value);
-            }
+            get;
+            set;
         }
 
         public StringSelector TranslatablePlaceholderText
         {
-            get
-            {
-                return (StringSelector)GetValue(TranslatablePlaceholderTextProperty);
-            }
-            set
-            {
-                SetValue(TranslatablePlaceholderTextProperty, value);
-            }
+            get;
+            set;
         }
 
         public HorizontalAlignment? HorizontalAlignment
         {
-            get
-            {
-                return (HorizontalAlignment?)GetValue(HorizontalAlignmentProperty);
-            }
-            set
-            {
-                SetValue(HorizontalAlignmentProperty, value);
-            }
+            get;
+            set;
         }
 
         public VerticalAlignment? VerticalAlignment
         {
-            get
-            {
-                return (VerticalAlignment?)GetValue(VerticalAlignmentProperty);
-            }
-            set
-            {
-                SetValue(VerticalAlignmentProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableMarkup
         {
-            get
-            {
-                return (bool?)GetValue(EnableMarkupProperty);
-            }
-            set
-            {
-                SetValue(EnableMarkupProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector TextColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(TextColorProperty);
-            }
-            set
-            {
-                SetValue(TextColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector PlaceholderTextColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(PlaceholderTextColorProperty);
-            }
-            set
-            {
-                SetValue(PlaceholderTextColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector PrimaryCursorColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(PrimaryCursorColorProperty);
-            }
-            set
-            {
-                SetValue(PrimaryCursorColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector SecondaryCursorColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(SecondaryCursorColorProperty);
-            }
-            set
-            {
-                SetValue(SecondaryCursorColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public string FontFamily
         {
-            get
-            {
-                return (string)GetValue(FontFamilyProperty);
-            }
-            set
-            {
-                SetValue(FontFamilyProperty, value);
-            }
+            get;
+            set;
         }
 
         public FloatSelector PointSize
         {
-            get
-            {
-                return (FloatSelector)GetValue(PointSizeProperty);
-            }
-            set
-            {
-                SetValue(PointSizeProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableCursorBlink
         {
-            get
-            {
-                return (bool?)GetValue(EnableCursorBlinkProperty);
-            }
-            set
-            {
-                SetValue(EnableCursorBlinkProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableSelection
         {
-            get
-            {
-                return (bool?)GetValue(EnableSelectionProperty);
-            }
-            set
-            {
-                SetValue(EnableSelectionProperty, value);
-            }
+            get;
+            set;
         }
 
         public int? CursorWidth
         {
-            get
-            {
-                return (int?)GetValue(CursorWidthProperty);
-            }
-            set
-            {
-                SetValue(CursorWidthProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableEllipsis
         {
-            get
-            {
-                return (bool?)GetValue(EnableEllipsisProperty);
-            }
-            set
-            {
-                SetValue(EnableEllipsisProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()

@@ -1,650 +1,230 @@
-﻿using Tizen.NUI.Binding;
-
+﻿
 namespace Tizen.NUI.CommonUI
 {
     public class TextAttributes : ViewAttributes
     {
-        public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", typeof(StringSelector), typeof(TextAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.text = (StringSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.text;
-        });
-
-        public static readonly BindableProperty TranslatableTextProperty = BindableProperty.Create("TranslatableText", typeof(StringSelector), typeof(TextAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.translatableText = (StringSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.translatableText;
-        });
-
-        public static readonly BindableProperty MultiLineProperty = BindableProperty.Create("MultiLine", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.multiLine = (bool?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.multiLine;
-        });
-
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignment?), typeof(TextAttributes), default(HorizontalAlignment?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.horizontalAlignment = (HorizontalAlignment?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.horizontalAlignment;
-        });
-
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignment?), typeof(TextAttributes), default(VerticalAlignment?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.verticalAlignment = (VerticalAlignment?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.verticalAlignment;
-        });
-
-        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.enableMarkup = (bool?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.enableMarkup;
-        });
-
-        public static readonly BindableProperty EnableAutoScrollProperty = BindableProperty.Create("EnableAutoScroll", typeof(bool?), typeof(TextAttributes), default(bool?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.enableAutoScroll = (bool?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.enableAutoScroll;
-        });
-
-        public static readonly BindableProperty AutoScrollSpeedProperty = BindableProperty.Create("AutoScrollSpeed", typeof(int?), typeof(TextAttributes), default(int?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.autoScrollSpeed = (int?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.autoScrollSpeed;
-        });
-
-        public static readonly BindableProperty AutoScrollLoopCountProperty = BindableProperty.Create("AutoScrollLoopCount", typeof(int?), typeof(TextAttributes), default(int?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.autoScrollLoopCount = (int?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.autoScrollLoopCount;
-        });
-
-        public static readonly BindableProperty AutoScrollGapProperty = BindableProperty.Create("AutoScrollGap", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.autoScrollGap = (float?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.autoScrollGap;
-        });
-
-        public static readonly BindableProperty AutoScrollLoopDelayProperty = BindableProperty.Create("AutoScrollLoopDelay", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.autoScrollLoopDelay = (float?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.autoScrollLoopDelay;
-        });
-
-        public static readonly BindableProperty AutoScrollStopModeProperty = BindableProperty.Create("AutoScrollStopMode", typeof(AutoScrollStopMode?), typeof(TextAttributes), default(AutoScrollStopMode?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.autoScrollStopMode = (AutoScrollStopMode?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.autoScrollStopMode;
-        });
-
-        public static readonly BindableProperty LineSpacingProperty = BindableProperty.Create("LineSpacing", typeof(float?), typeof(TextAttributes), default(float?), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.lineSpacing = (float?)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.lineSpacing;
-        });
-
-
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(ColorSelector), typeof(TextAttributes), default(ColorSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.textColor = (ColorSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.textColor;
-        });
-
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string), typeof(TextAttributes), default(string), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.fontFamily = (string)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.fontFamily;
-        });
-
-        public static readonly BindableProperty PointSizeProperty = BindableProperty.Create("PointSize", typeof(FloatSelector), typeof(TextAttributes), default(FloatSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.pointSize = (FloatSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.pointSize;
-        });
-
-        public static readonly BindableProperty ShadowOffsetProperty = BindableProperty.Create("ShadowOffset", typeof(Vector2Selector), typeof(TextAttributes), default(Vector2Selector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.shadowOffset = (Vector2Selector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.shadowOffset;
-        });
-
-        public static readonly BindableProperty ShadowColorProperty = BindableProperty.Create("ShadowColor", typeof(ColorSelector), typeof(TextAttributes), default(ColorSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.shadowColor = (ColorSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.shadowColor;
-        });
-
-        public static readonly BindableProperty OutstrokeColorProperty = BindableProperty.Create("OutstrokeColor", typeof(ColorSelector), typeof(TextAttributes), default(ColorSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.outstrokeColor = (ColorSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.outstrokeColor;
-        });
-
-        public static readonly BindableProperty OutstrokeThicknessProperty = BindableProperty.Create("OutstrokeThickness", typeof(IntSelector), typeof(TextAttributes), default(IntSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.outstrokeThickness = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (TextAttributes)bindable;
-            return attrs.outstrokeThickness;
-        });
-
-        private StringSelector text;
-        private StringSelector translatableText;
-        private bool? multiLine;
-        private HorizontalAlignment? horizontalAlignment;
-        private VerticalAlignment? verticalAlignment;
-        private bool? enableMarkup;
-        private bool? enableAutoScroll;
-        private int? autoScrollSpeed;
-        private int? autoScrollLoopCount;
-        private float? autoScrollGap;
-        private float? autoScrollLoopDelay;
-        private AutoScrollStopMode? autoScrollStopMode;
-        private float? lineSpacing;
-
-        private ColorSelector textColor;
-        private string fontFamily;
-        private FloatSelector pointSize;
-        private Vector2Selector shadowOffset;
-        private ColorSelector shadowColor;
-        private ColorSelector outstrokeColor;
-        private IntSelector outstrokeThickness;
-
         public TextAttributes() : base() { }
         public TextAttributes(TextAttributes attributes) : base(attributes)
         {
-            if (attributes.text != null)
+            if(attributes == null)
             {
-                text = attributes.text.Clone() as StringSelector;
+                return;
+            }
+            if (attributes.Text != null)
+            {
+                Text = attributes.Text.Clone() as StringSelector;
             }
 
-            if (attributes.translatableText != null)
+            if (attributes.TranslatableText != null)
             {
-                translatableText = attributes.translatableText.Clone() as StringSelector;
+                TranslatableText = attributes.TranslatableText.Clone() as StringSelector;
             }
 
-            if (attributes.multiLine != null)
+            if (attributes.MultiLine != null)
             {
-                multiLine = attributes.multiLine;
+                MultiLine = attributes.MultiLine;
             }
 
-            if (attributes.horizontalAlignment != null)
+            if (attributes.HorizontalAlignment != null)
             {
-                horizontalAlignment = attributes.horizontalAlignment;
+                HorizontalAlignment = attributes.HorizontalAlignment;
             }
 
-            if (attributes.verticalAlignment != null)
+            if (attributes.VerticalAlignment != null)
             {
-                verticalAlignment = attributes.verticalAlignment;
+                VerticalAlignment = attributes.VerticalAlignment;
             }
 
-            if (attributes.enableMarkup != null)
+            if (attributes.EnableMarkup != null)
             {
-                enableMarkup = attributes.enableMarkup;
+                EnableMarkup = attributes.EnableMarkup;
             }
 
-            if (attributes.enableAutoScroll != null)
+            if (attributes.EnableAutoScroll != null)
             {
-                enableAutoScroll = attributes.enableAutoScroll;
+                EnableAutoScroll = attributes.EnableAutoScroll;
             }
 
-            if (attributes.autoScrollSpeed != null)
+            if (attributes.AutoScrollSpeed != null)
             {
-                autoScrollSpeed = attributes.autoScrollSpeed;
+                AutoScrollSpeed = attributes.AutoScrollSpeed;
             }
 
-            if (attributes.autoScrollLoopCount != null)
+            if (attributes.AutoScrollLoopCount != null)
             {
-                autoScrollLoopCount = attributes.autoScrollLoopCount;
+                AutoScrollLoopCount = attributes.AutoScrollLoopCount;
             }
 
-            if (attributes.autoScrollGap != null)
+            if (attributes.AutoScrollGap != null)
             {
-                autoScrollGap = attributes.autoScrollGap;
+                AutoScrollGap = attributes.AutoScrollGap;
             }
 
-            if (attributes.autoScrollLoopDelay != null)
+            if (attributes.AutoScrollLoopDelay != null)
             {
-                autoScrollLoopDelay = attributes.autoScrollLoopDelay;
+                AutoScrollLoopDelay = attributes.AutoScrollLoopDelay;
             }
 
-            if (attributes.autoScrollStopMode != null)
+            if (attributes.AutoScrollStopMode != null)
             {
-                autoScrollStopMode = attributes.autoScrollStopMode;
+                AutoScrollStopMode = attributes.AutoScrollStopMode;
             }
 
-            if (attributes.lineSpacing != null)
+            if (attributes.LineSpacing != null)
             {
-                lineSpacing = attributes.lineSpacing;
+                LineSpacing = attributes.LineSpacing;
             }
 
-            if (attributes.textColor != null)
+            if (attributes.TextColor != null)
             {
-                textColor = attributes.textColor.Clone() as ColorSelector;
+                TextColor = attributes.TextColor.Clone() as ColorSelector;
             }
 
-            if (attributes.fontFamily != null)
+            if (attributes.FontFamily != null)
             {
-                fontFamily = attributes.fontFamily;
+                FontFamily = attributes.FontFamily;
             }
 
-            if (attributes.pointSize != null)
+            if (attributes.PointSize != null)
             {
-                pointSize = attributes.pointSize.Clone() as FloatSelector;
+                PointSize = attributes.PointSize.Clone() as FloatSelector;
             }
 
-            if (attributes.shadowOffset != null)
+            if (attributes.ShadowOffset != null)
             {
-                shadowOffset = attributes.shadowOffset.Clone() as Vector2Selector;
+                ShadowOffset = attributes.ShadowOffset.Clone() as Vector2Selector;
             }
 
-            if (attributes.shadowColor != null)
+            if (attributes.ShadowColor != null)
             {
-                shadowColor = attributes.shadowColor.Clone() as ColorSelector;
+                ShadowColor = attributes.ShadowColor.Clone() as ColorSelector;
             }
 
-            if (attributes.outstrokeColor != null)
+            if (attributes.OutstrokeColor != null)
             {
-                outstrokeColor = attributes.outstrokeColor.Clone() as ColorSelector;
+                OutstrokeColor = attributes.OutstrokeColor.Clone() as ColorSelector;
             }
-            if (attributes.outstrokeThickness != null)
+            if (attributes.OutstrokeThickness != null)
             {
-                outstrokeThickness = attributes.outstrokeThickness.Clone() as IntSelector;
+                OutstrokeThickness = attributes.OutstrokeThickness.Clone() as IntSelector;
             }
         }
         public StringSelector Text
         {
-            get
-            {
-                return (StringSelector)GetValue(TextProperty);
-            }
-            set
-            {
-                SetValue(TextProperty, value);
-            }
+            get;
+            set;
         }
         public StringSelector TranslatableText
         {
-            get
-            {
-                return (StringSelector)GetValue(TranslatableTextProperty);
-            }
-            set
-            {
-                SetValue(TranslatableTextProperty, value);
-            }
+            get;
+            set;
         }
         public bool? MultiLine
         {
-            get
-            {
-                return (bool?)GetValue(MultiLineProperty);
-            }
-            set
-            {
-                SetValue(MultiLineProperty, value);
-            }
+            get;
+            set;
         }
         public HorizontalAlignment? HorizontalAlignment
         {
-            get
-            {
-                return (HorizontalAlignment?)GetValue(HorizontalAlignmentProperty);
-            }
-            set
-            {
-                SetValue(HorizontalAlignmentProperty, value);
-            }
+            get;
+            set;
         }
 
         public VerticalAlignment? VerticalAlignment
         {
-            get
-            {
-                return (VerticalAlignment?)GetValue(VerticalAlignmentProperty);
-            }
-            set
-            {
-                SetValue(VerticalAlignmentProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableMarkup
         {
-            get
-            {
-                return (bool?)GetValue(EnableMarkupProperty);
-            }
-            set
-            {
-                SetValue(EnableMarkupProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool? EnableAutoScroll
         {
-            get
-            {
-                return (bool?)GetValue(EnableAutoScrollProperty);
-            }
-            set
-            {
-                SetValue(EnableAutoScrollProperty, value);
-            }
+            get;
+            set;
         }
 
         public int? AutoScrollSpeed
         {
-            get
-            {
-                return (int?)GetValue(AutoScrollSpeedProperty);
-            }
-            set
-            {
-                SetValue(AutoScrollSpeedProperty, value);
-            }
+            get;
+            set;
         }
 
         public int? AutoScrollLoopCount
 {
-            get
-            {
-                return (int?)GetValue(AutoScrollLoopCountProperty);
-            }
-            set
-            {
-                SetValue(AutoScrollLoopCountProperty, value);
-            }
+            get;
+            set;
         }
 
         public float? AutoScrollGap
         {
-            get
-            {
-                return (float?)GetValue(AutoScrollGapProperty);
-            }
-            set
-            {
-                SetValue(AutoScrollGapProperty, value);
-            }
+            get;
+            set;
         }
 
         public float? AutoScrollLoopDelay
         {
-            get
-            {
-                return (float?)GetValue(AutoScrollLoopDelayProperty);
-            }
-            set
-            {
-                SetValue(AutoScrollLoopDelayProperty, value);
-            }
+            get;
+            set;
         }
 
         public AutoScrollStopMode? AutoScrollStopMode
         {
-            get
-            {
-                return (AutoScrollStopMode?)GetValue(AutoScrollStopModeProperty);
-            }
-            set
-            {
-                SetValue(AutoScrollStopModeProperty, value);
-            }
+            get;
+            set;
         }
 
         public float? LineSpacing
         {
-            get
-            {
-                return (float?)GetValue(LineSpacingProperty);
-            }
-            set
-            {
-                SetValue(LineSpacingProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector TextColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(TextColorProperty);
-            }
-            set
-            {
-                SetValue(TextColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public string FontFamily
         {
-            get
-            {
-                return (string)GetValue(FontFamilyProperty);
-            }
-            set
-            {
-                SetValue(FontFamilyProperty, value);
-            }
+            get;
+            set;
         }
 
         public FloatSelector PointSize
         {
-            get
-            {
-                return (FloatSelector)GetValue(PointSizeProperty);
-            }
-            set
-            {
-                SetValue(PointSizeProperty, value);
-            }
+            get;
+            set;
         }
 
         public Vector2Selector ShadowOffset
         {
-            get
-            {
-                return (Vector2Selector)GetValue(ShadowOffsetProperty);
-            }
-            set
-            {
-                SetValue(ShadowOffsetProperty, value);
-            }
+            get;
+            set;
         }
 
         public ColorSelector ShadowColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(ShadowColorProperty);
-            }
-            set
-            {
-                SetValue(ShadowColorProperty, value);
-            }
+            get;
+            set;
         }
 
 
         public ColorSelector OutstrokeColor
         {
-            get
-            {
-                return (ColorSelector)GetValue(OutstrokeColorProperty);
-            }
-            set
-            {
-                SetValue(OutstrokeColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public IntSelector OutstrokeThickness
         {
-            get
-            {
-                return (IntSelector)GetValue(OutstrokeThicknessProperty);
-            }
-            set
-            {
-                SetValue(OutstrokeThicknessProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()
