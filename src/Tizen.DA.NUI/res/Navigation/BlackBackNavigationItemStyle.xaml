@@ -1,0 +1,19 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <StringSelector x:Key="BlackBackIconImage"
+                        Pressed="*DemoRes*/images/FH3/2. Side Navigation/[Black ver.]/sidenavi_btn_back_b_press.png"
+                        Other ="*DemoRes*/images/FH3/2. Side Navigation/[Black ver.]/sidenavi_btn_back_b.png"/>
+    </AttributesContainer.XamlResources>
+
+    <NavigationItemAttributes x:Name="NavigationBackItemAttributes" Size2D="120, 140" EnableIconCenter ="true">
+        <NavigationItemAttributes.IconAttributes>
+            <ImageAttributes Size2D="56, 56"
+                             ResourceURL ="{StaticResource BlackBackIconImage}"/>
+        </NavigationItemAttributes.IconAttributes>
+        <NavigationItemAttributes.BackgroundImageAttributes>
+            <ImageAttributes ResourceURL ="*DemoRes*/images/FH3/2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png"/>
+        </NavigationItemAttributes.BackgroundImageAttributes>
+    </NavigationItemAttributes>
+</AttributesContainer>
