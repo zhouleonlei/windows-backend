@@ -1,0 +1,28 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <PaginationAttributes 
+        x:Name="PaginationAttributes"
+        IndicatorSize="26,26"
+        IndicatorBackgroundURL="*DemoRes*/images/FH3/9. Controller/pagination_ic_nor.png"
+        IndicatorSelectURL="*DemoRes*/images/FH3/9. Controller/pagination_ic_sel.png"
+        IndicatorSpacing="8">
+        <PaginationAttributes.ReturnArrowAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/9. Controller/pagination_ic_return.png" 
+                Size2D="26,26" 
+                ParentOrigin="CenterLeft" 
+                PivotPoint="CenterLeft" 
+                PositionUsesPivotPoint="True"/>
+        </PaginationAttributes.ReturnArrowAttributes>
+        <PaginationAttributes.NextArrowAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/9. Controller/pagination_ic_next.png" 
+                Size2D="26,26" 
+                ParentOrigin="CenterRight" 
+                PivotPoint="CenterRight" 
+                PositionUsesPivotPoint="True"/>
+        </PaginationAttributes.NextArrowAttributes>
+    </PaginationAttributes>
+    
+</AttributesContainer>

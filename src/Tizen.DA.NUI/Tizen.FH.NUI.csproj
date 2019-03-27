@@ -50,36 +50,36 @@
 
   <ItemGroup>
     <Compile Remove="src\Controls\Slider.cs" />
-    <Compile Remove="src\StyleAttributes\DAScrollbarAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FamilyDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FamilyTextSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FoodDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\FoodTextSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\KitchenDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\KitchenTextSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\PaginationAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\UtilityDefaultSliderAttributes.cs" />
-    <Compile Remove="src\StyleAttributes\UtilityTextSliderAttributes.cs" />
+    <Compile Remove="src\Style\DAScrollbarAttributes.cs" />
+    <Compile Remove="src\Style\FamilyDefaultSliderAttributes.cs" />
+    <Compile Remove="src\Style\FamilyTextSliderAttributes.cs" />
+    <Compile Remove="src\Style\FoodDefaultSliderAttributes.cs" />
+    <Compile Remove="src\Style\FoodTextSliderAttributes.cs" />
+    <Compile Remove="src\Style\KitchenDefaultSliderAttributes.cs" />
+    <Compile Remove="src\Style\KitchenTextSliderAttributes.cs" />
+    <Compile Remove="src\Style\PaginationAttributes.cs" />
+    <Compile Remove="src\Style\UtilityDefaultSliderAttributes.cs" />
+    <Compile Remove="src\Style\UtilityTextSliderAttributes.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="res\Button\FamilyBasicButtonAttributes.xaml" />
-    <None Remove="res\Button\FamilyOvalButtonAttributes.xaml" />
-    <None Remove="res\Button\FamilyServiceButtonAttributes.xaml" />
-    <None Remove="res\Button\FamilyToggleButtonAttributes.xaml" />
-    <None Remove="res\Button\FoodBasicButtonAttributes.xaml" />
-    <None Remove="res\Button\FoodOvalButtonAttributes.xaml" />
-    <None Remove="res\Button\FoodServiceButtonAttributes.xaml" />
-    <None Remove="res\Button\FoodToggleButtonAttributes.xaml" />
-    <None Remove="res\Button\KitchenBasicButtonAttributes.xaml" />
-    <None Remove="res\Button\KitchenOvalButtonAttributes.xaml" />
-    <None Remove="res\Button\KitchenServiceButtonAttributes.xaml" />
-    <None Remove="res\Button\KitchenToggleButtonAttributes.xaml" />
-    <None Remove="res\Button\UtilityBasicButtonAttributes.xaml" />
-    <None Remove="res\Action\HeaderDefaultAttributes.xaml" />
-    <None Remove="res\Button\UtilityOvalButtonAttributes.xaml" />
-    <None Remove="res\Button\UtilityServiceButtonAttributes.xaml" />
-    <None Remove="res\Button\UtilityToggleButtonAttributes.xaml" />
+    <None Remove="res\Action\HeaderDefaultStyle.xaml" />
+    <None Remove="res\Button\FamilyBasicButtonStyle.xaml" />
+    <None Remove="res\Button\FamilyOvalButtonStyle.xaml" />
+    <None Remove="res\Button\FamilyServiceButtonStyle.xaml" />
+    <None Remove="res\Button\FamilyToggleButtonStyle.xaml" />
+    <None Remove="res\Button\FoodBasicButtonStyle.xaml" />
+    <None Remove="res\Button\FoodOvalButtonStyle.xaml" />
+    <None Remove="res\Button\FoodServiceButtonStyle.xaml" />
+    <None Remove="res\Button\FoodToggleButtonStyle.xaml" />
+    <None Remove="res\Button\KitchenBasicButtonStyle.xaml" />
+    <None Remove="res\Button\KitchenOvalButtonStyle.xaml" />
+    <None Remove="res\Button\KitchenServiceButtonStyle.xaml" />
+    <None Remove="res\Button\KitchenToggleButtonStyle.xaml" />
+    <None Remove="res\Button\UtilityBasicButtonStyles.xaml" />
+    <None Remove="res\Button\UtilityOvalButtonStyle.xaml" />
+    <None Remove="res\Button\UtilityServiceButtonStyle.xaml" />
+    <None Remove="res\Button\UtilityToggleButtonStyle.xaml" />
     <None Remove="res\CheckBox\FamilyCheckBoxStyle.xaml" />
     <None Remove="res\CheckBox\FoodCheckBoxStyle.xaml" />
     <None Remove="res\CheckBox\KitchenCheckBoxStyle.xaml" />
@@ -107,18 +107,18 @@
     <None Remove="res\FoodSwitchAttributes.xaml" />
     <None Remove="res\FoodTextSliderAttributes.xaml" />
     <None Remove="res\FoodToggleButtonAttributes.xaml" />
-    <None Remove="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\FamilyDefaultInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\DefaultSearchInputFieldStyle.xaml" />
+    <None Remove="res\InputField\FamilyDefaultInputFieldStyle.xaml" />
+    <None Remove="res\InputField\FamilyStyleBInputFieldStyle.xaml" />
     <None Remove="res\InputField\FamilyTextFieldInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\FoodDefaultInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\FoodDefaultInputFieldStyle.xaml" />
+    <None Remove="res\InputField\FoodStyleBInputFieldStyle.xaml" />
     <None Remove="res\InputField\FoodTextFieldInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\KitchenDefaultInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\KitchenDefaultInputFieldStyle.xaml" />
+    <None Remove="res\InputField\KitchenStyleBInputFieldStyle.xaml" />
     <None Remove="res\InputField\KitchenTextFieldInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\UtilityDefaultInputFieldAttributes.xaml" />
-    <None Remove="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <None Remove="res\InputField\UtilityDefaultInputFieldStyle.xaml" />
+    <None Remove="res\InputField\UtilityStyleBInputFieldStyle.xaml" />
     <None Remove="res\InputField\UtilityTextFieldInputFieldAttributes.xaml" />
     <None Remove="res\KitchenBasicButtonAttributes.xaml" />
     <None Remove="res\KitchenCheckBoxAttributes.xaml" />
@@ -129,32 +129,32 @@
     <None Remove="res\KitchenSwitchAttributes.xaml" />
     <None Remove="res\KitchenTextSliderAttributes.xaml" />
     <None Remove="res\KitchenToggleButtonAttributes.xaml" />
-    <None Remove="res\ListItem\DefaultListItemAttributes.xaml" />
-    <None Remove="res\ListItem\EffectListItemAttributes.xaml" />
-    <None Remove="res\ListItem\GroupIndexListItemAttributes.xaml" />
-    <None Remove="res\ListItem\ItemAlignListItemAttributes.xaml" />
-    <None Remove="res\ListItem\MultiSubTextListItemAttributes.xaml" />
-    <None Remove="res\ListItem\NextDepthListItemAttributes.xaml" />
-    <None Remove="res\Loading\DefaultLoadingAttributes.xaml" />
+    <None Remove="res\ListItem\DefaultListItemStyle.xaml" />
+    <None Remove="res\ListItem\EffectListItemStyle.xaml" />
+    <None Remove="res\ListItem\GroupIndexListItemStyle.xaml" />
+    <None Remove="res\ListItem\ItemAlignListItemStyle.xaml" />
+    <None Remove="res\ListItem\MultiSubTextListItemStyle.xaml" />
+    <None Remove="res\ListItem\NextDepthListItemStyle.xaml" />
+    <None Remove="res\Loading\DefaultLoadingStyle.xaml" />
     <None Remove="res\PaginationAttributes.xaml" />
-    <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
-    <None Remove="res\Picker\PickerAttributes.xaml" />
+    <None Remove="res\Pagination\BasicPaginationStyle.xaml" />
+    <None Remove="res\Picker\PickerStyle.xaml" />
     <None Remove="res\Popup\FamilyPopupStyle.xaml" />
     <None Remove="res\Popup\FoodPopupStyle.xaml" />
     <None Remove="res\Popup\KitchenPopupStyle.xaml" />
     <None Remove="res\Popup\UtilityPopupStyle.xaml" />
-    <None Remove="res\Progress\FamilyProgressbarAttributes.xaml" />
-    <None Remove="res\Progress\FoodProgressbarAttributes.xaml" />
-    <None Remove="res\Progress\KitchenProgressbarAttributes.xaml" />
-    <None Remove="res\Progress\UtilityProgressbarAttributes.xaml" />
-    <None Remove="res\Progress\VDProgressCircleAttributes.xaml" />
+    <None Remove="res\Progress\FamilyProgressbarStyle.xaml" />
+    <None Remove="res\Progress\FoodProgressbarStyle.xaml" />
+    <None Remove="res\Progress\KitchenProgressbarStyle.xaml" />
+    <None Remove="res\Progress\UtilityProgressbarStyle.xaml" />
+    <None Remove="res\Progress\VDProgressCircleStyle.xaml" />
     <None Remove="res\RadioButton\FamilyRadioButtonStyle.xaml" />
     <None Remove="res\RadioButton\FoodRadioButtonStyle.xaml" />
     <None Remove="res\RadioButton\KitchenRadioButtonStyle.xaml" />
     <None Remove="res\RadioButton\UtilityRadioButtonStyle.xaml" />
-    <None Remove="res\SearchBar\DefaultSearchBarAttributes.xaml" />
-    <None Remove="res\Spin\SpinAttributes.xaml" />
-    <None Remove="res\Spin\StrSpinAttributes.xaml" />
+    <None Remove="res\SearchBar\DefaultSearchBarStyle.xaml" />
+    <None Remove="res\Spin\SpinStyle.xaml" />
+    <None Remove="res\Spin\StrSpinStyle.xaml" />
     <None Remove="res\Switch\FamilySwitchStyle.xaml" />
     <None Remove="res\Switch\FoodSwitchStyle.xaml" />
     <None Remove="res\Switch\KitchenSwitchStyle.xaml" />
@@ -164,11 +164,11 @@
     <None Remove="res\Tab\FoodTabStyle.xaml" />
     <None Remove="res\Tab\KitchenTabStyle.xaml" />
     <None Remove="res\Tab\UtilityTabStyle.xaml" />
-    <None Remove="res\TimePicker\TimePickerAMPMAttributes.xaml" />
-    <None Remove="res\TimePicker\TimePickerAttributes.xaml" />
-    <None Remove="res\TimePicker\TimePickerRepeatAttributes.xaml" />
-    <None Remove="res\Toast\BasicLongToastAttributes.xaml" />
-    <None Remove="res\Toast\BasicShortToastAttributes.xaml" />
+    <None Remove="res\TimePicker\TimePickerAMPMStyle.xaml" />
+    <None Remove="res\TimePicker\TimePickerRepeatStyle.xaml" />
+    <None Remove="res\TimePicker\TimePickerStyle.xaml" />
+    <None Remove="res\Toast\BasicLongToastStyle.xaml" />
+    <None Remove="res\Toast\BasicShortToastStyle.xaml" />
     <None Remove="res\UtilityBasicButtonAttributes.xaml" />
     <None Remove="res\UtilityCheckBoxAttributes.xaml" />
     <None Remove="res\UtilityDefaultSliderAttributes.xaml" />
@@ -181,56 +181,56 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="res\Button\FamilyBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyBasicButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FamilyOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyOvalButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FamilyServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyServiceButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FamilyToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FamilyToggleButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodBasicButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodOvalButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodServiceButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\FoodToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\FoodToggleButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenBasicButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenOvalButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenServiceButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\KitchenToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\KitchenToggleButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityBasicButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityBasicButtonStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityOvalButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityOvalButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Action\HeaderDefaultAttributes.xaml">
+    <EmbeddedResource Include="res\Action\HeaderDefaultStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityServiceButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityServiceButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Button\UtilityToggleButtonAttributes.xaml">
+    <EmbeddedResource Include="res\Button\UtilityToggleButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\CheckBox\FamilyCheckBoxStyle.xaml">
@@ -257,18 +257,18 @@
     <EmbeddedResource Include="res\DropDown\TextListItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\FamilyDefaultInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\FoodDefaultInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\KitchenDefaultInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\UtilityDefaultInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\DefaultListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\EffectListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\GroupIndexListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\ItemAlignListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\MultiSubTextListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\ListItem\NextDepthListItemAttributes.xaml" />
-    <EmbeddedResource Include="res\Loading\DefaultLoadingAttributes.xaml">
+    <EmbeddedResource Include="res\InputField\DefaultSearchInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\FamilyDefaultInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\FoodDefaultInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\KitchenDefaultInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityDefaultInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\DefaultListItemStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\EffectListItemStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\GroupIndexListItemStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\ItemAlignListItemStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\MultiSubTextListItemStyle.xaml" />
+    <EmbeddedResource Include="res\ListItem\NextDepthListItemStyle.xaml" />
+    <EmbeddedResource Include="res\Loading\DefaultLoadingStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Navigation\BackNavigationStyle.xaml">
@@ -316,31 +316,31 @@
     <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
+    <EmbeddedResource Include="res\Pagination\BasicPaginationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Picker\PickerAttributes.xaml">
+    <EmbeddedResource Include="res\Picker\PickerStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Progress\FamilyProgressbarAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\FamilyProgressbarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Progress\FoodProgressbarAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\FoodProgressbarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Progress\KitchenProgressbarAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\KitchenProgressbarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Progress\VDProgressCircleAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\VDProgressCircleStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Progress\UtilityProgressbarAttributes.xaml">
+    <EmbeddedResource Include="res\Progress\UtilityProgressbarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Scrollbar\VDScrollBarAttributes.xaml">
+    <EmbeddedResource Include="res\Scrollbar\VDScrollBarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Scrollbar\DAScrollBarAttributes.xaml">
+    <EmbeddedResource Include="res\Scrollbar\DAScrollBarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Popup\FamilyPopupStyle.xaml">
@@ -367,11 +367,11 @@
     <EmbeddedResource Include="res\RadioButton\UtilityRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\SearchBar\DefaultSearchBarAttributes.xaml" />
-    <EmbeddedResource Include="res\Spin\SpinAttributes.xaml">
+    <EmbeddedResource Include="res\SearchBar\DefaultSearchBarStyle.xaml" />
+    <EmbeddedResource Include="res\Spin\SpinStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Spin\StrSpinAttributes.xaml">
+    <EmbeddedResource Include="res\Spin\StrSpinStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Switch\ListIndexSwitchStyle.xaml">
@@ -389,19 +389,19 @@
     <EmbeddedResource Include="res\Switch\UtilitySwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Slider\UtilityDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\UtilityTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\FamilyDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\FamilyTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\FoodDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\FoodTextSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\KitchenDefaultSliderAttributes.xaml" />
-    <EmbeddedResource Include="res\Slider\KitchenTextSliderAttributes.xaml" />
+    <EmbeddedResource Include="res\Slider\UtilityDefaultSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\UtilityTextSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\FamilyDefaultSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\FamilyTextSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\FoodDefaultSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\FoodTextSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\KitchenDefaultSliderStyle.xaml" />
+    <EmbeddedResource Include="res\Slider\KitchenTextSliderStyle.xaml" />
 
-    <EmbeddedResource Include="res\InputField\FamilyStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
+    <EmbeddedResource Include="res\InputField\FamilyStyleBInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldStyle.xaml" />
+    <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldStyle.xaml" />
     <EmbeddedResource Include="res\Tab\FamilyTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -414,19 +414,19 @@
     <EmbeddedResource Include="res\Tab\UtilityTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\TimePicker\TimePickerAMPMAttributes.xaml">
+    <EmbeddedResource Include="res\TimePicker\TimePickerAMPMStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\TimePicker\TimePickerAttributes.xaml">
+    <EmbeddedResource Include="res\TimePicker\TimePickerStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\TimePicker\TimePickerRepeatAttributes.xaml">
+    <EmbeddedResource Include="res\TimePicker\TimePickerRepeatStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Toast\BasicShortToastAttributes.xaml">
+    <EmbeddedResource Include="res\Toast\BasicShortToastStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Toast\BasicLongToastAttributes.xaml">
+    <EmbeddedResource Include="res\Toast\BasicLongToastStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -504,6 +504,12 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="res\Popup\UtilityBasicButtonAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Scrollbar\DAScrollBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="res\Scrollbar\VDScrollBarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>

@@ -1,0 +1,44 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+
+        <StringSelector x:Key="DAFoodDefaultSliderThumbImageResource"
+                        Normal="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_normal_ec7510.png"
+                        Pressed ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_press_ec7510.png"
+                        />
+        <StringSelector x:Key="DAFoodDefaultSliderThumbBgImageResource" 
+                       Normal=""
+                       Pressed="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_effect.png"
+                       />
+
+    </AttributesContainer.XamlResources>
+
+    <SliderAttributes 
+        x:Name="SliderAttributes"
+        TrackThickness="4">
+
+        <SliderAttributes.BackgroundTrackAttributes>
+            <ImageAttributes BackgroundColor="0, 0, 0, 0.1"/>
+        </SliderAttributes.BackgroundTrackAttributes>
+
+        <SliderAttributes.SlidedTrackAttributes>
+            <ImageAttributes BackgroundColor="0.925, 0.459, 0.063, 1"/>
+        </SliderAttributes.SlidedTrackAttributes>
+
+        <SliderAttributes.ThumbAttributes>
+            <ImageAttributes 
+                ResourceURL="{StaticResource DAFoodDefaultSliderThumbImageResource}">
+            </ImageAttributes>
+        </SliderAttributes.ThumbAttributes>
+
+        <SliderAttributes.ThumbBackgroundAttributes>
+            <ImageAttributes 
+                Size2D="60,60"
+                ResourceURL="{StaticResource DAFoodDefaultSliderThumbBgImageResource}">
+            </ImageAttributes>
+        </SliderAttributes.ThumbBackgroundAttributes>
+
+    </SliderAttributes>
+    
+</AttributesContainer>
