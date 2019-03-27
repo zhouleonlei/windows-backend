@@ -1,108 +1,48 @@
-﻿using Tizen.NUI.Binding;
+﻿
 
 namespace Tizen.NUI.CommonUI
 {
     public class LoadingAttributes : ViewAttributes
     {
-        public static readonly BindableProperty LoadingImageURLPrefixProperty = BindableProperty.Create("LoadingImageURLPrefix", typeof(StringSelector), typeof(LoadingAttributes), default(StringSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.loadingImageURLPrefix = (StringSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            return attrs.loadingImageURLPrefix;
-        });
-
-        public static readonly BindableProperty FPSProperty = BindableProperty.Create("FPS", typeof(IntSelector), typeof(LoadingAttributes), default(IntSelector), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.fps = (IntSelector)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            return attrs.fps;
-        });
-
-        public static readonly BindableProperty LoadingImageAttributesProperty = BindableProperty.Create("LoadingImageAttributes", typeof(ImageAttributes), typeof(LoadingAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.loadingImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (LoadingAttributes)bindable;
-            return attrs.loadingImageAttrs;
-        });
-
-        private StringSelector loadingImageURLPrefix;
-        private IntSelector fps;
-        private ImageAttributes loadingImageAttrs;
-
         public LoadingAttributes() : base() { }
 
         public LoadingAttributes(LoadingAttributes attributes) : base(attributes)
         {
+            if(attributes == null)
+            {
+                return;
+            }
 
-            if (attributes.loadingImageURLPrefix != null)
+            if (attributes.LoadingImageURLPrefix != null)
             {
-                loadingImageURLPrefix = attributes.loadingImageURLPrefix.Clone() as StringSelector;
+                LoadingImageURLPrefix = attributes.LoadingImageURLPrefix.Clone() as StringSelector;
             }
-            if (attributes.fps != null)
+            if (attributes.FPS != null)
             {
-                fps = attributes.fps.Clone() as IntSelector;
+                FPS = attributes.FPS.Clone() as IntSelector;
             }
-            if (attributes.loadingImageAttrs != null)
+            if (attributes.LoadingImageAttributes != null)
             {
-                loadingImageAttrs = attributes.loadingImageAttrs.Clone() as ImageAttributes;
+                LoadingImageAttributes = attributes.LoadingImageAttributes.Clone() as ImageAttributes;
             }
         }
 
         public StringSelector LoadingImageURLPrefix
         {
-            get
-            {
-                return (StringSelector)GetValue(LoadingImageURLPrefixProperty);
-            }
-            set
-            {
-                SetValue(LoadingImageURLPrefixProperty, value);
-            }
+            get;
+            set;
         }
 
         public IntSelector FPS
         {
-            get
-            {
-                return (IntSelector)GetValue(FPSProperty);
-            }
-            set
-            {
-                SetValue(FPSProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes LoadingImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(LoadingImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(LoadingImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()
