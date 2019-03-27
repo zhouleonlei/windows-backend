@@ -218,6 +218,10 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
+                if (scrollBarAttrs.MaxValue == value)
+                {
+                    return;
+                }
                 scrollBarAttrs.MaxValue = value;
                 RelayoutRequest();
             }
@@ -234,6 +238,10 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
+                if (scrollBarAttrs.MinValue == value)
+                {
+                    return;
+                }
                 scrollBarAttrs.MinValue = value;
                 RelayoutRequest();
             }
@@ -486,7 +494,6 @@ namespace Tizen.NUI.CommonUI
                 if (scrollAniPlayer != null)
                 {
                     scrollAniPlayer.Stop();
-                    scrollAniPlayer.Clear();
                 }
 
                 if (!enableAni)
@@ -497,6 +504,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     if (scrollAniPlayer != null)
                     {
+                        scrollAniPlayer.Clear();
                         scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX);
                         scrollAniPlayer.Play();
                     }
@@ -511,7 +519,6 @@ namespace Tizen.NUI.CommonUI
                 if (scrollAniPlayer != null)
                 {
                     scrollAniPlayer.Stop();
-                    scrollAniPlayer.Clear();
                 }
 
                 if (!enableAni)
@@ -522,6 +529,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     if (scrollAniPlayer != null)
                     {
+                        scrollAniPlayer.Clear();
                         scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY);
                         scrollAniPlayer.Play();
                     }
