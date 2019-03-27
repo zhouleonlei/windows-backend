@@ -62,7 +62,7 @@ namespace Tizen.NUI.Samples
             for (int i = 0; i < num; i++)
             {
                 utilityCheckBox[i] = new CheckBox();
-                utilityCheckBox[i].Size2D = new Size2D(48, 48);
+                utilityCheckBox[i].Size2D = new Size2D(150, 48);
                 utilityCheckBox[i].Position2D = new Position2D(300, 300 + i * 100);
                 utilityCheckBox[i].CheckImageSize2D = new Size2D(48, 48);
                 utilityCheckBox[i].CheckImagePosition2D = new Position2D(0, 0);
@@ -108,6 +108,11 @@ namespace Tizen.NUI.Samples
                     Disabled = "",
                     DisabledSelected = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_check_shadow.png",
                 };
+
+                //utilityCheckBox[i].Text = "Check" + i;
+                //utilityCheckBox[i].TextAlignment = HorizontalAlignment.Begin;
+                //utilityCheckBox[i].PointSize = 12;
+                //utilityCheckBox[i].TextPaddingLeft = 70;
 
                 group[0].Add(utilityCheckBox[i]);
                 ////////
@@ -182,7 +187,7 @@ namespace Tizen.NUI.Samples
                 root.Add(foodCheckBox[i]);
                 root.Add(kitchenCheckBox[i]);
             }
-
+            //utilityCheckBox[0].LayoutDirection = ViewLayoutDirectionType.RTL;//just to text RTL
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
             createText[1].Text = "Create CheckBox just by Attributes";
