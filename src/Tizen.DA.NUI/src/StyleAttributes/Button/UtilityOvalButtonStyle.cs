@@ -1,8 +1,8 @@
 ﻿using Tizen.NUI.CommonUI;
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityOvalButtonAttributes.xaml", "UtilityOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityOvalButtonAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityOvalButtonAttributes.xaml", "UtilityOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityOvalButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityOvalButtonAttributes : IconButtonAttributes
+    internal class UtilityOvalButtonStyle : IconButtonStyle
     {
         protected override Attributes GetAttributes()
         {

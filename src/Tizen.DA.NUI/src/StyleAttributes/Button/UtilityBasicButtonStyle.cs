@@ -1,9 +1,9 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI.Xaml;
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityBasicButtonAttributes.xaml", "UtilityBasicButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityBasicButtonAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityBasicButtonAttributes.xaml", "UtilityBasicButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityBasicButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityBasicButtonAttributes : TextButtonAttributes
+    internal class UtilityBasicButtonStyle : TextButtonStyle
     {
         protected override Attributes GetAttributes()
         {

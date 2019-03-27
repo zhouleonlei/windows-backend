@@ -1,7 +1,7 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <ColorSelector x:Key="EffectListItemTextColor"
                         Normal="#ff000000"
                         Pressed="#ff000000"
@@ -14,7 +14,7 @@
                         Selected="#00000000"
                         Disabled="#00000000"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <ListItemAttributes 
         x:Name="ListItemAttributes"
@@ -43,4 +43,4 @@
     <!--
     BackgroundColor="{StaticResource EffectListItemBackgroundColor}"
     -->
-</AttributesContainer>
+</StyleBase>

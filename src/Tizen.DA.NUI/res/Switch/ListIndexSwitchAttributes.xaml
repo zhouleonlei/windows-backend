@@ -1,6 +1,6 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <StringSelector x:Key="DAListIndexSwitchBackground"
                         Normal="*DemoRes*/images/FH3/6. List/list_index_swich_bg_off.png"
                         Selected ="*DemoRes*/images/FH3/6. List/list_index_swich_bg_on.png"
@@ -13,7 +13,7 @@
                         Disabled ="*DemoRes*/images/FH3/6. List/list_index_controller_swich_dim.png"
                         DisabledSelected ="*DemoRes*/images/FH3/6. List/list_index_controller_swich_dim.png"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <SwitchAttributes x:Name="SwitchAttributes" MinimumSize="72, 48"
                       ParentOrigin="TopLeft" PivotPoint="TopLeft" PositionUsesPivotPoint="true">
@@ -26,4 +26,4 @@
                              ResourceURL ="{StaticResource DAListIndexSwitchHandler}"/>
         </SwitchAttributes.SwitchHandlerImageAttributes>
     </SwitchAttributes>
-</AttributesContainer>
+</StyleBase>

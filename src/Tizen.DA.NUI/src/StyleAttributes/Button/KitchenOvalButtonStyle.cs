@@ -1,9 +1,9 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI.Xaml;
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.KitchenOvalButtonAttributes.xaml", "KitchenOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.KitchenOvalButtonAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.KitchenOvalButtonAttributes.xaml", "KitchenOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.KitchenOvalButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class KitchenOvalButtonAttributes : IconButtonAttributes
+    internal class KitchenOvalButtonStyle : IconButtonStyle
     {
         protected override Attributes GetAttributes()
         {

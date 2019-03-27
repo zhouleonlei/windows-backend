@@ -3,9 +3,9 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class IconButtonAttributes : StyleBase
+    internal class IconButtonStyle : StyleBase
     {
-        public IconButtonAttributes()
+        public IconButtonStyle()
         {
    
         }

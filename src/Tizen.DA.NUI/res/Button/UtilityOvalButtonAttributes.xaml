@@ -1,8 +1,8 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
 
         <StringSelector x:Key="DAUtilityOvalButtonBackground"
                         Normal="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_normal.png"
@@ -15,7 +15,7 @@
                         Selected=""
                         />
 
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
 
@@ -40,4 +40,4 @@
                 />
         </ButtonAttributes.OverlayImageAttributes> >
     </ButtonAttributes>
-</AttributesContainer>
+</StyleBase>
