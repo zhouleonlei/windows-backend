@@ -1,0 +1,22 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+        <StringSelector x:Key="WhiteBackOverlayImage"
+                        Pressed="*DemoRes*/images/FH3/2. Side Navigation/sidenavi_back_bg_press_overlay.png"
+                        Other =""/>
+    </AttributesContainer.XamlResources>
+    
+    <NavigationItemAttributes x:Name="NavigationItemAttributes" Size2D="120, 140" EnableIconCenter ="true">
+        <NavigationItemAttributes.IconAttributes>
+            <ImageAttributes Size2D="56, 56"
+                             ResourceURL ="*DemoRes*/images/FH3/2. Side Navigation/sidenavi_btn_back.png"/>
+        </NavigationItemAttributes.IconAttributes>
+        <NavigationItemAttributes.BackgroundImageAttributes>
+            <ImageAttributes ResourceURL ="*DemoRes*/images/FH3/2. Side Navigation/sidenavi_back_bg.png"/>
+        </NavigationItemAttributes.BackgroundImageAttributes>
+        <NavigationItemAttributes.OverlayImageAttributes>
+            <ImageAttributes ResourceURL ="{StaticResource WhiteBackOverlayImage}"/>
+        </NavigationItemAttributes.OverlayImageAttributes>
+    </NavigationItemAttributes>
+</AttributesContainer>

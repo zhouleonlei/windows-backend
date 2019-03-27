@@ -80,14 +80,14 @@
     <None Remove="res\Button\UtilityOvalButtonAttributes.xaml" />
     <None Remove="res\Button\UtilityServiceButtonAttributes.xaml" />
     <None Remove="res\Button\UtilityToggleButtonAttributes.xaml" />
-    <None Remove="res\CheckBox\FamilyCheckBoxAttributes.xaml" />
-    <None Remove="res\CheckBox\FoodCheckBoxAttributes.xaml" />
-    <None Remove="res\CheckBox\KitchenCheckBoxAttributes.xaml" />
-    <None Remove="res\CheckBox\UtilityCheckBoxAttributes.xaml" />
-    <None Remove="res\DropDown\HeaderSpinnerDropDownAttributes.xaml" />
-    <None Remove="res\DropDown\IconListItemAttributes.xaml" />
-    <None Remove="res\DropDown\ListSpinnerDropDownAttributes.xaml" />
-    <None Remove="res\DropDown\TextListItemAttributes.xaml" />
+    <None Remove="res\CheckBox\FamilyCheckBoxStyle.xaml" />
+    <None Remove="res\CheckBox\FoodCheckBoxStyle.xaml" />
+    <None Remove="res\CheckBox\KitchenCheckBoxStyle.xaml" />
+    <None Remove="res\CheckBox\UtilityCheckBoxStyle.xaml" />
+    <None Remove="res\DropDown\HeaderSpinnerDropDownStyle.xaml" />
+    <None Remove="res\DropDown\IconListItemStyle.xaml" />
+    <None Remove="res\DropDown\ListSpinnerDropDownStyle.xaml" />
+    <None Remove="res\DropDown\TextListItemStyle.xaml" />
     <None Remove="res\FamilyBasicButtonAttributes.xaml" />
     <None Remove="res\FamilyBasicScrollbarAttributes.xaml" />
     <None Remove="res\FamilyCheckBoxAttributes.xaml" />
@@ -139,27 +139,27 @@
     <None Remove="res\PaginationAttributes.xaml" />
     <None Remove="res\Pagination\BasicPaginationAttributes.xaml" />
     <None Remove="res\Picker\PickerAttributes.xaml" />
-    <None Remove="res\Popup\FamilyPopupAttributes.xaml" />
-    <None Remove="res\Popup\FoodPopupAttributes.xaml" />
-    <None Remove="res\Popup\KitchenPopupAttributes.xaml" />
-    <None Remove="res\Popup\UtilityPopupAttributes.xaml" />
+    <None Remove="res\Popup\FamilyPopupStyle.xaml" />
+    <None Remove="res\Popup\FoodPopupStyle.xaml" />
+    <None Remove="res\Popup\KitchenPopupStyle.xaml" />
+    <None Remove="res\Popup\UtilityPopupStyle.xaml" />
     <None Remove="res\Progress\FamilyProgressbarAttributes.xaml" />
     <None Remove="res\Progress\FoodProgressbarAttributes.xaml" />
     <None Remove="res\Progress\KitchenProgressbarAttributes.xaml" />
     <None Remove="res\Progress\UtilityProgressbarAttributes.xaml" />
     <None Remove="res\Progress\VDProgressCircleAttributes.xaml" />
-    <None Remove="res\RadioButton\FamilyRadioButtonAttributes.xaml" />
-    <None Remove="res\RadioButton\FoodRadioButtonAttributes.xaml" />
-    <None Remove="res\RadioButton\KitchenRadioButtonAttributes.xaml" />
-    <None Remove="res\RadioButton\UtilityRadioButtonAttributes.xaml" />
+    <None Remove="res\RadioButton\FamilyRadioButtonStyle.xaml" />
+    <None Remove="res\RadioButton\FoodRadioButtonStyle.xaml" />
+    <None Remove="res\RadioButton\KitchenRadioButtonStyle.xaml" />
+    <None Remove="res\RadioButton\UtilityRadioButtonStyle.xaml" />
     <None Remove="res\SearchBar\DefaultSearchBarAttributes.xaml" />
     <None Remove="res\Spin\SpinAttributes.xaml" />
     <None Remove="res\Spin\StrSpinAttributes.xaml" />
-    <None Remove="res\Switch\FamilySwitchAttributes.xaml" />
-    <None Remove="res\Switch\FoodSwitchAttributes.xaml" />
-    <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
-    <None Remove="res\Switch\ListIndexSwitchAttributes.xaml" />
-    <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
+    <None Remove="res\Switch\FamilySwitchStyle.xaml" />
+    <None Remove="res\Switch\FoodSwitchStyle.xaml" />
+    <None Remove="res\Switch\KitchenSwitchStyle.xaml" />
+    <None Remove="res\Switch\ListIndexSwitchStyle.xaml" />
+    <None Remove="res\Switch\UtilitySwitchStyle.xaml" />
     <None Remove="res\Tab\FamilyTabStyle.xaml" />
     <None Remove="res\Tab\FoodTabStyle.xaml" />
     <None Remove="res\Tab\KitchenTabStyle.xaml" />
@@ -233,28 +233,28 @@
     <EmbeddedResource Include="res\Button\UtilityToggleButtonAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\CheckBox\FamilyCheckBoxAttributes.xaml">
+    <EmbeddedResource Include="res\CheckBox\FamilyCheckBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\CheckBox\FoodCheckBoxAttributes.xaml">
+    <EmbeddedResource Include="res\CheckBox\FoodCheckBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\CheckBox\KitchenCheckBoxAttributes.xaml">
+    <EmbeddedResource Include="res\CheckBox\KitchenCheckBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxAttributes.xaml">
+    <EmbeddedResource Include="res\CheckBox\UtilityCheckBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\DropDown\HeaderSpinnerDropDownAttributes.xaml">
+    <EmbeddedResource Include="res\DropDown\HeaderSpinnerDropDownStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\DropDown\IconListItemAttributes.xaml">
+    <EmbeddedResource Include="res\DropDown\IconListItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\DropDown\ListSpinnerDropDownAttributes.xaml">
+    <EmbeddedResource Include="res\DropDown\ListSpinnerDropDownStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\DropDown\TextListItemAttributes.xaml">
+    <EmbeddedResource Include="res\DropDown\TextListItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\InputField\DefaultSearchInputFieldAttributes.xaml" />
@@ -271,49 +271,49 @@
     <EmbeddedResource Include="res\Loading\DefaultLoadingAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BackNavigationAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BackNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackBackNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackBackNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackConditionNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackEditModeFirstNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackEditModeFirstNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackEditModeLastNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackEditModeLastNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\BlackEditModeNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteBackNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteBackNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteConditionNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteEditModeFirstNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeFirstNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteEditModeLastNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeLastNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationItemAttributes.xaml">
+    <EmbeddedResource Include="res\Navigation\WhiteEditModeNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Pagination\BasicPaginationAttributes.xaml">
@@ -343,28 +343,28 @@
     <EmbeddedResource Include="res\Scrollbar\DAScrollBarAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\FamilyPopupAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\FamilyPopupStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\FoodPopupAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\FoodPopupStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\KitchenPopupAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\KitchenPopupStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Popup\UtilityPopupAttributes.xaml">
+    <EmbeddedResource Include="res\Popup\UtilityPopupStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonAttributes.xaml">
+    <EmbeddedResource Include="res\RadioButton\FamilyRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\RadioButton\FoodRadioButtonAttributes.xaml">
+    <EmbeddedResource Include="res\RadioButton\FoodRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\RadioButton\KitchenRadioButtonAttributes.xaml">
+    <EmbeddedResource Include="res\RadioButton\KitchenRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\RadioButton\UtilityRadioButtonAttributes.xaml">
+    <EmbeddedResource Include="res\RadioButton\UtilityRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\SearchBar\DefaultSearchBarAttributes.xaml" />
@@ -374,19 +374,19 @@
     <EmbeddedResource Include="res\Spin\StrSpinAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Switch\ListIndexSwitchAttributes.xaml">
+    <EmbeddedResource Include="res\Switch\ListIndexSwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Switch\FamilySwitchAttributes.xaml">
+    <EmbeddedResource Include="res\Switch\FamilySwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Switch\FoodSwitchAttributes.xaml">
+    <EmbeddedResource Include="res\Switch\FoodSwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Switch\KitchenSwitchAttributes.xaml">
+    <EmbeddedResource Include="res\Switch\KitchenSwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Switch\UtilitySwitchAttributes.xaml">
+    <EmbeddedResource Include="res\Switch\UtilitySwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Slider\UtilityDefaultSliderAttributes.xaml" />
@@ -446,49 +446,49 @@
     <None Update="res\Action\HeaderDefaultAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BackNavigationAttributes.xaml">
+    <None Update="res\Navigation\BackNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackBackNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\BlackBackNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackConditionNavigationAttributes.xaml">
+    <None Update="res\Navigation\BlackConditionNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackConditionNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\BlackConditionNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackEditModeFirstNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\BlackEditModeFirstNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackEditModeLastNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\BlackEditModeLastNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackEditModeNavigationAttributes.xaml">
+    <None Update="res\Navigation\BlackEditModeNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\BlackEditModeNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\BlackEditModeNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteBackNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\WhiteBackNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteConditionNavigationAttributes.xaml">
+    <None Update="res\Navigation\WhiteConditionNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteConditionNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\WhiteConditionNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteEditModeFirstNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\WhiteEditModeFirstNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteEditModeLastNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\WhiteEditModeLastNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteEditModeNavigationAttributes.xaml">
+    <None Update="res\Navigation\WhiteEditModeNavigationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="res\Navigation\WhiteEditModeNavigationItemAttributes.xaml">
+    <None Update="res\Navigation\WhiteEditModeNavigationItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="res\Popup\DAPopupAttributes.xaml">
