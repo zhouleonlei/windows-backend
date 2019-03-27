@@ -6,7 +6,7 @@ using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Samples
 {
-    public class CommonReosurce
+    public class CommonResource
     {
         public static string GetFHResourcePath()
         {

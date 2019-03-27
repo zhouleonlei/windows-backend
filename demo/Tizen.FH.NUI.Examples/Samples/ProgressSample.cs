@@ -11,15 +11,13 @@ namespace Tizen.FH.NUI.Samples
         private Button button1, button2, button3, button4, button5;
         int status = 0;
         private Progress progressBar1, progressBar2, progressBar3, progressBar4;
-        private View root;
+        private SampleLayout root;
 
         public void Activate()
         {
             Window window = Window.Instance;
-            root = new View()
-            {
-                Size2D = new Size2D(1920, 1080),
-            };
+            root = new SampleLayout();
+            root.HeaderText = "Progress";
 
             board = new TextLabel();
             board.Size2D = new Size2D(1000, 100);
@@ -34,23 +32,10 @@ namespace Tizen.FH.NUI.Samples
             board.FocusGained += Board_FocusGained;
             board.FocusLost += Board_FocusLost;
 
-            board1 = new TextLabel();
-            board1.Size2D = new Size2D(200, 60);
-            board1.Position2D = new Position2D(50, 200);
-            board1.PointSize = 30;
-            board1.HorizontalAlignment = HorizontalAlignment.Center;
-            board1.VerticalAlignment = VerticalAlignment.Center;
-            board1.BackgroundColor = Color.Magenta;
-            board1.Text = "DA";
-            root.Add(board1);
-            board1.Focusable = true;
-            board1.FocusGained += Board_FocusGained;
-            board1.FocusLost += Board_FocusLost;
-
             button1 = new Button("BasicButton");
             button1.BackgroundColor = Color.Green;
-            button1.Position2D = new Position2D(100, 600);
-            button1.Size2D = new Size2D(50, 50);
+            button1.Position2D = new Position2D(300, 200);
+            button1.Size2D = new Size2D(80, 80);
             button1.Text = "+";
             root.Add(button1);
             button1.Focusable = true;
@@ -58,50 +43,20 @@ namespace Tizen.FH.NUI.Samples
 
             button2 = new Button("BasicButton");
             button2.BackgroundColor = Color.Green;
-            button2.Position2D = new Position2D(200, 600);
-            button2.Size2D = new Size2D(50, 50);
+            button2.Position2D = new Position2D(700, 200);
+            button2.Size2D = new Size2D(80, 80);
             button2.Text = "-";
             root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += bar1Minus;
-
-
          
             progressBar1 = new Progress("Progressbar");
-            progressBar1.Position2D = new Position2D(80, 350);
-            progressBar1.Size2D = new Size2D(140, 4);
+            progressBar1.Position2D = new Position2D(300, 100);
+            progressBar1.Size2D = new Size2D(500, 4);
             progressBar1.MaxValue = 100;
             progressBar1.MinValue = 0;
             progressBar1.CurrentValue = 45;
-            progressBar1.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar1);
-
-            progressBar2 = new Progress("Progressbar");
-            progressBar2.Position2D = new Position2D(80, 420);
-            progressBar2.Size2D = new Size2D(140, 4);
-            progressBar2.MaxValue = 100;
-            progressBar2.MinValue = 0;
-            progressBar2.CurrentValue = 15;
-            progressBar2.Direction = Progress.DirectionType.Horizontal;
-            root.Add(progressBar2);
-
-            progressBar3 = new Progress("Progressbar");
-            progressBar3.Position2D = new Position2D(80, 490);
-            progressBar3.Size2D = new Size2D(140, 4);
-            progressBar3.MaxValue = 100;
-            progressBar3.MinValue = 0;
-            progressBar3.CurrentValue = 30;
-            progressBar3.Direction = Progress.DirectionType.Horizontal;
-            root.Add(progressBar3);
-
-            progressBar4 = new Progress("Progressbar");
-            progressBar4.Position2D = new Position2D(80, 560);
-            progressBar4.Size2D = new Size2D(140, 4);
-            progressBar4.MaxValue = 100;
-            progressBar4.MinValue = 0;
-            progressBar4.CurrentValue = 75;
-            progressBar4.Direction = Progress.DirectionType.Horizontal;
-            root.Add(progressBar4);
 
             board.UpFocusableView = button1;
             window.Add(root);

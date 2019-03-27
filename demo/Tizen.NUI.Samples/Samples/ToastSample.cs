@@ -29,7 +29,7 @@ namespace Tizen.NUI.Samples
             
             root.Add(toast1_1);
             toast1_1.Text = "null parameter construction";
-            toast1_1.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
+            toast1_1.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
             toast1_1.UpSpace = 38;
             toast1_1.LeftSpace = 96;
 
@@ -55,7 +55,7 @@ namespace Tizen.NUI.Samples
                 {
                     ResourceURL=new StringSelector
                     {
-                        All = CommonReosurce.GetFHResourcePath() + "12. Toast Popup/toast_background.png",
+                        All = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png",
                     },
                     Border = new RectangleSelector()
                     {

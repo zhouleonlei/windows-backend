@@ -7,27 +7,100 @@ namespace Tizen.NUI.CommonUI
 {
     public class Pagination: Control
     {
-        protected int indicatorWidth = 0;
-        protected int indicatorHeight = 0;
-        protected int indicatorSpacing = 0;
-
         protected VisualView container;
         protected ImageVisual selectIndicator;
 
         private int indicatorCount = 0;
         private int selectedIndex = -1;
 
-        private string indicatorBackgroundURL = " ";
-
         private List<ImageVisual> indicatorList = new List<ImageVisual>();
 
         private PaginationAttributes paginationAttributes;
 
-        public Pagination() : this(null) { }
+        public Pagination() : base()
+        {
+            Initialize();
+        }
+
         public Pagination(string style) : base(style)
         {
             Initialize();
         }
+
+        public Pagination(PaginationAttributes attributes) : base()
+        {
+            this.attributes = attributes.Clone() as PaginationAttributes;
+            Initialize();
+        }
+
+        public Size2D IndicatorSize
+        {
+            get
+            {
+                return (Size2D)paginationAttributes?.IndicatorSize;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                paginationAttributes.IndicatorSize = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string IndicatorBackgroundURL
+        {
+            get
+            {
+                return (string)paginationAttributes?.IndicatorBackgroundURL;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                paginationAttributes.IndicatorBackgroundURL = value;
+                RelayoutRequest();
+            }
+        }
+
+        public string IndicatorSelectURL
+        {
+            get
+            {
+                return (string)paginationAttributes?.IndicatorSelectURL;
+            }
+            set
+            {
+                if (value == null || paginationAttributes == null)
+                {
+                    return;
+                }
+                paginationAttributes.IndicatorSelectURL = value;
+                RelayoutRequest();
+            }
+        }
+
+        public int IndicatorSpacing
+        {
+            get
+            {
+                return (int)paginationAttributes?.IndicatorSpacing;
+            }
+            set
+            {
+                if (paginationAttributes == null)
+                {
+                    return;
+                }
+                paginationAttributes.IndicatorSpacing = value;
+                RelayoutRequest();
+            }
+        }
+
 
         public int IndicatorCount
         {
@@ -99,7 +172,7 @@ namespace Tizen.NUI.CommonUI
 
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new PaginationAttributes();
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -130,23 +203,12 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            if (paginationAttributes.IndicatorSize != null)
-            {
-                indicatorWidth = paginationAttributes.IndicatorSize.Width;
-                indicatorHeight = paginationAttributes.IndicatorSize.Height;
-            }
-            if (paginationAttributes.IndicatorSpacing != null)
-            {
-                indicatorSpacing = paginationAttributes.IndicatorSpacing.Value;
-            }
-
-            indicatorBackgroundURL = paginationAttributes.IndicatorBackgroundURL;
             for (int i = 0; i < indicatorList.Count; i++)
             {
                 ImageVisual indicator = indicatorList[i];
                 indicator.URL = paginationAttributes.IndicatorBackgroundURL;
                 indicator.Size = paginationAttributes.IndicatorSize;
-                indicator.Position = new Position2D((int)(indicatorWidth + indicatorSpacing) * i, 0);
+                indicator.Position = new Position2D((int)(paginationAttributes.IndicatorSize.Width + paginationAttributes.IndicatorSpacing) * i, 0);
             }
 
             selectIndicator.URL = paginationAttributes.IndicatorSelectURL;
@@ -176,43 +238,41 @@ namespace Tizen.NUI.CommonUI
             paginationAttributes = attributes as PaginationAttributes;
             if (paginationAttributes == null)
             {
-                return;
-            }
-
-            if (paginationAttributes.IndicatorSize != null)
-            {
-                indicatorWidth = paginationAttributes.IndicatorSize.Width;
-                indicatorHeight = paginationAttributes.IndicatorSize.Height;
-            }
-            if (paginationAttributes.IndicatorSpacing != null)
-            {
-                indicatorSpacing = paginationAttributes.IndicatorSpacing.Value;
+                throw new Exception("Pagination attributes is null.");
             }
         }
 
         private void CreateIndicator()
         {
+            if (paginationAttributes == null)
+            {
+                return;
+            }
             ImageVisual indicator = new ImageVisual
             {
-                URL = indicatorBackgroundURL,
-                Size = new Size2D(indicatorWidth, indicatorHeight)
+                URL = paginationAttributes.IndicatorBackgroundURL,
+                Size = paginationAttributes.IndicatorSize
             };
-            indicator.Position = new Position2D((int)(indicatorWidth + indicatorSpacing) * indicatorList.Count, 0);
+            indicator.Position = new Position2D((int)(paginationAttributes.IndicatorSize.Width + paginationAttributes.IndicatorSpacing) * indicatorList.Count, 0);
             container.AddVisual("Indicator" + indicatorList.Count, indicator);
             indicatorList.Add(indicator);
         }
 
         private void UpdateContainer()
         {
+            if (paginationAttributes == null)
+            {
+                return;
+            }
             if (indicatorList.Count > 0)
             {
-                container.SizeWidth = (indicatorWidth + indicatorSpacing) * indicatorList.Count - indicatorSpacing;
+                container.SizeWidth = (paginationAttributes.IndicatorSize.Width + paginationAttributes.IndicatorSpacing) * indicatorList.Count - paginationAttributes.IndicatorSpacing;
             }
             else
             {
                 container.SizeWidth = 0;
             }
-            container.SizeHeight = indicatorHeight;
+            container.SizeHeight = paginationAttributes.IndicatorSize.Height;
             container.PositionX = (int)((this.SizeWidth - container.SizeWidth) / 2);
         }
     }

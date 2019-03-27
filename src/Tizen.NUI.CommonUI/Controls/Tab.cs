@@ -310,6 +310,7 @@ namespace Tizen.NUI.CommonUI
                     {
                         Remove(itemList[i]);
                         itemList[i].Dispose();
+                        itemList[i] = null;
                     }
                     itemList.Clear();
                     itemList = null;

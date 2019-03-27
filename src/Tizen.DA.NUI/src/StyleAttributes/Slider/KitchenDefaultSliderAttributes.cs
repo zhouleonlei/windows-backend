@@ -35,8 +35,8 @@ namespace Tizen.FH.NUI.Controls
                 {
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonResource.Instance.GetFHResourcePath() + "9. Controller/controller_btn_slide_handler_normal.png",
-                        Pressed = CommonResource.Instance.GetFHResourcePath() + "9. Controller/controller_btn_slide_handler_press.png",
+                        Normal = CommonResource.Instance.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_normal_9762d9.png",
+                        Pressed = CommonResource.Instance.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_press_9762d9.png",
                     }
                 },
 

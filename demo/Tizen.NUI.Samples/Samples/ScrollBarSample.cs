@@ -7,7 +7,7 @@ namespace Tizen.NUI.Samples
     public class ScrollbarSample : IExample
     {
         private TextLabel board1, board2, board;
-        private Button button1, button2, button3, button4;
+        private Button button1, button2, button3, button4, button5;
         private ScrollBar scrollBar1_1, scrollBar1_2, scrollBar2_1, scrollBar2_2;  //1-null para 2-attributes; X_1-color; X_2 image track
         private View root;
 
@@ -42,7 +42,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_2.ThumbSize = new Size2D(30, 4);
             scrollBar1_2.CurrentValue = 0;//set after thumbsize
             scrollBar1_2.ThumbColor = Color.Yellow;
-            scrollBar1_2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar1_2.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
 
             root.Add(scrollBar1_2);
 
@@ -141,6 +141,15 @@ namespace Tizen.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += Scroll1Minus;
 
+            button5 = new Button();
+            button5.BackgroundColor = Color.Green;
+            button5.Position2D = new Position2D(400, 800);
+            button5.Size2D = new Size2D(100, 50);
+            button5.Text = "+ / - 4";
+            root.Add(button5);
+            button5.Focusable = true;
+            button5.ClickEvent += Scroll1_2move;
+
             Button  button22 = new Button();
             button22.BackgroundColor = Color.Green;
             button22.Position2D = new Position2D(100, 800);
@@ -202,6 +211,18 @@ namespace Tizen.NUI.Samples
                 scrollBar1_2.LayoutDirection= ViewLayoutDirectionType.RTL;
             else
                 scrollBar1_2.LayoutDirection = ViewLayoutDirectionType.LTR;
+        }
+
+        private void Scroll1_2move(object sender, global::System.EventArgs e)
+        {
+            if (scrollBar1_2.CurrentValue < scrollBar1_2.MaxValue / 2)
+            {
+                scrollBar1_2.SetCurrentValue(scrollBar1_2.MaxValue - 2);
+            }
+            else
+            {
+                scrollBar1_2.SetCurrentValue(2);
+            }
         }
 
         private void ScrollPan(object sender, global::System.EventArgs e)

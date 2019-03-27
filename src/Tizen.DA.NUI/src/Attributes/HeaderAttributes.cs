@@ -19,7 +19,7 @@ namespace Tizen.FH.NUI.Controls
             return attrs.textAttrs;
         });
 
-        public static readonly BindableProperty lineAttributesProperty = BindableProperty.Create("ViewAttributes", typeof(ViewAttributes), typeof(HeaderAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty LineAttributesProperty = BindableProperty.Create("ViewAttributes", typeof(ViewAttributes), typeof(HeaderAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (HeaderAttributes)bindable;
             if (newValue != null)
@@ -59,11 +59,11 @@ namespace Tizen.FH.NUI.Controls
         {
             get
             {
-                return (ViewAttributes)GetValue(lineAttributesProperty);
+                return (ViewAttributes)GetValue(LineAttributesProperty);
             }
             set
             {
-                SetValue(lineAttributesProperty, value);
+                SetValue(LineAttributesProperty, value);
             }
         }
 

@@ -847,15 +847,15 @@ namespace Tizen.NUI.CommonUI
             //}
         }
 
-        //protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
-        //{
-        //    ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
-        //    if (tempAttributes != null)
-        //    {
-        //        attributes = progressBarAttrs = tempAttributes;
-        //        RelayoutRequest();
-        //    }
-        //}
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = progressBarAttrs = tempAttributes;
+                RelayoutRequest();
+            }
+        }
 
         private void UpdateAnimation()//Attributes attrs)
         {
@@ -1074,7 +1074,6 @@ namespace Tizen.NUI.CommonUI
             //PlayLoadingAnimation();
         }
 
-
         private void PlayLoadingAnimation()
         {
             if (loadingObj == null)// || aniForLoading == null || aniForOpacity == null)
@@ -1207,18 +1206,16 @@ namespace Tizen.NUI.CommonUI
                     dir = direction.Value;
                 }
             }
-            //TNLog.I("Direction = " + dir);
+
             if (dir == DirectionType.Horizontal)
             {
                 float progressWidth = width * progressRatio;
                 progressObj.Size2D = new Size2D((int)progressWidth, (int)height);
-                //TNLog.I("progressWidth = " + progressWidth);
             }
             else
             {
                 float progressHeight = height * progressRatio;
                 progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
-                //TNLog.I("progressHeight = " + progressHeight);
             }
 
             if (bufferObj != null && (BufValue != null || bufferValue != null))
@@ -1240,7 +1237,6 @@ namespace Tizen.NUI.CommonUI
                     //TNLog.E("Buffer value < Min value || Buffer value > Max value;");
                     return;
                 }
-                //TNLog.I("Buffer value = " + bufVal);
 
                 float bufferRatio = (float)bufVal / (float)(maxVal - minVal);
                 if (dir == DirectionType.Horizontal)

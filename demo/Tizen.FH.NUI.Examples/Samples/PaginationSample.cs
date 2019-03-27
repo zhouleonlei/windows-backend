@@ -7,6 +7,7 @@ namespace Tizen.FH.NUI.Samples
     {
         private Pagination DAPagination1;
         private Pagination DAPagination2;
+        private Pagination DAPagination3;
 
         private readonly int PAGE_COUNT = 14;
 
@@ -14,6 +15,7 @@ namespace Tizen.FH.NUI.Samples
         {
             Window window = Window.Instance;
 
+            ///////////////////////////////////////////////Create by Style//////////////////////////////////////////////////////////
             DAPagination1 = new Pagination("BasicPagination");
             DAPagination1.Name = "DAAppPagination1";
             DAPagination1.Position2D = new Position2D(500, 450);
@@ -34,6 +36,31 @@ namespace Tizen.FH.NUI.Samples
             DAPagination2.Focusable = true;
             window.Add(DAPagination2);
 
+            ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
+            DAPagination3 = new Pagination();
+            DAPagination3.Name = "DAAppPagination3";
+            DAPagination3.Position2D = new Position2D(500, 550);
+            DAPagination3.Size2D = new Size2D(400, 30);
+            DAPagination3.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
+            DAPagination3.IndicatorSize = new Size2D(26, 26);
+            DAPagination3.IndicatorBackgroundURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_nor.png";
+            DAPagination3.IndicatorSelectURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_sel.png";
+            DAPagination3.IndicatorSpacing = 8;
+            DAPagination3.ReturnArrowURLs = new Tizen.NUI.CommonUI.StringSelector
+            {
+                All = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_return.png"
+            };
+            DAPagination3.ReturnArrowSize = new Size2D(26, 26);
+            DAPagination3.NextArrowURLs = new Tizen.NUI.CommonUI.StringSelector
+            {
+                All = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_next.png"
+            };
+            DAPagination3.NextArrowSize = new Size2D(26, 26);
+            DAPagination3.IndicatorCount = PAGE_COUNT;
+            DAPagination3.SelectedIndex = 0;
+            DAPagination3.Focusable = true;
+            window.Add(DAPagination3);
+
             window.KeyEvent += Window_KeyEvent;
 
         }
@@ -52,6 +79,10 @@ namespace Tizen.FH.NUI.Samples
                     {
                         DAPagination2.SelectedIndex = DAPagination2.SelectedIndex - 1;
                     }
+                    if (DAPagination3.SelectedIndex > 0)
+                    {
+                        DAPagination3.SelectedIndex = DAPagination3.SelectedIndex - 1;
+                    }
                 }
                 else if (e.Key.KeyPressedName == "Right")
                 {
@@ -63,6 +94,10 @@ namespace Tizen.FH.NUI.Samples
                     {
                         DAPagination2.SelectedIndex = DAPagination2.SelectedIndex + 1;
                     }
+                    if (DAPagination3.SelectedIndex < DAPagination3.IndicatorCount - 1)
+                    {
+                        DAPagination3.SelectedIndex = DAPagination3.SelectedIndex + 1;
+                    }
                 }
             }
         }
@@ -72,9 +107,11 @@ namespace Tizen.FH.NUI.Samples
             Window window = Window.Instance;
             window.Remove(DAPagination1);
             window.Remove(DAPagination2);
+            window.Remove(DAPagination3);
 
             DAPagination1.Dispose();
             DAPagination2.Dispose();
+            DAPagination3.Dispose();
         }
     }
 }

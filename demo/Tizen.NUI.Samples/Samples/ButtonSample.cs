@@ -37,7 +37,7 @@ namespace Tizen.NUI.Samples
             window.KeyEvent += Window_KeyEvent;
 
             textButton = new Button();
-            textButton.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            textButton.BackgroundImageURL = CommonResource.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             textButton.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             textButton.Size2D = new Size2D(300, 80);
             textButton.Position2D = new Position2D(100, 100);
@@ -45,18 +45,18 @@ namespace Tizen.NUI.Samples
             root.Add(textButton);
 
             iconButton = new Button();
-            iconButton.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            iconButton.BackgroundImageURL = CommonResource.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             iconButton.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             iconButton.Size2D = new Size2D(100, 100);
             iconButton.Position2D = new Position2D(600, 100);
-            iconButton.IconURL = CommonReosurce.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
+            iconButton.IconURL = CommonResource.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
             root.Add(iconButton);
 
             iconTextButton = new Button();
-            iconTextButton.BackgroundImageURL = CommonReosurce.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
+            iconTextButton.BackgroundImageURL = CommonResource.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
             iconTextButton.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             iconTextButton.IconRelativeOrientation = Button.IconOrientation.Left;
-            iconTextButton.IconURL = CommonReosurce.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
+            iconTextButton.IconURL = CommonResource.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
             iconTextButton.IconPaddingTop = 20;
             iconTextButton.IconPaddingBottom = 20;
             iconTextButton.IconPaddingLeft = 20;
@@ -74,13 +74,13 @@ namespace Tizen.NUI.Samples
             ///////////////////////////////////////////////Create by Property//////////////////////////////////////////////////////////
             utilityBasicButton = new Button();
             utilityBasicButton.IsSelectable = true;
-            utilityBasicButton.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png";
+            utilityBasicButton.BackgroundImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png";
             utilityBasicButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityBasicButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityBasicButton.ShadowImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityBasicButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
             utilityBasicButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
                 Other = ""
             };
             utilityBasicButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
@@ -103,13 +103,13 @@ namespace Tizen.NUI.Samples
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             utilityServiceButton = new Button();
-            utilityServiceButton.BackgroundImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png";
+            utilityServiceButton.BackgroundImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png";
             utilityServiceButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityServiceButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityServiceButton.ShadowImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityServiceButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
             utilityServiceButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
                 Other = ""
             };
             utilityServiceButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
@@ -130,16 +130,16 @@ namespace Tizen.NUI.Samples
             utilityToggleButton.IsSelectable = true;
             utilityToggleButton.BackgroundImageURLSelector = new StringSelector
             {
-                Normal = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_toggle_btn_normal.png",
-                Selected = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png",
+                Normal = CommonResource.GetFHResourcePath() + "3. Button/rectangle_toggle_btn_normal.png",
+                Selected = CommonResource.GetFHResourcePath() + "3. Button/rectangle_point_btn_normal.png",
             };
                 
             utilityToggleButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityToggleButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
+            utilityToggleButton.ShadowImageURL = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png";
             utilityToggleButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
             utilityToggleButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
+                Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png",
                 Other = ""
             };
             utilityToggleButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
@@ -165,15 +165,15 @@ namespace Tizen.NUI.Samples
             utilityOvalButton.IsSelectable = true;
             utilityOvalButton.BackgroundImageURLSelector = new StringSelector
             {
-                Normal = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
-                Selected = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_select.png",
+                Normal = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
+                Selected = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_select.png",
             };
             utilityOvalButton.BackgroundImageBorder = new Rectangle(5, 5, 5, 5);
-            utilityOvalButton.ShadowImageURL = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png";
+            utilityOvalButton.ShadowImageURL = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png";
             utilityOvalButton.ShadowImageBorder = new Rectangle(5, 5, 5, 5);
             utilityOvalButton.OverlayImageURLSelector = new StringSelector
             {
-                Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png",
+                Pressed = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png",
                 Other = ""
             };
             utilityOvalButton.OverlayImageBorder = new Rectangle(5, 5, 5, 5);
@@ -189,19 +189,19 @@ namespace Tizen.NUI.Samples
                 IsSelectable = true,
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_normal.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
+                    ResourceURL = new StringSelector { Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                 },
 
@@ -235,19 +235,19 @@ namespace Tizen.NUI.Samples
                 IsSelectable = false,
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
+                    ResourceURL = new StringSelector { Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                 },
 
@@ -281,8 +281,8 @@ namespace Tizen.NUI.Samples
                 {
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_toggle_btn_normal_24c447.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png",
+                        Normal = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_toggle_btn_normal_24c447.png",
+                        Selected = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png",
 
                     },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
@@ -290,13 +290,13 @@ namespace Tizen.NUI.Samples
 
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
+                    ResourceURL = new StringSelector { Pressed = CommonResource.GetFHResourcePath() + "3. Button/rectangle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                 },
 
@@ -333,8 +333,8 @@ namespace Tizen.NUI.Samples
                 {
                     ResourceURL = new StringSelector
                     {
-                        Normal = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
-                        Selected = CommonReosurce.GetFHResourcePath() + "3. Button/[Button] App Primary Color/oval_toggle_btn_select_24c447.png",
+                        Normal = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_normal.png",
+                        Selected = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/oval_toggle_btn_select_24c447.png",
 
                     },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
@@ -342,13 +342,13 @@ namespace Tizen.NUI.Samples
 
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png" },
+                    ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_shadow.png" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) }
                 },
 
                 OverlayImageAttributes = new ImageAttributes
                 {
-                    ResourceURL = new StringSelector { Pressed = CommonReosurce.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png", Other = "" },
+                    ResourceURL = new StringSelector { Pressed = CommonResource.GetFHResourcePath() + "3. Button/oval_toggle_btn_press_overlay.png", Other = "" },
                     Border = new RectangleSelector { All = new Rectangle(5, 5, 5, 5) },
                 },
             };

@@ -8,9 +8,9 @@ namespace Tizen.FH.NUI.Controls
 {
     public class Header : Control
     {
-        private HeaderAttributes HeaderAttribute;
-        private TextLabel HeaderTitle;
-        private View HeaderLine;
+        private HeaderAttributes headerAttribute;
+        private TextLabel headerTitle;
+        private View headerLine;
 
         public Header() : base()
         {
@@ -23,25 +23,25 @@ namespace Tizen.FH.NUI.Controls
 
         public Header(HeaderAttributes attributes) : base()
         {
-            this.attributes = HeaderAttribute = attributes.Clone() as HeaderAttributes;
+            this.attributes = headerAttribute = attributes.Clone() as HeaderAttributes;
         }
 
         public string HeaderText
         {
             get
             {
-                return HeaderAttribute?.TextAttributes?.Text?.All;
+                return headerAttribute?.TextAttributes?.Text?.All;
             }
             set
             {
                 if (value != null)
                 {
                     CreateTextAttributes();
-                    if (HeaderAttribute.TextAttributes.Text == null)
+                    if (headerAttribute.TextAttributes.Text == null)
                     {
-                        HeaderAttribute.TextAttributes.Text = new StringSelector();
+                        headerAttribute.TextAttributes.Text = new StringSelector();
                     }
-                    HeaderAttribute.TextAttributes.Text.All = value;
+                    headerAttribute.TextAttributes.Text.All = value;
 
                     RelayoutRequest();
                 }
@@ -52,18 +52,18 @@ namespace Tizen.FH.NUI.Controls
         {
             get
             {
-                return HeaderAttribute?.TextAttributes?.TextColor?.All;
+                return headerAttribute?.TextAttributes?.TextColor?.All;
             }
             set
             {
                 if (value != null)
                 {
                     CreateTextAttributes();
-                    if (HeaderAttribute.TextAttributes.TextColor == null)
+                    if (headerAttribute.TextAttributes.TextColor == null)
                     {
-                        HeaderAttribute.TextAttributes.TextColor = new ColorSelector();
+                        headerAttribute.TextAttributes.TextColor = new ColorSelector();
                     }
-                    HeaderAttribute.TextAttributes.TextColor.All = value;
+                    headerAttribute.TextAttributes.TextColor.All = value;
                     RelayoutRequest();
                 }
             }
@@ -73,16 +73,16 @@ namespace Tizen.FH.NUI.Controls
         {
             get
             {
-                return HeaderAttribute?.LineAttributes?.BackgroundColor?.All;
+                return headerAttribute?.LineAttributes?.BackgroundColor?.All;
             }
             set
             {
                 CreateLineAttributes();
-                if (HeaderAttribute.LineAttributes.BackgroundColor == null)
+                if (headerAttribute.LineAttributes.BackgroundColor == null)
                 {
-                    HeaderAttribute.LineAttributes.BackgroundColor = new ColorSelector();
+                    headerAttribute.LineAttributes.BackgroundColor = new ColorSelector();
                 }
-                HeaderAttribute.LineAttributes.BackgroundColor.All = value;
+                headerAttribute.LineAttributes.BackgroundColor.All = value;
                 RelayoutRequest();
             }
         }
@@ -100,23 +100,23 @@ namespace Tizen.FH.NUI.Controls
             }
             if (type == DisposeTypes.Explicit)
             {
-                if (HeaderAttribute.TextAttributes != null)
+                if (headerAttribute.TextAttributes != null)
                 {
-                    if (HeaderTitle== null)
+                    if (headerTitle== null)
                     {
-                        HeaderTitle= new TextLabel();
-                        this.Add(HeaderTitle);
+                        headerTitle= new TextLabel();
+                        this.Add(headerTitle);
                     }
-                    ApplyAttributes(HeaderTitle, HeaderAttribute.TextAttributes);
+                    ApplyAttributes(headerTitle, headerAttribute.TextAttributes);
                 }
-                if (HeaderAttribute.LineAttributes != null)
+                if (headerAttribute.LineAttributes != null)
                 {
-                    if (HeaderLine== null)
+                    if (headerLine== null)
                     {
-                        HeaderLine = new View();
-                        this.Add(HeaderLine);
+                        headerLine = new View();
+                        this.Add(headerLine);
                     }
-                    ApplyAttributes(HeaderLine, HeaderAttribute.LineAttributes);
+                    ApplyAttributes(headerLine, headerAttribute.LineAttributes);
                 }
             }
             base.Dispose(type);
@@ -124,31 +124,31 @@ namespace Tizen.FH.NUI.Controls
 
         protected override void OnUpdate(Attributes attributtes)
         {
-            HeaderAttribute = attributes as HeaderAttributes;
-            if (HeaderAttribute == null)
+            headerAttribute = attributes as HeaderAttributes;
+            if (headerAttribute == null)
             {
                 return;
             }
-            if (HeaderAttribute.TextAttributes != null)
+            if (headerAttribute.TextAttributes != null)
             {
-                if (HeaderTitle== null)
+                if (headerTitle== null)
                 {
-                    HeaderTitle= new TextLabel
+                    headerTitle= new TextLabel
                     {
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         HeightResizePolicy = ResizePolicyType.FillToParent,
                         HorizontalAlignment =   HorizontalAlignment.Center,
                         VerticalAlignment =  VerticalAlignment.Center,
                     };
-                    this.Add(HeaderTitle);
+                    this.Add(headerTitle);
                 }
-                ApplyAttributes(HeaderTitle, HeaderAttribute.TextAttributes);
+                ApplyAttributes(headerTitle, headerAttribute.TextAttributes);
             }
-            if (HeaderAttribute.LineAttributes != null)
+            if (headerAttribute.LineAttributes != null)
             {
-                if (HeaderLine == null)
+                if (headerLine == null)
                 {
-                    HeaderLine = new View
+                    headerLine = new View
                     {
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         Size2D = new Size2D(1080, 1),
@@ -156,37 +156,37 @@ namespace Tizen.FH.NUI.Controls
                         ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                         PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                     };
-                    this.Add(HeaderLine);
+                    this.Add(headerLine);
                 }
-                ApplyAttributes(HeaderLine, HeaderAttribute.LineAttributes);
+                ApplyAttributes(headerLine, headerAttribute.LineAttributes);
             }
         }
 
         private void CreateTextAttributes()
         {
-            if (HeaderAttribute.TextAttributes == null)
+            if (headerAttribute.TextAttributes == null)
             {
-                HeaderAttribute.TextAttributes = new TextAttributes();
+                headerAttribute.TextAttributes = new TextAttributes();
             }
         }
 
         private void CreateLineAttributes()
         {
 
-            if (HeaderAttribute.LineAttributes == null)
+            if (headerAttribute.LineAttributes == null)
             {
-                HeaderAttribute.LineAttributes = new ViewAttributes();
+                headerAttribute.LineAttributes = new ViewAttributes();
             }
         }
 
         private void Initialize()
         {
-            HeaderAttribute = attributes as HeaderAttributes;
-            if (HeaderAttribute == null)
+            headerAttribute = attributes as HeaderAttributes;
+            if (headerAttribute == null)
             {
                 throw new Exception("Header attribute parse error.");
             }
-            ApplyAttributes(this, HeaderAttribute);
+            ApplyAttributes(this, headerAttribute);
         }
      
     }

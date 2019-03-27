@@ -192,7 +192,7 @@ namespace Tizen.NUI.Samples
             scrollBar1.TrackColor = Color.Green;
             scrollBar1.ThumbSize = new Size2D(4, 30);
             scrollBar1.ThumbColor = Color.Yellow;
-            scrollBar1.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar1.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             flexibleView1.AttachScrollBar(scrollBar1);
 
 
@@ -224,7 +224,7 @@ namespace Tizen.NUI.Samples
             scrollBar2.TrackColor = Color.Green;
             scrollBar2.ThumbSize = new Size2D(30, 4);
             scrollBar2.ThumbColor = Color.Yellow;
-            scrollBar2.TrackImageURL = CommonReosurce.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
+            scrollBar2.TrackImageURL = CommonResource.GetTVResourcePath() + "component/c_progressbar/c_progressbar_white_buffering.png";
             flexibleView2.AttachScrollBar(scrollBar2);
 
 

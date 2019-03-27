@@ -7,12 +7,6 @@ namespace Tizen.NUI.CommonUI
     public class DropDown : Control
     {
         #region DropDown
-        public enum ListOrientation
-        {
-            Left,
-            Right,
-        }
-
         private Button button = null;
         private TextLabel headerText = null;
         private TextLabel buttonText = null;
@@ -68,6 +62,12 @@ namespace Tizen.NUI.CommonUI
             {
                 clickEventHandlers -= value;
             }
+        }
+
+        public enum ListOrientation
+        {
+            Left,
+            Right,
         }
 
         public string HeaderText
@@ -475,6 +475,40 @@ namespace Tizen.NUI.CommonUI
         public void AddItem(DropDownItemData item)
         {
             adapter.InsertData(-1, item);
+        }
+
+        public void DeleteItem(int index)
+        {
+            if(index < 0 || index >= adapter.GetItemCount())
+            {
+                return;
+            }
+
+            if (selectedItemIndex == index)
+            {
+                selectedItemIndex = -1;
+            }
+            else if(selectedItemIndex > index)
+            {
+                selectedItemIndex--;
+            }
+
+            adapter.RemoveData(index);
+        }
+
+        public void InsertItem(DropDownItemData item, int index)
+        {
+            if (index < 0 || index >= adapter.GetItemCount())
+            {
+                return;
+            }
+
+            if (selectedItemIndex >= index)
+            {
+                selectedItemIndex++;
+            }
+
+            adapter.InsertData(index, item);
         }
 
         public void AttachScrollBar(ScrollBar scrollBar)

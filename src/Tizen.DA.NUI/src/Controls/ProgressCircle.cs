@@ -9,7 +9,6 @@ namespace Tizen.FH.NUI.Controls
 {
     public class ProgressCircle : Tizen.NUI.CommonUI.Progress
     {
-        // private VDProgressCircleAttributes progressBarAttrs = null;
         private TextLabel textLabel;
         private bool isTextEnabled;
         public List<string> ImageList = null;

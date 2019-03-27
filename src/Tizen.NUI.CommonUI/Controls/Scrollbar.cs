@@ -5,58 +5,16 @@ namespace Tizen.NUI.CommonUI
 {
     public class ScrollBar : Control
     {
-        protected override Attributes GetAttributes()
-        {
-            return new ScrollBarAttributes()
-            {
-                ThumbImageAttributes = new ImageAttributes
-                {
+        private ScrollBarAttributes scrollBarAttrs;
 
-                },
-                TrackImageAttributes = new ImageAttributes
-                {
+        private ImageView trackObj;// = null;
+        private ImageView thumbObj;// = null;
 
-                }
-
-            };
-        }
-
-        public enum DirectionType
-        {
-            Horizontal,
-            Vertical
-        }
-
-        /// <summary>
-        /// The PanGesture event args.
-        /// </summary>
-        /// <code>
-        /// scrollBar.PanGestureEvent += OnPanGestureEvent;
-        /// private void OnPanGestureEvent(object sender, ScrollBar.PanGestureEventArgs args)
-        /// {
-        ///      Log.Info("TV.NUI.Example", "args.currentValue = " + args.currentValue);
-        /// }
-        /// </code>
-        /// <version> 5.5.0 </version>
-        public class PanGestureEventArgs : EventArgs
-        {
-            public int currentValue;
-        }
-
-        /// <summary>
-        /// The PanGesture event handler.
-        /// </summary>
-        public event EventHandler<PanGestureEventArgs> PanGestureEvent
-        {
-            add
-            {
-                panGestureEventHandler += value;
-            }
-            remove
-            {
-                panGestureEventHandler -= value;
-            }
-        }
+        private PanGestureDetector panGestureDetector;
+        private EventHandler<PanGestureEventArgs> panGestureEventHandler;
+        private Animation scrollAniPlayer = null;
+        private float thumbObjPosX;  //move to attribute?
+        private float thumbObjPosY;
 
         public ScrollBar() : base()
         {
@@ -105,7 +63,28 @@ namespace Tizen.NUI.CommonUI
         //    Initialize();
         //}
 
-        #region public property
+        /// <summary>
+        /// The PanGesture event handler.
+        /// </summary>
+        public event EventHandler<PanGestureEventArgs> PanGestureEvent
+        {
+            add
+            {
+                panGestureEventHandler += value;
+            }
+            remove
+            {
+                panGestureEventHandler -= value;
+            }
+        }
+
+        public enum DirectionType
+        {
+            Horizontal,
+            Vertical
+        }
+
+        #region public property 
 
         /// <summary>
         /// The property to get/set the direction of the ScrollBar.
@@ -376,13 +355,13 @@ namespace Tizen.NUI.CommonUI
                     thumbObj = null;
                 }
 
-                ///if (scrollAniPlayer != null)
-                ///{
-                ///    scrollAniPlayer.Stop();
-                ///    scrollAniPlayer.Clear();
-                ///    scrollAniPlayer.Dispose();
-                ///    scrollAniPlayer = null;
-                ///}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Stop();
+                    scrollAniPlayer.Clear();
+                    scrollAniPlayer.Dispose();
+                    scrollAniPlayer = null;
+                }
                 /// UIDirectionChangedEvent -= OnUIDirectionChangedEvent;
             }
 
@@ -410,6 +389,22 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
             UpdateValue();
+        }
+
+        protected override Attributes GetAttributes()
+        {
+            return new ScrollBarAttributes()
+            {
+                ThumbImageAttributes = new ImageAttributes
+                {
+
+                },
+                TrackImageAttributes = new ImageAttributes
+                {
+
+                }
+
+            };
         }
 
         private void Initialize()
@@ -440,83 +435,17 @@ namespace Tizen.NUI.CommonUI
             Add(trackObj);
             Add(thumbObj);
 
-            //scrollAniPlayer = new AnimationPlayer();
-
-            //uiDirection = SystemProperty.Instance.UIDirection;
+            scrollAniPlayer = new Animation(334);
+            scrollAniPlayer.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
 
             InitializePanGestureDetector();
-            LayoutDirectionChanged += OnLayoutDirectionChanged;            //UIDirectionChangedEvent += OnUIDirectionChangedEvent;
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
         }
 
         private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
         {
             RelayoutRequest();
         }
-
-        //private void ApplyAttributes()
-        //{
-        //    //TNLog.D("ApplyAttributes();");
-        //    if (scrollBarAttrs.TrackImageURL != null)
-        //    {
-        //        trackObj.SetImage(scrollBarAttrs.TrackImageURL);
-        //    }
-
-        //    if (trackColor != null)
-        //    {
-        //        float r = trackColor.R;
-        //        float g = trackColor.G;
-        //        float b = trackColor.B;
-        //        float a = trackColor.A;
-        //        trackObj.BackgroundColor = new Color(r, g, b, a);
-        //    }
-        //    else
-        //    {
-        //        if (scrollBarAttrs.TrackColor != null)
-        //        {
-        //            float r = scrollBarAttrs.TrackColor.R;
-        //            float g = scrollBarAttrs.TrackColor.G;
-        //            float b = scrollBarAttrs.TrackColor.B;
-        //            float a = scrollBarAttrs.TrackColor.A;
-        //            trackObj.BackgroundColor = new Color(r, g, b, a);
-        //        }
-        //    }
-
-        //    if (scrollBarAttrs.ThumbImageURL != null)
-        //    {
-        //        thumbObj.SetImage(scrollBarAttrs.ThumbImageURL);
-        //    }
-        //    if (thumbColor != null)
-        //    {
-        //        float r = thumbColor.R;
-        //        float g = thumbColor.G;
-        //        float b = thumbColor.B;
-        //        float a = thumbColor.A;
-        //        thumbObj.BackgroundColor = new Color(r, g, b, a);
-        //    }
-        //    else
-        //    {
-        //        if (scrollBarAttrs.ThumbColor != null)
-        //        {
-        //            float r = scrollBarAttrs.ThumbColor.R;
-        //            float g = scrollBarAttrs.ThumbColor.G;
-        //            float b = scrollBarAttrs.ThumbColor.B;
-        //            float a = scrollBarAttrs.ThumbColor.A;
-        //            thumbObj.BackgroundColor = new Color(r, g, b, a);
-        //        }
-        //    }
-
-        //    if (scrollBarAttrs.ThumbSize != null)
-        //    {
-        //        float w = scrollBarAttrs.ThumbSize.Width;
-        //        float h = scrollBarAttrs.ThumbSize.Height;
-        //        thumbObj.Size2D = new Size2D((int)w, (int)h);
-        //    }
-        //    if (scrollBarAttrs.Duration != null)
-        //    {
-        //        scrollAniPlayer.Duration = (int)scrollBarAttrs.Duration.Value;
-        //    }
-        //    ApplyPanGestureDetectorDirection();
-        //}
 
         private void UpdateValue(bool enableAni = false)
         {
@@ -554,11 +483,11 @@ namespace Tizen.NUI.CommonUI
                 float posY = (height - thumbH) / 2.0f;
 
                 thumbObjPosX = posX;
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Stop();
-                //    scrollAniPlayer.Clear();
-                //}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Stop();
+                    scrollAniPlayer.Clear();
+                }
 
                 if (!enableAni)
                 {
@@ -566,11 +495,11 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    //if (scrollAniPlayer != null)
-                    //{
-                    //    scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX, AnimationCurve.Basic);
-                    //    scrollAniPlayer.Play();
-                    //}
+                    if (scrollAniPlayer != null)
+                    {
+                        scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX);
+                        scrollAniPlayer.Play();
+                    }
                 }
             }
             else
@@ -579,11 +508,11 @@ namespace Tizen.NUI.CommonUI
                 float posY = ratio * (height - thumbH);
 
                 thumbObjPosY = posY;
-                //if (scrollAniPlayer != null)
-                //{
-                //    scrollAniPlayer.Stop();
-                //    scrollAniPlayer.Clear();
-                //}
+                if (scrollAniPlayer != null)
+                {
+                    scrollAniPlayer.Stop();
+                    scrollAniPlayer.Clear();
+                }
 
                 if (!enableAni)
                 {
@@ -591,33 +520,14 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    //if (scrollAniPlayer != null)
-                    //{
-                    //    scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY, AnimationCurve.Basic);
-                    //    scrollAniPlayer.Play();
-                    //}
+                    if (scrollAniPlayer != null)
+                    {
+                        scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY);
+                        scrollAniPlayer.Play();
+                    }
                 }
             }
         }
-
-        private void RelayoutComponents()
-        {
-            if (scrollBarAttrs.Direction == DirectionType.Horizontal)
-            {
-                UpdateValue();
-            }
-        }
-
-        //private void OnUIDirectionChangedEvent(object sender, DirectionChangedEventArgs e)
-        //{
-        //    if (uiDirection == e.ParentUIDirection)
-        //    {
-        //        return;
-        //    }
-        //    uiDirection = e.ParentUIDirection;
-        //    //TNLog.I("UIDirection callback, uiDirection = " + uiDirection);
-        //    RelayoutComponents();
-        //}
 
         private void InitializePanGestureDetector()
         {
@@ -748,7 +658,7 @@ namespace Tizen.NUI.CommonUI
                 ChangeValueByTouch(pos);
             }
             return false;
-        }
+        }  
 
         private void ChangeValueByTouch(Vector2 pos)
         {
@@ -791,24 +701,9 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        private ScrollBarAttributes scrollBarAttrs;
-
-        private ImageView trackObj;// = null;
-        private ImageView thumbObj;// = null;
-
-        //private AnimationPlayer scrollAniPlayer;
-        //private UIDirection uiDirection = UIDirection.LTR;
-
-
-        //private uint? curValue = null;
-        //private uint? minValue = null;
-        //private uint? maxValue = null;
-
-        private PanGestureDetector panGestureDetector;
-        private EventHandler<PanGestureEventArgs> panGestureEventHandler;
-
-
-        private float thumbObjPosX;  //move to attribute?
-        private float thumbObjPosY;
+        public class PanGestureEventArgs : EventArgs
+        {
+            public int currentValue;
+        }
     }
 }

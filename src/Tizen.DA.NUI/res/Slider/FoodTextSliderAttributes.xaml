@@ -4,8 +4,8 @@
     <AttributesContainer.XamlResources>
 
         <StringSelector x:Key="DAFoodTextSliderThumbImageResource"
-                        Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_normal.png"
-                        Pressed ="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_press.png"
+                        Normal="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_normal_ec7510.png"
+                        Pressed ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_press_ec7510.png"
                         />
         <StringSelector x:Key="DAFoodTextSliderThumbBgImageResource" 
                        Normal=""

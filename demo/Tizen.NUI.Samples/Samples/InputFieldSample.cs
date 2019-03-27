@@ -53,7 +53,7 @@ namespace Tizen.NUI.Samples
             inputFieldAttrs.Space = 24;
             inputFieldAttrs.BackgroundImageAttributes = new ImageAttributes
             {
-                ResourceURL = new StringSelector { All = CommonReosurce.GetFHResourcePath() + "1. Action bar/search_bg.png" },
+                ResourceURL = new StringSelector { All = CommonResource.GetFHResourcePath() + "1. Action bar/search_bg.png" },
                 Border = new RectangleSelector { All = new Rectangle(45, 45, 0, 0) }
             };
 

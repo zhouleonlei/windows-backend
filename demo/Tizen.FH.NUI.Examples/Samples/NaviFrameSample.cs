@@ -15,7 +15,7 @@ namespace Tizen.FH.NUI.Samples
         private NaviFrame  navi;
         private Header h;
         private TextLabel c;
-        int i;
+        private int i;
         public void Activate()
         {
             i = 1;
@@ -57,7 +57,31 @@ namespace Tizen.FH.NUI.Samples
             root.Add(NextButton);
             NextButton.RaiseToTop();
         }
+        public void Deactivate()
+        {
+            if (root != null)
+            {
 
+                if (navi != null)
+                {
+                    root.Remove(navi);
+                    navi.Dispose();
+                }
+                if (BackButton != null)
+                {
+                    root.Remove(BackButton);
+                    BackButton.Dispose();
+                }
+                if (NextButton != null)
+                {
+                    root.Remove(NextButton);
+                    NextButton.Dispose();
+                }
+
+                Window.Instance.Remove(root);
+                root.Dispose();
+            }
+        }
         private Header MakeHeader(string txt)
         {
             Header head = new Header("DefaultHeader");
@@ -97,32 +121,6 @@ namespace Tizen.FH.NUI.Samples
             if (navi != null)
             {
                 navi.NaviFrameItemPop();
-            }
-        }
-
-        public void Deactivate()
-        {
-            if (root != null)
-            {
-               
-                if (navi != null)
-                {
-                    root.Remove(navi);
-                    navi.Dispose();
-                }
-                if (BackButton != null)
-                {
-                    root.Remove(BackButton);
-                    BackButton.Dispose();
-                }
-                if (NextButton != null)
-                {
-                    root.Remove(NextButton);
-                    NextButton.Dispose();
-                }
-               
-                Window.Instance.Remove(root);
-                root.Dispose();
             }
         }
     }
