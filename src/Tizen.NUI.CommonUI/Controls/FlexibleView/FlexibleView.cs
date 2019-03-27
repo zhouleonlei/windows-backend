@@ -265,15 +265,22 @@ namespace Tizen.NUI.CommonUI
             mScrollBar = null;
         }
 
-        private void ShowScrollBar(uint millisecond = 700)
+        private void ShowScrollBar(uint millisecond = 700, bool flagAni = false)
         {
             if (mScrollBar == null || mLayout == null)
             {
                 return;
             }
+
             mScrollBar.MinValue = 0;
-            mScrollBar.MaxValue = (uint)(mLayout.ComputeScrollRange(mState) - mLayout.ComputeScrollExtent(mState));
-            mScrollBar.CurrentValue = (uint)mLayout.ComputeScrollOffset(mState);
+            uint max = (uint)(mLayout.ComputeScrollRange(mState) - mLayout.ComputeScrollExtent(mState));
+            mScrollBar.MaxValue = max;
+            uint offset = (uint)mLayout.ComputeScrollOffset(mState);
+            if (offset > max)
+            {
+                offset = max;
+            }
+            mScrollBar.SetCurrentValue(offset, flagAni);
             mScrollBar.Show();
             //Console.WriteLine("Show scrollbar! ");
             if (mScrollBarShowTimer == null)
@@ -499,11 +506,11 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy((int)e.PanGesture.Displacement.Y, mRecycler, mState, true);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Displacement.Y, mRecycler, mState, true);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy((int)e.PanGesture.Displacement.X, mRecycler, mState, true);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Displacement.X, mRecycler, mState, true);
                 }
 
                 ShowScrollBar();
@@ -512,12 +519,13 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy((int)(e.PanGesture.Velocity.Y * 300), mRecycler, mState, false);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 300, mRecycler, mState, false);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy((int)(e.PanGesture.Velocity.X * 300), mRecycler, mState, false);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 300, mRecycler, mState, false);
                 }
+                ShowScrollBar(1200, true);
             }
         }
 
@@ -2001,6 +2009,10 @@ namespace Tizen.NUI.CommonUI
             {
                 for (int i = 0; i < mMaxTypeCount; i++)
                 {
+                    if (mScrap[i] == null)
+                    {
+                        continue;
+                    }
                     for (int j = 0; j < mScrap[i].Count; j++)
                     {
                         mScrap[i][j].ItemView.Dispose();

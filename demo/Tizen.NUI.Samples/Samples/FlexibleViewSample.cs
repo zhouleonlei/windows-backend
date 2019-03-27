@@ -133,12 +133,12 @@ namespace Tizen.NUI.Samples
 
         public override void OnViewAttachedToWindow(FlexibleView.ViewHolder holder)
         {
-            Console.WriteLine($"+Attached: {holder.AdapterPosition}");
+            //Console.WriteLine($"+Attached: {holder.AdapterPosition}");
         }
 
         public override void OnViewDetachedFromWindow(FlexibleView.ViewHolder holder)
         {
-            Console.WriteLine($" --Detached: {holder.AdapterPosition}");
+            //Console.WriteLine($" --Detached: {holder.AdapterPosition}");
         }
 
     }
