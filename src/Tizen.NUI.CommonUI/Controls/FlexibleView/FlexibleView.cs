@@ -272,21 +272,46 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            mScrollBar.MinValue = 0;
-            uint max = (uint)(mLayout.ComputeScrollRange(mState) - mLayout.ComputeScrollExtent(mState));
-            mScrollBar.MaxValue = max;
-            uint offset = (uint)mLayout.ComputeScrollOffset(mState);
-            if (offset > max)
+            float extent = mLayout.ComputeScrollExtent(mState);
+            float range = mLayout.ComputeScrollRange(mState);
+            float offset = mLayout.ComputeScrollOffset(mState);
+
+            float size = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeHeight : mScrollBar.SizeWidth;
+            float thickness = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeWidth : mScrollBar.SizeHeight;
+            float length = (float)Math.Round(size * extent / range);
+
+            // avoid the tiny thumb
+            float minLength = thickness * 2;
+            if (length < minLength)
             {
-                offset = max;
+                length = minLength;
             }
-            mScrollBar.SetCurrentValue(offset, flagAni);
+            // avoid the too-big thumb
+            if (offset > range - extent)
+            {
+                offset = range - extent;
+            }
+            if (mScrollBar.Direction == ScrollBar.DirectionType.Vertical)
+            {
+                mScrollBar.ThumbSize = new Size2D((int)thickness, (int)length);
+            }
+            else
+            {
+                mScrollBar.ThumbSize = new Size2D((int)length, (int)thickness);
+            }
+            mScrollBar.MinValue = 0;
+            mScrollBar.MaxValue = (uint)(range - extent);
+            mScrollBar.SetCurrentValue((uint)offset, flagAni);
             mScrollBar.Show();
-            //Console.WriteLine("Show scrollbar! ");
+            //Console.WriteLine($"Show scrollbar! current:{offset} {flagAni}");
             if (mScrollBarShowTimer == null)
             {
                 mScrollBarShowTimer = new Timer(millisecond);
                 mScrollBarShowTimer.Tick += OnShowTimerTick;
+            }
+            else
+            {
+                mScrollBarShowTimer.Interval = millisecond;
             }
             mScrollBarShowTimer.Start();
         }
@@ -749,7 +774,7 @@ namespace Tizen.NUI.CommonUI
                 return 0;
             }
 
-            public virtual int ComputeScrollExtent(ViewState state)
+            public virtual float ComputeScrollExtent(ViewState state)
             {
                 return 0;
             }
@@ -765,7 +790,7 @@ namespace Tizen.NUI.CommonUI
              * @return The horizontal offset of the scrollbar's thumb
              * @see RecyclerView#computeHorizontalScrollOffset()
              */
-            public virtual int ComputeScrollOffset(ViewState state)
+            public virtual float ComputeScrollOffset(ViewState state)
             {
                 return 0;
             }
@@ -781,7 +806,7 @@ namespace Tizen.NUI.CommonUI
              * @return The total vertical range represented by the vertical scrollbar
              * @see RecyclerView#computeVerticalScrollRange()
              */
-            public virtual int ComputeScrollRange(ViewState state)
+            public virtual float ComputeScrollRange(ViewState state)
             {
                 return 0;
             }

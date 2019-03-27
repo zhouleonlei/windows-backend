@@ -191,7 +191,7 @@ namespace Tizen.NUI.CommonUI
             return ScrollBy(dy, recycler, state, immediate); ;
         }
 
-        public override int ComputeScrollOffset(FlexibleView.ViewState state)
+        public override float ComputeScrollOffset(FlexibleView.ViewState state)
         {
             FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
             FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
@@ -210,11 +210,11 @@ namespace Tizen.NUI.CommonUI
             int itemRange = Math.Abs(startChild.LayoutPosition - endChild.LayoutPosition) + 1;
             float avgSizePerRow = laidOutArea / itemRange;
 
-            return (int)Math.Round(itemsBefore * avgSizePerRow + (mOrientationHelper.GetStartAfterPadding()
+            return (float)Math.Round(itemsBefore * avgSizePerRow + (mOrientationHelper.GetStartAfterPadding()
                     - mOrientationHelper.GetViewHolderStart(startChild)));
         }
 
-        public override int ComputeScrollExtent(FlexibleView.ViewState state)
+        public override float ComputeScrollExtent(FlexibleView.ViewState state)
         {
             FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
             FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
@@ -224,10 +224,10 @@ namespace Tizen.NUI.CommonUI
             }
             float extend = mOrientationHelper.GetViewHolderEnd(endChild)
                 - mOrientationHelper.GetViewHolderStart(startChild);
-            return (int)Math.Min(mOrientationHelper.GetTotalSpace(), extend);
+            return Math.Min(mOrientationHelper.GetTotalSpace(), extend);
         }
 
-        public override int ComputeScrollRange(FlexibleView.ViewState state)
+        public override float ComputeScrollRange(FlexibleView.ViewState state)
         {
             FlexibleView.ViewHolder startChild = FindFirstVisibleItemView();
             FlexibleView.ViewHolder endChild = FindLastVisibleItemView();
@@ -239,7 +239,7 @@ namespace Tizen.NUI.CommonUI
                     - mOrientationHelper.GetViewHolderStart(startChild);
             int laidOutRange = Math.Abs(startChild.LayoutPosition - endChild.LayoutPosition) + 1;
             // estimate a size for full list.
-            return (int)(laidOutArea / laidOutRange * state.ItemCount);
+            return laidOutArea / laidOutRange * state.ItemCount;
         }
 
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
