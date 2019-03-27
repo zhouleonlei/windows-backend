@@ -252,7 +252,7 @@ namespace Tizen.NUI
         {
             base.OnCreate();
             Device.PlatformServices = new TizenPlatformServices();
-            //AttributesContainer container = Extensions.LoadObject<AttributesContainer>(typeof(NUIApplication));
+            //StyleBase container = Extensions.LoadObject<StyleBase>(typeof(NUIApplication));
         }
 
         /// <summary>

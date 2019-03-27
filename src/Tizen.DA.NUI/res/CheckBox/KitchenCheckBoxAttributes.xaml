@@ -1,6 +1,6 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
         <StringSelector x:Key="DAKitchenCheckBoxBackground"
                         Normal="*DemoRes*/images/FH3/9. Controller/controller_btn_check_off.png"
                         Selected ="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_check_on_9762d9.png"
@@ -13,7 +13,7 @@
                        Disabled="0.4"
                        DisabledSelected="0.4"
                         />
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <SelectButtonAttributes x:Name="SelectButtonAttributes">
         <SelectButtonAttributes.CheckImageAttributes>
@@ -23,4 +23,4 @@
                               Opacity="{StaticResource DAKitchenCheckBoxOpacity}"/>
         </SelectButtonAttributes.CheckImageAttributes>
     </SelectButtonAttributes>
-</AttributesContainer>
+</StyleBase>

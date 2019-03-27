@@ -1,4 +1,4 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ListItemAttributes 
@@ -46,4 +46,4 @@
     MainText poitnSize = 44
     SubText pointSize = 30
     -->
-</AttributesContainer>
+</StyleBase>

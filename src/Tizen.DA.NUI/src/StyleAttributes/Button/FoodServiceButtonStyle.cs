@@ -1,10 +1,10 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyServiceButtonAttributes.xaml", "FamilyServiceButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyServiceButtonAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FoodServiceButtonAttributes.xaml", "FoodServiceButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodServiceButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FamilyServiceButtonAttributes : TextButtonAttributes
+    internal class FoodServiceButtonStyle : TextButtonStyle
     {
         protected override Attributes GetAttributes()
         {
@@ -14,7 +14,7 @@ namespace Tizen.FH.NUI.Controls
             }
             ButtonAttributes attributes = base.GetAttributes() as ButtonAttributes;
             attributes.IsSelectable = false;
-            attributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.Instance.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png";
+            attributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.Instance.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_ec7510.png";
             attributes.TextAttributes.TextColor = new ColorSelector
             {
                 Normal = new Color(1, 1, 1, 1),

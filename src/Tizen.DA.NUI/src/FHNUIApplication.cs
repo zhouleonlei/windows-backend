@@ -95,7 +95,7 @@ namespace Tizen.FH.NUI
         protected override void OnCreate()
         {
             base.OnCreate();
-            //AttributesContainer container = Extensions.LoadObject<AttributesContainer>(typeof(DANUIApplication));
+            //StyleBase container = Extensions.LoadObject<StyleBase>(typeof(DANUIApplication));
         }
 
         /// <summary>
@@ -142,24 +142,24 @@ namespace Tizen.FH.NUI
             NUIApplication.RegisterAssembly(typeof(FHNUIApplication).GetTypeInfo().Assembly);
 
             StyleManager.Instance.RegisterStyle("BasicButton", "Family", typeof(FamilyBasicButtonAttributes));
-            StyleManager.Instance.RegisterStyle("BasicButton", "Utility", typeof(UtilityBasicButtonAttributes), true);
-            StyleManager.Instance.RegisterStyle("BasicButton", "Food", typeof(FoodBasicButtonAttributes));
+            StyleManager.Instance.RegisterStyle("BasicButton", "Utility", typeof(UtilityBasicButtonStyle), true);
+            StyleManager.Instance.RegisterStyle("BasicButton", "Food", typeof(FoodBasicButtonStyle));
             StyleManager.Instance.RegisterStyle("BasicButton", "Kitchen", typeof(KitchenBasicButtonAttributes));
 
-            StyleManager.Instance.RegisterStyle("ServiceButton", "Family", typeof(FamilyServiceButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ServiceButton", "Utility", typeof(UtilityServiceButtonAttributes), true);
-            StyleManager.Instance.RegisterStyle("ServiceButton", "Food", typeof(FoodServiceButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ServiceButton", "Kitchen", typeof(KitchenServiceButtonAttributes));
+            StyleManager.Instance.RegisterStyle("ServiceButton", "Family", typeof(FamilyServiceButtonStyle));
+            StyleManager.Instance.RegisterStyle("ServiceButton", "Utility", typeof(UtilityServiceButtonStyle), true);
+            StyleManager.Instance.RegisterStyle("ServiceButton", "Food", typeof(FoodServiceButtonStyle));
+            StyleManager.Instance.RegisterStyle("ServiceButton", "Kitchen", typeof(KitchenServiceButtonStyle));
 
-            StyleManager.Instance.RegisterStyle("ToggleButton", "Family", typeof(FamilyToggleButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ToggleButton", "Utility", typeof(UtilityToggleButtonAttributes), true);
-            StyleManager.Instance.RegisterStyle("ToggleButton", "Food", typeof(FoodToggleButtonAttributes));
-            StyleManager.Instance.RegisterStyle("ToggleButton", "Kitchen", typeof(KitchenToggleButtonAttributes));
+            StyleManager.Instance.RegisterStyle("ToggleButton", "Family", typeof(FamilyToggleButtonStyle));
+            StyleManager.Instance.RegisterStyle("ToggleButton", "Utility", typeof(UtilityToggleButtonStyle), true);
+            StyleManager.Instance.RegisterStyle("ToggleButton", "Food", typeof(FoodToggleButtonStyle));
+            StyleManager.Instance.RegisterStyle("ToggleButton", "Kitchen", typeof(KitchenToggleButtonStyle));
 
-            StyleManager.Instance.RegisterStyle("OvalButton", "Family", typeof(FamilyOvalButtonAttributes));
-            StyleManager.Instance.RegisterStyle("OvalButton", "Utility", typeof(UtilityOvalButtonAttributes), true);
-            StyleManager.Instance.RegisterStyle("OvalButton", "Food", typeof(FoodOvalButtonAttributes));
-            StyleManager.Instance.RegisterStyle("OvalButton", "Kitchen", typeof(KitchenOvalButtonAttributes));
+            StyleManager.Instance.RegisterStyle("OvalButton", "Family", typeof(FamilyOvalButtonStyle));
+            StyleManager.Instance.RegisterStyle("OvalButton", "Utility", typeof(UtilityOvalButtonStyle), true);
+            StyleManager.Instance.RegisterStyle("OvalButton", "Food", typeof(FoodOvalButtonStyle));
+            StyleManager.Instance.RegisterStyle("OvalButton", "Kitchen", typeof(KitchenOvalButtonStyle));
 
             StyleManager.Instance.RegisterStyle("BasicPagination", null, typeof(BasicPaginationAttributes));
 

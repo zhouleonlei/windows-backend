@@ -1,10 +1,10 @@
 ﻿
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyOvalButtonAttributes.xaml", "FamilyOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyOvalButtonAttributes))]
+[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyOvalButtonAttributes.xaml", "FamilyOvalButtonAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyOvalButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FamilyOvalButtonAttributes : IconButtonAttributes
+    internal class FamilyOvalButtonStyle : IconButtonStyle
     {
         protected override Attributes GetAttributes()
         {

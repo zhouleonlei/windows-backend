@@ -1,4 +1,4 @@
-<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <SpinAttributes x:Name="SpinAttributes" ParentOrigin="TopLeft" PivotPoint="TopLeft"
                      PositionUsesPivotPoint="true" ItemHeight="116" TextSize="50" CenterTextSize="55">
@@ -98,4 +98,4 @@
                              VerticalAlignment="Center"/>
         </SpinAttributes.TextFieldAttrs>
     </SpinAttributes>
-</AttributesContainer>
+</StyleBase>

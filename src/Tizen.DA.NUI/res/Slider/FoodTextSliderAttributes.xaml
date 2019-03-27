@@ -1,7 +1,7 @@
-﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <AttributesContainer.XamlResources>
+    <StyleBase.XamlResources>
 
         <StringSelector x:Key="DAFoodTextSliderThumbImageResource"
                         Normal="*DemoRes*/images/FH3/9. Controller/[Controller] App Primary Color/controller_btn_slide_handler_normal_ec7510.png"
@@ -12,7 +12,7 @@
                        Pressed="*DemoRes*/images/FH3/9. Controller/controller_btn_slide_handler_effect.png"
                        />
 
-    </AttributesContainer.XamlResources>
+    </StyleBase.XamlResources>
 
     <SliderAttributes 
         x:Name="SliderAttributes"
@@ -52,4 +52,4 @@
 
     </SliderAttributes>
     
-</AttributesContainer>
+</StyleBase>
