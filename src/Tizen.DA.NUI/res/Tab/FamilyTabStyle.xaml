@@ -1,10 +1,10 @@
-﻿<StyleBase xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <StyleBase.XamlResources>
-        <ColorSelector x:Key="FoodTextColor"
+    <AttributesContainer.XamlResources>
+        <ColorSelector x:Key="FamilyTextColor"
                        Normal="#ff000000"
-                       Selected="#ffec7510"/>
-    </StyleBase.XamlResources>
+                       Selected="#ff24c447"/>
+    </AttributesContainer.XamlResources>
     <TabAttributes x:Name="TabAttributes" 
                    ParentOrigin="TopLeft" 
                    PivotPoint="TopLeft"
@@ -15,12 +15,12 @@
             <ViewAttributes ParentOrigin="BottomLeft"
                             PivotPoint="BottomLeft"
                             PositionUsesPivotPoint="true"
-                            BackgroundColor="#ffec7510"
+                            BackgroundColor="#ff24c447"
                             Size2D="1, 3"/>
         </TabAttributes.UnderLineAttributes>
         <TabAttributes.TextAttributes>
             <TextAttributes PointSize="25"
-                            TextColor="{StaticResource FoodTextColor}"/>
+                            TextColor="{StaticResource FamilyTextColor}"/>
         </TabAttributes.TextAttributes>
     </TabAttributes>
-</StyleBase>
+</AttributesContainer>

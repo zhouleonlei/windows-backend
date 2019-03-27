@@ -1,10 +1,9 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Tab.UtilityTabAttributes.xaml", "UtilityTabAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityTabAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityTabAttributes : StyleBase
+    internal class FamilyTabStyle : StyleBase
     {
         protected override Attributes GetAttributes()
         {
@@ -17,7 +16,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
-                    BackgroundColor = new ColorSelector { All = Utility.Hex2Color(Constants.APP_COLOR_UTILITY, 1) },
+                    BackgroundColor = new ColorSelector { All = Utility.Hex2Color(Constants.APP_COLOR_FAMILY, 1) },
                 },
                 TextAttributes = new TextAttributes
                 {
@@ -25,7 +24,7 @@ namespace Tizen.FH.NUI.Controls
                     TextColor = new ColorSelector
                     {
                         Normal = Color.Black,
-                        Selected = Utility.Hex2Color(Constants.APP_COLOR_UTILITY, 1),
+                        Selected = Utility.Hex2Color(Constants.APP_COLOR_FAMILY, 1),
                     },
                 },
             };

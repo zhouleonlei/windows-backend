@@ -160,10 +160,10 @@
     <None Remove="res\Switch\KitchenSwitchAttributes.xaml" />
     <None Remove="res\Switch\ListIndexSwitchAttributes.xaml" />
     <None Remove="res\Switch\UtilitySwitchAttributes.xaml" />
-    <None Remove="res\Tab\FamilyTabAttributes.xaml" />
-    <None Remove="res\Tab\FoodTabAttributes.xaml" />
-    <None Remove="res\Tab\KitchenTabAttributes.xaml" />
-    <None Remove="res\Tab\UtilityTabAttributes.xaml" />
+    <None Remove="res\Tab\FamilyTabStyle.xaml" />
+    <None Remove="res\Tab\FoodTabStyle.xaml" />
+    <None Remove="res\Tab\KitchenTabStyle.xaml" />
+    <None Remove="res\Tab\UtilityTabStyle.xaml" />
     <None Remove="res\TimePicker\TimePickerAMPMAttributes.xaml" />
     <None Remove="res\TimePicker\TimePickerAttributes.xaml" />
     <None Remove="res\TimePicker\TimePickerRepeatAttributes.xaml" />
@@ -402,16 +402,16 @@
     <EmbeddedResource Include="res\InputField\FoodStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\KitchenStyleBInputFieldAttributes.xaml" />
     <EmbeddedResource Include="res\InputField\UtilityStyleBInputFieldAttributes.xaml" />
-    <EmbeddedResource Include="res\Tab\FamilyTabAttributes.xaml">
+    <EmbeddedResource Include="res\Tab\FamilyTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Tab\FoodTabAttributes.xaml">
+    <EmbeddedResource Include="res\Tab\FoodTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Tab\KitchenTabAttributes.xaml">
+    <EmbeddedResource Include="res\Tab\KitchenTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="res\Tab\UtilityTabAttributes.xaml">
+    <EmbeddedResource Include="res\Tab\UtilityTabStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="res\TimePicker\TimePickerAMPMAttributes.xaml">
