@@ -1,0 +1,42 @@
+﻿<AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"  
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AttributesContainer.XamlResources>
+
+        <StringSelector x:Key="DAKitchenOvalButtonBackground"
+                        Normal="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_normal.png"
+                        Selected ="*DemoRes*/images/FH3/3. Button/[Button] App Primary Color/oval_toggle_btn_select_9762d9.png"
+                        />
+        <StringSelector x:Key="DAOvalButtonOverlayImage"
+                        Normal =""
+                        Pressed ="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_press_overlay.png"
+                        Selected=""
+                        />
+
+    </AttributesContainer.XamlResources>
+
+    <ButtonAttributes x:Name="ButtonAttributes" IsSelectable="true">
+
+        <ButtonAttributes.BackgroundImageAttributes>
+            <ImageAttributes 
+                ResourceURL="{StaticResource DAKitchenOvalButtonBackground}" 
+                Border="5, 5, 5, 5" 
+                />
+        </ButtonAttributes.BackgroundImageAttributes>
+
+        <ButtonAttributes.ShadowImageAttributes>
+            <ImageAttributes 
+                ResourceURL="*DemoRes*/images/FH3/3. Button/oval_toggle_btn_shadow.png" 
+                Border="5, 5, 5, 5" 
+                />
+        </ButtonAttributes.ShadowImageAttributes>
+
+        <ButtonAttributes.OverlayImageAttributes>
+            <ImageAttributes 
+                ResourceURL="{StaticResource DAOvalButtonOverlayImage}" 
+                Border="5, 5, 5, 5"
+                />
+        </ButtonAttributes.OverlayImageAttributes> >
+    </ButtonAttributes>
+</AttributesContainer>
