@@ -22,6 +22,9 @@ namespace Tizen.NUI.CommonUI
         protected override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
             LayoutState layoutState, LayoutChunkResult result)
         {
+            bool layingOutInPrimaryDirection =
+                layoutState.mItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
+
             int count = mSpanCount;
             for (int i = 0; i < count; i++)
             {
@@ -32,7 +35,7 @@ namespace Tizen.NUI.CommonUI
                     return;
                 }
 
-                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                if (layingOutInPrimaryDirection)
                     AddView(holder);
                 else
                     AddView(holder, 0);
