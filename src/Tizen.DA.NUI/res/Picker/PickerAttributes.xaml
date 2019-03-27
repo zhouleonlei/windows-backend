@@ -1,7 +1,7 @@
 <AttributesContainer xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <PickerAttributes x:Name="PickerAttributes" ParentOrigin="Center" PivotPoint="Center"
-                     PositionUsesPivotPoint="true">
+                     PositionUsesPivotPoint="true" YearRange="1900, 2099">
         <PickerAttributes.BackgroundImageAttributes>
             <ImageAttributes ParentOrigin="Center"
                              PivotPoint="Center"
@@ -59,27 +59,27 @@
                             PivotPoint="TopLeft"
                             PositionUsesPivotPoint="true"
                             Space="56,0,0,0"
-                            SpaceBetweenButtonTextAndIcon="8"
+                            SpaceBetweenButtonTextAndIcon="20"
                             ListMargin="20,0,20,0"
                             BackgroundColor="1, 1, 1, 1"
-                            ListSize2D="360, 500"
+                            ListSize2D="304, 500"
                             Size2D="288, 68"
                             Position2D="688, 32"
                             ListPadding="4, 4, 4, 4"
                             FocusedItemIndex="0">
                             <DropDownAttributes.ButtonAttributes>
                                 <ButtonAttributes ParentOrigin="TopLeft"
-                                              PivotPoint="TopLeft"
-                                              PositionUsesPivotPoint="true">
-                                              <ButtonAttributes.TextAttributes>
-                                                  <TextAttributes PointSize="30"
-                                                                TextColor="Black"
-                                                                Text="Year"/>
-                                              </ButtonAttributes.TextAttributes>
-                                              <ButtonAttributes.IconAttributes>
-                                                  <ImageAttributes Size2D="48, 48"
-                                                                ResourceURL ="*DemoRes*/images/FH3/6. List/list_ic_dropdown.png"/>
-                                              </ButtonAttributes.IconAttributes>
+                                            PivotPoint="TopLeft"
+                                            PositionUsesPivotPoint="true">
+                                            <ButtonAttributes.TextAttributes>
+                                                <TextAttributes PointSize="30"
+                                                              TextColor="Black"
+                                                              Text="Year"/>
+                                            </ButtonAttributes.TextAttributes>
+                                            <ButtonAttributes.IconAttributes>
+                                                <ImageAttributes Size2D="48, 48"
+                                                              ResourceURL ="*DemoRes*/images/FH3/6. List/list_ic_dropdown.png"/>
+                                            </ButtonAttributes.IconAttributes>
                                 </ButtonAttributes>
                             </DropDownAttributes.ButtonAttributes>
                             <DropDownAttributes.ListBackgroundImageAttributes>
@@ -95,25 +95,23 @@
             <DropDownItemAttributes ParentOrigin="TopLeft"
                             PivotPoint="TopLeft"
                             PositionUsesPivotPoint="true"
-                            Size2D="300, 80"
+                            Size2D="250, 80"
                             CheckImageRightSpace="16">
                             <DropDownItemAttributes.TextAttributes>
                                 <TextAttributes  Position2D="28, 0"
-                                PointSize="18"
+                                            PointSize="18"
                                 />
                             </DropDownItemAttributes.TextAttributes>
                             <DropDownItemAttributes.CheckImageAttributes>
                                 <ImageAttributes Size2D="40, 40"
-                                  ResourceURL="*DemoRes*/images/FH3/10. Drop Down/dropdown_checkbox_on.png"
+                                            ResourceURL="*DemoRes*/images/FH3/10. Drop Down/dropdown_checkbox_on.png"
                                 />
                             </DropDownItemAttributes.CheckImageAttributes>
                             <DropDownItemAttributes.BackgroundColor>
-                                  <ColorSelector x:Key="BackgroundColor"
-                        Normal="#00000000"
-                        Pressed="#1a000000"
-                        Selected="#00000000"
-                        Disabled="#00000000"
-                        />
+                                <ColorSelector x:Key="BackgroundColor"
+                                            Selected="#00000000"
+                                            Other="#1a000000"
+                                            />
                            </DropDownItemAttributes.BackgroundColor>
            </DropDownItemAttributes>             
         </PickerAttributes.DropDownItemAttrs>
