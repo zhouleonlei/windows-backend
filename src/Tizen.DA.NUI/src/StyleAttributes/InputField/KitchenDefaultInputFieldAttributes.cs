@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.InputField.KitchenDefaultInputFieldAttributes.xaml", "KitchenDefaultInputFieldAttributes.xaml", typeof(Tizen.FH.NUI.Controls.KitchenDefaultInputFieldAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class KitchenDefaultInputFieldAttributes : AttributesContainer
+    internal class KitchenDefaultInputFieldAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

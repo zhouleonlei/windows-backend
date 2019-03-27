@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.CheckBox.KitchenCheckBoxAttributes.xaml", "KitchenCheckBoxAttributes.xaml", typeof(Tizen.FH.NUI.Controls.KitchenCheckBoxAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class KitchenCheckBoxAttributes : AttributesContainer
+    internal class KitchenCheckBoxAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {           

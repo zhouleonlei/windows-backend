@@ -4,7 +4,7 @@ using Tizen.NUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Spin.StrSpinAttributes.xaml", "StrSpinAttributes.xaml", typeof(Tizen.FH.NUI.Controls.DAStrSpinAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DAStrSpinAttributes : AttributesContainer
+    internal class DAStrSpinAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

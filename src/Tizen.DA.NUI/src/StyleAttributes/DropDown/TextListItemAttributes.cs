@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.TextListItemAttributes.xaml", "TextListItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.TextListItemAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class TextListItemAttributes : AttributesContainer
+    internal class TextListItemAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

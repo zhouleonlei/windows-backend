@@ -64,7 +64,7 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public delegate StyleContainer GetStyleContainer();
+        public delegate StyleBase GetStyleContainer();
 
         public static void RegisterStyle(string style, GetStyleContainer delegateForStyleContainer)
         {

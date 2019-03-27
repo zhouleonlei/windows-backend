@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Popup.KitchenPopupAttributes.xaml", "KitchenPopupAttributes.xaml", typeof(Tizen.FH.NUI.Controls.KitchenPopupAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class KitchenPopupAttributes : AttributesContainer
+    internal class KitchenPopupAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

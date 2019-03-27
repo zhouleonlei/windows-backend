@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.FoodTextSliderAttributes.xaml", "FoodTextSliderAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodTextSliderAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FoodTextSliderAttributes : AttributesContainer
+    internal class FoodTextSliderAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

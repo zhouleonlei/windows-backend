@@ -4,7 +4,7 @@ using Tizen.NUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.UtilityProgressbarAttributes.xaml", "UtilityProgressbarAttributes.xaml", typeof(Tizen.FH.NUI.Controls.UtilityProgressbarAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class UtilityProgressbarAttributes : AttributesContainer
+    internal class UtilityProgressbarAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

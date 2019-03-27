@@ -3,7 +3,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class TextButtonAttributes : AttributesContainer
+    internal class TextButtonAttributes : StyleBase
     {
         public TextButtonAttributes()
         {

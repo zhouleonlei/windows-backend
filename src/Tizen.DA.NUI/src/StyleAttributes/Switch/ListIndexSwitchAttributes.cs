@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Switch.ListIndexSwitchAttributes.xaml", "ListIndexSwitchAttributes.xaml", typeof(Tizen.FH.NUI.Controls.ListIndexSwitchAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class ListIndexSwitchAttributes : AttributesContainer
+    internal class ListIndexSwitchAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

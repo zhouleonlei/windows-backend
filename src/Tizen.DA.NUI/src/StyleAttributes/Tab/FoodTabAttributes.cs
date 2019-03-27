@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Tab.FoodTabAttributes.xaml", "FoodTabAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FoodTabAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FoodTabAttributes : AttributesContainer
+    internal class FoodTabAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.WhiteBackNavigationItemAttributes.xaml", "WhiteBackNavigationItemAttributes.xaml", typeof(Tizen.FH.NUI.Controls.WhiteBackNavigationItemAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class WhiteBackNavigationItemAttributes : AttributesContainer
+    internal class WhiteBackNavigationItemAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

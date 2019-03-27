@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.ListSpinnerDropDownAttributes.xaml", "ListSpinnerDropDownAttributes.xaml", typeof(Tizen.FH.NUI.Controls.ListSpinnerDropDownAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class ListSpinnerDropDownAttributes : AttributesContainer
+    internal class ListSpinnerDropDownAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

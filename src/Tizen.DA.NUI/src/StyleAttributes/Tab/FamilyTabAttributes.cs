@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Tab.FamilyTabAttributes.xaml", "FamilyTabAttributes.xaml", typeof(Tizen.FH.NUI.Controls.FamilyTabAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class FamilyTabAttributes : AttributesContainer
+    internal class FamilyTabAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {

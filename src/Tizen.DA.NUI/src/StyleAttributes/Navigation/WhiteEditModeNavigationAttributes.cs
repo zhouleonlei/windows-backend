@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 [assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.WhiteEditModeNavigationAttributes.xaml", "WhiteEditModeNavigationAttributes.xaml", typeof(Tizen.FH.NUI.Controls.WhiteEditModeNavigationAttributes))]
 namespace Tizen.FH.NUI.Controls
 {
-    internal class WhiteEditModeNavigationAttributes : AttributesContainer
+    internal class WhiteEditModeNavigationAttributes : StyleBase
     {
         protected override Attributes GetAttributes()
         {
