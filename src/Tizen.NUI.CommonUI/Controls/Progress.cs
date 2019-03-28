@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
@@ -365,7 +363,6 @@ namespace Tizen.NUI.CommonUI
                 }
                 if (value > progressBarAttrs.MaxValue || value < progressBarAttrs.MinValue)
                 {
-                    Console.WriteLine(progressBarAttrs.MinValue+" "+progressBarAttrs.CurValue+ " current error "+progressBarAttrs.MinValue);
                     return;
                 }
                 progressBarAttrs.CurValue = value;
@@ -546,11 +543,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateStates()
         {
-            Console.WriteLine("before update progress" + progressObj.Size2D.Height.ToString() + progressObj.Size2D.Width.ToString());
-            Console.WriteLine("before update load" + loadingObj.Size2D.Height.ToString() + loadingObj.Size2D.Width.ToString());
-            Console.WriteLine(bufferObj.ResourceUrl);
-            Console.WriteLine("before update buffer" + bufferObj.Size2D.Height.ToString() + bufferObj.Size2D.Width.ToString());
-
             if (state == ProgressStatusType.Buffering)
             {
                 bufferObj.Show();
@@ -705,7 +697,6 @@ namespace Tizen.NUI.CommonUI
                     //TNLog.I("bufferHeight = " + bufferHeight + ";");
                 }
             }
-            Console.WriteLine("progress wid: " + progressObj.Size2D.Width.ToString() + " ");
         }
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

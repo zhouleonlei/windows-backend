@@ -252,7 +252,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributes)
         {
-            Console.WriteLine("OnUpdate (FH ) Toast ");//gwfdebug
             if (toastAttributes == null)
             {
                 return;
@@ -304,7 +303,6 @@ namespace Tizen.FH.NUI.Controls
                     toastAttributes.TextAttributes.Position2D.X = LeftSpace;
                     toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.End;
                 }
-                Console.WriteLine("loading.Position2D.X" + loading.Position2D.X + " leftSapce:" + LeftSpace.ToString() + "  downSpace= " + DownSpace.ToString());//gwfdebug
             }
             else
             {
@@ -313,7 +311,6 @@ namespace Tizen.FH.NUI.Controls
                 toastAttributes.TextAttributes.Position2D.X = LeftSpace;
 
             }
-            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
 
             if (toastText_2line != null)
             {

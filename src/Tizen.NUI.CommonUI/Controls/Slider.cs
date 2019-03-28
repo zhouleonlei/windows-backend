@@ -904,7 +904,6 @@ namespace Tizen.NUI.CommonUI
 
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
         {
-            //Console.WriteLine("-------, e.PanGesture.State = " + e.PanGesture.State);
             if (e.PanGesture.State == Gesture.StateType.Started)
             {
                 if (direction == DirectionType.Horizontal)
@@ -933,7 +932,6 @@ namespace Tizen.NUI.CommonUI
 
             if (e.PanGesture.State == Gesture.StateType.Finished)
             {
-                //Console.WriteLine("-------, State == Gesture.StateType.Finished");
                 UpdateState(isFocused, false);
             }
         }
@@ -1363,7 +1361,6 @@ namespace Tizen.NUI.CommonUI
         private void CalculateCurrentValueByGesture(float offset)
         {
             currentSlidedOffset += offset;
-            //Console.WriteLine("offset = " + offset + ", currentSlidedOffset = " + currentSlidedOffset);
 
             if (currentSlidedOffset <= 0)
             {
@@ -1387,7 +1384,6 @@ namespace Tizen.NUI.CommonUI
                 args.CurrentValue = curValue.Value;
                 valueChangedHandler(this, args);
             }
-            //Console.WriteLine("offset = " + offset + ",   currentSlidedOffset = " + currentSlidedOffset + ",   curValue = " + curValue);
         }
 
         private bool OnTouchEventForBgTrack(object source, TouchEventArgs e)
@@ -1427,7 +1423,6 @@ namespace Tizen.NUI.CommonUI
             {
                 currentSlidedOffset = bgTrackLength - pos.Y;
             }
-            //Console.WriteLine("currentSlidedOffset = " + currentSlidedOffset);
             if (bgTrackLength != 0)
             {
                 curValue = (int)((currentSlidedOffset / (float)bgTrackLength) * (float)(maxValue - minValue) + 0.5f) + minValue;
@@ -1446,7 +1441,6 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            //Console.WriteLine("-------, isFocused = " + isFocused + ", isPressed = " + isPressed);
             if (thumbImage == null || sliderAttrs == null)
             {
                 return;

@@ -240,14 +240,12 @@ namespace Tizen.FH.NUI.Controls
         protected override void OnTextFieldFocusGained(object source, EventArgs e)
         {
             // when press on TextField, it will gain focus
-            Console.WriteLine("--->>>, textField gained focus");
             textFieldState = ControlStates.Selected;
             RelayoutComponents(false, true, true, false);
         }
 
         protected override void OnTextFieldFocusLost(object source, EventArgs e)
         {
-            Console.WriteLine("<<<---, textField lost focus");
             textFieldState = ControlStates.Normal;
             RelayoutComponents(false, true, true, false);
         }
@@ -258,7 +256,6 @@ namespace Tizen.FH.NUI.Controls
             {
                 TextField textField = sender as TextField;
                 int textLen = textField.Text.Length;
-                Console.WriteLine("---, text changed, textLength = " + textLen);
                 if (textLen == 0)
                 {
                     textState = TextState.Guide;
@@ -295,7 +292,6 @@ namespace Tizen.FH.NUI.Controls
         protected override bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
         {
             PointStateType state = e.Touch.GetState(0);
-            Console.WriteLine("--------, state = " + state);
             // return false;
             // If return false, the touch event will propagate to TextField's parent. 
             // Then, TextField will receive focus lost and focus gained callback.

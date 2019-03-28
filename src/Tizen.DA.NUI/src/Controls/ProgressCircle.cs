@@ -198,7 +198,6 @@ namespace Tizen.FH.NUI.Controls
             {
                 if (isTextEnabled)
                 {
-                    Console.WriteLine("text label change text");
                     textLabel.Text = rateIndex.ToString();
                     textLabel.Show();
 

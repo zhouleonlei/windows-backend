@@ -505,7 +505,6 @@ namespace Tizen.FH.NUI.Controls
         
         private void OnTextFieldFocusGained(object source, EventArgs e)
         {
-            Console.WriteLine("<<<----OnTextFieldFocusGained---, textField focus gained");
 
             textField.PlaceholderTextFocused = GetStrValue(curValue);
             textField.PlaceholderTextColor = Color.Black;
@@ -513,7 +512,6 @@ namespace Tizen.FH.NUI.Controls
         }
         private void OnTextFieldFocusLost(object source, EventArgs e)
         {
-            Console.WriteLine(">>>-----OnTextFieldFocusLost--, textField focus lost" +textField.Text.Length);
 
             if (textField.Text.Length != 0)
             {
@@ -579,8 +577,6 @@ namespace Tizen.FH.NUI.Controls
             View view = source as View;    
             PointStateType state = e.Touch.GetState(0);
             
-            Console.WriteLine("---OnTouchEvent---" + panAnimationState + "state: " + state);
-
             if (panAnimationState == PanAnimationState.FinishAni)
             {
                 if (state == PointStateType.Down)
@@ -603,8 +599,6 @@ namespace Tizen.FH.NUI.Controls
 
         private bool OnFinishedTickEvent(object source, Timer.TickEventArgs e)
         {
-            Console.WriteLine("----OnFinishedTickEvent----");
-
             if (finishTimerLoopCount == 0)
             {
                 ResetPositon();
@@ -651,8 +645,6 @@ namespace Tizen.FH.NUI.Controls
         }
         private void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
         {
-            Console.WriteLine("----OnTapGestureDetected---, e.TapGesture.y = " + e.TapGesture.LocalPoint.Y);
-            
             if (panAnimationState != PanAnimationState.None)
             {
                 return;
@@ -740,12 +732,8 @@ namespace Tizen.FH.NUI.Controls
 
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
         {
-            Console.WriteLine("------e.PanGesture.State = " + e.PanGesture.State);
-            
             if (e.PanGesture.State == Gesture.StateType.Started)
             {
-                Console.WriteLine("------e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time);
-                
                 if (finishedTimer.IsRunning())
                 {
                     finishedTimer.Stop();
@@ -775,8 +763,6 @@ namespace Tizen.FH.NUI.Controls
 
             if (e.PanGesture.State == Gesture.StateType.Continuing || e.PanGesture.State == Gesture.StateType.Started)
             {
-                Console.WriteLine("----- e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time + "Y=" + e.PanGesture.Displacement.Y);
-                
                 float calculateMove = 0f;
                 
                 spinAnimation.Stop();
@@ -827,8 +813,6 @@ namespace Tizen.FH.NUI.Controls
                 }
                 else if (e.PanGesture.Displacement.Y < 0)
                 {
-                    Console.WriteLine("----curValue : " + curValue + " " + maxMoveUpHeight + " " + curMoveHeight);
-                    
                     if (moveDirection == Direction.Down)
                     {
                         calculateAdjustLen -= itemHeight;
@@ -884,8 +868,6 @@ namespace Tizen.FH.NUI.Controls
 
             if (e.PanGesture.State == Gesture.StateType.Finished)
             {
-                Console.WriteLine("------e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time);
-                
                 panAnimationState = PanAnimationState.FinishAni;
                 
                 if (lastMoveHeight < 2)
@@ -905,8 +887,6 @@ namespace Tizen.FH.NUI.Controls
                     finishAniAction = FinishAniAction.MoveToNext20; 
                 }
 
-                Console.WriteLine("---finishAniAction: " + finishAniAction);
-                
                 if (finishAniAction == FinishAniAction.MoveToCenter)
                 {
                     if (finishedTimer != null)

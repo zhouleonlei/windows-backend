@@ -77,7 +77,6 @@ namespace Tizen.NUI.CommonUI
                 }
 
                 toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
-                Console.WriteLine("set url in SR");//gwfdebug
                 RelayoutRequest();
             }
         }
@@ -115,7 +114,6 @@ namespace Tizen.NUI.CommonUI
                 }
                 toastAttributes.UpSpace = value;
                 downSpace = value;
-                Console.WriteLine("Call set upspace done");
             }
         }
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -213,7 +211,6 @@ namespace Tizen.NUI.CommonUI
         {
             if (toastAttributes == null)
             {
-                Console.WriteLine("OnUp att null (SR)");//gwfdebug
                 return;
             }
 
@@ -224,7 +221,6 @@ namespace Tizen.NUI.CommonUI
 
             ///////////////////// Background ///////////////////////////////
             ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
-            Console.WriteLine("Apply background " + toastAttributes.BackgroundImageAttributes.ResourceURL.All);
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
         }
@@ -265,7 +261,6 @@ namespace Tizen.NUI.CommonUI
                 toastAttributes.TextAttributes.Position2D = new Position2D();
             }
             toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
-            //Console.WriteLine("this.height"+this.Size2D.Height+" Upspace"+UpSpace.ToString()+"downSpace= "+downSpace.ToString());gwfdebug
             toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
             toastAttributes.TextAttributes.Position2D.X = LeftSpace;
             toastAttributes.TextAttributes.Position2D.Y = UpSpace;
@@ -279,7 +274,6 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
-            Console.WriteLine("Initialize (SR)  Toast ");
             toastBackground = new ImageView()
             {
                 WidthResizePolicy = ResizePolicyType.FillToParent,

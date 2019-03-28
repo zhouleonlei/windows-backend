@@ -74,7 +74,6 @@ namespace Tizen.NUI.CommonUI
                     loadingAttrs.FPS.All = (int) (1000.0f / imageVisual.FrameDelay);
                 }
                 loadingAttrs.FPS.All = value;
-                Console.WriteLine("---------"+ imageVisual.FrameDelay.ToString());
                 imageVisual.FrameDelay = 1000.0f / (float)value;
 
             }
@@ -155,10 +154,8 @@ namespace Tizen.NUI.CommonUI
             if (ImageArray != null)
             {
                 ImageArray.Clear();
-                Console.WriteLine("!!!!!!!!CLEAR");
                 if (loadingAttrs != null)
                 {
-                    Console.WriteLine("!!!!!!!!!169");
                     if (loadingAttrs.LoadingImageURLPrefix != null)
                     {
                         for (int i = 0; i <= 35; i++)

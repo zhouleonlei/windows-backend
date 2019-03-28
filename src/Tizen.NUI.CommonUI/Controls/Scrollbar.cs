@@ -507,11 +507,11 @@ namespace Tizen.NUI.CommonUI
             {
                 if (scrollBarAttrs.MinValue >= scrollBarAttrs.MaxValue)
                 {
-                    Console.WriteLine("[Scrollbar] Min value>= Max value");//gwfdebug
+                    //Console.WriteLine("[Scrollbar] Min value>= Max value");//gwfdebug
                 }
                 if (scrollBarAttrs.CurValue < scrollBarAttrs.MinValue || scrollBarAttrs.CurValue > scrollBarAttrs.MaxValue)
                 {
-                    Console.WriteLine("[Scrollbar] Current value error");//gwfdebug
+                    //Console.WriteLine("[Scrollbar] Current value error");//gwfdebug
                 }
                 return;
             }

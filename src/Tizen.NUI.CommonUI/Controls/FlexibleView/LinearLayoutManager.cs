@@ -89,7 +89,6 @@ namespace Tizen.NUI.CommonUI
                 UpdateAnchorInfoForLayout(recycler, state, mAnchorInfo);
                 mAnchorInfo.mValid = true;
             }
-            //Console.WriteLine($"OnLayoutChildren... mAnchorInfo.mPosition: {mAnchorInfo.mPosition} mCoordinate: {mAnchorInfo.mCoordinate}");
 
             ScrapAttachedViews(recycler);
 
@@ -113,7 +112,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             OnLayoutCompleted(state);
-            //Console.WriteLine($"OnLayoutChildren...  End");
         }
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -499,7 +497,6 @@ namespace Tizen.NUI.CommonUI
                             : LayoutState.INVALID_LAYOUT;
                 default:
                     {
-                        Console.WriteLine($"Unknown focus request:{focusDirection}");
                     }
                     return LayoutState.INVALID_LAYOUT;
             }
@@ -679,7 +676,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             float scrolled = absDy > consumed ? -layoutDirection * consumed : dy;
-            //Console.WriteLine($"scrolled:{scrolled} dy:{dy} layoutDirection:{layoutDirection} consumed:{consumed} scrollingOffset:{mLayoutState.mScrollingOffset}");
 
             mOrientationHelper.OffsetChildren(scrolled, immediate);
 
@@ -782,7 +778,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderEnd(child) > 0)
                     {
-                        //Console.WriteLine($"FindFirstVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -794,7 +789,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderEnd(child) > 0)
                     {
-                        //Console.WriteLine($"FindFirstVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -812,7 +806,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderStart(child) > 0)
                     {
-                        //Console.WriteLine($"FindFirstCompleteVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -824,7 +817,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderStart(child) > 0)
                     {
-                        //Console.WriteLine($"FindFirstCompleteVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -842,7 +834,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderStart(child) < (int)mOrientationHelper.GetEnd())
                     {
-                        //Console.WriteLine($"FindLastVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -854,7 +845,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderStart(child) < (int)mOrientationHelper.GetEnd())
                     {
-                        //Console.WriteLine($"FindLastVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -872,7 +862,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderEnd(child) < (int)mOrientationHelper.GetEnd())
                     {
-                        //Console.WriteLine($"FindLastCompleteVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
@@ -884,7 +873,6 @@ namespace Tizen.NUI.CommonUI
                     FlexibleView.ViewHolder child = GetChildAt(i);
                     if ((int)mOrientationHelper.GetViewHolderEnd(child) < (int)mOrientationHelper.GetEnd())
                     {
-                        //Console.WriteLine($"FindLastCompleteVisibleItemView: {child.LayoutPosition}");
                         return child;
                     }
                 }
