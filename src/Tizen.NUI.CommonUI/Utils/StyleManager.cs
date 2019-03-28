@@ -12,7 +12,6 @@ namespace Tizen.NUI.CommonUI
 
         private StyleManager()
         {
-            
         }
 
         public event EventHandler<ThemeChangeEventArgs> ThemeChangedEvent
