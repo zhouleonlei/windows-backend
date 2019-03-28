@@ -1,5 +1,4 @@
-﻿
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class PaginationAttributes : ViewAttributes
     {
@@ -39,7 +38,7 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
-        public int? IndicatorSpacing
+        public int IndicatorSpacing
         {
             get;
             set;

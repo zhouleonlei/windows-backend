@@ -1,6 +1,4 @@
-﻿using Tizen.NUI.Binding;
-
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class TextFieldAttributes : ViewAttributes
     {

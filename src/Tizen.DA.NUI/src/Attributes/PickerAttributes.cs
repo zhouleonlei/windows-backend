@@ -1,651 +1,227 @@
-﻿using Tizen.NUI.Binding;
-
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class PickerAttributes : ViewAttributes
-    {
-        public static readonly BindableProperty ShadowImageAttributesProperty = BindableProperty.Create("ShadowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.shadowImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.shadowImageAttrs;
-        });
-
-        public static readonly BindableProperty BackgroundImageAttributesProperty = BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.backgroundImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.backgroundImageAttrs;
-        });
-
-        public static readonly BindableProperty FocusImageAttributesProperty = BindableProperty.Create("FocusImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.focusImageAttributes = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.focusImageAttributes;
-        });
-
-        public static readonly BindableProperty EndSelectedImageAttributesProperty = BindableProperty.Create("EndSelectedImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.endSelectedImageAttributes = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.endSelectedImageAttributes;
-        });
-
-        public static readonly BindableProperty DateViewAttributesProperty = BindableProperty.Create("DateViewAttributes", typeof(ViewAttributes), typeof(PickerAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dateViewAttributes = (ViewAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.dateViewAttributes;
-        });
-        public static readonly BindableProperty MonTextAttributesProperty = BindableProperty.Create("MonTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.monTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.monTextAttributes;
-        });
-
-        public static readonly BindableProperty TueTextAttributesProperty = BindableProperty.Create("TueTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.tueTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.tueTextAttributes;
-        });
-
-        public static readonly BindableProperty SunTextAttributesProperty = BindableProperty.Create("SunTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.sunTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.sunTextAttributes;
-        });
-
-        public static readonly BindableProperty WenTextAttributesProperty = BindableProperty.Create("WenTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.wenTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.wenTextAttributes;
-        });
-
-        public static readonly BindableProperty ThuTextAttributesProperty = BindableProperty.Create("ThuTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.thuTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.thuTextAttributes;
-        });
-
-        public static readonly BindableProperty FriTextAttributesProperty = BindableProperty.Create("FriTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.friTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.friTextAttributes;
-        });
-
-        public static readonly BindableProperty SatTextAttributesProperty = BindableProperty.Create("SatTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.satTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.satTextAttributes;
-        });
-
-        public static readonly BindableProperty DateTextAttributesProperty = BindableProperty.Create("DateTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dateTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.dateTextAttributes;
-        });
-
-        public static readonly BindableProperty DateTextAttributes2Property = BindableProperty.Create("DateTextAttributes2", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dateTextAttributes2 = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.dateTextAttributes2;
-        });
-
-        public static readonly BindableProperty LeftArrowImageAttributesProperty = BindableProperty.Create("LeftArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.leftArrowImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.leftArrowImageAttrs;
-        });
-
-        public static readonly BindableProperty RightArrowImageAttributesProperty = BindableProperty.Create("RightArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.rightArrowImageAttrs = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.rightArrowImageAttrs;
-        });
-
-        public static readonly BindableProperty MonthTextAttributesProperty = BindableProperty.Create("MonthTextAttributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.monthTextAttributes = (TextAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.monthTextAttributes;
-        });
-
-        public static readonly BindableProperty DropDownAttrsProperty = BindableProperty.Create("DropDownAttrs", typeof(DropDownAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dropDownAttrs = (DropDownAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.dropDownAttrs;
-        });
-
-        public static readonly BindableProperty DropDownItemAttrsProperty = BindableProperty.Create("DropDownItemAttrs", typeof(DropDownItemAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dropDownItemAttrs = (DropDownItemAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.dropDownItemAttrs;
-        });
-
-        public static readonly BindableProperty YearRangeProperty = BindableProperty.Create("YearRange", typeof(Vector2), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.yearRange = (Vector2)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (PickerAttributes)bindable;
-            return attrs.yearRange;
-        });
-
-        private ImageAttributes shadowImageAttrs;
-        private ImageAttributes backgroundImageAttrs;
-        private ImageAttributes focusImageAttributes;
-        private ImageAttributes endSelectedImageAttributes;
-        private ViewAttributes dateViewAttributes;
-        private TextAttributes sunTextAttributes;
-        private TextAttributes monTextAttributes;
-        private TextAttributes tueTextAttributes;
-        private TextAttributes wenTextAttributes;
-        private TextAttributes thuTextAttributes;
-        private TextAttributes friTextAttributes;
-        private TextAttributes satTextAttributes;
-        private TextAttributes dateTextAttributes;
-        private TextAttributes dateTextAttributes2;
-
-        private ImageAttributes leftArrowImageAttrs;
-        private ImageAttributes rightArrowImageAttrs;
-        private TextAttributes monthTextAttributes;
-
-        private DropDownAttributes dropDownAttrs;
-        private DropDownItemAttributes dropDownItemAttrs;
-        private Vector2 yearRange;
-
+    {        
         public PickerAttributes() : base() { }
         public PickerAttributes(PickerAttributes attributes) : base(attributes)
         {
-            if (attributes.shadowImageAttrs != null)
+            if (attributes.ShadowImageAttributes != null)
             {
-                shadowImageAttrs = attributes.shadowImageAttrs.Clone() as ImageAttributes;
+                ShadowImageAttributes = attributes.ShadowImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.backgroundImageAttrs != null)
+            if (attributes.BackgroundImageAttributes != null)
             {
-                backgroundImageAttrs = attributes.backgroundImageAttrs.Clone() as ImageAttributes;
+                BackgroundImageAttributes = attributes.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.focusImageAttributes != null)
+            if (attributes.FocusImageAttributes != null)
             {
-                focusImageAttributes = attributes.focusImageAttributes.Clone() as ImageAttributes;
+                FocusImageAttributes = attributes.FocusImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.endSelectedImageAttributes != null)
+            if (attributes.EndSelectedImageAttributes != null)
             {
-                endSelectedImageAttributes = attributes.endSelectedImageAttributes.Clone() as ImageAttributes;
+                EndSelectedImageAttributes = attributes.EndSelectedImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.sunTextAttributes != null)
+            if (attributes.SunTextAttributes != null)
             {
-                sunTextAttributes = attributes.sunTextAttributes.Clone() as TextAttributes;
+                SunTextAttributes = attributes.SunTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dateViewAttributes != null)
+            if (attributes.DateViewAttributes != null)
             {
-                dateViewAttributes = attributes.dateViewAttributes.Clone() as ViewAttributes;
+                DateViewAttributes = attributes.DateViewAttributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.monTextAttributes != null)
+            if (attributes.MonTextAttributes != null)
             {
-                monTextAttributes = attributes.monTextAttributes.Clone() as TextAttributes;
+                MonTextAttributes = attributes.MonTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.tueTextAttributes != null)
+            if (attributes.TueTextAttributes != null)
             {
-                tueTextAttributes = attributes.tueTextAttributes.Clone() as TextAttributes;
+                TueTextAttributes = attributes.TueTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.wenTextAttributes != null)
+            if (attributes.WenTextAttributes != null)
             {
-                wenTextAttributes = attributes.wenTextAttributes.Clone() as TextAttributes;
+                WenTextAttributes = attributes.WenTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.thuTextAttributes != null)
+            if (attributes.ThuTextAttributes != null)
             {
-                thuTextAttributes = attributes.thuTextAttributes.Clone() as TextAttributes;
+                ThuTextAttributes = attributes.ThuTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.friTextAttributes != null)
+            if (attributes.FriTextAttributes != null)
             {
-                friTextAttributes = attributes.friTextAttributes.Clone() as TextAttributes;
+                FriTextAttributes = attributes.FriTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.satTextAttributes != null)
+            if (attributes.SatTextAttributes != null)
             {
-                satTextAttributes = attributes.satTextAttributes.Clone() as TextAttributes;
+                SatTextAttributes = attributes.SatTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dateTextAttributes != null)
+            if (attributes.DateTextAttributes != null)
             {
-                dateTextAttributes = attributes.dateTextAttributes.Clone() as TextAttributes;
+                DateTextAttributes = attributes.DateTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dateTextAttributes2 != null)
+            if (attributes.DateTextAttributes2 != null)
             {
-                dateTextAttributes2 = attributes.dateTextAttributes2.Clone() as TextAttributes;
+                DateTextAttributes2 = attributes.DateTextAttributes2.Clone() as TextAttributes;
             }
 
-            if (attributes.leftArrowImageAttrs != null)
+            if (attributes.LeftArrowImageAttributes != null)
             {
-                leftArrowImageAttrs = attributes.leftArrowImageAttrs.Clone() as ImageAttributes;
+                LeftArrowImageAttributes = attributes.LeftArrowImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.rightArrowImageAttrs != null)
+            if (attributes.RightArrowImageAttributes != null)
             {
-                rightArrowImageAttrs = attributes.rightArrowImageAttrs.Clone() as ImageAttributes;
+                RightArrowImageAttributes = attributes.RightArrowImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.monthTextAttributes != null)
+            if (attributes.MonthTextAttributes != null)
             {
-                monthTextAttributes = attributes.monthTextAttributes.Clone() as TextAttributes;
+                MonthTextAttributes = attributes.MonthTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dropDownAttrs != null)
+            if (attributes.DropDownAttrs != null)
             {
-                dropDownAttrs = attributes.dropDownAttrs.Clone() as DropDownAttributes;
+                DropDownAttrs = attributes.DropDownAttrs.Clone() as DropDownAttributes;
             }
 
-            if (attributes.dropDownItemAttrs != null)
+            if (attributes.DropDownItemAttrs != null)
             {
-                dropDownItemAttrs = attributes.dropDownItemAttrs.Clone() as DropDownItemAttributes;
+                DropDownItemAttrs = attributes.DropDownItemAttrs.Clone() as DropDownItemAttributes;
             }
 
-            yearRange = new Vector2(attributes.yearRange.X, attributes.yearRange.Y);
+            YearRange = new Vector2(attributes.YearRange.X, attributes.YearRange.Y);
 
         }
 
         public ImageAttributes ShadowImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(ShadowImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(ShadowImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes BackgroundImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(BackgroundImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(BackgroundImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes FocusImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(FocusImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(FocusImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes EndSelectedImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(EndSelectedImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(EndSelectedImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
         
         public ViewAttributes DateViewAttributes
         {
-            get
-            {
-                return (ViewAttributes)GetValue(DateViewAttributesProperty);
-            }
-            set
-            {
-                SetValue(DateViewAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes SunTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(SunTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(SunTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes MonTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(MonTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(MonTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes TueTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(TueTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(TueTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes WenTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(WenTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(WenTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes ThuTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(ThuTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(ThuTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes FriTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(FriTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(FriTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes SatTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(SatTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(SatTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes DateTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(DateTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(DateTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes DateTextAttributes2
         {
-            get
-            {
-                return (TextAttributes)GetValue(DateTextAttributes2Property);
-            }
-            set
-            {
-                SetValue(DateTextAttributes2Property, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes LeftArrowImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(LeftArrowImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(LeftArrowImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes RightArrowImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(RightArrowImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(RightArrowImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public TextAttributes MonthTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(MonthTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(MonthTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public DropDownAttributes DropDownAttrs
         {
-            get
-            {
-                return (DropDownAttributes)GetValue(DropDownAttrsProperty);
-            }
-            set
-            {
-                SetValue(DropDownAttrsProperty, value);
-            }
+            get;
+            set;
         }
 
         public DropDownItemAttributes DropDownItemAttrs
         {
-            get
-            {
-                return (DropDownItemAttributes)GetValue(DropDownItemAttrsProperty);
-            }
-            set
-            {
-                SetValue(DropDownItemAttrsProperty, value);
-            }
+            get;
+            set;
         }
 
         public Vector2 YearRange
         {
-            get
-            {
-                return (Vector2)GetValue(YearRangeProperty);
-            }
-            set
-            {
-                SetValue(YearRangeProperty, value);
-            }
+            get;
+            set;
         }
         public override Attributes Clone()
         {

@@ -1,11 +1,12 @@
-﻿
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class SliderAttributes : ViewAttributes
     {
-        private Slider.IndicatorType indicatorType = Slider.IndicatorType.None;
 
-        public SliderAttributes() : base() { }
+        public SliderAttributes() : base()
+        {
+            IndicatorType = Slider.IndicatorType.None;
+        }
 
         public SliderAttributes(SliderAttributes attributes) : base(attributes)
         {
@@ -13,17 +14,17 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            if (attributes.BgTrackAttributes != null)
+            if (attributes.BackgroundTrackAttributes != null)
             {
-                BgTrackAttributes = attributes.BgTrackAttributes.Clone() as ImageAttributes;
+                BackgroundTrackAttributes = attributes.BackgroundTrackAttributes.Clone() as ImageAttributes;
             }
             if (attributes.SlidedTrackAttributes != null)
             {
                 SlidedTrackAttributes = attributes.SlidedTrackAttributes.Clone() as ImageAttributes;
             }
-            if (attributes.ThumbBgAttributes != null)
+            if (attributes.ThumbBackgroundAttributes != null)
             {
-                ThumbBgAttributes = attributes.ThumbBgAttributes.Clone() as ImageAttributes;
+                ThumbBackgroundAttributes = attributes.ThumbBackgroundAttributes.Clone() as ImageAttributes;
             }
             if (attributes.ThumbAttributes != null)
             {
@@ -53,10 +54,10 @@ namespace Tizen.NUI.CommonUI
             {
                 SpaceBetweenTrackAndIndicator = attributes.SpaceBetweenTrackAndIndicator;
             }
-            indicatorType = attributes.indicatorType;
+            IndicatorType = attributes.IndicatorType;
         }
 
-        public ImageAttributes BgTrackAttributes
+        public ImageAttributes BackgroundTrackAttributes
         {
             get;
             set;
@@ -74,7 +75,7 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
-        public ImageAttributes ThumbBgAttributes
+        public ImageAttributes ThumbBackgroundAttributes
         {
             get;
             set;
@@ -118,15 +119,8 @@ namespace Tizen.NUI.CommonUI
 
         public Slider.IndicatorType IndicatorType
         {
-            get
-            {
-                return indicatorType;
-            }
-
-            set
-            {
-                indicatorType = value;
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()

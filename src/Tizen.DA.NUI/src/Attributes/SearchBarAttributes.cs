@@ -2,98 +2,45 @@
 using System.Collections.Generic;
 using System.Text;
 using Tizen.NUI.CommonUI;
-using Tizen.NUI.Binding;
 
 namespace Tizen.FH.NUI.Controls
 {
     public class SearchBarAttributes : Tizen.NUI.CommonUI.ViewAttributes
     {
-        private InputFieldAttributes searchBoxAttributes = null;
-        private ViewAttributes resultListAttributes = null;
-        private int? space = null;
-
         public SearchBarAttributes() : base() { }
 
         public SearchBarAttributes(SearchBarAttributes attrs) : base(attrs)
         {
-            if (attrs.searchBoxAttributes != null)
+            if (attrs.SearchBoxAttributes != null)
             {
-                searchBoxAttributes = attrs.searchBoxAttributes.Clone() as InputFieldAttributes;
+                SearchBoxAttributes = attrs.SearchBoxAttributes.Clone() as InputFieldAttributes;
             }
-            if (attrs.resultListAttributes != null)
+            if (attrs.ResultListAttributes != null)
             {
-                resultListAttributes = attrs.resultListAttributes.Clone() as ViewAttributes;
+                ResultListAttributes = attrs.ResultListAttributes.Clone() as ViewAttributes;
             }
-            if (attrs.space != null)
+            if (attrs.Space != null)
             {
-                space = attrs.space;
+                Space = attrs.Space;
             }
         }
 
-        public static readonly BindableProperty SearchBoxAttributesProperty =
-            BindableProperty.Create("SearchBoxAttributes", typeof(InputFieldAttributes), typeof(SearchBarAttributes), default(InputFieldAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.searchBoxAttributes = (InputFieldAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                return attrs.searchBoxAttributes;
-            });
-
-        public static readonly BindableProperty ResultListAttributesProperty =
-            BindableProperty.Create("ResultListAttributes", typeof(ViewAttributes), typeof(SearchBarAttributes), default(ViewAttributes),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.resultListAttributes = (ViewAttributes)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                return attrs.resultListAttributes;
-            });
-
-        public static readonly BindableProperty SpaceProperty =
-            BindableProperty.Create("Space", typeof(int?), typeof(SearchBarAttributes), default(int?),
-            propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                if (newValue != null)
-                {
-                    attrs.space = (int?)newValue;
-                }
-            },
-            defaultValueCreator: (bindable) =>
-            {
-                var attrs = (SearchBarAttributes)bindable;
-                return attrs.space;
-            });
-
         public InputFieldAttributes SearchBoxAttributes
         {
-            get { return (InputFieldAttributes)GetValue(SearchBoxAttributesProperty); }
-            set { SetValue(SearchBoxAttributesProperty, value); }
+            get;
+            set;
         }
 
         public ViewAttributes ResultListAttributes
         {
-            get { return (ViewAttributes)GetValue(ResultListAttributesProperty); }
-            set { SetValue(ResultListAttributesProperty, value); }
+            get;
+            set;
         }
 
         public int? Space
         {
-            get { return (int?)GetValue(SpaceProperty); }
-            set { SetValue(SpaceProperty, value); }
+            get;
+            set;
         }
 
         public override Attributes Clone()

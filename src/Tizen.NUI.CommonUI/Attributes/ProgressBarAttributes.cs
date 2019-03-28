@@ -1,5 +1,4 @@
-﻿
-namespace Tizen.NUI.CommonUI
+﻿namespace Tizen.NUI.CommonUI
 {
     public class ProgressBarAttributes : ViewAttributes
     {

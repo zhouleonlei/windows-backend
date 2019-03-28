@@ -1,200 +1,77 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.Binding;
 using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
     public class NavigationAttributes : ViewAttributes
-    {
-        public static readonly BindableProperty ShadowImageAttributesProperty = BindableProperty.Create("ShadowImageAttributes", typeof(ImageAttributes), typeof(NavigationAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+    {     
+        public NavigationAttributes() : base()
         {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.shadowImageAttributes = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return attrs.shadowImageAttributes;
-        });
-
-        public static readonly BindableProperty BackgroundImageAttributesProperty = BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(NavigationAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.backgroundImageAttributes = (ImageAttributes)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return attrs.backgroundImageAttributes;
-        });
-
-        public static readonly BindableProperty DividerLineColorProperty = BindableProperty.Create("DividerLineAttributes", typeof(Color), typeof(NavigationAttributes), default(Color), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dividerLineColor = (Color)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return (object)attrs.dividerLineColor;
-        }));
-
-        public static readonly BindableProperty ItemGapProperty = BindableProperty.Create("ItemGap", typeof(int), typeof(NavigationAttributes), default(int), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.itemGap = (int)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return attrs.itemGap;
-        });
-
-        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(NavigationAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.space = (Vector4)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return (object)attrs.space;
-        }));
-
-
-        public static readonly BindableProperty IsFitWithItemsProperty = BindableProperty.Create("IsFitWithItems", typeof(bool), typeof(NavigationAttributes), default(bool), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.isFitWithItems = (bool)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationAttributes)bindable;
-            return (object)attrs.isFitWithItems;
-        }));
-
-        private ImageAttributes shadowImageAttributes;
-        private ImageAttributes backgroundImageAttributes;
-        private Color dividerLineColor = new Color(0, 0, 0, 0.1f);
-        private int itemGap = 0;
-        private Vector4 space = new Vector4(0, 0, 0, 0);
-        private bool isFitWithItems = false;
-
-        public NavigationAttributes() : base() { }
+            DividerLineColor = new Color(0, 0, 0, 0.1f);
+            ItemGap = 0;
+            Space = new Vector4(0, 0, 0, 0);
+            IsFitWithItems = false;
+        }
         public NavigationAttributes(NavigationAttributes attributes) : base(attributes)
         {
-            if (attributes.shadowImageAttributes != null)
+            if (attributes.ShadowImageAttributes != null)
             {
-                shadowImageAttributes = attributes.shadowImageAttributes.Clone() as ImageAttributes;
+                ShadowImageAttributes = attributes.ShadowImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.backgroundImageAttributes != null)
+            if (attributes.BackgroundImageAttributes != null)
             {
-                backgroundImageAttributes = attributes.backgroundImageAttributes.Clone() as ImageAttributes;
+                BackgroundImageAttributes = attributes.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.dividerLineColor != null)
+            if (attributes.DividerLineColor != null)
             {
-                dividerLineColor = new Color(attributes.dividerLineColor.R, attributes.dividerLineColor.G, attributes.dividerLineColor.B, attributes.dividerLineColor.A);
+                DividerLineColor = new Color(attributes.DividerLineColor.R, attributes.DividerLineColor.G, attributes.DividerLineColor.B, attributes.DividerLineColor.A);
             }
 
-            if (attributes.space != null)
+            if (attributes.Space != null)
             {
-                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+                Space = new Vector4(attributes.Space.X, attributes.Space.Y, attributes.Space.Z, attributes.Space.W);
             }
 
-            itemGap = attributes.itemGap;
-            isFitWithItems = attributes.isFitWithItems;
+            ItemGap = attributes.ItemGap;
+            IsFitWithItems = attributes.IsFitWithItems;
         }
 
         public ImageAttributes ShadowImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(ShadowImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(ShadowImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ImageAttributes BackgroundImageAttributes
         {
-            get
-            {
-                return (ImageAttributes)GetValue(BackgroundImageAttributesProperty);
-            }
-            set
-            {
-                SetValue(BackgroundImageAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public Color DividerLineColor
         {
-            get
-            {
-                return (Color)GetValue(DividerLineColorProperty);
-            }
-            set
-            {
-                SetValue(DividerLineColorProperty, value);
-            }
+            get;
+            set;
         }
 
         public int ItemGap
         {
-            get
-            {
-                return (int)GetValue(ItemGapProperty);
-            }
-            set
-            {
-                SetValue(ItemGapProperty, value);
-            }
+            get;
+            set;
         }
 
         public Vector4 Space
         {
-            get
-            {
-                return (Vector4)GetValue(SpaceProperty);
-            }
-            set
-            {
-                SetValue(SpaceProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool IsFitWithItems
         {
-            get
-            {
-                return (bool)GetValue(IsFitWithItemsProperty);
-            }
-            set
-            {
-                SetValue(IsFitWithItemsProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()
@@ -205,134 +82,53 @@ namespace Tizen.FH.NUI.Controls
 
     public class NavigationItemAttributes : ButtonAttributes
     {
-        public static readonly BindableProperty SubTextAttributesProperty = BindableProperty.Create("SubTextAttributes", typeof(TextAttributes), typeof(NavigationItemAttributes), default(TextAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
+        public NavigationItemAttributes() : base()
         {
-            var attrs = (NavigationItemAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.subTextAttributes = (TextAttributes)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            return (object)attrs.subTextAttributes;
-        }));
-
-        public static readonly BindableProperty DividerLineAttributesProperty = BindableProperty.Create("DividerLineAttributes", typeof(ViewAttributes), typeof(NavigationItemAttributes), default(ViewAttributes), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.dividerAttributes = (ViewAttributes)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            return (object)attrs.dividerAttributes;
-        }));
-
-        public static readonly BindableProperty SpaceProperty = BindableProperty.Create("Space", typeof(Vector4), typeof(NavigationItemAttributes), default(Vector4), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.space = (Vector4)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            return (object)attrs.space;
-        }));
-
-        public static readonly BindableProperty EnableIconCenterProperty = BindableProperty.Create("EnableIconCenter", typeof(bool), typeof(NavigationItemAttributes), default(bool), propertyChanged: (BindableProperty.BindingPropertyChangedDelegate)((bindable, oldValue, newValue) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.enableIconCenter = (bool)newValue;
-            }
-        }),
-        defaultValueCreator: (BindableProperty.CreateDefaultValueDelegate)((bindable) =>
-        {
-            var attrs = (NavigationItemAttributes)bindable;
-            return (object)attrs.enableIconCenter;
-        }));
-
-        private TextAttributes subTextAttributes;
-        private ViewAttributes dividerAttributes;
-        private Vector4 space = new Vector4(0, 0, 0, 0);
-        private bool enableIconCenter = false;
-
-        public NavigationItemAttributes() : base() { }
+            Space = new Vector4(0, 0, 0, 0);
+            EnableIconCenter = false;
+        }
         public NavigationItemAttributes(NavigationItemAttributes attributes) : base(attributes)
         {
-            if (attributes.subTextAttributes != null)
+            if (attributes.SubTextAttributes != null)
             {
-                subTextAttributes = attributes.subTextAttributes.Clone() as TextAttributes;
+                SubTextAttributes = attributes.SubTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dividerAttributes != null)
+            if (attributes.DividerLineAttributes != null)
             {
-                dividerAttributes = attributes.dividerAttributes.Clone() as ViewAttributes;
+                DividerLineAttributes = attributes.DividerLineAttributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.space != null)
+            if (attributes.Space != null)
             {
-                space = new Vector4(attributes.space.X, attributes.space.Y, attributes.space.Z, attributes.space.W);
+                Space = new Vector4(attributes.Space.X, attributes.Space.Y, attributes.Space.Z, attributes.Space.W);
             }
 
-            enableIconCenter = attributes.enableIconCenter;
+            EnableIconCenter = attributes.EnableIconCenter;
         }
 
         public TextAttributes SubTextAttributes
         {
-            get
-            {
-                return (TextAttributes)GetValue(SubTextAttributesProperty);
-            }
-            set
-            {
-                SetValue(SubTextAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public ViewAttributes DividerLineAttributes
         {
-            get
-            {
-                return (ViewAttributes)GetValue(DividerLineAttributesProperty);
-            }
-            set
-            {
-                SetValue(DividerLineAttributesProperty, value);
-            }
+            get;
+            set;
         }
 
         public Vector4 Space
         {
-            get
-            {
-                return (Vector4)GetValue(SpaceProperty);
-            }
-            set
-            {
-                SetValue(SpaceProperty, value);
-            }
+            get;
+            set;
         }
 
         public bool EnableIconCenter
         {
-            get
-            {
-                return (bool)GetValue(EnableIconCenterProperty);
-            }
-            set
-            {
-                SetValue(EnableIconCenterProperty, value);
-            }
+            get;
+            set;
         }
 
         public override Attributes Clone()
