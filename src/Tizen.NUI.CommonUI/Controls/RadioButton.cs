@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel;
+
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
@@ -11,25 +12,35 @@ namespace Tizen.NUI.CommonUI
     /// radio.Text = "RadioButton";
     /// radio.Focusable = true;
     /// </code>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class RadioButton : SelectButton
     {
         /// <summary>
         /// 
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton() : base() { }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="style"></param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton(string style) : base(style) { }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="attrs"></param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton(SelectButtonAttributes attrs) : base(attrs) { }
         /// <summary>
         /// Get RadioButtonGroup to which this selections belong.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButtonGroup ItemGroup
         {
             get
@@ -45,6 +56,8 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Set CheckState to true after selecting RadioButton.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnSelected()
         {
             if (!IsSelected)

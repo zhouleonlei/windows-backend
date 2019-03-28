@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
@@ -14,11 +15,15 @@ namespace Tizen.NUI.CommonUI
     /// radioGroup.Add(radio1);
     /// radioGroup.Add(radio2);
     /// </code>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class RadioButtonGroup : SelectGroup
     {
         /// <summary>
         /// Construct RadioButtonGroup
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButtonGroup() : base()
         {
 
@@ -29,6 +34,8 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="index">item index</param>
         /// <returns>RadioButton</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton GetItemByIndex(int index)
         {
             return itemGroup[index] as RadioButton;
@@ -38,6 +45,8 @@ namespace Tizen.NUI.CommonUI
         /// Add RadioButton to the end of RadioButtonGroup.
         /// </summary>
         /// <param name="radio">The RadioButton to be added to the RadioButtonGroup</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Add(RadioButton radio)
         {
             base.AddSelection(radio);
@@ -49,6 +58,8 @@ namespace Tizen.NUI.CommonUI
         /// Remove RadioButton from the RadioButtonGroup.
         /// </summary>
         /// <param name="radio">The RadioButton to remove from the RadioButtonGroup</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Remove(RadioButton radio)
         {
             base.RemoveSelection(radio);
@@ -60,6 +71,8 @@ namespace Tizen.NUI.CommonUI
         /// and turn out check state of other RadioButtons in RadioButtonGroup
         /// </summary>
         /// <param name="selection">The selection selected by user</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void SelectionHandler(SelectButton selection)
         {
             RadioButton radio = selection as RadioButton;
