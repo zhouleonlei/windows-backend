@@ -1,5 +1,4 @@
 ﻿using Tizen.NUI.CommonUI;
-using Tizen.NUI.Xaml;
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityBasicButtonStyle : TextButtonStyle

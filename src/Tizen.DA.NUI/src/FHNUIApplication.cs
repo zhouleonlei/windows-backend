@@ -22,8 +22,6 @@
 using System;
 using System.Reflection;
 using Tizen.NUI;
-using Tizen.NUI.Xaml;
-using Tizen.NUI.CommonUI;
 using Tizen.FH.NUI.Controls;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 using System.ComponentModel;

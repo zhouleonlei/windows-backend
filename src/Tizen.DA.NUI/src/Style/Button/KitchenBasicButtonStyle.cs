@@ -1,6 +1,4 @@
-﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
-using Tizen.NUI.Xaml;
+﻿using Tizen.NUI.CommonUI;
 namespace Tizen.FH.NUI.Controls
 {
     internal class KitchenBasicButtonStyle : TextButtonStyle
