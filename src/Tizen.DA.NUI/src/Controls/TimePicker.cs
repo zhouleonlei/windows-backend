@@ -2,9 +2,12 @@
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class TimePicker : Control
     {
         private ImageView backgroundImage = null;
@@ -24,16 +27,22 @@ namespace Tizen.FH.NUI.Controls
         private DateTime curTime;      
         private TimePickerAttributes timePickerAttributes;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePicker() : base()
         {
             Initialize();
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePicker(string style) : base(style)
         {
             Initialize();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public DateTime CurTime
         {
             get
@@ -45,7 +54,9 @@ namespace Tizen.FH.NUI.Controls
                 curTime = value;
             }
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -157,11 +168,15 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }   
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return null;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             timePickerAttributes = attributes as TimePickerAttributes;
