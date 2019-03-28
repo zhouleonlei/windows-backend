@@ -1,9 +1,17 @@
 ﻿
+using System.ComponentModel;
+
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class TextAttributes : ViewAttributes
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes() : base() { }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes(TextAttributes attributes) : base(attributes)
         {
             if(attributes == null)
@@ -109,124 +117,149 @@ namespace Tizen.NUI.CommonUI
                 OutstrokeThickness = attributes.OutstrokeThickness.Clone() as IntSelector;
             }
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector Text
         {
             get;
             set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector TranslatableText
         {
             get;
             set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? MultiLine
         {
             get;
             set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment? HorizontalAlignment
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public VerticalAlignment? VerticalAlignment
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableMarkup
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableAutoScroll
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int? AutoScrollSpeed
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int? AutoScrollLoopCount
 {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float? AutoScrollGap
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float? AutoScrollLoopDelay
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public AutoScrollStopMode? AutoScrollStopMode
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float? LineSpacing
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector TextColor
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string FontFamily
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector PointSize
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2Selector ShadowOffset
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector ShadowColor
         {
             get;
             set;
         }
 
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector OutstrokeColor
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public IntSelector OutstrokeThickness
         {
             get;
             set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
             return new TextAttributes(this);
