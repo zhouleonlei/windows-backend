@@ -76,6 +76,7 @@ namespace Tizen.NUI.Samples
         public override FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
         {
             FlexibleView.ViewHolder viewHolder = new FlexibleView.ViewHolder(new ListItemView());
+            //Console.WriteLine($"OnCreateViewHolder... viewType: {viewType} viewID: {viewHolder.ItemView.ID}");
 
             return viewHolder;
         }
@@ -99,6 +100,15 @@ namespace Tizen.NUI.Samples
                 listItemView.BackgroundColor = Color.Cyan;
             else
                 listItemView.BackgroundColor = Color.Yellow;
+        }
+
+        public override void OnDestroyViewHolder(FlexibleView.ViewHolder holder)
+        {
+            //Console.WriteLine($"OnDestroyViewHolder... viewID: {holder.ItemView?.ID}");
+            if (holder.ItemView != null)
+            {
+                holder.ItemView.Dispose();
+            }
         }
 
         public override int GetItemCount()
