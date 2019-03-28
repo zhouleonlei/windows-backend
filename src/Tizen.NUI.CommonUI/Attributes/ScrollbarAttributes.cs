@@ -44,12 +44,6 @@
             set;
         }
 
-        public Size2D ThumbSize
-        {
-            get;
-            set;
-        }
-
         public uint MaxValue
         {
             get;
