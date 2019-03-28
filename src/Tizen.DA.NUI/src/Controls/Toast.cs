@@ -2,30 +2,23 @@
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 using System;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
-{
+{   
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Toast : Tizen.NUI.CommonUI.Toast
     {
-        public enum ToastLengthType
-        {
-            SHORT,
-            LONG,
-            CUSTOM
-        };
-        public enum ToastLinesType
-        {
-            ONE,
-            TWO,
-            THREE
-        };
-        private Loading loading;
         private ToastAttributes toastAttributes;
+        private Loading loading;
         private TextLabel toastText_2line;
         private TextLabel toastText_3line;
         private ToastLengthType lengthType = ToastLengthType.CUSTOM;
         private ToastLinesType linesType = ToastLinesType.ONE;
         private bool loadingEnable = false;
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastLengthType LengthType
         {
             get
@@ -50,7 +43,8 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastLinesType LinesType
         {
             get
@@ -125,7 +119,8 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool LoadingEnable
         {
             get
@@ -150,7 +145,8 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text2Line
         {
             get
@@ -164,7 +160,8 @@ namespace Tizen.FH.NUI.Controls
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text3Line
         {
             get
@@ -178,7 +175,8 @@ namespace Tizen.FH.NUI.Controls
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
             SetAttribute();
@@ -186,7 +184,8 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
             base.SetAttribute();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
             SetAttribute();
@@ -198,16 +197,37 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(this, toastAttributes);
         }
 
-        private void Initialize()
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public enum ToastLengthType
         {
-            LayoutDirectionChanged += OnLayoutDirectionChanged;
-        }
-
-        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            SHORT,
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            LONG,
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            CUSTOM
+        };
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public enum ToastLinesType
         {
-            RelayoutRequest();
-        }
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            ONE,
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            TWO,
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            THREE
+        };
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -228,7 +248,8 @@ namespace Tizen.FH.NUI.Controls
 
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributes)
         {
             Console.WriteLine("OnUpdate (FH ) Toast ");//gwfdebug
@@ -252,31 +273,8 @@ namespace Tizen.FH.NUI.Controls
             base.OnUpdate(attributes);
         }
 
-        private void AddLoading()
-        {
-            loading = new Loading("DefaultLoading");
-            this.Add(loading);
-            loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
-            loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
-            loading.Size2D = new Size2D(100, 100);
-            loading.PositionUsesPivotPoint = true;
-            loading.Position2D.Y = 0;
-            loadingEnable = true;
-            RelayoutRequest();
-        }
-
-        private void RemoveLoading()
-        {
-            if (loading != null)
-            {
-                this.Remove(loading);
-                loading.Dispose();
-            }
-
-            loadingEnable = false;
-            RelayoutRequest();
-        }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void LayoutChild()
         {
             if (toastAttributes.TextAttributes.Size2D == null)
@@ -334,7 +332,8 @@ namespace Tizen.FH.NUI.Controls
 
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new ToastAttributes
@@ -353,10 +352,46 @@ namespace Tizen.FH.NUI.Controls
                 }
             };
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetAttribute()
         {
             toastAttributes = this.attributes as ToastAttributes;
+        }
+
+        private void Initialize()
+        {
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            RelayoutRequest();
+        }
+
+        private void AddLoading()
+        {
+            loading = new Loading("DefaultLoading");
+            this.Add(loading);
+            loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+            loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+            loading.Size2D = new Size2D(100, 100);
+            loading.PositionUsesPivotPoint = true;
+            loading.Position2D.Y = 0;
+            loadingEnable = true;
+            RelayoutRequest();
+        }
+
+        private void RemoveLoading()
+        {
+            if (loading != null)
+            {
+                this.Remove(loading);
+                loading.Dispose();
+            }
+
+            loadingEnable = false;
+            RelayoutRequest();
         }
     }
 }

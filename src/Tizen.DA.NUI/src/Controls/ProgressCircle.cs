@@ -4,15 +4,21 @@ using System.Text;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI;
 using Tizen.NUI.CommonUI;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class ProgressCircle : Tizen.NUI.CommonUI.Progress
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public List<string> ImageList = null;
         private TextLabel textLabel;
         private bool isTextEnabled;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ProgressImageURLPre
         {
             get
@@ -27,7 +33,8 @@ namespace Tizen.FH.NUI.Controls
                 UpdateValue();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsTextEnabled
         {
             get
@@ -47,7 +54,8 @@ namespace Tizen.FH.NUI.Controls
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ProgressCircle(string style) : base(style)
         {
             ImageList = new List<string>();
@@ -68,13 +76,16 @@ namespace Tizen.FH.NUI.Controls
             };
             Add(textLabel);
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)
         {
             base.OnUpdate(attrs);
             UpdateList();
             UpdateValue();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void UpdateStates()
         {
             if (state == ProgressStatusType.Buffering)
@@ -99,7 +110,8 @@ namespace Tizen.FH.NUI.Controls
                 textLabel.Text = "Loading";
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void UpdateValue()
         {
             if (/*progressObj == null ||*/ ImageList == null ||

@@ -208,6 +208,8 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(resultListRoot, searchBarAttrs.ResultListAttributes);
             RelayoutComponents();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             SearchBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(base.style) as SearchBarAttributes;
