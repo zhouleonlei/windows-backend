@@ -4,9 +4,12 @@ using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Navigation : Control
     {
         private const int aniTime = 100; // will be defined in const file later
@@ -19,6 +22,8 @@ namespace Tizen.FH.NUI.Controls
         private ImageView backgroundImage;
         private View rootView;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Navigation() : base()
         {
             navigationAttributes = attributes as NavigationAttributes;
@@ -28,6 +33,8 @@ namespace Tizen.FH.NUI.Controls
             }
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Navigation(string style) : base(style)
         {
             navigationAttributes = attributes as NavigationAttributes;
@@ -37,6 +44,8 @@ namespace Tizen.FH.NUI.Controls
             }
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Navigation(NavigationAttributes attributes) : base()
         {
             this.attributes = navigationAttributes = attributes.Clone() as NavigationAttributes;
@@ -47,6 +56,8 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ItemChangeEventArgs> ItemChangedEvent
         {
             add
@@ -59,6 +70,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int SelectedItemIndex
         {
             get
@@ -74,6 +87,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int ItemGap
         {
             get
@@ -90,6 +105,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float LeftSpace
         {
             get
@@ -103,6 +120,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float BottomSpace
         {
             get
@@ -116,6 +135,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float RightSpace
         {
             get
@@ -129,6 +150,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float TopSpace
         {
             get
@@ -142,6 +165,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ShadowImageSize2D
         {
             get
@@ -158,6 +183,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string ShadowImageURL
         {
             get
@@ -178,6 +205,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string BackgroundImageURL
         {
             get
@@ -198,6 +227,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle BackgroundImageBorder
         {
             get
@@ -218,6 +249,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color DividerLineColor
         {
             get
@@ -230,6 +263,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsFitWithItems
         {
             get
@@ -242,16 +277,22 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddItem(NavigationItemData itemData)
         {
             AddItemByIndex(itemData, itemList.Count);
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void InsertItem(NavigationItemData itemData, int index)
         {
             AddItemByIndex(itemData, index);
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void DeleteItem(int itemIndex)
         {
             if (itemList == null || itemIndex < 0 || itemIndex >= itemList.Count)
@@ -276,11 +317,15 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributes)
         {
             UpdateItem();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -339,6 +384,8 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new NavigationAttributes();
@@ -709,8 +756,12 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class NavigationItemData : Button
         {
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public NavigationItemData() : base()
             {
                 ItemAttributes = attributes as NavigationItemAttributes;
@@ -721,6 +772,8 @@ namespace Tizen.FH.NUI.Controls
                 Initalize();
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public NavigationItemData(string style) : base(style)
             {
                 ItemAttributes = attributes as NavigationItemAttributes;
@@ -730,6 +783,8 @@ namespace Tizen.FH.NUI.Controls
                 }
                 Initalize();
             }
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public NavigationItemData(NavigationItemAttributes attributes) : base()
             {
                 this.attributes = ItemAttributes = attributes.Clone() as NavigationItemAttributes;
@@ -740,6 +795,8 @@ namespace Tizen.FH.NUI.Controls
                 Initalize();
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public new Size2D Size2D
             {
                 get
@@ -752,6 +809,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Vector4 Space
             {
                 get
@@ -764,6 +823,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int LeftSpace
             {
                 get
@@ -776,6 +837,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int BottomSpace
             {
                 get
@@ -788,6 +851,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int RightSpace
             {
                 get
@@ -800,6 +865,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int TopSpace
             {
                 get
@@ -812,6 +879,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public string SubText
             {
                 get
@@ -832,6 +901,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Size2D TextSize2D
             {
                 get
@@ -845,6 +916,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Size2D SubTextSize2D
             {
                 get
@@ -858,6 +931,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public float SubTextPointSize
             {
                 get
@@ -875,6 +950,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public string SubTextFontFamily
             {
                 get
@@ -888,6 +965,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Color SubTextColor
             {
                 get
@@ -905,6 +984,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public ColorSelector SubTextColorSelector
             {
                 get
@@ -921,6 +1002,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Size2D IconSize2D
             {
                 get
@@ -933,6 +1016,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Color DividerLineColor
             {
                 get
@@ -950,6 +1035,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Size2D DividerLineSize2D
             {
                 get
@@ -963,6 +1050,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public Position2D DividerLinePosition2D
             {
                 get
@@ -976,6 +1065,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public bool EnableIconCenter
             {
                 get
@@ -994,11 +1085,15 @@ namespace Tizen.FH.NUI.Controls
                 set;
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             protected override Attributes GetAttributes()
             {
                 return new NavigationItemAttributes();
             }
 
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             protected override void OnUpdate(Attributes attributtes)
             {
                 
@@ -1066,11 +1161,17 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class ItemChangeEventArgs : EventArgs
         {
             /// <summary> previous selected index of Navigation </summary>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int PreviousIndex;
             /// <summary> current selected index of Navigation </summary>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int CurrentIndex;
         }
     }

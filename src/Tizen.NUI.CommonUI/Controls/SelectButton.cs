@@ -1,10 +1,15 @@
 ﻿using System;
 using Tizen.NUI.BaseComponents;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class SelectButton : Button
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected SelectGroup itemGroup = null;
 
         private ImageView checkShadowImage;
@@ -13,6 +18,8 @@ namespace Tizen.NUI.CommonUI
 
         private SelectButtonAttributes selectButtonAttributes;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton() : base()
         {
             selectButtonAttributes = attributes as SelectButtonAttributes;
@@ -22,6 +29,8 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(string style) : base(style)
         {
             selectButtonAttributes = attributes as SelectButtonAttributes;
@@ -32,17 +41,23 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(SelectButtonAttributes attributes) : base()
         {
             this.attributes = selectButtonAttributes = attributes.Clone() as SelectButtonAttributes;
             Initialize();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<SelectEventArgs> SelectedEvent;
 
         /// <summary>
         /// Index of selection in selection group. If selection is not in the group, return -1;
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int Index
         {
             get
@@ -56,6 +71,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckImageURL
         {
             get
@@ -77,6 +94,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckImageURLSelector
         {
             get
@@ -94,6 +113,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckImageOpacity
         {
             get
@@ -112,6 +133,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckImageOpacitySelector
         {
             get
@@ -129,6 +152,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckImageSize2D
         {
             get
@@ -143,6 +168,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckImagePosition2D
         {
             get
@@ -157,6 +184,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckBackgroundImageURL
         {
             get
@@ -178,6 +207,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckBackgroundImageURLSelector
         {
             get
@@ -195,6 +226,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckBackgroundImageOpacity
         {
             get
@@ -213,6 +246,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckBackgroundImageOpacitySelector
         {
             get
@@ -230,6 +265,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckBackgroundImageSize2D
         {
             get
@@ -244,6 +281,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckBackgroundImagePosition2D
         {
             get
@@ -258,6 +297,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckShadowImageURL
         {
             get
@@ -279,6 +320,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckShadowImageURLSelector
         {
             get
@@ -296,6 +339,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckShadowImageOpacity
         {
             get
@@ -314,6 +359,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckShadowImageOpacitySelector
         {
             get
@@ -331,6 +378,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckShadowImageSize2D
         {
             get
@@ -345,6 +394,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckShadowImagePosition2D
         {
             get
@@ -358,6 +409,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             SelectButtonAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as SelectButtonAttributes;
@@ -368,6 +421,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -400,6 +455,8 @@ namespace Tizen.NUI.CommonUI
             base.Dispose(type);
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             selectButtonAttributes = attributes as SelectButtonAttributes;
@@ -479,6 +536,8 @@ namespace Tizen.NUI.CommonUI
             checkImage?.RaiseToTop();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnKey(object source, KeyEventArgs e)
         {
             if (IsEnabled == false)
@@ -497,6 +556,8 @@ namespace Tizen.NUI.CommonUI
             return ret;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnTouch(object source, TouchEventArgs e)
         {
             if (IsEnabled == false)
@@ -516,6 +577,8 @@ namespace Tizen.NUI.CommonUI
             return ret;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new SelectButtonAttributes();
@@ -524,6 +587,8 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Overrides this method if want to handle behavior after pressing return key by user.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnSelected()
         {
         }
@@ -635,8 +700,12 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class SelectEventArgs : EventArgs
         {
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public bool IsSelected;
         }
     }

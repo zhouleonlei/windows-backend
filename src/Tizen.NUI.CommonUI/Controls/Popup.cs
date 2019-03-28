@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
-{   
+{
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Popup : Control
     {
         private ImageView backgroundImage;
@@ -16,6 +19,8 @@ namespace Tizen.NUI.CommonUI
         private PopupAttributes popupAttributes;
         private int buttonCount = 0;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup() : base()
         {
             popupAttributes = attributes as PopupAttributes;
@@ -25,6 +30,8 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(string style) : base(style)
         {
             popupAttributes = attributes as PopupAttributes;
@@ -34,13 +41,19 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(PopupAttributes attributes) : base()
         {
             this.attributes = popupAttributes = attributes.Clone() as PopupAttributes;
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickEventArgs> PopupButtonClickedEvent;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string TitleText
         {
             get
@@ -63,6 +76,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int ButtonCount
         {
             get
@@ -79,6 +94,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public View ContentView
         {
             get
@@ -87,6 +104,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string ShadowImageURL
         {
             get
@@ -108,6 +127,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle ShadowImageBorder
         {
             get
@@ -129,6 +150,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string BackgroundImageURL
         {
             get
@@ -150,6 +173,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle BackgroundImageBorder
         {
             get
@@ -171,6 +196,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float TitlePointSize
         {
             get
@@ -189,6 +216,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string TitleFontFamily
         {
             get
@@ -203,6 +232,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TitleTextColor
         {
             get
@@ -221,6 +252,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment TitleTextHorizontalAlignment
         {
             get
@@ -235,6 +268,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D TitleTextPosition2D
         {
             get
@@ -249,6 +284,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int TitleHeight
         {
             get
@@ -263,6 +300,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ShadowOffset
         {
             get
@@ -283,6 +322,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int ButtonHeight
         {
             get
@@ -297,6 +338,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float ButtonPointSize
         {
             get
@@ -315,6 +358,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string ButtonFontFamily
         {
             get
@@ -329,6 +374,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color ButtonTextColor
         {
             get
@@ -347,6 +394,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector ButtonOverLayBackgroundColorSelector
         {
             get
@@ -364,6 +413,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment ButtonTextAlignment
         {
             get
@@ -378,6 +429,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string ButtonBackgroundImageURL
         {
             get
@@ -399,6 +452,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle ButtonBackgroundImageBorder
         {
             get
@@ -420,6 +475,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetButtonText(int index, string text)
         {
             if(index < 0 && index >= buttonCount)
@@ -437,6 +494,8 @@ namespace Tizen.NUI.CommonUI
             RelayoutRequest();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -482,23 +541,31 @@ namespace Tizen.NUI.CommonUI
 
             base.Dispose(type);
         }
-           
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusGained(object sender, EventArgs e)
         {
             base.OnFocusGained(sender, e);
 
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusLost(object sender, EventArgs e)
         {
             base.OnFocusLost(sender, e);
 
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new PopupAttributes();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             popupAttributes = attributes as PopupAttributes;
@@ -595,6 +662,8 @@ namespace Tizen.NUI.CommonUI
             LayoutChild();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void LayoutChild()
         {
             if (popupAttributes == null)
@@ -644,6 +713,18 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            PopupAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PopupAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = popupAttributes = tempAttributes;
+                RelayoutRequest();
+            }
+        }
+
         private void Initialize()
         {
             ApplyAttributes(this, popupAttributes);
@@ -659,16 +740,6 @@ namespace Tizen.NUI.CommonUI
             };
             Add(contentView);
             contentView.RaiseToTop();
-        }
-
-        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
-        {
-            PopupAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PopupAttributes;
-            if (tempAttributes != null)
-            {
-                attributes = popupAttributes = tempAttributes;
-                RelayoutRequest();
-            }
         }
 
         private void CreateShadowAttributes()
@@ -821,9 +892,13 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class ButtonClickEventArgs : EventArgs
         {
             /// <summary> Button index which is clicked in Popup </summary>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int ButtonIndex;
         }
     }
