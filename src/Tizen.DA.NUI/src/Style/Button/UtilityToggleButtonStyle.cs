@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.UtilityToggleButtonStyle.xaml", "UtilityToggleButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityToggleButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityToggleButtonStyle : TextButtonStyle

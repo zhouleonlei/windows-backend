@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Picker.PickerStyle.xaml", "PickerStyle.xaml", typeof(Tizen.FH.NUI.Controls.DAPickerStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class DAPickerStyle : StyleBase

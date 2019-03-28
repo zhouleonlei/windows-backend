@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Spin.StrSpinStyle.xaml", "StrSpinStyle.xaml", typeof(Tizen.FH.NUI.Controls.DAStrSpinStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class DAStrSpinStyle : StyleBase

@@ -1,7 +1,6 @@
 ﻿
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyOvalButtonStyle.xaml", "FamilyOvalButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.FamilyOvalButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyOvalButtonStyle : IconButtonStyle
