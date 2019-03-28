@@ -47,8 +47,6 @@ namespace Tizen.FH.NUI.Samples
 
             if (isThemeButtonVisiable)
             {
-                this.isThemeButtonVisible = isThemeButtonVisiable;
-
                 ButtonAttributes buttonAttributes = new ButtonAttributes
                 {
                     IsSelectable = true,
@@ -116,6 +114,8 @@ namespace Tizen.FH.NUI.Samples
                 KitchenButton.ClickEvent += KitchenButton_ClickEvent;
                 base.Add(KitchenButton);
             }
+
+            this.isThemeButtonVisible = isThemeButtonVisiable;
 
             Content = new View
             {

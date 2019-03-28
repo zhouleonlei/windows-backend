@@ -29,6 +29,9 @@ namespace Tizen.NUI.CommonUI
         private ScrollBar mScrollBar = null;
         private Timer mScrollBarShowTimer = null;
 
+        private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
+        private EventHandler<ItemTouchEventArgs> touchEventHandlers;
+
         public FlexibleView()
         {
             mRecyclerPool = new RecycledViewPool(this);
@@ -49,95 +52,10 @@ namespace Tizen.NUI.CommonUI
             ClippingMode = ClippingModeType.ClipToBoundingBox;
         }
 
-        public void SetAdapter(Adapter adapter)
-        {
-            if (adapter == null)
-            {
-                return;
-            }
-            mAdapter = adapter;
-
-            mAdapter.ItemEvent += OnItemEvent;
-        }
-
-        public Adapter GetAdapter()
-        {
-            return mAdapter;
-        }
-
-        public void SetLayoutManager(LayoutManager layoutManager)
-        {
-            mLayout = layoutManager;
-
-            mLayout.SetRecyclerView(this);
-
-            if (mLayout.CanScrollHorizontally())
-            {
-                mPanGestureDetector.AddDirection(PanGestureDetector.DirectionHorizontal);
-            }
-            else if (mLayout.CanScrollVertically())
-            {
-                mPanGestureDetector.AddDirection(PanGestureDetector.DirectionVertical);
-            }
-        }
-
-        public LayoutManager GetLayoutManager()
-        {
-            return mLayout;
-        }
-
-        protected override void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if (type == DisposeTypes.Explicit)
-            {
-                if (mAdapter != null)
-                {
-                    mAdapter.ItemEvent -= OnItemEvent;
-                }
-
-                if (mPanGestureDetector != null)
-                {
-                    mPanGestureDetector.Detected -= OnPanGestureDetected;
-                    mPanGestureDetector.Dispose();
-                    mPanGestureDetector = null;
-                }
-
-                if (mScrollBarShowTimer != null)
-                {
-                    mScrollBarShowTimer.Tick -= OnShowTimerTick;
-                    mScrollBarShowTimer.Stop();
-                    mScrollBarShowTimer.Dispose();
-                    mScrollBarShowTimer = null;
-                }
-
-                if (mRecyclerPool != null)
-                {
-                    mRecyclerPool.Clear();
-                    mRecyclerPool = null;
-                }
-
-                if (mChildHelper != null)
-                {
-                    mChildHelper.Clear();
-                    mChildHelper = null;
-                }
-            }
-            base.Dispose(type);
-        }
-
-
-        public class ItemClickEventArgs : EventArgs
-        {
-            public ViewHolder ClickedView;
-        }
-
         public delegate void ClickEventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
-        private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
+        public delegate void EventHandler<TouchEventArgs>(object sender, TouchEventArgs e);
+
+
         /// <summary>
         /// Item click event.
         /// </summary>
@@ -154,19 +72,7 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        private void OnClickEvent(object sender, ItemClickEventArgs e)
-        {
-            clickEventHandlers?.Invoke(sender, e);
-        }
 
-
-        public class ItemTouchEventArgs : TouchEventArgs
-        {
-            public ViewHolder TouchedView;
-        }
-
-        public delegate void EventHandler<TouchEventArgs>(object sender, TouchEventArgs e);
-        private EventHandler<ItemTouchEventArgs> touchEventHandlers;
         /// <summary>
         /// Item touch event.
         /// </summary>
@@ -181,11 +87,6 @@ namespace Tizen.NUI.CommonUI
             {
                 touchEventHandlers -= value;
             }
-        }
-
-        private void OnTouchEvent(object sender, ItemTouchEventArgs e)
-        {
-            touchEventHandlers?.Invoke(sender, e);
         }
 
         public new Extents Padding
@@ -235,6 +136,44 @@ namespace Tizen.NUI.CommonUI
                 }
             }
         }
+
+        public void SetAdapter(Adapter adapter)
+        {
+            if (adapter == null)
+            {
+                return;
+            }
+            mAdapter = adapter;
+
+            mAdapter.ItemEvent += OnItemEvent;
+        }
+
+        public Adapter GetAdapter()
+        {
+            return mAdapter;
+        }
+
+        public void SetLayoutManager(LayoutManager layoutManager)
+        {
+            mLayout = layoutManager;
+
+            mLayout.SetRecyclerView(this);
+
+            if (mLayout.CanScrollHorizontally())
+            {
+                mPanGestureDetector.AddDirection(PanGestureDetector.DirectionHorizontal);
+            }
+            else if (mLayout.CanScrollVertically())
+            {
+                mPanGestureDetector.AddDirection(PanGestureDetector.DirectionVertical);
+            }
+        }
+
+        public LayoutManager GetLayoutManager()
+        {
+            return mLayout;
+        }
+
         public void ScrollToPositionWithOffset(int position, int offset)
         {
             mLayout.ScrollToPositionWithOffset(position, offset);
@@ -263,68 +202,6 @@ namespace Tizen.NUI.CommonUI
             }
             Remove(mScrollBar);
             mScrollBar = null;
-        }
-
-        private void ShowScrollBar(uint millisecond = 700, bool flagAni = false)
-        {
-            if (mScrollBar == null || mLayout == null)
-            {
-                return;
-            }
-
-            float extent = mLayout.ComputeScrollExtent(mState);
-            float range = mLayout.ComputeScrollRange(mState);
-            float offset = mLayout.ComputeScrollOffset(mState);
-
-            float size = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeHeight : mScrollBar.SizeWidth;
-            float thickness = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeWidth : mScrollBar.SizeHeight;
-            float length = (float)Math.Round(size * extent / range);
-
-            // avoid the tiny thumb
-            float minLength = thickness * 2;
-            if (length < minLength)
-            {
-                length = minLength;
-            }
-            // avoid the too-big thumb
-            if (offset > range - extent)
-            {
-                offset = range - extent;
-            }
-            if (mScrollBar.Direction == ScrollBar.DirectionType.Vertical)
-            {
-                mScrollBar.ThumbSize = new Size2D((int)thickness, (int)length);
-            }
-            else
-            {
-                mScrollBar.ThumbSize = new Size2D((int)length, (int)thickness);
-            }
-            mScrollBar.MinValue = 0;
-            mScrollBar.MaxValue = (uint)(range - extent);
-            mScrollBar.SetCurrentValue((uint)offset, flagAni);
-            mScrollBar.Show();
-            //Console.WriteLine($"Show scrollbar! current:{offset} {flagAni}");
-            if (mScrollBarShowTimer == null)
-            {
-                mScrollBarShowTimer = new Timer(millisecond);
-                mScrollBarShowTimer.Tick += OnShowTimerTick;
-            }
-            else
-            {
-                mScrollBarShowTimer.Interval = millisecond;
-            }
-            mScrollBarShowTimer.Start();
-        }
-
-        private bool OnShowTimerTick(object source, EventArgs e)
-        {
-            if (mScrollBar != null)
-            {
-                mScrollBar.Hide();
-            }
-
-            //Console.WriteLine("Time out callback, scrollbar is hidden! ");
-            return false;
         }
 
         public ViewHolder FindViewHolderForLayoutPosition(int position)
@@ -359,6 +236,50 @@ namespace Tizen.NUI.CommonUI
             }
 
             return null;
+        }
+
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                if (mAdapter != null)
+                {
+                    mAdapter.ItemEvent -= OnItemEvent;
+                }
+
+                if (mPanGestureDetector != null)
+                {
+                    mPanGestureDetector.Detected -= OnPanGestureDetected;
+                    mPanGestureDetector.Dispose();
+                    mPanGestureDetector = null;
+                }
+
+                if (mScrollBarShowTimer != null)
+                {
+                    mScrollBarShowTimer.Tick -= OnShowTimerTick;
+                    mScrollBarShowTimer.Stop();
+                    mScrollBarShowTimer.Dispose();
+                    mScrollBarShowTimer = null;
+                }
+
+                if (mRecyclerPool != null)
+                {
+                    mRecyclerPool.Clear();
+                    mRecyclerPool = null;
+                }
+
+                if (mChildHelper != null)
+                {
+                    mChildHelper.Clear();
+                    mChildHelper = null;
+                }
+            }
+            base.Dispose(type);
         }
 
         protected override Attributes GetAttributes()
@@ -415,7 +336,7 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        void OffsetPositionRecordsForRemove(int positionStart, int itemCount, bool applyToPreLayout)
+        private void OffsetPositionRecordsForRemove(int positionStart, int itemCount, bool applyToPreLayout)
         {
             int positionEnd = positionStart + itemCount;
             int childCount = mChildHelper.GetChildCount();
@@ -479,6 +400,68 @@ namespace Tizen.NUI.CommonUI
                 mRecycler.RecycleView(scrap);
             }
             mRecycler.ClearScrap();
+        }
+
+        private void ShowScrollBar(uint millisecond = 700, bool flagAni = false)
+        {
+            if (mScrollBar == null || mLayout == null)
+            {
+                return;
+            }
+
+            float extent = mLayout.ComputeScrollExtent(mState);
+            float range = mLayout.ComputeScrollRange(mState);
+            float offset = mLayout.ComputeScrollOffset(mState);
+
+            float size = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeHeight : mScrollBar.SizeWidth;
+            float thickness = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeWidth : mScrollBar.SizeHeight;
+            float length = (float)Math.Round(size * extent / range);
+
+            // avoid the tiny thumb
+            float minLength = thickness * 2;
+            if (length < minLength)
+            {
+                length = minLength;
+            }
+            // avoid the too-big thumb
+            if (offset > range - extent)
+            {
+                offset = range - extent;
+            }
+            if (mScrollBar.Direction == ScrollBar.DirectionType.Vertical)
+            {
+                mScrollBar.ThumbSize = new Size2D((int)thickness, (int)length);
+            }
+            else
+            {
+                mScrollBar.ThumbSize = new Size2D((int)length, (int)thickness);
+            }
+            mScrollBar.MinValue = 0;
+            mScrollBar.MaxValue = (uint)(range - extent);
+            mScrollBar.SetCurrentValue((uint)offset, flagAni);
+            mScrollBar.Show();
+            //Console.WriteLine($"Show scrollbar! current:{offset} {flagAni}");
+            if (mScrollBarShowTimer == null)
+            {
+                mScrollBarShowTimer = new Timer(millisecond);
+                mScrollBarShowTimer.Tick += OnShowTimerTick;
+            }
+            else
+            {
+                mScrollBarShowTimer.Interval = millisecond;
+            }
+            mScrollBarShowTimer.Start();
+        }
+
+        private bool OnShowTimerTick(object source, EventArgs e)
+        {
+            if (mScrollBar != null)
+            {
+                mScrollBar.Hide();
+            }
+
+            //Console.WriteLine("Time out callback, scrollbar is hidden! ");
+            return false;
         }
 
         private void DispatchFocusChanged(int nextFocusPosition)
@@ -584,8 +567,57 @@ namespace Tizen.NUI.CommonUI
             }
             RelayoutRequest();
         }
+
+
+        private void OnClickEvent(object sender, ItemClickEventArgs e)
+        {
+            clickEventHandlers?.Invoke(sender, e);
+        }
+
+        private void OnTouchEvent(object sender, ItemTouchEventArgs e)
+        {
+            touchEventHandlers?.Invoke(sender, e);
+        }
+
+        public class ItemClickEventArgs : EventArgs
+        {
+            public ViewHolder ClickedView;
+        }
+
+        public class ItemTouchEventArgs : TouchEventArgs
+        {
+            public ViewHolder TouchedView;
+        }
+
         public abstract class Adapter
         {
+            private EventHandler<ItemEventArgs> itemEventHandlers;
+
+            public delegate void EventHandler<ItemEventArgs>(object sender, ItemEventArgs e);
+            /// <summary>
+            /// Data changed event.
+            /// </summary>
+            public event EventHandler<ItemEventArgs> ItemEvent
+            {
+                add
+                {
+                    itemEventHandlers += value;
+                }
+
+                remove
+                {
+                    itemEventHandlers -= value;
+                }
+            }
+
+            public enum ItemEventType
+            {
+                Insert = 0,
+                Remove,
+                Move,
+                Change
+            }
+
             public abstract ViewHolder OnCreateViewHolder(int viewType);
 
             public abstract void OnBindViewHolder(ViewHolder holder, int position);
@@ -695,25 +727,13 @@ namespace Tizen.NUI.CommonUI
                
             }
 
-            public enum ItemEventType
+            private void OnItemEvent(object sender, ItemEventArgs e)
             {
-                Insert = 0,
-                Remove,
-                Move,
-                Change
+                itemEventHandlers?.Invoke(sender, e);
             }
 
             public class ItemEventArgs : EventArgs
             {
-                /// <summary>
-                /// Data changed event type.
-                /// </summary>
-                public ItemEventType EventType
-                {
-                    get { return mType; }
-                    set { mType = value; }
-                }
-
                 /// <summary>
                 /// Changed data.
                 /// </summary>
@@ -725,29 +745,15 @@ namespace Tizen.NUI.CommonUI
                 public int[] param = new int[4];
 
                 private ItemEventType mType;
-            }
 
-            public delegate void EventHandler<ItemEventArgs>(object sender, ItemEventArgs e);
-            private EventHandler<ItemEventArgs> itemEventHandlers;
-            /// <summary>
-            /// Data changed event.
-            /// </summary>
-            public event EventHandler<ItemEventArgs> ItemEvent
-            {
-                add
+                /// <summary>
+                /// Data changed event type.
+                /// </summary>
+                public ItemEventType EventType
                 {
-                    itemEventHandlers += value;
+                    get { return mType; }
+                    set { mType = value; }
                 }
-
-                remove
-                {
-                    itemEventHandlers -= value;
-                }
-            }
-
-            private void OnItemEvent(object sender, ItemEventArgs e)
-            {
-                itemEventHandlers?.Invoke(sender, e);
             }
         }
 
@@ -762,7 +768,9 @@ namespace Tizen.NUI.CommonUI
 
             public abstract void OnLayoutChildren(Recycler recycler, ViewState state);
 
-            public virtual void OnLayoutCompleted(ViewState state) { }
+            public virtual void OnLayoutCompleted(ViewState state)
+            {
+            }
 
             public virtual bool CanScrollHorizontally()
             {
@@ -821,22 +829,6 @@ namespace Tizen.NUI.CommonUI
                 return 0;
             }
 
-            protected virtual ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, Recycler recycler, ViewState state)
-            {
-                return null;
-            }
-
-            internal void StopScroll()
-            {
-                if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
-                {
-                    //Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~{code}~~");
-                    mScrollAni.Stop();
-                    mScrollAni.Clear();
-                    OnScrollAnimationFinished(mScrollAni, null);
-                }
-            }
-
             public virtual void ScrollToPosition(int position)
             {
 
@@ -848,6 +840,11 @@ namespace Tizen.NUI.CommonUI
             }
 
             protected abstract int GetNextPosition(int position, string direction, FlexibleView.ViewState state);
+
+            protected virtual ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, Recycler recycler, ViewState state)
+            {
+                return null;
+            }
 
 
             public void MoveFocus(string direction, Recycler recycler, ViewState state)
@@ -908,61 +905,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             /**
-             * Returns the scroll amount that brings the given rect in child's coordinate system within
-             * the padded area of RecyclerView.
-             * @param parent The parent RecyclerView.
-             * @param child The direct child making the request.
-             * @param rect The rectangle in the child's coordinates the child
-             *             wishes to be on the screen.
-             * @param immediate True to forbid animated or delayed scrolling,
-             *                  false otherwise
-             * @return The array containing the scroll amount in x and y directions that brings the
-             * given rect into RV's padded area.
-             */
-            private Vector2 GetChildRectangleOnScreenScrollAmount(FlexibleView parent, FlexibleView.ViewHolder child)
-            {
-                Vector2 ret = new Vector2(0, 0);
-                int parentLeft = GetPaddingLeft();
-                int parentTop = GetPaddingTop();
-                int parentRight = (int)GetWidth() - GetPaddingRight();
-                int parentBottom = (int)GetHeight() - GetPaddingBottom();
-                int childLeft = (int)child.Left;
-                int childTop = (int)child.Top;
-                int childRight = (int)child.Right;
-                int childBottom = (int)child.Bottom;
-
-                int offScreenLeft = Math.Min(0, childLeft - parentLeft);
-                int offScreenTop = Math.Min(0, childTop - parentTop);
-                int offScreenRight = Math.Max(0, childRight - parentRight);
-                int offScreenBottom = Math.Max(0, childBottom - parentBottom);
-
-                // Favor the "start" layout direction over the end when bringing one side or the other
-                // of a large rect into view. If we decide to bring in end because start is already
-                // visible, limit the scroll such that start won't go out of bounds.
-                int dx;
-                if (false)
-                {
-                    dx = offScreenRight != 0 ? offScreenRight
-                            : Math.Max(offScreenLeft, childRight - parentRight);
-                }
-                else
-                {
-                    dx = offScreenLeft != 0 ? offScreenLeft
-                            : Math.Min(childLeft - parentLeft, offScreenRight);
-                }
-
-                // Favor bringing the top into view over the bottom. If top is already visible and
-                // we should scroll to make bottom visible, make sure top does not go out of bounds.
-                int dy = offScreenTop != 0 ? offScreenTop
-                        : Math.Min(childTop - parentTop, offScreenBottom);
-
-                ret.X = -dx;
-                ret.Y = -dy;
-
-                return ret;
-            }
-
-            /**
               * Calls {@code RecyclerView#RelayoutRequest} on the underlying RecyclerView
               */
             public void RelayoutRequest()
@@ -1004,12 +946,6 @@ namespace Tizen.NUI.CommonUI
             public ViewHolder FindItemViewByPosition(int position)
             {
                 return mFlexibleView.FindViewHolderForLayoutPosition(position);
-            }
-
-            private void OnScrollAnimationFinished(object sender, EventArgs e)
-            {
-                //Console.WriteLine($"OnAnimationFinished...{mPendingRecycleViews.Count}");
-                RecycleChildrenInt(mFlexibleView.mRecycler);
             }
 
             public void OffsetChildrenHorizontal(float dx, bool immediate)
@@ -1177,19 +1113,6 @@ namespace Tizen.NUI.CommonUI
                 mChildHelper.AddView(holder, index);
             }
 
-            private void addViewInt(ViewHolder holder, int index, bool disappearing)
-            {
-                if (holder.IsScrap())
-                {
-                    holder.Unscrap();
-                    mChildHelper.AttachView(holder, index);
-                }
-                else
-                {
-                    mChildHelper.AddView(holder, index);
-                }
-            }
-
             public void ScrapAttachedViews(Recycler recycler)
             {
                 if (mChildHelper == null)
@@ -1238,6 +1161,97 @@ namespace Tizen.NUI.CommonUI
                 }
             }
 
+            internal void SetRecyclerView(FlexibleView recyclerView)
+            {
+                mFlexibleView = recyclerView;
+                mChildHelper = recyclerView.mChildHelper;
+            }
+
+            internal void StopScroll()
+            {
+                if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
+                {
+                    //Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~{code}~~");
+                    mScrollAni.Stop();
+                    mScrollAni.Clear();
+                    OnScrollAnimationFinished(mScrollAni, null);
+                }
+            }
+
+            /**
+             * Returns the scroll amount that brings the given rect in child's coordinate system within
+             * the padded area of RecyclerView.
+             * @param parent The parent RecyclerView.
+             * @param child The direct child making the request.
+             * @param rect The rectangle in the child's coordinates the child
+             *             wishes to be on the screen.
+             * @param immediate True to forbid animated or delayed scrolling,
+             *                  false otherwise
+             * @return The array containing the scroll amount in x and y directions that brings the
+             * given rect into RV's padded area.
+             */
+            private Vector2 GetChildRectangleOnScreenScrollAmount(FlexibleView parent, FlexibleView.ViewHolder child)
+            {
+                Vector2 ret = new Vector2(0, 0);
+                int parentLeft = GetPaddingLeft();
+                int parentTop = GetPaddingTop();
+                int parentRight = (int)GetWidth() - GetPaddingRight();
+                int parentBottom = (int)GetHeight() - GetPaddingBottom();
+                int childLeft = (int)child.Left;
+                int childTop = (int)child.Top;
+                int childRight = (int)child.Right;
+                int childBottom = (int)child.Bottom;
+
+                int offScreenLeft = Math.Min(0, childLeft - parentLeft);
+                int offScreenTop = Math.Min(0, childTop - parentTop);
+                int offScreenRight = Math.Max(0, childRight - parentRight);
+                int offScreenBottom = Math.Max(0, childBottom - parentBottom);
+
+                // Favor the "start" layout direction over the end when bringing one side or the other
+                // of a large rect into view. If we decide to bring in end because start is already
+                // visible, limit the scroll such that start won't go out of bounds.
+                int dx;
+                if (false)
+                {
+                    dx = offScreenRight != 0 ? offScreenRight
+                            : Math.Max(offScreenLeft, childRight - parentRight);
+                }
+                else
+                {
+                    dx = offScreenLeft != 0 ? offScreenLeft
+                            : Math.Min(childLeft - parentLeft, offScreenRight);
+                }
+
+                // Favor bringing the top into view over the bottom. If top is already visible and
+                // we should scroll to make bottom visible, make sure top does not go out of bounds.
+                int dy = offScreenTop != 0 ? offScreenTop
+                        : Math.Min(childTop - parentTop, offScreenBottom);
+
+                ret.X = -dx;
+                ret.Y = -dy;
+
+                return ret;
+            }
+
+            private void OnScrollAnimationFinished(object sender, EventArgs e)
+            {
+                //Console.WriteLine($"OnAnimationFinished...{mPendingRecycleViews.Count}");
+                RecycleChildrenInt(mFlexibleView.mRecycler);
+            }
+
+            private void addViewInt(ViewHolder holder, int index, bool disappearing)
+            {
+                if (holder.IsScrap())
+                {
+                    holder.Unscrap();
+                    mChildHelper.AttachView(holder, index);
+                }
+                else
+                {
+                    mChildHelper.AddView(holder, index);
+                }
+            }
+
             private void RecycleChildrenInt(FlexibleView.Recycler recycler)
             {
                 foreach(ViewHolder holder in mPendingRecycleViews)
@@ -1253,12 +1267,6 @@ namespace Tizen.NUI.CommonUI
                 recycler.ScrapView(itemView);
             }
 
-            internal void SetRecyclerView(FlexibleView recyclerView)
-            {
-                mFlexibleView = recyclerView;
-                mChildHelper = recyclerView.mChildHelper;
-            }
-
 
         }
 
@@ -1268,32 +1276,32 @@ namespace Tizen.NUI.CommonUI
              * This ViewHolder has been bound to a position; mPosition, mItemId and mItemViewType
              * are all valid.
              */
-            static readonly int FLAG_BOUND = 1 << 0;
+            //static readonly int FLAG_BOUND = 1 << 0;
 
             /**
              * The data this ViewHolder's view reflects is stale and needs to be rebound
              * by the adapter. mPosition and mItemId are consistent.
              */
-            static readonly int FLAG_UPDATE = 1 << 1;
+            //static readonly int FLAG_UPDATE = 1 << 1;
 
             /**
              * This ViewHolder's data is invalid. The identity implied by mPosition and mItemId
              * are not to be trusted and may no longer match the item view type.
              * This ViewHolder must be fully rebound to different data.
              */
-            static readonly int FLAG_INVALID = 1 << 2;
+            //static readonly int FLAG_INVALID = 1 << 2;
 
             /**
              * This ViewHolder points at data that represents an item previously removed from the
              * data set. Its view may still be used for things like outgoing animations.
              */
-            static readonly int FLAG_REMOVED = 1 << 3;
+            //static readonly int FLAG_REMOVED = 1 << 3;
 
             /**
              * This ViewHolder should not be recycled. This flag is set via setIsRecyclable()
              * and is intended to keep views around during animations.
              */
-            static readonly int FLAG_NOT_RECYCLABLE = 1 << 4;
+            //static readonly int FLAG_NOT_RECYCLABLE = 1 << 4;
 
             /**
              * This ViewHolder is returned from scrap which means we are expecting an addView call
@@ -1301,14 +1309,14 @@ namespace Tizen.NUI.CommonUI
              * the end of the layout pass and then recycled by RecyclerView if it is not added back to
              * the RecyclerView.
              */
-            static readonly int FLAG_RETURNED_FROM_SCRAP = 1 << 5;
+            //static readonly int FLAG_RETURNED_FROM_SCRAP = 1 << 5;
 
             /**
              * This ViewHolder is fully managed by the LayoutManager. We do not scrap, recycle or remove
              * it unless LayoutManager is replaced.
              * It is still fully visible to the LayoutManager.
              */
-            static readonly int FLAG_IGNORE = 1 << 7;
+            //static readonly int FLAG_IGNORE = 1 << 7;
 
             private int mFlags;
 
@@ -1428,11 +1436,6 @@ namespace Tizen.NUI.CommonUI
                 set;
             }
 
-            public bool IsScrap()
-            {
-                return mScrapContainer != null;
-            }
-
             public Recycler ScrapContainer
             {
                 get
@@ -1445,25 +1448,20 @@ namespace Tizen.NUI.CommonUI
                 }
             }
 
+            public bool IsScrap()
+            {
+                return mScrapContainer != null;
+            }
+
             public void Unscrap()
             {
                 mScrapContainer.UnscrapView(this);
             }
 
-            void SetFlags(int flags, int mask)
-            {
-                mFlags = (mFlags & ~mask) | (flags & mask);
-            }
-
-            void AddFlags(int flags)
-            {
-                mFlags |= flags;
-            }
-
 
             internal void FlagRemovedAndOffsetPosition(int mNewPosition, int offset, bool applyToPreLayout)
             {
-                AddFlags(ViewHolder.FLAG_REMOVED);
+                //AddFlags(ViewHolder.FLAG_REMOVED);
                 OffsetPosition(offset, applyToPreLayout);
                 mPosition = mNewPosition;
             }
@@ -1490,6 +1488,7 @@ namespace Tizen.NUI.CommonUI
                 mOldPosition = NO_POSITION;
                 mPreLayoutPosition = NO_POSITION;
             }
+
             internal void SaveOldPosition()
             {
                 if (mOldPosition == NO_POSITION)
@@ -1498,6 +1497,255 @@ namespace Tizen.NUI.CommonUI
                 }
             }
 
+            private void SetFlags(int flags, int mask)
+            {
+                mFlags = (mFlags & ~mask) | (flags & mask);
+            }
+
+            private void AddFlags(int flags)
+            {
+                mFlags |= flags;
+            }
+
+        }
+
+        /**
+         * <p>Contains useful information about the current RecyclerView state like target scroll
+         * position or view focus. State object can also keep arbitrary data, identified by resource
+         * ids.</p>
+         * <p>Often times, RecyclerView components will need to pass information between each other.
+         * To provide a well defined data bus between components, RecyclerView passes the same State
+         * object to component callbacks and these components can use it to exchange data.</p>
+         * <p>If you implement custom components, you can use State's put/get/remove methods to pass
+         * data between your components without needing to manage their lifecycles.</p>
+         */
+        public class ViewState
+        {
+            //static readonly int STEP_START = 1;
+            //static readonly int STEP_LAYOUT = 1 << 1;
+            //static readonly int STEP_ANIMATIONS = 1 << 2;
+
+            //public int mLayoutStep = STEP_START;
+            /**
+            * Number of items adapter had in the previous layout.
+            */
+            //public int mPreviousLayoutItemCount = 0;
+            /**
+             * Number of items adapter has.
+             */
+            //public int mItemCount = 0;
+            /**
+             * This data is saved before a layout calculation happens. After the layout is finished,
+             * if the previously focused view has been replaced with another view for the same item, we
+             * move the focus to the new item automatically.
+             */
+
+            private FlexibleView mFlexibleView;
+
+            private bool mInPreLayout = false;
+
+            public ViewState(FlexibleView flexibleView)
+            {
+                mFlexibleView = flexibleView;
+            }
+
+            public int FocusPosition
+            {
+                get
+                {
+                    return mFlexibleView.mFocusedItemIndex;
+                }
+            }
+
+            public int ItemCount
+            {
+                get
+                {
+                    Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
+
+                    return b != null ? b.GetItemCount() : 0;
+                }
+            }
+
+            public bool IsPreLayout()
+            {
+                return mInPreLayout;
+            }
+        }
+
+        public class Recycler
+        {
+            private FlexibleView mFlexibleView;
+            private RecycledViewPool mRecyclerPool;
+
+            private List<ViewHolder> mAttachedScrap = new List<ViewHolder>();
+            private List<ViewHolder> mChangedScrap = null;
+            //private List<ItemView> mCachedViews = new List<ItemView>();
+
+            private List<ViewHolder> mUnmodifiableAttachedScrap;
+
+            private int mCacheSizeMax = 2;
+
+            public Recycler(FlexibleView recyclerView)
+            {
+                mFlexibleView = recyclerView;
+            }
+
+            public void SetViewCacheSize(int viewCount)
+            {
+                mCacheSizeMax = viewCount;
+            }
+
+            public ViewHolder GetViewForPosition(int position)
+            {
+                Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
+                if (b == null)
+                {
+                    return null;
+                }
+                if (position < 0 || position >= b.GetItemCount())
+                {
+                    return null;
+                }
+
+                int type = b.GetItemViewType(position);
+                ViewHolder itemView = null;
+                for (int i = 0; i < mAttachedScrap.Count; i++)
+                {
+                    if (mAttachedScrap[i].LayoutPosition == position && mAttachedScrap[i].ItemViewType == type)
+                    {
+                        itemView = mAttachedScrap[i];
+                        break;
+                    }
+                }
+                if (itemView == null)
+                {
+                    itemView = mRecyclerPool.GetRecycledView(type);
+                    if (itemView == null)
+                    {
+                        itemView = b.OnCreateViewHolder(type);
+                    }
+
+                    if (!itemView.IsBound)
+                    {
+                        b.OnBindViewHolder(itemView, position);
+                        itemView.IsBound = true;
+                    }
+
+                    itemView.AdapterPosition = position;
+                    itemView.ItemViewType = type;
+                }
+
+                return itemView;
+            }
+
+            public void ScrapView(ViewHolder itemView)
+            {
+                //Console.WriteLine($"Recycler.ScrapView itemView:{itemView.AdapterPosition}");
+                mAttachedScrap.Add(itemView);
+                itemView.ScrapContainer = this;
+            }
+
+            public void UnscrapView(ViewHolder itemView)
+            {
+                //Console.WriteLine($"Recycler.UnscrapView itemView:{itemView.AdapterPosition}");
+                mAttachedScrap.Remove(itemView);
+                itemView.ScrapContainer = null;
+            }
+
+            public void RecycleView(ViewHolder itemView)
+            {
+                //Console.WriteLine($"Recycler.RecycleView itemView:{itemView.AdapterPosition}");
+                itemView.ScrapContainer = null;
+                mRecyclerPool.PutRecycledView(itemView);
+            }
+
+            public int GetScrapCount()
+            {
+                return mAttachedScrap.Count;
+            }
+
+            public ViewHolder GetScrapViewAt(int index)
+            {
+                return mAttachedScrap[index];
+            }
+
+            public void ClearScrap()
+            {
+                mAttachedScrap.Clear();
+                if (mChangedScrap != null)
+                {
+                    mChangedScrap.Clear();
+                }
+            }
+
+            internal void SetRecycledViewPool(RecycledViewPool pool)
+            {
+                mRecyclerPool = pool;
+            }
+        }
+
+        internal class RecycledViewPool
+        {
+            private FlexibleView mFlexibleView;
+
+            private int mMaxTypeCount = 10;
+            private List<ViewHolder>[] mScrap;
+
+            public RecycledViewPool(FlexibleView flexibleView)
+            {
+                mFlexibleView = flexibleView;
+                mScrap = new List<ViewHolder>[mMaxTypeCount];
+            }
+
+            //public void SetViewTypeCount(int typeCount)
+            //{
+            //}
+
+            public ViewHolder GetRecycledView(int viewType)
+            {
+                if (viewType >= mMaxTypeCount || mScrap[viewType] == null)
+                {
+                    return null;
+                }
+
+                int index = mScrap[viewType].Count - 1;
+                if (index < 0)
+                {
+                    return null;
+                }
+                ViewHolder recycledView = mScrap[viewType][index];
+                mScrap[viewType].RemoveAt(index);
+
+                return recycledView;
+            }
+
+            public void PutRecycledView(ViewHolder view)
+            {
+                int viewType = view.ItemViewType;
+                if (mScrap[viewType] == null)
+                {
+                    mScrap[viewType] = new List<ViewHolder>();
+                }
+                view.IsBound = false;
+                mScrap[viewType].Add(view);
+            }
+
+            public void Clear()
+            {
+                for (int i = 0; i < mMaxTypeCount; i++)
+                {
+                    if (mScrap[i] == null)
+                    {
+                        continue;
+                    }
+                    for (int j = 0; j < mScrap[i].Count; j++)
+                    {
+                        mFlexibleView.DispatchChildDestroyed(mScrap[i][j]);
+                    }
+                    mScrap[i].Clear();
+                }
+            }
         }
 
         private class ChildHelper
@@ -1716,8 +1964,8 @@ namespace Tizen.NUI.CommonUI
         }
 
         /**
- * Queued operation to happen when child views are updated.
- */
+         * Queued operation to happen when child views are updated.
+         */
         private class UpdateOp
         {
 
@@ -1815,250 +2063,6 @@ namespace Tizen.NUI.CommonUI
             {
                 get;
                 set;
-            }
-        }
-
-
-        /**
-         * <p>Contains useful information about the current RecyclerView state like target scroll
-         * position or view focus. State object can also keep arbitrary data, identified by resource
-         * ids.</p>
-         * <p>Often times, RecyclerView components will need to pass information between each other.
-         * To provide a well defined data bus between components, RecyclerView passes the same State
-         * object to component callbacks and these components can use it to exchange data.</p>
-         * <p>If you implement custom components, you can use State's put/get/remove methods to pass
-         * data between your components without needing to manage their lifecycles.</p>
-         */
-        public class ViewState
-        {
-            static readonly int STEP_START = 1;
-            static readonly int STEP_LAYOUT = 1 << 1;
-            static readonly int STEP_ANIMATIONS = 1 << 2;
-
-            private FlexibleView mFlexibleView;
-
-            public int mLayoutStep = STEP_START;
-            /**
-            * Number of items adapter had in the previous layout.
-            */
-            //public int mPreviousLayoutItemCount = 0;
-            /**
-             * Number of items adapter has.
-             */
-            //public int mItemCount = 0;
-            /**
-             * This data is saved before a layout calculation happens. After the layout is finished,
-             * if the previously focused view has been replaced with another view for the same item, we
-             * move the focus to the new item automatically.
-             */
-
-            private bool mInPreLayout = false;
-
-            public ViewState(FlexibleView flexibleView)
-            {
-                mFlexibleView = flexibleView;
-            }
-
-            public int FocusPosition
-            {
-                get
-                {
-                    return mFlexibleView.mFocusedItemIndex;
-                }
-            }
-
-            public int ItemCount
-            {
-                get
-                {
-                    Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
-
-                    return b != null ? b.GetItemCount() : 0;
-                }
-            }
-
-            public bool IsPreLayout()
-            {
-                return mInPreLayout;
-            }
-
-
-        }
-
-
-
-        public class Recycler
-        {
-            private FlexibleView mFlexibleView;
-            private RecycledViewPool mRecyclerPool;
-
-            private List<ViewHolder> mAttachedScrap = new List<ViewHolder>();
-            private List<ViewHolder> mChangedScrap = null;
-            //private List<ItemView> mCachedViews = new List<ItemView>();
-
-            private List<ViewHolder> mUnmodifiableAttachedScrap;
-
-            private int mCacheSizeMax = 2;
-
-            public Recycler(FlexibleView recyclerView)
-            {
-                mFlexibleView = recyclerView;
-            }
-
-            public void SetViewCacheSize(int viewCount)
-            {
-                mCacheSizeMax = viewCount;
-            }
-
-            internal void SetRecycledViewPool(RecycledViewPool pool)
-            {
-                mRecyclerPool = pool;
-            }         
-
-            public ViewHolder GetViewForPosition(int position)
-            {
-                Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
-                if (b == null)
-                {
-                    return null;
-                }
-                if (position < 0 || position >= b.GetItemCount())
-                {
-                    return null;
-                }
-
-                int type = b.GetItemViewType(position);
-                ViewHolder itemView = null;
-                for (int i = 0; i < mAttachedScrap.Count; i++)
-                {
-                    if (mAttachedScrap[i].LayoutPosition == position && mAttachedScrap[i].ItemViewType == type)
-                    {
-                        itemView = mAttachedScrap[i];
-                        break;
-                    }
-                }
-                if (itemView == null)
-                {
-                    itemView = mRecyclerPool.GetRecycledView(type);
-                    if (itemView == null)
-                    {
-                        itemView = b.OnCreateViewHolder(type);
-                    }
-
-                    if (!itemView.IsBound)
-                    {
-                        b.OnBindViewHolder(itemView, position);
-                        itemView.IsBound = true;
-                    }
-
-                    itemView.AdapterPosition = position;
-                    itemView.ItemViewType = type;
-                }
-
-                return itemView;
-            }
-
-            public void ScrapView(ViewHolder itemView)
-            {
-                //Console.WriteLine($"Recycler.ScrapView itemView:{itemView.AdapterPosition}");
-                mAttachedScrap.Add(itemView);
-                itemView.ScrapContainer = this;
-            }
-
-            public void UnscrapView(ViewHolder itemView)
-            {
-                //Console.WriteLine($"Recycler.UnscrapView itemView:{itemView.AdapterPosition}");
-                mAttachedScrap.Remove(itemView);
-                itemView.ScrapContainer = null;
-            }
-
-            public void RecycleView(ViewHolder itemView)
-            {
-                //Console.WriteLine($"Recycler.RecycleView itemView:{itemView.AdapterPosition}");
-                itemView.ScrapContainer = null;
-                mRecyclerPool.PutRecycledView(itemView);
-            }
-
-            public int GetScrapCount()
-            {
-                return mAttachedScrap.Count;
-            }
-
-            public ViewHolder GetScrapViewAt(int index)
-            {
-                return mAttachedScrap[index];
-            }
-
-            public void ClearScrap()
-            {
-                mAttachedScrap.Clear();
-                if (mChangedScrap != null)
-                {
-                    mChangedScrap.Clear();
-                }
-            }
-        }
-
-        internal class RecycledViewPool
-        {
-            private FlexibleView mFlexibleView;
-
-            private int mMaxTypeCount = 10;
-            private List<ViewHolder>[] mScrap;
-
-            public RecycledViewPool(FlexibleView flexibleView)
-            {
-                mFlexibleView = flexibleView;
-                mScrap = new List<ViewHolder>[mMaxTypeCount];
-            }
-
-            //public void SetViewTypeCount(int typeCount)
-            //{
-            //}
-
-            public ViewHolder GetRecycledView(int viewType)
-            {
-                if (viewType >= mMaxTypeCount || mScrap[viewType] == null)
-                {
-                    return null;
-                }
-
-                int index = mScrap[viewType].Count - 1;
-                if (index < 0)
-                {
-                    return null;
-                }
-                ViewHolder recycledView = mScrap[viewType][index];
-                mScrap[viewType].RemoveAt(index);
-
-                return recycledView;
-            }
-
-            public void PutRecycledView(ViewHolder view)
-            {
-                int viewType = view.ItemViewType;
-                if (mScrap[viewType] == null)
-                {
-                    mScrap[viewType] = new List<ViewHolder>();
-                }
-                view.IsBound = false;
-                mScrap[viewType].Add(view);
-            }
-
-            public void Clear()
-            {
-                for (int i = 0; i < mMaxTypeCount; i++)
-                {
-                    if (mScrap[i] == null)
-                    {
-                        continue;
-                    }
-                    for (int j = 0; j < mScrap[i].Count; j++)
-                    {
-                        mFlexibleView.DispatchChildDestroyed(mScrap[i][j]);
-                    }
-                    mScrap[i].Clear();
-                }
             }
         }
 

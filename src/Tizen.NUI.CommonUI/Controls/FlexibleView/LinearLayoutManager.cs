@@ -31,13 +31,13 @@ namespace Tizen.NUI.CommonUI
          * When LayoutManager needs to scroll to a position, it sets this variable and requests a
          * layout which will check this variable and re-layout accordingly.
          */
-        int mPendingScrollPosition = NO_POSITION;
+        private int mPendingScrollPosition = NO_POSITION;
 
         /**
          * Used to keep the offset value when {@link #scrollToPositionWithOffset(int, int)} is
          * called.
          */
-        int mPendingScrollPositionOffset = INVALID_OFFSET;
+        private int mPendingScrollPositionOffset = INVALID_OFFSET;
 
         public LinearLayoutManager(int orientation)
         {
@@ -94,83 +94,6 @@ namespace Tizen.NUI.CommonUI
 
             OnLayoutCompleted(state);
             //Console.WriteLine($"OnLayoutChildren...  End");
-        }
-
-        private void UpdateAnchorInfoForLayout(FlexibleView.Recycler recycler, FlexibleView.ViewState state, AnchorInfo anchorInfo)
-        {
-            if (UpdateAnchorFromPendingData(state, anchorInfo))
-            {
-                return;
-            }
-
-            if (UpdateAnchorFromChildren(recycler, state, anchorInfo))
-            {
-                return;
-            }
-
-            anchorInfo.mPosition = state.FocusPosition != NO_POSITION ? state.FocusPosition : 0;
-            anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
-        }
-
-        /**
-     * If there is a pending scroll position or saved states, updates the anchor info from that
-     * data and returns true
-     */
-        private bool UpdateAnchorFromPendingData(FlexibleView.ViewState state, AnchorInfo anchorInfo)
-        {
-            if (state.IsPreLayout() || mPendingScrollPosition == NO_POSITION)
-            {
-                return false;
-            }
-            // validate scroll position
-            if (mPendingScrollPosition < 0 || mPendingScrollPosition >= state.ItemCount)
-            {
-                mPendingScrollPosition = NO_POSITION;
-                mPendingScrollPositionOffset = INVALID_OFFSET;
-                return false;
-            }
-
-            anchorInfo.mPosition = mPendingScrollPosition;
-
-            if (mPendingScrollPositionOffset == INVALID_OFFSET)
-            {
-                anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
-            }
-            else
-            {
-                if (mShouldReverseLayout)
-                {
-                    anchorInfo.mCoordinate = mOrientationHelper.GetEndAfterPadding()
-                            - mPendingScrollPositionOffset;
-                }
-                else
-                {
-                    anchorInfo.mCoordinate = mOrientationHelper.GetStartAfterPadding()
-                            + mPendingScrollPositionOffset;
-                }
-            }
-            return true;
-        }
-
-        /**
- * Finds an anchor child from existing Views. Most of the time, this is the view closest to
- * start or end that has a valid position (e.g. not removed).
- * <p>
- * If a child has focus, it is given priority.
- */
-        private bool UpdateAnchorFromChildren(FlexibleView.Recycler recycler,
-                FlexibleView.ViewState state, AnchorInfo anchorInfo)
-        {
-            if (GetChildCount() == 0)
-            {
-                return false;
-            }
-
-            FlexibleView.ViewHolder anchorChild = FindFirstCompleteVisibleItemView();
-            anchorInfo.mPosition = anchorChild.LayoutPosition;
-            anchorInfo.mCoordinate = mOrientationHelper.GetViewHolderStart(anchorChild);
-
-            return true;
         }
 
         public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
@@ -242,6 +165,59 @@ namespace Tizen.NUI.CommonUI
             return laidOutArea / laidOutRange * state.ItemCount;
         }
 
+        public int FindFirstVisibleItemPosition()
+        {
+            FlexibleView.ViewHolder child = FindFirstVisibleItemView();
+            return child == null ? NO_POSITION : child.LayoutPosition;
+        }
+
+        public int FindFirstCompleteVisibleItemPosition()
+        {
+            FlexibleView.ViewHolder child = FindFirstCompleteVisibleItemView();
+            return child == null ? NO_POSITION : child.LayoutPosition;
+        }
+
+        public int FindLastVisibleItemPosition()
+        {
+            FlexibleView.ViewHolder child = FindLastVisibleItemView();
+            return child == null ? NO_POSITION : child.LayoutPosition;
+        }
+
+        public int FindLastCompleteVisibleItemPosition()
+        {
+            FlexibleView.ViewHolder child = FindLastCompleteVisibleItemView();
+            return child == null ? NO_POSITION : child.LayoutPosition;
+        }
+
+        public override void ScrollToPosition(int position)
+        {
+            mPendingScrollPosition = position;
+            mPendingScrollPositionOffset = INVALID_OFFSET;
+
+            RelayoutRequest();
+        }
+
+        public override void ScrollToPositionWithOffset(int position, int offset)
+        {
+            mPendingScrollPosition = position;
+            mPendingScrollPositionOffset = offset;
+
+            RelayoutRequest();
+        }
+
+        public override void OnLayoutCompleted(FlexibleView.ViewState state)
+        {
+            if (mPendingScrollPosition != NO_POSITION)
+            {
+                ChangeFocus(mPendingScrollPosition);
+            }
+            mPendingScrollPosition = NO_POSITION;
+            mPendingScrollPositionOffset = INVALID_OFFSET;
+
+            mAnchorInfo.Reset();
+        }
+
+
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
         {
             if (mOrientation == HORIZONTAL)
@@ -284,28 +260,58 @@ namespace Tizen.NUI.CommonUI
             return NO_POSITION;
         }
 
-        public int FindFirstVisibleItemPosition()
+        protected virtual void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
+            LayoutState layoutState, LayoutChunkResult result)
         {
-            FlexibleView.ViewHolder child = FindFirstVisibleItemView();
-            return child == null ? NO_POSITION : child.LayoutPosition;
-        }
+            FlexibleView.ViewHolder holder = layoutState.Next(recycler);
+            if (holder == null)
+            {
+                // if we are laying out views in scrap, this may return null which means there is
+                // no more items to layout.
+                result.mFinished = true;
+                return;
+            }
 
-        public int FindFirstCompleteVisibleItemPosition()
-        {
-            FlexibleView.ViewHolder child = FindFirstCompleteVisibleItemView();
-            return child == null ? NO_POSITION : child.LayoutPosition;
-        }
+            if (mShouldReverseLayout == (layoutState.mLayoutDirection == LayoutState.LAYOUT_START))
+                AddView(holder);
+            else
+                AddView(holder, 0);
 
-        public int FindLastVisibleItemPosition()
-        {
-            FlexibleView.ViewHolder child = FindLastVisibleItemView();
-            return child == null ? NO_POSITION : child.LayoutPosition;
-        }
+            result.mConsumed = mOrientationHelper.GetViewHolderMeasurement(holder);
 
-        public int FindLastCompleteVisibleItemPosition()
-        {
-            FlexibleView.ViewHolder child = FindLastCompleteVisibleItemView();
-            return child == null ? NO_POSITION : child.LayoutPosition;
+            float left, top, width, height;
+            if (mOrientation == VERTICAL)
+            {
+                width = GetWidth() - GetPaddingLeft() - GetPaddingRight();
+                height = result.mConsumed;
+                left = GetPaddingLeft();
+                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                {
+                    top = layoutState.mOffset;
+                }
+                else
+                {
+                    top = layoutState.mOffset - height;
+                }
+                LayoutChild(holder, left, top, width, height);
+            }
+            else
+            {
+                width = result.mConsumed;
+                height = GetHeight() - GetPaddingTop() - GetPaddingBottom();
+                top = GetPaddingTop();
+                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                {
+                    left = layoutState.mOffset;
+                }
+                else
+                {
+                    left = layoutState.mOffset - width;
+                }
+                LayoutChild(holder, left, top, width, height);
+            }
+
+            result.mFocusable = true;
         }
 
         protected override FlexibleView.ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
@@ -337,17 +343,95 @@ namespace Tizen.NUI.CommonUI
             return nextFocus;
         }
 
+
+        private void UpdateAnchorInfoForLayout(FlexibleView.Recycler recycler, FlexibleView.ViewState state, AnchorInfo anchorInfo)
+        {
+            if (UpdateAnchorFromPendingData(state, anchorInfo))
+            {
+                return;
+            }
+
+            if (UpdateAnchorFromChildren(recycler, state, anchorInfo))
+            {
+                return;
+            }
+
+            anchorInfo.mPosition = state.FocusPosition != NO_POSITION ? state.FocusPosition : 0;
+            anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
+        }
+
         /**
-     * Converts a focusDirection to orientation.
-     *
-     * @param focusDirection One of {@link View#FOCUS_UP}, {@link View#FOCUS_DOWN},
-     *                       {@link View#FOCUS_LEFT}, {@link View#FOCUS_RIGHT},
-     *                       {@link View#FOCUS_BACKWARD}, {@link View#FOCUS_FORWARD}
-     *                       or 0 for not applicable
-     * @return {@link LayoutState#LAYOUT_START} or {@link LayoutState#LAYOUT_END} if focus direction
-     * is applicable to current state, {@link LayoutState#INVALID_LAYOUT} otherwise.
-     */
-        int ConvertFocusDirectionToLayoutDirection(string focusDirection)
+         * If there is a pending scroll position or saved states, updates the anchor info from that
+         * data and returns true
+         */
+        private bool UpdateAnchorFromPendingData(FlexibleView.ViewState state, AnchorInfo anchorInfo)
+        {
+            if (state.IsPreLayout() || mPendingScrollPosition == NO_POSITION)
+            {
+                return false;
+            }
+            // validate scroll position
+            if (mPendingScrollPosition < 0 || mPendingScrollPosition >= state.ItemCount)
+            {
+                mPendingScrollPosition = NO_POSITION;
+                mPendingScrollPositionOffset = INVALID_OFFSET;
+                return false;
+            }
+
+            anchorInfo.mPosition = mPendingScrollPosition;
+
+            if (mPendingScrollPositionOffset == INVALID_OFFSET)
+            {
+                anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
+            }
+            else
+            {
+                if (mShouldReverseLayout)
+                {
+                    anchorInfo.mCoordinate = mOrientationHelper.GetEndAfterPadding()
+                            - mPendingScrollPositionOffset;
+                }
+                else
+                {
+                    anchorInfo.mCoordinate = mOrientationHelper.GetStartAfterPadding()
+                            + mPendingScrollPositionOffset;
+                }
+            }
+            return true;
+        }
+
+        /**
+         * Finds an anchor child from existing Views. Most of the time, this is the view closest to
+         * start or end that has a valid position (e.g. not removed).
+         * <p>
+         * If a child has focus, it is given priority.
+         */
+        private bool UpdateAnchorFromChildren(FlexibleView.Recycler recycler,
+                FlexibleView.ViewState state, AnchorInfo anchorInfo)
+        {
+            if (GetChildCount() == 0)
+            {
+                return false;
+            }
+
+            FlexibleView.ViewHolder anchorChild = FindFirstCompleteVisibleItemView();
+            anchorInfo.mPosition = anchorChild.LayoutPosition;
+            anchorInfo.mCoordinate = mOrientationHelper.GetViewHolderStart(anchorChild);
+
+            return true;
+        }
+
+        /**
+         * Converts a focusDirection to orientation.
+         *
+         * @param focusDirection One of {@link View#FOCUS_UP}, {@link View#FOCUS_DOWN},
+         *                       {@link View#FOCUS_LEFT}, {@link View#FOCUS_RIGHT},
+         *                       {@link View#FOCUS_BACKWARD}, {@link View#FOCUS_FORWARD}
+         *                       or 0 for not applicable
+         * @return {@link LayoutState#LAYOUT_START} or {@link LayoutState#LAYOUT_END} if focus direction
+         * is applicable to current state, {@link LayoutState#INVALID_LAYOUT} otherwise.
+         */
+        private int ConvertFocusDirectionToLayoutDirection(string focusDirection)
         {
             switch (focusDirection)
             {
@@ -370,34 +454,6 @@ namespace Tizen.NUI.CommonUI
                     return LayoutState.INVALID_LAYOUT;
             }
 
-        }
-
-        public override void ScrollToPosition(int position)
-        {
-            mPendingScrollPosition = position;
-            mPendingScrollPositionOffset = INVALID_OFFSET;
-
-            RelayoutRequest();
-        }
-
-        public override void ScrollToPositionWithOffset(int position, int offset)
-        {
-            mPendingScrollPosition = position;
-            mPendingScrollPositionOffset = offset;
-
-            RelayoutRequest();
-        }
-
-        public override void OnLayoutCompleted(FlexibleView.ViewState state)
-        {
-            if (mPendingScrollPosition != NO_POSITION)
-            {
-                ChangeFocus(mPendingScrollPosition);
-            }
-            mPendingScrollPosition = NO_POSITION;
-            mPendingScrollPositionOffset = INVALID_OFFSET;
-
-            mAnchorInfo.Reset();
         }
 
 
@@ -554,61 +610,7 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        protected virtual void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
-            LayoutState layoutState, LayoutChunkResult result)
-        {
-            FlexibleView.ViewHolder holder = layoutState.Next(recycler);
-            if (holder == null)
-            {
-                // if we are laying out views in scrap, this may return null which means there is
-                // no more items to layout.
-                result.mFinished = true;
-                return;
-            }
-
-            if (mShouldReverseLayout == (layoutState.mLayoutDirection == LayoutState.LAYOUT_START))
-                AddView(holder);
-            else
-                AddView(holder, 0);
-
-            result.mConsumed = mOrientationHelper.GetViewHolderMeasurement(holder);
-
-            float left, top, width, height;
-            if (mOrientation == VERTICAL)
-            {
-                width = GetWidth() - GetPaddingLeft() - GetPaddingRight();
-                height = result.mConsumed;
-                left = GetPaddingLeft();
-                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
-                {
-                    top = layoutState.mOffset;
-                }
-                else
-                {
-                    top = layoutState.mOffset - height;
-                }
-                LayoutChild(holder, left, top, width, height);
-            }
-            else
-            {
-                width = result.mConsumed;
-                height = GetHeight() - GetPaddingTop() - GetPaddingBottom();
-                top = GetPaddingTop();
-                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
-                {
-                    left = layoutState.mOffset;
-                }
-                else
-                {
-                    left = layoutState.mOffset - width;
-                }
-                LayoutChild(holder, left, top, width, height);
-            }
-
-            result.mFocusable = true;
-        }
-
-        float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
+        private float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (GetChildCount() == 0 || dy == 0)
             {
@@ -844,7 +846,7 @@ namespace Tizen.NUI.CommonUI
         /**
          * Helper class that keeps temporary state while {LayoutManager} is filling out the empty space.
          **/
-        public class LayoutState
+        protected class LayoutState
         {
             public static readonly int LAYOUT_START = -1;
 
@@ -927,22 +929,6 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        class AnchorInfo
-        {
-            public int mPosition;
-            public float mCoordinate;
-            public bool mLayoutFromEnd;
-            public bool mValid;
-
-            public void Reset()
-            {
-                mPosition = NO_POSITION;
-                mCoordinate = INVALID_OFFSET;
-                mLayoutFromEnd = false;
-                mValid = false;
-            }
-
-        }
         protected class LayoutChunkResult
         {
             public float mConsumed;
@@ -957,6 +943,23 @@ namespace Tizen.NUI.CommonUI
                 mIgnoreConsumed = false;
                 mFocusable = false;
             }
+        }
+
+        private class AnchorInfo
+        {
+            public int mPosition;
+            public float mCoordinate;
+            public bool mLayoutFromEnd;
+            public bool mValid;
+
+            public void Reset()
+            {
+                mPosition = NO_POSITION;
+                mCoordinate = INVALID_OFFSET;
+                mLayoutFromEnd = false;
+                mValid = false;
+            }
+
         }
     }
 }

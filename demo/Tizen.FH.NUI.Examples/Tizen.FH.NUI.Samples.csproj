@@ -51,6 +51,7 @@
     <Compile Include="Samples\CheckBoxSample.cs" />
     <Compile Include="Samples\DatePickerSample.cs" />
     <Compile Include="Samples\DropDownSample.cs" />
+    <Compile Include="Samples\FlexibleViewSample.cs" />
     <Compile Include="Samples\NavigationAttributesSample.cs" />
     <Compile Include="Samples\NavigationSample.cs" />
     <Compile Include="Samples\NaviFrameSample.cs" />

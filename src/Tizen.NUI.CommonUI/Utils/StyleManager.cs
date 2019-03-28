@@ -9,6 +9,12 @@ namespace Tizen.NUI.CommonUI
         private Dictionary<string, Dictionary<string, Type>> ThemeStyleSet = new Dictionary<string, Dictionary<string, Type>>();
         private Dictionary<string, Type> DefaultStyleSet = new Dictionary<string, Type>();
         private EventHandler<ThemeChangeEventArgs> themeChangeHander;
+
+        private StyleManager()
+        {
+            
+        }
+
         public event EventHandler<ThemeChangeEventArgs> ThemeChangedEvent
         {
             add
@@ -20,11 +26,7 @@ namespace Tizen.NUI.CommonUI
                 themeChangeHander -= value;
             }
         }
-        private StyleManager()
-        {
-            
-        }
-        
+
         public static StyleManager Instance { get; } = new StyleManager();
         public  string Theme
         {

@@ -37,34 +37,7 @@ namespace Tizen.FH.NUI.Controls
         private EventHandler<KeyEventArgs> keyEventHandler;
 
 
-        public enum ButtonClickState
-        {
-            /// <summary> Press down </summary>
-            PressDown,
-            /// <summary> Bounce up </summary>
-            BounceUp
-        }
-
-        private enum TextState
-        {
-            Guide,
-            Input,
-        }
-
-        private enum Style
-        {
-            None,
-            Default,
-            StyleB,
-            SearchBar
-        }
-
-        static InputField()
-        {
-            RegisterStyle("DADefaultInputField", typeof(InputFieldAttributes));
-        }
-
-        public InputField() : this("DADefaultInputField")
+        public InputField() : base()
         {
             Initialize();
         }
@@ -122,11 +95,6 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
-        public class ButtonClickArgs : EventArgs
-        {
-            public ButtonClickState State;
-        }
-
         public new event EventHandler<KeyEventArgs> KeyEvent
         {
             add
@@ -137,6 +105,28 @@ namespace Tizen.FH.NUI.Controls
             {
                 keyEventHandler -= value;
             }
+        }
+
+        public enum ButtonClickState
+        {
+            /// <summary> Press down </summary>
+            PressDown,
+            /// <summary> Bounce up </summary>
+            BounceUp
+        }
+
+        private enum TextState
+        {
+            Guide,
+            Input,
+        }
+
+        private enum Style
+        {
+            None,
+            Default,
+            StyleB,
+            SearchBar
         }
 
         public new bool StateEnabled
@@ -213,6 +203,10 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
+        protected override Attributes GetAttributes()
+        {
+            return new InputFieldAttributes();
+        }
 
         protected override void OnUpdate(Attributes attributtes)
         {
@@ -241,6 +235,72 @@ namespace Tizen.FH.NUI.Controls
                 attributes = inputFieldAttrs = tempAttributes;
                 RelayoutRequest();
             }
+        }
+
+        protected override void OnTextFieldFocusGained(object source, EventArgs e)
+        {
+            // when press on TextField, it will gain focus
+            Console.WriteLine("--->>>, textField gained focus");
+            textFieldState = ControlStates.Selected;
+            RelayoutComponents(false, true, true, false);
+        }
+
+        protected override void OnTextFieldFocusLost(object source, EventArgs e)
+        {
+            Console.WriteLine("<<<---, textField lost focus");
+            textFieldState = ControlStates.Normal;
+            RelayoutComponents(false, true, true, false);
+        }
+
+        protected override void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
+        {
+            if (sender is TextField)
+            {
+                TextField textField = sender as TextField;
+                int textLen = textField.Text.Length;
+                Console.WriteLine("---, text changed, textLength = " + textLen);
+                if (textLen == 0)
+                {
+                    textState = TextState.Guide;
+                }
+                else
+                {
+                    textState = TextState.Input;
+                }
+                isDoneKeyPressed = false;
+                RelayoutComponents(false, true, true, false);
+            }
+        }
+
+        protected override bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
+        {
+            if (keyEventHandler != null)
+            {
+                keyEventHandler(this, e);
+            }
+
+            if (e.Key.State == Key.StateType.Down)
+            {
+                if (e.Key.KeyPressedName == "Return")
+                {
+                    // when press "Return" key("Done" key in IME), the searchBtn should show.
+                    isDoneKeyPressed = true;
+                    RelayoutComponents(false, false, true, false);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected override bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
+        {
+            PointStateType state = e.Touch.GetState(0);
+            Console.WriteLine("--------, state = " + state);
+            // return false;
+            // If return false, the touch event will propagate to TextField's parent. 
+            // Then, TextField will receive focus lost and focus gained callback.
+            // So, here return true to stop propagate the touch event to TextField's parent.
+            return true;
         }
 
         private void Initialize()
@@ -339,72 +399,6 @@ namespace Tizen.FH.NUI.Controls
                     style = Style.StyleB;
                 }
             }
-        }
-
-        protected override void OnTextFieldFocusGained(object source, EventArgs e)
-        {
-            // when press on TextField, it will gain focus
-            Console.WriteLine("--->>>, textField gained focus");
-            textFieldState = ControlStates.Selected;
-            RelayoutComponents(false, true, true, false);
-        }
-
-        protected override void OnTextFieldFocusLost(object source, EventArgs e)
-        {
-            Console.WriteLine("<<<---, textField lost focus");
-            textFieldState = ControlStates.Normal;
-            RelayoutComponents(false, true, true, false);
-        }
-
-        protected override void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
-        {
-            if (sender is TextField)
-            {
-                TextField textField = sender as TextField;
-                int textLen = textField.Text.Length;
-                Console.WriteLine("---, text changed, textLength = " + textLen);
-                if (textLen == 0)
-                {
-                    textState = TextState.Guide;
-                }
-                else
-                {
-                    textState = TextState.Input;
-                }
-                isDoneKeyPressed = false;
-                RelayoutComponents(false, true, true, false);
-            }
-        }
-
-        protected override bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
-        {
-            if (keyEventHandler != null)
-            {
-                keyEventHandler(this, e);
-            }
-
-            if (e.Key.State == Key.StateType.Down)
-            {
-                if (e.Key.KeyPressedName == "Return")
-                {
-                    // when press "Return" key("Done" key in IME), the searchBtn should show.
-                    isDoneKeyPressed = true;
-                    RelayoutComponents(false, false, true, false);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        protected override bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
-        {
-            PointStateType state = e.Touch.GetState(0);
-            Console.WriteLine("--------, state = " + state);
-            // return false;
-            // If return false, the touch event will propagate to TextField's parent. 
-            // Then, TextField will receive focus lost and focus gained callback.
-            // So, here return true to stop propagate the touch event to TextField's parent.
-            return true;
         }
 
         private void RelayoutComponents(bool shouldUpdate = true, bool enableRelayoutDefault = true, bool enableRelayoutSearchBar = true, bool enableRelayoutStyleB = true)
@@ -687,8 +681,6 @@ namespace Tizen.FH.NUI.Controls
                 }
                 UpdateDeleteBtnState(ControlStates.Normal);
             }
-            Console.WriteLine("------- OnDeleteBtnTouchEvent, state = " + state);
-            //return false;
             return true;
         }
 
@@ -696,7 +688,6 @@ namespace Tizen.FH.NUI.Controls
         {
             if (textState == TextState.Guide)
             {
-                //return false;
                 return true;
             }
             PointStateType state = e.Touch.GetState(0);
@@ -718,8 +709,6 @@ namespace Tizen.FH.NUI.Controls
                     searchBtnClickHandler(this, args);
                 }
             }
-            Console.WriteLine("------- OnSearchBtnTouchEvent, state = " + state);
-            //return false;
             return true;
         }
 
@@ -746,8 +735,6 @@ namespace Tizen.FH.NUI.Controls
                 }
                 UpdateAddBtnState(ControlStates.Normal);
             }
-            Console.WriteLine("------- OnAddBtnTouchEvent, state = " + state);
-            //return false;
             return true;
         }
 
@@ -772,9 +759,12 @@ namespace Tizen.FH.NUI.Controls
                     cancelBtnClickHandler(this, args);
                 }
             }
-            Console.WriteLine("------- OnCancelBtnTouchEvent, state = " + state);
-            //return false;
             return true;
+        }
+
+        public class ButtonClickArgs : EventArgs
+        {
+            public ButtonClickState State;
         }
     }
 }

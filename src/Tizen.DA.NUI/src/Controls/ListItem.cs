@@ -36,6 +36,16 @@ namespace Tizen.FH.NUI.Controls
         private CheckBox checkBoxObj = null;
         private Switch switchObj = null;
 
+        public ListItem() : base()
+        {
+            Initialize();
+        }
+
+        public ListItem(string style) : base(style)
+        {
+            Initialize();
+        }
+
         /// <summary>
         /// Type for item align style
         /// </summary>
@@ -69,21 +79,6 @@ namespace Tizen.FH.NUI.Controls
             NextDepth,
             GroupIndex,
             DropDown
-        }
-        
-        static ListItem()
-        {
-            RegisterStyle("Default", typeof(ListItemAttributes));
-        }
-
-        public ListItem() : this("Default")
-        {
-            Initialize();
-        }
-
-        public ListItem(string style) : base(style)
-        {
-            Initialize();
         }
 
         /// <summary>
@@ -553,7 +548,7 @@ namespace Tizen.FH.NUI.Controls
 
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new ListItemAttributes();
         }
 
         protected override void OnUpdate(Attributes attributtes)
