@@ -103,22 +103,22 @@ namespace Tizen.FH.NUI.Controls
         protected override void UpdateValue()
         {
             if (/*progressObj == null ||*/ ImageList == null ||
-                (currentValue == null && currentValue == null) ||
-                (maxValue == null && maxValue == null))
+                (CurrentValue==null) ||
+                (MaxValue == null))
             {
                 return;
             }
 
             int curVal = -1;
-            if (currentValue != null)
+            if (CurrentValue != null)
             {
-                curVal = (int)currentValue.Value;
+                curVal = (int)CurrentValue.Value;
             }
             else
             {
                 if (CurrentValue != null)
                 {
-                    curVal = (int)currentValue.Value;
+                    curVal = (int)CurrentValue.Value;
                 }
             }
 
@@ -128,15 +128,15 @@ namespace Tizen.FH.NUI.Controls
             }
 
             int maxVal = -1;
-            if (maxValue != null)
+            if (MaxValue != null)
             {
-                maxVal = (int)maxValue.Value;
+                maxVal = (int)MaxValue.Value;
             }
             else
             {
-                if (maxValue != null)
+                if (MaxValue != null)
                 {
-                    maxVal = (int)maxValue.Value;
+                    maxVal = (int)MaxValue.Value;
                 }
             }
 

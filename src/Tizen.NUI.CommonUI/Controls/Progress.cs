@@ -8,44 +8,26 @@ namespace Tizen.NUI.CommonUI
 {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Progress : Control
-    {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    {    
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected ProgressBarAttributes progressBarAttrs = null;
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected ImageView trackObj = null;
-        protected ImageView progressObj = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected ImageView bufferObj = null;
-        protected ImageView loadingObj = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected bool isEnabled = true;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected ImageView trackObj = null;
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected uint? minValue = null;
+        protected ImageView progressObj = null;
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected uint? maxValue = null;
-        protected uint? currentValue = null;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected ImageView bufferObj = null;
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected uint? bufferValue = null;
-        protected Color trackColor = null;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected ImageView loadingObj = null;
+       
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected Color progressColor = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected Color bufferColor = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)] protected ProgressStatusType? state = null;
-        public uint? BufValue
-        {
-            get
-            {
-                return bufferValue;
-            }
-            set
-            {
-                bufferValue = value;
-                UpdateValue();
-            }
-        }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected ProgressStatusType? state = null;
 
         /// <summary>
         /// The constructor of ProgressBar
@@ -223,16 +205,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return trackColor;
+                if (progressBarAttrs.TrackImageAttributes.BackgroundColor == null)
+                {
+                    progressBarAttrs.TrackImageAttributes.BackgroundColor = new ColorSelector();
+                }
+                return progressBarAttrs.TrackImageAttributes.BackgroundColor.All;
             }
             set
             {
-                trackColor = value;
-                if (trackObj != null)
+                if (progressBarAttrs.TrackImageAttributes.BackgroundColor == null)
                 {
-                    //TNLog.I("r = " + trackColor.R + ", g = " + trackColor.G + ", b = " + trackColor.B + ", a = " + trackColor.A);
-                    trackObj.BackgroundColor = trackColor;
+                    progressBarAttrs.TrackImageAttributes.BackgroundColor = new ColorSelector();
                 }
+                progressBarAttrs.TrackImageAttributes.BackgroundColor.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -245,16 +231,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressColor;
+                if (progressBarAttrs.ProgressImageAttributes.BackgroundColor == null)
+                {
+                    progressBarAttrs.ProgressImageAttributes.BackgroundColor = new ColorSelector();
+                }
+                return progressBarAttrs.ProgressImageAttributes.BackgroundColor.All;
             }
             set
             {
-                progressColor = value;
-                if (progressObj != null)
+                if (progressBarAttrs.ProgressImageAttributes.BackgroundColor == null)
                 {
-                    //TNLog.I("r = " + progressColor.R + ", g = " + progressColor.G + ", b = " + progressColor.B + ", a = " + progressColor.A);
-                    progressObj.BackgroundColor = progressColor;
+                    progressBarAttrs.ProgressImageAttributes.BackgroundColor = new ColorSelector();
                 }
+                progressBarAttrs.ProgressImageAttributes.BackgroundColor.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -267,15 +257,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return bufferColor;
+                if (progressBarAttrs.BufferImageAttributes.BackgroundColor == null)
+                {
+                    progressBarAttrs.BufferImageAttributes.BackgroundColor = new ColorSelector();
+                }
+                return progressBarAttrs.BufferImageAttributes.BackgroundColor.All;
             }
             set
             {
-                bufferColor = value;
-                if (bufferObj != null)
+                if (progressBarAttrs.BufferImageAttributes.BackgroundColor == null)
                 {
-                    bufferObj.BackgroundColor = bufferColor;
+                    progressBarAttrs.BufferImageAttributes.BackgroundColor = new ColorSelector();
                 }
+                progressBarAttrs.BufferImageAttributes.BackgroundColor.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -288,15 +283,19 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                if (maxValue != null)
+                if (progressBarAttrs.MaxValue == null)
                 {
-                    return maxValue.Value;
+                    progressBarAttrs.MaxValue = new uint();
                 }
                 return progressBarAttrs.MaxValue.Value;
             }
             set
             {
-                maxValue = value;
+                if (progressBarAttrs.MaxValue == null)
+                {
+                    progressBarAttrs.MaxValue = new uint();
+                }
+                progressBarAttrs.MaxValue = value;
                 UpdateValue();
             }
         }
@@ -310,15 +309,19 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                if (minValue != null)
+                if (progressBarAttrs.MinValue == null)
                 {
-                    return minValue.Value;
+                    progressBarAttrs.MinValue = new uint();
                 }
                 return progressBarAttrs.MinValue.Value;
             }
             set
             {
-                minValue = value;
+                if (progressBarAttrs.MinValue == null)
+                {
+                    progressBarAttrs.MinValue = new uint();
+                }
+                progressBarAttrs.MinValue = value;
                 UpdateValue();
             }
         }
@@ -348,20 +351,24 @@ namespace Tizen.NUI.CommonUI
         {        
             get
             {
-                if (currentValue != null)
+                if (progressBarAttrs.CurValue == null)
                 {
-                    return currentValue.Value;
+                    progressBarAttrs.CurValue = new uint();
                 }
                 return progressBarAttrs.CurValue.Value;
             }
             set
             {
-                if (value < minValue || value > maxValue)
+                if (progressBarAttrs.CurValue == null)
                 {
-                    //TNLog.E("Current value is less than the Min value, or greater than the Max value. value = " + value + ";");
-                    throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
+                    progressBarAttrs.CurValue = new uint();
                 }
-                currentValue = value;
+                if (value > progressBarAttrs.MaxValue || value < progressBarAttrs.MinValue)
+                {
+                    Console.WriteLine(progressBarAttrs.MinValue+" "+progressBarAttrs.CurValue+ " current error "+progressBarAttrs.MinValue);
+                    return;
+                }
+                progressBarAttrs.CurValue = value;
                 UpdateValue();
             }
         }
@@ -391,16 +398,23 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return bufferValue.Value;
+                if (progressBarAttrs.BufferValue == null)
+                {
+                    progressBarAttrs.BufferValue = new uint();
+                }
+                return progressBarAttrs.BufferValue.Value;
             }
             set
             {
-                if (value < minValue || value > maxValue)
+                if (progressBarAttrs.BufferValue == null)
                 {
-                    //TNLog.E("Buffer value is less than the Min value, or greater than the Max value. value = " + value + ";");
-                    throw new ArgumentOutOfRangeException("Wrong Buffer value. It shoud be greater than the Min value, and less than the Max value!");
+                    progressBarAttrs.BufferValue = new uint();
                 }
-                bufferValue = value;
+                if (value > progressBarAttrs.MaxValue || value < progressBarAttrs.MinValue)
+                {
+                    return;
+                }
+                progressBarAttrs.BufferValue = value;
                 UpdateValue();
             }
         }
@@ -568,22 +582,23 @@ namespace Tizen.NUI.CommonUI
             //}
             //PlayLoadingAnimation();
         }
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateValue()
         {
             if (trackObj == null || progressObj == null ||
-                (progressBarAttrs.MaxValue == null && maxValue == null) ||
-                (progressBarAttrs.MinValue == null && minValue == null) ||
-                (progressBarAttrs.CurValue == null && currentValue == null))
+                (progressBarAttrs.MaxValue == null ||
+                progressBarAttrs.MinValue == null ||
+                progressBarAttrs.CurValue == null))
             {
                 return;
             }
 
             int minVal = 0;
-            if (minValue != null)
+            if (progressBarAttrs.MinValue != null)
             {
-                minVal = (int)minValue;
+                minVal = (int)progressBarAttrs.MinValue;
             }
             else
             {
@@ -594,9 +609,9 @@ namespace Tizen.NUI.CommonUI
 
             }
             int maxVal = 0;
-            if (maxValue != null)
+            if (progressBarAttrs.MaxValue != null)
             {
-                maxVal = (int)maxValue;
+                maxVal = (int)progressBarAttrs.MaxValue;
             }
             else
             {
@@ -606,9 +621,9 @@ namespace Tizen.NUI.CommonUI
                 }
             }
             int curVal = 0;
-            if (currentValue != null)
+            if (progressBarAttrs.CurValue != null)
             {
-                curVal = (int)currentValue;
+                curVal = (int)progressBarAttrs.CurValue;
             }
             else
             {
@@ -659,19 +674,16 @@ namespace Tizen.NUI.CommonUI
                 progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
             }
 
-            if (bufferObj != null && (BufValue != null || bufferValue != null))
+            if (bufferObj != null && (progressBarAttrs.BufferValue != null))
             {
                 int bufVal = 0;
-                if (bufferValue != null)
+                if (progressBarAttrs.BufferValue != null)
                 {
-                    bufVal = (int)bufferValue;
+                    bufVal = (int)progressBarAttrs.BufferValue;
                 }
                 else
                 {
-                    if (BufValue != null)
-                    {
-                        bufVal = (int)BufValue;
-                    }
+                    bufVal = (int)progressBarAttrs.BufferValue;
                 }
                 if (bufVal < minVal || bufVal > maxVal)
                 {
@@ -693,7 +705,9 @@ namespace Tizen.NUI.CommonUI
                     //TNLog.I("bufferHeight = " + bufferHeight + ";");
                 }
             }
+            Console.WriteLine("progress wid: " + progressObj.Size2D.Width.ToString() + " ");
         }
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -799,106 +813,6 @@ namespace Tizen.NUI.CommonUI
             //    }
             //}
         }   
-
-        private void ApplyTrack()
-        {
-            if (trackObj == null)
-            {
-                return;
-            }
-            else
-            {
-                if (TrackImageURL != null)
-                {
-                    trackObj.ResourceUrl = TrackImageURL;
-                }
-            }
-
-            if (trackColor != null)
-            {
-                float r = trackColor.R;
-                float g = trackColor.G;
-                float b = trackColor.B;
-                float a = trackColor.A;
-                trackObj.BackgroundColor = new Color(r, g, b, a);
-            }
-            else
-            {
-                if (TrackColor != null)
-                {
-                    float r = TrackColor.R;
-                    float g = TrackColor.G;
-                    float b = TrackColor.B;
-                    float a = TrackColor.A;
-                    trackObj.BackgroundColor = new Color(r, g, b, a);
-                }
-            }
-        }
-
-        private void ApplyProgress()
-        {
-            if (progressObj == null)
-            {
-                return;
-            }
-
-            if (progressColor != null)
-            {
-                float r = progressColor.R;
-                float g = progressColor.G;
-                float b = progressColor.B;
-                float a = progressColor.A;
-                progressObj.BackgroundColor = new Color(r, g, b, a);
-            }
-            else
-            {
-                if (ProgressColor != null)
-                {
-                    float r = ProgressColor.R;
-                    float g = ProgressColor.G;
-                    float b = ProgressColor.B;
-                    float a = ProgressColor.A;
-                    progressObj.BackgroundColor = new Color(r, g, b, a);
-                }
-            }
-        }
-
-        private void ApplyBuffer()
-        {
-            InitializeBuffer();
-
-            if (bufferObj == null)
-            {
-                return;
-            }
-            else
-            {
-                if (BufferImageURL != null)
-                {
-                    bufferObj.ResourceUrl = BufferImageURL;
-                }
-            }
-
-            if (bufferColor != null)
-            {
-                float r = bufferColor.R;
-                float g = bufferColor.G;
-                float b = bufferColor.B;
-                float a = bufferColor.A;
-                bufferObj.BackgroundColor = new Color(r, g, b, a);
-            }
-            else
-            {
-                if (BufferColor != null)
-                {
-                    float r = BufferColor.R;
-                    float g = BufferColor.G;
-                    float b = BufferColor.B;
-                    float a = BufferColor.A;
-                    bufferObj.BackgroundColor = new Color(r, g, b, a);
-                }
-            }
-        }
 
         private void ApplyLoadingAnimation()
         {

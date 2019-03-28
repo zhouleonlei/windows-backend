@@ -16,6 +16,7 @@ namespace Tizen.NUI.CommonUI
             MaxValue = attributes.MaxValue;
             MinValue = attributes.MinValue;
             CurValue = attributes.CurValue;
+            BufferValue = attributes.BufferValue;
             Duration = attributes.Duration;
 
             if (attributes.ProgressImageURLPrefix != null)
@@ -95,6 +96,13 @@ namespace Tizen.NUI.CommonUI
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint? CurValue
+        {
+            get;
+            set;
+        }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public uint? BufferValue
         {
             get;
             set;
