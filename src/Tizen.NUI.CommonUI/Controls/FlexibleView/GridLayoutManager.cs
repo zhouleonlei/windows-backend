@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class GridLayoutManager : LinearLayoutManager
     {
-        public static readonly int DEFAULT_SPAN_COUNT = -1;
+        private static readonly int DEFAULT_SPAN_COUNT = -1;
 
         private int mSpanCount = DEFAULT_SPAN_COUNT;
         /**
@@ -14,11 +14,15 @@ namespace Tizen.NUI.CommonUI
          * @param orientation Layout orientation. Should be {@link #HORIZONTAL} or {@link
          *                      #VERTICAL}.
          */
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public GridLayoutManager(int spanCount, int orientation) : base(orientation)
         {
             mSpanCount = spanCount;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
             LayoutState layoutState, LayoutChunkResult result)
         {
@@ -78,7 +82,8 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
         {
             if (mOrientation == HORIZONTAL)
