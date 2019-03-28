@@ -34,7 +34,7 @@ namespace Tizen.NUI.Samples
                 Size2D = new Size2D(1920, 1080),
             };
             window.Add(root);
-            window.KeyEvent += Window_KeyEvent;
+            //window.KeyEvent += Window_KeyEvent;
 
             textButton = new Button();
             textButton.BackgroundImageURL = CommonResource.GetTVResourcePath() + "component/c_buttonbasic/c_basic_button_white_bg_normal_9patch.png";
