@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.FamilyProgressbarStyle.xaml", "FamilyProgressbarStyle.xaml", typeof(Tizen.FH.NUI.Controls.FamilyProgressbarStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyProgressbarStyle : StyleBase

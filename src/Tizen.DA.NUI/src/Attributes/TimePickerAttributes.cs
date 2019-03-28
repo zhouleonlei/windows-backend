@@ -1,8 +1,17 @@
+using System.ComponentModel;
+
 ﻿namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class TimePickerAttributes : ViewAttributes
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePickerAttributes() : base() { }
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePickerAttributes(TimePickerAttributes attributes) : base(attributes)
         {
             if (attributes.ShadowImageAttributes != null)
@@ -68,83 +77,112 @@
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ShadowImageAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TitleTextAttributes
         {
             get;
             set;
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ShadowOffset
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes HourSpinAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes MinuteSpinAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes SecondSpinAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes AMPMSpinAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ColonImageAttributes
         {
             get;
             set;
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes WeekViewAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes WeekTitleTextAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes WeekSelectImageAttributes
         {
             get;
             set;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes WeekTextAttributes
         {
             get;
             set;
         }
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
             return new TimePickerAttributes(this);

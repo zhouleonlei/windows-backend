@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Collections.Generic;
 
 namespace Tizen.NUI.CommonUI
@@ -13,11 +13,15 @@ namespace Tizen.NUI.CommonUI
     /// checkGroup.Add(check1);
     /// checkGroup.Add(check2);
     /// </code>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class CheckBoxGroup : SelectGroup
     {
         /// <summary>
         /// Construct CheckBoxGroup
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBoxGroup()
         {
 
@@ -27,6 +31,8 @@ namespace Tizen.NUI.CommonUI
         /// Add CheckBox to the end of CheckBoxGroup.
         /// </summary>
         /// <param name="check">The CheckBox to be added to the CheckBoxGroup</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Add(CheckBox check)
         {
             base.AddSelection(check);
@@ -37,6 +43,8 @@ namespace Tizen.NUI.CommonUI
         /// Remove CheckBox from the CheckBoxGroup.
         /// </summary>
         /// <param name="check">The CheckBox to remove from the CheckBoxGroup</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Remove(CheckBox check)
         {
             base.RemoveSelection(check);
@@ -48,6 +56,8 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="index">The item index</param>
         /// <returns>CheckBox</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox GetItemByIndex(int index)
         {
             return itemGroup[index] as CheckBox;
@@ -57,6 +67,8 @@ namespace Tizen.NUI.CommonUI
         /// Get the index array of checked items.
         /// </summary>
         /// <returns>The array of index</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int[] GetCheckedIndexArray()
         {
             List<int> selectedItemsList = new List<int>();
@@ -76,6 +88,8 @@ namespace Tizen.NUI.CommonUI
         /// Get the CheckBox array of checked items.
         /// </summary>
         /// <returns>The array of CheckBox</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox[] GetCheckedItemArray()
         {
             List<CheckBox> selectedList = new List<CheckBox>();
@@ -95,6 +109,8 @@ namespace Tizen.NUI.CommonUI
         /// Determines whether every checkboxes in the CheckBoxGroup are checked
         /// </summary>
         /// <returns>If all of CheckBoxes are checked, return true. otherwise false</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsCheckedAll()
         {
             foreach (CheckBox cb in itemGroup)
@@ -111,6 +127,8 @@ namespace Tizen.NUI.CommonUI
         /// Check or Uncheck all of child checkboxes by the specified value
         /// </summary>
         /// <param name="state">The boolean state of the check box</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void CheckingAll(bool state)
         {
             foreach (CheckBox cb in itemGroup)

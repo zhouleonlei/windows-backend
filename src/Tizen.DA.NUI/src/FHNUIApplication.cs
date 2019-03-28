@@ -22,10 +22,9 @@
 using System;
 using System.Reflection;
 using Tizen.NUI;
-using Tizen.NUI.Xaml;
-using Tizen.NUI.CommonUI;
 using Tizen.FH.NUI.Controls;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI
 {
@@ -42,7 +41,8 @@ namespace Tizen.FH.NUI
     ///     }
     /// }
     /// </code>
-
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class FHNUIApplication : NUIApplication
     {
 
@@ -66,6 +66,8 @@ namespace Tizen.FH.NUI
         /// Constructor to instantiate the TVUIApplication class.
         /// <param name="windowMode">window mode for deciding whether application window is opaque or transparent.</param>
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FHNUIApplication(WindowMode windowMode = WindowMode.Opaque) : base("", windowMode)
         {
         }
@@ -75,6 +77,8 @@ namespace Tizen.FH.NUI
         /// <param name="styleSheet">The stylesheet url</param>
         /// <param name="windowMode">window mode for deciding whether application window is opaque or transparent.</param>
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FHNUIApplication(string styleSheet, WindowMode windowMode = WindowMode.Opaque) : base("", windowMode)
         {
         }
@@ -82,6 +86,8 @@ namespace Tizen.FH.NUI
         /// <summary>
         /// Overrides this method if want to handle behavior before calling OnCreate().
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnPreCreate()
         {
             base.OnPreCreate();
@@ -91,7 +97,8 @@ namespace Tizen.FH.NUI
         /// <summary>
         /// Overrides this method if want to handle behavior when the application is created.        
         /// </summary>
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -101,7 +108,8 @@ namespace Tizen.FH.NUI
         /// <summary>
         /// Overrides this method if want to handle behavior when the application is resumed.
         /// </summary>
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnResume()
         {
             base.OnResume();
@@ -111,6 +119,8 @@ namespace Tizen.FH.NUI
         /// Overrides this method if want to handle behavior when the application is terminated.
         /// If base.OnTerminate() is not called, the event 'Terminated' will not be emitted.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnTerminate()
         {
             CleanUp();
@@ -122,6 +132,8 @@ namespace Tizen.FH.NUI
         /// </summary>
         /// <version> 5.5.0 </version>
         /// <param name="args">Arguments from commandline.</param>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override void Run(string[] args)
         {
             base.Run(args);

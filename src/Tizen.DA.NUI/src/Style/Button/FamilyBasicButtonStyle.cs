@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FamilyBasicButtonStyle.xaml", "FamilyBasicButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.FamilyBasicButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyBasicButtonStyle : TextButtonStyle

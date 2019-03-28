@@ -2,9 +2,12 @@
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
-{
+{    
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Spin : Control
     {
         private Style type = Style.IntStyle;        
@@ -56,11 +59,15 @@ namespace Tizen.FH.NUI.Controls
         
         private SpinAttributes spinAttributes;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Spin() : base()
         {
             Initialize();
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Spin(string style) : base(style)
         {
             if (style.Contains("str") || style.Contains("Str"))
@@ -106,6 +113,8 @@ namespace Tizen.FH.NUI.Controls
             MoveToNext20 = 4
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string NameText
         {
             get
@@ -121,6 +130,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int Min
         {
             get
@@ -140,6 +151,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int Max
         {
             get
@@ -159,6 +172,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int CurValue
         {
             get
@@ -171,6 +186,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -297,12 +314,16 @@ namespace Tizen.FH.NUI.Controls
             
             base.Dispose(type);
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return null;
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             spinAttributes = attributes as SpinAttributes;

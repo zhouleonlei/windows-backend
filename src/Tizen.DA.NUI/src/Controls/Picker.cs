@@ -3,9 +3,12 @@ using Tizen.NUI.BaseComponents;
 using System.Globalization;
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Picker : Control
     {
         private ImageView backgroundImage = null;
@@ -31,16 +34,22 @@ namespace Tizen.FH.NUI.Controls
         private DataArgs data;        
         private PickerAttributes pickerAttributes = null;
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Picker() : base()
         {
             Initialize();
         }
-        
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Picker(string style) : base(style)
         {
             Initialize();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public DateTime CurDate
         {
             get
@@ -54,6 +63,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -203,11 +214,15 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return null;
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             pickerAttributes = attributes as PickerAttributes;

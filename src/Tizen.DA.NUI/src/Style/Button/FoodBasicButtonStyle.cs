@@ -1,8 +1,5 @@
-﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
-using Tizen.NUI.Xaml;
+﻿using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FoodBasicButtonStyle.xaml", "FoodBasicButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.FoodBasicButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodBasicButtonStyle : TextButtonStyle

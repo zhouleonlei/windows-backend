@@ -1,136 +1,11 @@
-﻿using Tizen.NUI.Binding;
+﻿using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
-    public class Selector<T> : Element
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class Selector<T>
     {
-        public static readonly BindableProperty AllProperty = BindableProperty.Create("All", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.all = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.all;
-        });
-
-        public static readonly BindableProperty NormalProperty = BindableProperty.Create("Normal", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.normal = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.normal;
-        });
-
-        public static readonly BindableProperty FocusedProperty = BindableProperty.Create("Focused", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.focused = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.focused;
-        });
-        public static readonly BindableProperty PressedProperty = BindableProperty.Create("Pressed", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.pressed = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.pressed;
-        });
-
-
-        public static readonly BindableProperty SelectedProperty = BindableProperty.Create("Selected", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.selected = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.selected;
-        });
-        public static readonly BindableProperty DisabledProperty = BindableProperty.Create("Disabled", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.disabled = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.disabled;
-        });
-
-
-
-        public static readonly BindableProperty DisabledFocusedProperty = BindableProperty.Create("DisabledFocused", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.disabledFocused = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.disabledFocused;
-        });
-
-        public static readonly BindableProperty DisabledSelectedProperty = BindableProperty.Create("DisabledSelected", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.disabledSelected = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.disabledSelected;
-        });
-
-        public static readonly BindableProperty OtherProperty = BindableProperty.Create("Other", typeof(T), typeof(Selector<T>), default(T), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var selector = (Selector<T>)bindable;
-            if (newValue != null)
-            {
-                selector.other = (T)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var selector = (Selector<T>)bindable;
-            return selector.other;
-        });
-
         private T all;
         private T normal;
         private T focused;
@@ -141,156 +16,119 @@ namespace Tizen.NUI.CommonUI
         private T disabledSelected;
         private T other;
 
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T All
         {
-            get
-            {
-                return (T)GetValue(AllProperty);
-            }
-            set
-            {
-                SetValue(AllProperty, value);
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Normal
         {
-            get
-            {
-                return (T)GetValue(NormalProperty);
-            }
-            set
-            {
-                SetValue(NormalProperty, value);
-            }
+            get;
+            set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Pressed
         {
-            get
-            {
-                return (T)GetValue(PressedProperty);
-            }
-            set
-            {
-                SetValue(PressedProperty, value);
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Focused
         {
-            get
-            {
-                return (T)GetValue(FocusedProperty);
-            }
-            set
-            {
-                SetValue(FocusedProperty, value);
-            }
+            get;
+            set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Selected
         {
-            get
-            {
-                return (T)GetValue(SelectedProperty);
-            }
-            set
-            {
-                SetValue(SelectedProperty, value);
-            }
+            get;
+            set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Disabled
         {
-            get
-            {
-                return (T)GetValue(DisabledProperty);
-            }
-            set
-            {
-                SetValue(DisabledProperty, value);
-            }
+            get;
+            set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T DisabledFocused
         {
-            get
-            {
-                return (T)GetValue(DisabledFocusedProperty);
-            }
-            set
-            {
-                SetValue(DisabledFocusedProperty, value);
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T DisabledSelected
         {
-            get
-            {
-                return (T)GetValue(DisabledSelectedProperty);
-            }
-            set
-            {
-                SetValue(DisabledSelectedProperty, value);
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T Other
         {
-            get
-            {
-                return (T)GetValue(OtherProperty);
-            }
-            set
-            {
-                SetValue(OtherProperty, value);
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public T GetValue(ControlStates state)
         {
-            if(all != null)
+            if(All != null)
             {
-                return all;
+                return All;
             }
             switch(state)
             {
                 case ControlStates.Normal:
-                    return normal != null? normal : other;
+                    return Normal != null? Normal : Other;
                 case ControlStates.Focused:
-                    return focused != null? focused : other;
+                    return Focused != null? Focused : Other;
                 case ControlStates.Pressed:
-                    return pressed != null? pressed : other;
+                    return Pressed != null? Pressed : Other;
                 case ControlStates.Disabled:
-                    return disabled != null? disabled : other;
+                    return Disabled != null? Disabled : Other;
                 case ControlStates.Selected:
-                    return selected != null? selected : other;
+                    return Selected != null? Selected : Other;
                 case ControlStates.DisabledFocused:
-                    return disabledFocused != null? disabledFocused : other;
+                    return DisabledFocused != null? DisabledFocused : Other;
                 case ControlStates.DisabledSelected:
-                    return disabledSelected != null? disabledSelected : other;
+                    return DisabledSelected != null? DisabledSelected : Other;
                 default:
-                    return other;
+                    return Other;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Clone(Selector<T> selector)
         {
-            all = selector.all;
-            normal = selector.normal;
-            focused = selector.focused;
-            pressed = selector.pressed;
-            disabled = selector.disabled;
-            selected = selector.selected;
-            disabledSelected = selector.disabledSelected;
-            disabledFocused = selector.disabledFocused;
-            other = selector.other;
+            All = selector.All;
+            Normal = selector.Normal;
+            Focused = selector.Focused;
+            Pressed = selector.Pressed;
+            Disabled = selector.Disabled;
+            Selected = selector.Selected;
+            DisabledSelected = selector.DisabledSelected;
+            DisabledFocused = selector.DisabledFocused;
+            Other = selector.Other;
         }
 
     }
-
-    //[TypeConverter(typeof(IntSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class IntSelector : Selector<int?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public IntSelector Clone()
         {
             IntSelector selector = new IntSelector();
@@ -299,10 +137,12 @@ namespace Tizen.NUI.CommonUI
         }
     }
 
-
-    //[TypeConverter(typeof(FloatSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class FloatSelector : Selector<float?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector Clone()
         {
             FloatSelector selector = new FloatSelector();
@@ -310,10 +150,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(BoolSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class BoolSelector : Selector<bool?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public BoolSelector Clone()
         {
             BoolSelector selector = new BoolSelector();
@@ -321,10 +163,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(StringSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class StringSelector : Selector<string>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector Clone()
         {
             StringSelector selector = new StringSelector();
@@ -332,10 +176,12 @@ namespace Tizen.NUI.CommonUI
             return selector; 
         }
     }
-
-    //[TypeConverter(typeof(ColorSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class ColorSelector : Selector<Color>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector Clone()
         {
             ColorSelector selector = new ColorSelector();
@@ -343,10 +189,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(Size2DSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Size2DSelector : Selector<Size2D>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2DSelector Clone()
         {
             Size2DSelector selector = new Size2DSelector();
@@ -354,10 +202,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(Position2DSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Position2DSelector : Selector<Position2D>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2DSelector Clone()
         {
             Position2DSelector selector = new Position2DSelector();
@@ -365,10 +215,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(PositionSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class PositionSelector : Selector<Position>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public PositionSelector Clone()
         {
             PositionSelector selector = new PositionSelector();
@@ -376,10 +228,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(Vector2SelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Vector2Selector : Selector<Vector2>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2Selector Clone()
         {
             Vector2Selector selector = new Vector2Selector();
@@ -387,10 +241,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(Vector3SelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Vector3Selector : Selector<Vector3>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector3Selector Clone()
         {
             Vector3Selector selector = new Vector3Selector();
@@ -398,10 +254,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(RectangleSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class RectangleSelector : Selector<Rectangle>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public RectangleSelector Clone()
         {
             RectangleSelector selector = new RectangleSelector();
@@ -409,10 +267,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(HorizontalAlignmentSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class HorizontalAlignmentSelector : Selector<HorizontalAlignment?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignmentSelector Clone()
         {
             HorizontalAlignmentSelector selector = new HorizontalAlignmentSelector();
@@ -420,10 +280,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(VerticalAlignmentSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class VerticalAlignmentSelector : Selector<VerticalAlignment?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public VerticalAlignmentSelector Clone()
         {
             VerticalAlignmentSelector selector = new VerticalAlignmentSelector();
@@ -431,10 +293,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(AutoScrollStopModeSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class AutoScrollStopModeSelector : Selector<AutoScrollStopMode?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public AutoScrollStopModeSelector Clone()
         {
             AutoScrollStopModeSelector selector = new AutoScrollStopModeSelector();
@@ -442,10 +306,12 @@ namespace Tizen.NUI.CommonUI
             return selector;
         }
     }
-
-    //[TypeConverter(typeof(ResizePolicyTypeSelectorConverter))]
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class ResizePolicyTypeSelector : Selector<ResizePolicyType?>
     {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ResizePolicyTypeSelector Clone()
         {
             ResizePolicyTypeSelector selector = new ResizePolicyTypeSelector();

@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.KitchenProgressbarStyle.xaml", "KitchenProgressbarStyle.xaml", typeof(Tizen.FH.NUI.Controls.KitchenProgressbarStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class KitchenProgressbarStyle : StyleBase

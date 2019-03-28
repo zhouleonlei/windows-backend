@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.BlackBackNavigationItemStyle.xaml", "BlackBackNavigationItemStyle.xaml", typeof(Tizen.FH.NUI.Controls.BlackBackNavigationItemStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class BlackBackNavigationItemStyle : StyleBase

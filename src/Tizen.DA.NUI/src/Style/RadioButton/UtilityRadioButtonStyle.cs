@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.RadioButton.UtilityRadioButtonStyle.xaml", "UtilityRadioButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityRadioButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityRadioButtonStyle : StyleBase

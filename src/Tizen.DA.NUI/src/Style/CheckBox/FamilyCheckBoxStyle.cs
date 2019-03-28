@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.CheckBox.FamilyCheckBoxStyle.xaml", "FamilyCheckBoxStyle.xaml", typeof(Tizen.FH.NUI.Controls.FamilyCheckBoxStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyCheckBoxStyle : StyleBase

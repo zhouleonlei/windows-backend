@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.FamilyTextSliderStyle.xaml", "FamilyTextSliderStyle.xaml", typeof(Tizen.FH.NUI.Controls.FamilyTextSliderStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyTextSliderStyle : StyleBase

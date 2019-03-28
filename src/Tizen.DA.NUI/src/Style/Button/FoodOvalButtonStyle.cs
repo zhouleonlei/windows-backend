@@ -1,6 +1,4 @@
 ﻿using Tizen.NUI.CommonUI;
-using Tizen.NUI.Xaml;
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Button.FoodOvalButtonStyle.xaml", "FoodOvalButtonStyle.xaml", typeof(Tizen.FH.NUI.Controls.FoodOvalButtonStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodOvalButtonStyle : IconButtonStyle

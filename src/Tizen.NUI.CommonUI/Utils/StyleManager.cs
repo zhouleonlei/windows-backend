@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class StyleManager
     {
         private string theme = "default";
@@ -12,9 +15,9 @@ namespace Tizen.NUI.CommonUI
 
         private StyleManager()
         {
-            
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ThemeChangeEventArgs> ThemeChangedEvent
         {
             add
@@ -26,8 +29,11 @@ namespace Tizen.NUI.CommonUI
                 themeChangeHander -= value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public static StyleManager Instance { get; } = new StyleManager();
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public  string Theme
         {
             get
@@ -44,8 +50,9 @@ namespace Tizen.NUI.CommonUI
                 }
             }
         }
-  
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void RegisterStyle(string style, string theme, Type styleType, bool bDefault = false)
         {
             if(style == null)
@@ -76,7 +83,8 @@ namespace Tizen.NUI.CommonUI
                 }
                 ThemeStyleSet[style].Add(theme, styleType);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Attributes GetAttributes(string style)
         {
             if(style == null)
@@ -96,6 +104,8 @@ namespace Tizen.NUI.CommonUI
 
             return (obj as StyleBase)?.GetAttributes();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class ThemeChangeEventArgs : EventArgs
         {
             public string CurrentTheme;

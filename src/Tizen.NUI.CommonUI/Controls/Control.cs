@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.ComponentModel;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Control : VisualView
     {
-        public new static readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(ControlStates), typeof(Attributes), ControlStates.Normal, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var control = (Control)bindable;
-            if (newValue != null)
-            {
-                control.state = (ControlStates)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var control = (Control)bindable;
-            return control.state;
-        });
+        private static Dictionary<string, Type> styleToAttributes = new Dictionary<string, Type>();
+        private TapGestureDetector tapGestureDetector = new TapGestureDetector();
         private ControlStates state;
         private bool isFocused = false;
         protected string style;
@@ -37,19 +26,11 @@ namespace Tizen.NUI.CommonUI
 
         public new ControlStates State
         {
-            get
-            {
-                return (ControlStates)GetValue(StateProperty);
-            }
-            set
-            {
-                if(state != value)
-                {
-                    SetValue(StateProperty, value);
-                }
-            }
+            get;
+            set;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool StateFocusableOnTouchMode
         {
             get;
@@ -63,29 +44,8 @@ namespace Tizen.NUI.CommonUI
                 return isFocused || HasFocus();
             }
         }
-
-        public delegate StyleBase GetStyleContainer();
-
-        public static void RegisterStyle(string style, GetStyleContainer delegateForStyleContainer)
-        {
-            if (styleToDelegate.ContainsKey(style))
-            {
-                throw new InvalidOperationException(string.Format($"[RegisterStyle] [{style}] already be used"));
-            }
-
-            styleToDelegate.Add(style, delegateForStyleContainer);
-        }
-
-        public static void RegisterStyle(string style, Type attributeType)
-        {
-            if (styleToAttributes.ContainsKey(style))
-            {
-                throw new InvalidOperationException(string.Format($"[RegisterStyle] [{style}] already be used"));
-            }
-
-            styleToAttributes.Add(style, attributeType);
-        }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected  void ApplyAttributes(View view, ViewAttributes attrs)
         {
             if (view == null || attrs == null)
@@ -308,7 +268,8 @@ namespace Tizen.NUI.CommonUI
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -329,37 +290,54 @@ namespace Tizen.NUI.CommonUI
             }
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Attributes attributes;
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected abstract Attributes GetAttributes();
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnKey(object source, KeyEventArgs e)
         {
             return false;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnRelayout(object sender, EventArgs e)
         {
             OnUpdate(attributes);
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnFocusGained(object sender, EventArgs e)
         {
             isFocused = true;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnFocusLost(object sender, EventArgs e)
         {
             isFocused = false;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
         {
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTouch(object source, TouchEventArgs e)
         {
             return false;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnUpdate(Attributes attributtes)
         {
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
         }
@@ -396,9 +374,5 @@ namespace Tizen.NUI.CommonUI
             return attributes;
         }
 
-        private static Dictionary<string, GetStyleContainer> styleToDelegate = new Dictionary<string, GetStyleContainer>();
-        private static Dictionary<string, Type> styleToAttributes = new Dictionary<string, Type>();
-
-        private TapGestureDetector tapGestureDetector = new TapGestureDetector();
     }
 }

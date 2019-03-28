@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.ListItem.DefaultListItemStyle.xaml", "DefaultListItemStyle.xaml", typeof(Tizen.FH.NUI.Controls.DefaultListItemStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class DefaultListItemStyle : StyleBase

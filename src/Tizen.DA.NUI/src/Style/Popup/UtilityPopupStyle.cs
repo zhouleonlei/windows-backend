@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Popup.UtilityPopupStyle.xaml", "UtilityPopupStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityPopupStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityPopupStyle : StyleBase

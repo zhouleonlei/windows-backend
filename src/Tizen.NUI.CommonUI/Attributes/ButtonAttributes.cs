@@ -88,6 +88,8 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Button.IconOrientation? IconRelativeOrientation
         {
             get;

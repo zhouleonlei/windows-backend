@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.UtilityTextSliderStyle.xaml", "UtilityTextSliderStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityTextSliderStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityTextSliderStyle : StyleBase

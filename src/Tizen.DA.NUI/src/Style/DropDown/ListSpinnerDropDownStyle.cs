@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.ListSpinnerDropDownStyle.xaml", "ListSpinnerDropDownStyle.xaml", typeof(Tizen.FH.NUI.Controls.ListSpinnerDropDownStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class ListSpinnerDropDownStyle : StyleBase
