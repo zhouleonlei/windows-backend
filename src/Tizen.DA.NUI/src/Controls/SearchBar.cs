@@ -2,10 +2,13 @@
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
+using System.ComponentModel;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
-{
+{    
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class SearchBar : Control
     {
         private InputField inputField = null;
@@ -19,17 +22,20 @@ namespace Tizen.FH.NUI.Controls
 
         private EventHandler<InputField.ButtonClickArgs> cancelBtnClickHandler;
         private EventHandler<InputField.ButtonClickArgs> searchBtnClickHandler;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SearchBar() : base()
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SearchBar(string style) : base(style)
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<InputField.ButtonClickArgs> CancelButtonClickEvent
         {
             add
@@ -41,7 +47,8 @@ namespace Tizen.FH.NUI.Controls
                 cancelBtnClickHandler -= value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<InputField.ButtonClickArgs> SearchButtonClickEvent
         {
             add
@@ -53,7 +60,8 @@ namespace Tizen.FH.NUI.Controls
                 searchBtnClickHandler -= value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool StateEnabled
         {
             get
@@ -69,7 +77,8 @@ namespace Tizen.FH.NUI.Controls
                 isEnabled = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text
         {
             get
@@ -84,7 +93,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string HintText
         {
             get
@@ -99,7 +109,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TextColor
         {
             get
@@ -114,7 +125,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public uint ResultListHeight
         {
             get
@@ -130,7 +142,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void ExpandSearchList(bool enableAni = false)
         {
             if (resultListRoot != null)
@@ -138,7 +151,8 @@ namespace Tizen.FH.NUI.Controls
                 resultListRoot.Size2D.Height = (int)resultListHeight;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void ShrinkSearchList(bool enableAni = false)
         {
             if (resultListRoot != null)
@@ -147,7 +161,8 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -173,12 +188,14 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new SearchBarAttributes();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             searchBarAttrs = attributes as SearchBarAttributes;

@@ -1,9 +1,12 @@
 ﻿using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Toast : Control
     {
         private ToastAttributes toastAttributes;
@@ -15,20 +18,23 @@ namespace Tizen.NUI.CommonUI
         private int leftSpace;
         private int downSpace;
         private bool autoDestroy = false;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
             SetAttribute();
 
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(ToastAttributes attributes)
         {
             this.attributes = toastAttributes = attributes.Clone() as ToastAttributes;
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
             if (attributes != null)
@@ -39,7 +45,8 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text
         {
             get
@@ -52,7 +59,8 @@ namespace Tizen.NUI.CommonUI
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string BackgroundImageURL
         {
             get
@@ -73,7 +81,8 @@ namespace Tizen.NUI.CommonUI
                 RelayoutRequest();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int LeftSpace
         {
             get
@@ -86,7 +95,8 @@ namespace Tizen.NUI.CommonUI
                 RelayoutRequest();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int UpSpace
         {
             get
@@ -108,7 +118,8 @@ namespace Tizen.NUI.CommonUI
                 Console.WriteLine("Call set upspace done");
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int DownSpace
         {
             get
@@ -120,7 +131,8 @@ namespace Tizen.NUI.CommonUI
                 downSpace = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle BackgroundBorder
         {
             get
@@ -137,7 +149,8 @@ namespace Tizen.NUI.CommonUI
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D TextSize2D
         {
             get
@@ -150,7 +163,8 @@ namespace Tizen.NUI.CommonUI
             }
 
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D TextPosition2D
         {
             set
@@ -158,13 +172,15 @@ namespace Tizen.NUI.CommonUI
                 toastText.Position2D = toastAttributes.TextAttributes.Position2D = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Show(uint millisecond, bool autoDestroy = false)
         {
             ShowWithAnimation(opacityDuration: 700, opacityStart: 0.5f, scaleDuration: 700, scaleStart: 0.97f);
             CreateTimer(millisecond);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -191,7 +207,8 @@ namespace Tizen.NUI.CommonUI
 
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributes)
         {
             if (toastAttributes == null)
@@ -211,12 +228,14 @@ namespace Tizen.NUI.CommonUI
             ////////////////////// Text //////////////////////////////
             ApplyAttributes(toastText, toastAttributes.TextAttributes);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnRelayout(object sender, EventArgs e)
         {
             OnUpdate(attributes);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new ToastAttributes
@@ -233,7 +252,8 @@ namespace Tizen.NUI.CommonUI
 
             };
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void LayoutChild()
         {
             if (toastAttributes.TextAttributes.Size2D == null)
@@ -250,7 +270,8 @@ namespace Tizen.NUI.CommonUI
             toastAttributes.TextAttributes.Position2D.X = LeftSpace;
             toastAttributes.TextAttributes.Position2D.Y = UpSpace;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetAttribute()
         {
             toastAttributes = this.attributes as ToastAttributes;
