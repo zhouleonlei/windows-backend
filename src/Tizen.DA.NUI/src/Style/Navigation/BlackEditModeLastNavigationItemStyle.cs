@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.BlackEditModeLastNavigationItemStyle.xaml", "BlackEditModeLastNavigationItemStyle.xaml", typeof(Tizen.FH.NUI.Controls.BlackEditModeLastNavigationItemStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class BlackEditModeLastNavigationItemStyle : StyleBase

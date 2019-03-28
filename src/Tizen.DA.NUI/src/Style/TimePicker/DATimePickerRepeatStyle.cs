@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.TimePicker.TimePickerRepeatStyle.xaml", "TimePickerRepeatStyle.xaml", typeof(Tizen.FH.NUI.Controls.DATimePickerRepeatStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class DATimePickerRepeatStyle : StyleBase

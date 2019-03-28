@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.FoodDefaultSliderStyle.xaml", "FoodDefaultSliderStyle.xaml", typeof(Tizen.FH.NUI.Controls.FoodDefaultSliderStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodDefaultSliderStyle : StyleBase

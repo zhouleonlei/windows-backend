@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Navigation.WhiteConditionNavigationStyle.xaml", "WhiteConditionNavigationStyle.xaml", typeof(Tizen.FH.NUI.Controls.WhiteConditionNavigationStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class WhiteConditionNavigationStyle : StyleBase

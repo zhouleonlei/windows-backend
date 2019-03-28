@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Slider.KitchenTextSliderStyle.xaml", "KitchenTextSliderStyle.xaml", typeof(Tizen.FH.NUI.Controls.KitchenTextSliderStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class KitchenTextSliderStyle : StyleBase

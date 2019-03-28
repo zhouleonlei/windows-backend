@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Switch.UtilitySwitchStyle.xaml", "UtilitySwitchStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilitySwitchStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilitySwitchStyle : StyleBase

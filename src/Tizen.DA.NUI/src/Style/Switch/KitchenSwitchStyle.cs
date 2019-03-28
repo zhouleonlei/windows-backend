@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Switch.KitchenSwitchStyle.xaml", "KitchenSwitchStyle.xaml", typeof(Tizen.FH.NUI.Controls.KitchenSwitchStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class KitchenSwitchStyle : StyleBase

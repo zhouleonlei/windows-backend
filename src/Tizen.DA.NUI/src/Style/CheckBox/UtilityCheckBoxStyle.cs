@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.CheckBox.UtilityCheckBoxStyle.xaml", "UtilityCheckBoxStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityCheckBoxStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityCheckBoxStyle : StyleBase

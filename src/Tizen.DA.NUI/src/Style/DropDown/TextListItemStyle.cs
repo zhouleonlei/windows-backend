@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.TextListItemStyle.xaml", "TextListItemStyle.xaml", typeof(Tizen.FH.NUI.Controls.TextListItemStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class TextListItemStyle : StyleBase

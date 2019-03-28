@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.InputField.FoodStyleBInputFieldStyle.xaml", "FoodStyleBInputFieldStyle.xaml", typeof(Tizen.FH.NUI.Controls.FoodStyleBInputFieldStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodStyleBInputFieldStyle : StyleBase

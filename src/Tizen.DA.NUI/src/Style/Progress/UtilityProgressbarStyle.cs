@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Progress.UtilityProgressbarStyle.xaml", "UtilityProgressbarStyle.xaml", typeof(Tizen.FH.NUI.Controls.UtilityProgressbarStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class UtilityProgressbarStyle : StyleBase

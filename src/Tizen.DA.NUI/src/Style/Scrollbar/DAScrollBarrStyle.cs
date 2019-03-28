@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Scrollbar.DAScrollBarStyle.xaml", "DAScrollBarStyle.xaml", typeof(Tizen.FH.NUI.Controls.DAScrollBarStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class DAScrollBarStyle : StyleBase

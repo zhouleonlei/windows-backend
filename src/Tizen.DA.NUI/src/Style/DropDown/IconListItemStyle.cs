@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.DropDown.IconListItemStyle.xaml", "IconListItemStyle.xaml", typeof(Tizen.FH.NUI.Controls.IconListItemStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class IconListItemStyle : StyleBase

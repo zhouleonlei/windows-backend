@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Switch.ListIndexSwitchStyle.xaml", "ListIndexSwitchStyle.xaml", typeof(Tizen.FH.NUI.Controls.ListIndexSwitchStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class ListIndexSwitchStyle : StyleBase

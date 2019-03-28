@@ -1,7 +1,6 @@
 ﻿using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 
-[assembly: Tizen.NUI.Xaml.XamlResourceId("Tizen.FH.NUI.res.Toast.BasicShortToastStyle.xaml", "BasicShortToastStyle.xaml", typeof(Tizen.FH.NUI.Controls.BasicShortToasStyle))]
 namespace Tizen.FH.NUI.Controls
 {
     internal class BasicShortToasStyle : StyleBase
