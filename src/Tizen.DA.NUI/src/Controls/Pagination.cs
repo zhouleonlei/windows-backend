@@ -4,9 +4,12 @@ using System.Text;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
+using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Pagination : Tizen.NUI.CommonUI.Pagination
     {
         private PaginationAttributes paginationAttributes;
@@ -18,17 +21,20 @@ namespace Tizen.FH.NUI.Controls
         private int maxCountOnePage = 10;
 
         private TapGestureDetector tapGestureDetector;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Pagination() : base()
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Pagination(string style) : base(style)
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ReturnArrowURLs
         {
             get
@@ -53,7 +59,8 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.ReturnArrowAttributes.ResourceURL = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector NextArrowURLs
         {
             get
@@ -78,7 +85,8 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.NextArrowAttributes.ResourceURL = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ReturnArrowSize
         {
             get
@@ -103,7 +111,8 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.ReturnArrowAttributes.Size2D = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D NextArrowSize
         {
             get
@@ -128,7 +137,8 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.NextArrowAttributes.Size2D = value;
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public new int IndicatorCount
         {
             get
@@ -146,7 +156,8 @@ namespace Tizen.FH.NUI.Controls
                 LayoutUpdate();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public new int SelectedIndex
         {
             get
@@ -160,7 +171,8 @@ namespace Tizen.FH.NUI.Controls
                 LayoutUpdate();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -193,12 +205,14 @@ namespace Tizen.FH.NUI.Controls
 
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new PaginationAttributes();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             base.OnUpdate(attributtes);

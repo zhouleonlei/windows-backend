@@ -1,31 +1,39 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Header : Control
     {
         private HeaderAttributes headerAttribute;
         private TextLabel headerTitle;
         private View headerLine;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Header() : base()
         {
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Header(string style) : base(style)
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Header(HeaderAttributes attributes) : base()
         {
             this.attributes = headerAttribute = attributes.Clone() as HeaderAttributes;
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string HeaderText
         {
             get
@@ -47,7 +55,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-        
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color HeaderTextColor
         {
             get
@@ -68,7 +77,8 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Color LinebackgroundColor
         {
             get
@@ -86,12 +96,14 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutRequest();
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new HeaderAttributes();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -121,7 +133,8 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             headerAttribute = attributes as HeaderAttributes;

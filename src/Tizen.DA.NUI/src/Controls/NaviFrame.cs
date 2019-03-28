@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class NaviFrame : Control
     {
         private List<NaviItem> pushStack = new List<NaviItem>();
@@ -18,21 +21,27 @@ namespace Tizen.FH.NUI.Controls
         private Animation flickAnimation;
         private bool popFlag;
         private float startcur, endcur, startpre, endpre;
-        
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public NaviFrame() : base()
         {
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public NaviFrame(string style) : base(style)
         {
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public NaviFrame(NaviFrameAttributes attributes) : base()
         {
             this.attributes = naviframeAttributes = attributes.Clone() as NaviFrameAttributes;
             Initialize();
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void NaviFrameItemPush(View header,View content)
         {
             ManualStop();
@@ -54,6 +63,8 @@ namespace Tizen.FH.NUI.Controls
             currentItem.Show();
             AnitMateContent(false);
         }
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void NaviFrameItemPop()
         {
             ManualStop();
@@ -67,12 +78,14 @@ namespace Tizen.FH.NUI.Controls
             pushStack.RemoveAt(pushStack.Count - 1);
             result.Dispose();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new NaviFrameAttributes();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -113,7 +126,8 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
         {
             
