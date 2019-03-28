@@ -8,7 +8,6 @@ namespace Tizen.NUI.CommonUI
 
         public ProgressBarAttributes(ProgressBarAttributes attributes) : base(attributes)
         {
-            ThumbSize = attributes.ThumbSize;
             MaxValue = attributes.MaxValue;
             MinValue = attributes.MinValue;
             CurValue = attributes.CurValue;
@@ -65,18 +64,6 @@ namespace Tizen.NUI.CommonUI
         }
 
         public StringSelector ProgressImageURLPrefix
-        {
-            get;
-            set;
-        }
-
-        public Progress.DirectionType Direction
-        {
-            get;
-            set;
-        }
-
-        public Size ThumbSize
         {
             get;
             set;
