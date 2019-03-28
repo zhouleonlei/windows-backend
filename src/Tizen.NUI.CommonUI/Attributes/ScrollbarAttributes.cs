@@ -4,7 +4,7 @@
     {      
         public ScrollBarAttributes() : base()
         {
-        
+            Direction = ScrollBar.DirectionType.Horizontal;
         }
 
         public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)
