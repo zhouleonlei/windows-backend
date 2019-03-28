@@ -148,6 +148,11 @@ public:
   static std::string GetResourcePath();
 
   /**
+   * @copydoc Dali::DevelApplication::GetDataPath()
+   */
+  static std::string GetDataPath();
+
+  /**
    * Retrieves the pre-initialized application.
    *
    * @return A pointer to the pre-initialized application
@@ -175,38 +180,6 @@ public: // Stereoscopy
    * @copydoc Dali::Application::GetStereoBase()
    */
   float GetStereoBase() const;
-
-public: // Lifecycle functionality
-
-  /**
-   * Called when OnInit is called or the framework is initialised.
-   */
-  void DoInit();
-
-  /**
-   * Called after OnInit is called or the framework is started.
-   */
-  void DoStart();
-
-  /**
-   * Called when OnTerminate is called or the framework is terminated.
-   */
-  void DoTerminate();
-
-  /**
-   * Called when OnPause is called or the framework is paused.
-   */
-  void DoPause();
-
-  /**
-   * Called when OnResume is called or the framework resumes from a paused state.
-   */
-  void DoResume();
-
-  /**
-   * Called when OnLanguageChanged is called or the framework informs the application that the language of the device has changed.
-   */
-  void DoLanguageChange();
 
 public: // From Framework::Observer
 
@@ -418,15 +391,20 @@ private:
   Dali::Application::WINDOW_MODE           mMainWindowMode;   ///< Window mode of the main window
   std::string                              mMainWindowName;   ///< Name of the main window as obtained from environment options
 
+  bool                                     mMainWindowReplaced;   ///< Whether the main window has been replaced
+
   std::string                              mStylesheet;
   EnvironmentOptions                       mEnvironmentOptions;
   PositionSize                             mWindowPositionSize;
   Launchpad::State                         mLaunchpadState;
   bool                                     mUseRemoteSurface;
 
-  SlotDelegate< Application >           mSlotDelegate;
+  SlotDelegate< Application >              mSlotDelegate;
 
-  static ApplicationPtr                 gPreInitializedApplication;
+  ViewMode                                 mViewMode;
+  float                                    mStereoBase;
+
+  static ApplicationPtr                    gPreInitializedApplication;
 };
 
 inline Application& GetImplementation(Dali::Application& application)

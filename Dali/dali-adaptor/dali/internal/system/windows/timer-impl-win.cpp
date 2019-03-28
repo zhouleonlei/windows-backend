@@ -80,7 +80,7 @@ void Timer::Start()
 {
   if( 0 > mImpl->mId )
   {
-    mImpl->mId = WindowsPlatformImplement::SetTimer( mImpl->mInterval, TimerSourceFunc, this );
+    mImpl->mId = WindowsPlatformImplementation::SetTimer( mImpl->mInterval, TimerSourceFunc, this );
   }
 }
 
@@ -88,7 +88,7 @@ void Timer::Stop()
 {
   if( 0 <= mImpl->mId )
   {
-    WindowsPlatformImplement::KillTimer( mImpl->mId );
+    WindowsPlatformImplementation::KillTimer( mImpl->mId );
     mImpl->mId = -1;
   }
 }

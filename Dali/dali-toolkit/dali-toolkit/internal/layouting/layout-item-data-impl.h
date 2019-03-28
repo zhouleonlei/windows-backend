@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+#include <dali/public-api/object/weak-handle.h>
 #include <dali-toolkit/devel-api/layouting/layout-item-impl.h>
 #include <dali-toolkit/devel-api/layouting/layout-controller.h>
 #include <dali-toolkit/devel-api/layouting/layout-size.h>
@@ -35,7 +35,7 @@ public:
   Impl();
 
 public:
-  BaseObject* mOwner; ///< Control or Visual that owns this layout. Raw pointer to prevent cyclic references
+  WeakHandle<Handle> mOwner; ///< Control or Visual that owns this layout. Weak pointer to prevent cyclic references
   LayoutParent* mLayoutParent; ///< The containing layout parent.
 
   MeasureSpec mOldWidthMeasureSpec;
@@ -80,9 +80,13 @@ public:
 
   static bool sUseZeroUnspecifiedMeasureSpec;
 
+  // Custom transitions
   LayoutTransitionDataPtr mOnChildAddTransitionData;
   LayoutTransitionDataPtr mOnChildRemoveTransitionData;
+  LayoutTransitionDataPtr mOnChildFocusTransitionData;
   LayoutTransitionDataPtr mOnOwnerSetTransitionData;
+  LayoutTransitionDataPtr mOnLayoutChangeTransitionData;
+  // Default transition
   LayoutTransitionDataPtr mDefaultTransitionData;
 
   // To pass layout data during perform layout

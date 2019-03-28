@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_PINCH_GESTURE_EVENT_PROCESSOR_H__
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@
  */
 
 // INTERNAL INCLUDES
-#include <dali/public-api/render-tasks/render-task.h>
 #include <dali/internal/event/events/pinch-gesture-detector-impl.h>
 #include <dali/internal/event/events/gesture-processor.h>
+#include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
 {
@@ -36,6 +36,7 @@ struct PinchGestureEvent;
 namespace Internal
 {
 
+class Scene;
 class Stage;
 
 /**
@@ -54,10 +55,9 @@ public:
 
   /**
    * Create a pinch gesture processor.
-   * @param[in] stage The stage.
    * @param[in] gestureManager The gesture manager
    */
-  PinchGestureProcessor(Stage& stage, Integration::GestureManager& gestureManager);
+  PinchGestureProcessor( Integration::GestureManager& gestureManager );
 
   /**
    * Non-virtual destructor; PinchGestureProcessor is not a base class
@@ -68,9 +68,10 @@ public: // To be called by GestureEventProcessor
 
   /**
    * This method is called whenever a pinch gesture event occurs.
+   * @param[in] scene The scene the pinch gesture event occurs in.
    * @param[in] pinchEvent The event that has occurred.
    */
-  void Process(const Integration::PinchGestureEvent& pinchEvent);
+  void Process( Scene& scene, const Integration::PinchGestureEvent& pinchEvent );
 
   /**
    * Adds a gesture detector to this gesture processor.
@@ -121,11 +122,10 @@ private:
 
 private:
 
-  Stage& mStage;
   Integration::GestureManager& mGestureManager;
   PinchGestureDetectorContainer mGestureDetectors;
   GestureDetectorContainer mCurrentPinchEmitters;
-  Dali::RenderTask mCurrentRenderTask;
+  RenderTaskPtr mCurrentRenderTask;
 
   const Integration::PinchGestureEvent* mCurrentPinchEvent; ///< Pointer to current PinchEvent, used when calling ProcessAndEmit()
 };

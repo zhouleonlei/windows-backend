@@ -21,12 +21,11 @@
 // INTERNAL INCLUDES
 #include <dali/internal/window-system/common/display-connection-impl.h>
 #include <dali/public-api/object/base-object.h>
-#include <dali/internal/graphics/gles20/egl-implementation.h>
+#include <dali/internal/graphics/gles/egl-implementation.h>
 
 namespace Dali
 {
 
-class RenderSurface;
 class DisplayConnection;
 
 namespace Internal
@@ -67,23 +66,18 @@ public:
   void ConsumeEvents();
 
   /**
-   * @copydoc Dali::DisplayConnection::InitializeEgl
+   * @copydoc Dali::DisplayConnection::InitializeGraphics
    */
-  bool InitializeEgl(EglInterface& egl);
-
-  /**
-  * @copydoc Dali::DisplayConnection::InitializeGraphics
-  */
   bool InitializeGraphics();
 
   /**
-  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetSurfaceType
-  */
-  void SetSurfaceType( RenderSurface::Type type );
+   * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetSurfaceType
+   */
+  void SetSurfaceType( Integration::RenderSurface::Type type );
 
   /**
-  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetGraphicsInterface
-  */
+   * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetGraphicsInterface
+   */
   void SetGraphicsInterface( GraphicsInterface& graphics );
 
 public:
@@ -93,7 +87,7 @@ public:
    */
   virtual ~DisplayConnectionWin();
 
-protected:
+private:
 
   // Undefined
   DisplayConnectionWin(const DisplayConnectionWin&) = delete;
@@ -102,8 +96,11 @@ protected:
   DisplayConnectionWin& operator=(const DisplayConnectionWin& rhs) = delete;
 
 private:
-  
+
   GraphicsInterface *mGraphics; ///< The graphics interface
+
+public:
+
   HDC mDisplay;
 };
 

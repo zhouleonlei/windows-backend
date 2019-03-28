@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_RENDER_TASK_LIST_H__
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@
 // INTERNAL INCLUDES
 #include <dali/public-api/common/vector-wrapper.h>
 #include <dali/public-api/object/base-object.h>
-#include <dali/public-api/render-tasks/render-task.h>
 #include <dali/public-api/render-tasks/render-task-list.h>
 #include <dali/internal/event/common/complete-notification-interface.h>
+#include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
 {
@@ -34,6 +34,11 @@ namespace Internal
 class EventThreadServices;
 class RenderTaskDefaults;
 class Actor;
+class CameraActor;
+
+using RenderTaskPtr = IntrusivePtr<RenderTask>;
+class RenderTaskList;
+using RenderTaskListPtr = IntrusivePtr<RenderTaskList>;
 
 namespace SceneGraph
 {
@@ -49,7 +54,7 @@ class RenderTaskList : public BaseObject, public CompleteNotificationInterface
 {
 public:
 
-  typedef std::vector< Dali::RenderTask > RenderTaskContainer;
+  using RenderTaskContainer = std::vector< RenderTaskPtr >;
 
   struct Exclusive
   {
@@ -59,22 +64,30 @@ public:
 
   /**
    * Create a RenderTaskList.
-   * @param[in] eventServices Used for sending message to the scene graph.
-   * @param[in] defaults Provides the default source & camera actors.
-   * @param[in] systemLevel True if this is the LayerList for actors added via the SystemLevel::Add().
    * @return A newly allocated RenderTaskList; the caller takes ownership.
    */
-  static RenderTaskList* New( EventThreadServices& eventServices, RenderTaskDefaults& defaults, bool systemLevel );
+  static RenderTaskListPtr New();
 
   /**
    * @copydoc Dali::RenderTaskList::CreateTask()
    */
-  Dali::RenderTask CreateTask();
+  RenderTaskPtr CreateTask();
+
+  /**
+   * @brief Creates a new RenderTask.
+   *
+   * This will be appended to the list of render-tasks.
+   *
+   * @param[in] sourceActor The actor and its children to be rendered for this render task.
+   * @param[in] cameraActor The actor from which the scene is viewed for this render task.
+   * @return A valid handle to a new RenderTask
+   */
+  RenderTaskPtr CreateTask( Actor* sourceActor, CameraActor* cameraActor);
 
   /**
    * @copydoc Dali::RenderTaskList::RemoveTask()
    */
-  void RemoveTask( Dali::RenderTask task );
+  void RemoveTask( Internal::RenderTask& task );
 
   /**
    * @copydoc Dali::RenderTaskList::GetTaskCount()
@@ -84,7 +97,7 @@ public:
   /**
    * @copydoc Dali::RenderTaskList::GetTask()
    */
-  Dali::RenderTask GetTask( uint32_t index ) const;
+  RenderTaskPtr GetTask( uint32_t index ) const;
 
   /**
    * Retrieve the container of render-tasks.
@@ -127,15 +140,18 @@ public:
    */
   void RecoverFromContextLoss();
 
+  /**
+   * Retrieve the SceneGraph::RenderTaskList object.
+   * @return The RenderTaskList.
+   */
+  const SceneGraph::RenderTaskList& GetSceneObject() const;
+
 protected:
 
   /**
    * Construct a new RenderTaskList.
-   * @param[in] eventThreadServices Used for creating render-tasks in the scene graph.
-   * @param[in] defaults Provides the default source & camera actors.
-   * @param[in] systemLevel True if this is the system-level list.
    */
-  RenderTaskList( EventThreadServices& eventThreadServices, RenderTaskDefaults& defaults, bool systemLevel );
+  RenderTaskList();
 
   /**
    * A reference counted object may only be deleted by calling Unreference()
@@ -145,7 +161,7 @@ protected:
   /**
    * 2nd-phase construction
    */
-  void Initialize( SceneGraph::UpdateManager& updateManager );
+  void Initialize();
 
 private: // from CompleteNotificationInterface
 
@@ -158,8 +174,6 @@ private:
 
   EventThreadServices& mEventThreadServices;
   RenderTaskDefaults& mDefaults;
-
-  bool mIsSystemLevel; ///< True if the layers are added via the SystemLevel API
 
   SceneGraph::RenderTaskList* mSceneObject; ///< Raw-pointer to the scene-graph object; not owned.
 

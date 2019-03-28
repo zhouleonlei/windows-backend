@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,10 @@ namespace Dali
 namespace Internal
 {
 
-GestureDetector::GestureDetector(Gesture::Type type)
-: mType(type),
-  mGestureEventProcessor(ThreadLocalStorage::Get().GetGestureEventProcessor())
+GestureDetector::GestureDetector(Gesture::Type type, const SceneGraph::PropertyOwner* sceneObject )
+: Object( sceneObject ),
+  mType( type ),
+  mGestureEventProcessor( ThreadLocalStorage::Get().GetGestureEventProcessor() )
 {
 }
 
@@ -61,26 +62,26 @@ GestureDetector::~GestureDetector()
   }
 }
 
-void GestureDetector::Attach(Actor& actor)
+void GestureDetector::Attach( Actor& actor )
 {
-  if ( !IsAttached(actor) )
+  if ( !IsAttached( actor) )
   {
     // Register with EventProcessor if first actor being added
-    if ( mAttachedActors.empty() )
+    if( mAttachedActors.empty() )
     {
-      mGestureEventProcessor.AddGestureDetector(this);
+      mGestureEventProcessor.AddGestureDetector( this );
     }
 
-    mAttachedActors.push_back(&actor);
+    mAttachedActors.push_back( &actor );
 
     // We need to observe the actor's destruction
-    actor.AddObserver(*this);
+    actor.AddObserver( *this );
 
     // Add the detector to the actor (so the actor knows it requires this gesture when going through hit-test algorithm)
     actor.GetGestureData().AddGestureDetector( *this );
 
     // Notification for derived classes
-    OnActorAttach(actor);
+    OnActorAttach( actor );
   }
 }
 
@@ -194,75 +195,6 @@ void GestureDetector::ObjectDestroyed(Object& object)
       }
     }
   }
-}
-
-unsigned int GestureDetector::GetDefaultPropertyCount() const
-{
-  return 0;
-}
-
-void GestureDetector::GetDefaultPropertyIndices( Property::IndexContainer& ) const
-{
-}
-
-const char* GestureDetector::GetDefaultPropertyName( Property::Index index ) const
-{
-  return NULL;
-}
-
-Property::Index GestureDetector::GetDefaultPropertyIndex(const std::string& name) const
-{
-  return Property::INVALID_INDEX;
-}
-
-bool GestureDetector::IsDefaultPropertyWritable(Property::Index index) const
-{
-  return false;
-}
-
-bool GestureDetector::IsDefaultPropertyAnimatable(Property::Index index) const
-{
-  return false;
-}
-
-bool GestureDetector::IsDefaultPropertyAConstraintInput( Property::Index index ) const
-{
-  return false;
-}
-
-Property::Type GestureDetector::GetDefaultPropertyType(Property::Index index) const
-{
-  return Property::NONE;
-}
-
-void GestureDetector::SetDefaultProperty( Property::Index index, const Property::Value& property )
-{
-  // None of our properties should be settable from Public API
-}
-
-Property::Value GestureDetector::GetDefaultProperty(Property::Index index) const
-{
-  return Property::Value();
-}
-
-Property::Value GestureDetector::GetDefaultPropertyCurrentValue( Property::Index index ) const
-{
-  return Property::Value();
-}
-
-const SceneGraph::PropertyOwner* GestureDetector::GetSceneObject() const
-{
-  return NULL;
-}
-
-const SceneGraph::PropertyBase* GestureDetector::GetSceneObjectAnimatableProperty( Property::Index index ) const
-{
-  return NULL;
-}
-
-const PropertyInputImpl* GestureDetector::GetSceneObjectInputProperty( Property::Index index ) const
-{
-  return NULL;
 }
 
 } // namespace Internal

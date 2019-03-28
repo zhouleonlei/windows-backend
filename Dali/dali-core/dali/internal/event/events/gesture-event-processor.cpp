@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,13 +37,12 @@ namespace Dali
 namespace Internal
 {
 
-GestureEventProcessor::GestureEventProcessor( Stage& stage, SceneGraph::UpdateManager& updateManager, Integration::GestureManager& gestureManager, Integration::RenderController& renderController )
-: mStage( stage ),
-  mGestureManager( gestureManager ),
-  mLongPressGestureProcessor( stage, gestureManager ),
-  mPanGestureProcessor( stage, gestureManager, updateManager ),
-  mPinchGestureProcessor( stage, gestureManager ),
-  mTapGestureProcessor( stage, gestureManager ),
+GestureEventProcessor::GestureEventProcessor( SceneGraph::UpdateManager& updateManager, Integration::GestureManager& gestureManager, Integration::RenderController& renderController )
+: mGestureManager( gestureManager ),
+  mLongPressGestureProcessor( gestureManager ),
+  mPanGestureProcessor( gestureManager, updateManager ),
+  mPinchGestureProcessor( gestureManager ),
+  mTapGestureProcessor( gestureManager ),
   mRenderController( renderController ),
   mUpdateRequired( false )
 {
@@ -53,7 +52,7 @@ GestureEventProcessor::~GestureEventProcessor()
 {
 }
 
-void GestureEventProcessor::ProcessGestureEvent(const Integration::GestureEvent& event)
+void GestureEventProcessor::ProcessGestureEvent( Scene& scene, const Integration::GestureEvent& event)
 {
   if( Gesture::Started == event.state || Gesture::Continuing == event.state )
   {
@@ -63,19 +62,19 @@ void GestureEventProcessor::ProcessGestureEvent(const Integration::GestureEvent&
   switch(event.gestureType)
   {
     case Gesture::LongPress:
-      mLongPressGestureProcessor.Process(static_cast<const Integration::LongPressGestureEvent&>(event));
+      mLongPressGestureProcessor.Process( scene, static_cast<const Integration::LongPressGestureEvent&>(event) );
       break;
 
     case Gesture::Pan:
-      mPanGestureProcessor.Process(static_cast<const Integration::PanGestureEvent&>(event));
+      mPanGestureProcessor.Process( scene, static_cast<const Integration::PanGestureEvent&>(event));
       break;
 
     case Gesture::Pinch:
-      mPinchGestureProcessor.Process(static_cast<const Integration::PinchGestureEvent&>(event));
+      mPinchGestureProcessor.Process( scene, static_cast<const Integration::PinchGestureEvent&>(event));
       break;
 
     case Gesture::Tap:
-      mTapGestureProcessor.Process(static_cast<const Integration::TapGestureEvent&>(event));
+      mTapGestureProcessor.Process( scene, static_cast<const Integration::TapGestureEvent&>(event));
       break;
   }
 }
@@ -235,27 +234,27 @@ void GestureEventProcessor::SetPanGesturePredictionMode(int mode)
   mPanGestureProcessor.SetPredictionMode(mode);
 }
 
-void GestureEventProcessor::SetPanGesturePredictionAmount( unsigned int amount )
+void GestureEventProcessor::SetPanGesturePredictionAmount( uint32_t amount )
 {
   mPanGestureProcessor.SetPredictionAmount(amount);
 }
 
-void GestureEventProcessor::SetPanGestureMaximumPredictionAmount( unsigned int amount )
+void GestureEventProcessor::SetPanGestureMaximumPredictionAmount( uint32_t amount )
 {
   mPanGestureProcessor.SetMaximumPredictionAmount(amount);
 }
 
-void GestureEventProcessor::SetPanGestureMinimumPredictionAmount( unsigned int amount )
+void GestureEventProcessor::SetPanGestureMinimumPredictionAmount( uint32_t amount )
 {
   mPanGestureProcessor.SetMinimumPredictionAmount(amount);
 }
 
-void GestureEventProcessor::SetPanGesturePredictionAmountAdjustment( unsigned int amount )
+void GestureEventProcessor::SetPanGesturePredictionAmountAdjustment( uint32_t amount )
 {
   mPanGestureProcessor.SetPredictionAmountAdjustment(amount);
 }
 
-void GestureEventProcessor::SetPanGestureSmoothingMode(int mode)
+void GestureEventProcessor::SetPanGestureSmoothingMode( int32_t mode )
 {
   mPanGestureProcessor.SetSmoothingMode(mode);
 }
@@ -270,7 +269,7 @@ void GestureEventProcessor::SetPanGestureUseActualTimes( bool value )
   mPanGestureProcessor.SetUseActualTimes( value );
 }
 
-void GestureEventProcessor::SetPanGestureInterpolationTimeRange( int value )
+void GestureEventProcessor::SetPanGestureInterpolationTimeRange( int32_t value )
 {
   mPanGestureProcessor.SetInterpolationTimeRange( value );
 }
@@ -300,11 +299,15 @@ void GestureEventProcessor::SetPanGestureTwoPointAccelerationBias( float value )
   mPanGestureProcessor.SetTwoPointAccelerationBias( value );
 }
 
-void GestureEventProcessor::SetPanGestureMultitapSmoothingRange( int value )
+void GestureEventProcessor::SetPanGestureMultitapSmoothingRange( int32_t value )
 {
   mPanGestureProcessor.SetMultitapSmoothingRange( value );
 }
 
+const PanGestureProcessor& GestureEventProcessor::GetPanGestureProcessor()
+{
+  return mPanGestureProcessor;
+}
 
 } // namespace Internal
 

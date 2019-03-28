@@ -26,6 +26,7 @@
 #include <dali/integration-api/events/gesture-requests.h>
 
 // INTERNAL INCLUDES
+#include <dali/internal/adaptor/common/adaptor-impl.h>
 #include <dali/internal/system/common/system-settings.h>
 
 namespace Dali
@@ -49,9 +50,7 @@ Debug::Filter* gAccessibilityAdaptorLogFilter = Debug::Filter::New(Debug::NoLogg
 AccessibilityAdaptor::AccessibilityAdaptor()
 : mReadPosition(),
   mActionHandler( NULL ),
-  mIndicator( NULL ),
-  mIsEnabled( false ),
-  mIndicatorFocused( false )
+  mIsEnabled( false )
 {
   mAccessibilityGestureDetector = new AccessibilityGestureDetector();
 }
@@ -111,11 +110,6 @@ void AccessibilityAdaptor::SetGestureHandler(AccessibilityGestureHandler& handle
   {
     mAccessibilityGestureDetector->SetGestureHandler(handler);
   }
-}
-
-void AccessibilityAdaptor::SetIndicator(IndicatorInterface* indicator)
-{
-  mIndicator = indicator;
 }
 
 bool AccessibilityAdaptor::HandleActionNextEvent(bool allowEndFeedback)
@@ -463,20 +457,6 @@ bool AccessibilityAdaptor::HandleActionZoomEvent()
   if( mActionHandler )
   {
     ret = mActionHandler->AccessibilityActionZoom();
-  }
-
-  DALI_LOG_INFO(gAccessibilityAdaptorLogFilter, Debug::General, "[%s:%d] %s\n", __FUNCTION__, __LINE__, ret?"TRUE":"FALSE");
-
-  return ret;
-}
-
-bool AccessibilityAdaptor::HandleActionReadIndicatorInformationEvent()
-{
-  bool ret = false;
-
-  if( mActionHandler )
-  {
-    ret = mActionHandler->AccessibilityActionReadIndicatorInformation();
   }
 
   DALI_LOG_INFO(gAccessibilityAdaptorLogFilter, Debug::General, "[%s:%d] %s\n", __FUNCTION__, __LINE__, ret?"TRUE":"FALSE");

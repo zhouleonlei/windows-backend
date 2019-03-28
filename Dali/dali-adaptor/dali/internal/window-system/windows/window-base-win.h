@@ -30,10 +30,6 @@ namespace Internal
 namespace Adaptor
 {
 
-class Window;
-class WindowRenderSurface;
-class WindowRenderSurfaceWin;
-
 /**
  * WindowBaseWin class provides an WindowBase Win32 implementation.
  */
@@ -165,21 +161,6 @@ public:
    * @copydoc Dali::Internal::Adaptor::WindowBase::MoveResize()
    */
   virtual void MoveResize( PositionSize positionSize ) override;
-
-  /**
-   * @copydoc Dali::Internal::Adaptor::WindowBase::ShowIndicator()
-   */
-  virtual void ShowIndicator( Dali::Window::IndicatorVisibleMode visibleMode, Dali::Window::IndicatorBgOpacity opacityMode ) override;
-
-  /**
-   * @copydoc Dali::Internal::Adaptor::WindowBase::SetIndicatorProperties()
-   */
-  virtual void SetIndicatorProperties( bool isShow, Dali::Window::WindowOrientation lastOrientation ) override;
-
-  /**
-   * @copydoc Dali::Internal::Adaptor::WindowBase::IndicatorTypeChanged()
-   */
-  virtual void IndicatorTypeChanged( IndicatorInterface::Type type ) override;
 
   /**
    * @copydoc Dali::Internal::Adaptor::WindowBase::SetClass()
@@ -332,11 +313,6 @@ public:
   virtual void GetDpi( unsigned int& dpiHorizontal, unsigned int& dpiVertical ) override;
 
   /**
-   * @copydoc Dali::Internal::Adaptor::WindowBase::SetViewMode()
-   */
-  virtual void SetViewMode( ViewMode viewMode ) override;
-
-  /**
    * @copydoc Dali::Internal::Adaptor::WindowBase::GetScreenRotationAngle()
    */
   virtual int GetScreenRotationAngle() override;
@@ -375,7 +351,7 @@ private:
    */
   void CreateWinWindow( PositionSize positionSize, bool isTransparent );
 
-protected:
+private:
 
   // Undefined
   WindowBaseWin(const WindowBaseWin&) = delete;
@@ -384,13 +360,13 @@ protected:
   WindowBaseWin& operator=(const WindowBaseWin& rhs) = delete;
 
 private:
-
-  WinWindowHandle                    mWin32Window;        ///< Native window handle
-  bool                                 mOwnSurface:1;       ///< Whether we own the surface (responsible for deleting it)
-  bool                                 mIsTransparent;      ///< Whether the window is transparent (32 bit or 24 bit)
-  bool                                 mRotationAppSet:1;
-
   void EventEntry( TWinEventInfo *event );
+
+private:
+  WinWindowHandle                      mWin32Window;        ///< Native window handle
+  bool                                 mOwnSurface:1;       ///< Whether we own the surface (responsible for deleting it)
+  bool                                 mIsTransparent:1;    ///< Whether the window is transparent (32 bit or 24 bit)
+  bool                                 mRotationAppSet:1;
 };
 
 } // namespace Adaptor

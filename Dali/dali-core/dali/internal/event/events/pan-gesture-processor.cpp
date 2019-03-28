@@ -29,7 +29,7 @@
 #include <dali/integration-api/events/pan-gesture-event.h>
 #include <dali/integration-api/gesture-manager.h>
 #include <dali/integration-api/debug.h>
-#include <dali/internal/event/common/stage-impl.h>
+#include <dali/internal/event/common/scene-impl.h>
 #include <dali/internal/event/render-tasks/render-task-impl.h>
 #include <dali/internal/update/gestures/scene-graph-pan-gesture.h>
 
@@ -101,9 +101,8 @@ struct IsNotAttachedAndOutsideTouchesRangeFunctor
 
 } // unnamed namespace
 
-PanGestureProcessor::PanGestureProcessor( Stage& stage, Integration::GestureManager& gestureManager, SceneGraph::UpdateManager& updateManager )
+PanGestureProcessor::PanGestureProcessor( Integration::GestureManager& gestureManager, SceneGraph::UpdateManager& updateManager )
 : GestureProcessor( Gesture::Pan ),
-  mStage( stage ),
   mGestureManager( gestureManager ),
   mGestureDetectors(),
   mCurrentPanEmitters(),
@@ -123,7 +122,7 @@ PanGestureProcessor::~PanGestureProcessor()
   mSceneObject = NULL; // mSceneObject is owned and destroyed by update manager (there is only one of these for now)
 }
 
-void PanGestureProcessor::Process( const Integration::PanGestureEvent& panEvent )
+void PanGestureProcessor::Process( Scene& scene, const Integration::PanGestureEvent& panEvent )
 {
   switch( panEvent.state )
   {
@@ -133,7 +132,7 @@ void PanGestureProcessor::Process( const Integration::PanGestureEvent& panEvent 
       ResetActor();
 
       HitTestAlgorithm::Results hitTestResults;
-      if( HitTest( mStage, panEvent.currentPosition, hitTestResults ) )
+      if( HitTest( scene, panEvent.currentPosition, hitTestResults ) )
       {
         SetActor( &GetImplementation( hitTestResults.actor ) );
         mPossiblePanPosition = panEvent.currentPosition;
@@ -150,7 +149,7 @@ void PanGestureProcessor::Process( const Integration::PanGestureEvent& panEvent 
         // it can be told when the gesture ends as well.
 
         HitTestAlgorithm::Results hitTestResults;
-        HitTest( mStage, mPossiblePanPosition, hitTestResults ); // Hit test original possible position...
+        HitTest( scene, mPossiblePanPosition, hitTestResults ); // Hit test original possible position...
 
         if ( hitTestResults.actor && ( GetCurrentGesturedActor() == &GetImplementation( hitTestResults.actor ) ) )
         {
@@ -195,7 +194,7 @@ void PanGestureProcessor::Process( const Integration::PanGestureEvent& panEvent 
 
           if ( !outsideTouchesRangeEmitters.empty() || !mCurrentPanEmitters.empty() )
           {
-            currentGesturedActor->ScreenToLocal( GetImplementation( mCurrentRenderTask ), actorCoords.x, actorCoords.y, panEvent.currentPosition.x, panEvent.currentPosition.y );
+            currentGesturedActor->ScreenToLocal( *mCurrentRenderTask.Get(), actorCoords.x, actorCoords.y, panEvent.currentPosition.x, panEvent.currentPosition.y );
 
             // EmitPanSignal checks whether we have a valid actor and whether the container we are passing in has emitters before it emits the pan.
             EmitPanSignal( currentGesturedActor, outsideTouchesRangeEmitters, panEvent, actorCoords, Gesture::Finished, mCurrentRenderTask);
@@ -237,9 +236,6 @@ void PanGestureProcessor::AddGestureDetector( PanGestureDetector* gestureDetecto
   bool firstRegistration(mGestureDetectors.empty());
 
   mGestureDetectors.push_back(gestureDetector);
-
-  // Set the pan scene object on the gesture detector
-  gestureDetector->SetSceneObject( mSceneObject );
 
   if (firstRegistration)
   {
@@ -400,6 +396,11 @@ void PanGestureProcessor::SetMultitapSmoothingRange( int value )
   mSceneObject->SetMultitapSmoothingRange( value );
 }
 
+const SceneGraph::PanGesture& PanGestureProcessor::GetSceneObject() const
+{
+  return *mSceneObject;
+}
+
 void PanGestureProcessor::UpdateDetection()
 {
   DALI_ASSERT_DEBUG(!mGestureDetectors.empty());
@@ -444,7 +445,7 @@ void PanGestureProcessor::EmitPanSignal( Actor* actor,
                                          const Integration::PanGestureEvent& panEvent,
                                          Vector2 localCurrent,
                                          Gesture::State state,
-                                         Dali::RenderTask renderTask )
+                                         RenderTaskPtr renderTask )
 {
   if ( actor && !gestureDetectors.empty() )
   {
@@ -455,7 +456,7 @@ void PanGestureProcessor::EmitPanSignal( Actor* actor,
     pan.screenPosition = panEvent.currentPosition;
     pan.position = localCurrent;
 
-    RenderTask& renderTaskImpl( GetImplementation( renderTask ) );
+    RenderTask& renderTaskImpl( *renderTask.Get() );
 
     Vector2 localPrevious;
     actor->ScreenToLocal( renderTaskImpl, localPrevious.x, localPrevious.y, panEvent.previousPosition.x, panEvent.previousPosition.y );
@@ -530,7 +531,7 @@ bool PanGestureProcessor::CheckGestureDetector( GestureDetector* detector, Actor
     {
       // It does, calculate the angle of the pan in local actor coordinates and ensures it fits
       // the detector's criteria.
-      RenderTask& renderTaskImpl( GetImplementation( mCurrentRenderTask ) );
+      RenderTask& renderTaskImpl = *mCurrentRenderTask.Get();
 
       Vector2 startPosition, currentPosition;
       actor->ScreenToLocal( renderTaskImpl, startPosition.x,   startPosition.y,   mPossiblePanPosition.x,              mPossiblePanPosition.y );
@@ -592,7 +593,7 @@ void PanGestureProcessor::EmitGestureSignal( Actor* actor, const GestureDetector
   mCurrentPanEmitters.clear();
   ResetActor();
 
-  actor->ScreenToLocal( GetImplementation(mCurrentRenderTask), actorCoordinates.x, actorCoordinates.y, mCurrentPanEvent->currentPosition.x, mCurrentPanEvent->currentPosition.y );
+  actor->ScreenToLocal( *mCurrentRenderTask.Get(), actorCoordinates.x, actorCoordinates.y, mCurrentPanEvent->currentPosition.x, mCurrentPanEvent->currentPosition.y );
 
   EmitPanSignal( actor, gestureDetectors, *mCurrentPanEvent, actorCoordinates, mCurrentPanEvent->state, mCurrentRenderTask );
 

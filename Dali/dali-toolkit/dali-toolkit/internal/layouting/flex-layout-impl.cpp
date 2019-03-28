@@ -335,10 +335,17 @@ YGSize FlexLayout::OnChildMeasure( YGNodeRef node,
   LayoutLength measuredWidth = childLayout->GetMeasuredWidth() - padding.end - padding.start;
   LayoutLength measuredHeight = childLayout->GetMeasuredHeight() - padding.bottom - padding.top;
 
-  YGSize ret;
-  ret.width = measuredWidth.AsDecimal();
-  ret.height = measuredHeight.AsDecimal();
-  return ret;
+#ifdef __GNUC__
+  return YGSize{
+    .width = measuredWidth.AsDecimal(),
+    .height = measuredHeight.AsDecimal(),
+  };
+#else
+  YGSize ygSize;
+  ygSize.width = measuredWidth.AsDecimal();
+  ygSize.height = measuredHeight.AsDecimal();
+  return ygSize;
+#endif
 }
 
 void FlexLayout::SetChildrenStyle()

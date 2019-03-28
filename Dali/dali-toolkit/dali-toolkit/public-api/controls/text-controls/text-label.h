@@ -169,39 +169,29 @@ public:
       UNUSED_PROPERTY_TEXT_COLOR,
 
       /**
-       * @DEPRECATED_1_1.37 Use SHADOW instead
-       * @brief The drop shadow offset 0 indicates no shadow.
-       * @details Name "shadowOffset", type Property::VECTOR2.
+       * @brief This property is removed because it's deprecated.
        */
-      SHADOW_OFFSET,
+      RESERVED_PROPERTY_01,
 
       /**
-       * @DEPRECATED_1_1.37 Use SHADOW instead
-       * @brief The color of a drop shadow.
-       * @details Name "shadowColor", type Property::VECTOR4
+       * @brief This property is removed because it's deprecated.
        */
-      SHADOW_COLOR,
+      RESERVED_PROPERTY_02,
 
       /**
-       * @DEPRECATED_1_1.37 Use UNDERLINE instead
-       * @brief The underline enabled flag.
-       * @details Name "underlineEnabled", type Property::BOOLEAN.
+       * @brief This property is removed because it's deprecated.
        */
-      UNDERLINE_ENABLED,
+      RESERVED_PROPERTY_03,
 
       /**
-       * @DEPRECATED_1_1.37 Use UNDERLINE instead
-       * @brief The color of the underline.
-       * @details Name "underlineColor", type Property::VECTOR4.
+       * @brief This property is removed because it's deprecated.
        */
-      UNDERLINE_COLOR,
+      RESERVED_PROPERTY_04,
 
       /**
-       * @DEPRECATED_1_1.37 Use UNDERLINE instead
-       * @brief Overrides the underline height from font metrics.
-       * @details Name "underlineHeight", type Property::FLOAT.
+       * @brief This property is removed because it's deprecated.
        */
-      UNDERLINE_HEIGHT,
+      RESERVED_PROPERTY_05,
 
       /**
        * @brief Whether the mark-up processing is enabled.

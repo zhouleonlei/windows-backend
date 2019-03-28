@@ -44,6 +44,7 @@ DALI_ENUM_TO_STRING_WITH_SCOPE( Toolkit::Visual, SVG )
 DALI_ENUM_TO_STRING_WITH_SCOPE( Toolkit::Visual, ANIMATED_IMAGE )
 DALI_ENUM_TO_STRING_WITH_SCOPE( Toolkit::Visual, WIREFRAME )
 DALI_ENUM_TO_STRING_WITH_SCOPE( Toolkit::DevelVisual, ANIMATED_GRADIENT )
+DALI_ENUM_TO_STRING_WITH_SCOPE( Toolkit::DevelVisual, ANIMATED_VECTOR_IMAGE )
 DALI_ENUM_TO_STRING_TABLE_END( VISUAL_TYPE )
 
 // Visual Type
@@ -99,6 +100,9 @@ const char * const RELEASE_POLICY_NAME("releasePolicy");
 const char * const ORIENTATION_CORRECTION_NAME("orientationCorrection");
 const char * const AUXILIARY_IMAGE_NAME("auxiliaryImage");
 const char * const AUXILIARY_IMAGE_ALPHA_NAME("auxiliaryImageAlpha");
+const char * const PLAY_RANGE_NAME( "playRange" );
+const char * const PLAY_STATE_NAME( "playState" );
+const char * const CURRENT_PROGRESS_NAME( "currentProgress" );
 
 // Text visual
 const char * const TEXT_PROPERTY( "text" );

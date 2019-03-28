@@ -20,11 +20,11 @@
 
 // EXTERNAL INCLUDES
 #include <windows.h>
-#include <map>
-#include <set>
 
 // INTERNAL INCLUDES
 #include <dali/internal/window-system/windows/event-system-win.h>
+
+static constexpr float INCH = 25.4;
 
 using namespace std;
 
@@ -37,10 +37,8 @@ namespace Internal
 namespace Adaptor
 {
 
-namespace WindowsPlatformImplement
+namespace WindowsPlatformImplementation
 {
-
-#define INCH 25.4
 
 void RunLoop()
 {
@@ -68,10 +66,10 @@ void GetDPI( uint64_t hWnd, float &xDpi, float &yDpi )
 {
   HDC hdcScreen = GetDC( reinterpret_cast<HWND>( hWnd ) );
 
-  int iX = GetDeviceCaps( hdcScreen, HORZRES );    // pixel
-  int iY = GetDeviceCaps( hdcScreen, VERTRES );    // pixel
-  int iPhsX = GetDeviceCaps( hdcScreen, HORZSIZE );    // mm
-  int iPhsY = GetDeviceCaps( hdcScreen, VERTSIZE );    // mm
+  int32_t iX = GetDeviceCaps( hdcScreen, HORZRES );    // pixel
+  int32_t iY = GetDeviceCaps( hdcScreen, VERTRES );    // pixel
+  int32_t iPhsX = GetDeviceCaps( hdcScreen, HORZSIZE );    // mm
+  int32_t iPhsY = GetDeviceCaps( hdcScreen, VERTSIZE );    // mm
 
   xDpi = static_cast<float>( iX ) / static_cast<float>( iPhsX ) * INCH;
   yDpi = static_cast<float>( iY ) / static_cast<float>( iPhsY ) * INCH;
@@ -93,7 +91,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 DWORD windowStyle = WS_OVERLAPPED;
 
-int GetEdgeWidth()
+int32_t GetEdgeWidth()
 {
   switch( windowStyle )
   {
@@ -108,7 +106,7 @@ int GetEdgeWidth()
   }
 }
 
-int GetEdgeHeight()
+int32_t GetEdgeHeight()
 {
   switch( windowStyle )
   {
@@ -123,10 +121,38 @@ int GetEdgeHeight()
   }
 }
 
-int colorDepth = -1;
+class WindowsDisplayInfo
+{
+public:
+  static int GetColorDepth()
+  {
+    DALI_ASSERT_DEBUG(colorDepth >= 0 && "HWND hasn't been created, no color depth");
+    return colorDepth;
+  }
+
+  static void SetHWND( HWND inHWnd )
+  {
+    if( hWnd != inHWnd )
+    {
+      hWnd = inHWnd;
+      hdc = GetDC( hWnd );
+      colorDepth = GetDeviceCaps( WindowsDisplayInfo::hdc, BITSPIXEL ) * GetDeviceCaps( WindowsDisplayInfo::hdc, PLANES );
+    }
+  }
+
+private:
+  static int colorDepth;
+  static HWND hWnd;
+  static HDC hdc;
+};
+
+int WindowsDisplayInfo::colorDepth = -1;
+HWND WindowsDisplayInfo::hWnd = NULL;
+HDC WindowsDisplayInfo::hdc = NULL;
+
 int GetColorDepth()
 {
-  return colorDepth;
+  return WindowsDisplayInfo::GetColorDepth();
 }
 
 uint64_t CreateHwnd(
@@ -154,11 +180,7 @@ uint64_t CreateHwnd(
   HWND hWnd = CreateWindow( lpClassName, lpWindowName, windowStyle, X, Y, nWidth + 2 * GetEdgeWidth(), nHeight + 2 * GetEdgeHeight(), NULL, NULL, cs.hInstance, NULL );
   ShowWindow( hWnd, SW_SHOW );
 
-  if( -1 == colorDepth )
-  {
-    HDC hdc = GetDC( hWnd );
-    colorDepth = GetDeviceCaps( hdc, BITSPIXEL ) * GetDeviceCaps( hdc, PLANES );
-  }
+  WindowsDisplayInfo::SetHWND( hWnd );
 
   return reinterpret_cast<uint64_t>( hWnd );
 }
@@ -210,11 +232,6 @@ struct TTimerCallbackInfo
 
 void CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT_PTR nTimerid, DWORD dwTime)
 {
-  if( NULL == hWnd )
-  {
-    return;
-  }
-
   TTimerCallbackInfo *info = (TTimerCallbackInfo*)nTimerid;
   info->callback( info->data );
 }

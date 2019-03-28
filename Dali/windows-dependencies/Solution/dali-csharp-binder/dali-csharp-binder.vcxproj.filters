@@ -111,6 +111,12 @@
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\linear-layout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">

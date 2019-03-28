@@ -25,10 +25,6 @@ namespace Dali
 namespace DevelApplication
 {
 
-void PreInitialize( int* argc, char** argv[] )
-{
-  Internal::Adaptor::Application::PreInitialize( argc, argv );
-}
 
 bool AddIdleWithReturnValue( Application application, CallbackBase* callback )
 {
@@ -58,6 +54,18 @@ bool DestroyWindow( Application application, const std::string& childWindowName 
   return Internal::Adaptor::Adaptor::GetImplementation( adaptor ).RemoveWindow( childWindowName );
 }
 
+std::string GetDataPath()
+{
+  return Internal::Adaptor::Application::GetDataPath();
+}
+
 } // namespace DevelApplication
 
 } // namespace Dali
+
+extern "C"
+void PreInitialize( int* argc, char** argv[] )
+{
+  Dali::Internal::Adaptor::Application::PreInitialize( argc, argv );
+}
+

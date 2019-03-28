@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ DALI_PROPERTY( "localPosition",       VECTOR2, false, false, true,   Dali::PanGe
 DALI_PROPERTY( "localDisplacement",   VECTOR2, false, false, true,   Dali::PanGestureDetector::Property::LOCAL_DISPLACEMENT  )
 DALI_PROPERTY( "localVelocity",       VECTOR2, false, false, true,   Dali::PanGestureDetector::Property::LOCAL_VELOCITY      )
 DALI_PROPERTY( "panning",             BOOLEAN, false, false, true,   Dali::PanGestureDetector::Property::PANNING             )
-DALI_PROPERTY_TABLE_END( DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX )
+DALI_PROPERTY_TABLE_END( DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX, PanGestureDetectorDefaultProperties )
 
 // Signals
 
@@ -64,7 +64,7 @@ BaseHandle Create()
   return Dali::PanGestureDetector::New();
 }
 
-TypeRegistration mType( typeid(Dali::PanGestureDetector), typeid(Dali::GestureDetector), Create );
+TypeRegistration mType( typeid(Dali::PanGestureDetector), typeid(Dali::GestureDetector), Create, PanGestureDetectorDefaultProperties );
 
 SignalConnectorType signalConnector1( mType, SIGNAL_PAN_DETECTED, &PanGestureDetector::DoConnectSignal );
 
@@ -94,19 +94,8 @@ float GetOppositeAngle( float angle )
 
 PanGestureDetectorPtr PanGestureDetector::New()
 {
-  return new PanGestureDetector;
-}
-
-PanGestureDetector::PanGestureDetector()
-: GestureDetector(Gesture::Pan),
-  mMinimumTouches(1),
-  mMaximumTouches(1),
-  mSceneObject(NULL)
-{
-}
-
-PanGestureDetector::~PanGestureDetector()
-{
+  const SceneGraph::PanGesture& sceneObject = ThreadLocalStorage::Get().GetGestureEventProcessor().GetPanGestureProcessor().GetSceneObject();
+  return new PanGestureDetector( sceneObject );
 }
 
 void PanGestureDetector::SetMinimumTouchesRequired(unsigned int minimum)
@@ -147,12 +136,12 @@ void PanGestureDetector::SetMaximumTouchesRequired(unsigned int maximum)
   }
 }
 
-unsigned int PanGestureDetector::GetMinimumTouchesRequired() const
+uint32_t PanGestureDetector::GetMinimumTouchesRequired() const
 {
   return mMinimumTouches;
 }
 
-unsigned int PanGestureDetector::GetMaximumTouchesRequired() const
+uint32_t PanGestureDetector::GetMaximumTouchesRequired() const
 {
   return mMaximumTouches;
 }
@@ -187,12 +176,12 @@ void PanGestureDetector::AddDirection( Radian direction, Radian threshold )
   AddAngle( direction, threshold );
 }
 
-size_t PanGestureDetector::GetAngleCount() const
+uint32_t PanGestureDetector::GetAngleCount() const
 {
-  return mAngleContainer.size();
+  return static_cast<uint32_t>( mAngleContainer.size() );
 }
 
-PanGestureDetector::AngleThresholdPair PanGestureDetector::GetAngle(size_t index) const
+PanGestureDetector::AngleThresholdPair PanGestureDetector::GetAngle(uint32_t index) const
 {
   PanGestureDetector::AngleThresholdPair ret( Radian(0),Radian(0) );
 
@@ -283,11 +272,6 @@ void PanGestureDetector::EmitPanGestureSignal(Dali::Actor actor, const PanGestur
   }
 }
 
-void PanGestureDetector::SetSceneObject( const SceneGraph::PanGesture* object )
-{
-  mSceneObject = object;
-}
-
 bool PanGestureDetector::DoConnectSignal( BaseObject* object, ConnectionTrackerInterface* tracker, const std::string& signalName, FunctorDelegate* functor )
 {
   bool connected( true );
@@ -311,6 +295,22 @@ void PanGestureDetector::SetPanGestureProperties( const PanGesture& pan )
   ThreadLocalStorage::Get().GetGestureEventProcessor().SetGestureProperties( pan );
 }
 
+PanGestureDetector::PanGestureDetector( const SceneGraph::PanGesture& sceneObject )
+: GestureDetector(Gesture::Pan, &sceneObject ),
+  mMinimumTouches(1),
+  mMaximumTouches(1)
+{
+}
+
+PanGestureDetector::~PanGestureDetector()
+{
+}
+
+const SceneGraph::PanGesture& PanGestureDetector::GetPanGestureSceneObject() const
+{
+  return static_cast<const SceneGraph::PanGesture&>( GetSceneObject() );
+}
+
 void PanGestureDetector::OnActorAttach(Actor& actor)
 {
   // Do nothing
@@ -326,82 +326,6 @@ void PanGestureDetector::OnActorDestroyed(Object& object)
   // Do nothing
 }
 
-unsigned int PanGestureDetector::GetDefaultPropertyCount() const
-{
-  return DEFAULT_PROPERTY_COUNT;
-}
-
-void PanGestureDetector::GetDefaultPropertyIndices( Property::IndexContainer& indices ) const
-{
-  indices.Reserve( DEFAULT_PROPERTY_COUNT );
-
-  int index = DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX;
-  for ( int i = 0; i < DEFAULT_PROPERTY_COUNT; ++i, ++index )
-  {
-    indices.PushBack( index );
-  }
-}
-
-const char* PanGestureDetector::GetDefaultPropertyName( Property::Index index ) const
-{
-  index -= DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX;
-  if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].name;
-  }
-
-  return NULL;
-}
-
-Property::Index PanGestureDetector::GetDefaultPropertyIndex(const std::string& name) const
-{
-  Property::Index index = Property::INVALID_INDEX;
-
-  // Look for name in default properties
-  for( int i = 0; i < DEFAULT_PROPERTY_COUNT; ++i )
-  {
-    const Internal::PropertyDetails* property = &DEFAULT_PROPERTY_DETAILS[ i ];
-    if( 0 == strcmp( name.c_str(), property->name ) ) // dont want to convert rhs to string
-    {
-      index = DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX + i;
-      break;
-    }
-  }
-  return index;
-}
-
-bool PanGestureDetector::IsDefaultPropertyWritable(Property::Index index) const
-{
-  // None of our properties should be writable through the Public API
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX ].writable;
-}
-
-bool PanGestureDetector::IsDefaultPropertyAnimatable(Property::Index index) const
-{
-  // None of our properties are animatable
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX ].animatable;
-}
-
-bool PanGestureDetector::IsDefaultPropertyAConstraintInput( Property::Index index ) const
-{
-  // All our properties can be used as an input to a constraint.
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX ].constraintInput;
-}
-
-Property::Type PanGestureDetector::GetDefaultPropertyType(Property::Index index) const
-{
-  index -= DEFAULT_GESTURE_DETECTOR_PROPERTY_START_INDEX;
-  if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].type;
-  }
-  else
-  {
-    // Index out-of-range
-    return Property::NONE;
-  }
-}
-
 void PanGestureDetector::SetDefaultProperty( Property::Index index, const Property::Value& property )
 {
   // None of our properties should be settable from Public API
@@ -412,7 +336,7 @@ Property::Value PanGestureDetector::GetDefaultProperty( Property::Index index ) 
   return GetDefaultPropertyCurrentValue( index ); // Scene-graph only properties
 }
 
-Property::Value PanGestureDetector::GetDefaultPropertyCurrentValue(Property::Index index) const
+Property::Value PanGestureDetector::GetDefaultPropertyCurrentValue( Property::Index index ) const
 {
   Property::Value value;
 
@@ -420,92 +344,43 @@ Property::Value PanGestureDetector::GetDefaultPropertyCurrentValue(Property::Ind
   {
     case Dali::PanGestureDetector::Property::SCREEN_POSITION:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetScreenPositionProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetScreenPositionProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::SCREEN_DISPLACEMENT:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetScreenDisplacementProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetScreenDisplacementProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::SCREEN_VELOCITY:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetScreenVelocityProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetScreenVelocityProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::LOCAL_POSITION:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetLocalPositionProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetLocalPositionProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::LOCAL_DISPLACEMENT:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetLocalDisplacementProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetLocalDisplacementProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::LOCAL_VELOCITY:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetLocalVelocityProperty().Get();
-      }
-      else
-      {
-        value = Vector2();
-      }
+      value = GetPanGestureSceneObject().GetLocalVelocityProperty().Get();
       break;
     }
 
     case Dali::PanGestureDetector::Property::PANNING:
     {
-      if(mSceneObject)
-      {
-        value = mSceneObject->GetPanningProperty().Get();
-      }
-      else
-      {
-        value = false;
-      }
+      value = GetPanGestureSceneObject().GetPanningProperty().Get();
       break;
     }
 
@@ -519,86 +394,61 @@ Property::Value PanGestureDetector::GetDefaultPropertyCurrentValue(Property::Ind
   return value;
 }
 
-const SceneGraph::PropertyOwner* PanGestureDetector::GetSceneObject() const
-{
-  // This method should only return an object connected to the scene-graph
-  return mSceneObject;
-}
-
-const SceneGraph::PropertyBase* PanGestureDetector::GetSceneObjectAnimatableProperty( Property::Index index ) const
-{
-  DALI_ASSERT_ALWAYS( IsPropertyAnimatable(index) && "Property is not animatable" );
-
-  // None of our properties are animatable
-  return NULL;
-}
-
 const PropertyInputImpl* PanGestureDetector::GetSceneObjectInputProperty( Property::Index index ) const
 {
-  const PropertyInputImpl* property( NULL );
+  const PropertyInputImpl* property = nullptr;
 
-  // This method should only return a property of an object connected to the scene-graph
-  if ( !mSceneObject )
+  switch ( index )
   {
-    return property;
-  }
-
-  if ( ( index >= CHILD_PROPERTY_REGISTRATION_START_INDEX ) && // Child properties are also stored as custom properties
-       ( index <= PROPERTY_CUSTOM_MAX_INDEX ) )
-  {
-    CustomPropertyMetadata* custom = FindCustomProperty( index );
-    DALI_ASSERT_ALWAYS( custom && "Property index is invalid" );
-    property = custom->GetSceneGraphProperty();
-  }
-  else
-  {
-    switch ( index )
+    case Dali::PanGestureDetector::Property::SCREEN_POSITION:
     {
-      case Dali::PanGestureDetector::Property::SCREEN_POSITION:
-      {
-        property = &mSceneObject->GetScreenPositionProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::SCREEN_DISPLACEMENT:
-      {
-        property = &mSceneObject->GetScreenDisplacementProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::SCREEN_VELOCITY:
-      {
-        property = &mSceneObject->GetScreenVelocityProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::LOCAL_POSITION:
-      {
-        property = &mSceneObject->GetLocalPositionProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::LOCAL_DISPLACEMENT:
-      {
-        property = &mSceneObject->GetLocalDisplacementProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::LOCAL_VELOCITY:
-      {
-        property = &mSceneObject->GetLocalVelocityProperty();
-        break;
-      }
-
-      case Dali::PanGestureDetector::Property::PANNING:
-      {
-        property = &mSceneObject->GetPanningProperty();
-        break;
-      }
-
-      default:
-        break;
+      property = &GetPanGestureSceneObject().GetScreenPositionProperty();
+      break;
     }
+
+    case Dali::PanGestureDetector::Property::SCREEN_DISPLACEMENT:
+    {
+      property = &GetPanGestureSceneObject().GetScreenDisplacementProperty();
+      break;
+    }
+
+    case Dali::PanGestureDetector::Property::SCREEN_VELOCITY:
+    {
+      property = &GetPanGestureSceneObject().GetScreenVelocityProperty();
+      break;
+    }
+
+    case Dali::PanGestureDetector::Property::LOCAL_POSITION:
+    {
+      property = &GetPanGestureSceneObject().GetLocalPositionProperty();
+      break;
+    }
+
+    case Dali::PanGestureDetector::Property::LOCAL_DISPLACEMENT:
+    {
+      property = &GetPanGestureSceneObject().GetLocalDisplacementProperty();
+      break;
+    }
+
+    case Dali::PanGestureDetector::Property::LOCAL_VELOCITY:
+    {
+      property = &GetPanGestureSceneObject().GetLocalVelocityProperty();
+      break;
+    }
+
+    case Dali::PanGestureDetector::Property::PANNING:
+    {
+      property = &GetPanGestureSceneObject().GetPanningProperty();
+      break;
+    }
+
+    default:
+      break;
+  }
+  if( !property )
+  {
+    // not our property, ask base
+    property = Object::GetSceneObjectInputProperty( index );
   }
 
   return property;

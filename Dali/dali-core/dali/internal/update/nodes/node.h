@@ -30,7 +30,6 @@
 #include <dali/internal/render/data-providers/node-data-provider.h>
 #include <dali/internal/update/common/animatable-property.h>
 #include <dali/internal/update/common/property-owner.h>
-#include <dali/internal/update/common/property-vector3.h>
 #include <dali/internal/update/common/scene-graph-buffers.h>
 #include <dali/internal/update/common/inherited-property.h>
 #include <dali/internal/update/manager/transform-manager.h>
@@ -46,7 +45,6 @@ namespace Internal
 
 // Value types used by messages.
 template <> struct ParameterType< ColorMode > : public BasicType< ColorMode > {};
-template <> struct ParameterType< PositionInheritanceMode > : public BasicType< PositionInheritanceMode > {};
 template <> struct ParameterType< ClippingMode::Type > : public BasicType< ClippingMode::Type > {};
 
 namespace SceneGraph
@@ -74,16 +72,14 @@ class Node : public PropertyOwner, public NodeDataProvider
 public:
 
   // Defaults
-  static const PositionInheritanceMode DEFAULT_POSITION_INHERITANCE_MODE;
   static const ColorMode DEFAULT_COLOR_MODE;
 
   // Creation methods
 
   /**
    * Construct a new Node.
-   * @param[in] id The unique ID of the node
    */
-  static Node* New( uint32_t id );
+  static Node* New();
 
   /**
    * Deletes a Node.
@@ -94,6 +90,11 @@ public:
    * Called during UpdateManager::DestroyNode shortly before Node is destroyed.
    */
   void OnDestroy();
+
+  /**
+   * @return the unique ID of the node
+   */
+  uint32_t GetId() const;
 
   // Layer interface
 
@@ -203,7 +204,7 @@ public:
    * Remove a renderer from the node
    * @param[in] renderer The renderer to be removed
    */
-  void RemoveRenderer( Renderer* renderer );
+  void RemoveRenderer( const Renderer* renderer );
 
   /*
    * Get the renderer at the given index
@@ -258,6 +259,14 @@ public:
   const Node* GetParent() const
   {
     return mParent;
+  }
+
+  /**
+   * @return true if the node is connected to SceneGraph
+   */
+  bool ConnectedToScene()
+  {
+    return IsRoot() || GetParent();
   }
 
   /**
@@ -799,9 +808,8 @@ protected:
 
   /**
    * Protected constructor; See also Node::New()
-   * @param[in] id The Unique ID of the actor creating the node
    */
-  Node( uint32_t id );
+  Node();
 
   /**
    * Protected virtual destructor; See also Node::Delete( Node* )
@@ -887,6 +895,8 @@ public: // Default properties
 
 protected:
 
+  static uint32_t                    mNodeCounter;            ///< count of total nodes, used for unique ids
+
   Node*                              mParent;                 ///< Pointer to parent node (a child is owned by its parent)
   RenderTask*                        mExclusiveRenderTask;    ///< Nodes can be marked as exclusive to a single RenderTask
 
@@ -910,6 +920,7 @@ protected:
   bool                               mIsRoot:1;               ///< True if the node cannot have a parent
   bool                               mIsLayer:1;              ///< True if the node is a layer
   bool                               mPositionUsesAnchorPoint:1; ///< True if the node should use the anchor-point when calculating the position
+
   // Changes scope, should be at end of class
   DALI_LOG_OBJECT_STRING_DECLARATION;
 };
@@ -993,7 +1004,7 @@ inline void SetDrawModeMessage( EventThreadServices& eventThreadServices, const 
   new (slot) LocalType( &node, &Node::SetDrawMode, drawMode );
 }
 
-inline void AddRendererMessage( EventThreadServices& eventThreadServices, const Node& node, Renderer* renderer )
+inline void AttachRendererMessage( EventThreadServices& eventThreadServices, const Node& node, const Renderer& renderer )
 {
   typedef MessageValue1< Node, Renderer* > LocalType;
 
@@ -1001,18 +1012,18 @@ inline void AddRendererMessage( EventThreadServices& eventThreadServices, const 
   uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
-  new (slot) LocalType( &node, &Node::AddRenderer, renderer );
+  new (slot) LocalType( &node, &Node::AddRenderer, const_cast<Renderer*>( &renderer ) );
 }
 
-inline void RemoveRendererMessage( EventThreadServices& eventThreadServices, const Node& node, Renderer* renderer )
+inline void DetachRendererMessage( EventThreadServices& eventThreadServices, const Node& node, const Renderer& renderer )
 {
-  typedef MessageValue1< Node, Renderer* > LocalType;
+  typedef MessageValue1< Node, const Renderer* > LocalType;
 
   // Reserve some memory inside the message queue
   uint32_t* slot = eventThreadServices.ReserveMessageSlot( sizeof( LocalType ) );
 
   // Construct message in the message queue memory; note that delete should not be called on the return value
-  new (slot) LocalType( &node, &Node::RemoveRenderer, renderer );
+  new (slot) LocalType( &node, &Node::RemoveRenderer, &renderer );
 }
 
 inline void SetDepthIndexMessage( EventThreadServices& eventThreadServices, const Node& node, uint32_t depthIndex )

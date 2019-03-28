@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,15 @@
 
 // CLASS HEADER
 #include <dali/integration-api/core.h>
+#include <dali/integration-api/render-surface.h>
 
 // INTERNAL INCLUDES
 #include <dali/public-api/common/dali-common.h>
+#include <dali/public-api/actors/layer.h>
+#include <dali/public-api/render-tasks/render-task-list.h>
 #include <dali/integration-api/events/event.h>
 #include <dali/integration-api/gl-sync-abstraction.h>
+#include <dali/integration-api/processor-interface.h>
 #include <dali/internal/common/core-impl.h>
 
 namespace Dali
@@ -59,6 +63,11 @@ Core::~Core()
   delete mImpl;
 }
 
+void Core::Initialize()
+{
+  mImpl->Initialize();
+}
+
 ContextNotifierInterface* Core::GetContextNotifier()
 {
   return mImpl->GetContextNotifier();
@@ -79,19 +88,9 @@ void Core::RecoverFromContextLoss()
   mImpl->RecoverFromContextLoss();
 }
 
-void Core::SurfaceResized(uint32_t width, uint32_t height)
+void Core::SurfaceResized( Integration::RenderSurface* surface )
 {
-  mImpl->SurfaceResized(width, height);
-}
-
-void Core::SetTopMargin( uint32_t margin )
-{
-  mImpl->SetTopMargin(margin);
-}
-
-void Core::SetDpi( uint32_t dpiHorizontal, uint32_t dpiVertical)
-{
-  mImpl->SetDpi(dpiHorizontal, dpiVertical);
+  mImpl->SurfaceResized(surface);
 }
 
 void Core::SceneCreated()
@@ -122,31 +121,6 @@ void Core::Update( float elapsedSeconds, uint32_t lastVSyncTimeMilliseconds, uin
 void Core::Render( RenderStatus& status, bool forceClear )
 {
   mImpl->Render( status, forceClear );
-}
-
-SystemOverlay& Core::GetSystemOverlay()
-{
-  return mImpl->GetSystemOverlay();
-}
-
-void Core::SetViewMode( ViewMode viewMode )
-{
-  mImpl->SetViewMode( viewMode );
-}
-
-ViewMode Core::GetViewMode() const
-{
-  return mImpl->GetViewMode();
-}
-
-void Core::SetStereoBase( float stereoBase )
-{
-  mImpl->SetStereoBase( stereoBase );
-}
-
-float Core::GetStereoBase() const
-{
-  return mImpl->GetStereoBase();
 }
 
 void Core::RegisterProcessor( Processor& processor )

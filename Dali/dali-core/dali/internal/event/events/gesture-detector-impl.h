@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_GESTURE_DETECTOR_H__
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,8 +114,11 @@ protected: // Creation & Destruction
 
   /**
    * Construct a new GestureDetector.
+   * @param type the type of gesture
+   * @param pointer to the scene object, nullptr if none
+   * by default GestureDetectors don't have our own scene object
    */
-  GestureDetector(Gesture::Type mType);
+  GestureDetector(Gesture::Type type, const SceneGraph::PropertyOwner* sceneObject  = nullptr );
 
   /**
    * A reference counted object may only be deleted by calling Unreference()
@@ -125,10 +128,9 @@ protected: // Creation & Destruction
 private:
 
   // Undefined
-  GestureDetector(const GestureDetector&);
-
-  // Undefined
-  GestureDetector& operator=(const GestureDetector& rhs);
+  GestureDetector() = delete;
+  GestureDetector(const GestureDetector&) = delete;
+  GestureDetector& operator=(const GestureDetector& rhs) = delete;
 
   /**
    * @copydoc Dali::Internal::Object::Observer::SceneObjectAdded()
@@ -164,78 +166,6 @@ private:
    *       destructor would have already been called.
    */
   virtual void OnActorDestroyed(Object& object) = 0;
-
-private: // Default property extensions from Object
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCount()
-   */
-  virtual unsigned int GetDefaultPropertyCount() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndices()
-   */
-  virtual void GetDefaultPropertyIndices( Property::IndexContainer& indices ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyName()
-   */
-  virtual const char* GetDefaultPropertyName(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndex()
-   */
-  virtual Property::Index GetDefaultPropertyIndex(const std::string& name) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyWritable()
-   */
-  virtual bool IsDefaultPropertyWritable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAnimatable()
-   */
-  virtual bool IsDefaultPropertyAnimatable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAConstraintInput()
-   */
-  virtual bool IsDefaultPropertyAConstraintInput( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyType()
-   */
-  virtual Property::Type GetDefaultPropertyType(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::SetDefaultProperty()
-   */
-  virtual void SetDefaultProperty(Property::Index index, const Property::Value& propertyValue);
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultProperty()
-   */
-  virtual Property::Value GetDefaultProperty( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCurrentValue()
-   */
-  virtual Property::Value GetDefaultPropertyCurrentValue( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObject()
-   */
-  virtual const SceneGraph::PropertyOwner* GetSceneObject() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectAnimatableProperty()
-   */
-  virtual const SceneGraph::PropertyBase* GetSceneObjectAnimatableProperty( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectInputProperty()
-   */
-  virtual const PropertyInputImpl* GetSceneObjectInputProperty( Property::Index index ) const;
 
 protected:
 

@@ -18,14 +18,14 @@
 // CLASS HEADER
 #include <dali/internal/window-system/windows/window-base-win.h>
 
+// EXTERNAL_HEADERS
+#include <dali/public-api/object/any.h>
+#include <dali/integration-api/debug.h>
+
 // INTERNAL HEADERS
 #include <dali/internal/window-system/common/window-impl.h>
 #include <dali/internal/window-system/common/window-render-surface.h>
 #include <dali/internal/window-system/common/window-system.h>
-
-// EXTERNAL_HEADERS
-#include <dali/public-api/object/any.h>
-#include <dali/integration-api/debug.h>
 
 namespace Dali
 {
@@ -39,7 +39,6 @@ namespace Adaptor
 namespace
 {
 
-const std::string DEFAULT_DEVICE_NAME = "";
 const Device::Class::Type DEFAULT_DEVICE_CLASS = Device::Class::NONE;
 const Device::Subclass::Type DEFAULT_DEVICE_SUBCLASS = Device::Subclass::NONE;
 
@@ -62,7 +61,7 @@ WindowBaseWin::WindowBaseWin( Dali::PositionSize positionSize, Any surface, bool
 
 WindowBaseWin::~WindowBaseWin()
 {
-  WindowsPlatformImplement::PostWinMessage( WM_CLOSE, 0, 0, mWin32Window );
+  WindowsPlatformImplementation::PostWinMessage( WM_CLOSE, 0, 0, mWin32Window );
 }
 
 void WindowBaseWin::Initialize( PositionSize positionSize, Any surface, bool isTransparent )
@@ -83,7 +82,7 @@ void WindowBaseWin::Initialize( PositionSize positionSize, Any surface, bool isT
     mWin32Window = static_cast< WinWindowHandle >( surfaceId );
   }
 
-  WindowsPlatformImplement::SetListener( MakeCallback( this, &WindowBaseWin::EventEntry ) );
+  WindowsPlatformImplementation::SetListener( MakeCallback( this, &WindowBaseWin::EventEntry ) );
 }
 
 void WindowBaseWin::OnDeleteRequest()
@@ -129,7 +128,7 @@ void WindowBaseWin::OnMouseButtonDown( int type, TWinEventInfo *event )
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
-    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplement::GetEdgeHeight() ) );
+    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplementation::GetEdgeHeight() ) );
     point.SetRadius( touchEvent.multi.radius, Vector2( touchEvent.multi.radius_x, touchEvent.multi.radius_y ) );
     point.SetPressure( touchEvent.multi.pressure );
     point.SetAngle( Degree( touchEvent.multi.angle ) );
@@ -153,7 +152,7 @@ void WindowBaseWin::OnMouseButtonUp( int type, TWinEventInfo *event )
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
-    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplement::GetEdgeHeight() ) );
+    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplementation::GetEdgeHeight() ) );
     point.SetRadius( touchEvent.multi.radius, Vector2( touchEvent.multi.radius_x, touchEvent.multi.radius_y ) );
     point.SetPressure( touchEvent.multi.pressure );
     point.SetAngle( Degree( touchEvent.multi.angle ) );
@@ -177,7 +176,7 @@ void WindowBaseWin::OnMouseButtonMove( int type, TWinEventInfo *event )
     Integration::Point point;
     point.SetDeviceId( touchEvent.multi.device );
     point.SetState( state );
-    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplement::GetEdgeHeight() ) );
+    point.SetScreenPosition( Vector2( touchEvent.x, touchEvent.y + WindowsPlatformImplementation::GetEdgeHeight() ) );
     point.SetRadius( touchEvent.multi.radius, Vector2( touchEvent.multi.radius_x, touchEvent.multi.radius_y ) );
     point.SetPressure( touchEvent.multi.pressure );
     point.SetAngle( Degree( touchEvent.multi.angle ) );
@@ -207,9 +206,8 @@ void WindowBaseWin::OnKeyDown( int type, TWinEventInfo *event )
     DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "WindowBaseWin::OnKeyDown\n" );
 
     int keyCode = event->wParam;
-    std::string keyName( WindowsPlatformImplement::GetKeyName( keyCode ) );
-    std::string keyString( "" );
-    std::string compose( "" );
+    std::string keyName( WindowsPlatformImplementation::GetKeyName( keyCode ) );
+    std::string keyString;
 
     int modifier( 0 );
     unsigned long time( 0 );
@@ -217,7 +215,7 @@ void WindowBaseWin::OnKeyDown( int type, TWinEventInfo *event )
     // Ensure key event string is not NULL as keys like SHIFT have a null string.
     keyString.push_back( event->wParam );
 
-    Integration::KeyEvent keyEvent( keyName, keyString, keyCode, modifier, time, Integration::KeyEvent::Down, compose, DEFAULT_DEVICE_NAME, DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
+    Integration::KeyEvent keyEvent( keyName, "", keyString, keyCode, modifier, time, Integration::KeyEvent::Down, "", "", DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
 
     mKeyEventSignal.Emit( keyEvent );
   }
@@ -230,9 +228,8 @@ void WindowBaseWin::OnKeyUp( int type, TWinEventInfo *event )
     DALI_LOG_INFO( gWindowBaseLogFilter, Debug::General, "WindowBaseWin::OnKeyDown\n" );
 
     int keyCode = event->wParam;
-    std::string keyName( WindowsPlatformImplement::GetKeyName( keyCode ) );
-    std::string keyString( "" );
-    std::string compose( "" );
+    std::string keyName( WindowsPlatformImplementation::GetKeyName( keyCode ) );
+    std::string keyString;
 
     int modifier( 0 );
     unsigned long time( 0 );
@@ -240,7 +237,7 @@ void WindowBaseWin::OnKeyUp( int type, TWinEventInfo *event )
     // Ensure key event string is not NULL as keys like SHIFT have a null string.
     keyString.push_back( event->wParam );
 
-    Integration::KeyEvent keyEvent( keyName, keyString, keyCode, modifier, time, Integration::KeyEvent::Up, compose, DEFAULT_DEVICE_NAME, DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
+    Integration::KeyEvent keyEvent( keyName, "", keyString, keyCode, modifier, time, Integration::KeyEvent::Up, "", "", DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
 
     mKeyEventSignal.Emit( keyEvent );
   }
@@ -295,18 +292,6 @@ void WindowBaseWin::Resize( PositionSize positionSize )
 }
 
 void WindowBaseWin::MoveResize( PositionSize positionSize )
-{
-}
-
-void WindowBaseWin::ShowIndicator( Dali::Window::IndicatorVisibleMode visibleMode, Dali::Window::IndicatorBgOpacity opacityMode )
-{
-}
-
-void WindowBaseWin::SetIndicatorProperties( bool isShow, Dali::Window::WindowOrientation lastOrientation )
-{
-}
-
-void WindowBaseWin::IndicatorTypeChanged( IndicatorInterface::Type type )
 {
 }
 
@@ -445,21 +430,17 @@ bool WindowBaseWin::UngrabKeyList( const Dali::Vector< Dali::KEY >& key, Dali::V
 
 void WindowBaseWin::GetDpi( unsigned int& dpiHorizontal, unsigned int& dpiVertical )
 {
-  // calculate DPI 
+  // calculate DPI
   float xres, yres;
 
   //// 1 inch = 25.4 millimeters
-  WindowsPlatformImplement::GetDPI( mWin32Window, xres, yres );
+  WindowsPlatformImplementation::GetDPI( mWin32Window, xres, yres );
 
-  xres *= 1.5;
-  yres *= 1.5;
+  xres *= 1.5f;
+  yres *= 1.5f;
 
-  dpiHorizontal = int( xres + 0.5f );  // rounding
-  dpiVertical = int( yres + 0.5f );
-}
-
-void WindowBaseWin::SetViewMode( ViewMode viewMode )
-{
+  dpiHorizontal = static_cast<int>( xres + 0.5f );  // rounding
+  dpiVertical = static_cast<int>( yres + 0.5f );
 }
 
 int WindowBaseWin::GetScreenRotationAngle()
@@ -496,9 +477,9 @@ unsigned int WindowBaseWin::GetSurfaceId( Any surface ) const
 
 void WindowBaseWin::CreateWinWindow( PositionSize positionSize, bool isTransparent )
 {
-  long hWnd = WindowsPlatformImplement::CreateHwnd( "Demo", "Demo", positionSize.x, positionSize.y, positionSize.width, positionSize.height, NULL );
+  long hWnd = WindowsPlatformImplementation::CreateHwnd( "Demo", "Demo", positionSize.x, positionSize.y, positionSize.width, positionSize.height, NULL );
 
-  WindowsPlatformImplement::ShowWindow( hWnd );
+  WindowsPlatformImplementation::ShowWindow( hWnd );
 
   mWin32Window = (WinWindowHandle)hWnd;
   DALI_ASSERT_ALWAYS( mWin32Window != 0 && "There is no Windows window" );
@@ -510,55 +491,55 @@ void WindowBaseWin::EventEntry( TWinEventInfo *event )
 
   switch( uMsg )
   {
-  case WIN_EVENT_WINDOW_FOCUS_IN:
+  case WM_SETFOCUS:
   {
     OnFocusIn( uMsg, event );
     break;
   }
 
-  case WIN_EVENT_WINDOW_FOCUS_OUT:
+  case WM_KILLFOCUS:
   {
     OnFocusOut( uMsg, event );
     break;
   }
 
-  case WIN_EVENT_WINDOW_DAMAGE:
+  case WM_PAINT:
   {
     OnWindowDamaged( uMsg, event );
     break;
   }
 
-  case EVENT_MOUSE_BUTTON_DOWN:
+  case WM_LBUTTONDOWN:
   {
     OnMouseButtonDown( uMsg, event );
     break;
   }
 
-  case EVENT_MOUSE_BUTTON_UP:
+  case WM_LBUTTONUP:
   {
     OnMouseButtonUp( uMsg, event );
     break;
   }
 
-  case EVENT_MOUSE_MOVE:
+  case WM_MOUSEMOVE:
   {
     OnMouseButtonMove( uMsg, event );
     break;
   }
 
-  case EVENT_MOUSE_WHEEL:
+  case WM_MOUSEWHEEL:
   {
     OnMouseWheel( uMsg, event );
     break;
   }
 
-  case EVENT_KEY_DOWN:
+  case WM_KEYDOWN:
   {
     OnKeyDown( uMsg, event );
     break;
   }
 
-  case EVENT_KEY_UP:
+  case WM_KEYUP:
   {
     OnKeyUp( uMsg, event );
     break;

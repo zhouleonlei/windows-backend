@@ -73,12 +73,8 @@ private:
 
 private:
 
-  struct Source;
-
-private:
-
   CallbackBase* mCallback;
-  int mThreadID;
+  int32_t mThreadID;
   TriggerEventInterface::Options mOptions;
 };
 

@@ -2,7 +2,7 @@
 #define DALI_INTEGRATION_CORE_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,15 @@
 
 // INTERNAL INCLUDES
 #include <dali/public-api/common/dali-common.h>
-#include <dali/public-api/common/view-mode.h>
 #include <dali/integration-api/context-notifier.h>
 #include <dali/integration-api/core-enumerations.h>
 #include <dali/integration-api/resource-policies.h>
 
 namespace Dali
 {
+
+class Layer;
+class RenderTaskList;
 
 namespace Internal
 {
@@ -38,14 +40,14 @@ class Core;
 
 namespace Integration
 {
-
 class Core;
 class GestureManager;
 class GlAbstraction;
 class GlSyncAbstraction;
 class PlatformAbstraction;
+class Processor;
 class RenderController;
-class SystemOverlay;
+class RenderSurface;
 struct Event;
 struct TouchData;
 
@@ -178,22 +180,6 @@ private:
   bool needsPostRender  :1;  ///< True if post-render is required to be run.
 };
 
-/**
- * Interface to enable classes to be processed after the event loop. Classes are processed
- * in the order they are registered.
- */
-class DALI_CORE_API Processor
-{
-public:
-  /**
-   * @brief Run the processor
-   */
-  virtual void Process() = 0;
-
-protected:
-  virtual ~Processor() { }
-};
-
 
 /**
  * Integration::Core is used for integration with the native windowing system.
@@ -265,6 +251,11 @@ public:
    */
   ~Core();
 
+  /**
+   * Initialize the core
+   */
+  void Initialize();
+
   // GL Context Lifecycle
 
   /**
@@ -304,31 +295,9 @@ public:
    * This should be done at least once i.e. after the first call to ContextCreated().
    * The Core will use the surface size for camera calculations, and to set the GL viewport.
    * Multi-threading note: this method should be called from the main thread
-   * @param[in] width The new surface width.
-   * @param[in] height The new surface height.
+   * @param[in] surface The resized surface
    */
-  void SurfaceResized( uint32_t width, uint32_t height );
-
-  /**
-   * Notify the Core about the top margin size.
-   * Available stage size is reduced by this size.
-   * The stage is located below the size at the top of the display
-   * It is mainly useful for indicator in mobile device
-   * @param[in] margin margin size
-   */
-  void SetTopMargin( uint32_t margin );
-
-  // Core setters
-
-  /**
-   * Notify the Core about the display's DPI values.
-   * This should be done after the display is initialized and a Core instance is created.
-   * The Core will use the DPI values for font rendering.
-   * Multi-threading note: this method should be called from the main thread
-   * @param[in] dpiHorizontal Horizontal DPI value.
-   * @param[in] dpiVertical   Vertical DPI value.
-   */
-  void SetDpi( uint32_t dpiHorizontal, uint32_t dpiVertical );
+  void SurfaceResized( Integration::RenderSurface* surface );
 
   // Core Lifecycle
 
@@ -392,39 +361,6 @@ public:
    * @param[in] forceClear force the Clear on the framebuffer even if nothing is rendered.
    */
   void Render( RenderStatus& status, bool forceClear );
-
-  // System-level overlay
-
-  /**
-   * Use the SystemOverlay to draw content for system-level indicators, dialogs etc.
-   * @return The SystemOverlay.
-   */
-  SystemOverlay& GetSystemOverlay();
-
-  /**
-   * Set the stereoscopic 3D view mode
-   * @param[in] viewMode The new view mode
-   */
-  void SetViewMode( ViewMode viewMode );
-
-  /**
-   * Get the current view mode
-   * @return The current view mode
-   * @see SetViewMode.
-   */
-  ViewMode GetViewMode() const;
-
-  /**
-   * Set the stereo base (eye seperation) for stereoscopic 3D
-   * @param[in] stereoBase The stereo base (eye seperation) for stereoscopic 3D (mm)
-   */
-  void SetStereoBase( float stereoBase );
-
-  /**
-   * Get the stereo base (eye seperation) for stereoscopic 3D
-   * @return The stereo base (eye seperation) for stereoscopic 3D (mm)
-   */
-  float GetStereoBase() const;
 
   /**
    * @brief Register a processor

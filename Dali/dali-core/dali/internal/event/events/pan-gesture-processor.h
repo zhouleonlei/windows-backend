@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_PAN_GESTURE_EVENT_PROCESSOR_H__
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@
  */
 
 // INTERNAL INCLUDES
-#include <dali/public-api/render-tasks/render-task.h>
 #include <dali/internal/event/events/pan-gesture-detector-impl.h>
 #include <dali/internal/event/events/gesture-processor.h>
+#include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
 {
@@ -37,6 +37,7 @@ namespace Internal
 {
 
 class Stage;
+class Scene;
 
 namespace SceneGraph
 {
@@ -60,11 +61,10 @@ public:
 
   /**
    * Create a pan gesture processor.
-   * @param[in] stage The stage.
    * @param[in] gestureManager The gesture manager
    * @param[in] updateManager The Update Manager
    */
-  PanGestureProcessor( Stage& stage, Integration::GestureManager& gestureManager, SceneGraph::UpdateManager& updateManager );
+  PanGestureProcessor( Integration::GestureManager& gestureManager, SceneGraph::UpdateManager& updateManager );
 
   /**
    * Destructor
@@ -75,9 +75,10 @@ public: // To be called by GestureEventProcessor
 
   /**
    * This method is called whenever a pan gesture event occurs.
+   * @param[in] scene The scene the pan gesture event occurs in.
    * @param[in] panEvent The event that has occurred.
    */
-  void Process( const Integration::PanGestureEvent& panEvent );
+  void Process( Scene& scene, const Integration::PanGestureEvent& panEvent );
 
   /**
    * Adds a gesture detector to this gesture processor.
@@ -226,6 +227,13 @@ public: // To be called by GestureEventProcessor
    */
   void SetMultitapSmoothingRange( int value );
 
+public: // for PanGestureDetector
+
+  /**
+   * @return the pan gesture scene object
+   */
+  const SceneGraph::PanGesture& GetSceneObject() const;
+
 private:
 
   // Undefined
@@ -252,7 +260,7 @@ private:
                       const Integration::PanGestureEvent& panEvent,
                       Vector2 localCurrent,
                       Gesture::State state,
-                      Dali::RenderTask renderTask );
+                      RenderTaskPtr renderTask );
 
   // GestureProcessor overrides
 
@@ -273,15 +281,14 @@ private:
 
 private:
 
-  Stage& mStage;
   Integration::GestureManager& mGestureManager;
   PanGestureDetectorContainer mGestureDetectors;
   GestureDetectorContainer mCurrentPanEmitters;
-  Dali::RenderTask mCurrentRenderTask;
+  RenderTaskPtr mCurrentRenderTask;
   Vector2 mPossiblePanPosition;
 
-  unsigned int mMinTouchesRequired;
-  unsigned int mMaxTouchesRequired;
+  uint32_t mMinTouchesRequired;
+  uint32_t mMaxTouchesRequired;
 
   Vector2 mLastVelocity;       ///< The last recorded velocity in local actor coordinates.
   Vector2 mLastScreenVelocity; ///< The last recorded velocity in screen coordinates.

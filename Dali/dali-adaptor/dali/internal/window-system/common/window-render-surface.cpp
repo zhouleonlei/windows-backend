@@ -25,12 +25,13 @@
 // INTERNAL INCLUDES
 #include <dali/integration-api/trigger-event-factory-interface.h>
 #include <dali/integration-api/thread-synchronization-interface.h>
-#include <dali/internal/graphics/gles20/egl-implementation.h>
+#include <dali/internal/graphics/gles/egl-implementation.h>
 #include <dali/internal/adaptor/common/adaptor-impl.h>
+#include <dali/internal/adaptor/common/adaptor-internal-services.h>
 #include <dali/internal/window-system/common/window-base.h>
 #include <dali/internal/window-system/common/window-factory.h>
 #include <dali/internal/window-system/common/window-system.h>
-#include <dali/internal/graphics/gles20/egl-graphics.h>
+#include <dali/internal/graphics/gles/egl-graphics.h>
 
 
 namespace Dali
@@ -57,6 +58,9 @@ WindowRenderSurface::WindowRenderSurface( Dali::PositionSize positionSize, Any s
   mThreadSynchronization( NULL ),
   mRenderNotification( NULL ),
   mRotationTrigger( NULL ),
+  mGraphics( nullptr ),
+  mEGLSurface( nullptr ),
+  mEGLContext( nullptr ),
   mColorDepth( isTransparent ? COLOR_DEPTH_32 : COLOR_DEPTH_24 ),
   mOutputTransformedSignal(),
   mRotationAngle( 0 ),
@@ -176,28 +180,24 @@ void WindowRenderSurface::GetDpi( unsigned int& dpiHorizontal, unsigned int& dpi
   mWindowBase->GetDpi( dpiHorizontal, dpiVertical );
 }
 
-void WindowRenderSurface::InitializeGraphics( GraphicsInterface& graphics, Dali::DisplayConnection& displayConnection )
+void WindowRenderSurface::InitializeGraphics()
 {
-  mGraphics = &graphics;
+
+  mGraphics = &mAdaptor->GetGraphicsInterface();
 
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
+  mEGL = &eglGraphics->GetEglInterface();
 
-  EglInterface* mEGL = eglGraphics->Create();
+  if ( mEGLContext == NULL )
+  {
+    // Create the OpenGL context for this window
+    Internal::Adaptor::EglImplementation& eglImpl = static_cast<Internal::Adaptor::EglImplementation&>(*mEGL);
+    eglImpl.ChooseConfig(true, mColorDepth);
+    eglImpl.CreateWindowContext( mEGLContext );
 
-  // Initialize EGL & OpenGL
-  displayConnection.Initialize();
-
-  Internal::Adaptor::EglImplementation& eglImpl = static_cast<Internal::Adaptor::EglImplementation&>(*mEGL);
-  eglImpl.ChooseConfig(true, mColorDepth);
-
-  // Create the OpenGL context
-  mEGL->CreateContext();
-
-  // Create the OpenGL surface
-  CreateSurface();
-
-  // Make it current
-  mEGL->MakeContextCurrent();
+    // Create the OpenGL surface
+    CreateSurface();
+  }
 }
 
 void WindowRenderSurface::CreateSurface()
@@ -222,7 +222,7 @@ void WindowRenderSurface::CreateSurface()
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
 
   Internal::Adaptor::EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
-  eglImpl.CreateSurfaceWindow( window, mColorDepth );
+  mEGLSurface = eglImpl.CreateSurfaceWindow( window, mColorDepth );
 
   // Check rotation capability
   mRotationSupported = mWindowBase->IsEglWindowRotationSupported();
@@ -237,7 +237,7 @@ void WindowRenderSurface::DestroySurface()
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
 
   Internal::Adaptor::EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
-  eglImpl.DestroySurface();
+  eglImpl.DestroySurface( mEGLSurface );
 
   mWindowBase->DestroyEglWindow();
 }
@@ -270,7 +270,7 @@ bool WindowRenderSurface::ReplaceGraphicsSurface()
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
 
   Internal::Adaptor::EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
-  return eglImpl.ReplaceSurfaceWindow( window );
+  return eglImpl.ReplaceSurfaceWindow( window, mEGLSurface, mEGLContext );
 }
 
 void WindowRenderSurface::MoveResize( Dali::PositionSize positionSize )
@@ -319,17 +319,14 @@ void WindowRenderSurface::MoveResize( Dali::PositionSize positionSize )
   DALI_LOG_INFO( gWindowRenderSurfaceLogFilter, Debug::Verbose, "WindowRenderSurface::MoveResize: %d, %d, %d, %d\n", mPositionSize.x, mPositionSize.y, mPositionSize.width, mPositionSize.height );
 }
 
-void WindowRenderSurface::SetViewMode( ViewMode viewMode )
-{
-  mWindowBase->SetViewMode( viewMode );
-}
-
 void WindowRenderSurface::StartRender()
 {
 }
 
 bool WindowRenderSurface::PreRender( bool resizingSurface )
 {
+  MakeContextCurrent();
+
   if( resizingSurface )
   {
 #ifdef OVER_TIZEN_VERSION_4
@@ -365,8 +362,11 @@ bool WindowRenderSurface::PreRender( bool resizingSurface )
   }
 
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
-  auto mGLES = eglGraphics->GetGlesInterface();
-  mGLES.PreRender();
+  if ( eglGraphics )
+  {
+    GlImplementation& mGLES = eglGraphics->GetGlesInterface();
+    mGLES.PreRender();
+  }
 
   return true;
 }
@@ -375,39 +375,42 @@ void WindowRenderSurface::PostRender( bool renderToFbo, bool replacingSurface, b
 {
   // Inform the gl implementation that rendering has finished before informing the surface
   auto eglGraphics = static_cast<EglGraphics *>(mGraphics);
-  auto mGLES = eglGraphics->GetGlesInterface();
-  mGLES.PostRender();
+  if ( eglGraphics )
+  {
+    GlImplementation& mGLES = eglGraphics->GetGlesInterface();
+    mGLES.PostRender();
 
-  if( renderToFbo )
-  {
-    mGLES.Flush();
-    mGLES.Finish();
-  }
-  else
-  {
-    if( resizingSurface )
+    if( renderToFbo )
     {
-      if( !mRotationFinished )
+      mGLES.Flush();
+      mGLES.Finish();
+    }
+    else
+    {
+      if( resizingSurface )
       {
-        DALI_LOG_INFO( gWindowRenderSurfaceLogFilter, Debug::Verbose, "WindowRenderSurface::PostRender: Trigger rotation event\n" );
-
-        mRotationTrigger->Trigger();
-
-        if( mThreadSynchronization )
+        if( !mRotationFinished )
         {
-          // Wait until the event-thread complete the rotation event processing
-          mThreadSynchronization->PostRenderWaitForCompletion();
+          DALI_LOG_INFO( gWindowRenderSurfaceLogFilter, Debug::Verbose, "WindowRenderSurface::PostRender: Trigger rotation event\n" );
+
+          mRotationTrigger->Trigger();
+
+          if( mThreadSynchronization )
+          {
+            // Wait until the event-thread complete the rotation event processing
+            mThreadSynchronization->PostRenderWaitForCompletion();
+          }
         }
       }
     }
-  }
 
-  Internal::Adaptor::EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
-  eglImpl.SwapBuffers();
+    Internal::Adaptor::EglImplementation& eglImpl = eglGraphics->GetEglImplementation();
+    eglImpl.SwapBuffers( mEGLSurface );
 
-  if( mRenderNotification )
-  {
-    mRenderNotification->Trigger();
+    if( mRenderNotification )
+    {
+      mRenderNotification->Trigger();
+    }
   }
 }
 
@@ -427,9 +430,27 @@ void WindowRenderSurface::ReleaseLock()
   // Nothing to do.
 }
 
-RenderSurface::Type WindowRenderSurface::GetSurfaceType()
+Integration::RenderSurface::Type WindowRenderSurface::GetSurfaceType()
 {
   return RenderSurface::WINDOW_RENDER_SURFACE;
+}
+
+void WindowRenderSurface::MakeContextCurrent()
+{
+  if ( mEGL != nullptr )
+  {
+    mEGL->MakeContextCurrent( mEGLSurface, mEGLContext );
+  }
+}
+
+Integration::DepthBufferAvailable WindowRenderSurface::GetDepthBufferRequired()
+{
+  return mGraphics ? mGraphics->GetDepthBufferRequired() : Integration::DepthBufferAvailable::FALSE;
+}
+
+Integration::StencilBufferAvailable WindowRenderSurface::GetStencilBufferRequired()
+{
+  return mGraphics ? mGraphics->GetStencilBufferRequired() : Integration::StencilBufferAvailable::FALSE;
 }
 
 void WindowRenderSurface::OutputTransformed()

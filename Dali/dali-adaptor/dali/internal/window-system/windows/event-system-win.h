@@ -17,20 +17,6 @@
 * limitations under the License.
 *
 */
-
-#define EVENT_MOUSE_BUTTON_DOWN   WM_LBUTTONDOWN
-#define EVENT_MOUSE_BUTTON_UP     WM_LBUTTONUP
-#define EVENT_MOUSE_MOVE          WM_MOUSEMOVE
-#define EVENT_MOUSE_WHEEL         WM_MOUSEWHEEL
-
-#define EVENT_KEY_DOWN            WM_KEYDOWN
-#define EVENT_KEY_UP              WM_KEYUP
-
-#define WIN_EVENT_WINDOW_FOCUS_IN   WM_SETFOCUS
-#define WIN_EVENT_WINDOW_FOCUS_OUT  WM_KILLFOCUS
-
-#define WIN_EVENT_WINDOW_DAMAGE     WM_PAINT
-
 #define DEVICE_MOUSE                    0
 
 // INTERNAL INCLUDES
@@ -49,14 +35,14 @@ struct _Event_Mouse_Button
 {
   WinWindowHandle     window; /**< The main window where event happened */
 
-  unsigned int     timestamp; /**< Time when the event occurred */
+  uint32_t            timestamp; /**< Time when the event occurred */
 
-  int              x; /**< x coordinate relative to window where event happened */
-  int              y; /**< y coordinate relative to window where event happened */
+  int32_t             x; /**< x coordinate relative to window where event happened */
+  int32_t             y; /**< y coordinate relative to window where event happened */
 
   struct
   {
-    int           device; /**< 0 if normal mouse, 1+ for other mouse-devices (eg multi-touch - other fingers) */
+    int32_t       device; /**< 0 if normal mouse, 1+ for other mouse-devices (eg multi-touch - other fingers) */
     double        radius, radius_x, radius_y; /**< radius of press point - radius_x and y if its an ellipse (radius is the average of the 2) */
     double        pressure; /**< pressure - 1.0 == normal, > 1.0 == more, 0.0 == none */
     double        angle; /**< angle relative to perpendicular (0.0 == perpendicular), in degrees */
@@ -78,18 +64,18 @@ struct _Event_Mouse_Wheel
   WinWindowHandle     root_window; /**< The root window where event happened */
   WinWindowHandle     event_window; /**< The child window where event happened */
 
-  unsigned int     timestamp; /**< Time when the event occurred */
-  unsigned int     modifiers; /**< The combination of modifiers key (SHIFT,CTRL,ALT,..)*/
+  uint32_t            timestamp; /**< Time when the event occurred */
+  uint32_t            modifiers; /**< The combination of modifiers key (SHIFT,CTRL,ALT,..)*/
 
-  int              direction; /**< Orientation of the wheel (horizontal/vertical) */
-  int              z; /**< Value of the wheel event (+1/-1) */
+  int32_t              direction; /**< Orientation of the wheel (horizontal/vertical) */
+  int32_t              z; /**< Value of the wheel event (+1/-1) */
 
-  int              x; /**< x coordinate relative to window where event happened */
-  int              y; /**< y coordinate relative to window where event happened */
+  int32_t              x; /**< x coordinate relative to window where event happened */
+  int32_t              y; /**< y coordinate relative to window where event happened */
   struct
   {
-    int           x;
-    int           y;
+	int32_t           x;
+	int32_t           y;
   } root; /**< Coordinates relative to root window */
 };
 

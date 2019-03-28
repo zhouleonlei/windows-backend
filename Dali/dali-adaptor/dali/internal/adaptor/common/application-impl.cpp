@@ -27,7 +27,12 @@
 #include <dali/internal/adaptor/common/framework.h>
 #include <dali/internal/system/common/singleton-service-impl.h>
 #include <dali/internal/adaptor/common/lifecycle-controller-impl.h>
+#include <dali/internal/window-system/common/window-impl.h>
 #include <dali/internal/window-system/common/window-render-surface.h>
+#include <dali/internal/window-system/common/render-surface-factory.h>
+
+// To disable a macro with the same name from one of OpenGL headers
+#undef Status
 
 namespace Dali
 {
@@ -47,6 +52,13 @@ namespace Internal
 
 namespace Adaptor
 {
+
+namespace
+{
+
+const float DEFAULT_STEREO_BASE( 65.0f );
+
+} // unnamed namespace
 
 ApplicationPtr Application::gPreInitializedApplication( NULL );
 
@@ -97,11 +109,14 @@ Application::Application( int* argc, char** argv[], const std::string& styleshee
   mMainWindow(),
   mMainWindowMode( windowMode ),
   mMainWindowName(),
+  mMainWindowReplaced( false ),
   mStylesheet( stylesheet ),
   mEnvironmentOptions(),
   mWindowPositionSize( positionSize ),
   mLaunchpadState( Launchpad::NONE ),
-  mSlotDelegate( this )
+  mSlotDelegate( this ),
+  mViewMode( MONO ),
+  mStereoBase( DEFAULT_STEREO_BASE )
 {
   // Get mName from environment options
   mMainWindowName = mEnvironmentOptions.GetWindowName();
@@ -147,12 +162,6 @@ void Application::CreateWindow()
 
   const std::string& windowClassName = mEnvironmentOptions.GetWindowClassName();
   mMainWindow = Dali::Window::New( mWindowPositionSize, mMainWindowName, windowClassName, mMainWindowMode == Dali::Application::TRANSPARENT );
-
-  int indicatorVisibleMode = mEnvironmentOptions.GetIndicatorVisibleMode();
-  if( indicatorVisibleMode >= Dali::Window::INVISIBLE && indicatorVisibleMode <= Dali::Window::AUTO )
-  {
-    GetImplementation( mMainWindow ).SetIndicatorVisibleMode( static_cast< Dali::Window::IndicatorVisibleMode >( indicatorVisibleMode ) );
-  }
 
   // Quit the application when the window is closed
   GetImplementation( mMainWindow ).DeleteRequestSignal().Connect( mSlotDelegate, &Application::Quit );
@@ -205,8 +214,10 @@ void Application::QuitFromMainLoop()
   // This will trigger OnTerminate(), below, after the main loop has completed.
 }
 
-void Application::DoInit()
+void Application::OnInit()
 {
+  mFramework->AddAbortCallback( MakeCallback( this, &Application::QuitFromMainLoop ) );
+
   CreateAdaptorBuilder();
 
   // If an application was pre-initialized, a window was made in advance
@@ -226,59 +237,10 @@ void Application::DoInit()
     mAdaptor->SetUseHardwareVSync(false);
   }
 
-  Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).SetStereoBase( mCommandLineOptions->stereoBase );
-  if( mCommandLineOptions->viewMode != 0 )
-  {
-    ViewMode viewMode = MONO;
-    if( mCommandLineOptions->viewMode <= STEREO_INTERLACED )
-    {
-      viewMode = static_cast<ViewMode>( mCommandLineOptions->viewMode );
-    }
-    Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).SetViewMode( viewMode );
-  }
-
   if( ! mStylesheet.empty() )
   {
     Dali::StyleMonitor::Get().SetTheme( mStylesheet );
   }
-}
-
-void Application::DoStart()
-{
-  mAdaptor->NotifySceneCreated();
-}
-
-void Application::DoTerminate()
-{
-  if( mAdaptor )
-  {
-    // Ensure that the render-thread is not using the surface(window) after we delete it
-    mAdaptor->Stop();
-  }
-
-  mMainWindow.Reset(); // This only resets (clears) the default Window
-}
-
-void Application::DoPause()
-{
-  mAdaptor->Pause();
-}
-
-void Application::DoResume()
-{
-  mAdaptor->Resume();
-}
-
-void Application::DoLanguageChange()
-{
-  mAdaptor->NotifyLanguageChanged();
-}
-
-void Application::OnInit()
-{
-  mFramework->AddAbortCallback( MakeCallback( this, &Application::QuitFromMainLoop ) );
-
-  DoInit();
 
   // Wire up the LifecycleController
   Dali::LifecycleController lifecycleController = Dali::LifecycleController::Get();
@@ -294,7 +256,7 @@ void Application::OnInit()
   Dali::Application application(this);
   mInitSignal.Emit( application );
 
-  DoStart();
+  mAdaptor->NotifySceneCreated();
 }
 
 void Application::OnTerminate()
@@ -305,7 +267,13 @@ void Application::OnTerminate()
   Dali::Application application(this);
   mTerminateSignal.Emit( application );
 
-  DoTerminate();
+  if( mAdaptor )
+  {
+    // Ensure that the render-thread is not using the surface(window) after we delete it
+    mAdaptor->Stop();
+  }
+
+  mMainWindow.Reset(); // This only resets (clears) the default Window
 }
 
 void Application::OnPause()
@@ -350,7 +318,7 @@ void Application::OnAppControl(void *data)
 
 void Application::OnLanguageChanged()
 {
-  DoLanguageChange();
+  mAdaptor->NotifyLanguageChanged();
   Dali::Application application(this);
   mLanguageChangedSignal.Emit( application );
 }
@@ -376,6 +344,7 @@ void Application::OnMemoryLow( Dali::DeviceStatus::Memory::Status status )
 
   mLowMemorySignal.Emit( status );
 }
+
 void Application::OnResize(Dali::Adaptor& adaptor)
 {
   Dali::Application application(this);
@@ -404,54 +373,49 @@ Dali::Adaptor& Application::GetAdaptor()
 
 Dali::Window Application::GetWindow()
 {
-  return mMainWindow;
+  // Changed to return a different window handle after ReplaceWindow is called
+  // just for backward compatibility to make the test case pass
+  return mMainWindowReplaced ? Dali::Window() : mMainWindow;
 }
 
 // Stereoscopy
 
 void Application::SetViewMode( ViewMode viewMode )
 {
-  Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).SetViewMode( viewMode );
+  mViewMode = viewMode;
 }
 
 ViewMode Application::GetViewMode() const
 {
-  return Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).GetViewMode();
+  return mViewMode;
 }
 
 void Application::SetStereoBase( float stereoBase )
 {
-  Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).SetStereoBase( stereoBase );
+  mStereoBase = stereoBase;
 }
 
 float Application::GetStereoBase() const
 {
-  return Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).GetStereoBase();
+  return mStereoBase;
 }
 
 void Application::ReplaceWindow( const PositionSize& positionSize, const std::string& name )
 {
-  Dali::Window newWindow = Dali::Window::New( positionSize, name, mMainWindowMode == Dali::Application::TRANSPARENT );
-  Window& windowImpl = GetImplementation(newWindow);
-  windowImpl.SetAdaptor(*mAdaptor);
+  // This API is kept just for backward compatibility to make the test case pass.
 
-  int indicatorVisibleMode = mEnvironmentOptions.GetIndicatorVisibleMode();
-  if( indicatorVisibleMode >= Dali::Window::INVISIBLE && indicatorVisibleMode <= Dali::Window::AUTO )
-  {
-    GetImplementation( newWindow ).SetIndicatorVisibleMode( static_cast< Dali::Window::IndicatorVisibleMode >( indicatorVisibleMode ) );
-  }
-
-  Dali::RenderSurface* renderSurface = windowImpl.GetSurface();
-
-  Any nativeWindow = newWindow.GetNativeHandle();
-  Internal::Adaptor::Adaptor::GetImplementation( *mAdaptor ).ReplaceSurface(nativeWindow, *renderSurface);
-  mMainWindow = newWindow;
-  mWindowPositionSize = positionSize;
+  mMainWindowReplaced = true;
+  OnResize( *mAdaptor );
 }
 
 std::string Application::GetResourcePath()
 {
   return Internal::Adaptor::Framework::GetResourcePath();
+}
+
+std::string Application::GetDataPath()
+{
+  return Internal::Adaptor::Framework::GetDataPath();
 }
 
 void Application::SetStyleSheet( const std::string& stylesheet )

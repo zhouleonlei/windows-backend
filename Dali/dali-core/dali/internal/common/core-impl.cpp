@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@
 #include <dali/internal/common/core-impl.h>
 
 // INTERNAL INCLUDES
-#include <dali/integration-api/system-overlay.h>
 #include <dali/integration-api/core.h>
 #include <dali/integration-api/debug.h>
 #include <dali/integration-api/events/event.h>
 #include <dali/integration-api/gl-sync-abstraction.h>
 #include <dali/integration-api/platform-abstraction.h>
+#include <dali/integration-api/processor-interface.h>
 #include <dali/integration-api/render-controller.h>
+#include <dali/integration-api/render-surface.h>
 
 #include <dali/internal/event/actors/actor-impl.h>
 #include <dali/internal/event/animation/animation-playlist.h>
@@ -33,6 +34,7 @@
 #include <dali/internal/event/common/property-notification-manager.h>
 #include <dali/internal/event/common/stage-impl.h>
 #include <dali/internal/event/common/thread-local-storage.h>
+#include <dali/internal/event/common/event-thread-services.h>
 #include <dali/internal/event/common/type-registry-impl.h>
 #include <dali/internal/event/effects/shader-factory.h>
 #include <dali/internal/event/events/event-processor.h>
@@ -89,7 +91,8 @@ Core::Core( RenderController& renderController,
             Integration::StencilBufferAvailable stencilBufferAvailable )
 : mRenderController( renderController ),
   mPlatform(platform),
-  mProcessingEvent(false)
+  mProcessingEvent(false),
+  mForceNextUpdate( false )
 {
   // Create the thread local storage
   CreateThreadLocalStorage();
@@ -122,15 +125,14 @@ Core::Core( RenderController& renderController,
 
   mRenderManager->SetShaderSaver( *mUpdateManager );
 
-  mStage = IntrusivePtr<Stage>( Stage::New( *mAnimationPlaylist, *mPropertyNotificationManager, *mUpdateManager, *mNotificationManager, mRenderController ) );
+  mObjectRegistry = ObjectRegistry::New();
+
+  mStage = IntrusivePtr<Stage>( Stage::New( *mUpdateManager ) );
 
   // This must be called after stage is created but before stage initialization
   mRelayoutController = IntrusivePtr< RelayoutController >( new RelayoutController( mRenderController ) );
 
-  mStage->Initialize( renderToFboEnabled == Integration::RenderToFrameBuffer::TRUE );
-
-  mGestureEventProcessor = new GestureEventProcessor( *mStage, *mUpdateManager, gestureManager, mRenderController );
-  mEventProcessor = new EventProcessor( *mStage, *mNotificationManager, *mGestureEventProcessor );
+  mGestureEventProcessor = new GestureEventProcessor( *mUpdateManager, gestureManager, mRenderController );
 
   mShaderFactory = new ShaderFactory();
   mUpdateManager->SetShaderSaver( *mShaderFactory );
@@ -154,15 +156,19 @@ Core::~Core()
     delete tls;
   }
 
+  mObjectRegistry.Reset();
+
   // Stop relayout requests being raised on stage destruction
   mRelayoutController.Reset();
-
-  // Clean-up stage - remove default camera and root layer
-  mStage->Uninitialize();
 
   // remove (last?) reference to stage
   mStage.Reset();
 
+}
+
+void Core::Initialize()
+{
+  mStage->Initialize( *mScenes[0] );
 }
 
 Integration::ContextNotifierInterface* Core::GetContextNotifier()
@@ -187,27 +193,15 @@ void Core::ContextDestroyed()
   mRenderManager->ContextDestroyed();
 }
 
-void Core::SurfaceResized( uint32_t width, uint32_t height )
+void Core::SurfaceResized( Integration::RenderSurface* surface )
 {
-  mStage->SurfaceResized( static_cast<float>( width ), static_cast<float>( height ) );
-
-  // The stage-size may be less than surface-size (reduced by top-margin)
-  Vector2 size = mStage->GetSize();
-  mRelayoutController->SetStageSize( static_cast<uint32_t>( size.width ), static_cast<uint32_t>( size.height ) ); // values get truncated
-}
-
-void Core::SetTopMargin( uint32_t margin )
-{
-  mStage->SetTopMargin( margin );
-
-  // The stage-size may be less than surface-size (reduced by top-margin)
-  Vector2 size = mStage->GetSize();
-  mRelayoutController->SetStageSize( static_cast<uint32_t>( size.width ), static_cast<uint32_t>( size.height ) ); // values get truncated
-}
-
-void Core::SetDpi( uint32_t dpiHorizontal, uint32_t dpiVertical )
-{
-  mStage->SetDpi( Vector2( static_cast<float>( dpiHorizontal ), static_cast<float>( dpiVertical ) ) );
+  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  {
+    if( (*iter)->GetSurface() == surface )
+    {
+      (*iter)->SetSurface( *surface );
+    }
+  }
 }
 
 void Core::Update( float elapsedSeconds, uint32_t lastVSyncTimeMilliseconds, uint32_t nextVSyncTimeMilliseconds, Integration::UpdateStatus& status, bool renderToFboEnabled, bool isRenderingToFbo )
@@ -244,11 +238,20 @@ void Core::SceneCreated()
   mStage->EmitSceneCreatedSignal();
 
   mRelayoutController->OnApplicationSceneCreated();
+
+  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  {
+    Dali::Actor sceneRootLayer = (*iter)->GetRootLayer();
+    mRelayoutController->RequestRelayoutTree( sceneRootLayer );
+  }
 }
 
 void Core::QueueEvent( const Integration::Event& event )
 {
-  mEventProcessor->QueueEvent( event );
+  if (mScenes.size() != 0)
+  {
+    mScenes.front()->QueueEvent( event );
+  }
 }
 
 void Core::ProcessEvents()
@@ -267,12 +270,19 @@ void Core::ProcessEvents()
   // Signal that any messages received will be flushed soon
   mUpdateManager->EventProcessingStarted();
 
-  mEventProcessor->ProcessEvents();
+  // process events in all scenes
+  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  {
+    (*iter)->ProcessEvents();
+  }
 
   mNotificationManager->ProcessMessages();
 
   // Emit signal here to inform listeners that event processing has finished.
-  mStage->EmitEventProcessingFinishedSignal();
+  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  {
+    (*iter)->EmitEventProcessingFinishedSignal();
+  }
 
   // Run any registered processors
   RunProcessors();
@@ -280,9 +290,11 @@ void Core::ProcessEvents()
   // Run the size negotiation after event processing finished signal
   mRelayoutController->Relayout();
 
-
   // Rebuild depth tree after event processing has finished
-  mStage->RebuildDepthTree();
+  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  {
+    (*iter)->RebuildDepthTree();
+  }
 
   // Flush any queued messages for the update-thread
   const bool messagesToProcess = mUpdateManager->FlushQueue();
@@ -290,7 +302,7 @@ void Core::ProcessEvents()
   // Check if the touch or gestures require updates.
   const bool gestureNeedsUpdate = mGestureEventProcessor->NeedsUpdate();
   // Check if the next update is forced.
-  const bool forceUpdate = mStage->IsNextUpdateForced();
+  const bool forceUpdate = IsNextUpdateForced();
 
   if( messagesToProcess || gestureNeedsUpdate || forceUpdate )
   {
@@ -307,26 +319,6 @@ void Core::ProcessEvents()
 uint32_t Core::GetMaximumUpdateCount() const
 {
   return MAXIMUM_UPDATE_COUNT;
-}
-
-Integration::SystemOverlay& Core::GetSystemOverlay()
-{
-  return mStage->GetSystemOverlay();
-}
-
-void Core::SetViewMode( ViewMode viewMode )
-{
-  mStage->SetViewMode( viewMode );
-}
-
-ViewMode Core::GetViewMode() const
-{
-  return mStage->GetViewMode();
-}
-
-void Core::SetStereoBase( float stereoBase )
-{
-  mStage->SetStereoBase( stereoBase );
 }
 
 void Core::RegisterProcessor( Integration::Processor& processor )
@@ -355,11 +347,6 @@ void Core::RunProcessors()
       processor->Process();
     }
   }
-}
-
-float Core::GetStereoBase() const
-{
-  return mStage->GetStereoBase();
 }
 
 StagePtr Core::GetCurrentStage()
@@ -402,11 +389,84 @@ RelayoutController& Core::GetRelayoutController()
   return *(mRelayoutController.Get());
 }
 
+ObjectRegistry& Core::GetObjectRegistry() const
+{
+  return *(mObjectRegistry.Get());
+}
+
+EventThreadServices& Core::GetEventThreadServices()
+{
+  return *this;
+}
+
+PropertyNotificationManager& Core::GetPropertyNotificationManager() const
+{
+  return *(mPropertyNotificationManager);
+}
+
+AnimationPlaylist& Core::GetAnimationPlaylist() const
+{
+  return *(mAnimationPlaylist);
+}
+
+void Core::AddScene( Scene* scene )
+{
+  mScenes.push_back( scene );
+}
+
+void Core::RemoveScene( Scene* scene )
+{
+  auto iter = std::find( mScenes.begin(), mScenes.end(), scene );
+  if( iter != mScenes.end() )
+  {
+    mScenes.erase( iter );
+  }
+}
+
 void Core::CreateThreadLocalStorage()
 {
   // a pointer to the ThreadLocalStorage object will be stored in TLS
   // The ThreadLocalStorage object should be deleted by the Core destructor
   new ThreadLocalStorage(this);
+}
+
+void Core::RegisterObject( Dali::BaseObject* object )
+{
+  mObjectRegistry = &ThreadLocalStorage::Get().GetObjectRegistry();
+  mObjectRegistry->RegisterObject( object );
+}
+
+void Core::UnregisterObject( Dali::BaseObject* object )
+{
+  mObjectRegistry = &ThreadLocalStorage::Get().GetObjectRegistry();
+  mObjectRegistry->UnregisterObject( object );
+}
+
+Integration::RenderController& Core::GetRenderController()
+{
+  return mRenderController;
+}
+
+uint32_t* Core::ReserveMessageSlot( uint32_t size, bool updateScene )
+{
+  return mUpdateManager->ReserveMessageSlot( size, updateScene );
+}
+
+BufferIndex Core::GetEventBufferIndex() const
+{
+  return mUpdateManager->GetEventBufferIndex();
+}
+
+void Core::ForceNextUpdate()
+{
+  mForceNextUpdate = true;
+}
+
+bool Core::IsNextUpdateForced()
+{
+  bool nextUpdateForced = mForceNextUpdate;
+  mForceNextUpdate = false;
+  return nextUpdateForced;
 }
 
 } // namespace Internal

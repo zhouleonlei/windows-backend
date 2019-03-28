@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,21 +46,13 @@ PropertyNotificationPtr PropertyNotification::New(Property& target,
 
   UpdateManager& updateManager = tls.GetUpdateManager();
 
-  StagePtr stage = Stage::GetCurrent();
-  if( stage )
-  {
-    PropertyNotificationManager& propertyNotificationManager = stage->GetPropertyNotificationManager();
-    PropertyNotificationPtr propertyNotification = new PropertyNotification(updateManager,
-                                                                            propertyNotificationManager,
-                                                                            target,
-                                                                            componentIndex,
-                                                                            condition);
-    return propertyNotification;
-  }
-  else
-  {
-    return NULL;
-  }
+  PropertyNotificationManager& propertyNotificationManager = tls.GetPropertyNotificationManager();
+  PropertyNotificationPtr propertyNotification = new PropertyNotification(updateManager,
+                                                                          propertyNotificationManager,
+                                                                          target,
+                                                                          componentIndex,
+                                                                          condition);
+  return propertyNotification;
 }
 
 PropertyNotification::PropertyNotification( UpdateManager& updateManager,
@@ -109,13 +101,8 @@ PropertyNotification::PropertyNotification( UpdateManager& updateManager,
       }
     }
 
-    // Check if target scene-object already present, and if so create our notification
-    // scene-object
-    const SceneGraph::PropertyOwner* object = mObject->GetSceneObject();
-    if (object)
-    {
-      CreateSceneObject();
-    }
+    // all objects always have scene object
+    CreateSceneObject();
   }
 
   // Connect to the property notification manager

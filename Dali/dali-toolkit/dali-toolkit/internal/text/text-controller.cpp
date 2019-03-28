@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ const char * const PLACEHOLDER_ELLIPSIS = "ellipsis";
 float ConvertToEven( float value )
 {
   int intValue(static_cast<int>( value ));
-  return static_cast<float>(intValue % 2 == 0) ? intValue : (intValue + 1);
+  return static_cast<float>( intValue + ( intValue & 1 ) );
 }
 
 } // namespace
@@ -361,6 +361,9 @@ void Controller::SetMultiLineEnabled( bool enable )
     mImpl->mTextUpdateInfo.mFullRelayoutNeeded = true;
     mImpl->mOperationsPending = static_cast<OperationsMask>( mImpl->mOperationsPending | layoutOperations );
 
+    // Need to recalculate natural size
+    mImpl->mRecalculateNaturalSize = true;
+
     mImpl->RequestRelayout();
   }
 }
@@ -425,6 +428,11 @@ bool Controller::IsMatchSystemLanguageDirection() const
 void Controller::SetMatchSystemLanguageDirection( bool match )
 {
   mImpl->mModel->mMatchSystemLanguageDirection = match;
+}
+
+void Controller::SetLayoutDirection( Dali::LayoutDirection::Type layoutDirection )
+{
+  mImpl->mLayoutDirection = layoutDirection;
 }
 
 
@@ -548,7 +556,8 @@ void Controller::SetText( const std::string& text )
     mImpl->mModel->mVisualModel->SetTextColor( mImpl->mTextColor );
 
     MarkupProcessData markupProcessData( mImpl->mModel->mLogicalModel->mColorRuns,
-                                         mImpl->mModel->mLogicalModel->mFontDescriptionRuns );
+                                         mImpl->mModel->mLogicalModel->mFontDescriptionRuns,
+                                         mImpl->mModel->mLogicalModel->mEmbeddedItems );
 
     Length textSize = 0u;
     const uint8_t* utf8 = NULL;
@@ -1233,14 +1242,14 @@ const Vector4& Controller::GetOutlineColor() const
   return mImpl->mModel->mVisualModel->GetOutlineColor();
 }
 
-void Controller::SetOutlineWidth( unsigned int width )
+void Controller::SetOutlineWidth( uint16_t width )
 {
   mImpl->mModel->mVisualModel->SetOutlineWidth( width );
 
   mImpl->RequestRelayout();
 }
 
-unsigned int Controller::GetOutlineWidth() const
+uint16_t Controller::GetOutlineWidth() const
 {
   return mImpl->mModel->mVisualModel->GetOutlineWidth();
 }
@@ -1332,7 +1341,7 @@ void Controller::SetInputColor( const Vector4& color )
     mImpl->mEventData->mInputStyle.textColor = color;
     mImpl->mEventData->mInputStyle.isDefaultColor = false;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       const bool handlesCrossed = mImpl->mEventData->mLeftSelectionPosition > mImpl->mEventData->mRightSelectionPosition;
 
@@ -1379,7 +1388,7 @@ void Controller::SetInputFontFamily( const std::string& fontFamily )
     mImpl->mEventData->mInputStyle.familyName = fontFamily;
     mImpl->mEventData->mInputStyle.isFamilyDefined = true;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       CharacterIndex startOfSelectedText = 0u;
       Length lengthOfSelectedText = 0u;
@@ -1438,7 +1447,7 @@ void Controller::SetInputFontWeight( FontWeight weight )
     mImpl->mEventData->mInputStyle.weight = weight;
     mImpl->mEventData->mInputStyle.isWeightDefined = true;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       CharacterIndex startOfSelectedText = 0u;
       Length lengthOfSelectedText = 0u;
@@ -1504,7 +1513,7 @@ void Controller::SetInputFontWidth( FontWidth width )
     mImpl->mEventData->mInputStyle.width = width;
     mImpl->mEventData->mInputStyle.isWidthDefined = true;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       CharacterIndex startOfSelectedText = 0u;
       Length lengthOfSelectedText = 0u;
@@ -1570,7 +1579,7 @@ void Controller::SetInputFontSlant( FontSlant slant )
     mImpl->mEventData->mInputStyle.slant = slant;
     mImpl->mEventData->mInputStyle.isSlantDefined = true;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       CharacterIndex startOfSelectedText = 0u;
       Length lengthOfSelectedText = 0u;
@@ -1636,7 +1645,7 @@ void Controller::SetInputFontPointSize( float size )
     mImpl->mEventData->mInputStyle.size = size;
     mImpl->mEventData->mInputStyle.isSizeDefined = true;
 
-    if( EventData::SELECTING == mImpl->mEventData->mState )
+    if( EventData::SELECTING == mImpl->mEventData->mState || EventData::EDITING == mImpl->mEventData->mState || EventData::INACTIVE == mImpl->mEventData->mState )
     {
       CharacterIndex startOfSelectedText = 0u;
       Length lengthOfSelectedText = 0u;
@@ -2245,7 +2254,6 @@ Controller::UpdateTextType Controller::Relayout( const Size& size, Dali::LayoutD
 
   UpdateTextType updateTextType = NONE_UPDATED;
 
-  mImpl->mLayoutDirection = layoutDirection;
   if( ( size.width < Math::MACHINE_EPSILON_1000 ) || ( size.height < Math::MACHINE_EPSILON_1000 ) )
   {
     if( 0u != mImpl->mModel->mVisualModel->mGlyphPositions.Count() )
@@ -2313,6 +2321,22 @@ Controller::UpdateTextType Controller::Relayout( const Size& size, Dali::LayoutD
     mImpl->mTextUpdateInfo.mCharacterIndex = 0u;
   }
 
+  if( mImpl->mModel->mMatchSystemLanguageDirection  && mImpl->mLayoutDirection != layoutDirection )
+  {
+    // Clear the update info. This info will be set the next time the text is updated.
+    mImpl->mTextUpdateInfo.mClearAll = true;
+    // Apply modifications to the model
+    // Shape the text again is needed because characters like '()[]{}' have to be mirrored and the glyphs generated again.
+    mImpl->mOperationsPending = static_cast<OperationsMask>( mImpl->mOperationsPending |
+                                                             GET_GLYPH_METRICS         |
+                                                             SHAPE_TEXT                |
+                                                             UPDATE_DIRECTION          |
+                                                             LAYOUT                    |
+                                                             BIDI_INFO                 |
+                                                             REORDER );
+    mImpl->mLayoutDirection = layoutDirection;
+  }
+
   // Make sure the model is up-to-date before layouting.
   ProcessModifyEvents();
   bool updated = mImpl->UpdateModel( mImpl->mOperationsPending );
@@ -2322,6 +2346,7 @@ Controller::UpdateTextType Controller::Relayout( const Size& size, Dali::LayoutD
   updated = DoRelayout( size,
                         mImpl->mOperationsPending,
                         layoutSize ) || updated;
+
 
   if( updated )
   {
@@ -2424,6 +2449,7 @@ void Controller::KeyboardFocusGainEvent()
       mImpl->ChangeState( EventData::EDITING );
       mImpl->mEventData->mUpdateCursorPosition = true; //If editing started without tap event, cursor update must be triggered.
       mImpl->mEventData->mUpdateInputStyle = true;
+      mImpl->mEventData->mScrollAfterUpdatePosition = true;
     }
     mImpl->NotifyInputMethodContextMultiLineStatus();
     if( mImpl->IsShowingPlaceholderText() )
@@ -2600,14 +2626,19 @@ bool Controller::KeyEvent( const Dali::KeyEvent& keyEvent )
     {
       DALI_LOG_INFO( gLogFilter, Debug::Verbose, "Controller::KeyEvent %p keyString %s\n", this, keyString.c_str() );
 
-      // InputMethodContext is no longer handling key-events
-      mImpl->ClearPreEditFlag();
+      if( !keyString.empty() )
+      {
+        // InputMethodContext is no longer handling key-events
+        mImpl->ClearPreEditFlag();
 
-      InsertText( keyString, COMMIT );
-      textChanged = true;
+        InsertText( keyString, COMMIT );
 
-      // Will request for relayout.
-      relayoutNeeded = true;
+        textChanged = true;
+
+        // Will request for relayout.
+        relayoutNeeded = true;
+      }
+
     }
 
     if ( ( mImpl->mEventData->mState != EventData::INTERRUPTED ) &&
@@ -3195,14 +3226,14 @@ void Controller::InsertText( const std::string& text, Controller::InsertType typ
     mImpl->mModel->mLogicalModel->RetrieveStyle( styleIndex, style );
 
     // Whether to add a new text color run.
-    const bool addColorRun = ( style.textColor != mImpl->mEventData->mInputStyle.textColor );
+    const bool addColorRun = ( style.textColor != mImpl->mEventData->mInputStyle.textColor ) && !mImpl->mEventData->mInputStyle.isDefaultColor;
 
     // Whether to add a new font run.
-    const bool addFontNameRun = style.familyName != mImpl->mEventData->mInputStyle.familyName;
-    const bool addFontWeightRun = style.weight != mImpl->mEventData->mInputStyle.weight;
-    const bool addFontWidthRun = style.width != mImpl->mEventData->mInputStyle.width;
-    const bool addFontSlantRun = style.slant != mImpl->mEventData->mInputStyle.slant;
-    const bool addFontSizeRun = style.size != mImpl->mEventData->mInputStyle.size;
+    const bool addFontNameRun = ( style.familyName != mImpl->mEventData->mInputStyle.familyName ) && mImpl->mEventData->mInputStyle.isFamilyDefined;
+    const bool addFontWeightRun = ( style.weight != mImpl->mEventData->mInputStyle.weight ) && mImpl->mEventData->mInputStyle.isWeightDefined;
+    const bool addFontWidthRun = ( style.width != mImpl->mEventData->mInputStyle.width ) && mImpl->mEventData->mInputStyle.isWidthDefined;
+    const bool addFontSlantRun = ( style.slant != mImpl->mEventData->mInputStyle.slant ) && mImpl->mEventData->mInputStyle.isSlantDefined;
+    const bool addFontSizeRun = ( style.size != mImpl->mEventData->mInputStyle.size ) && mImpl->mEventData->mInputStyle.isSizeDefined ;
 
     // Add style runs.
     if( addColorRun )
@@ -3595,12 +3626,15 @@ bool Controller::DoRelayout( const Size& size,
     }
 
     // Update the visual model.
+    bool isAutoScrollEnabled = mImpl->mIsAutoScrollEnabled;
     Size newLayoutSize;
     viewUpdated = mImpl->mLayoutEngine.LayoutText( layoutParameters,
                                                    glyphPositions,
                                                    mImpl->mModel->mVisualModel->mLines,
                                                    newLayoutSize,
-                                                   elideTextEnabled );
+                                                   elideTextEnabled,
+                                                   isAutoScrollEnabled );
+    mImpl->mIsAutoScrollEnabled = isAutoScrollEnabled;
 
     viewUpdated = viewUpdated || ( newLayoutSize != layoutSize );
 
@@ -3910,6 +3944,9 @@ void Controller::ResetText()
 {
   // Reset buffers.
   mImpl->mModel->mLogicalModel->mText.Clear();
+
+  // Reset the embedded images buffer.
+  mImpl->mModel->mLogicalModel->ClearEmbeddedImages();
 
   // We have cleared everything including the placeholder-text
   mImpl->PlaceholderCleared();

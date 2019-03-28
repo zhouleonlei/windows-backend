@@ -153,7 +153,9 @@
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\grid-layout.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\input-method-context.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\input-method-options.cpp" />
+    <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\keyboard.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\keyboard_focus_manager_wrap.cpp" />
+    <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-controller.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-group-wrapper-impl.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-group-wrapper.cpp" />
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-item-ptr.cpp">

@@ -303,4 +303,10 @@ EGLAPI EGLBoolean EGLAPIENTRY eglWaitSync (EGLDisplay dpy, EGLSync sync, EGLint 
 #undef OPAQUE
 #undef ERROR
 
+#undef CreateWindow
+#undef GetClassName
+
+#ifdef UNDEF_CREATEWINDOW
+#endif
+
 #endif

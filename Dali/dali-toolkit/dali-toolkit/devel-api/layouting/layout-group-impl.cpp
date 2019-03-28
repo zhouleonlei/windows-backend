@@ -59,6 +59,7 @@ LayoutGroup::~LayoutGroup()
 {
   // An object with a unique_ptr to an opaque structure must define it's destructor in the translation unit
   // where the opaque structure is defined. It cannot use the default method in the header file.
+  RemoveAll();
 }
 
 Toolkit::LayoutGroup::LayoutId LayoutGroup::Add( LayoutItem& child )
@@ -166,61 +167,6 @@ Toolkit::LayoutGroup::LayoutId LayoutGroup::Insert( LayoutItem& target, LayoutIt
 
   // Now listen to future changes to the child properties.
   DevelHandle::PropertySetSignal(owner).Connect( this, &LayoutGroup::OnSetChildProperties );
-
-  RequestLayout();
-
-  return childLayout.layoutId;
-}
-
-Toolkit::LayoutGroup::LayoutId LayoutGroup::Move( LayoutItem& target, LayoutItem& child )
-{
-  // Remove child from the previous position
-  for( auto iter = mImpl->mChildren.begin() ; iter != mImpl->mChildren.end() ; ++iter )
-  {
-    if( iter->child.Get() == &child )
-    {
-      mImpl->mChildren.erase( iter );
-      break;
-    }
-  }
-
-  // Find target position
-  std::vector< Impl::ChildLayout >::iterator position;
-  for( auto iter = mImpl->mChildren.begin(); iter != mImpl->mChildren.end(); ++iter )
-  {
-    if( iter->child.Get() == &target )
-    {
-      position = iter;
-      break;
-    }
-  }
-
-  Impl::ChildLayout childLayout;
-  childLayout.layoutId = mImpl->mNextLayoutId++;
-  childLayout.child = &child;
-  mImpl->mChildren.insert( position, childLayout );
-
-  RequestLayout();
-
-  return childLayout.layoutId;
-}
-
-Toolkit::LayoutGroup::LayoutId LayoutGroup::MoveBack( LayoutItem& child )
-{
-  // Remove child from the previous position
-  for( auto iter = mImpl->mChildren.begin() ; iter != mImpl->mChildren.end() ; ++iter )
-  {
-    if( iter->child.Get() == &child )
-    {
-      mImpl->mChildren.erase( iter );
-      break;
-    }
-  }
-
-  Impl::ChildLayout childLayout;
-  childLayout.layoutId = mImpl->mNextLayoutId++;
-  childLayout.child = &child;
-  mImpl->mChildren.emplace_back( childLayout );
 
   RequestLayout();
 
@@ -512,7 +458,6 @@ void LayoutGroup::OnInitialize()
 
     DevelActor::ChildAddedSignal( control ).Connect( mSlotDelegate, &LayoutGroup::ChildAddedToOwner );
     DevelActor::ChildRemovedSignal( control ).Connect( mSlotDelegate, &LayoutGroup::ChildRemovedFromOwner );
-    DevelActor::ChildOrderChangedSignal( control ).Connect( mSlotDelegate, &LayoutGroup::ChildOrderChanged );
     DevelHandle::PropertySetSignal( control ).Connect( mSlotDelegate, &LayoutGroup::OnOwnerPropertySet );
 
     if( control.GetParent() )
@@ -552,7 +497,7 @@ void LayoutGroup::OnInitialize()
       }
     }
 
-    RequestLayout( Dali::Toolkit::LayoutTransitionData::LayoutTransitionType::ON_OWNER_SET );
+    RequestLayout( Dali::Toolkit::LayoutTransitionData::Type::ON_OWNER_SET );
   }
 }
 
@@ -571,7 +516,6 @@ void LayoutGroup::OnUnparent()
   {
     DevelActor::ChildAddedSignal( control ).Disconnect( mSlotDelegate, &LayoutGroup::ChildAddedToOwner );
     DevelActor::ChildRemovedSignal( control ).Disconnect( mSlotDelegate, &LayoutGroup::ChildRemovedFromOwner );
-    DevelActor::ChildOrderChangedSignal( control ).Disconnect( mSlotDelegate, &LayoutGroup::ChildOrderChanged );
     DevelHandle::PropertySetSignal( control ).Disconnect( mSlotDelegate, &LayoutGroup::OnOwnerPropertySet );
   }
 }
@@ -585,7 +529,7 @@ void LayoutGroup::RemoveChild( LayoutItem& item )
 void LayoutGroup::ChildAddedToOwner( Actor child )
 {
   ChildAddedToOwnerImpl( child );
-  RequestLayout( Dali::Toolkit::LayoutTransitionData::LayoutTransitionType::ON_CHILD_ADD );
+  RequestLayout( Dali::Toolkit::LayoutTransitionData::Type::ON_CHILD_ADD, child, Actor() );
 }
 
 void LayoutGroup::ChildAddedToOwnerImpl( Actor child )
@@ -670,43 +614,7 @@ void LayoutGroup::ChildRemovedFromOwner( Actor child )
     if( childLayout )
     {
       Remove( *childLayout.Get() );
-      RequestLayout( Dali::Toolkit::LayoutTransitionData::LayoutTransitionType::ON_CHILD_REMOVE );
-    }
-  }
-}
-
-void LayoutGroup::ChildOrderChanged( Actor child )
-{
-  Toolkit::Control childControl = Toolkit::Control::DownCast( child );
-  if( childControl )
-  {
-    Internal::Control& childControlImpl = GetImplementation( childControl );
-    Internal::Control::Impl& childControlDataImpl = Internal::Control::Impl::Get( childControlImpl );
-
-    auto childLayout = childControlDataImpl.GetLayout();
-    if( childLayout )
-    {
-      Toolkit::Control control = Toolkit::Control::DownCast( GetOwner() );
-      unsigned int count = control.GetChildCount();
-      unsigned int index = static_cast< unsigned int >( childControl.GetProperty< int >( DevelActor::Property::SIBLING_ORDER ) );
-
-      // Find insertion position
-      while( ++index < count )
-      {
-        auto sibling = Toolkit::Control::DownCast( control.GetChildAt( index ) );
-        if( sibling )
-        {
-          auto siblingLayout = DevelControl::GetLayout( sibling );
-          if( siblingLayout )
-          {
-            Internal::LayoutItem& siblingLayoutImpl = GetImplementation( siblingLayout );
-            Move( siblingLayoutImpl, *childLayout );
-            return;
-          }
-        }
-      }
-
-      MoveBack( *childLayout );
+      RequestLayout( Dali::Toolkit::LayoutTransitionData::Type::ON_CHILD_REMOVE, Actor(), child );
     }
   }
 }
@@ -784,11 +692,13 @@ void LayoutGroup::OnMeasure( MeasureSpec widthMeasureSpec, MeasureSpec heightMea
         // Check below will be true for legacy containers and controls with layout required set.
         // Other layouts will have their own OnMeasure (a checked requirement) hence not execute LayoutGroup::OnMeasure.
         // Controls which have set layout required will not be legacy controls hence should not have a ResizePolicy set.
-        if( childControl.GetChildCount() > 0 )
+        // Only need to map the resize policy the first time as the Layouting system will then set it to FIXED.
+        if( childControl.GetChildCount() > 0 && ! mImpl->mResizePolicyMapped )
         {
           // First pass, Static mappings that are not dependant on parent
           SizeNegotiationMapper::SetLayoutParametersUsingResizePolicy( childControl, childLayout, Dimension::WIDTH );
           SizeNegotiationMapper::SetLayoutParametersUsingResizePolicy( childControl, childLayout, Dimension::HEIGHT );
+          mImpl->mResizePolicyMapped = true;
         }
 
         // Second pass, if any mappings were not possible due to parent size dependancies then calculate an exact desired size for child

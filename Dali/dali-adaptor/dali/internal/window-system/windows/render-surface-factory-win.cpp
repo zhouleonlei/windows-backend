@@ -15,15 +15,15 @@
  *
  */
 
-// CLASS HEADER
+// EXTERNAL HEADERS
 #include <dali/integration-api/debug.h>
+#include <dali/integration-api/native-render-surface.h>
 #include <dali/internal/window-system/windows/render-surface-factory-win.h>
 
 // INTERNAL HEADERS
 #include <dali/internal/window-system/common/window-render-surface.h>
 #include <dali/internal/window-system/common/pixmap-render-surface.h>
 #include <dali/internal/window-system/common/display-utils.h>
-#include <dali/integration-api/native-render-surface.h>
 
 namespace Dali
 {
@@ -39,7 +39,7 @@ std::unique_ptr< WindowRenderSurface > RenderSurfaceFactoryWin::CreateWindowRend
 
 std::unique_ptr< PixmapRenderSurface > RenderSurfaceFactoryWin::CreatePixmapRenderSurface( Dali::PositionSize positionSize, Any surface, bool isTransparent )
 {
-  DALI_LOG_ERROR("Pixmap doesn't been supported in Windows");
+  DALI_LOG_ERROR("Pixmap isn't been supported in Windows");
   return nullptr;
 }
 

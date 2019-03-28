@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_SHADER_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,69 +54,17 @@ public:
                         Dali::Shader::Hint::Value hints );
 
   /**
-   * @brief Get the shader scene object
-   *
-   * @return the shader scene object
-   */
-  const SceneGraph::Shader* GetShaderSceneObject() const;
-
-  /**
    * Retrieve the scene-graph shader added by this object.
    * @return A pointer to the shader.
    */
-  SceneGraph::Shader* GetShaderSceneObject();
+  const SceneGraph::Shader& GetShaderSceneObject() const;
 
 public: // Default property extensions from Object
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCount()
-   */
-  virtual unsigned int GetDefaultPropertyCount() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndices()
-   */
-  virtual void GetDefaultPropertyIndices( Property::IndexContainer& indices ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyName()
-   */
-  virtual const char* GetDefaultPropertyName(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndex()
-   */
-  virtual Property::Index GetDefaultPropertyIndex(const std::string& name) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyWritable()
-   */
-  virtual bool IsDefaultPropertyWritable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAnimatable()
-   */
-  virtual bool IsDefaultPropertyAnimatable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAConstraintInput()
-   */
-  virtual bool IsDefaultPropertyAConstraintInput( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyType()
-   */
-  virtual Property::Type GetDefaultPropertyType(Property::Index index) const;
 
   /**
    * @copydoc Dali::Internal::Object::SetDefaultProperty()
    */
   virtual void SetDefaultProperty(Property::Index index, const Property::Value& propertyValue);
-
-  /**
-   * @copydoc Dali::Internal::Object::SetSceneGraphProperty()
-   */
-  virtual void SetSceneGraphProperty( Property::Index index, const PropertyMetadata& entry, const Property::Value& value );
 
   /**
    * @copydoc Dali::Internal::Object::GetDefaultProperty()
@@ -128,38 +76,19 @@ public: // Default property extensions from Object
    */
   virtual Property::Value GetDefaultPropertyCurrentValue( Property::Index index ) const;
 
-  /**
-   * @copydoc Dali::Internal::Object::GetPropertyOwner()
-   */
-  virtual const SceneGraph::PropertyOwner* GetPropertyOwner() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObject()
-   */
-  virtual const SceneGraph::PropertyOwner* GetSceneObject() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectAnimatableProperty()
-   */
-  virtual const SceneGraph::PropertyBase* GetSceneObjectAnimatableProperty( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectInputProperty()
-   */
-  virtual const PropertyInputImpl* GetSceneObjectInputProperty( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetPropertyComponentIndex()
-   */
-  virtual int GetPropertyComponentIndex( Property::Index index ) const;
-
 private: // implementation
-  Shader();
+
+  /**
+   * Constructor
+   *
+   * @param sceneObject the scene object
+   */
+  Shader( const SceneGraph::Shader* sceneObject );
 
   /**
    * Second stage initialization
    */
-  void Initialize( const std::string& vertexShader, const std::string& fragmentShader, Dali::Shader::Hint::Value hints );
+  void SetShader( const std::string& vertexShader, const std::string& fragmentShader, Dali::Shader::Hint::Value hints );
 
 protected:
   /**
@@ -168,12 +97,15 @@ protected:
   virtual ~Shader();
 
 private: // unimplemented methods
-  Shader( const Shader& );
-  Shader& operator=( const Shader& );
+
+  Shader() = delete;
+  Shader( const Shader& ) = delete;
+  Shader& operator=( const Shader& ) = delete;
 
 private:
-  SceneGraph::Shader* mSceneObject;
+
   Internal::ShaderDataPtr mShaderData;
+
 };
 
 } // namespace Internal

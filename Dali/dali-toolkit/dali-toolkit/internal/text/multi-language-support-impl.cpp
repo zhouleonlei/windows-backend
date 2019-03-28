@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -204,6 +204,9 @@ void MultilanguageSupport::SetScripts( const Vector<Character>& text,
   // Pointers to the text buffer.
   const Character* const textBuffer = text.Begin();
 
+  // Initialize whether is right to left direction
+  currentScriptRun.isRightToLeft = false;
+
   // Traverse all characters and set the scripts.
   const Length lastCharacter = startIndex + numberOfCharacters;
   for( Length index = startIndex; index < lastCharacter; ++index )
@@ -226,6 +229,9 @@ void MultilanguageSupport::SetScripts( const Vector<Character>& text,
     while( !endOfText &&
            ( TextAbstraction::COMMON == script ) )
     {
+      // Check if whether is right to left markup and Keeps true if the previous value was true.
+      currentScriptRun.isRightToLeft = currentScriptRun.isRightToLeft || TextAbstraction::IsRightToLeftMark( character );
+
       if( TextAbstraction::EMOJI == currentScriptRun.script )
       {
         // Emojis doesn't mix well with characters common to all scripts. Insert the emoji run.
@@ -262,6 +268,8 @@ void MultilanguageSupport::SetScripts( const Vector<Character>& text,
         currentScriptRun.characterRun.numberOfCharacters = 0u;
         currentScriptRun.script = TextAbstraction::UNKNOWN;
         numberOfAllScriptCharacters = 0u;
+        // Initialize whether is right to left direction
+        currentScriptRun.isRightToLeft = false;
       }
 
       // Get the next character.
@@ -288,7 +296,7 @@ void MultilanguageSupport::SetScripts( const Vector<Character>& text,
         ( TextAbstraction::EMOJI != script ) )
     {
       // Sets the direction of the first valid script.
-      isParagraphRTL = TextAbstraction::IsRightToLeftScript( script );
+      isParagraphRTL = currentScriptRun.isRightToLeft || TextAbstraction::IsRightToLeftScript( script );
       isFirstScriptToBeSet = false;
     }
 
@@ -332,6 +340,8 @@ void MultilanguageSupport::SetScripts( const Vector<Character>& text,
       currentScriptRun.characterRun.numberOfCharacters = numberOfAllScriptCharacters + 1u; // Adds the white spaces which are at the begining of the script.
       currentScriptRun.script = script;
       numberOfAllScriptCharacters = 0u;
+      // Check if whether is right to left script.
+      currentScriptRun.isRightToLeft = TextAbstraction::IsRightToLeftScript( currentScriptRun.script );
     }
     else
     {
@@ -425,8 +435,8 @@ void MultilanguageSupport::ValidateFonts( const Vector<Character>& text,
   currentFontRun.characterRun.characterIndex = startIndex;
   currentFontRun.characterRun.numberOfCharacters = 0u;
   currentFontRun.fontId = 0u;
-  currentFontRun.softwareItalic = false;
-  currentFontRun.softwareBold = false;
+  currentFontRun.isBoldRequired = false;
+  currentFontRun.isItalicRequired = false;
 
   // Get the font client.
   TextAbstraction::FontClient fontClient = TextAbstraction::FontClient::Get();
@@ -440,16 +450,13 @@ void MultilanguageSupport::ValidateFonts( const Vector<Character>& text,
 
   bool isPreviousEmojiScript = false;
 
-  // Description of fallback font which is selected at current iteration.
-  TextAbstraction::FontDescription selectedFontDescription;
-
   CharacterIndex lastCharacter = startIndex + numberOfCharacters;
   for( Length index = startIndex; index < lastCharacter; ++index )
   {
     // Get the current character.
     const Character character = *( textBuffer + index );
-    bool needSoftwareBoldening = false;
-    bool needSoftwareItalic = false;
+    bool isItalicRequired = false;
+    bool isBoldRequired = false;
 
     // new description for current character
     TextAbstraction::FontDescription currentFontDescription;
@@ -528,6 +535,8 @@ void MultilanguageSupport::ValidateFonts( const Vector<Character>& text,
       currentFontRun.characterRun.characterIndex = currentFontRun.characterRun.characterIndex + currentFontRun.characterRun.numberOfCharacters;
       currentFontRun.characterRun.numberOfCharacters = 0u;
       currentFontRun.fontId = fontId;
+      currentFontRun.isItalicRequired = false;
+      currentFontRun.isBoldRequired = false;
     }
 
     // If the given font is not valid, it means either:
@@ -668,22 +677,17 @@ void MultilanguageSupport::ValidateFonts( const Vector<Character>& text,
     }
 #endif
 
-    if( fontId != currentFontRun.fontId )
-    {
-      fontClient.GetDescription(fontId,selectedFontDescription);
-    }
+    // Whether bols style is required.
+    isBoldRequired = ( currentFontDescription.weight >= TextAbstraction::FontWeight::BOLD );
 
-    // Developer sets bold to character but selected font cannot support it
-    needSoftwareBoldening = ( currentFontDescription.weight >= TextAbstraction::FontWeight::BOLD ) && ( selectedFontDescription.weight < TextAbstraction::FontWeight::BOLD );
-
-    // Developer sets italic to character but selected font cannot support it
-    needSoftwareItalic = ( currentFontDescription.slant == TextAbstraction::FontSlant::ITALIC ) && ( selectedFontDescription.slant < TextAbstraction::FontSlant::ITALIC );
+    // Whether italic style is required.
+    isItalicRequired = ( currentFontDescription.slant >= TextAbstraction::FontSlant::ITALIC );
 
     // The font is now validated.
     if( ( fontId != currentFontRun.fontId ) ||
         isNewParagraphCharacter ||
         // If font id is same as previous but style is diffrent, initialize new one
-        ( ( fontId == currentFontRun.fontId ) && ( ( needSoftwareBoldening != currentFontRun.softwareBold ) || ( needSoftwareItalic != currentFontRun.softwareItalic ) ) ) )
+        ( ( fontId == currentFontRun.fontId ) && ( ( isBoldRequired != currentFontRun.isBoldRequired ) || ( isItalicRequired != currentFontRun.isItalicRequired ) ) ) )
     {
       // Current run needs to be stored and a new one initialized.
 
@@ -698,8 +702,8 @@ void MultilanguageSupport::ValidateFonts( const Vector<Character>& text,
       currentFontRun.characterRun.characterIndex = currentFontRun.characterRun.characterIndex + currentFontRun.characterRun.numberOfCharacters;
       currentFontRun.characterRun.numberOfCharacters = 0u;
       currentFontRun.fontId = fontId;
-      currentFontRun.softwareItalic = needSoftwareItalic;
-      currentFontRun.softwareBold = needSoftwareBoldening;
+      currentFontRun.isBoldRequired = isBoldRequired;
+      currentFontRun.isItalicRequired = isItalicRequired;
     }
 
     // Add one more character to the run.

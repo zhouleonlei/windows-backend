@@ -118,14 +118,9 @@ public:
   void EvaluateJavaScript( const std::string& script );
 
   /**
-   * @copydoc Dali::WebEngine::AddJavaScriptInterface()
+   * @copydoc Dali::WebEngine::AddJavaScriptMessageHandler()
    */
-  void AddJavaScriptInterface( const std::string& exposedObjectName, const std::string& jsFunctionName, std::function< std::string(const std::string&) > cb );
-
-  /**
-   * @copydoc Dali::WebEngine::RemoveJavascriptInterface()
-   */
-  void RemoveJavascriptInterface( const std::string& exposedObjectName, const std::string& jsFunctionName );
+  void AddJavaScriptMessageHandler( const std::string& exposedObjectName, std::function< void(const std::string&) > handler );
 
   /**
    * @copydoc Dali::WebEngine::ClearHistory()
@@ -187,9 +182,16 @@ private:
    */
   bool Initialize();
 
+  /**
+   * @brief Initializes library handle by loading web engine plugin.
+   *
+   * @return Whether the initialization succeed or not.
+   */
+  bool InitializePluginHandle();
+
 private:
 
-  Dali::WebEnginePlugin* mPlugin; ///< WebEngine plugin handle
+  Dali::WebEnginePlugin* mPlugin; ///< WebEnginePlugin instance
   void* mHandle; ///< Handle for the loaded library
 
   typedef Dali::WebEnginePlugin* (*CreateWebEngineFunction)();

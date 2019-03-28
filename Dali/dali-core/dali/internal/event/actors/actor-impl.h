@@ -54,6 +54,7 @@ class ActorGestureData;
 class Animation;
 class RenderTask;
 class Renderer;
+class Scene;
 
 typedef std::vector< ActorPtr > ActorContainer;
 typedef ActorContainer::iterator ActorIter;
@@ -120,6 +121,12 @@ public:
    * @return A smart-pointer to the newly allocated Actor.
    */
   static ActorPtr New();
+
+  /**
+   * Helper to create node for derived classes who don't have their own node type
+   * @return pointer to newly created unique node
+   */
+  static const SceneGraph::Node* CreateNode();
 
   /**
    * Retrieve the name of the actor.
@@ -461,16 +468,6 @@ public:
    * @copydoc Dali::Actor::GetCurrentWorldPosition()
    */
   const Vector3& GetCurrentWorldPosition() const;
-
-  /**
-   * @copydoc Dali::Actor::SetPositionInheritanceMode()
-   */
-  void SetPositionInheritanceMode( PositionInheritanceMode mode );
-
-  /**
-   * @copydoc Dali::Actor::GetPositionInheritanceMode()
-   */
-  PositionInheritanceMode GetPositionInheritanceMode() const;
 
   /**
    * @copydoc Dali::Actor::SetInheritPosition()
@@ -1543,8 +1540,9 @@ protected:
    * Protected Constructor.  See Actor::New().
    * The second-phase construction Initialize() member should be called immediately after this.
    * @param[in] derivedType The derived type of actor (if any).
+   * @param[in] reference to the node
    */
-  Actor( DerivedType derivedType );
+  Actor( DerivedType derivedType, const SceneGraph::Node& node );
 
   /**
    * Second-phase constructor. Must be called immediately after creating a new Actor;
@@ -1617,6 +1615,7 @@ public:
   void RebuildDepthTree();
 
 protected:
+
   /**
    * Traverse the actor tree, inserting actors into the depth tree in sibling order.
    * @param[in] sceneGraphNodeDepths A vector capturing the nodes and their depth index
@@ -1627,46 +1626,6 @@ protected:
 public:
 
   // Default property extensions from Object
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCount()
-   */
-  virtual uint32_t GetDefaultPropertyCount() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndices()
-   */
-  virtual void GetDefaultPropertyIndices( Property::IndexContainer& indices ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyName()
-   */
-  virtual const char* GetDefaultPropertyName( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndex()
-   */
-  virtual Property::Index GetDefaultPropertyIndex( const std::string& name ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyWritable()
-   */
-  virtual bool IsDefaultPropertyWritable( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAnimatable()
-   */
-  virtual bool IsDefaultPropertyAnimatable( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAConstraintInput()
-   */
-  virtual bool IsDefaultPropertyAConstraintInput( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyType()
-   */
-  virtual Property::Type GetDefaultPropertyType( Property::Index index ) const;
 
   /**
    * @copydoc Dali::Internal::Object::SetDefaultProperty()
@@ -1694,16 +1653,6 @@ public:
   virtual void OnNotifyDefaultPropertyAnimation( Animation& animation, Property::Index index, const Property::Value& value, Animation::Type animationType );
 
   /**
-   * @copydoc Dali::Internal::Object::GetPropertyOwner()
-   */
-  virtual const SceneGraph::PropertyOwner* GetPropertyOwner() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObject()
-   */
-  virtual const SceneGraph::PropertyOwner* GetSceneObject() const;
-
-  /**
    * @copydoc Dali::Internal::Object::GetSceneObjectAnimatableProperty()
    */
   virtual const SceneGraph::PropertyBase* GetSceneObjectAnimatableProperty( Property::Index index ) const;
@@ -1716,7 +1665,7 @@ public:
   /**
    * @copydoc Dali::Internal::Object::GetPropertyComponentIndex()
    */
-  virtual int GetPropertyComponentIndex( Property::Index index ) const;
+  virtual int32_t GetPropertyComponentIndex( Property::Index index ) const;
 
   /**
    * Retrieve the actor's node.
@@ -1724,7 +1673,7 @@ public:
    */
   const SceneGraph::Node& GetNode() const
   {
-    return *mNode;
+    return *static_cast<const SceneGraph::Node*>( mUpdateObject );
   }
 
   /**
@@ -1757,6 +1706,20 @@ public:
    */
   void LowerBelow( Internal::Actor& target );
 
+public:
+
+  /**
+   * Sets the scene which this actor is added to.
+   * @param[in] scene The scene
+   */
+  void SetScene( Scene& scene );
+
+  /**
+   * Gets the scene which this actor is added to.
+   * @return The scene
+   */
+  Scene& GetScene() const;
+
 private:
 
   struct SendMessage
@@ -1769,24 +1732,15 @@ private:
   };
 
   // Remove default constructor and copy constructor
-  Actor()=delete;
-  Actor( const Actor& )=delete;
-
-  // Undefined
-  Actor& operator=( const Actor& rhs );
+  Actor() = delete;
+  Actor( const Actor& ) = delete;
+  Actor& operator=( const Actor& rhs ) = delete;
 
   /**
    * Set the actors parent.
    * @param[in] parent The new parent.
    */
   void SetParent( Actor* parent );
-
-  /**
-   * Helper to create a Node for this Actor.
-   * To be overriden in derived classes.
-   * @return A newly allocated node.
-   */
-  virtual SceneGraph::Node* CreateNode() const;
 
   /**
    * For use in derived classes, called after Initialize()
@@ -1974,11 +1928,12 @@ private:
 
 protected:
 
+  Scene* mScene;                  ///< The scene the actor is added to
+
   Actor* mParent;                 ///< Each actor (except the root) can have one parent
   ActorContainer* mChildren;      ///< Container of referenced actors, lazily initialized
   RendererContainer* mRenderers;   ///< Renderer container
 
-  const SceneGraph::Node* mNode;  ///< Not owned
   Vector3* mParentOrigin;         ///< NULL means ParentOrigin::DEFAULT. ParentOrigin is non-animatable
   Vector3* mAnchorPoint;          ///< NULL means AnchorPoint::DEFAULT. AnchorPoint is non-animatable
 
@@ -2007,10 +1962,9 @@ protected:
   Vector3         mTargetPosition;    ///< Event-side storage for position (not a pointer as most actors will have a position)
   Vector3         mTargetScale;       ///< Event-side storage for scale
 
-  std::string     mName;      ///< Name of the actor
-  uint32_t        mId;        ///< A unique ID to identify the actor starting from 1, and 0 is reserved
-  uint32_t mSortedDepth;      ///< The sorted depth index. A combination of tree traversal and sibling order.
-  int16_t mDepth;             ///< The depth in the hierarchy of the actor. Only 32,767 levels of depth are supported
+  std::string     mName;              ///< Name of the actor
+  uint32_t        mSortedDepth;       ///< The sorted depth index. A combination of tree traversal and sibling order.
+  int16_t         mDepth;             ///< The depth in the hierarchy of the actor. Only 32,767 levels of depth are supported
 
   const bool mIsRoot                               : 1; ///< Flag to identify the root actor
   const bool mIsLayer                              : 1; ///< Flag to identify that this is a layer
@@ -2031,14 +1985,13 @@ protected:
   bool mInheritLayoutDirection                     : 1; ///< Whether the actor inherits the layout direction from parent.
   LayoutDirection::Type mLayoutDirection           : 2; ///< Layout direction, Left to Right or Right to Left.
   DrawMode::Type mDrawMode                         : 3; ///< Cached: How the actor and its children should be drawn
-  PositionInheritanceMode mPositionInheritanceMode : 3; ///< Cached: Determines how position is inherited
   ColorMode mColorMode                             : 3; ///< Cached: Determines whether mWorldColor is inherited
   ClippingMode::Type mClippingMode                 : 3; ///< Cached: Determines which clipping mode (if any) to use.
 
 private:
 
   static ActorContainer mNullChildren;  ///< Empty container (shared by all actors, returned by GetChildren() const)
-  static uint32_t mActorCounter;        ///< A counter to track the actor instance creation
+
 };
 
 } // namespace Internal

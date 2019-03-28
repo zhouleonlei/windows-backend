@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_TOUCH_EVENT_PROCESSOR_H__
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@
  */
 
 // INTERNAL INCLUDES
-#include <dali/public-api/render-tasks/render-task.h>
 #include <dali/internal/event/events/actor-observer.h>
+#include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
 {
@@ -38,7 +38,7 @@ namespace Internal
 {
 
 class Actor;
-class Stage;
+class Scene;
 struct ActorObserver;
 
 /**
@@ -55,9 +55,9 @@ public:
 
   /**
    * Create an event processor.
-   * @param[in] stage The stage.
+   * @param[in] scene The scene the event processor belongs to.
    */
-  TouchEventProcessor( Stage& stage );
+  TouchEventProcessor( Scene& scene );
 
   /**
    * Non-virtual destructor; TouchEventProcessor is not a base class
@@ -78,6 +78,10 @@ private:
   // Undefined
   TouchEventProcessor& operator=(const TouchEventProcessor& rhs);
 
+private:
+
+  Scene& mScene; ///< Used to deliver touch events
+
   /**
    * Called by some actor-observers when the observed actor is disconnected.
    *
@@ -85,13 +89,10 @@ private:
    */
   void OnObservedActorDisconnected( Actor* actor );
 
-private:
-
-  Stage& mStage; ///< Used to deliver touch events
   ActorObserver mLastPrimaryHitActor; ///< Stores the last primary point hit actor
   ActorObserver mLastConsumedActor; ///< Stores the last consumed actor
   ActorObserver mTouchDownConsumedActor; ///< Stores the touch-down consumed actor
-  Dali::RenderTask mLastRenderTask; ///< The RenderTask used for the last hit actor
+  RenderTaskPtr mLastRenderTask; ///< The RenderTask used for the last hit actor
 };
 
 } // namespace Internal

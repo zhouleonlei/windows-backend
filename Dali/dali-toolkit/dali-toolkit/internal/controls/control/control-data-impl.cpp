@@ -36,6 +36,7 @@
 #include <dali-toolkit/devel-api/controls/control-depth-index-ranges.h>
 #include <dali-toolkit/devel-api/controls/control-devel.h>
 #include <dali-toolkit/devel-api/controls/control-wrapper-impl.h>
+#include <dali-toolkit/devel-api/layouting/bin-layout.h>
 #include <dali-toolkit/devel-api/layouting/layout-item.h>
 #include <dali-toolkit/internal/styling/style-manager-impl.h>
 #include <dali-toolkit/internal/visuals/visual-string-constants.h>
@@ -333,6 +334,7 @@ Control::Impl::Impl( Control& controlImpl )
   mKeyInputFocusGainedSignal(),
   mKeyInputFocusLostSignal(),
   mResourceReadySignal(),
+  mVisualEventSignal(),
   mPinchGestureDetector(),
   mPanGestureDetector(),
   mTapGestureDetector(),
@@ -476,19 +478,13 @@ void Control::Impl::RegisterVisual( Property::Index index, Toolkit::Visual::Base
   // ( If the control has been type registered )
   if( visual.GetName().empty() )
   {
-    try
+    // returns empty string if index is not found as long as index is not -1
+    std::string visualName = self.GetPropertyName( index );
+    if( !visualName.empty() )
     {
-      std::string visualName = self.GetPropertyName( index );
-      if( !visualName.empty() )
-      {
-        DALI_LOG_INFO( gLogFilter, Debug::Concise, "Setting visual name for property %d to %s\n",
-                       index, visualName.c_str() );
-        visual.SetName( visualName );
-      }
-    }
-    catch( Dali::DaliException e )
-    {
-      DALI_LOG_WARNING( "Attempting to register visual without a registered property, index: %d\n", index );
+      DALI_LOG_INFO( gLogFilter, Debug::Concise, "Setting visual name for property %d to %s\n",
+                     index, visualName.c_str() );
+      visual.SetName( visualName );
     }
   }
 
@@ -631,15 +627,15 @@ void Control::Impl::StopObservingVisual( Toolkit::Visual::Base& visual )
   Internal::Visual::Base& visualImpl = Toolkit::GetImplementation( visual );
 
   // Stop observing the visual
-  visualImpl.RemoveResourceObserver( *this );
+  visualImpl.RemoveEventObserver( *this );
 }
 
 void Control::Impl::StartObservingVisual( Toolkit::Visual::Base& visual)
 {
   Internal::Visual::Base& visualImpl = Toolkit::GetImplementation( visual );
 
-  // start observing the visual for resource ready
-  visualImpl.AddResourceObserver( *this );
+  // start observing the visual for events
+  visualImpl.AddEventObserver( *this );
 }
 
 // Called by a Visual when it's resource is ready
@@ -682,6 +678,20 @@ void Control::Impl::ResourceReady( Visual::Base& object)
   {
     Dali::Toolkit::Control handle( mControlImpl.GetOwner() );
     mResourceReadySignal.Emit( handle );
+  }
+}
+
+void Control::Impl::NotifyVisualEvent( Visual::Base& object, Property::Index signalId )
+{
+  for( auto registeredIter = mVisuals.Begin(),  end = mVisuals.End(); registeredIter != end; ++registeredIter )
+  {
+    Internal::Visual::Base& registeredVisualImpl = Toolkit::GetImplementation( (*registeredIter)->visual );
+    if( &object == &registeredVisualImpl )
+    {
+      Dali::Toolkit::Control handle( mControlImpl.GetOwner() );
+      mVisualEventSignal.Emit( handle, (*registeredIter)->index, signalId );
+      break;
+    }
   }
 }
 
@@ -1440,15 +1450,35 @@ Toolkit::Internal::LayoutItemPtr Control::Impl::GetLayout() const
 
 void Control::Impl::SetLayout( Toolkit::Internal::LayoutItem& layout )
 {
-  DALI_LOG_INFO( gLogFilterLayout, Debug::Verbose, "Control::SetLayout control:%s  existing layout:%s\n",
+  DALI_LOG_INFO( gLogFilterLayout, Debug::Verbose, "Control::SetLayout control:%s  replacing existing layout:%s\n",
                                    mControlImpl.Self().GetName().c_str(),
                                    mLayout?"true":"false" );
+  // Check if layout already has an owner.
+  auto control = Toolkit::Control::DownCast( layout.GetOwner() );
+  if ( control )
+  {
+    // If the owner is not this control then the owning control can no longer own it.
+    Dali::Toolkit::Control handle( mControlImpl.GetOwner() );
+    if( control != handle )
+    {
+      DALI_LOG_INFO( gLogFilterLayout, Debug::Verbose, "Control::SetLayout Layout already in use, %s will now have a BinLayout\n",
+                                                        control.GetName().c_str() );
+      Toolkit::BinLayout binLayout = Toolkit::BinLayout::New();
+      // Previous owner of the layout gets a BinLayout instead of the layout.
+      DevelControl::SetLayout( control, binLayout ) ;
+    }
+    else
+    {
+      return; // layout is already set to this control.
+    }
+  }
 
   if( mLayout )
   {
     mLayout->Unparent();
     mLayout.Reset();
   }
+
   mLayout = &layout;
 
   auto controlHandle = Toolkit::Control::DownCast( mControlImpl.Self() ); // Get a handle of this control implementation without copying internals.
@@ -1457,12 +1487,11 @@ void Control::Impl::SetLayout( Toolkit::Internal::LayoutItem& layout )
 
 void Control::Impl::RemoveLayout()
 {
-  DALI_LOG_INFO( gLogFilter, Debug::Verbose, "Control::Impl::RemoveLayout\n");
-  if( mLayout )
-  {
-    mLayout->Unparent();
-    mLayout.Reset();
-  }
+  DALI_LOG_INFO( gLogFilterLayout, Debug::Verbose, "Control::Impl::RemoveLayout\n");
+
+  Toolkit::BinLayout binLayout = Toolkit::BinLayout::New();
+
+  mControlImpl.mImpl->SetLayout( GetImplementation( binLayout ) ) ;
 }
 
 void Control::Impl::SetLayoutingRequired( bool layoutingRequired )
@@ -1473,6 +1502,11 @@ void Control::Impl::SetLayoutingRequired( bool layoutingRequired )
 bool Control::Impl::IsLayoutingRequired()
 {
   return mControlImpl.mImpl->mIsLayoutingRequired;
+}
+
+DevelControl::VisualEventSignalType& Control::Impl::VisualEventSignal()
+{
+  return mVisualEventSignal;
 }
 
 } // namespace Internal

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,24 @@
 
 // EXTERNAL HEADERS
 #include <dali/integration-api/core.h>
-#include <dali/integration-api/system-overlay.h>
+#include <dali/integration-api/render-task-list-integ.h>
+#include <dali/public-api/actors/actor.h>
+#include <dali/public-api/actors/layer.h>
+#include <dali/public-api/actors/camera-actor.h>
 #include <dali/public-api/render-tasks/render-task.h>
 #include <dali/public-api/render-tasks/render-task-list.h>
+#include <dali/public-api/rendering/frame-buffer.h>
 #include <dali/devel-api/adaptor-framework/orientation.h>
 
 // INTERNAL HEADERS
 #include <dali/internal/input/common/drag-and-drop-detector-impl.h>
-#include <dali/internal/window-system/common/window-visibility-observer.h>
+#include <dali/internal/window-system/common/event-handler.h>
 #include <dali/internal/window-system/common/orientation-impl.h>
 #include <dali/internal/window-system/common/render-surface-factory.h>
 #include <dali/internal/window-system/common/window-factory.h>
 #include <dali/internal/window-system/common/window-base.h>
 #include <dali/internal/window-system/common/window-render-surface.h>
+#include <dali/internal/window-system/common/window-visibility-observer.h>
 
 namespace Dali
 {
@@ -40,6 +45,8 @@ namespace Internal
 {
 namespace Adaptor
 {
+
+uint32_t Window::mWindowCounter = 0;
 
 namespace
 {
@@ -59,11 +66,9 @@ Window* Window::New( const PositionSize& positionSize, const std::string& name, 
 }
 
 Window::Window()
-: mSurface( NULL ),
+: mId( mWindowCounter++ ),
+  mSurface( nullptr ),
   mWindowBase(),
-  mIndicatorVisible( Dali::Window::INVISIBLE ),   // TODO: Enable this after indicator implementation based on tizen 5.
-  mIndicatorIsShown( false ),
-  mShowRotatedIndicatorOnClose( false ),
   mStarted( false ),
   mIsTransparent( false ),
   mIsFocusAcceptable( true ),
@@ -71,15 +76,9 @@ Window::Window()
   mIconified( false ),
   mOpaqueState( false ),
   mResizeEnabled( false ),
-  mIndicator(),
-  mIndicatorOrientation( Dali::Window::PORTRAIT ),
-  mNextIndicatorOrientation( Dali::Window::PORTRAIT ),
-  mIndicatorOpacityMode( Dali::Window::OPAQUE ),
-  mOverlay( NULL ),
   mAdaptor( NULL ),
   mType( Dali::Window::NORMAL ),
   mPreferredOrientation( Dali::Window::PORTRAIT ),
-  mIndicatorVisibilityChangedSignal(),
   mFocusChangedSignal(),
   mResizedSignal(),
   mDeleteRequestSignal()
@@ -88,23 +87,15 @@ Window::Window()
 
 Window::~Window()
 {
-  if( mIndicator )
-  {
-    mOverlay->Remove( mIndicator->GetActor() );
-    Dali::RenderTaskList taskList = mOverlay->GetOverlayRenderTasks();
-    Dali::RenderTask indicatorTask = taskList.GetTask(0);
-    mOverlay->GetOverlayRenderTasks().RemoveTask(indicatorTask);
-    mIndicator->Close();
-  }
-
   if ( mAdaptor )
   {
     mAdaptor->RemoveObserver( *this );
-    mAdaptor->SetDragAndDropDetector( NULL );
+    mAdaptor->RemoveWindow( this );
     mAdaptor = NULL;
   }
 
-  delete mSurface;
+  // Do we need to do it?
+  mEventHandler->SetRotationObserver( nullptr );
 }
 
 void Window::Initialize(const PositionSize& positionSize, const std::string& name, const std::string& className)
@@ -112,8 +103,7 @@ void Window::Initialize(const PositionSize& positionSize, const std::string& nam
   // Create a window render surface
   Any surface;
   auto renderSurfaceFactory = Dali::Internal::Adaptor::GetRenderSurfaceFactory();
-  auto windowRenderSurface = renderSurfaceFactory->CreateWindowRenderSurface( positionSize, surface, mIsTransparent );
-  mSurface = windowRenderSurface.release();
+  mSurface = renderSurfaceFactory->CreateWindowRenderSurface( positionSize, surface, mIsTransparent );
 
   // Get a window base
   mWindowBase = mSurface->GetWindowBase();
@@ -122,7 +112,6 @@ void Window::Initialize(const PositionSize& positionSize, const std::string& nam
   mWindowBase->IconifyChangedSignal().Connect( this, &Window::OnIconifyChanged );
   mWindowBase->FocusChangedSignal().Connect( this, &Window::OnFocusChanged );
   mWindowBase->DeleteRequestSignal().Connect( this, &Window::OnDeleteRequest );
-  mWindowBase->IndicatorFlickedSignal().Connect( this, &Window::OnIndicatorFlicked );
 
   mSurface->OutputTransformedSignal().Connect( this, &Window::OnOutputTransformed );
 
@@ -141,76 +130,94 @@ void Window::Initialize(const PositionSize& positionSize, const std::string& nam
 
 void Window::SetAdaptor(Dali::Adaptor& adaptor)
 {
-  DALI_ASSERT_ALWAYS( !mStarted && "Adaptor already started" );
+  Window::SetAdaptor( Internal::Adaptor::Adaptor::GetImplementation( adaptor ) );
+}
+
+void Window::SetAdaptor(Adaptor& adaptor)
+{
+  if( mStarted )
+  {
+    return;
+  }
+
   mStarted = true;
 
-  // Only create one overlay per window
-  Internal::Adaptor::Adaptor& adaptorImpl = Internal::Adaptor::Adaptor::GetImplementation(adaptor);
-  Integration::Core& core = adaptorImpl.GetCore();
-  mOverlay = &core.GetSystemOverlay();
+  // Create scene for the window
+  PositionSize positionSize = mSurface->GetPositionSize();
+  mScene = Dali::Integration::Scene::New( Vector2( positionSize.width, positionSize.height ) );
+  mScene.SetSurface( *mSurface.get() );
 
-  Dali::RenderTaskList taskList = mOverlay->GetOverlayRenderTasks();
-  taskList.CreateTask();
+  unsigned int dpiHorizontal, dpiVertical;
+  dpiHorizontal = dpiVertical = 0;
 
-  mAdaptor = &adaptorImpl;
+  mSurface->GetDpi( dpiHorizontal, dpiVertical );
+  mScene.SetDpi( Vector2( static_cast<float>( dpiHorizontal ), static_cast<float>( dpiVertical ) ) );
+
+  // Add the window to the adaptor observers
+  mAdaptor = &adaptor;
   mAdaptor->AddObserver( *this );
 
   // Can only create the detector when we know the Core has been instantiated.
   mDragAndDropDetector = DragAndDropDetector::New();
-  mAdaptor->SetDragAndDropDetector( &GetImplementation( mDragAndDropDetector ) );
 
   if( mOrientation )
   {
-    mOrientation->SetAdaptor(adaptor);
+    mOrientation->SetAdaptor( adaptor );
   }
 
-  if( mIndicator != NULL )
-  {
-    mIndicator->SetAdaptor(mAdaptor);
-  }
+  mSurface->SetAdaptor( *mAdaptor );
+
+  mEventHandler = EventHandlerPtr(
+      new EventHandler( mScene, *mAdaptor, *mAdaptor->GetGestureManager(), *mAdaptor ) );
 }
 
-WindowRenderSurface* Window::GetSurface()
+WindowRenderSurface* Window::GetSurface() const
 {
-  return mSurface;
+  return mSurface.get();
+}
+
+void Window::SetSurface(WindowRenderSurface* surface)
+{
+  mSurface.reset( surface );
+
+  mScene.SetSurface( *mSurface.get() );
+
+  unsigned int dpiHorizontal, dpiVertical;
+  dpiHorizontal = dpiVertical = 0;
+
+  mSurface->GetDpi( dpiHorizontal, dpiVertical );
+  mScene.SetDpi( Vector2( static_cast<float>( dpiHorizontal ), static_cast<float>( dpiVertical ) ) );
+
+  mSurface->SetAdaptor( *mAdaptor );
 }
 
 void Window::ShowIndicator( Dali::Window::IndicatorVisibleMode visibleMode )
 {
-  // TODO: Enable this after indicator implementation based on tizen 5.
-//  mIndicatorVisible = visibleMode;
-
-  mWindowBase->ShowIndicator( mIndicatorVisible, mIndicatorOpacityMode );
-
-  DoShowIndicator( mIndicatorOrientation );
 }
 
 void Window::SetIndicatorBgOpacity( Dali::Window::IndicatorBgOpacity opacityMode )
 {
-  mIndicatorOpacityMode = opacityMode;
-
-  if( mIndicator != NULL )
-  {
-    mIndicator->SetOpacityMode( opacityMode );
-  }
-}
-
-void Window::SetIndicatorVisibleMode( Dali::Window::IndicatorVisibleMode mode )
-{
-  // TODO: Enable this after indicator implementation based on tizen 5.
-//  mIndicatorVisible = mode;
 }
 
 void Window::RotateIndicator( Dali::Window::WindowOrientation orientation )
 {
-  DALI_LOG_TRACE_METHOD_FMT( gWindowLogFilter, "Orientation: %d\n", orientation );
-
-  DoRotateIndicator( orientation );
 }
 
 void Window::SetClass( std::string name, std::string className )
 {
+  mName = name;
+  mClassName = className;
   mWindowBase->SetClass( name, className );
+}
+
+std::string Window::GetName() const
+{
+  return mName;
+}
+
+std::string Window::GetClassName() const
+{
+  return mClassName;
 }
 
 void Window::Raise()
@@ -226,6 +233,44 @@ void Window::Lower()
 void Window::Activate()
 {
   mWindowBase->Activate();
+}
+
+void Window::Add( Dali::Actor actor )
+{
+  mScene.Add( actor );
+}
+
+void Window::Remove( Dali::Actor actor )
+{
+  mScene.Remove( actor );
+}
+
+Dali::Layer Window::GetRootLayer() const
+{
+  return mScene.GetRootLayer();
+}
+
+uint32_t Window::GetLayerCount() const
+{
+  return mScene.GetLayerCount();
+}
+
+Dali::Layer Window::GetLayer( uint32_t depth ) const
+{
+  return mScene.GetLayer( depth );
+}
+
+void Window::SetBackgroundColor( Vector4 color )
+{
+  if ( mSurface )
+  {
+    mSurface->SetBackgroundColor( color );
+  }
+}
+
+Vector4 Window::GetBackgroundColor() const
+{
+  return mSurface ? mSurface->GetBackgroundColor() : Vector4();
 }
 
 void Window::AddAvailableOrientation( Dali::Window::WindowOrientation orientation )
@@ -327,8 +372,9 @@ void Window::Show()
   {
     WindowVisibilityObserver* observer( mAdaptor );
     observer->OnWindowShown();
-    DALI_LOG_RELEASE_INFO( "Window (%p) ::Show()\n", this );
   }
+
+  DALI_LOG_RELEASE_INFO( "Window (%p) Show(): iconified = %d\n", this, mIconified );
 }
 
 void Window::Hide()
@@ -341,8 +387,9 @@ void Window::Hide()
   {
     WindowVisibilityObserver* observer( mAdaptor );
     observer->OnWindowHidden();
-    DALI_LOG_RELEASE_INFO( "Window (%p) ::Hide() \n", this );
   }
+
+  DALI_LOG_RELEASE_INFO( "Window (%p) Hide(): iconified = %d\n", this, mIconified );
 }
 
 bool Window::IsVisible() const
@@ -477,21 +524,22 @@ void Window::SetSize( Dali::Window::WindowSize size )
     mResizeEnabled = true;
   }
 
-  PositionSize positionSize = mSurface->GetPositionSize();
+  PositionSize oldRect = mSurface->GetPositionSize();
 
-  if( positionSize.width != size.GetWidth() || positionSize.height != size.GetHeight() )
+  mSurface->MoveResize( PositionSize( oldRect.x, oldRect.y, size.GetWidth(), size.GetHeight() ) );
+
+  PositionSize newRect = mSurface->GetPositionSize();
+
+  // When surface size is updated, inform adaptor of resizing and emit ResizeSignal
+  if( ( oldRect.width != newRect.width ) || ( oldRect.height != newRect.height ) )
   {
-    positionSize.width = size.GetWidth();
-    positionSize.height = size.GetHeight();
+    Uint16Pair newSize( newRect.width, newRect.height );
 
-    mSurface->MoveResize( positionSize );
+    mAdaptor->SurfaceResizePrepare( mSurface.get(), newSize );
 
-    mAdaptor->SurfaceResizePrepare( Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
+    mResizedSignal.Emit( newSize );
 
-    // Emit signal
-    mResizedSignal.Emit( Dali::Window::WindowSize( positionSize.width, positionSize.height ) );
-
-    mAdaptor->SurfaceResizeComplete( Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
+    mAdaptor->SurfaceResizeComplete( mSurface.get(), newSize );
   }
 }
 
@@ -510,15 +558,9 @@ void Window::SetPosition( Dali::Window::WindowPosition position )
     mResizeEnabled = true;
   }
 
-  PositionSize positionSize = mSurface->GetPositionSize();
+  PositionSize oldRect = mSurface->GetPositionSize();
 
-  if( positionSize.x != position.GetX() || positionSize.y != position.GetY() )
-  {
-    positionSize.x = position.GetX();
-    positionSize.y = position.GetY();
-
-    mSurface->MoveResize( positionSize );
-  }
+  mSurface->MoveResize( PositionSize( position.GetX(), position.GetY(), oldRect.width, oldRect.height ) );
 }
 
 Dali::Window::WindowPosition Window::GetPosition() const
@@ -526,6 +568,38 @@ Dali::Window::WindowPosition Window::GetPosition() const
   PositionSize positionSize = mSurface->GetPositionSize();
 
   return Dali::Window::WindowPosition( positionSize.x, positionSize.y );
+}
+
+void Window::SetPositionSize( PositionSize positionSize )
+{
+  if( !mResizeEnabled )
+  {
+    AddAuxiliaryHint( "wm.policy.win.user.geometry", "1" );
+    mResizeEnabled = true;
+  }
+
+  PositionSize oldRect = mSurface->GetPositionSize();
+
+  mSurface->MoveResize( positionSize );
+
+  PositionSize newRect = mSurface->GetPositionSize();
+
+  // When surface size is updated, inform adaptor of resizing and emit ResizeSignal
+  if( ( oldRect.width != newRect.width ) || ( oldRect.height != newRect.height ) )
+  {
+    Uint16Pair newSize( newRect.width, newRect.height );
+
+    mAdaptor->SurfaceResizePrepare( mSurface.get(), newSize );
+
+    mResizedSignal.Emit( newSize );
+
+    mAdaptor->SurfaceResizeComplete( mSurface.get(), newSize );
+  }
+}
+
+Dali::Layer Window::GetRootLayer()
+{
+  return mScene.GetRootLayer();
 }
 
 void Window::SetTransparency( bool transparent )
@@ -557,112 +631,12 @@ void Window::RotationDone( int orientation, int width, int height )
 {
   mSurface->RequestRotation( orientation, width, height );
 
-  mAdaptor->SurfaceResizePrepare( Adaptor::SurfaceSize( width, height ) );
+  mAdaptor->SurfaceResizePrepare( mSurface.get(), Adaptor::SurfaceSize( width, height ) );
 
   // Emit signal
   mResizedSignal.Emit( Dali::Window::WindowSize( width, height ) );
 
-  mAdaptor->SurfaceResizeComplete( Adaptor::SurfaceSize( width, height ) );
-}
-
-void Window::DoShowIndicator( Dali::Window::WindowOrientation lastOrientation )
-{
-  if( mIndicator == NULL )
-  {
-    if( mIndicatorVisible != Dali::Window::INVISIBLE )
-    {
-      auto windowFactory = Dali::Internal::Adaptor::GetWindowFactory();
-      mIndicator = windowFactory->CreateIndicator( mAdaptor, mIndicatorOrientation, this );
-      if( mIndicator )
-      {
-        mIndicator->SetOpacityMode( mIndicatorOpacityMode );
-        Dali::Actor actor = mIndicator->GetActor();
-        SetIndicatorActorRotation();
-        mOverlay->Add(actor);
-      }
-    }
-    // else don't create a hidden indicator
-  }
-  else // Already have indicator
-  {
-    if( mIndicatorVisible == Dali::Window::VISIBLE )
-    {
-      // If we are resuming, and rotation has changed,
-      if( mIndicatorIsShown == false && mIndicatorOrientation != mNextIndicatorOrientation )
-      {
-        // then close current indicator and open new one
-        mShowRotatedIndicatorOnClose = true;
-        mIndicator->Close(); // May synchronously call IndicatorClosed() callback & 1 level of recursion
-        // Don't show actor - will contain indicator for old orientation.
-      }
-    }
-  }
-
-  // set indicator visible mode
-  if( mIndicator != NULL )
-  {
-    mIndicator->SetVisible( mIndicatorVisible );
-  }
-
-  bool show = (mIndicatorVisible != Dali::Window::INVISIBLE );
-  SetIndicatorProperties( show, lastOrientation );
-  mIndicatorIsShown = show;
-}
-
-void Window::DoRotateIndicator( Dali::Window::WindowOrientation orientation )
-{
-  if( mIndicatorIsShown )
-  {
-    mShowRotatedIndicatorOnClose = true;
-    mNextIndicatorOrientation = orientation;
-    if( mIndicator )
-    {
-      mIndicator->Close(); // May synchronously call IndicatorClosed() callback
-    }
-  }
-  else
-  {
-    // Save orientation for when the indicator is next shown
-    mShowRotatedIndicatorOnClose = false;
-    mNextIndicatorOrientation = orientation;
-  }
-}
-
-void Window::SetIndicatorActorRotation()
-{
-  DALI_LOG_TRACE_METHOD( gWindowLogFilter );
-  if( mIndicator )
-  {
-    Dali::Actor actor = mIndicator->GetActor();
-    switch( mIndicatorOrientation )
-    {
-      case Dali::Window::PORTRAIT:
-        actor.SetParentOrigin( ParentOrigin::TOP_CENTER );
-        actor.SetAnchorPoint(  AnchorPoint::TOP_CENTER );
-        actor.SetOrientation( Degree(0), Vector3::ZAXIS );
-        break;
-      case Dali::Window::PORTRAIT_INVERSE:
-        actor.SetParentOrigin( ParentOrigin::BOTTOM_CENTER );
-        actor.SetAnchorPoint(  AnchorPoint::TOP_CENTER );
-        actor.SetOrientation( Degree(180), Vector3::ZAXIS );
-        break;
-      case Dali::Window::LANDSCAPE:
-        actor.SetParentOrigin( ParentOrigin::CENTER_LEFT );
-        actor.SetAnchorPoint(  AnchorPoint::TOP_CENTER );
-        actor.SetOrientation( Degree(270), Vector3::ZAXIS );
-        break;
-      case Dali::Window::LANDSCAPE_INVERSE:
-        actor.SetParentOrigin( ParentOrigin::CENTER_RIGHT );
-        actor.SetAnchorPoint(  AnchorPoint::TOP_CENTER );
-        actor.SetOrientation( Degree(90), Vector3::ZAXIS );
-        break;
-    }
-  }
-}
-
-void Window::SetIndicatorProperties( bool isShow, Dali::Window::WindowOrientation lastOrientation )
-{
-  mWindowBase->SetIndicatorProperties( isShow, lastOrientation );
+  mAdaptor->SurfaceResizeComplete( mSurface.get(), Adaptor::SurfaceSize( width, height ) );
 }
 
 void Window::OnIconifyChanged( bool iconified )
@@ -675,8 +649,9 @@ void Window::OnIconifyChanged( bool iconified )
     {
       WindowVisibilityObserver* observer( mAdaptor );
       observer->OnWindowHidden();
-      DALI_LOG_RELEASE_INFO( "Window (%p) Iconified\n", this );
     }
+
+    DALI_LOG_RELEASE_INFO( "Window (%p) Iconified: visible = %d\n", this, mVisible );
   }
   else
   {
@@ -686,8 +661,9 @@ void Window::OnIconifyChanged( bool iconified )
     {
       WindowVisibilityObserver* observer( mAdaptor );
       observer->OnWindowShown();
-      DALI_LOG_RELEASE_INFO( "Window (%p) Deiconified\n", this );
     }
+
+    DALI_LOG_RELEASE_INFO( "Window (%p) Deiconified: visible = %d\n", this, mVisible );
   }
 }
 
@@ -699,8 +675,8 @@ void Window::OnFocusChanged( bool focusIn )
 void Window::OnOutputTransformed()
 {
   PositionSize positionSize = mSurface->GetPositionSize();
-  mAdaptor->SurfaceResizePrepare( Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
-  mAdaptor->SurfaceResizeComplete( Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
+  mAdaptor->SurfaceResizePrepare( mSurface.get(), Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
+  mAdaptor->SurfaceResizeComplete( mSurface.get(), Adaptor::SurfaceSize( positionSize.width, positionSize.height ) );
 }
 
 void Window::OnDeleteRequest()
@@ -708,44 +684,8 @@ void Window::OnDeleteRequest()
   mDeleteRequestSignal.Emit();
 }
 
-void Window::OnIndicatorFlicked()
-{
-  if( mIndicator )
-  {
-    mIndicator->Flicked();
-  }
-}
-
-void Window::IndicatorTypeChanged( IndicatorInterface::Type type )
-{
-  mWindowBase->IndicatorTypeChanged( type );
-}
-
-void Window::IndicatorClosed( IndicatorInterface* indicator )
-{
-  DALI_LOG_TRACE_METHOD( gWindowLogFilter );
-
-  if( mShowRotatedIndicatorOnClose )
-  {
-    Dali::Window::WindowOrientation currentOrientation = mIndicatorOrientation;
-    if( mIndicator )
-    {
-      mIndicator->Open( mNextIndicatorOrientation );
-    }
-    mIndicatorOrientation = mNextIndicatorOrientation;
-    SetIndicatorActorRotation();
-    DoShowIndicator( currentOrientation );
-  }
-}
-
-void Window::IndicatorVisibilityChanged( bool isVisible )
-{
-  mIndicatorVisibilityChangedSignal.Emit( isVisible );
-}
-
 void Window::OnStart()
 {
-  DoShowIndicator( mIndicatorOrientation );
 }
 
 void Window::OnPause()
@@ -754,29 +694,73 @@ void Window::OnPause()
 
 void Window::OnResume()
 {
-  // resume indicator status
-  if( mIndicator != NULL )
-  {
-    // Restore own indicator opacity
-    // Send opacity mode to indicator service when app resumed
-    mIndicator->SetOpacityMode( mIndicatorOpacityMode );
-  }
 }
 
 void Window::OnStop()
 {
-  if( mIndicator )
-  {
-    mIndicator->Close();
-  }
-
-  mIndicator.release();
 }
 
 void Window::OnDestroy()
 {
   mAdaptor = NULL;
 }
+
+uint32_t Window::GetId() const
+{
+  return mId;
+}
+
+void Window::FeedTouchPoint( TouchPoint& point, int timeStamp )
+{
+  if( mEventHandler )
+  {
+    mEventHandler->FeedTouchPoint( point, timeStamp );
+  }
+}
+
+void Window::FeedWheelEvent( WheelEvent& wheelEvent )
+{
+  if( mEventHandler )
+  {
+    mEventHandler->FeedWheelEvent( wheelEvent );
+  }
+}
+
+void Window::FeedKeyEvent( KeyEvent& keyEvent )
+{
+  if( mEventHandler )
+  {
+    mEventHandler->FeedKeyEvent( keyEvent );
+  }
+}
+
+void Window::Pause()
+{
+  if( mEventHandler )
+  {
+    mEventHandler->Pause();
+  }
+}
+
+void Window::Resume()
+{
+  if( mEventHandler )
+  {
+    mEventHandler->Resume();
+  }
+}
+
+bool Window::SetRotationObserver( RotationObserver* observer )
+{
+  if( mEventHandler )
+  {
+    mEventHandler->SetRotationObserver( observer );
+    return true;
+  }
+
+  return false;
+}
+
 
 } // Adaptor
 

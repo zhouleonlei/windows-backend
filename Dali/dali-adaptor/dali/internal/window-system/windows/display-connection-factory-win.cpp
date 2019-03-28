@@ -15,6 +15,7 @@
  *
  */
 
+// INTERNAL INCLUDES
 #include <dali/internal/window-system/windows/display-connection-factory-win.h>
 #include <dali/internal/window-system/windows/display-connection-impl-win.h>
 

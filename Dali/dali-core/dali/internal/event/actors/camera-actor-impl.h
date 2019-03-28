@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_CAMERA_ACTOR_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,9 +154,8 @@ public:
 
   /**
    * @copydoc Dali::CameraActor::SetPerspectiveProjection()
-   * @param[in] stereoBias The frustum horizontal and vertical offset for stereoscopic cameras
    */
-  void SetPerspectiveProjection( const Size& size, const Vector2& stereoBias = Vector2::ZERO );
+  void SetPerspectiveProjection( const Size& size );
 
   /**
    * @copydoc Dali::CameraActor::SetOrthographicProjection(const Vector2& size);
@@ -199,41 +198,6 @@ public:
 public: // properties
 
   /**
-   * copydoc Dali::Internal::Object
-   */
-  virtual unsigned int GetDefaultPropertyCount() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndices()
-   */
-  virtual void GetDefaultPropertyIndices( Property::IndexContainer& indices ) const;
-
-  /**
-   * copydoc Dali::Internal::Object
-   */
-  virtual bool IsDefaultPropertyAnimatable( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAConstraintInput()
-   */
-  virtual bool IsDefaultPropertyAConstraintInput( Property::Index index ) const;
-
-  /**
-   * copydoc Dali::Internal::Object
-   */
-  virtual Property::Type GetDefaultPropertyType( Property::Index index ) const;
-
-  /**
-   * copydoc Dali::Internal::Object
-   */
-  virtual const char* GetDefaultPropertyName( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndex()
-   */
-  virtual Property::Index GetDefaultPropertyIndex(const std::string& name) const;
-
-  /**
    * copydoc Dali::Internal::Object::SetDefaultProperty()
    */
   virtual void SetDefaultProperty( Property::Index index, const Property::Value& propertyValue );
@@ -249,16 +213,6 @@ public: // properties
   virtual Property::Value GetDefaultPropertyCurrentValue( Property::Index index ) const;
 
   /**
-   * copydoc Dali::Internal::Object
-   */
-  virtual bool IsDefaultPropertyWritable( Property::Index index ) const ;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectAnimatableProperty()
-   */
-  virtual const SceneGraph::PropertyBase* GetSceneObjectAnimatableProperty( Property::Index index ) const;
-
-  /**
    * @copydoc Dali::Internal::Object::GetSceneObjectInputProperty()
    */
   virtual const PropertyInputImpl* GetSceneObjectInputProperty( Property::Index index ) const;
@@ -267,8 +221,9 @@ private:
 
   /**
    * Constructor; see also CameraActor::New()
+   * @param node the scene graph node
    */
-  CameraActor();
+  CameraActor( const SceneGraph::Node& node );
 
   /**
    * A reference counted object may only be deleted by calling Unreference()

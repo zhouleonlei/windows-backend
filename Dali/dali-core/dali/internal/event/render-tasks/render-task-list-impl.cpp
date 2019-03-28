@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 // INTERNAL INCLUDES
 #include <dali/public-api/common/dali-common.h>
 #include <dali/internal/event/common/event-thread-services.h>
-#include <dali/internal/event/common/thread-local-storage.h>
+#include <dali/internal/event/common/stage-impl.h>
 #include <dali/internal/event/render-tasks/render-task-defaults.h>
 #include <dali/internal/event/render-tasks/render-task-impl.h>
 #include <dali/internal/event/actors/camera-actor-impl.h>
@@ -43,61 +43,47 @@ namespace Dali
 namespace Internal
 {
 
-RenderTaskList* RenderTaskList::New( EventThreadServices& eventServices, RenderTaskDefaults& defaults, bool systemLevel )
+RenderTaskListPtr RenderTaskList::New()
 {
-  RenderTaskList* taskList = new RenderTaskList( eventServices, defaults, systemLevel );
+  RenderTaskListPtr taskList = new RenderTaskList();
 
-  taskList->Initialize( eventServices.GetUpdateManager() );
+  taskList->Initialize();
 
   return taskList;
 }
 
-Dali::RenderTask RenderTaskList::CreateTask()
+RenderTaskPtr RenderTaskList::CreateTask()
 {
-  RenderTask* taskImpl = RenderTask::New( mIsSystemLevel );
-
-  Dali::RenderTask newTask( taskImpl );
-  mTasks.push_back( newTask );
-
-  if ( mSceneObject )
-  {
-    SceneGraph::RenderTask* sceneObject = taskImpl->CreateSceneObject();
-
-    OwnerPointer< SceneGraph::RenderTask > transferOwnership( sceneObject );
-    AddTaskMessage( mEventThreadServices, *mSceneObject, transferOwnership );
-  }
-
-  // Set the default source & camera actors
-  taskImpl->SetSourceActor( &mDefaults.GetDefaultRootActor() );
-  taskImpl->SetCameraActor( &mDefaults.GetDefaultCameraActor() );
-
-  return newTask;
+  return CreateTask( &mDefaults.GetDefaultRootActor(), &mDefaults.GetDefaultCameraActor() );
 }
 
-void RenderTaskList::RemoveTask( Dali::RenderTask task )
+RenderTaskPtr RenderTaskList::CreateTask( Actor* sourceActor, CameraActor* cameraActor)
+{
+  RenderTaskPtr task = RenderTask::New( sourceActor, cameraActor, *this );
+
+  mTasks.push_back( task );
+
+  return task;
+}
+
+void RenderTaskList::RemoveTask( Internal::RenderTask& task )
 {
   for ( RenderTaskContainer::iterator iter = mTasks.begin(); mTasks.end() != iter; ++iter )
   {
-    if ( *iter == task )
+    RenderTask *ptr = iter->Get();
+
+    if ( ptr == &task )
     {
-      RenderTask& taskImpl = GetImplementation( task );
-      if ( mSceneObject )
-      {
-        SceneGraph::RenderTask* sceneObject = taskImpl.GetRenderTaskSceneObject();
-        DALI_ASSERT_DEBUG( NULL != sceneObject );
+      const SceneGraph::RenderTask& sceneObject = task.GetRenderTaskSceneObject();
 
-        // Send a message to remove the scene-graph RenderTask
-        RemoveTaskMessage( mEventThreadServices, *mSceneObject, *sceneObject );
-
-        // The scene-graph RenderTask will be destroyed soon; discard the raw-pointer
-        taskImpl.DiscardSceneObject();
-      }
-
+      // delete the task
       mTasks.erase( iter );
+      // send a message to remove the scene-graph RenderTask
+      RemoveTaskMessage( mEventThreadServices, *mSceneObject, sceneObject );
 
       for ( Vector< Exclusive >::Iterator exclusiveIt = mExclusives.Begin(); exclusiveIt != mExclusives.End(); ++exclusiveIt )
       {
-        if ( exclusiveIt->renderTaskPtr == &taskImpl )
+        if ( exclusiveIt->renderTaskPtr == ptr )
         {
           mExclusives.Erase( exclusiveIt );
           break;
@@ -113,11 +99,11 @@ uint32_t RenderTaskList::GetTaskCount() const
   return static_cast<uint32_t>( mTasks.size() ); // only 4,294,967,295 render tasks supported
 }
 
-Dali::RenderTask RenderTaskList::GetTask( uint32_t index ) const
+RenderTaskPtr RenderTaskList::GetTask( uint32_t index ) const
 {
   DALI_ASSERT_ALWAYS( ( index < mTasks.size() ) && "RenderTask index out-of-range" );
 
-  return mTasks[index];
+  return mTasks[ index ];
 }
 
 void RenderTaskList::SetExclusive( RenderTask* task, bool exclusive )
@@ -149,25 +135,30 @@ void RenderTaskList::SetExclusive( RenderTask* task, bool exclusive )
   }
 }
 
-RenderTaskList::RenderTaskList( EventThreadServices& eventThreadServices, RenderTaskDefaults& defaults, bool systemLevel )
-: mEventThreadServices( eventThreadServices ),
-  mDefaults( defaults ),
-  mIsSystemLevel( systemLevel ),
-  mSceneObject( NULL )
+RenderTaskList::RenderTaskList()
+: mEventThreadServices( EventThreadServices::Get() ),
+  mDefaults( *Stage::GetCurrent() ),
+  mSceneObject( nullptr )
 {
 }
 
 RenderTaskList::~RenderTaskList()
 {
+  if( EventThreadServices::IsCoreRunning() && mSceneObject )
+  {
+    // Remove the render task list using a message to the update manager
+    RemoveRenderTaskListMessage( mEventThreadServices.GetUpdateManager(), *mSceneObject );
+  }
 }
 
-void RenderTaskList::Initialize( UpdateManager& updateManager )
+void RenderTaskList::Initialize()
 {
-  // This should only be called once, with no existing scene-object
-  DALI_ASSERT_DEBUG( NULL == mSceneObject );
+  // Create a new render task list, Keep a const pointer to the render task list.
+  mSceneObject = SceneGraph::RenderTaskList::New();
 
-  // Get raw-pointer to render task list
-  mSceneObject = updateManager.GetRenderTaskList( mIsSystemLevel );
+  OwnerPointer< SceneGraph::RenderTaskList > transferOwnership( const_cast< SceneGraph::RenderTaskList* >( mSceneObject ) );
+  AddRenderTaskListMessage( mEventThreadServices.GetUpdateManager(), transferOwnership );
+
   // set the callback to call us back when tasks are completed
   mSceneObject->SetCompleteNotificationInterface( this );
 }
@@ -176,41 +167,40 @@ void RenderTaskList::NotifyCompleted()
 {
   DALI_LOG_TRACE_METHOD(gLogRenderList);
 
-  std::vector< Dali::RenderTask > finishedRenderTasks;
+  RenderTaskContainer finishedRenderTasks;
 
   // Since render tasks can be unreferenced during the signal emissions, iterators into render tasks pointers may be invalidated.
   // First copy the finished render tasks, then emit signals
-  for ( std::vector<Dali::RenderTask>::iterator it = mTasks.begin(), endIt = mTasks.end(); it != endIt; ++it )
+  for ( RenderTaskContainer::iterator iter = mTasks.begin(), endIt = mTasks.end(); iter != endIt; ++iter )
   {
-    Dali::RenderTask& renderTask( *it );
-
-    if( GetImplementation( renderTask ).HasFinished() )
+    if( (*iter)->HasFinished() )
     {
-      finishedRenderTasks.push_back( Dali::RenderTask( renderTask ) );
+      finishedRenderTasks.push_back( *iter );
     }
   }
 
   // Now it's safe to emit the signals
-  for ( std::vector<Dali::RenderTask>::iterator it = finishedRenderTasks.begin(), endIt = finishedRenderTasks.end(); it != endIt; ++it )
+  for ( auto&& item : finishedRenderTasks )
   {
-    Dali::RenderTask& handle( *it );
-
-    GetImplementation(handle).EmitSignalFinish();
+    item->EmitSignalFinish();
   }
 }
 
 void RenderTaskList::RecoverFromContextLoss()
 {
-  for ( RenderTaskContainer::iterator iter = mTasks.begin(); mTasks.end() != iter; ++iter )
+  for ( auto&& item : mTasks )
   {
-    Dali::RenderTask task = *iter;
-
     // If the render target renders only once to an offscreen, re-render the render task
-    if( task.GetRefreshRate() == Dali::RenderTask::REFRESH_ONCE && task.GetTargetFrameBuffer() )
+    if( item->GetRefreshRate() == Dali::RenderTask::REFRESH_ONCE && item->GetTargetFrameBuffer() )
     {
-      task.SetRefreshRate( Dali::RenderTask::REFRESH_ONCE );
+      item->SetRefreshRate( Dali::RenderTask::REFRESH_ONCE );
     }
   }
+}
+
+const SceneGraph::RenderTaskList& RenderTaskList::GetSceneObject() const
+{
+  return *mSceneObject;
 }
 
 } // namespace Internal

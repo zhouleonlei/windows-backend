@@ -24,6 +24,7 @@
 #include <dali/internal/event/common/object-registry-impl.h>
 #include <dali/internal/event/common/stage-impl.h>
 #include <dali/internal/event/common/type-registry-impl.h>
+#include <dali/internal/event/common/thread-local-storage.h>
 
 namespace Dali
 {
@@ -38,20 +39,21 @@ BaseObject::~BaseObject()
 
 void BaseObject::RegisterObject()
 {
-  Internal::Stage* stage = Internal::Stage::GetCurrent();
-  if( stage )
+  Internal::ThreadLocalStorage* tls = Internal::ThreadLocalStorage::GetInternal();
+  if ( tls )
   {
-    stage->RegisterObject( this );
+    tls->GetEventThreadServices().RegisterObject( this );
   }
 }
 
 void BaseObject::UnregisterObject()
 {
+  Internal::ThreadLocalStorage* tls = Internal::ThreadLocalStorage::GetInternal();
+
   // Guard to allow handle destruction after Core has been destroyed
-  Internal::Stage* stage = Internal::Stage::GetCurrent();
-  if( stage )
+  if( tls )
   {
-    stage->UnregisterObject( this );
+    tls->GetEventThreadServices().UnregisterObject( this );
   }
 }
 
@@ -73,10 +75,10 @@ const std::string& BaseObject::GetTypeName() const
 
   if( registry )
   {
-    Dali::TypeInfo typeInfo = registry->GetTypeInfo(this);
+    Internal::TypeRegistry::TypeInfoPointer typeInfo = registry->GetTypeInfo(this);
     if( typeInfo )
     {
-      return typeInfo.GetName();
+      return typeInfo->GetName();
     }
   }
 
@@ -90,10 +92,10 @@ bool BaseObject::GetTypeInfo(Dali::TypeInfo& typeInfo) const
 {
   Dali::Internal::TypeRegistry* registry = Dali::Internal::TypeRegistry::Get();
 
-  Dali::TypeInfo info = registry->GetTypeInfo(this);
+  Internal::TypeRegistry::TypeInfoPointer info = registry->GetTypeInfo(this);
   if(info)
   {
-    typeInfo = info;
+    typeInfo = Dali::TypeInfo( info.Get() );
     return true;
   }
   else

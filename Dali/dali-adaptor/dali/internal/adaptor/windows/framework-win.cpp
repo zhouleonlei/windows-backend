@@ -25,8 +25,6 @@
 #include <dali/internal/window-system/windows/platform-implement-win.h>
 #include <dali/internal/system/common/callback-manager.h>
 
-int64_t counter = 0;
-
 namespace Dali
 {
 
@@ -86,12 +84,6 @@ struct Framework::Impl
     return mRegion;
   }
 
-  // Data
-  CallbackBase* mAbortCallBack;
-  CallbackManager *mCallbackManager;
-  std::string mLanguage;
-  std::string mRegion;
-
   // Static methods
 
   /**
@@ -136,20 +128,44 @@ struct Framework::Impl
 
   void Run()
   {
-    WindowsPlatformImplement::RunLoop();
+    WindowsPlatformImplementation::RunLoop();
   }
 
   void Quit()
   {
   }
 
+  void SetCallbackBase( CallbackBase *base )
+  {
+    mAbortCallBack = base;
+  }
+
+  bool ExcuteCallback()
+  {
+    if( NULL != mAbortCallBack )
+    {
+      CallbackBase::Execute( *mAbortCallBack );
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 private:
   // Undefined
   Impl( const Impl& impl ) = delete;
 
   // Undefined
-  Impl& operator=( const Impl& impl );
+  Impl& operator=( const Impl& impl ) = delete;
+
+private:
+  // Data
+  CallbackBase* mAbortCallBack;
+  CallbackManager *mCallbackManager;
+  std::string mLanguage;
+  std::string mRegion;
 };
 
 Framework::Framework( Framework::Observer& observer, int *argc, char ***argv, Type type )
@@ -198,7 +214,7 @@ bool Framework::IsMainLoopRunning()
 
 void Framework::AddAbortCallback( CallbackBase* callback )
 {
-  mImpl->mAbortCallBack = callback;
+  mImpl->SetCallbackBase( callback );
 }
 
 std::string Framework::GetBundleName() const
@@ -218,7 +234,7 @@ std::string Framework::GetBundleId() const
 
 std::string Framework::GetResourcePath()
 {
-  // "DALI_APPLICATION_PACKAGE" is used by Ubuntu specifically to get the already configured Application package path.
+  // "DALI_APPLICATION_PACKAGE" is used by Windows specifically to get the already configured Application package path.
   const char* winEnvironmentVariable = "DALI_APPLICATION_PACKAGE";
   char* value = getenv( winEnvironmentVariable );
 
@@ -231,6 +247,12 @@ std::string Framework::GetResourcePath()
   return resourcePath;
 }
 
+std::string Framework::GetDataPath()
+{
+  std::string result = app_get_data_path();
+  return result;
+}
+
 void Framework::SetBundleId(const std::string& id)
 {
   mBundleId = id;
@@ -239,11 +261,7 @@ void Framework::SetBundleId(const std::string& id)
 void Framework::AbortCallback( )
 {
   // if an abort call back has been installed run it.
-  if (mImpl->mAbortCallBack)
-  {
-    CallbackBase::Execute( *mImpl->mAbortCallBack );
-  }
-  else
+  if( false == mImpl->ExcuteCallback() )
   {
     Quit();
   }

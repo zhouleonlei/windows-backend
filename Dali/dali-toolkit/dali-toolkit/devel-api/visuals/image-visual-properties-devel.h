@@ -83,9 +83,43 @@ enum Type
    */
   LOOP_COUNT = ORIENTATION_CORRECTION + 3,
 
+  /**
+   * @brief The playing range the AnimatedVectorImageVisual will use.
+   *
+   * Animation will play between the values specified. Both values should be between 0-1,
+   * otherwise they will be ignored. If the range provided is not in proper order ( minimum,maximum ), it will be reordered.
+   *
+   * @details Name "playRange", Type Property::VECTOR2, between 0 and 1
+   * @note Default 0 and 1
+   */
+  PLAY_RANGE = ORIENTATION_CORRECTION + 4,
+
+  /**
+   * @brief The playing state the AnimatedVectorImageVisual will use.
+   * @details Name "playState", type PlayState (Property::INTEGER)
+   * @note This property is read-only.
+   */
+  PLAY_STATE = ORIENTATION_CORRECTION + 5,
+
+  /**
+   * @brief The animation progress the AnimatedVectorImageVisual will use.
+   * @details Name "currentProgress", Type Property::FLOAT, between [0, 1] or between the play range if specified
+   * @note This property is read-only.
+   */
+  CURRENT_PROGRESS = ORIENTATION_CORRECTION + 6
 };
 
 } //namespace Property
+
+/**
+ * @brief Enumeration for what state the animation is in.
+ */
+enum class PlayState
+{
+  STOPPED,   ///< Animation has stopped
+  PLAYING,   ///< The animation is playing
+  PAUSED     ///< The animation is paused
+};
 
 } // namespace DevelImageVisual
 

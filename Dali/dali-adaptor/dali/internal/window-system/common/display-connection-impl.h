@@ -21,7 +21,7 @@
 // INTERNAL INCLUDES
 #include <dali/internal/window-system/common/display-connection.h>
 #include <dali/public-api/object/base-object.h>
-#include <dali/internal/graphics/gles20/egl-implementation.h>
+#include <dali/internal/graphics/gles/egl-implementation.h>
 
 
 namespace Dali
@@ -74,7 +74,7 @@ public:
    * Sets the render surface type
    * @param[in] type The render surface type
    */
-  virtual void SetSurfaceType( RenderSurface::Type type ) = 0;
+  virtual void SetSurfaceType( Integration::RenderSurface::Type type ) = 0;
 
   /**
    * Sets the graphics interface

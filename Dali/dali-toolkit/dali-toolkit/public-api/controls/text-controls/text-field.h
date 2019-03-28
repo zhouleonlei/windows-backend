@@ -169,20 +169,14 @@ public:
       PLACEHOLDER_TEXT_COLOR,
 
       /**
-       * @DEPRECATED_1_1.37 Use SHADOW instead.
-       * @brief The drop shadow offset 0 indicates no shadow.
-       * @details Name "shadowOffset", type Property::VECTOR2.
-       * @SINCE_1_0.0
+       * @brief This property is removed because it's deprecated.
        */
-      SHADOW_OFFSET,
+      RESERVED_PROPERTY_01,
 
       /**
-       * @DEPRECATED_1_1.37 Use SHADOW instead.
-       * @brief The color of a drop shadow.
-       * @details Name "shadowColor", type Property::VECTOR4.
-       * @SINCE_1_0.0
+       * @brief This property is removed because it's deprecated.
        */
-      SHADOW_COLOR,
+      RESERVED_PROPERTY_02,
 
       /**
        * @brief The color to apply to the primary cursor.

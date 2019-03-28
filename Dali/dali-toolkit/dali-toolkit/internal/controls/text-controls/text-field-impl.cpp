@@ -91,8 +91,8 @@ DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "horizontalAlignment",          
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "verticalAlignment",                    STRING,    VERTICAL_ALIGNMENT                   )
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "textColor",                            VECTOR4,   TEXT_COLOR                           )
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "placeholderTextColor",                 VECTOR4,   PLACEHOLDER_TEXT_COLOR               )
-DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "shadowOffset",                         VECTOR2,   SHADOW_OFFSET                        )
-DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "shadowColor",                          VECTOR4,   SHADOW_COLOR                         )
+DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "reservedProperty01",                   STRING,    RESERVED_PROPERTY_01                 )
+DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "reservedProperty02",                   STRING,    RESERVED_PROPERTY_02                 )
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "primaryCursorColor",                   VECTOR4,   PRIMARY_CURSOR_COLOR                 )
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "secondaryCursorColor",                 VECTOR4,   SECONDARY_CURSOR_COLOR               )
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "enableCursorBlink",                    BOOLEAN,   ENABLE_CURSOR_BLINK                  )
@@ -132,6 +132,7 @@ DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "placeholder",                  
 DALI_PROPERTY_REGISTRATION( Toolkit, TextField, "ellipsis",                             BOOLEAN,   ELLIPSIS                             )
 DALI_DEVEL_PROPERTY_REGISTRATION( Toolkit, TextField, "enableShiftSelection",           BOOLEAN,   ENABLE_SHIFT_SELECTION               )
 DALI_DEVEL_PROPERTY_REGISTRATION( Toolkit, TextField, "enableGrabHandle",               BOOLEAN,   ENABLE_GRAB_HANDLE                   )
+DALI_DEVEL_PROPERTY_REGISTRATION( Toolkit, TextField, "matchSystemLanguageDirection",   BOOLEAN,   MATCH_SYSTEM_LANGUAGE_DIRECTION      )
 
 DALI_SIGNAL_REGISTRATION( Toolkit, TextField, "textChanged",        SIGNAL_TEXT_CHANGED )
 DALI_SIGNAL_REGISTRATION( Toolkit, TextField, "maxLengthReached",   SIGNAL_MAX_LENGTH_REACHED )
@@ -334,36 +335,6 @@ void TextField::SetProperty( BaseObject* object, Property::Index index, const Pr
           if( impl.mController->GetPlaceholderTextColor() != textColor )
           {
             impl.mController->SetPlaceholderTextColor( textColor );
-            impl.mRenderer.Reset();
-          }
-        }
-        break;
-      }
-      case Toolkit::TextField::Property::SHADOW_OFFSET:
-      {
-        if( impl.mController )
-        {
-          const Vector2& shadowOffset = value.Get< Vector2 >();
-          DALI_LOG_INFO( gLogFilter, Debug::General, "TextField %p SHADOW_OFFSET %f,%f\n", impl.mController.Get(), shadowOffset.x, shadowOffset.y );
-
-          if ( impl.mController->GetShadowOffset() != shadowOffset )
-          {
-            impl.mController->SetShadowOffset( shadowOffset );
-            impl.mRenderer.Reset();
-          }
-        }
-        break;
-      }
-      case Toolkit::TextField::Property::SHADOW_COLOR:
-      {
-        if( impl.mController )
-        {
-          const Vector4& shadowColor = value.Get< Vector4 >();
-          DALI_LOG_INFO( gLogFilter, Debug::General, "TextField %p SHADOW_COLOR %f,%f,%f,%f\n", impl.mController.Get(), shadowColor.r, shadowColor.g, shadowColor.b, shadowColor.a );
-
-          if ( impl.mController->GetShadowColor() != shadowColor )
-          {
-            impl.mController->SetShadowColor( shadowColor );
             impl.mRenderer.Reset();
           }
         }
@@ -785,6 +756,14 @@ void TextField::SetProperty( BaseObject* object, Property::Index index, const Pr
         }
         break;
       }
+      case Toolkit::DevelTextField::Property::MATCH_SYSTEM_LANGUAGE_DIRECTION:
+      {
+        if( impl.mController )
+        {
+          impl.mController->SetMatchSystemLanguageDirection(value.Get< bool >());
+        }
+        break;
+      }
     } // switch
   } // textfield
 }
@@ -910,22 +889,6 @@ Property::Value TextField::GetProperty( BaseObject* object, Property::Index inde
         if ( impl.mController )
         {
           value = impl.mController->GetPlaceholderTextColor();
-        }
-        break;
-      }
-      case Toolkit::TextField::Property::SHADOW_OFFSET:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetShadowOffset();
-        }
-        break;
-      }
-      case Toolkit::TextField::Property::SHADOW_COLOR:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetShadowColor();
         }
         break;
       }
@@ -1200,6 +1163,14 @@ Property::Value TextField::GetProperty( BaseObject* object, Property::Index inde
         }
         break;
       }
+      case Toolkit::DevelTextField::Property::MATCH_SYSTEM_LANGUAGE_DIRECTION:
+      {
+        if( impl.mController )
+        {
+          value = impl.mController->IsMatchSystemLanguageDirection();
+        }
+        break;
+      }
     } //switch
   }
 
@@ -1285,6 +1256,11 @@ void TextField::OnInitialize()
 
   mController->SetNoTextDoubleTapAction( Controller::NoTextTap::HIGHLIGHT );
   mController->SetNoTextLongPressAction( Controller::NoTextTap::HIGHLIGHT );
+
+  // Sets layoutDirection value
+  Dali::Stage stage = Dali::Stage::GetCurrent();
+  Dali::LayoutDirection::Type layoutDirection = static_cast<Dali::LayoutDirection::Type>( stage.GetRootLayer().GetProperty( Dali::Actor::Property::LAYOUT_DIRECTION ).Get<int>() );
+  mController->SetLayoutDirection( layoutDirection );
 
   // Forward input events to controller
   EnableGestureDetection( static_cast<Gesture::Type>( Gesture::Tap | Gesture::Pan | Gesture::LongPress ) );

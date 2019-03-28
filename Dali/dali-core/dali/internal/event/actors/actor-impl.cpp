@@ -42,6 +42,8 @@
 #include <dali/internal/event/common/property-helper.h>
 #include <dali/internal/event/common/stage-impl.h>
 #include <dali/internal/event/common/type-info-impl.h>
+#include <dali/internal/event/common/scene-impl.h>
+#include <dali/internal/event/common/thread-local-storage.h>
 #include <dali/internal/event/animation/constraint-impl.h>
 #include <dali/internal/event/common/projection.h>
 #include <dali/internal/event/size-negotiation/relayout-controller-impl.h>
@@ -67,8 +69,6 @@ namespace Dali
 
 namespace Internal
 {
-
-uint32_t Actor::mActorCounter = 0;
 
 namespace
 {
@@ -194,7 +194,7 @@ DALI_PROPERTY( "leaveRequired",             BOOLEAN,  true,  false, false, Dali:
 DALI_PROPERTY( "inheritOrientation",        BOOLEAN,  true,  false, false, Dali::Actor::Property::INHERIT_ORIENTATION )
 DALI_PROPERTY( "inheritScale",              BOOLEAN,  true,  false, false, Dali::Actor::Property::INHERIT_SCALE )
 DALI_PROPERTY( "colorMode",                 STRING,   true,  false, false, Dali::Actor::Property::COLOR_MODE )
-DALI_PROPERTY( "positionInheritance",       STRING,   true,  false, false, Dali::Actor::Property::POSITION_INHERITANCE )
+DALI_PROPERTY( "reservedProperty01",        STRING,   true,  false, false, Dali::Actor::Property::RESERVED_PROPERTY_01 ) // This property was removed, but to keep binary compatibility and TypeRegister test app, remain it here.
 DALI_PROPERTY( "drawMode",                  STRING,   true,  false, false, Dali::Actor::Property::DRAW_MODE )
 DALI_PROPERTY( "sizeModeFactor",            VECTOR3,  true,  false, false, Dali::Actor::Property::SIZE_MODE_FACTOR )
 DALI_PROPERTY( "widthResizePolicy",         STRING,   true,  false, false, Dali::Actor::Property::WIDTH_RESIZE_POLICY )
@@ -214,7 +214,7 @@ DALI_PROPERTY( "opacity",                   FLOAT,    true,  true,  true,  Dali:
 DALI_PROPERTY( "screenPosition",            VECTOR2,  false, false, false, Dali::DevelActor::Property::SCREEN_POSITION )
 DALI_PROPERTY( "positionUsesAnchorPoint",   BOOLEAN,  true,  false, false, Dali::DevelActor::Property::POSITION_USES_ANCHOR_POINT )
 DALI_PROPERTY( "culled",                    BOOLEAN,  false, false, true, Dali::DevelActor::Property::CULLED )
-DALI_PROPERTY_TABLE_END( DEFAULT_ACTOR_PROPERTY_START_INDEX )
+DALI_PROPERTY_TABLE_END( DEFAULT_ACTOR_PROPERTY_START_INDEX, ActorDefaultProperties )
 
 // Signals
 
@@ -240,7 +240,7 @@ BaseHandle CreateActor()
   return Dali::Actor::New();
 }
 
-TypeRegistration mType( typeid(Dali::Actor), typeid(Dali::Handle), CreateActor );
+TypeRegistration mType( typeid(Dali::Actor), typeid(Dali::Handle), CreateActor, ActorDefaultProperties );
 
 SignalConnectorType signalConnector1( mType, SIGNAL_TOUCHED, &Actor::DoConnectSignal );
 SignalConnectorType signalConnector2( mType, SIGNAL_HOVERED, &Actor::DoConnectSignal );
@@ -282,17 +282,9 @@ DALI_ENUM_TO_STRING( USE_OWN_MULTIPLY_PARENT_COLOR )
 DALI_ENUM_TO_STRING( USE_OWN_MULTIPLY_PARENT_ALPHA )
 DALI_ENUM_TO_STRING_TABLE_END( COLOR_MODE )
 
-DALI_ENUM_TO_STRING_TABLE_BEGIN( POSITION_INHERITANCE_MODE )
-DALI_ENUM_TO_STRING( INHERIT_PARENT_POSITION )
-DALI_ENUM_TO_STRING( USE_PARENT_POSITION )
-DALI_ENUM_TO_STRING( USE_PARENT_POSITION_PLUS_LOCAL_POSITION )
-DALI_ENUM_TO_STRING( DONT_INHERIT_POSITION )
-DALI_ENUM_TO_STRING_TABLE_END( POSITION_INHERITANCE_MODE )
-
 DALI_ENUM_TO_STRING_TABLE_BEGIN( DRAW_MODE )
 DALI_ENUM_TO_STRING_WITH_SCOPE( DrawMode, NORMAL )
 DALI_ENUM_TO_STRING_WITH_SCOPE( DrawMode, OVERLAY_2D )
-DALI_ENUM_TO_STRING_WITH_SCOPE( DrawMode, STENCIL )
 DALI_ENUM_TO_STRING_TABLE_END( DRAW_MODE )
 
 DALI_ENUM_TO_STRING_TABLE_BEGIN( RESIZE_POLICY )
@@ -408,12 +400,24 @@ void EmitVisibilityChangedSignalRecursively( ActorPtr actor, bool visible, Devel
 
 ActorPtr Actor::New()
 {
-  ActorPtr actor( new Actor( BASIC ) );
+  // pass a reference to actor, actor does not own its node
+  ActorPtr actor( new Actor( BASIC, *CreateNode() ) );
 
   // Second-phase construction
   actor->Initialize();
 
   return actor;
+}
+
+const SceneGraph::Node* Actor::CreateNode()
+{
+  // create node. Nodes are owned by the update manager
+  SceneGraph::Node* node = SceneGraph::Node::New();
+  OwnerPointer< SceneGraph::Node > transferOwnership( node );
+  Internal::ThreadLocalStorage* tls = Internal::ThreadLocalStorage::GetInternal();
+  AddNodeMessage( tls->GetUpdateManager(), transferOwnership );
+
+  return node;
 }
 
 const std::string& Actor::GetName() const
@@ -425,16 +429,13 @@ void Actor::SetName( const std::string& name )
 {
   mName = name;
 
-  if( NULL != mNode )
-  {
-    // ATTENTION: string for debug purposes is not thread safe.
-    DALI_LOG_SET_OBJECT_STRING( const_cast< SceneGraph::Node* >( mNode ), name );
-  }
+  // ATTENTION: string for debug purposes is not thread safe.
+  DALI_LOG_SET_OBJECT_STRING( const_cast< SceneGraph::Node* >( &GetNode() ), name );
 }
 
 uint32_t Actor::GetId() const
 {
-  return mId;
+  return GetNode().GetId();
 }
 
 bool Actor::OnStage() const
@@ -609,7 +610,7 @@ ActorPtr Actor::FindChildByName( const std::string& actorName )
 ActorPtr Actor::FindChildById( const uint32_t id )
 {
   ActorPtr child = 0;
-  if( id == mId )
+  if( id == GetId() )
   {
     child = this;
   }
@@ -631,11 +632,8 @@ ActorPtr Actor::FindChildById( const uint32_t id )
 
 void Actor::SetParentOrigin( const Vector3& origin )
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SetParentOriginMessage( GetEventThreadServices(), *mNode, origin );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SetParentOriginMessage( GetEventThreadServices(), GetNode(), origin );
 
   // Cache for event-thread access
   if( !mParentOrigin )
@@ -682,11 +680,8 @@ const Vector3& Actor::GetCurrentParentOrigin() const
 
 void Actor::SetAnchorPoint( const Vector3& anchor )
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SetAnchorPointMessage( GetEventThreadServices(), *mNode, anchor );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SetAnchorPointMessage( GetEventThreadServices(), GetNode(), anchor );
 
   // Cache for event-thread access
   if( !mAnchorPoint )
@@ -745,66 +740,46 @@ void Actor::SetPosition( const Vector3& position )
 {
   mTargetPosition = position;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, position );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, position );
 }
 
 void Actor::SetX( float x )
 {
   mTargetPosition.x = x;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, x );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, x );
 }
 
 void Actor::SetY( float y )
 {
   mTargetPosition.y = y;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, y );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, y );
 }
 
 void Actor::SetZ( float z )
 {
   mTargetPosition.z = z;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, z );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, z );
 }
 
 void Actor::TranslateBy( const Vector3& distance )
 {
   mTargetPosition += distance;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeRelative, distance );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mPosition, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeRelative, distance );
 }
 
 const Vector3& Actor::GetCurrentPosition() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetPosition(GetEventThreadServices().GetEventBufferIndex());
-  }
-
-  return Vector3::ZERO;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetPosition(GetEventThreadServices().GetEventBufferIndex());
 }
 
 const Vector3& Actor::GetTargetPosition() const
@@ -814,60 +789,37 @@ const Vector3& Actor::GetTargetPosition() const
 
 const Vector3& Actor::GetCurrentWorldPosition() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return Vector3::ZERO;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 const Vector2 Actor::GetCurrentScreenPosition() const
 {
-  StagePtr stage = Stage::GetCurrent();
-  if( stage && OnStage() && NULL != mNode )
+  if( mScene && OnStage() )
   {
-    Vector3 worldPosition =  mNode->GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
-    Vector3 cameraPosition = stage->GetDefaultCameraActor().mNode->GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
+    Vector3 worldPosition =  GetNode().GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
+    Vector3 cameraPosition = mScene->GetDefaultCameraActor().GetNode().GetWorldPosition( GetEventThreadServices().GetEventBufferIndex() );
     worldPosition -= cameraPosition;
 
     Vector3 actorSize = GetCurrentSize() * GetCurrentWorldScale();
-    Vector2 halfStageSize( stage->GetSize() * 0.5f ); // World position origin is center of stage
+    Vector2 halfSceneSize( mScene->GetSize() * 0.5f ); // World position origin is center of scene
     Vector3 halfActorSize( actorSize * 0.5f );
     Vector3 anchorPointOffSet = halfActorSize - actorSize * ( mPositionUsesAnchorPoint ? GetCurrentAnchorPoint() : AnchorPoint::TOP_LEFT );
 
-    return Vector2( halfStageSize.width + worldPosition.x - anchorPointOffSet.x,
-                    halfStageSize.height + worldPosition.y - anchorPointOffSet.y );
+    return Vector2( halfSceneSize.width + worldPosition.x - anchorPointOffSet.x,
+                    halfSceneSize.height + worldPosition.y - anchorPointOffSet.y );
   }
 
   return Vector2::ZERO;
 }
 
-void Actor::SetPositionInheritanceMode( PositionInheritanceMode mode )
-{
-  // this flag is not animatable so keep the value
-  mPositionInheritanceMode = mode;
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value
-    SetInheritPositionMessage( GetEventThreadServices(), *mNode, mode == INHERIT_PARENT_POSITION );
-  }
-}
-
-PositionInheritanceMode Actor::GetPositionInheritanceMode() const
-{
-  // Cached for event-thread access
-  return mPositionInheritanceMode;
-}
-
 void Actor::SetInheritPosition( bool inherit )
 {
-  if( mInheritPosition != inherit && NULL != mNode )
+  if( mInheritPosition != inherit )
   {
-    // non animateable so keep local copy
+    // non animatable so keep local copy
     mInheritPosition = inherit;
-    SetInheritPositionMessage( GetEventThreadServices(), *mNode, inherit );
+    SetInheritPositionMessage( GetEventThreadServices(), GetNode(), inherit );
   }
 }
 
@@ -890,11 +842,8 @@ void Actor::SetOrientation( const Quaternion& orientation )
 {
   mTargetOrientation = orientation;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Quaternion>::Send( GetEventThreadServices(), mNode, &mNode->mOrientation, &SceneGraph::TransformManagerPropertyHandler<Quaternion>::Bake, orientation );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Quaternion>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mOrientation, &SceneGraph::TransformManagerPropertyHandler<Quaternion>::Bake, orientation );
 }
 
 void Actor::RotateBy( const Radian& angle, const Vector3& axis )
@@ -906,33 +855,20 @@ void Actor::RotateBy( const Quaternion& relativeRotation )
 {
   mTargetOrientation *= Quaternion( relativeRotation );
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Quaternion>::Send( GetEventThreadServices(), mNode, &mNode->mOrientation, &SceneGraph::TransformManagerPropertyHandler<Quaternion>::BakeRelative, relativeRotation );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Quaternion>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mOrientation, &SceneGraph::TransformManagerPropertyHandler<Quaternion>::BakeRelative, relativeRotation );
 }
 
 const Quaternion& Actor::GetCurrentOrientation() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetOrientation(GetEventThreadServices().GetEventBufferIndex());
-  }
-
-  return Quaternion::IDENTITY;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetOrientation(GetEventThreadServices().GetEventBufferIndex());
 }
 
 const Quaternion& Actor::GetCurrentWorldOrientation() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetWorldOrientation( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return Quaternion::IDENTITY;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetWorldOrientation( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 void Actor::SetScale( float scale )
@@ -949,88 +885,62 @@ void Actor::SetScale( const Vector3& scale )
 {
   mTargetScale = scale;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, scale );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, scale );
 }
 
 void Actor::SetScaleX( float x )
 {
   mTargetScale.x = x;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, x );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, x );
 }
 
 void Actor::SetScaleY( float y )
 {
   mTargetScale.y = y;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, y );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, y );
 }
 
 void Actor::SetScaleZ( float z )
 {
   mTargetScale.z = z;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, z );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, z );
 }
 
 void Actor::ScaleBy(const Vector3& relativeScale)
 {
   mTargetScale *= relativeScale;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeRelativeMultiply, relativeScale );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mScale, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeRelativeMultiply, relativeScale );
 }
 
 const Vector3& Actor::GetCurrentScale() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetScale(GetEventThreadServices().GetEventBufferIndex());
-  }
-
-  return Vector3::ONE;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetScale(GetEventThreadServices().GetEventBufferIndex());
 }
 
 const Vector3& Actor::GetCurrentWorldScale() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetWorldScale( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return Vector3::ONE;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetWorldScale( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 void Actor::SetInheritScale( bool inherit )
 {
-
-  if( mInheritScale != inherit && NULL != mNode )
+  if( mInheritScale != inherit )
   {
-    // non animateable so keep local copy
+    // non animatable so keep local copy
     mInheritScale = inherit;
-    // mNode is being used in a separate thread; queue a message to set the value
-    SetInheritScaleMessage( GetEventThreadServices(), *mNode, inherit );
+    // node is being used in a separate thread; queue a message to set the value
+    SetInheritScaleMessage( GetEventThreadServices(), GetNode(), inherit );
   }
 }
 
@@ -1041,12 +951,7 @@ bool Actor::IsScaleInherited() const
 
 Matrix Actor::GetCurrentWorldMatrix() const
 {
-  if( NULL != mNode )
-  {
-    return mNode->GetWorldMatrix(0);
-  }
-
-  return Matrix::IDENTITY;
+  return GetNode().GetWorldMatrix(0);
 }
 
 void Actor::SetVisible( bool visible )
@@ -1056,35 +961,22 @@ void Actor::SetVisible( bool visible )
 
 bool Actor::IsVisible() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->IsVisible( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return true;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().IsVisible( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 void Actor::SetOpacity( float opacity )
 {
   mTargetColor.a = opacity;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, &mNode->mColor, &AnimatableProperty<Vector4>::BakeW, opacity );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mColor, &AnimatableProperty<Vector4>::BakeW, opacity );
 }
 
 float Actor::GetCurrentOpacity() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetOpacity(GetEventThreadServices().GetEventBufferIndex());
-  }
-
-  return 1.0f;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetOpacity(GetEventThreadServices().GetEventBufferIndex());
 }
 
 ClippingMode::Type Actor::GetClippingMode() const
@@ -1099,77 +991,55 @@ uint32_t Actor::GetSortingDepth()
 
 const Vector4& Actor::GetCurrentWorldColor() const
 {
-  if( NULL != mNode )
-  {
-    return mNode->GetWorldColor( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return Color::WHITE;
+  return GetNode().GetWorldColor( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 void Actor::SetColor( const Vector4& color )
 {
   mTargetColor = color;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodePropertyMessage<Vector4>::Send( GetEventThreadServices(), mNode, &mNode->mColor, &AnimatableProperty<Vector4>::Bake, color );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodePropertyMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mColor, &AnimatableProperty<Vector4>::Bake, color );
 }
 
 void Actor::SetColorRed( float red )
 {
   mTargetColor.r = red;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, &mNode->mColor, &AnimatableProperty<Vector4>::BakeX, red );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mColor, &AnimatableProperty<Vector4>::BakeX, red );
 }
 
 void Actor::SetColorGreen( float green )
 {
   mTargetColor.g = green;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, &mNode->mColor, &AnimatableProperty<Vector4>::BakeY, green );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mColor, &AnimatableProperty<Vector4>::BakeY, green );
 }
 
 void Actor::SetColorBlue( float blue )
 {
   mTargetColor.b = blue;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, &mNode->mColor, &AnimatableProperty<Vector4>::BakeZ, blue );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mColor, &AnimatableProperty<Vector4>::BakeZ, blue );
 }
 
 const Vector4& Actor::GetCurrentColor() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetColor(GetEventThreadServices().GetEventBufferIndex());
-  }
-
-  return Color::WHITE;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetColor(GetEventThreadServices().GetEventBufferIndex());
 }
 
 void Actor::SetInheritOrientation( bool inherit )
 {
-  if( mInheritOrientation != inherit && NULL != mNode)
+  if( mInheritOrientation != inherit )
   {
-    // non animateable so keep local copy
+    // non animatable so keep local copy
     mInheritOrientation = inherit;
-    // mNode is being used in a separate thread; queue a message to set the value
-    SetInheritOrientationMessage( GetEventThreadServices(), *mNode, inherit );
+    // node is being used in a separate thread; queue a message to set the value
+    SetInheritOrientationMessage( GetEventThreadServices(), GetNode(), inherit );
   }
 }
 
@@ -1197,13 +1067,10 @@ const Vector3& Actor::GetSizeModeFactor() const
 
 void Actor::SetColorMode( ColorMode colorMode )
 {
-  // non animateable so keep local copy
+  // non animatable so keep local copy
   mColorMode = colorMode;
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value
-    SetColorModeMessage( GetEventThreadServices(), *mNode, colorMode );
-  }
+  // node is being used in a separate thread; queue a message to set the value
+  SetColorModeMessage( GetEventThreadServices(), GetNode(), colorMode );
 }
 
 ColorMode Actor::GetColorMode() const
@@ -1250,15 +1117,14 @@ void Actor::SetSizeInternal( const Vector3& size )
   // dont allow recursive loop
   DALI_ASSERT_ALWAYS( !mInsideOnSizeSet && "Cannot call SetSize from OnSizeSet" );
   // check that we have a node AND the new size width, height or depth is at least a little bit different from the old one
-  if( ( NULL != mNode )&&
-      ( ( fabsf( mTargetSize.width - size.width  ) > Math::MACHINE_EPSILON_1 )||
-        ( fabsf( mTargetSize.height- size.height ) > Math::MACHINE_EPSILON_1 )||
-        ( fabsf( mTargetSize.depth - size.depth  ) > Math::MACHINE_EPSILON_1 ) ) )
+  if( ( fabsf( mTargetSize.width - size.width  ) > Math::MACHINE_EPSILON_1 )||
+      ( fabsf( mTargetSize.height- size.height ) > Math::MACHINE_EPSILON_1 )||
+      ( fabsf( mTargetSize.depth - size.depth  ) > Math::MACHINE_EPSILON_1 ) )
   {
     mTargetSize = size;
 
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, mTargetSize );
+    // node is being used in a separate thread; queue a message to set the value & base value
+    SceneGraph::NodeTransformPropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::Bake, mTargetSize );
 
     // Notification for derived classes
     mInsideOnSizeSet = true;
@@ -1284,11 +1150,8 @@ void Actor::SetWidth( float width )
   {
     mTargetSize.width = width;
 
-    if( NULL != mNode )
-    {
-      // mNode is being used in a separate thread; queue a message to set the value & base value
-      SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, width );
-    }
+    // node is being used in a separate thread; queue a message to set the value & base value
+    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeX, width );
   }
 
   RelayoutRequest();
@@ -1305,11 +1168,8 @@ void Actor::SetHeight( float height )
   {
     mTargetSize.height = height;
 
-    if( NULL != mNode )
-    {
-      // mNode is being used in a separate thread; queue a message to set the value & base value
-      SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, height );
-    }
+    // node is being used in a separate thread; queue a message to set the value & base value
+    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeY, height );
   }
 
   RelayoutRequest();
@@ -1319,11 +1179,8 @@ void Actor::SetDepth( float depth )
 {
   mTargetSize.depth = depth;
 
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value & base value
-    SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, &mNode->mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, depth );
-  }
+  // node is being used in a separate thread; queue a message to set the value & base value
+  SceneGraph::NodeTransformComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mSize, &SceneGraph::TransformManagerPropertyHandler<Vector3>::BakeZ, depth );
 }
 
 Vector3 Actor::GetTargetSize() const
@@ -1345,13 +1202,8 @@ Vector3 Actor::GetTargetSize() const
 
 const Vector3& Actor::GetCurrentSize() const
 {
-  if( NULL != mNode )
-  {
-    // mNode is being used in a separate thread; copy the value from the previous update
-    return mNode->GetSize( GetEventThreadServices().GetEventBufferIndex() );
-  }
-
-  return Vector3::ZERO;
+  // node is being used in a separate thread; copy the value from the previous update
+  return GetNode().GetSize( GetEventThreadServices().GetEventBufferIndex() );
 }
 
 Vector3 Actor::GetNaturalSize() const
@@ -1574,7 +1426,7 @@ uint32_t Actor::AddRenderer( Renderer& renderer )
   uint32_t index = static_cast<uint32_t>( mRenderers->size() ); //  4,294,967,295 renderers per actor
   RendererPtr rendererPtr = RendererPtr( &renderer );
   mRenderers->push_back( rendererPtr );
-  AddRendererMessage( GetEventThreadServices(), *mNode, renderer.GetRendererSceneObject() );
+  AttachRendererMessage( GetEventThreadServices(), GetNode(), renderer.GetRendererSceneObject() );
   return index;
 }
 
@@ -1610,7 +1462,7 @@ void Actor::RemoveRenderer( Renderer& renderer )
       if( (*iter).Get() == &renderer )
       {
         mRenderers->erase( iter );
-        RemoveRendererMessage( GetEventThreadServices(), *mNode, renderer.GetRendererSceneObject() );
+        DetachRendererMessage( GetEventThreadServices(), GetNode(), renderer.GetRendererSceneObject() );
         break;
       }
     }
@@ -1622,7 +1474,7 @@ void Actor::RemoveRenderer( uint32_t index )
   if( index < GetRendererCount() )
   {
     RendererPtr renderer = ( *mRenderers )[ index ];
-    RemoveRendererMessage( GetEventThreadServices(), *mNode, renderer.Get()->GetRendererSceneObject() );
+    DetachRendererMessage( GetEventThreadServices(), GetNode(), renderer.Get()->GetRendererSceneObject() );
     mRenderers->erase( mRenderers->begin()+index );
   }
 }
@@ -1636,11 +1488,9 @@ void Actor::SetDrawMode( DrawMode::Type drawMode )
 {
   // this flag is not animatable so keep the value
   mDrawMode = drawMode;
-  if( ( NULL != mNode ) && ( drawMode != DrawMode::STENCIL ) )
-  {
-    // mNode is being used in a separate thread; queue a message to set the value
-    SetDrawModeMessage( GetEventThreadServices(), *mNode, drawMode );
-  }
+
+  // node is being used in a separate thread; queue a message to set the value
+  SetDrawModeMessage( GetEventThreadServices(), GetNode(), drawMode );
 }
 
 DrawMode::Type Actor::GetDrawMode() const
@@ -1651,10 +1501,9 @@ DrawMode::Type Actor::GetDrawMode() const
 bool Actor::ScreenToLocal( float& localX, float& localY, float screenX, float screenY ) const
 {
   // only valid when on-stage
-  StagePtr stage = Stage::GetCurrent();
-  if( stage && OnStage() )
+  if( mScene && OnStage() )
   {
-    const RenderTaskList& taskList = stage->GetRenderTaskList();
+    const RenderTaskList& taskList = mScene->GetRenderTaskList();
 
     Vector2 converted( screenX, screenY );
 
@@ -1662,8 +1511,8 @@ bool Actor::ScreenToLocal( float& localX, float& localY, float screenX, float sc
     uint32_t taskCount = taskList.GetTaskCount();
     for( uint32_t i = taskCount; i > 0; --i )
     {
-      Dali::RenderTask task = taskList.GetTask( i - 1 );
-      if( ScreenToLocal( Dali::GetImplementation( task ), localX, localY, screenX, screenY ) )
+      RenderTaskPtr task = taskList.GetTask( i - 1 );
+      if( ScreenToLocal( *task, localX, localY, screenX, screenY ) )
       {
         // found a task where this conversion was ok so return
         return true;
@@ -1698,7 +1547,7 @@ bool Actor::ScreenToLocal( const RenderTask& renderTask, float& localX, float& l
 
 bool Actor::ScreenToLocal( const Matrix& viewMatrix, const Matrix& projectionMatrix, const Viewport& viewport, float& localX, float& localY, float screenX, float screenY ) const
 {
-  // Early-out if mNode is NULL
+  // Early-out if not on stage
   if( !OnStage() )
   {
     return false;
@@ -1706,7 +1555,7 @@ bool Actor::ScreenToLocal( const Matrix& viewMatrix, const Matrix& projectionMat
 
   // Get the ModelView matrix
   Matrix modelView;
-  Matrix::Multiply( modelView, mNode->GetWorldMatrix(0), viewMatrix );
+  Matrix::Multiply( modelView, GetNode().GetWorldMatrix(0), viewMatrix );
 
   // Calculate the inverted ModelViewProjection matrix; this will be used for 2 unprojects
   Matrix invertedMvp( false/*don't init*/);
@@ -1809,8 +1658,8 @@ bool Actor::RaySphereTest( const Vector4& rayOrigin, const Vector4& rayDir ) con
    C = o dot o - r^2
    */
 
-  // Early out if mNode is NULL
-  if( !mNode )
+  // Early-out if not on stage
+  if( !OnStage() )
   {
     return false;
   }
@@ -1818,14 +1667,14 @@ bool Actor::RaySphereTest( const Vector4& rayOrigin, const Vector4& rayDir ) con
   BufferIndex bufferIndex( GetEventThreadServices().GetEventBufferIndex() );
 
   // Transforms the ray to the local reference system. As the test is against a sphere, only the translation and scale are needed.
-  const Vector3& translation( mNode->GetWorldPosition( bufferIndex ) );
+  const Vector3& translation( GetNode().GetWorldPosition( bufferIndex ) );
   Vector3 rayOriginLocal( rayOrigin.x - translation.x, rayOrigin.y - translation.y, rayOrigin.z - translation.z );
 
   // Compute the radius is not needed, square radius it's enough.
-  const Vector3& size( mNode->GetSize( bufferIndex ) );
+  const Vector3& size( GetNode().GetSize( bufferIndex ) );
 
   // Scale the sphere.
-  const Vector3& scale( mNode->GetWorldScale( bufferIndex ) );
+  const Vector3& scale( GetNode().GetWorldScale( bufferIndex ) );
 
   const float width = size.width * scale.width;
   const float height = size.height * scale.height;
@@ -1843,14 +1692,14 @@ bool Actor::RayActorTest( const Vector4& rayOrigin, const Vector4& rayDir, Vecto
 {
   bool hit = false;
 
-  if( OnStage() && NULL != mNode )
+  if( OnStage() )
   {
     // Transforms the ray to the local reference system.
     // Calculate the inverse of Model matrix
     Matrix invModelMatrix( false/*don't init*/);
 
     BufferIndex bufferIndex( GetEventThreadServices().GetEventBufferIndex() );
-    invModelMatrix = mNode->GetWorldMatrix(0);
+    invModelMatrix = GetNode().GetWorldMatrix(0);
     invModelMatrix.Invert();
 
     Vector4 rayOriginLocal( invModelMatrix * rayOrigin );
@@ -1866,7 +1715,7 @@ bool Actor::RayActorTest( const Vector4& rayOrigin, const Vector4& rayDir, Vecto
       // Ray travels distance * rayDirLocal to intersect with plane.
       distance = a / b;
 
-      const Vector3& size = mNode->GetSize( bufferIndex );
+      const Vector3& size = GetNode().GetSize( bufferIndex );
 
       hitPointLocal.x = rayOriginLocal.x + rayDirLocal.x * distance + size.x * 0.5f;
       hitPointLocal.y = rayOriginLocal.y + rayDirLocal.y * distance + size.y * 0.5f;
@@ -2152,11 +2001,12 @@ bool Actor::DoConnectSignal( BaseObject* object, ConnectionTrackerInterface* tra
   return connected;
 }
 
-Actor::Actor( DerivedType derivedType )
-: mParent( NULL ),
+Actor::Actor( DerivedType derivedType, const SceneGraph::Node& node )
+: Object( &node ),
+  mScene( nullptr ),
+  mParent( NULL ),
   mChildren( NULL ),
   mRenderers( NULL ),
-  mNode( NULL ),
   mParentOrigin( NULL ),
   mAnchorPoint( NULL ),
   mRelayoutData( NULL ),
@@ -2179,7 +2029,6 @@ Actor::Actor( DerivedType derivedType )
   mTargetPosition( Vector3::ZERO ),
   mTargetScale( Vector3::ONE ),
   mName(),
-  mId( ++mActorCounter ), // actor ID is initialised to start from 1, and 0 is reserved
   mSortedDepth( 0u ),
   mDepth( 0u ),
   mIsRoot( ROOT_LAYER == derivedType ),
@@ -2201,7 +2050,6 @@ Actor::Actor( DerivedType derivedType )
   mInheritLayoutDirection( true ),
   mLayoutDirection( LayoutDirection::LEFT_TO_RIGHT ),
   mDrawMode( DrawMode::NORMAL ),
-  mPositionInheritanceMode( Node::DEFAULT_POSITION_INHERITANCE_MODE ),
   mColorMode( Node::DEFAULT_COLOR_MODE ),
   mClippingMode( ClippingMode::DISABLED )
 {
@@ -2209,11 +2057,6 @@ Actor::Actor( DerivedType derivedType )
 
 void Actor::Initialize()
 {
-  // Node creation, keep raw-pointer to Node for messaging
-  mNode = CreateNode();
-  OwnerPointer< SceneGraph::Node > transferOwnership( const_cast< SceneGraph::Node* >( mNode ) );
-  AddNodeMessage( GetEventThreadServices().GetUpdateManager(), transferOwnership );
-
   OnInitialize();
 
   GetEventThreadServices().RegisterObject( this );
@@ -2237,11 +2080,7 @@ Actor::~Actor()
   // Guard to allow handle destruction after Core has been destroyed
   if( EventThreadServices::IsCoreRunning() )
   {
-    if( NULL != mNode )
-    {
-      DestroyNodeMessage( GetEventThreadServices().GetUpdateManager(), *mNode );
-      mNode = NULL; // Node is about to be destroyed
-    }
+    DestroyNodeMessage( GetEventThreadServices().GetUpdateManager(), GetNode() );
 
     GetEventThreadServices().UnregisterObject( this );
   }
@@ -2254,10 +2093,7 @@ Actor::~Actor()
   delete mAnchorPoint;
 
   // Delete optional relayout data
-  if( mRelayoutData )
-  {
-    delete mRelayoutData;
-  }
+  delete mRelayoutData;
 }
 
 void Actor::ConnectToStage( uint32_t parentDepth )
@@ -2266,10 +2102,9 @@ void Actor::ConnectToStage( uint32_t parentDepth )
   // It protects us when the Actor hierarchy is modified during OnStageConnectionExternal callbacks.
   ActorContainer connectionList;
 
-  StagePtr stage = Stage::GetCurrent();
-  if( stage )
+  if( mScene )
   {
-    stage->RequestRebuildDepthTree();
+    mScene->RequestRebuildDepthTree();
   }
 
   // This stage is atomic i.e. not interrupted by user callbacks.
@@ -2306,6 +2141,7 @@ void Actor::RecursiveConnectToStage( ActorContainer& connectionList, uint32_t de
     ActorConstIter endIter = mChildren->end();
     for( ActorIter iter = mChildren->begin(); iter != endIter; ++iter )
     {
+      (*iter)->SetScene( *mScene );
       (*iter)->RecursiveConnectToStage( connectionList, depth + 1 );
     }
   }
@@ -2319,13 +2155,10 @@ void Actor::RecursiveConnectToStage( ActorContainer& connectionList, uint32_t de
  */
 void Actor::ConnectToSceneGraph()
 {
-  DALI_ASSERT_DEBUG( mNode != NULL); DALI_ASSERT_DEBUG( mParent != NULL); DALI_ASSERT_DEBUG( mParent->mNode != NULL );
+  DALI_ASSERT_DEBUG( mParent != NULL);
 
-  if( NULL != mNode )
-  {
-    // Reparent Node in next Update
-    ConnectNodeMessage( GetEventThreadServices().GetUpdateManager(), *(mParent->mNode), *mNode );
-  }
+  // Reparent Node in next Update
+  ConnectNodeMessage( GetEventThreadServices().GetUpdateManager(), mParent->GetNode(), GetNode() );
 
   // Request relayout on all actors that are added to the scenegraph
   RelayoutRequest();
@@ -2363,10 +2196,9 @@ void Actor::DisconnectFromStage()
   // It protects us when the Actor hierachy is modified during OnStageDisconnectionExternal callbacks.
   ActorContainer disconnectionList;
 
-  StagePtr stage = Stage::GetCurrent();
-  if( stage )
+  if( mScene )
   {
-    stage->RequestRebuildDepthTree();
+    mScene->RequestRebuildDepthTree();
   }
 
   // This stage is atomic i.e. not interrupted by user callbacks
@@ -2382,7 +2214,8 @@ void Actor::DisconnectFromStage()
 
 void Actor::RecursiveDisconnectFromStage( ActorContainer& disconnectionList )
 {
-  DALI_ASSERT_ALWAYS( OnStage() );
+  // need to change state first so that internals relying on IsOnStage() inside OnStageDisconnectionInternal() get the correct value
+  mIsOnStage = false;
 
   // Recursively disconnect children
   if( mChildren )
@@ -2401,8 +2234,6 @@ void Actor::RecursiveDisconnectFromStage( ActorContainer& disconnectionList )
   OnStageDisconnectionInternal();
 
   DisconnectFromSceneGraph();
-
-  mIsOnStage = false;
 }
 
 /**
@@ -2443,9 +2274,9 @@ bool Actor::IsNodeConnected() const
 {
   bool connected( false );
 
-  if( OnStage() && ( NULL != mNode ) )
+  if( OnStage() )
   {
-    if( IsRoot() || mNode->GetParent() )
+    if( IsRoot() || GetNode().GetParent() )
     {
       connected = true;
     }
@@ -2478,7 +2309,7 @@ void Actor::RebuildDepthTree()
 void Actor::DepthTraverseActorTree( OwnerPointer<SceneGraph::NodeDepths>& sceneGraphNodeDepths, int32_t& depthIndex )
 {
   mSortedDepth = depthIndex * DevelLayer::SIBLING_ORDER_MULTIPLIER;
-  sceneGraphNodeDepths->Add( const_cast<SceneGraph::Node*>( mNode ), mSortedDepth );
+  sceneGraphNodeDepths->Add( const_cast<SceneGraph::Node*>( &GetNode() ), mSortedDepth );
 
   // Create/add to children of this node
   if( mChildren )
@@ -2490,90 +2321,6 @@ void Actor::DepthTraverseActorTree( OwnerPointer<SceneGraph::NodeDepths>& sceneG
       childActor->DepthTraverseActorTree( sceneGraphNodeDepths, depthIndex );
     }
   }
-}
-
-uint32_t Actor::GetDefaultPropertyCount() const
-{
-  return DEFAULT_PROPERTY_COUNT;
-}
-
-void Actor::GetDefaultPropertyIndices( Property::IndexContainer& indices ) const
-{
-  indices.Reserve( DEFAULT_PROPERTY_COUNT );
-
-  for( int32_t i = 0; i < DEFAULT_PROPERTY_COUNT; ++i )
-  {
-    indices.PushBack( i );
-  }
-}
-
-const char* Actor::GetDefaultPropertyName( Property::Index index ) const
-{
-  if( index < DEFAULT_PROPERTY_COUNT )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].name;
-  }
-
-  return NULL;
-}
-
-Property::Index Actor::GetDefaultPropertyIndex( const std::string& name ) const
-{
-  Property::Index index = Property::INVALID_INDEX;
-
-  // Look for name in default properties
-  for( int32_t i = 0; i < DEFAULT_PROPERTY_COUNT; ++i )
-  {
-    const Internal::PropertyDetails* property = &DEFAULT_PROPERTY_DETAILS[ i ];
-    if( 0 == name.compare( property->name ) )
-    {
-      index = i;
-      break;
-    }
-  }
-
-  return index;
-}
-
-bool Actor::IsDefaultPropertyWritable( Property::Index index ) const
-{
-  if( index < DEFAULT_PROPERTY_COUNT )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].writable;
-  }
-
-  return false;
-}
-
-bool Actor::IsDefaultPropertyAnimatable( Property::Index index ) const
-{
-  if( index < DEFAULT_PROPERTY_COUNT )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].animatable;
-  }
-
-  return false;
-}
-
-bool Actor::IsDefaultPropertyAConstraintInput( Property::Index index ) const
-{
-  if( index < DEFAULT_PROPERTY_COUNT )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].constraintInput;
-  }
-
-  return false;
-}
-
-Property::Type Actor::GetDefaultPropertyType( Property::Index index ) const
-{
-  if( index < DEFAULT_PROPERTY_COUNT )
-  {
-    return DEFAULT_PROPERTY_DETAILS[ index ].type;
-  }
-
-  // index out of range...return Property::NONE
-  return Property::NONE;
 }
 
 void Actor::SetDefaultProperty( Property::Index index, const Property::Value& property )
@@ -2821,16 +2568,6 @@ void Actor::SetDefaultProperty( Property::Index index, const Property::Value& pr
       break;
     }
 
-    case Dali::Actor::Property::POSITION_INHERITANCE:
-    {
-      PositionInheritanceMode mode = mPositionInheritanceMode;
-      if( Scripting::GetEnumerationProperty< PositionInheritanceMode >( property, POSITION_INHERITANCE_MODE_TABLE, POSITION_INHERITANCE_MODE_TABLE_COUNT, mode ) )
-      {
-        SetPositionInheritanceMode( mode );
-      }
-      break;
-    }
-
     case Dali::Actor::Property::DRAW_MODE:
     {
       DrawMode::Type mode = mDrawMode;
@@ -2936,10 +2673,7 @@ void Actor::SetDefaultProperty( Property::Index index, const Property::Value& pr
       if( Scripting::GetEnumerationProperty< ClippingMode::Type >( property, CLIPPING_MODE_TABLE, CLIPPING_MODE_TABLE_COUNT, convertedValue ) )
       {
         mClippingMode = convertedValue;
-        if( NULL != mNode )
-        {
-          SetClippingModeMessage( GetEventThreadServices(), *mNode, mClippingMode );
-        }
+        SetClippingModeMessage( GetEventThreadServices(), GetNode(), mClippingMode );
       }
       break;
     }
@@ -2950,10 +2684,7 @@ void Actor::SetDefaultProperty( Property::Index index, const Property::Value& pr
       if( property.Get( value ) && value != mPositionUsesAnchorPoint )
       {
         mPositionUsesAnchorPoint = value;
-        if( NULL != mNode )
-        {
-          SetPositionUsesAnchorPointMessage( GetEventThreadServices(), *mNode, mPositionUsesAnchorPoint );
-        }
+        SetPositionUsesAnchorPointMessage( GetEventThreadServices(), GetNode(), mPositionUsesAnchorPoint );
       }
       break;
     }
@@ -2999,7 +2730,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<bool>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<bool>::Bake, value.Get<bool>() );
+      SceneGraph::NodePropertyMessage<bool>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<bool>::Bake, value.Get<bool>() );
 
       break;
     }
@@ -3010,7 +2741,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<int>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<int>::Bake, value.Get<int>() );
+      SceneGraph::NodePropertyMessage<int>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<int>::Bake, value.Get<int>() );
 
       break;
     }
@@ -3021,7 +2752,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<float>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<float>::Bake, value.Get<float>() );
+      SceneGraph::NodePropertyMessage<float>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<float>::Bake, value.Get<float>() );
 
       break;
     }
@@ -3034,15 +2765,15 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       // property is being used in a separate thread; queue a message to set the property
       if(entry.componentIndex == 0)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector2>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector2>::BakeX, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector2>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector2>::BakeX, value.Get<float>() );
       }
       else if(entry.componentIndex == 1)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector2>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector2>::BakeY, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector2>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector2>::BakeY, value.Get<float>() );
       }
       else
       {
-        SceneGraph::NodePropertyMessage<Vector2>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector2>::Bake, value.Get<Vector2>() );
+        SceneGraph::NodePropertyMessage<Vector2>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector2>::Bake, value.Get<Vector2>() );
       }
 
       break;
@@ -3056,19 +2787,19 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       // property is being used in a separate thread; queue a message to set the property
       if(entry.componentIndex == 0)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector3>::BakeX, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector3>::BakeX, value.Get<float>() );
       }
       else if(entry.componentIndex == 1)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector3>::BakeY, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector3>::BakeY, value.Get<float>() );
       }
       else if(entry.componentIndex == 2)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector3>::BakeZ, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector3>::BakeZ, value.Get<float>() );
       }
       else
       {
-        SceneGraph::NodePropertyMessage<Vector3>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector3>::Bake, value.Get<Vector3>() );
+        SceneGraph::NodePropertyMessage<Vector3>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector3>::Bake, value.Get<Vector3>() );
       }
 
       break;
@@ -3082,23 +2813,23 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       // property is being used in a separate thread; queue a message to set the property
       if(entry.componentIndex == 0)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector4>::BakeX, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector4>::BakeX, value.Get<float>() );
       }
       else if(entry.componentIndex == 1)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector4>::BakeY, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector4>::BakeY, value.Get<float>() );
       }
       else if(entry.componentIndex == 2)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector4>::BakeZ, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector4>::BakeZ, value.Get<float>() );
       }
       else if(entry.componentIndex == 3)
       {
-        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector4>::BakeW, value.Get<float>() );
+        SceneGraph::NodePropertyComponentMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector4>::BakeW, value.Get<float>() );
       }
       else
       {
-        SceneGraph::NodePropertyMessage<Vector4>::Send( GetEventThreadServices(), mNode, property, &AnimatableProperty<Vector4>::Bake, value.Get<Vector4>() );
+        SceneGraph::NodePropertyMessage<Vector4>::Send( GetEventThreadServices(), &GetNode(), property, &AnimatableProperty<Vector4>::Bake, value.Get<Vector4>() );
       }
 
       break;
@@ -3110,7 +2841,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<Quaternion>::Send( GetEventThreadServices(), mNode, property,&AnimatableProperty<Quaternion>::Bake,  value.Get<Quaternion>() );
+      SceneGraph::NodePropertyMessage<Quaternion>::Send( GetEventThreadServices(), &GetNode(), property,&AnimatableProperty<Quaternion>::Bake,  value.Get<Quaternion>() );
 
       break;
     }
@@ -3121,7 +2852,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<Matrix>::Send( GetEventThreadServices(), mNode, property,&AnimatableProperty<Matrix>::Bake,  value.Get<Matrix>() );
+      SceneGraph::NodePropertyMessage<Matrix>::Send( GetEventThreadServices(), &GetNode(), property,&AnimatableProperty<Matrix>::Bake,  value.Get<Matrix>() );
 
       break;
     }
@@ -3132,7 +2863,7 @@ void Actor::SetSceneGraphProperty( Property::Index index, const PropertyMetadata
       DALI_ASSERT_DEBUG( NULL != property );
 
       // property is being used in a separate thread; queue a message to set the property
-      SceneGraph::NodePropertyMessage<Matrix3>::Send( GetEventThreadServices(), mNode, property,&AnimatableProperty<Matrix3>::Bake,  value.Get<Matrix3>() );
+      SceneGraph::NodePropertyMessage<Matrix3>::Send( GetEventThreadServices(), &GetNode(), property,&AnimatableProperty<Matrix3>::Bake,  value.Get<Matrix3>() );
 
       break;
     }
@@ -3474,128 +3205,65 @@ void Actor::OnNotifyDefaultPropertyAnimation( Animation& animation, Property::In
   }
 }
 
-const SceneGraph::PropertyOwner* Actor::GetPropertyOwner() const
-{
-  return mNode;
-}
-
-const SceneGraph::PropertyOwner* Actor::GetSceneObject() const
-{
-  // This method should only return an object connected to the scene-graph
-  return OnStage() ? mNode : NULL;
-}
-
 const PropertyBase* Actor::GetSceneObjectAnimatableProperty( Property::Index index ) const
 {
-  DALI_ASSERT_ALWAYS( IsPropertyAnimatable( index ) && "Property is not animatable" );
-
   const PropertyBase* property( NULL );
 
-  // This method should only return a property of an object connected to the scene-graph
-  if( !OnStage() )
+  switch( index )
   {
-    return property;
-  }
-
-  if ( index >= ANIMATABLE_PROPERTY_REGISTRATION_START_INDEX && index <= ANIMATABLE_PROPERTY_REGISTRATION_MAX_INDEX )
-  {
-    AnimatablePropertyMetadata* animatable = RegisterAnimatableProperty( index );
-    DALI_ASSERT_ALWAYS( animatable && "Property index is invalid" );
-
-    property = animatable->GetSceneGraphProperty();
-  }
-  else if ( ( index >= CHILD_PROPERTY_REGISTRATION_START_INDEX ) && // Child properties are also stored as custom properties
-            ( index <= PROPERTY_CUSTOM_MAX_INDEX ) )
-  {
-    CustomPropertyMetadata* custom = FindCustomProperty( index );
-    DALI_ASSERT_ALWAYS( custom && "Property index is invalid" );
-
-    property = custom->GetSceneGraphProperty();
-  }
-  else if( NULL != mNode )
-  {
-    switch( index )
+    case Dali::Actor::Property::SIZE:        // FALLTHROUGH
+    case Dali::Actor::Property::SIZE_WIDTH:  // FALLTHROUGH
+    case Dali::Actor::Property::SIZE_HEIGHT: // FALLTHROUGH
+    case Dali::Actor::Property::SIZE_DEPTH:
     {
-      case Dali::Actor::Property::SIZE:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_WIDTH:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_HEIGHT:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_DEPTH:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::POSITION:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_X:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_Y:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_Z:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::ORIENTATION:
-        property = &mNode->mOrientation;
-        break;
-
-      case Dali::Actor::Property::SCALE:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_X:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_Y:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_Z:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::VISIBLE:
-        property = &mNode->mVisible;
-        break;
-
-      case Dali::Actor::Property::COLOR:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_RED:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_GREEN:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_BLUE:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_ALPHA:
-      case Dali::DevelActor::Property::OPACITY:
-        property = &mNode->mColor;
-        break;
-
-      default:
-        break;
+      property = &GetNode().mSize;
+      break;
     }
+    case Dali::Actor::Property::POSITION:   // FALLTHROUGH
+    case Dali::Actor::Property::POSITION_X: // FALLTHROUGH
+    case Dali::Actor::Property::POSITION_Y: // FALLTHROUGH
+    case Dali::Actor::Property::POSITION_Z:
+    {
+      property = &GetNode().mPosition;
+      break;
+    }
+    case Dali::Actor::Property::ORIENTATION:
+    {
+      property = &GetNode().mOrientation;
+      break;
+    }
+    case Dali::Actor::Property::SCALE:   // FALLTHROUGH
+    case Dali::Actor::Property::SCALE_X: // FALLTHROUGH
+    case Dali::Actor::Property::SCALE_Y: // FALLTHROUGH
+    case Dali::Actor::Property::SCALE_Z:
+    {
+      property = &GetNode().mScale;
+      break;
+    }
+    case Dali::Actor::Property::VISIBLE:
+    {
+      property = &GetNode().mVisible;
+      break;
+    }
+    case Dali::Actor::Property::COLOR:       // FALLTHROUGH
+    case Dali::Actor::Property::COLOR_RED:   // FALLTHROUGH
+    case Dali::Actor::Property::COLOR_GREEN: // FALLTHROUGH
+    case Dali::Actor::Property::COLOR_BLUE:  // FALLTHROUGH
+    case Dali::Actor::Property::COLOR_ALPHA: // FALLTHROUGH
+    case Dali::DevelActor::Property::OPACITY:
+    {
+      property = &GetNode().mColor;
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+  if( !property )
+  {
+    // not our property, ask base
+    property = Object::GetSceneObjectAnimatableProperty( index );
   }
 
   return property;
@@ -3605,251 +3273,131 @@ const PropertyInputImpl* Actor::GetSceneObjectInputProperty( Property::Index ind
 {
   const PropertyInputImpl* property( NULL );
 
-  // This method should only return a property of an object connected to the scene-graph
-  if( !OnStage() )
+  switch( index )
   {
-    return property;
-  }
-
-  if ( index >= ANIMATABLE_PROPERTY_REGISTRATION_START_INDEX && index <= ANIMATABLE_PROPERTY_REGISTRATION_MAX_INDEX )
-  {
-    AnimatablePropertyMetadata* animatable = RegisterAnimatableProperty( index );
-    DALI_ASSERT_ALWAYS( animatable && "Property index is invalid" );
-
-    property = animatable->GetSceneGraphProperty();
-  }
-  else if ( ( index >= CHILD_PROPERTY_REGISTRATION_START_INDEX ) && // Child properties are also stored as custom properties
-            ( index <= PROPERTY_CUSTOM_MAX_INDEX ) )
-  {
-    CustomPropertyMetadata* custom = FindCustomProperty( index );
-    DALI_ASSERT_ALWAYS( custom && "Property index is invalid" );
-    property = custom->GetSceneGraphProperty();
-  }
-  else if( NULL != mNode )
-  {
-    switch( index )
+    case Dali::Actor::Property::PARENT_ORIGIN:   // FALLTHROUGH
+    case Dali::Actor::Property::PARENT_ORIGIN_X: // FALLTHROUGH
+    case Dali::Actor::Property::PARENT_ORIGIN_Y: // FALLTHROUGH
+    case Dali::Actor::Property::PARENT_ORIGIN_Z:
     {
-      case Dali::Actor::Property::PARENT_ORIGIN:
-        property = &mNode->mParentOrigin;
-        break;
-
-      case Dali::Actor::Property::PARENT_ORIGIN_X:
-        property = &mNode->mParentOrigin;
-        break;
-
-      case Dali::Actor::Property::PARENT_ORIGIN_Y:
-        property = &mNode->mParentOrigin;
-        break;
-
-      case Dali::Actor::Property::PARENT_ORIGIN_Z:
-        property = &mNode->mParentOrigin;
-        break;
-
-      case Dali::Actor::Property::ANCHOR_POINT:
-        property = &mNode->mAnchorPoint;
-        break;
-
-      case Dali::Actor::Property::ANCHOR_POINT_X:
-        property = &mNode->mAnchorPoint;
-        break;
-
-      case Dali::Actor::Property::ANCHOR_POINT_Y:
-        property = &mNode->mAnchorPoint;
-        break;
-
-      case Dali::Actor::Property::ANCHOR_POINT_Z:
-        property = &mNode->mAnchorPoint;
-        break;
-
-      case Dali::Actor::Property::SIZE:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_WIDTH:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_HEIGHT:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::SIZE_DEPTH:
-        property = &mNode->mSize;
-        break;
-
-      case Dali::Actor::Property::POSITION:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_X:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_Y:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::POSITION_Z:
-        property = &mNode->mPosition;
-        break;
-
-      case Dali::Actor::Property::WORLD_POSITION:
-        property = &mNode->mWorldPosition;
-        break;
-
-      case Dali::Actor::Property::WORLD_POSITION_X:
-        property = &mNode->mWorldPosition;
-        break;
-
-      case Dali::Actor::Property::WORLD_POSITION_Y:
-        property = &mNode->mWorldPosition;
-        break;
-
-      case Dali::Actor::Property::WORLD_POSITION_Z:
-        property = &mNode->mWorldPosition;
-        break;
-
-      case Dali::Actor::Property::ORIENTATION:
-        property = &mNode->mOrientation;
-        break;
-
-      case Dali::Actor::Property::WORLD_ORIENTATION:
-        property = &mNode->mWorldOrientation;
-        break;
-
-      case Dali::Actor::Property::SCALE:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_X:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_Y:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::SCALE_Z:
-        property = &mNode->mScale;
-        break;
-
-      case Dali::Actor::Property::WORLD_SCALE:
-        property = &mNode->mWorldScale;
-        break;
-
-      case Dali::Actor::Property::VISIBLE:
-        property = &mNode->mVisible;
-        break;
-
-      case Dali::Actor::Property::COLOR:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_RED:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_GREEN:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_BLUE:
-        property = &mNode->mColor;
-        break;
-
-      case Dali::Actor::Property::COLOR_ALPHA:
-      case Dali::DevelActor::Property::OPACITY:
-      {
-        property = &mNode->mColor;
-        break;
-      }
-
-      case Dali::Actor::Property::WORLD_COLOR:
-        property = &mNode->mWorldColor;
-        break;
-
-      case Dali::Actor::Property::WORLD_MATRIX:
-        property = &mNode->mWorldMatrix;
-        break;
-
-      case Dali::DevelActor::Property::CULLED:
-        property = &mNode->mCulled;
-        break;
-
-      default:
-        break;
+      property = &GetNode().mParentOrigin;
+      break;
     }
+    case Dali::Actor::Property::ANCHOR_POINT:   // FALLTHROUGH
+    case Dali::Actor::Property::ANCHOR_POINT_X: // FALLTHROUGH
+    case Dali::Actor::Property::ANCHOR_POINT_Y: // FALLTHROUGH
+    case Dali::Actor::Property::ANCHOR_POINT_Z:
+    {
+      property = &GetNode().mAnchorPoint;
+      break;
+    }
+    case Dali::Actor::Property::WORLD_POSITION:   // FALLTHROUGH
+    case Dali::Actor::Property::WORLD_POSITION_X: // FALLTHROUGH
+    case Dali::Actor::Property::WORLD_POSITION_Y: // FALLTHROUGH
+    case Dali::Actor::Property::WORLD_POSITION_Z:
+    {
+      property = &GetNode().mWorldPosition;
+      break;
+    }
+    case Dali::Actor::Property::WORLD_ORIENTATION:
+    {
+      property = &GetNode().mWorldOrientation;
+      break;
+    }
+    case Dali::Actor::Property::WORLD_SCALE:
+    {
+      property = &GetNode().mWorldScale;
+      break;
+    }
+    case Dali::Actor::Property::WORLD_COLOR:
+    {
+      property = &GetNode().mWorldColor;
+      break;
+    }
+    case Dali::Actor::Property::WORLD_MATRIX:
+    {
+      property = &GetNode().mWorldMatrix;
+      break;
+    }
+    case Dali::DevelActor::Property::CULLED:
+    {
+      property = &GetNode().mCulled;
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+  if( !property )
+  {
+    // reuse animatable property getter as animatable properties are inputs as well
+    // animatable property chains back to Object::GetSceneObjectInputProperty() so all properties get covered
+    property = GetSceneObjectAnimatableProperty( index );
   }
 
   return property;
 }
 
-int Actor::GetPropertyComponentIndex( Property::Index index ) const
+int32_t Actor::GetPropertyComponentIndex( Property::Index index ) const
 {
-  int componentIndex( Property::INVALID_COMPONENT_INDEX );
+  int32_t componentIndex = Property::INVALID_COMPONENT_INDEX;
 
-  if ( ( index >= ANIMATABLE_PROPERTY_REGISTRATION_START_INDEX ) && ( index <= ANIMATABLE_PROPERTY_REGISTRATION_MAX_INDEX ) )
+  switch( index )
   {
-    // check whether the animatable property is registered already, if not then register one.
-    AnimatablePropertyMetadata* animatableProperty = RegisterAnimatableProperty(index);
-    if( animatableProperty )
+    case Dali::Actor::Property::PARENT_ORIGIN_X:
+    case Dali::Actor::Property::ANCHOR_POINT_X:
+    case Dali::Actor::Property::SIZE_WIDTH:
+    case Dali::Actor::Property::POSITION_X:
+    case Dali::Actor::Property::WORLD_POSITION_X:
+    case Dali::Actor::Property::SCALE_X:
+    case Dali::Actor::Property::COLOR_RED:
     {
-      componentIndex = animatableProperty->componentIndex;
+      componentIndex = 0;
+      break;
+    }
+
+    case Dali::Actor::Property::PARENT_ORIGIN_Y:
+    case Dali::Actor::Property::ANCHOR_POINT_Y:
+    case Dali::Actor::Property::SIZE_HEIGHT:
+    case Dali::Actor::Property::POSITION_Y:
+    case Dali::Actor::Property::WORLD_POSITION_Y:
+    case Dali::Actor::Property::SCALE_Y:
+    case Dali::Actor::Property::COLOR_GREEN:
+    {
+      componentIndex = 1;
+      break;
+    }
+
+    case Dali::Actor::Property::PARENT_ORIGIN_Z:
+    case Dali::Actor::Property::ANCHOR_POINT_Z:
+    case Dali::Actor::Property::SIZE_DEPTH:
+    case Dali::Actor::Property::POSITION_Z:
+    case Dali::Actor::Property::WORLD_POSITION_Z:
+    case Dali::Actor::Property::SCALE_Z:
+    case Dali::Actor::Property::COLOR_BLUE:
+    {
+      componentIndex = 2;
+      break;
+    }
+
+    case Dali::Actor::Property::COLOR_ALPHA:
+    case Dali::DevelActor::Property::OPACITY:
+    {
+      componentIndex = 3;
+      break;
+    }
+
+    default:
+    {
+      // Do nothing
+      break;
     }
   }
-  else
+  if( Property::INVALID_COMPONENT_INDEX == componentIndex )
   {
-    switch( index )
-    {
-      case Dali::Actor::Property::PARENT_ORIGIN_X:
-      case Dali::Actor::Property::ANCHOR_POINT_X:
-      case Dali::Actor::Property::SIZE_WIDTH:
-      case Dali::Actor::Property::POSITION_X:
-      case Dali::Actor::Property::WORLD_POSITION_X:
-      case Dali::Actor::Property::SCALE_X:
-      case Dali::Actor::Property::COLOR_RED:
-      {
-        componentIndex = 0;
-        break;
-      }
-
-      case Dali::Actor::Property::PARENT_ORIGIN_Y:
-      case Dali::Actor::Property::ANCHOR_POINT_Y:
-      case Dali::Actor::Property::SIZE_HEIGHT:
-      case Dali::Actor::Property::POSITION_Y:
-      case Dali::Actor::Property::WORLD_POSITION_Y:
-      case Dali::Actor::Property::SCALE_Y:
-      case Dali::Actor::Property::COLOR_GREEN:
-      {
-        componentIndex = 1;
-        break;
-      }
-
-      case Dali::Actor::Property::PARENT_ORIGIN_Z:
-      case Dali::Actor::Property::ANCHOR_POINT_Z:
-      case Dali::Actor::Property::SIZE_DEPTH:
-      case Dali::Actor::Property::POSITION_Z:
-      case Dali::Actor::Property::WORLD_POSITION_Z:
-      case Dali::Actor::Property::SCALE_Z:
-      case Dali::Actor::Property::COLOR_BLUE:
-      {
-        componentIndex = 2;
-        break;
-      }
-
-      case Dali::Actor::Property::COLOR_ALPHA:
-      case Dali::DevelActor::Property::OPACITY:
-      {
-        componentIndex = 3;
-        break;
-      }
-
-      default:
-      {
-        // Do nothing
-        break;
-      }
-    }
+    // ask base
+    componentIndex = Object::GetPropertyComponentIndex( index );
   }
 
   return componentIndex;
@@ -3862,6 +3410,8 @@ void Actor::SetParent( Actor* parent )
     DALI_ASSERT_ALWAYS( !mParent && "Actor cannot have 2 parents" );
 
     mParent = parent;
+
+    mScene = parent->mScene;
 
     if ( EventThreadServices::IsCoreRunning() && // Don't emit signals or send messages during Core destruction
          parent->OnStage() )
@@ -3882,23 +3432,15 @@ void Actor::SetParent( Actor* parent )
     if ( EventThreadServices::IsCoreRunning() && // Don't emit signals or send messages during Core destruction
          OnStage() )
     {
-      DALI_ASSERT_ALWAYS( mNode != NULL );
-
-      if( NULL != mNode )
-      {
-        // Disconnect the Node & its children from the scene-graph.
-        DisconnectNodeMessage( GetEventThreadServices().GetUpdateManager(), *mNode );
-      }
+      // Disconnect the Node & its children from the scene-graph.
+      DisconnectNodeMessage( GetEventThreadServices().GetUpdateManager(), GetNode() );
 
       // Instruct each actor to discard pointers to the scene-graph
       DisconnectFromStage();
     }
-  }
-}
 
-SceneGraph::Node* Actor::CreateNode() const
-{
-  return Node::New( mId );
+    mScene = nullptr;
+  }
 }
 
 bool Actor::DoAction( BaseObject* object, const std::string& actionName, const Property::Map& /* attributes */ )
@@ -4131,12 +3673,6 @@ bool Actor::GetCachedPropertyValue( Property::Index index, Property::Value& valu
     case Dali::Actor::Property::COLOR_MODE:
     {
       value = Scripting::GetLinearEnumerationName< ColorMode >( GetColorMode(), COLOR_MODE_TABLE, COLOR_MODE_TABLE_COUNT );
-      break;
-    }
-
-    case Dali::Actor::Property::POSITION_INHERITANCE:
-    {
-      value = Scripting::GetLinearEnumerationName< PositionInheritanceMode >( GetPositionInheritanceMode(), POSITION_INHERITANCE_MODE_TABLE, POSITION_INHERITANCE_MODE_TABLE_COUNT );
       break;
     }
 
@@ -4420,7 +3956,7 @@ bool Actor::GetCurrentPropertyValue( Property::Index index, Property::Value& val
 
     case DevelActor::Property::CULLED:
     {
-      value = mNode->IsCulled( GetEventThreadServices().GetEventBufferIndex() );
+      value = GetNode().IsCulled( GetEventThreadServices().GetEventBufferIndex() );
       break;
     }
 
@@ -5182,10 +4718,10 @@ void Actor::SetVisibleInternal( bool visible, SendMessage::Type sendMessage )
 {
   if( mVisible != visible )
   {
-    if( sendMessage == SendMessage::TRUE && NULL != mNode )
+    if( sendMessage == SendMessage::TRUE )
     {
-      // mNode is being used in a separate thread; queue a message to set the value & base value
-      SceneGraph::NodePropertyMessage<bool>::Send( GetEventThreadServices(), mNode, &mNode->mVisible, &AnimatableProperty<bool>::Bake, visible );
+      // node is being used in a separate thread; queue a message to set the value & base value
+      SceneGraph::NodePropertyMessage<bool>::Send( GetEventThreadServices(), &GetNode(), &GetNode().mVisible, &AnimatableProperty<bool>::Bake, visible );
     }
 
     mVisible = visible;
@@ -5251,10 +4787,9 @@ void Actor::RequestRebuildDepthTree()
 {
   if( mIsOnStage )
   {
-    StagePtr stage = Stage::GetCurrent();
-    if( stage )
+    if( mScene )
     {
-      stage->RequestRebuildDepthTree();
+      mScene->RequestRebuildDepthTree();
     }
   }
 }
@@ -5436,6 +4971,16 @@ void Actor::LowerBelow( Internal::Actor& target )
   {
     DALI_LOG_WARNING( "Actor must have a parent, Sibling order not changed.\n" );
   }
+}
+
+void Actor::SetScene( Scene& scene )
+{
+  mScene = &scene;
+}
+
+Scene& Actor::GetScene() const
+{
+  return *mScene;
 }
 
 void Actor::SetInheritLayoutDirection( bool inherit )

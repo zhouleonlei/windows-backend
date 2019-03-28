@@ -20,6 +20,7 @@
 
 // EXTERNAL INCLUDES
 #include <dali/public-api/object/type-registry-helper.h>
+#include <dali/public-api/common/stage.h>
 #include <dali/devel-api/object/property-helper-devel.h>
 #include <dali/devel-api/adaptor-framework/image-loading.h>
 #include <dali/integration-api/debug.h>
@@ -107,11 +108,11 @@ DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "multiLine",          
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "horizontalAlignment",       STRING,  HORIZONTAL_ALIGNMENT       )
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "verticalAlignment",         STRING,  VERTICAL_ALIGNMENT         )
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "unusedPropertyTextColor",   VECTOR4, UNUSED_PROPERTY_TEXT_COLOR )
-DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "shadowOffset",              VECTOR2, SHADOW_OFFSET              )
-DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "shadowColor",               VECTOR4, SHADOW_COLOR               )
-DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "underlineEnabled",          BOOLEAN, UNDERLINE_ENABLED          )
-DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "underlineColor",            VECTOR4, UNDERLINE_COLOR            )
-DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "underlineHeight",           FLOAT,   UNDERLINE_HEIGHT           )
+DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "reservedProperty01",        STRING,  RESERVED_PROPERTY_01       )
+DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "reservedProperty02",        STRING,  RESERVED_PROPERTY_02       )
+DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "reservedProperty03",        STRING,  RESERVED_PROPERTY_03       )
+DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "reservedProperty04",        STRING,  RESERVED_PROPERTY_04       )
+DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "reservedProperty05",        STRING,  RESERVED_PROPERTY_05       )
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "enableMarkup",              BOOLEAN, ENABLE_MARKUP              )
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "enableAutoScroll",          BOOLEAN, ENABLE_AUTO_SCROLL         )
 DALI_PROPERTY_REGISTRATION( Toolkit,           TextLabel, "autoScrollSpeed",           INTEGER, AUTO_SCROLL_SPEED          )
@@ -268,73 +269,6 @@ void TextLabel::SetProperty( BaseObject* object, Property::Index index, const Pr
         impl.mTextUpdateNeeded = true;
         break;
       }
-
-      case Toolkit::TextLabel::Property::SHADOW_OFFSET:
-      {
-        if( impl.mController )
-        {
-          const Vector2& shadowOffset = value.Get< Vector2 >();
-          if ( impl.mController->GetShadowOffset() != shadowOffset )
-          {
-            impl.mController->SetShadowOffset( shadowOffset );
-            impl.mTextUpdateNeeded = true;
-          }
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::SHADOW_COLOR:
-      {
-        if( impl.mController )
-        {
-          const Vector4& shadowColor = value.Get< Vector4 >();
-          if ( impl.mController->GetShadowColor() != shadowColor )
-          {
-            impl.mController->SetShadowColor( shadowColor );
-            impl.mTextUpdateNeeded = true;
-          }
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::UNDERLINE_COLOR:
-      {
-        if( impl.mController )
-        {
-          const Vector4& color = value.Get< Vector4 >();
-          if ( impl.mController->GetUnderlineColor() != color )
-          {
-            impl.mController->SetUnderlineColor( color );
-            impl.mTextUpdateNeeded = true;
-          }
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::UNDERLINE_ENABLED:
-      {
-        if( impl.mController )
-        {
-          const bool enabled = value.Get< bool >();
-          if ( impl.mController->IsUnderlineEnabled() != enabled )
-          {
-            impl.mController->SetUnderlineEnabled( enabled );
-            impl.mTextUpdateNeeded = true;
-          }
-        }
-        break;
-      }
-
-      case Toolkit::TextLabel::Property::UNDERLINE_HEIGHT:
-      {
-        if( impl.mController )
-        {
-          float height = value.Get< float >();
-          if( fabsf( impl.mController->GetUnderlineHeight() - height ) > Math::MACHINE_EPSILON_1000 )
-          {
-            impl.mController->SetUnderlineHeight( height );
-            impl.mTextUpdateNeeded = true;
-          }
-        }
-        break;
-      }
       case Toolkit::TextLabel::Property::ENABLE_MARKUP:
       {
         if( impl.mController )
@@ -363,7 +297,6 @@ void TextLabel::SetProperty( BaseObject* object, Property::Index index, const Pr
              // If request is enable (true) then start autoscroll as not already running
              else
              {
-               impl.mController->SetTextElideEnabled( false );
                impl.mController->SetAutoScrollEnabled( enableAutoScroll );
              }
           }
@@ -649,46 +582,6 @@ Property::Value TextLabel::GetProperty( BaseObject* object, Property::Index inde
         value = label.GetProperty( Toolkit::TextLabel::Property::TEXT_COLOR );
         break;
       }
-      case Toolkit::TextLabel::Property::SHADOW_OFFSET:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetShadowOffset();
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::SHADOW_COLOR:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetShadowColor();
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::UNDERLINE_COLOR:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetUnderlineColor();
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::UNDERLINE_ENABLED:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->IsUnderlineEnabled();
-        }
-        break;
-      }
-      case Toolkit::TextLabel::Property::UNDERLINE_HEIGHT:
-      {
-        if ( impl.mController )
-        {
-          value = impl.mController->GetUnderlineHeight();
-        }
-        break;
-      }
       case Toolkit::TextLabel::Property::ENABLE_MARKUP:
       {
         if( impl.mController )
@@ -883,6 +776,11 @@ void TextLabel::OnInitialize()
 
   // Enable the text ellipsis.
   mController->SetTextElideEnabled( true );   // If false then text larger than control will overflow
+
+  // Sets layoutDirection value
+  Dali::Stage stage = Dali::Stage::GetCurrent();
+  Dali::LayoutDirection::Type layoutDirection = static_cast<Dali::LayoutDirection::Type>( stage.GetRootLayer().GetProperty( Dali::Actor::Property::LAYOUT_DIRECTION ).Get<int>() );
+  mController->SetLayoutDirection( layoutDirection );
 
   Layout::Engine& engine = mController->GetLayoutEngine();
   engine.SetCursorWidth( 0u ); // Do not layout space for the cursor.

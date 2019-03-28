@@ -34,7 +34,7 @@ namespace Internal
 namespace Adaptor
 {
 
-namespace WindowsPlatformImplement
+namespace WindowsPlatformImplementation
 {
 
 void RunLoop();
@@ -69,7 +69,7 @@ bool PostWinThreadMessage(
 void ShowWindow( uint64_t hWnd );
 void HideWindow( uint64_t hWnd );
 
-typedef bool(*timerCallback)(void *data);
+using timerCallback = bool(*)(void *data);
 
 int SetTimer(int interval, timerCallback callback, void *data);
 

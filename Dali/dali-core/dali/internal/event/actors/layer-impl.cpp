@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@
 #include <dali/public-api/object/type-registry.h>
 #include <dali/internal/event/actors/layer-list.h>
 #include <dali/internal/event/common/property-helper.h>
-#include <dali/internal/event/common/stage-impl.h>
+#include <dali/internal/event/common/scene-impl.h>
+#include <dali/internal/event/common/event-thread-services.h>
 
 using Dali::Internal::SceneGraph::UpdateManager;
 
@@ -39,7 +40,7 @@ namespace
 typedef Layer::Behavior Behavior;
 
 DALI_ENUM_TO_STRING_TABLE_BEGIN( BEHAVIOR )
-DALI_ENUM_TO_STRING_WITH_SCOPE( Layer, LAYER_2D )
+DALI_ENUM_TO_STRING_WITH_SCOPE( Layer, LAYER_UI )
 DALI_ENUM_TO_STRING_WITH_SCOPE( Layer, LAYER_3D )
 DALI_ENUM_TO_STRING_TABLE_END( BEHAVIOR )
 
@@ -58,7 +59,7 @@ DALI_PROPERTY_TABLE_BEGIN
 DALI_PROPERTY( "clippingEnable",    BOOLEAN,    true,    false,   true,   Dali::Layer::Property::CLIPPING_ENABLE )
 DALI_PROPERTY( "clippingBox",       RECTANGLE,  true,    false,   true,   Dali::Layer::Property::CLIPPING_BOX    )
 DALI_PROPERTY( "behavior",          STRING,     true,    false,   false,  Dali::Layer::Property::BEHAVIOR        )
-DALI_PROPERTY_TABLE_END( DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX )
+DALI_PROPERTY_TABLE_END( DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX, LayerDefaultProperties )
 
 // Actions
 
@@ -72,7 +73,7 @@ BaseHandle Create()
   return Dali::Layer::New();
 }
 
-TypeRegistration mType( typeid( Dali::Layer ), typeid( Dali::Actor ), Create );
+TypeRegistration mType( typeid( Dali::Layer ), typeid( Dali::Actor ), Create, LayerDefaultProperties );
 
 TypeAction a1( mType, ACTION_RAISE, &Layer::DoAction );
 TypeAction a2( mType, ACTION_LOWER, &Layer::DoAction );
@@ -84,7 +85,11 @@ TypeAction a4( mType, ACTION_LOWER_TO_BOTTOM, &Layer::DoAction );
 
 LayerPtr Layer::New()
 {
-  LayerPtr layer( new Layer( Actor::LAYER ) );
+  // create node, nodes are owned by UpdateManager
+  SceneGraph::Layer* layerNode = SceneGraph::Layer::New();
+  OwnerPointer< SceneGraph::Node > transferOwnership( layerNode );
+  AddNodeMessage( EventThreadServices::Get().GetUpdateManager(), transferOwnership );
+  LayerPtr layer( new Layer( Actor::LAYER, *layerNode ) );
 
   // Second-phase construction
   layer->Initialize();
@@ -92,15 +97,14 @@ LayerPtr Layer::New()
   return layer;
 }
 
-LayerPtr Layer::NewRoot( LayerList& layerList, UpdateManager& manager, bool systemLevel )
+LayerPtr Layer::NewRoot( LayerList& layerList, UpdateManager& manager )
 {
-  LayerPtr root( new Layer( Actor::ROOT_LAYER ) );
-
-  // Second-phase construction, keep a raw pointer to the layer node.
-  SceneGraph::Layer* rootLayer = static_cast<SceneGraph::Layer*>( root->CreateNode() );
-  root->mNode = rootLayer;
+  // create node, nodes are owned by UpdateManager
+  SceneGraph::Layer* rootLayer = SceneGraph::Layer::New();
   OwnerPointer< SceneGraph::Layer > transferOwnership( rootLayer );
-  InstallRootMessage( manager, transferOwnership, systemLevel );
+  InstallRootMessage( manager, transferOwnership );
+
+  LayerPtr root( new Layer( Actor::ROOT_LAYER, *rootLayer ) );
 
   // root actor is immediately considered to be on-stage
   root->mIsOnStage = true;
@@ -110,17 +114,18 @@ LayerPtr Layer::NewRoot( LayerList& layerList, UpdateManager& manager, bool syst
 
   // layer-list must be set for the root layer
   root->mLayerList = &layerList;
+  layerList.SetRootLayer( &(*root) );
   layerList.RegisterLayer( *root );
 
   return root;
 }
 
-Layer::Layer( Actor::DerivedType type )
-: Actor( type ),
+Layer::Layer( Actor::DerivedType type, const SceneGraph::Layer& layer )
+: Actor( type, layer ),
   mLayerList( NULL ),
   mClippingBox( 0, 0, 0, 0 ),
   mSortFunction( Layer::ZValue ),
-  mBehavior( Dali::Layer::LAYER_2D ),
+  mBehavior( Dali::Layer::LAYER_UI ),
   mIsClipping( false ),
   mDepthTestDisabled( true ),
   mTouchConsumed( false ),
@@ -225,8 +230,8 @@ void Layer::SetBehavior( Dali::Layer::Behavior behavior )
 
   // Notify update side object.
   SetBehaviorMessage( GetEventThreadServices(), GetSceneLayerOnStage(), behavior );
-  // By default, disable depth test for LAYER_2D, and enable for LAYER_3D.
-  SetDepthTestDisabled( mBehavior == Dali::Layer::LAYER_2D );
+  // By default, disable depth test for LAYER_UI, and enable for LAYER_3D.
+  SetDepthTestDisabled( mBehavior == Dali::Layer::LAYER_UI );
 }
 
 void Layer::SetClipping(bool enabled)
@@ -253,10 +258,9 @@ void Layer::SetClippingBox(int x, int y, int width, int height)
     // Convert mClippingBox to GL based coordinates (from bottom-left)
     ClippingBox clippingBox( mClippingBox );
 
-    StagePtr stage = Stage::GetCurrent();
-    if( stage )
+    if( mScene )
     {
-      clippingBox.y = static_cast<int32_t>( stage->GetSize().height ) - clippingBox.y - clippingBox.height;
+      clippingBox.y = static_cast<int32_t>( mScene->GetSize().height ) - clippingBox.y - clippingBox.height;
 
       // layerNode is being used in a separate thread; queue a message to set the value
       SetClippingBoxMessage( GetEventThreadServices(), GetSceneLayerOnStage(), clippingBox );
@@ -312,11 +316,6 @@ bool Layer::IsHoverConsumed() const
   return mHoverConsumed;
 }
 
-SceneGraph::Node* Layer::CreateNode() const
-{
-  return SceneGraph::Layer::New( mId );
-}
-
 void Layer::OnStageConnectionInternal()
 {
   if ( !mIsRoot )
@@ -324,7 +323,6 @@ void Layer::OnStageConnectionInternal()
     DALI_ASSERT_DEBUG( NULL == mLayerList );
 
     // Find the ordered layer-list
-    // This is different for Layers added via Integration::GetSystemOverlay()
     for ( Actor* parent = mParent; parent != NULL; parent = parent->GetParent() )
     {
       if( parent->IsLayer() )
@@ -349,112 +347,7 @@ void Layer::OnStageDisconnectionInternal()
 
 const SceneGraph::Layer& Layer::GetSceneLayerOnStage() const
 {
-  DALI_ASSERT_DEBUG( mNode != NULL );
-  return dynamic_cast< const SceneGraph::Layer& >( *mNode );
-}
-
-unsigned int Layer::GetDefaultPropertyCount() const
-{
-  return Actor::GetDefaultPropertyCount() + DEFAULT_PROPERTY_COUNT;
-}
-
-void Layer::GetDefaultPropertyIndices( Property::IndexContainer& indices ) const
-{
-  Actor::GetDefaultPropertyIndices( indices ); // Actor class properties
-  indices.Reserve( indices.Size() + DEFAULT_PROPERTY_COUNT );
-
-  int32_t index = DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-  for ( int32_t i = 0; i < DEFAULT_PROPERTY_COUNT; ++i, ++index )
-  {
-    indices.PushBack( index );
-  }
-}
-
-bool Layer::IsDefaultPropertyWritable( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyWritable( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX ].writable;
-}
-
-bool Layer::IsDefaultPropertyAnimatable( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyAnimatable( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX ].animatable;
-}
-
-bool Layer::IsDefaultPropertyAConstraintInput( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyAConstraintInput( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[ index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX ].constraintInput;
-}
-
-Property::Type Layer::GetDefaultPropertyType( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::GetDefaultPropertyType( index );
-  }
-
-  index -= DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-
-  if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-  {
-    return DEFAULT_PROPERTY_DETAILS[index].type;
-  }
-
-  // index out-of-bounds
-  return Property::NONE;
-}
-
-const char* Layer::GetDefaultPropertyName( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::GetDefaultPropertyName( index );
-  }
-
-  index -= DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-  if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-  {
-    return DEFAULT_PROPERTY_DETAILS[index].name;
-  }
-
-  return NULL;
-}
-
-Property::Index Layer::GetDefaultPropertyIndex(const std::string& name) const
-{
-  Property::Index index = Property::INVALID_INDEX;
-
-  // Look for name in current class' default properties
-  for( int32_t i = 0; i < DEFAULT_PROPERTY_COUNT; ++i )
-  {
-    const Internal::PropertyDetails* property = &DEFAULT_PROPERTY_DETAILS[i];
-    if( 0 == name.compare( property->name ) ) // dont want to convert rhs to string
-    {
-      index = i + DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-      break;
-    }
-  }
-  if( Property::INVALID_INDEX == index )
-  {
-    // If not found, check in base class
-    index = Actor::GetDefaultPropertyIndex( name );
-  }
-
-  return index;
+  return static_cast< const SceneGraph::Layer& >( GetNode() ); // we know our node is a layer node
 }
 
 void Layer::SetDefaultProperty( Property::Index index, const Property::Value& propertyValue )
@@ -480,7 +373,7 @@ void Layer::SetDefaultProperty( Property::Index index, const Property::Value& pr
       }
       case Dali::Layer::Property::BEHAVIOR:
       {
-        Behavior behavior(Dali::Layer::LAYER_2D);
+        Behavior behavior(Dali::Layer::LAYER_UI);
         if( Scripting::GetEnumeration< Behavior >( propertyValue.Get< std::string >().c_str(), BEHAVIOR_TABLE, BEHAVIOR_TABLE_COUNT, behavior ) )
         {
           SetBehavior( behavior );

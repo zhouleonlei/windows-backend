@@ -100,6 +100,7 @@ void RefObject::Reference()
     );
 
 #else
+
   // gcc > 4.1 builtin atomic add and fetch:
   __sync_add_and_fetch( &mCount, 1 );
 

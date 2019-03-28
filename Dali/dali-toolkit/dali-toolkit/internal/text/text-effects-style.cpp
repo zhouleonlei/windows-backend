@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 #include <dali-toolkit/internal/text/text-effects-style.h>
 
 // INTERNAL INCLUDES
+#include <dali-toolkit/devel-api/controls/text-controls/text-style-properties-devel.h>
 #include <dali-toolkit/internal/text/markup-processor-helper-functions.h>
 #include <dali-toolkit/internal/text/property-string-parser.h>
 
@@ -58,7 +59,7 @@ bool ParseShadowProperties( const Property::Map& shadowPropertiesMap,
   {
     const KeyValuePair& valueGet = shadowPropertiesMap.GetKeyValue( index );
 
-    if( COLOR_KEY == valueGet.first.stringKey )
+    if( ( DevelText::Shadow::Property::COLOR == valueGet.first.indexKey ) || ( COLOR_KEY == valueGet.first.stringKey ) )
     {
       /// Color key.
       colorDefined = true;
@@ -73,7 +74,7 @@ bool ParseShadowProperties( const Property::Map& shadowPropertiesMap,
         color = valueGet.second.Get<Vector4>();
       }
     }
-    else if( OFFSET_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Shadow::Property::OFFSET == valueGet.first.indexKey ) || ( OFFSET_KEY == valueGet.first.stringKey ) )
     {
       /// Offset key.
       offsetDefined = true;
@@ -88,7 +89,7 @@ bool ParseShadowProperties( const Property::Map& shadowPropertiesMap,
         offset = valueGet.second.Get<Vector2>();
       }
     }
-    else if( BLUR_RADIUS_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Shadow::Property::BLUR_RADIUS == valueGet.first.indexKey ) || ( BLUR_RADIUS_KEY == valueGet.first.stringKey ) )
     {
       /// Blur radius key.
       blurRadiusDefined = true;
@@ -122,7 +123,7 @@ bool ParseUnderlineProperties( const Property::Map& underlinePropertiesMap,
   {
     const KeyValuePair& valueGet = underlinePropertiesMap.GetKeyValue( index );
 
-    if( ENABLE_KEY == valueGet.first.stringKey )
+    if( ( DevelText::Underline::Property::ENABLE == valueGet.first.indexKey ) || ( ENABLE_KEY == valueGet.first.stringKey ) )
     {
       /// Enable key.
       if( valueGet.second.GetType() == Dali::Property::STRING )
@@ -135,7 +136,7 @@ bool ParseUnderlineProperties( const Property::Map& underlinePropertiesMap,
         enabled = valueGet.second.Get<bool>();
       }
     }
-    else if( COLOR_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Underline::Property::COLOR == valueGet.first.indexKey ) || ( COLOR_KEY == valueGet.first.stringKey ) )
     {
       /// Color key.
       colorDefined = true;
@@ -150,7 +151,7 @@ bool ParseUnderlineProperties( const Property::Map& underlinePropertiesMap,
         color = valueGet.second.Get<Vector4>();
       }
     }
-    else if( HEIGHT_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Underline::Property::HEIGHT == valueGet.first.indexKey ) || ( HEIGHT_KEY == valueGet.first.stringKey ) )
     {
       /// Height key.
       heightDefined = true;
@@ -174,7 +175,7 @@ bool ParseOutlineProperties( const Property::Map& underlinePropertiesMap,
                                bool& colorDefined,
                                Vector4& color,
                                bool& widthDefined,
-                               unsigned int& width )
+                               uint16_t& width )
 {
   const unsigned int numberOfItems = underlinePropertiesMap.Count();
 
@@ -183,17 +184,17 @@ bool ParseOutlineProperties( const Property::Map& underlinePropertiesMap,
   {
     const KeyValuePair& valueGet = underlinePropertiesMap.GetKeyValue( index );
 
-    if( COLOR_KEY == valueGet.first.stringKey )
+    if( ( DevelText::Outline::Property::COLOR == valueGet.first.indexKey ) || ( COLOR_KEY == valueGet.first.stringKey ) )
     {
       /// Color key.
       colorDefined = true;
       color = valueGet.second.Get<Vector4>();
     }
-    else if( WIDTH_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Outline::Property::WIDTH == valueGet.first.indexKey ) || ( WIDTH_KEY == valueGet.first.stringKey ) )
     {
       /// Width key.
       widthDefined = true;
-      width = static_cast<unsigned int>( valueGet.second.Get<float>() );
+      width = static_cast<uint16_t>( valueGet.second.Get<float>() );
     }
   }
 
@@ -212,12 +213,12 @@ bool ParseBackgroundProperties( const Property::Map& backgroundProperties,
   {
     const KeyValuePair& valueGet = backgroundProperties.GetKeyValue( index );
 
-    if( ENABLE_KEY == valueGet.first.stringKey )
+    if( ( DevelText::Background::Property::ENABLE == valueGet.first.indexKey ) || ( ENABLE_KEY == valueGet.first.stringKey ) )
     {
       /// Enable key.
       enabled = valueGet.second.Get<bool>();
     }
-    else if( COLOR_KEY == valueGet.first.stringKey )
+    else if( ( DevelText::Background::Property::COLOR == valueGet.first.indexKey ) || ( COLOR_KEY == valueGet.first.stringKey ) )
     {
       /// Color key.
       colorDefined = true;
@@ -357,16 +358,9 @@ void GetUnderlineProperties( ControllerPtr controller, Property::Value& value, E
         {
           Property::Map map;
 
-          const std::string enabledStr = enabled ? TRUE_TOKEN : FALSE_TOKEN;
-          map.Insert( ENABLE_KEY, enabledStr );
-
-          std::string colorStr;
-          Vector4ToColorString( color, colorStr );
-          map.Insert( COLOR_KEY, colorStr );
-
-          std::string heightStr;
-          FloatToString( height, heightStr );
-          map.Insert( HEIGHT_KEY, heightStr );
+          map.Insert( ENABLE_KEY, enabled );
+          map.Insert( COLOR_KEY, color );
+          map.Insert( HEIGHT_KEY, height );
 
           value = map;
         }
@@ -593,7 +587,7 @@ bool SetOutlineProperties( ControllerPtr controller, const Property::Value& valu
         bool colorDefined = false;
         Vector4 color;
         bool widthDefined = false;
-        unsigned int width = 0u;
+        uint16_t width = 0u;
 
         bool empty = true;
 
@@ -674,7 +668,7 @@ void GetOutlineProperties( ControllerPtr controller, Property::Value& value, Eff
         else
         {
           const Vector4& color = controller->GetOutlineColor();
-          const unsigned int width = controller->GetOutlineWidth();
+          const uint16_t width = controller->GetOutlineWidth();
 
           Property::Map map;
           map.Insert( COLOR_KEY, color );

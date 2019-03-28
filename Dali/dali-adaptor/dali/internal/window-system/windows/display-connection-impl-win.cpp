@@ -15,12 +15,14 @@
  *
  */
 
-// CLASS HEADER
+ // CLASS HEADER
 #include <dali/internal/window-system/windows/display-connection-impl-win.h>
-#include <dali/internal/graphics/gles20/egl-graphics.h>
 
-// EXTERNAL_HEADERS
+// EXTERNAL INCLUDES
 #include <dali/integration-api/debug.h>
+
+// INTERNAL INCLUDES
+#include <dali/internal/graphics/gles/egl-graphics.h>
 
 namespace Dali
 {
@@ -33,13 +35,15 @@ namespace Adaptor
 
 DisplayConnection* DisplayConnectionWin::New()
 {
-  DisplayConnection* pDisplayConnection(new DisplayConnectionWin());
+  //DisplayConnection* pDisplayConnection(new DisplayConnection());
 
-  return pDisplayConnection;
+  //return pDisplayConnection;
+  return nullptr;
 }
 
 DisplayConnectionWin::DisplayConnectionWin()
-: mDisplay(NULL)
+: mGraphics( nullptr ),
+  mDisplay( nullptr )
 {
 }
 
@@ -56,19 +60,6 @@ void DisplayConnectionWin::ConsumeEvents()
 {
 }
 
-bool DisplayConnectionWin::InitializeEgl(EglInterface& egl)
-{
-  EglImplementation& eglImpl = static_cast<EglImplementation&>( egl );
-
-  if( !eglImpl.InitializeGles( reinterpret_cast<EGLNativeDisplayType>( mDisplay ) ) )
-  {
-    DALI_LOG_ERROR( "Failed to initialize GLES.\n" );
-    return false;
-  }
-
-  return true;
-}
-
 bool DisplayConnectionWin::InitializeGraphics()
 {
   auto eglGraphics = static_cast<EglGraphics *>( mGraphics );
@@ -83,9 +74,9 @@ bool DisplayConnectionWin::InitializeGraphics()
   return true;
 }
 
-void DisplayConnectionWin::SetSurfaceType( RenderSurface::Type type )
+void DisplayConnectionWin::SetSurfaceType( Integration::RenderSurface::Type type )
 {
-  if( type == RenderSurface::WINDOW_RENDER_SURFACE )
+  if( type == Integration::RenderSurface::WINDOW_RENDER_SURFACE )
   {
      mDisplay = GetDC( GetForegroundWindow() );
   }

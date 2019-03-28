@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 #include <dali/integration-api/events/pinch-gesture-event.h>
 #include <dali/integration-api/gesture-manager.h>
 #include <dali/integration-api/debug.h>
-#include <dali/internal/event/common/stage-impl.h>
+#include <dali/internal/event/common/scene-impl.h>
 #include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
@@ -100,9 +100,8 @@ struct IsNotAttachedFunctor
 
 } // unnamed namespace
 
-PinchGestureProcessor::PinchGestureProcessor( Stage& stage, Integration::GestureManager& gestureManager )
+PinchGestureProcessor::PinchGestureProcessor( Integration::GestureManager& gestureManager )
 : GestureProcessor( Gesture::Pinch ),
-  mStage(stage),
   mGestureManager(gestureManager),
   mGestureDetectors(),
   mCurrentPinchEmitters(),
@@ -114,7 +113,7 @@ PinchGestureProcessor::~PinchGestureProcessor()
 {
 }
 
-void PinchGestureProcessor::Process( const Integration::PinchGestureEvent& pinchEvent )
+void PinchGestureProcessor::Process( Scene& scene, const Integration::PinchGestureEvent& pinchEvent )
 {
   switch ( pinchEvent.state )
   {
@@ -127,7 +126,7 @@ void PinchGestureProcessor::Process( const Integration::PinchGestureEvent& pinch
       ResetActor();
 
       HitTestAlgorithm::Results hitTestResults;
-      if( HitTest( mStage, pinchEvent.centerPoint, hitTestResults ) )
+      if( HitTest( scene, pinchEvent.centerPoint, hitTestResults ) )
       {
         // Record the current render-task for Screen->Actor coordinate conversions
         mCurrentRenderTask = hitTestResults.renderTask;
@@ -159,7 +158,7 @@ void PinchGestureProcessor::Process( const Integration::PinchGestureEvent& pinch
           if ( !mCurrentPinchEmitters.empty() )
           {
             Vector2 actorCoords;
-            RenderTask& renderTaskImpl( GetImplementation(mCurrentRenderTask) );
+            RenderTask& renderTaskImpl( *mCurrentRenderTask.Get() );
             currentGesturedActor->ScreenToLocal( renderTaskImpl, actorCoords.x, actorCoords.y, pinchEvent.centerPoint.x, pinchEvent.centerPoint.y );
 
             EmitPinchSignal( currentGesturedActor, mCurrentPinchEmitters, pinchEvent, actorCoords );

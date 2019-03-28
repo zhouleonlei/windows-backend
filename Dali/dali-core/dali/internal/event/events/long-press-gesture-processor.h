@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_LONG_PRESS_GESTURE_EVENT_PROCESSOR_H__
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@
  */
 
 // INTERNAL INCLUDES
-#include <dali/public-api/render-tasks/render-task.h>
 #include <dali/internal/event/events/long-press-gesture-detector-impl.h>
 #include <dali/internal/event/events/gesture-processor.h>
+#include <dali/internal/event/render-tasks/render-task-impl.h>
 
 namespace Dali
 {
@@ -37,6 +37,7 @@ namespace Internal
 {
 
 class Stage;
+class Scene;
 
 /**
  * Long Press Gesture Event Processing:
@@ -51,10 +52,9 @@ public:
 
   /**
    * Create a long press gesture processor.
-   * @param[in] stage The stage.
    * @param[in] gestureManager The gesture manager.
    */
-  LongPressGestureProcessor( Stage& stage, Integration::GestureManager& gestureManager );
+  LongPressGestureProcessor( Integration::GestureManager& gestureManager );
 
   /**
    * Non-virtual destructor; LongPressGestureProcessor is not a base class
@@ -65,9 +65,10 @@ public: // To be called by GestureEventProcessor
 
   /**
    * This method is called whenever a long press gesture event occurs.
+   * @param[in] scene The scene the long press gesture event occurs in.
    * @param[in] longPressEvent The event that has occurred.
    */
-  void Process( const Integration::LongPressGestureEvent& longPressEvent );
+  void Process( Scene& scene, const Integration::LongPressGestureEvent& longPressEvent );
 
   /**
    * Adds a gesture detector to this gesture processor.
@@ -124,15 +125,14 @@ private:
 
 private:
 
-  Stage& mStage;
   Integration::GestureManager& mGestureManager;
   LongPressGestureDetectorContainer mGestureDetectors;
 
   GestureDetectorContainer mCurrentEmitters;
-  Dali::RenderTask mCurrentRenderTask;
+  RenderTaskPtr mCurrentRenderTask;
 
-  unsigned int mMinTouchesRequired;
-  unsigned int mMaxTouchesRequired;
+  uint32_t mMinTouchesRequired;
+  uint32_t mMaxTouchesRequired;
 
   const Integration::LongPressGestureEvent* mCurrentLongPressEvent; ///< Pointer to current longPressEvent, used when calling ProcessAndEmit()
 };

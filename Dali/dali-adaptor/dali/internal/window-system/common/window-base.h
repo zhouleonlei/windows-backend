@@ -22,10 +22,9 @@
 #include <dali/public-api/adaptor-framework/window.h>
 #include <dali/public-api/adaptor-framework/key-grab.h>
 #include <dali/public-api/adaptor-framework/style-change.h>
-#include <dali/internal/window-system/common/indicator-interface.h>
 #include <dali/internal/window-system/common/damage-observer.h>
 #include <dali/internal/window-system/common/rotation-observer.h>
-#include <dali/internal/graphics/gles20/egl-implementation.h>
+#include <dali/internal/graphics/gles/egl-implementation.h>
 
 // EXTERNAL INCLUDES
 #include <dali/integration-api/events/key-event-integ.h>
@@ -81,9 +80,6 @@ public:
   // Accessibility
   typedef Signal< void ( StyleChange::Type ) > StyleSignalType;
   typedef Signal< void ( const AccessibilityInfo& ) > AccessibilitySignalType;
-
-  // Indicator
-  typedef Signal< void ( ) > IndicatorSignalType;
 
   /**
    * @brief Default constructor
@@ -158,21 +154,6 @@ public:
    * @brief Move and resize the window
    */
   virtual void MoveResize( Dali::PositionSize positionSize ) = 0;
-
-  /**
-   * @copydoc Dali::Window::ShowIndicator()
-   */
-  virtual void ShowIndicator( Dali::Window::IndicatorVisibleMode visibleMode, Dali::Window::IndicatorBgOpacity opacityMode ) = 0;
-
-  /**
-   * Set the indicator properties on the window
-   */
-  virtual void SetIndicatorProperties( bool isShow, Dali::Window::WindowOrientation lastOrientation ) = 0;
-
-  /**
-   * @copydoc Dali::Internal::Adaptor::IndicatorInterface::Observer::IndicatorTypeChanged()
-   */
-  virtual void IndicatorTypeChanged( IndicatorInterface::Type type ) = 0;
 
   /**
    * @copydoc Dali::Window::SetClass()
@@ -327,12 +308,6 @@ public:
   virtual void GetDpi( unsigned int& dpiHorizontal, unsigned int& dpiVertical ) = 0;
 
   /**
-   * @brief Set the stereoscopic 3D view mode
-   * @param[in] viewMode The new view mode
-   */
-  virtual void SetViewMode( ViewMode viewMode ) = 0;
-
-  /**
    * @brief Get the screen rotation angle of the window
    */
   virtual int GetScreenRotationAngle() = 0;
@@ -419,11 +394,6 @@ public:
    */
   AccessibilitySignalType& AccessibilitySignal();
 
-  /**
-   * @brief This signal is emitted when an indicator is flicked.
-   */
-  IndicatorSignalType& IndicatorFlickedSignal();
-
 protected:
 
   // Undefined
@@ -447,7 +417,6 @@ protected:
   SelectionSignalType                  mSelectionDataReceivedSignal;
   StyleSignalType                      mStyleChangedSignal;
   AccessibilitySignalType              mAccessibilitySignal;
-  IndicatorSignalType                  mIndicatorFlickedSignal;
 };
 
 } // namespace Adaptor

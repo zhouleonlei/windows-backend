@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,11 @@
 #include <dali/integration-api/debug.h>
 #include <dali/internal/event/common/property-helper.h>
 #include <dali/internal/event/common/stage-impl.h>
+#include <dali/internal/event/common/scene-impl.h>
 #include <dali/internal/event/render-tasks/render-task-impl.h>
 #include <dali/internal/event/render-tasks/render-task-list-impl.h>
 #include <dali/internal/event/common/projection.h>
+#include <dali/internal/event/common/thread-local-storage.h>
 #include <dali/internal/update/render-tasks/scene-graph-camera.h>
 
 namespace Dali
@@ -64,7 +66,7 @@ DALI_PROPERTY( "targetPosition",         VECTOR3,  true,    false,   true,   Dal
 DALI_PROPERTY( "projectionMatrix",       MATRIX,   false,   false,   true,   Dali::CameraActor::Property::PROJECTION_MATRIX     )
 DALI_PROPERTY( "viewMatrix",             MATRIX,   false,   false,   true,   Dali::CameraActor::Property::VIEW_MATRIX           )
 DALI_PROPERTY( "invertYAxis",            BOOLEAN,  true,    false,   true,   Dali::CameraActor::Property::INVERT_Y_AXIS         )
-DALI_PROPERTY_TABLE_END( DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX )
+DALI_PROPERTY_TABLE_END( DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX, CameraDefaultProperties )
 
 // calculate the far plane distance for a 16bit depth buffer with 4 bits per unit precision
 void CalculateClippingAndZ( float width, float height, float& nearClippingPlane, float& farClippingPlane, float& cameraZ )
@@ -79,7 +81,7 @@ BaseHandle Create()
   return Dali::CameraActor::New();
 }
 
-TypeRegistration mType( typeid( Dali::CameraActor ), typeid( Dali::Actor ), Create );
+TypeRegistration mType( typeid( Dali::CameraActor ), typeid( Dali::Actor ), Create, CameraDefaultProperties );
 
 /**
  * Builds the picking ray in the world reference system from an orthographic camera
@@ -140,7 +142,7 @@ void BuildOrthoPickingRay( const Matrix& viewMatrix,
 
 CameraActorPtr CameraActor::New( const Size& size )
 {
-  CameraActorPtr actor( new CameraActor() );
+  CameraActorPtr actor( new CameraActor( *CreateNode() ) );
 
   // Second-phase construction
   actor->Initialize();
@@ -155,8 +157,8 @@ CameraActorPtr CameraActor::New( const Size& size )
   return actor;
 }
 
-CameraActor::CameraActor()
-: Actor( Actor::BASIC ),
+CameraActor::CameraActor( const SceneGraph::Node& node )
+: Actor( Actor::BASIC, node ),
   mSceneObject( NULL ),
   mTarget( SceneGraph::Camera::DEFAULT_TARGET_POSITION ),
   mType( SceneGraph::Camera::DEFAULT_TYPE ),
@@ -188,7 +190,7 @@ void CameraActor::OnInitialize()
   SceneGraph::Camera* sceneGraphCamera = SceneGraph::Camera::New();
 
   // Store a pointer to this camera node inside the scene-graph camera.
-  sceneGraphCamera->SetNode( mNode );
+  sceneGraphCamera->SetNode( &GetNode() );
 
   mSceneObject = sceneGraphCamera;
   OwnerPointer< SceneGraph::Camera > sceneGraphCameraOwner( sceneGraphCamera );
@@ -368,29 +370,17 @@ bool CameraActor::GetInvertYAxis() const
   return mInvertYAxis;
 }
 
-void CameraActor::SetPerspectiveProjection( const Size& size, const Vector2& stereoBias /* = Vector2::ZERO */ )
+void CameraActor::SetPerspectiveProjection( const Size& size )
 {
-  float width = size.width;
-  float height = size.height;
-
-  if( Size::ZERO == size )
+  if( ( size.width < Math::MACHINE_EPSILON_1000 ) || ( size.height < Math::MACHINE_EPSILON_1000 ) )
   {
-    StagePtr stage = Stage::GetCurrent();
-    if( stage )
-    {
-      const Size& stageSize = stage->GetSize();
-
-      width = stageSize.width;
-      height = stageSize.height;
-    }
-  }
-
-  if( ( width < Math::MACHINE_EPSILON_1000 ) || ( height < Math::MACHINE_EPSILON_1000 ) )
-  {
-    // On the stage initialization this method is called but the size has not been set.
-    // There is no point to set any value if width or height is zero.
+    // Not allowed to set the canvas size to be 0.
+    DALI_LOG_ERROR( "Canvas size can not be 0\n" );
     return;
   }
+
+  float width = size.width;
+  float height = size.height;
 
   float nearClippingPlane;
   float farClippingPlane;
@@ -409,13 +399,12 @@ void CameraActor::SetPerspectiveProjection( const Size& size, const Vector2& ste
 
   const float aspectRatio = width / height;
 
+  // sceneObject is being used in a separate thread; queue a message to set
   SetProjectionMode(Dali::Camera::PERSPECTIVE_PROJECTION);
   SetFieldOfView( fieldOfView );
   SetNearClippingPlane( nearClippingPlane );
   SetFarClippingPlane( farClippingPlane );
   SetAspectRatio( aspectRatio );
-  // sceneObject is being used in a separate thread; queue a message to set
-  SetStereoBiasMessage( GetEventThreadServices(), *mSceneObject, stereoBias );
   SetZ( cameraZ );
 }
 
@@ -453,7 +442,7 @@ bool CameraActor::BuildPickingRay( const Vector2& screenCoordinates,
   {
     // Build a picking ray in the world reference system.
     // ray starts from the camera world position
-    rayOrigin = mNode->GetWorldMatrix(0).GetTranslation();
+    rayOrigin = GetNode().GetWorldMatrix(0).GetTranslation();
     rayOrigin.w = 1.0f;
 
     // Transform the touch point from the screen coordinate system to the world coordinates system.
@@ -511,117 +500,6 @@ const Matrix& CameraActor::GetProjectionMatrix() const
 const SceneGraph::Camera* CameraActor::GetCamera() const
 {
   return mSceneObject;
-}
-
-unsigned int CameraActor::GetDefaultPropertyCount() const
-{
-  return Actor::GetDefaultPropertyCount() + DEFAULT_PROPERTY_COUNT;
-}
-
-void CameraActor::GetDefaultPropertyIndices( Property::IndexContainer& indices ) const
-{
-  Actor::GetDefaultPropertyIndices( indices ); // Actor class properties
-
-  indices.Reserve( indices.Size() + DEFAULT_PROPERTY_COUNT );
-
-  int index = DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-  for ( int i = 0; i < DEFAULT_PROPERTY_COUNT; ++i, ++index )
-  {
-    indices.PushBack( index );
-  }
-}
-
-bool CameraActor::IsDefaultPropertyWritable( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyWritable( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX].writable;
-}
-
-bool CameraActor::IsDefaultPropertyAnimatable( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyAnimatable( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX].animatable;
-}
-
-bool CameraActor::IsDefaultPropertyAConstraintInput( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::IsDefaultPropertyAConstraintInput( index );
-  }
-
-  return DEFAULT_PROPERTY_DETAILS[index - DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX].constraintInput;
-}
-
-Property::Type CameraActor::GetDefaultPropertyType( Property::Index index ) const
-{
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    return Actor::GetDefaultPropertyType( index );
-  }
-  else
-  {
-    index -= DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-
-    if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-    {
-      return DEFAULT_PROPERTY_DETAILS[index].type;
-    }
-    else
-    {
-      // index out-of-bounds
-      return Property::NONE;
-    }
-  }
-}
-
-const char* CameraActor::GetDefaultPropertyName( Property::Index index ) const
-{
-  if(index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT)
-  {
-    return Actor::GetDefaultPropertyName(index);
-  }
-  else
-  {
-    index -= DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-
-    if ( ( index >= 0 ) && ( index < DEFAULT_PROPERTY_COUNT ) )
-    {
-      return DEFAULT_PROPERTY_DETAILS[index].name;
-    }
-    return NULL;
-  }
-}
-
-Property::Index CameraActor::GetDefaultPropertyIndex(const std::string& name) const
-{
-  Property::Index index = Property::INVALID_INDEX;
-
-  // Look for name in current class' default properties
-  for( int i = 0; i < DEFAULT_PROPERTY_COUNT; ++i )
-  {
-    if( 0 == strcmp( name.c_str(), DEFAULT_PROPERTY_DETAILS[i].name ) ) // dont want to convert rhs to string
-    {
-      index = i + DEFAULT_DERIVED_ACTOR_PROPERTY_START_INDEX;
-      break;
-    }
-  }
-
-  // If not found, check in base class
-  if( Property::INVALID_INDEX == index )
-  {
-    index = Actor::GetDefaultPropertyIndex( name );
-  }
-
-  return index;
 }
 
 void CameraActor::SetDefaultProperty( Property::Index index, const Property::Value& propertyValue )
@@ -846,60 +724,27 @@ Property::Value CameraActor::GetDefaultPropertyCurrentValue( Property::Index ind
   return ret;
 }
 
-const SceneGraph::PropertyBase* CameraActor::GetSceneObjectAnimatableProperty( Property::Index index ) const
-{
-  DALI_ASSERT_ALWAYS( IsPropertyAnimatable(index) && "Property is not animatable" );
-
-  const SceneGraph::PropertyBase* property( NULL );
-
-  // This method should only return a property of an object connected to the scene-graph
-  if ( !OnStage() )
-  {
-    return property;
-  }
-
-  // let actor handle animatable properties, we have no animatable properties
-  if( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT )
-  {
-    property = Actor::GetSceneObjectAnimatableProperty(index);
-  }
-
-  return property;
-}
-
 const PropertyInputImpl* CameraActor::GetSceneObjectInputProperty( Property::Index index ) const
 {
   const PropertyInputImpl* property( NULL );
 
-  // This method should only return a property of an object connected to the scene-graph
-  if ( !OnStage() )
+  switch( index )
   {
-    return property;
+    case Dali::CameraActor::Property::PROJECTION_MATRIX:
+    {
+      property = mSceneObject->GetProjectionMatrix();
+      break;
+    }
+    case Dali::CameraActor::Property::VIEW_MATRIX:
+    {
+      property = mSceneObject->GetViewMatrix();
+      break;
+    }
+    // no default on purpose as we chain method up to actor
   }
-
-  // if its an actor default property or a custom property (actor already handles custom properties)
-  if( ( index < DEFAULT_ACTOR_PROPERTY_MAX_COUNT ) || ( index >= DEFAULT_PROPERTY_MAX_COUNT ) )
+  if( !property )
   {
     property = Actor::GetSceneObjectInputProperty( index );
-  }
-  else
-  {
-    switch( index )
-    {
-      case Dali::CameraActor::Property::PROJECTION_MATRIX:
-      {
-        property = mSceneObject->GetProjectionMatrix();
-        break;
-      }
-      case Dali::CameraActor::Property::VIEW_MATRIX:
-      {
-        property = mSceneObject->GetViewMatrix();
-        break;
-      }
-      default:
-        DALI_LOG_WARNING("Not an input property (%d)\n", index);
-        break;
-    }
   }
 
   return property;

@@ -2,7 +2,7 @@
 #define __DALI_INTERNAL_PATH_H__
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,60 +57,6 @@ protected:
   virtual ~Path();
 
 private:
-  /**
-   * @copydoc Dali::Internal::Object::Observer::SceneObjectAdded()
-   */
-  virtual void SceneObjectAdded(Object& object){}
-
-  /**
-   * @copydoc Dali::Internal::Object::Observer::SceneObjectAdded()
-   */
-  virtual void SceneObjectRemoved(Object& object){}
-
-  /**
-   * @copydoc Dali::Internal::Object::Observer::ObjectDestroyed()
-   */
-  virtual void ObjectDestroyed(Object& object){}
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCount()
-   */
-  virtual unsigned int GetDefaultPropertyCount() const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndices()
-   */
-  virtual void GetDefaultPropertyIndices( Property::IndexContainer& indices ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyName()
-   */
-  virtual const char* GetDefaultPropertyName(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyIndex()
-   */
-  virtual Property::Index GetDefaultPropertyIndex(const std::string& name) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyWritable()
-   */
-  virtual bool IsDefaultPropertyWritable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAnimatable()
-   */
-  virtual bool IsDefaultPropertyAnimatable(Property::Index index) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::IsDefaultPropertyAConstraintInput()
-   */
-  virtual bool IsDefaultPropertyAConstraintInput( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyType()
-   */
-  virtual Property::Type GetDefaultPropertyType(Property::Index index) const;
 
   /**
    * @copydoc Dali::Internal::Object::SetDefaultProperty()
@@ -121,26 +67,6 @@ private:
    * @copydoc Dali::Internal::Object::GetDefaultProperty()
    */
   virtual Property::Value GetDefaultProperty( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetDefaultPropertyCurrentValue()
-   */
-  virtual Property::Value GetDefaultPropertyCurrentValue( Property::Index index ) const;
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObject()
-   */
-  virtual const SceneGraph::PropertyOwner* GetSceneObject() const{ return NULL; }
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectAnimatableProperty()
-   */
-  virtual const SceneGraph::PropertyBase* GetSceneObjectAnimatableProperty( Property::Index index ) const{ return NULL; }
-
-  /**
-   * @copydoc Dali::Internal::Object::GetSceneObjectInputProperty()
-   */
-  virtual const PropertyInputImpl* GetSceneObjectInputProperty( Property::Index index ) const{ return NULL; }
 
 public:
 
@@ -200,17 +126,17 @@ public:
   /**
    * @copydoc Dali::Path::GetPoint
    */
-  Vector3& GetPoint( size_t index );
+  Vector3& GetPoint( uint32_t index );
 
   /**
    * @copydoc Dali::Path::GetControlPoint
    */
-  Vector3& GetControlPoint( size_t index );
+  Vector3& GetControlPoint( uint32_t index );
 
   /**
    * @copydoc Dali::Path::GetPointCount
    */
-  size_t GetPointCount() const;
+  uint32_t GetPointCount() const;
 
   /**
    * Clears the points of the path
@@ -271,12 +197,12 @@ private:
    * @param[out] tLocal Local progress in the segment
    *
    */
-  void FindSegmentAndProgress( float t, unsigned int& segment, float& tLocal ) const;
+  void FindSegmentAndProgress( float t, uint32_t& segment, float& tLocal ) const;
 
   /**
    * Helper function to calculate to number of segments in the path
    */
-  unsigned int GetNumberOfSegments() const;
+  uint32_t GetNumberOfSegments() const;
 
   Dali::Vector<Vector3> mPoint;            ///< Interpolation points
   Dali::Vector<Vector3> mControlPoint;     ///< Control points

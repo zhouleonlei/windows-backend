@@ -31,19 +31,19 @@ namespace Internal
 namespace SceneGraph
 {
 
-SceneGraph::Layer* Layer::New( uint32_t id )
+SceneGraph::Layer* Layer::New()
 {
   // Layers are currently heap allocated, unlike Nodes which are in a memory pool
   // However Node::Delete( layer ) will correctly delete a layer / node depending on type
-  return new Layer( id );
+  return new Layer();
 }
 
-Layer::Layer( uint32_t id )
-: Node( id ),
+Layer::Layer()
+: Node(),
   mSortFunction( Internal::Layer::ZValue ),
   mClippingBox( 0,0,0,0 ),
   mLastCamera( NULL ),
-  mBehavior( Dali::Layer::LAYER_2D ),
+  mBehavior( Dali::Layer::LAYER_UI ),
   mIsClipping( false ),
   mDepthTestDisabled( true ),
   mIsDefaultSortFunction( true )
