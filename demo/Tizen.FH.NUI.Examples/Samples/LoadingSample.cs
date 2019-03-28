@@ -30,7 +30,7 @@ namespace Tizen.FH.NUI.Samples
             {
                 LoadingImageURLPrefix = new StringSelector
                 {
-                    All = "*DemoRes*/images/FH3/9. Controller/Loading Sequence_Native/loading_",
+                    All = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
                 }
 
             };
