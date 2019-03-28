@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Binding;
 using System.Windows.Input;
 using System.Collections.Generic;
 
@@ -30,20 +29,46 @@ namespace Tizen.NUI.UIComponents
     /// <since_tizen> 3 </since_tizen>
     public class PushButton : Button
     {
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(PushButton), null,
-                BindingMode.OneWay, null, null, null, null, null as BindableProperty.CreateDefaultValueDelegate);
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(PushButton), null,
-                BindingMode.OneWay, null, null, null, null, null as BindableProperty.CreateDefaultValueDelegate);
-
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        /// <summary>
+        /// Creates the PushButton.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public PushButton() : this(NDalicPINVOKE.PushButton_New(), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         internal PushButton(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.PushButton_SWIGUpcast(cPtr), cMemoryOwn)
         {
             swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+        }
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ICommand Command
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+            }
+        }
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object CommandParameter
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+            }
         }
 
         internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PushButton obj)
@@ -62,7 +87,7 @@ namespace Tizen.NUI.UIComponents
                 return;
             }
 
-            if(type == DisposeTypes.Explicit)
+            if (type == DisposeTypes.Explicit)
             {
                 //Called by User
                 //Release your own managed resources here.
@@ -86,7 +111,6 @@ namespace Tizen.NUI.UIComponents
             base.Dispose(type);
         }
 
-
         internal new class Property
         {
             internal static readonly int UNSELECTED_ICON = NDalicPINVOKE.PushButton_Property_UNSELECTED_ICON_get();
@@ -94,68 +118,6 @@ namespace Tizen.NUI.UIComponents
             internal static readonly int ICON_ALIGNMENT = NDalicPINVOKE.PushButton_Property_ICON_ALIGNMENT_get();
             internal static readonly int LABEL_PADDING = NDalicPINVOKE.PushButton_Property_LABEL_PADDING_get();
             internal static readonly int ICON_PADDING = NDalicPINVOKE.PushButton_Property_ICON_PADDING_get();
-        }
-
-        /// <summary>
-        /// Creates the PushButton.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public PushButton() : this(NDalicPINVOKE.PushButton_New(), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal override bool IsCreateByXaml
-        {
-            get
-            {
-                return base.IsCreateByXaml;
-            }
-            set
-            {
-                base.IsCreateByXaml = value;
-
-                if (value == true)
-                {
-                    this.Clicked += (sender, e) =>
-                    {
-                        ICommand command = this.Command;
-                        if (command != null)
-                        {
-                            command.Execute(this.CommandParameter);
-                        }
-                        return true;
-                    };
-                }
-            }
-        }
-
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ICommand Command
-        {
-            get
-            {
-                return (ICommand)base.GetValue(PushButton.CommandProperty);
-            }
-            set
-            {
-                base.SetValue(PushButton.CommandProperty, value);
-            }
-        }
-
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public object CommandParameter
-        {
-            get
-            {
-                return base.GetValue(PushButton.CommandParameterProperty);
-            }
-            set
-            {
-                base.SetValue(PushButton.CommandParameterProperty, value);
-            }
         }
     }
 }

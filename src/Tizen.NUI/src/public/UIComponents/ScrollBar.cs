@@ -18,7 +18,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.UIComponents
 {
@@ -29,297 +28,54 @@ namespace Tizen.NUI.UIComponents
     /// <since_tizen> 3 </since_tizen>
     public class ScrollBar : View
     {
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty ScrollDirectionProperty = BindableProperty.Create("ScrollDirection", typeof(Direction), typeof(ScrollBar), Direction.Vertical, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            string valueToString = "";
-            if (newValue != null)
-            {
-                switch ((Direction)newValue)
-                {
-                    case Direction.Vertical: { valueToString = "Vertical"; break; }
-                    case Direction.Horizontal: { valueToString = "Horizontal"; break; }
-                    default: { valueToString = "Vertical"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.SCROLL_DIRECTION, new Tizen.NUI.PropertyValue(valueToString));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            string temp;
-            if (Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.SCROLL_DIRECTION).Get(out temp) == false)
-            {
-                NUILog.Error("ScrollDirection get error!");
-            }
-
-            switch (temp)
-            {
-                case "Vertical": return Direction.Vertical;
-                case "Horizontal": return Direction.Horizontal;
-                default: return Direction.Vertical;
-            }
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorHeightPolicyProperty = BindableProperty.Create("IndicatorHeightPolicy", typeof(IndicatorHeightPolicyType), typeof(ScrollBar), IndicatorHeightPolicyType.Variable, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            string valueToString = "";
-            if (newValue != null)
-            {
-                switch ((IndicatorHeightPolicyType)newValue)
-                {
-                    case IndicatorHeightPolicyType.Variable:{ valueToString = "Variable"; break; }
-                    case IndicatorHeightPolicyType.Fixed: { valueToString = "Fixed"; break; }
-                    default:  { valueToString = "Variable"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_HEIGHT_POLICY, new Tizen.NUI.PropertyValue(valueToString));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            string temp;
-            if (Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_HEIGHT_POLICY).Get(out temp) == false)
-            {
-                NUILog.Error("IndicatorHeightPolicy get error!");
-            }
-
-            switch (temp)
-            {
-                case "Variable": return IndicatorHeightPolicyType.Variable;
-                case "Fixed": return IndicatorHeightPolicyType.Fixed;
-                default: return IndicatorHeightPolicyType.Variable;
-            }
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorFixedHeightProperty = BindableProperty.Create("IndicatorFixedHeight", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_FIXED_HEIGHT, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_FIXED_HEIGHT).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorShowDurationProperty = BindableProperty.Create("IndicatorShowDuration", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_SHOW_DURATION, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_SHOW_DURATION).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorHideDurationProperty = BindableProperty.Create("IndicatorHideDuration", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_HIDE_DURATION, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_HIDE_DURATION).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty ScrollPositionIntervalsProperty = BindableProperty.Create("ScrollPositionIntervals", typeof(PropertyArray), typeof(ScrollBar), new PropertyArray(), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.SCROLL_POSITION_INTERVALS, new Tizen.NUI.PropertyValue((PropertyArray)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            Tizen.NUI.PropertyArray temp = new Tizen.NUI.PropertyArray();
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.SCROLL_POSITION_INTERVALS).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorMinimumHeightProperty = BindableProperty.Create("IndicatorMinimumHeight", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_MINIMUM_HEIGHT, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_MINIMUM_HEIGHT).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorStartPaddingProperty = BindableProperty.Create("IndicatorStartPadding", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_START_PADDING, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_START_PADDING).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty IndicatorEndPaddingProperty = BindableProperty.Create("IndicatorEndPadding", typeof(float), typeof(ScrollBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_END_PADDING, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var scrollBar = (ScrollBar)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(scrollBar.swigCPtr, ScrollBar.Property.INDICATOR_END_PADDING).Get(out temp);
-            return temp;
-        });
 
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        private EventHandler<PanFinishedEventArgs> _scrollBarPanFinishedEventHandler;
+        private PanFinishedEventCallbackDelegate _scrollBarPanFinishedEventCallbackDelegate;
+
+        private EventHandler<ScrollIntervalEventArgs> _scrollBarScrollPositionIntervalReachedEventHandler;
+        private ScrollPositionIntervalReachedEventCallbackDelegate _scrollBarScrollPositionIntervalReachedEventCallbackDelegate;
+
+        /// <summary>
+        /// Creates an initialized scrollbar.
+        /// </summary>
+        /// <param name="direction">The direction of the scrollbar (either vertically or horizontally).</param>
+        /// <since_tizen> 3 </since_tizen>
+        public ScrollBar(ScrollBar.Direction direction) : this(NDalicPINVOKE.ScrollBar_New__SWIG_0((int)direction), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates an uninitialized scrollbar.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public ScrollBar() : this(NDalicPINVOKE.ScrollBar_New__SWIG_1(), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal ScrollBar(ScrollBar scrollBar) : this(NDalicPINVOKE.new_ScrollBar__SWIG_1(ScrollBar.getCPtr(scrollBar)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         internal ScrollBar(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.ScrollBar_SWIGUpcast(cPtr), cMemoryOwn)
         {
             swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
         }
 
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ScrollBar obj)
-        {
-            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        /// <summary>
-        /// To dispose the ScrollBar instance.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected override void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if(type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-            }
-
-            //Release your own unmanaged resources here.
-            //You should not access any managed member here except static instance.
-            //because the execution order of Finalizes is non-deterministic.
-            if (this != null)
-            {
-                if (_scrollBarScrollPositionIntervalReachedEventCallbackDelegate != null)
-                {
-                    ScrollPositionIntervalReachedSignal().Disconnect(_scrollBarScrollPositionIntervalReachedEventCallbackDelegate);
-                }
-
-                if (_scrollBarPanFinishedEventCallbackDelegate != null)
-                {
-                    PanFinishedSignal().Disconnect(_scrollBarPanFinishedEventCallbackDelegate);
-                }
-            }
-
-            if (swigCPtr.Handle != global::System.IntPtr.Zero)
-            {
-                if (swigCMemOwn)
-                {
-                    swigCMemOwn = false;
-                    NDalicPINVOKE.delete_ScrollBar(swigCPtr);
-                }
-                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-            }
-
-            base.Dispose(type);
-        }
-
-        /// <summary>
-        /// Event arguments that passed via the PanFinished event.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public class PanFinishedEventArgs : EventArgs
-        {
-        }
-
-        /// <summary>
-        /// Event arguments that passed via the ScrollPositionIntervalReached event.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public class ScrollIntervalEventArgs : EventArgs
-        {
-            private float _currentScrollPosition;
-
-            /// <summary>
-            /// The current scroll position of the scrollable content.
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            public float CurrentScrollPosition
-            {
-                get
-                {
-                    return _currentScrollPosition;
-                }
-                set
-                {
-                    _currentScrollPosition = value;
-                }
-            }
-        }
-
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void PanFinishedEventCallbackDelegate();
-        private EventHandler<PanFinishedEventArgs> _scrollBarPanFinishedEventHandler;
-        private PanFinishedEventCallbackDelegate _scrollBarPanFinishedEventCallbackDelegate;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private delegate void ScrollPositionIntervalReachedEventCallbackDelegate();
-        private EventHandler<ScrollIntervalEventArgs> _scrollBarScrollPositionIntervalReachedEventHandler;
-        private ScrollPositionIntervalReachedEventCallbackDelegate _scrollBarScrollPositionIntervalReachedEventCallbackDelegate;
+        private delegate void ScrollPositionIntervalReachedEventCallbackDelegate(float position);
 
         /// <summary>
         /// The event emitted when panning is finished on the scroll indicator.
         /// </summary>
+        /// <remarks>Event only emitted when the source of the scroll position properties are set.</remarks>
         /// <since_tizen> 3 </since_tizen>
         public event EventHandler<PanFinishedEventArgs> PanFinished
         {
@@ -342,22 +98,10 @@ namespace Tizen.NUI.UIComponents
             }
         }
 
-        // Callback for ScrollBar PanFinishedSignal
-        private void OnScrollBarPanFinished()
-        {
-            PanFinishedEventArgs e = new PanFinishedEventArgs();
-
-            if (_scrollBarPanFinishedEventHandler != null)
-            {
-                //here we send all data to user event handlers
-                _scrollBarPanFinishedEventHandler(this, e);
-            }
-        }
-
-
         /// <summary>
-        /// This is the event emitted when the current scroll position of the scrollable content.
+        /// This is the event emitted when the current scroll position of the scrollable content goes above or below the values specified by ScrollPositionIntervals property.
         /// </summary>
+        /// <remarks>Event only emitted when the source of the scroll position properties are set.</remarks>
         /// <since_tizen> 3 </since_tizen>
         public event EventHandler<ScrollIntervalEventArgs> ScrollInterval
         {
@@ -380,60 +124,259 @@ namespace Tizen.NUI.UIComponents
             }
         }
 
-        // Callback for ScrollBar ScrollPositionIntervalReachedSignal
-        private void OnScrollBarScrollPositionIntervalReached()
+        /// <summary>
+        /// The direction of the scrollbar.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public enum Direction
         {
-            ScrollIntervalEventArgs e = new ScrollIntervalEventArgs();
+            /// <summary>
+            /// Scroll in the vertical direction
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            Vertical = 0,
+            /// <summary>
+            /// Scroll in the horizontal direction
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            Horizontal
+        }
 
-            if (_scrollBarScrollPositionIntervalReachedEventHandler != null)
+        /// <summary>
+        /// The indicator height policy.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public enum IndicatorHeightPolicyType
+        {
+            /// <summary>
+            /// Variable height changed dynamically according to the length of scroll content
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            Variable = 0,
+            /// <summary>
+            /// Fixed height regardless of the length of scroll content
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            Fixed
+        }
+
+        /// <summary>
+        /// The direction of the scrollbar.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public Direction ScrollDirection
+        {
+            get
             {
-                //here we send all data to user event handlers
-                _scrollBarScrollPositionIntervalReachedEventHandler(this, e);
+                string temp;
+                if (Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.SCROLL_DIRECTION).Get(out temp) == false)
+                {
+                    NUILog.Error("ScrollDirection get error!");
+                }
+
+                switch (temp)
+                {
+                    case "Vertical": return Direction.Vertical;
+                    case "Horizontal": return Direction.Horizontal;
+                    default: return Direction.Vertical;
+                }
+            }
+            set
+            {
+                string valueToString = "";
+                switch (value)
+                {
+                    case Direction.Vertical: { valueToString = "Vertical"; break; }
+                    case Direction.Horizontal: { valueToString = "Horizontal"; break; }
+                    default: { valueToString = "Vertical"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.SCROLL_DIRECTION, new PropertyValue(valueToString));
             }
         }
 
-
-        internal new class Property
+        /// <summary>
+        /// The indicator height policy.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public IndicatorHeightPolicyType IndicatorHeightPolicy
         {
-            internal static readonly int SCROLL_DIRECTION = NDalicPINVOKE.ScrollBar_Property_SCROLL_DIRECTION_get();
-            internal static readonly int INDICATOR_HEIGHT_POLICY = NDalicPINVOKE.ScrollBar_Property_INDICATOR_HEIGHT_POLICY_get();
-            internal static readonly int INDICATOR_FIXED_HEIGHT = NDalicPINVOKE.ScrollBar_Property_INDICATOR_FIXED_HEIGHT_get();
-            internal static readonly int INDICATOR_SHOW_DURATION = NDalicPINVOKE.ScrollBar_Property_INDICATOR_SHOW_DURATION_get();
-            internal static readonly int INDICATOR_HIDE_DURATION = NDalicPINVOKE.ScrollBar_Property_INDICATOR_HIDE_DURATION_get();
-            internal static readonly int SCROLL_POSITION_INTERVALS = NDalicPINVOKE.ScrollBar_Property_SCROLL_POSITION_INTERVALS_get();
-            internal static readonly int INDICATOR_MINIMUM_HEIGHT = NDalicPINVOKE.ScrollBar_Property_INDICATOR_MINIMUM_HEIGHT_get();
-            internal static readonly int INDICATOR_START_PADDING = NDalicPINVOKE.ScrollBar_Property_INDICATOR_START_PADDING_get();
-            internal static readonly int INDICATOR_END_PADDING = NDalicPINVOKE.ScrollBar_Property_INDICATOR_END_PADDING_get();
+            get
+            {
+                string temp;
+                if (Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_HEIGHT_POLICY).Get(out temp) == false)
+                {
+                    NUILog.Error("IndicatorHeightPolicy get error!");
+                }
+
+                switch (temp)
+                {
+                    case "Variable": return IndicatorHeightPolicyType.Variable;
+                    case "Fixed": return IndicatorHeightPolicyType.Fixed;
+                    default: return IndicatorHeightPolicyType.Variable;
+                }
+            }
+            set
+            {
+                string valueToString = "";
+                switch (value)
+                {
+                    case IndicatorHeightPolicyType.Variable: { valueToString = "Variable"; break; }
+                    case IndicatorHeightPolicyType.Fixed: { valueToString = "Fixed"; break; }
+                    default: { valueToString = "Variable"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_HEIGHT_POLICY, new PropertyValue(valueToString));
+            }
         }
 
         /// <summary>
-        /// Creates an initialized scrollbar.
+        /// The fixed height of the scroll indicator.
         /// </summary>
-        /// <param name="direction">The direction of the scrollbar (either vertically or horizontally).</param>
         /// <since_tizen> 3 </since_tizen>
-        public ScrollBar(ScrollBar.Direction direction) : this(NDalicPINVOKE.ScrollBar_New__SWIG_0((int)direction), true)
+        public float IndicatorFixedHeight
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_FIXED_HEIGHT).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_FIXED_HEIGHT, new PropertyValue(value));
+            }
         }
 
         /// <summary>
-        /// Creates an uninitialized scrollbar.
+        /// The duration in seconds for the scroll indicator to become fully visible.
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public ScrollBar() : this(NDalicPINVOKE.ScrollBar_New__SWIG_1(), true)
+        public float IndicatorShowDuration
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_SHOW_DURATION).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_SHOW_DURATION, new PropertyValue(value));
+            }
         }
-        internal ScrollBar(ScrollBar scrollBar) : this(NDalicPINVOKE.new_ScrollBar__SWIG_1(ScrollBar.getCPtr(scrollBar)), true)
+
+        /// <summary>
+        /// The duration in seconds for the scroll indicator to become fully invisible.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public float IndicatorHideDuration
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_HIDE_DURATION).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_HIDE_DURATION, new PropertyValue(value));
+            }
         }
 
-        internal void SetScrollPropertySource(Animatable handle, int propertyScrollPosition, int propertyMinScrollPosition, int propertyMaxScrollPosition, int propertyScrollContentSize)
+        /// <summary>
+        /// The list of values to get the notification when the current scroll position of the scrollable object goes above or below any of these values.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyArray ScrollPositionIntervals
+        {
+            get
+            {
+                PropertyArray temp = new PropertyArray();
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.SCROLL_POSITION_INTERVALS).Get(temp);
+                return temp;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.SCROLL_POSITION_INTERVALS, new PropertyValue((PropertyArray)value));
+                }
+            }
+        }
+
+        /// <summary>
+        /// The minimum height for a variable size indicator.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public float IndicatorMinimumHeight
+        {
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_MINIMUM_HEIGHT).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_MINIMUM_HEIGHT, new PropertyValue(value));
+            }
+        }
+
+        /// <summary>
+        /// The padding at the start of the indicator. For example, the top if the scrollDirection is vertical.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public float IndicatorStartPadding
+        {
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_START_PADDING).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_START_PADDING, new PropertyValue(value));
+            }
+        }
+
+        /// <summary>
+        /// The padding at the end of the indicator. For example, the bottom if the scrollDirection is vertical.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public float IndicatorEndPadding
+        {
+            get
+            {
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, ScrollBar.Property.INDICATOR_END_PADDING).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, ScrollBar.Property.INDICATOR_END_PADDING, new PropertyValue(value));
+            }
+        }
+
+        /// <summary>
+        /// Sets the source of the scroll position properties.
+        /// </summary>
+        /// <param name="handle">The handle of the object owing the scroll properties.</param>
+        /// <param name="propertyScrollPosition">The index of the scroll position property(The scroll position, type float).</param>
+        /// <param name="propertyMinScrollPosition">The index of the minimum scroll position property(The minimum scroll position, type float).</param>
+        /// <param name="propertyMaxScrollPosition">The index of the maximum scroll position property(The maximum scroll position, type float).</param>
+        /// <param name="propertyScrollContentSize">The index of the scroll content size property(The size of the scrollable content in actor coordinates, type float).</param>
+        /// <remarks>The handle to the object owing the scroll properties has been initialised and the property index must be valid.</remarks>
+        /// This will be public opened in next tizen after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetScrollPropertySource(Animatable handle, int propertyScrollPosition, int propertyMinScrollPosition, int propertyMaxScrollPosition, int propertyScrollContentSize)
         {
             NDalicPINVOKE.ScrollBar_SetScrollPropertySource(swigCPtr, Animatable.getCPtr(handle), propertyScrollPosition, propertyMinScrollPosition, propertyMaxScrollPosition, propertyScrollContentSize);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ScrollBar obj)
+        {
+            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
         }
 
         internal void SetScrollIndicator(View indicator)
@@ -541,186 +484,124 @@ namespace Tizen.NUI.UIComponents
         }
 
         /// <summary>
-        /// The direction of the scrollbar.
+        /// To dispose the ScrollBar instance.
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public enum Direction
+        protected override void Dispose(DisposeTypes type)
         {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+            }
+
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+            if (this != null)
+            {
+                if (_scrollBarScrollPositionIntervalReachedEventCallbackDelegate != null)
+                {
+                    ScrollPositionIntervalReachedSignal().Disconnect(_scrollBarScrollPositionIntervalReachedEventCallbackDelegate);
+                }
+
+                if (_scrollBarPanFinishedEventCallbackDelegate != null)
+                {
+                    PanFinishedSignal().Disconnect(_scrollBarPanFinishedEventCallbackDelegate);
+                }
+            }
+
+            if (swigCPtr.Handle != global::System.IntPtr.Zero)
+            {
+                if (swigCMemOwn)
+                {
+                    swigCMemOwn = false;
+                    NDalicPINVOKE.delete_ScrollBar(swigCPtr);
+                }
+                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+            }
+
+            base.Dispose(type);
+        }
+
+        // Callback for ScrollBar PanFinishedSignal
+        private void OnScrollBarPanFinished()
+        {
+            PanFinishedEventArgs e = new PanFinishedEventArgs();
+
+            if (_scrollBarPanFinishedEventHandler != null)
+            {
+                //here we send all data to user event handlers
+                _scrollBarPanFinishedEventHandler(this, e);
+            }
+        }
+
+
+        // Callback for ScrollBar ScrollPositionIntervalReachedSignal
+        private void OnScrollBarScrollPositionIntervalReached(float position)
+        {
+            ScrollIntervalEventArgs e = new ScrollIntervalEventArgs();
+            e.CurrentScrollPosition = position;
+
+            if (_scrollBarScrollPositionIntervalReachedEventHandler != null)
+            {
+                //here we send all data to user event handlers
+                _scrollBarScrollPositionIntervalReachedEventHandler(this, e);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Event arguments that passed via the PanFinished event.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public class PanFinishedEventArgs : EventArgs
+        {
+        }
+
+        /// <summary>
+        /// Event arguments that passed via the ScrollPositionIntervalReached event.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public class ScrollIntervalEventArgs : EventArgs
+        {
+            private float _currentScrollPosition;
+
             /// <summary>
-            /// Scroll in the vertical direction
+            /// The current scroll position of the scrollable content.
             /// </summary>
             /// <since_tizen> 3 </since_tizen>
-            Vertical = 0,
-            /// <summary>
-            /// Scroll in the horizontal direction
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            Horizontal
+            public float CurrentScrollPosition
+            {
+                get
+                {
+                    return _currentScrollPosition;
+                }
+                set
+                {
+                    _currentScrollPosition = value;
+                }
+            }
         }
 
-        /// <summary>
-        /// The indicator height policy.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public enum IndicatorHeightPolicyType
+        internal new class Property
         {
-            /// <summary>
-            /// Variable height changed dynamically according to the length of scroll content
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            Variable = 0,
-            /// <summary>
-            /// Fixed height regardless of the length of scroll content
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            Fixed
+            internal static readonly int SCROLL_DIRECTION = NDalicPINVOKE.ScrollBar_Property_SCROLL_DIRECTION_get();
+            internal static readonly int INDICATOR_HEIGHT_POLICY = NDalicPINVOKE.ScrollBar_Property_INDICATOR_HEIGHT_POLICY_get();
+            internal static readonly int INDICATOR_FIXED_HEIGHT = NDalicPINVOKE.ScrollBar_Property_INDICATOR_FIXED_HEIGHT_get();
+            internal static readonly int INDICATOR_SHOW_DURATION = NDalicPINVOKE.ScrollBar_Property_INDICATOR_SHOW_DURATION_get();
+            internal static readonly int INDICATOR_HIDE_DURATION = NDalicPINVOKE.ScrollBar_Property_INDICATOR_HIDE_DURATION_get();
+            internal static readonly int SCROLL_POSITION_INTERVALS = NDalicPINVOKE.ScrollBar_Property_SCROLL_POSITION_INTERVALS_get();
+            internal static readonly int INDICATOR_MINIMUM_HEIGHT = NDalicPINVOKE.ScrollBar_Property_INDICATOR_MINIMUM_HEIGHT_get();
+            internal static readonly int INDICATOR_START_PADDING = NDalicPINVOKE.ScrollBar_Property_INDICATOR_START_PADDING_get();
+            internal static readonly int INDICATOR_END_PADDING = NDalicPINVOKE.ScrollBar_Property_INDICATOR_END_PADDING_get();
         }
-
-        /// <summary>
-        /// The direction of the scrollbar.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public Direction ScrollDirection
-        {
-            get
-            {
-
-                return (Direction)GetValue(ScrollDirectionProperty);
-            }
-            set
-            {
-                SetValue(ScrollDirectionProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The indicator height policy.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public IndicatorHeightPolicyType IndicatorHeightPolicy
-        {
-            get
-            {
-                return (IndicatorHeightPolicyType)GetValue(IndicatorHeightPolicyProperty);
-            }
-            set
-            {
-                SetValue(IndicatorHeightPolicyProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The fixed height of the scroll indicator.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorFixedHeight
-        {
-            get
-            {
-                return (float)GetValue(IndicatorFixedHeightProperty);
-            }
-            set
-            {
-                SetValue(IndicatorFixedHeightProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The duration in seconds for the scroll indicator to become fully visible.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorShowDuration
-        {
-            get
-            {
-                return (float)GetValue(IndicatorShowDurationProperty);
-            }
-            set
-            {
-                SetValue(IndicatorShowDurationProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The duration in seconds for the scroll indicator to become fully invisible.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorHideDuration
-        {
-            get
-            {
-                return (float)GetValue(IndicatorHideDurationProperty);
-            }
-            set
-            {
-                SetValue(IndicatorHideDurationProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The list of values to get the notification when the current scroll position of the scrollable object goes above or below any of these values.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public Tizen.NUI.PropertyArray ScrollPositionIntervals
-        {
-            get
-            {
-                return (PropertyArray)GetValue(ScrollPositionIntervalsProperty);
-            }
-            set
-            {
-                SetValue(ScrollPositionIntervalsProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The minimum height for a variable size indicator.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorMinimumHeight
-        {
-            get
-            {
-                return (float)GetValue(IndicatorMinimumHeightProperty);
-            }
-            set
-            {
-                SetValue(IndicatorMinimumHeightProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The padding at the start of the indicator. For example, the top if the scrollDirection is vertical.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorStartPadding
-        {
-            get
-            {
-                return (float)GetValue(IndicatorStartPaddingProperty);
-            }
-            set
-            {
-                SetValue(IndicatorStartPaddingProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// The padding at the end of the indicator. For example, the bottom if the scrollDirection is vertical.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public float IndicatorEndPadding
-        {
-            get
-            {
-                return (float)GetValue(IndicatorEndPaddingProperty);
-            }
-            set
-            {
-                SetValue(IndicatorEndPaddingProperty, value);
-            }
-        }
-
     }
-
 }

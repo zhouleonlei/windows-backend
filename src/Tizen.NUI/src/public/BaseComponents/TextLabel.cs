@@ -1,5 +1,5 @@
 /*
- * Copyright(c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ using TizenSystemSettings.Tizen.System;
 using System;
 using System.Globalization;
 using System.ComponentModel;
-using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.BaseComponents
 {
@@ -32,651 +31,10 @@ namespace Tizen.NUI.BaseComponents
     /// <since_tizen> 3 </since_tizen>
     public class TextLabel : View
     {
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(TextLabel), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-			if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.TEXT, new Tizen.NUI.PropertyValue((string)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.TEXT).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string), typeof(TextLabel), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.FONT_FAMILY, new Tizen.NUI.PropertyValue((string)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.FONT_FAMILY).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty FontStyleProperty = BindableProperty.Create("FontStyle", typeof(PropertyMap), typeof(TextLabel), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.FONT_STYLE, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            PropertyMap temp = new PropertyMap();
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.FONT_STYLE).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty PointSizeProperty = BindableProperty.Create("PointSize", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.POINT_SIZE, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.POINT_SIZE).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty MultiLineProperty = BindableProperty.Create("MultiLine", typeof(bool), typeof(TextLabel), false, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.MULTI_LINE, new Tizen.NUI.PropertyValue((bool)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            bool temp = false;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.MULTI_LINE).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create("HorizontalAlignment", typeof(HorizontalAlignment), typeof(TextLabel), HorizontalAlignment.Begin, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string valueToString = "";
-            if (newValue != null)
-            {
-                switch ((HorizontalAlignment)newValue)
-                {
-                    case HorizontalAlignment.Begin: { valueToString = "BEGIN"; break; }
-                    case HorizontalAlignment.Center: { valueToString = "CENTER"; break; }
-                    case HorizontalAlignment.End: { valueToString = "END"; break; }
-                    default: { valueToString = "BEGIN"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.HORIZONTAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            if (Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.HORIZONTAL_ALIGNMENT).Get(out temp) == false)
-            {
-                NUILog.Error("HorizontalAlignment get error!");
-            }
-            switch (temp)
-            {
-                case "BEGIN": return HorizontalAlignment.Begin;
-                case "CENTER":  return HorizontalAlignment.Center;
-                case "END":  return HorizontalAlignment.End;
-                default: return HorizontalAlignment.Begin;
-            }
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create("VerticalAlignment", typeof(VerticalAlignment), typeof(TextLabel), VerticalAlignment.Bottom, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string valueToString = "";
-            if (newValue != null)
-            {
-                switch ((VerticalAlignment)newValue)
-                {
-                    case VerticalAlignment.Top: { valueToString = "TOP"; break; }
-                    case VerticalAlignment.Center: { valueToString = "CENTER"; break; }
-                    case VerticalAlignment.Bottom: { valueToString = "BOTTOM"; break; }
-                    default: { valueToString = "BOTTOM"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.VERTICAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            if (Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.VERTICAL_ALIGNMENT).Get(out temp) == false)
-            {
-                NUILog.Error("VerticalAlignment get error!");
-            }
-
-            switch (temp)
-            {
-                case "TOP": return VerticalAlignment.Top;
-                case "CENTER": return VerticalAlignment.Center;
-                case "BOTTOM": return VerticalAlignment.Bottom;
-                default: return VerticalAlignment.Bottom;
-            }
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(TextLabel), Color.Transparent, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.TEXT_COLOR, new Tizen.NUI.PropertyValue((Color)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            Color temp = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.TEXT_COLOR).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty ShadowOffsetProperty = BindableProperty.Create("ShadowOffset", typeof(Vector2), typeof(TextLabel), Vector2.Zero, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW_OFFSET, new Tizen.NUI.PropertyValue((Vector2)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            Vector2 temp = new Vector2(0.0f, 0.0f);
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW_OFFSET).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty ShadowColorProperty = BindableProperty.Create("ShadowColor", typeof(Vector4), typeof(TextLabel), Vector4.Zero, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW_COLOR, new Tizen.NUI.PropertyValue((Vector4)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW_COLOR).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty UnderlineEnabledProperty = BindableProperty.Create("UnderlineEnabled", typeof(bool), typeof(TextLabel), false, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_ENABLED, new Tizen.NUI.PropertyValue((bool)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            bool temp = false;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_ENABLED).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create("UnderlineColor", typeof(Vector4), typeof(TextLabel), Vector4.Zero, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_COLOR, new Tizen.NUI.PropertyValue((Vector4)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_COLOR).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty UnderlineHeightProperty = BindableProperty.Create("UnderlineHeight", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_HEIGHT, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE_HEIGHT).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty EnableMarkupProperty = BindableProperty.Create("EnableMarkup", typeof(bool), typeof(TextLabel), false, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.ENABLE_MARKUP, new Tizen.NUI.PropertyValue((bool)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            bool temp = false;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.ENABLE_MARKUP).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty EnableAutoScrollProperty = BindableProperty.Create("EnableAutoScroll", typeof(bool), typeof(TextLabel), false, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.ENABLE_AUTO_SCROLL, new Tizen.NUI.PropertyValue((bool)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            bool temp = false;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.ENABLE_AUTO_SCROLL).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty AutoScrollSpeedProperty = BindableProperty.Create("AutoScrollSpeed", typeof(int), typeof(TextLabel), default(int), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_SPEED, new Tizen.NUI.PropertyValue((int)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            int temp = 0;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_SPEED).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty AutoScrollLoopCountProperty = BindableProperty.Create("AutoScrollLoopCount", typeof(int), typeof(TextLabel), default(int), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_COUNT, new Tizen.NUI.PropertyValue((int)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            int temp = 0;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_COUNT).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty AutoScrollGapProperty = BindableProperty.Create("AutoScrollGap", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_GAP, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_GAP).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty LineSpacingProperty = BindableProperty.Create("LineSpacing", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.LINE_SPACING, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.LINE_SPACING).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty UnderlineProperty = BindableProperty.Create("Underline", typeof(PropertyMap), typeof(TextLabel), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            PropertyMap temp = new PropertyMap();
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.UNDERLINE).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty ShadowProperty = BindableProperty.Create("Shadow", typeof(PropertyMap), typeof(TextLabel), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            PropertyMap temp = new PropertyMap();
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.SHADOW).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty EmbossProperty = BindableProperty.Create("Emboss", typeof(string), typeof(TextLabel), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.EMBOSS, new Tizen.NUI.PropertyValue((string)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.EMBOSS).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty OutlineProperty = BindableProperty.Create("Outline", typeof(PropertyMap), typeof(TextLabel), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.OUTLINE, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            PropertyMap temp = new PropertyMap();
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.OUTLINE).Get(temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty PixelSizeProperty = BindableProperty.Create("PixelSize", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.PIXEL_SIZE, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.PIXEL_SIZE).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty EllipsisProperty = BindableProperty.Create("Ellipsis", typeof(bool), typeof(TextLabel), false, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.ELLIPSIS, new Tizen.NUI.PropertyValue((bool)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            bool temp = false;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.ELLIPSIS).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty AutoScrollLoopDelayProperty = BindableProperty.Create("AutoScrollLoopDelay", typeof(float), typeof(TextLabel), default(float), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_DELAY, new Tizen.NUI.PropertyValue((float)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            float temp = 0.0f;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_DELAY).Get(out temp);
-            return temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty AutoScrollStopModeProperty = BindableProperty.Create("AutoScrollStopMode", typeof(AutoScrollStopMode), typeof(TextLabel), AutoScrollStopMode.FinishLoop, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_STOP_MODE, new Tizen.NUI.PropertyValue((int)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            string temp;
-            if(Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.AUTO_SCROLL_STOP_MODE).Get(out temp) == false)
-            {
-                NUILog.Error("AutoScrollStopMode get error!");
-            }
-            switch (temp)
-            {
-                case "FINISH_LOOP": return AutoScrollStopMode.FinishLoop;
-                case "IMMEDIATE": return AutoScrollStopMode.Immediate;
-                default: return AutoScrollStopMode.FinishLoop;
-            }
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty LineWrapModeProperty = BindableProperty.Create("LineWrapMode", typeof(LineWrapMode), typeof(TextLabel), LineWrapMode.Word, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.LINE_WRAP_MODE, new Tizen.NUI.PropertyValue((int)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            int temp;
-            if (false == Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.LINE_WRAP_MODE).Get(out temp))
-            {
-                NUILog.Error("LineWrapMode get error!");
-            }
-            return (LineWrapMode)temp;
-        });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static readonly BindableProperty VerticalLineAlignmentProperty = BindableProperty.Create("VerticalLineAlignment", typeof(VerticalLineAlignment), typeof(TextLabel), VerticalLineAlignment.Bottom, propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            if (newValue != null)
-            {
-                Tizen.NUI.Object.SetProperty(textLabel.swigCPtr, TextLabel.Property.VERTICAL_LINE_ALIGNMENT, new Tizen.NUI.PropertyValue((int)newValue));
-            }
-        },
-        defaultValueCreator:(bindable) =>
-        {
-            var textLabel = (TextLabel)bindable;
-            int temp = 0;
-            Tizen.NUI.Object.GetProperty(textLabel.swigCPtr, TextLabel.Property.VERTICAL_LINE_ALIGNMENT).Get(out temp);
-            return (VerticalLineAlignment)temp;
-        });
-
 
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
         private string textLabelSid = null;
         private bool systemlangTextFlag = false;
-        internal TextLabel(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.TextLabel_SWIGUpcast(cPtr), cMemoryOwn)
-        {
-            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-        }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TextLabel obj)
-        {
-            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        /// <summary>
-        /// Downcasts a handle to textLabel handle
-        /// </summary>
-        /// <param name="handle"></param>
-        /// <returns></returns>
-        /// <since_tizen> 3 </since_tizen>
-        /// Please do not use! this will be deprecated!
-        /// Instead please use as keyword.
-        [Obsolete("Please do not use! This will be deprecated! Please use as keyword instead! " +
-            "Like: " +
-            "BaseHandle handle = new TextLabel(\"Hello World!\"); " +
-            "TextLabel label = handle as TextLabel")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static TextLabel DownCast(BaseHandle handle)
-        {
-            TextLabel ret = Registry.GetManagedBaseHandleFromNativePtr(handle) as TextLabel;
-
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected override void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if(type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-            }
-
-            //Release your own unmanaged resources here.
-            //You should not access any managed member here except static instance.
-            //because the execution order of Finalizes is non-deterministic.
-
-            if (swigCPtr.Handle != global::System.IntPtr.Zero)
-            {
-                if (swigCMemOwn)
-                {
-                    swigCMemOwn = false;
-                    NDalicPINVOKE.delete_TextLabel(swigCPtr);
-                }
-                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-            }
-
-            base.Dispose(type);
-        }
-
-        internal new class Property
-        {
-            internal static readonly int RENDERING_BACKEND = NDalicPINVOKE.TextLabel_Property_RENDERING_BACKEND_get();
-            internal static readonly int TEXT = NDalicPINVOKE.TextLabel_Property_TEXT_get();
-            internal static readonly int FONT_FAMILY = NDalicPINVOKE.TextLabel_Property_FONT_FAMILY_get();
-            internal static readonly int FONT_STYLE = NDalicPINVOKE.TextLabel_Property_FONT_STYLE_get();
-            internal static readonly int POINT_SIZE = NDalicPINVOKE.TextLabel_Property_POINT_SIZE_get();
-            internal static readonly int MULTI_LINE = NDalicPINVOKE.TextLabel_Property_MULTI_LINE_get();
-            internal static readonly int HORIZONTAL_ALIGNMENT = NDalicPINVOKE.TextLabel_Property_HORIZONTAL_ALIGNMENT_get();
-            internal static readonly int VERTICAL_ALIGNMENT = NDalicPINVOKE.TextLabel_Property_VERTICAL_ALIGNMENT_get();
-            internal static readonly int TEXT_COLOR = NDalicPINVOKE.TextLabel_Property_TEXT_COLOR_get();
-            internal static readonly int SHADOW_OFFSET = NDalicPINVOKE.TextLabel_Property_SHADOW_OFFSET_get();
-            internal static readonly int SHADOW_COLOR = NDalicPINVOKE.TextLabel_Property_SHADOW_COLOR_get();
-            internal static readonly int UNDERLINE_ENABLED = NDalicPINVOKE.TextLabel_Property_UNDERLINE_ENABLED_get();
-            internal static readonly int UNDERLINE_COLOR = NDalicPINVOKE.TextLabel_Property_UNDERLINE_COLOR_get();
-            internal static readonly int UNDERLINE_HEIGHT = NDalicPINVOKE.TextLabel_Property_UNDERLINE_HEIGHT_get();
-            internal static readonly int ENABLE_MARKUP = NDalicPINVOKE.TextLabel_Property_ENABLE_MARKUP_get();
-            internal static readonly int ENABLE_AUTO_SCROLL = NDalicPINVOKE.TextLabel_Property_ENABLE_AUTO_SCROLL_get();
-            internal static readonly int AUTO_SCROLL_SPEED = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_SPEED_get();
-            internal static readonly int AUTO_SCROLL_LOOP_COUNT = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_LOOP_COUNT_get();
-            internal static readonly int AUTO_SCROLL_GAP = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_GAP_get();
-            internal static readonly int LINE_SPACING = NDalicPINVOKE.TextLabel_Property_LINE_SPACING_get();
-            internal static readonly int UNDERLINE = NDalicPINVOKE.TextLabel_Property_UNDERLINE_get();
-            internal static readonly int SHADOW = NDalicPINVOKE.TextLabel_Property_SHADOW_get();
-            internal static readonly int EMBOSS = NDalicPINVOKE.TextLabel_Property_EMBOSS_get();
-            internal static readonly int OUTLINE = NDalicPINVOKE.TextLabel_Property_OUTLINE_get();
-            internal static readonly int PIXEL_SIZE = NDalicManualPINVOKE.TextLabel_Property_PIXEL_SIZE_get();
-            internal static readonly int ELLIPSIS = NDalicManualPINVOKE.TextLabel_Property_ELLIPSIS_get();
-            internal static readonly int AUTO_SCROLL_STOP_MODE = NDalicManualPINVOKE.TextLabel_Property_AUTO_SCROLL_STOP_MODE_get();
-            internal static readonly int AUTO_SCROLL_LOOP_DELAY = NDalicManualPINVOKE.TextLabel_Property_AUTO_SCROLL_LOOP_DELAY_get();
-            internal static readonly int LINE_COUNT = NDalicManualPINVOKE.TextLabel_Property_LINE_COUNT_get();
-            internal static readonly int LINE_WRAP_MODE = NDalicManualPINVOKE.TextLabel_Property_LINE_WRAP_MODE_get();
-            internal static readonly int TEXT_DIRECTION = NDalicManualPINVOKE.TextLabel_Property_TEXT_DIRECTION_get();
-            internal static readonly int VERTICAL_LINE_ALIGNMENT = NDalicManualPINVOKE.TextLabel_Property_VERTICAL_LINE_ALIGNMENT_get();
-        }
 
         /// <summary>
         /// Creates the TextLabel control.
@@ -685,7 +43,6 @@ namespace Tizen.NUI.BaseComponents
         public TextLabel() : this(NDalicPINVOKE.TextLabel_New__SWIG_0(), true)
         {
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-
         }
 
         /// <summary>
@@ -696,7 +53,6 @@ namespace Tizen.NUI.BaseComponents
         public TextLabel(string text) : this(NDalicPINVOKE.TextLabel_New__SWIG_1(text), true)
         {
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-
         }
 
         internal TextLabel(TextLabel handle) : this(NDalicPINVOKE.new_TextLabel__SWIG_1(TextLabel.getCPtr(handle)), true)
@@ -704,9 +60,9 @@ namespace Tizen.NUI.BaseComponents
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
 
-        protected override void OnBindingContextChanged()
+        internal TextLabel(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.TextLabel_SWIGUpcast(cPtr), cMemoryOwn)
         {
-            base.OnBindingContextChanged();
+            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
         }
 
         /// <summary>
@@ -748,10 +104,6 @@ namespace Tizen.NUI.BaseComponents
                 NotifyPropertyChanged();
             }
         }
-        private void SystemSettings_LocaleLanguageChanged(object sender, LocaleLanguageChangedEventArgs e)
-        {
-            Text = NUIApplication.MultilingualResourceManager?.GetString(textLabelSid, new CultureInfo(e.Value.Replace("_", "-")));
-        }
 
         /// <summary>
         /// The Text property.<br />
@@ -762,11 +114,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (string)GetValue(TextProperty);
+                string temp;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.TEXT).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(TextProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.TEXT, new Tizen.NUI.PropertyValue((string)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -780,11 +137,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (string)GetValue(FontFamilyProperty);
+                string temp;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.FONT_FAMILY).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(FontFamilyProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.FONT_FAMILY, new Tizen.NUI.PropertyValue((string)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -798,11 +160,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (PropertyMap)GetValue(FontStyleProperty);
+                PropertyMap temp = new PropertyMap();
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.FONT_STYLE).Get(temp);
+                return temp;
             }
             set
             {
-                SetValue(FontStyleProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.FONT_STYLE, new Tizen.NUI.PropertyValue((PropertyMap)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -816,11 +183,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (float)GetValue(PointSizeProperty);
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.POINT_SIZE).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(PointSizeProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.POINT_SIZE, new Tizen.NUI.PropertyValue((float)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -834,11 +206,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (bool)GetValue(MultiLineProperty);
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.MULTI_LINE).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(MultiLineProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.MULTI_LINE, new Tizen.NUI.PropertyValue((bool)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -852,11 +229,30 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (HorizontalAlignment)GetValue(HorizontalAlignmentProperty);
+                string temp;
+                if (Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.HORIZONTAL_ALIGNMENT).Get(out temp) == false)
+                {
+                    NUILog.Error("HorizontalAlignment get error!");
+                }
+                switch (temp)
+                {
+                    case "BEGIN": return HorizontalAlignment.Begin;
+                    case "CENTER": return HorizontalAlignment.Center;
+                    case "END": return HorizontalAlignment.End;
+                    default: return HorizontalAlignment.Begin;
+                }
             }
             set
             {
-                SetValue(HorizontalAlignmentProperty, value);
+                string valueToString = "";
+                switch ((HorizontalAlignment)value)
+                {
+                    case HorizontalAlignment.Begin: { valueToString = "BEGIN"; break; }
+                    case HorizontalAlignment.Center: { valueToString = "CENTER"; break; }
+                    case HorizontalAlignment.End: { valueToString = "END"; break; }
+                    default: { valueToString = "BEGIN"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.HORIZONTAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
                 NotifyPropertyChanged();
             }
         }
@@ -870,11 +266,31 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (VerticalAlignment)GetValue(VerticalAlignmentProperty);
+                string temp;
+                if (Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.VERTICAL_ALIGNMENT).Get(out temp) == false)
+                {
+                    NUILog.Error("VerticalAlignment get error!");
+                }
+
+                switch (temp)
+                {
+                    case "TOP": return VerticalAlignment.Top;
+                    case "CENTER": return VerticalAlignment.Center;
+                    case "BOTTOM": return VerticalAlignment.Bottom;
+                    default: return VerticalAlignment.Bottom;
+                }
             }
             set
             {
-                SetValue(VerticalAlignmentProperty, value);
+                string valueToString = "";
+                switch ((VerticalAlignment)value)
+                {
+                    case VerticalAlignment.Top: { valueToString = "TOP"; break; }
+                    case VerticalAlignment.Center: { valueToString = "CENTER"; break; }
+                    case VerticalAlignment.Bottom: { valueToString = "BOTTOM"; break; }
+                    default: { valueToString = "BOTTOM"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.VERTICAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
                 NotifyPropertyChanged();
             }
         }
@@ -890,11 +306,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (Color)GetValue(TextColorProperty);
+                Color temp = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.TEXT_COLOR).Get(temp);
+                return temp;
             }
             set
             {
-                SetValue(TextColorProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.TEXT_COLOR, new Tizen.NUI.PropertyValue((Color)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -904,15 +325,26 @@ namespace Tizen.NUI.BaseComponents
         /// The drop shadow offset 0 indicates no shadow.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
+        /// <remarks>
+        /// Deprecated.(API Level 6) Use Shadow instead.
+        /// </remarks>
+        [Obsolete("Please do not use this ShadowOffset(Deprecated). Please use Shadow instead.")]
         public Vector2 ShadowOffset
         {
             get
             {
-                return (Vector2)GetValue(ShadowOffsetProperty);
+                Vector2 shadowOffset = new Vector2();
+                Shadow.Find(TextLabel.Property.SHADOW, "offset")?.Get(shadowOffset);
+                return shadowOffset;
             }
             set
             {
-                SetValue(ShadowOffsetProperty, value);
+                PropertyMap temp = new PropertyMap();
+                temp.Insert("offset", new PropertyValue(value));
+
+                PropertyMap shadowMap = Shadow;
+                shadowMap.Merge(temp);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.SHADOW, new Tizen.NUI.PropertyValue(shadowMap));
                 NotifyPropertyChanged();
             }
         }
@@ -922,15 +354,26 @@ namespace Tizen.NUI.BaseComponents
         /// The color of a drop shadow.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
+        /// <remarks>
+        /// Deprecated.(API Level 6) Use Shadow instead.
+        /// </remarks>
+        [Obsolete("Please do not use this ShadowColor(Deprecated). Please use Shadow instead.")]
         public Vector4 ShadowColor
         {
             get
             {
-                return (Vector4)GetValue(ShadowColorProperty);
+                Vector4 shadowColor = new Vector4();
+                Shadow.Find(TextLabel.Property.SHADOW, "color")?.Get(shadowColor);
+                return shadowColor;
             }
             set
             {
-                SetValue(ShadowColorProperty, value);
+                PropertyMap temp = new PropertyMap();
+                temp.Insert("color", new PropertyValue(value));
+
+                PropertyMap shadowMap = Shadow;
+                shadowMap.Merge(temp);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.SHADOW, new Tizen.NUI.PropertyValue(shadowMap));
                 NotifyPropertyChanged();
             }
         }
@@ -940,16 +383,29 @@ namespace Tizen.NUI.BaseComponents
         /// The underline enabled flag.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
+        /// <remarks>
+        /// Deprecated.(API Level 6) Use Underline instead.
+        /// </remarks>
+        [Obsolete("Please do not use this UnderlineEnabled(Deprecated). Please use Underline instead.")]
         public bool UnderlineEnabled
         {
             get
             {
-                return (bool)GetValue(UnderlineEnabledProperty);
+                bool underlineEnabled = false;
+                Underline.Find(TextLabel.Property.UNDERLINE, "enable")?.Get(out underlineEnabled);
+                return underlineEnabled;
             }
             set
             {
-                SetValue(UnderlineEnabledProperty, value);
+                PropertyMap temp = new PropertyMap();
+                temp.Add("enable", new PropertyValue(value));
+
+                PropertyMap undelineMap = Underline;
+                undelineMap.Merge(temp);
+
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.UNDERLINE, new Tizen.NUI.PropertyValue(undelineMap));
                 NotifyPropertyChanged();
+
             }
         }
 
@@ -958,15 +414,27 @@ namespace Tizen.NUI.BaseComponents
         /// Overrides the underline height from font metrics.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
+        /// <remarks>
+        /// Deprecated.(API Level 6) Use Underline instead.
+        /// </remarks>
+        [Obsolete("Please do not use this UnderlineColor(Deprecated). Please use Underline instead.")]
         public Vector4 UnderlineColor
         {
             get
             {
-                return (Vector4)GetValue(UnderlineColorProperty);
+                Vector4 underlineColor = new Vector4();
+                Underline.Find(TextLabel.Property.UNDERLINE, "color")?.Get(underlineColor);
+                return underlineColor;
             }
             set
             {
-                SetValue(UnderlineColorProperty, value);
+                PropertyMap temp = new PropertyMap();
+                temp.Insert("color", new PropertyValue(value));
+
+                PropertyMap undelineMap = Underline;
+                undelineMap.Merge(temp);
+
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.UNDERLINE, new Tizen.NUI.PropertyValue(undelineMap));
                 NotifyPropertyChanged();
             }
         }
@@ -976,15 +444,27 @@ namespace Tizen.NUI.BaseComponents
         /// Overrides the underline height from font metrics.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
+        /// <remarks>
+        /// Deprecated.(API Level 6) Use Underline instead.
+        /// </remarks>
+        [Obsolete("Please do not use this UnderlineHeight(Deprecated). Please use Underline instead.")]
         public float UnderlineHeight
         {
             get
             {
-                return (float)GetValue(UnderlineHeightProperty);
+                float underlineHeight = 0.0f;
+                Underline.Find(TextLabel.Property.UNDERLINE, "height")?.Get(out underlineHeight);
+                return underlineHeight;
             }
             set
             {
-                SetValue(UnderlineHeightProperty, value);
+                PropertyMap temp = new PropertyMap();
+                temp.Insert("height", new PropertyValue(value));
+
+                PropertyMap undelineMap = Underline;
+                undelineMap.Merge(temp);
+
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.UNDERLINE, new Tizen.NUI.PropertyValue(undelineMap));
                 NotifyPropertyChanged();
             }
         }
@@ -998,11 +478,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (bool)GetValue(EnableMarkupProperty);
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.ENABLE_MARKUP).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(EnableMarkupProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.ENABLE_MARKUP, new Tizen.NUI.PropertyValue((bool)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -1016,11 +501,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (bool)GetValue(EnableAutoScrollProperty);
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.ENABLE_AUTO_SCROLL).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(EnableAutoScrollProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.ENABLE_AUTO_SCROLL, new Tizen.NUI.PropertyValue((bool)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1034,11 +521,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (int)GetValue(AutoScrollSpeedProperty);
+                int temp = 0;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_SPEED).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(AutoScrollSpeedProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_SPEED, new Tizen.NUI.PropertyValue((int)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1052,11 +541,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (int)GetValue(AutoScrollLoopCountProperty);
+                int temp = 0;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_COUNT).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(AutoScrollLoopCountProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_COUNT, new Tizen.NUI.PropertyValue((int)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1070,11 +561,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (float)GetValue(AutoScrollGapProperty);
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_GAP).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(AutoScrollGapProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_GAP, new Tizen.NUI.PropertyValue((float)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1088,11 +581,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (float)GetValue(LineSpacingProperty);
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.LINE_SPACING).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(LineSpacingProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.LINE_SPACING, new Tizen.NUI.PropertyValue((float)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1106,11 +601,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (PropertyMap)GetValue(UnderlineProperty);
+                PropertyMap temp = new PropertyMap();
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.UNDERLINE).Get(temp);
+                return temp;
             }
             set
             {
-                SetValue(UnderlineProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.UNDERLINE, new Tizen.NUI.PropertyValue(value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -1124,11 +624,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (PropertyMap)GetValue(ShadowProperty);
+                PropertyMap temp = new PropertyMap();
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.SHADOW).Get(temp);
+                return temp;
             }
             set
             {
-                SetValue(ShadowProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.SHADOW, new Tizen.NUI.PropertyValue(value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -1142,11 +647,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (string)GetValue(EmbossProperty);
+                string temp;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.EMBOSS).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(EmbossProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.EMBOSS, new Tizen.NUI.PropertyValue((string)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -1160,11 +670,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (PropertyMap)GetValue(OutlineProperty);
+                PropertyMap temp = new PropertyMap();
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.OUTLINE).Get(temp);
+                return temp;
             }
             set
             {
-                SetValue(OutlineProperty, value);
+                if (value != null)
+                {
+                    Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.OUTLINE, new Tizen.NUI.PropertyValue((PropertyMap)value));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -1178,11 +693,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (float)GetValue(PixelSizeProperty);
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.PIXEL_SIZE).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(PixelSizeProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.PIXEL_SIZE, new Tizen.NUI.PropertyValue((float)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1196,11 +713,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (bool)GetValue(EllipsisProperty);
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.ELLIPSIS).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(EllipsisProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.ELLIPSIS, new Tizen.NUI.PropertyValue((bool)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1214,11 +733,13 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (float)GetValue(AutoScrollLoopDelayProperty);
+                float temp = 0.0f;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_DELAY).Get(out temp);
+                return temp;
             }
             set
             {
-                SetValue(AutoScrollLoopDelayProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_LOOP_DELAY, new Tizen.NUI.PropertyValue((float)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1232,11 +753,21 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (AutoScrollStopMode)GetValue(AutoScrollStopModeProperty);
+                string temp;
+                if (Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_STOP_MODE).Get(out temp) == false)
+                {
+                    NUILog.Error("AutoScrollStopMode get error!");
+                }
+                switch (temp)
+                {
+                    case "FINISH_LOOP": return AutoScrollStopMode.FinishLoop;
+                    case "IMMEDIATE": return AutoScrollStopMode.Immediate;
+                    default: return AutoScrollStopMode.FinishLoop;
+                }
             }
             set
             {
-                SetValue(AutoScrollStopModeProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.AUTO_SCROLL_STOP_MODE, new Tizen.NUI.PropertyValue((int)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1264,11 +795,16 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (LineWrapMode)GetValue(LineWrapModeProperty);
+                int temp;
+                if (false == Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.LINE_WRAP_MODE).Get(out temp))
+                {
+                    NUILog.Error("LineWrapMode get error!");
+                }
+                return (LineWrapMode)temp;
             }
             set
             {
-                SetValue(LineWrapModeProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.LINE_WRAP_MODE, new Tizen.NUI.PropertyValue((int)value));
                 NotifyPropertyChanged();
             }
         }
@@ -1299,13 +835,132 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return (VerticalLineAlignment)GetValue(VerticalLineAlignmentProperty);
+                int temp = 0;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.VERTICAL_LINE_ALIGNMENT).Get(out temp);
+                return (VerticalLineAlignment)temp;
             }
             set
             {
-                SetValue(VerticalLineAlignmentProperty, value);
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.VERTICAL_LINE_ALIGNMENT, new Tizen.NUI.PropertyValue((int)value));
                 NotifyPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// The text alignment to match the direction of the system language.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        public bool MatchSystemLanguageDirection
+        {
+            get
+            {
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextLabel.Property.MATCH_SYSTEM_LANGUAGE_DIRECTION).Get(out temp);
+                return (bool)temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextLabel.Property.MATCH_SYSTEM_LANGUAGE_DIRECTION, new Tizen.NUI.PropertyValue((bool)value));
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Downcasts a handle to textLabel handle
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <returns></returns>
+        /// <since_tizen> 3 </since_tizen>
+        /// Please do not use! this will be deprecated!
+        /// Instead please use as keyword.
+        [Obsolete("Please do not use! This will be deprecated! Please use as keyword instead! " +
+            "Like: " +
+            "BaseHandle handle = new TextLabel(\"Hello World!\"); " +
+            "TextLabel label = handle as TextLabel")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static TextLabel DownCast(BaseHandle handle)
+        {
+            TextLabel ret = Registry.GetManagedBaseHandleFromNativePtr(handle) as TextLabel;
+
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return ret;
+        }
+
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TextLabel obj)
+        {
+            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected override void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+            }
+
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+
+            if (swigCPtr.Handle != global::System.IntPtr.Zero)
+            {
+                if (swigCMemOwn)
+                {
+                    swigCMemOwn = false;
+                    NDalicPINVOKE.delete_TextLabel(swigCPtr);
+                }
+                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+            }
+
+            base.Dispose(type);
+        }
+
+        private void SystemSettings_LocaleLanguageChanged(object sender, LocaleLanguageChangedEventArgs e)
+        {
+            Text = NUIApplication.MultilingualResourceManager?.GetString(textLabelSid, new CultureInfo(e.Value.Replace("_", "-")));
+        }
+
+        internal new class Property
+        {
+            internal static readonly int RENDERING_BACKEND = NDalicPINVOKE.TextLabel_Property_RENDERING_BACKEND_get();
+            internal static readonly int TEXT = NDalicPINVOKE.TextLabel_Property_TEXT_get();
+            internal static readonly int FONT_FAMILY = NDalicPINVOKE.TextLabel_Property_FONT_FAMILY_get();
+            internal static readonly int FONT_STYLE = NDalicPINVOKE.TextLabel_Property_FONT_STYLE_get();
+            internal static readonly int POINT_SIZE = NDalicPINVOKE.TextLabel_Property_POINT_SIZE_get();
+            internal static readonly int MULTI_LINE = NDalicPINVOKE.TextLabel_Property_MULTI_LINE_get();
+            internal static readonly int HORIZONTAL_ALIGNMENT = NDalicPINVOKE.TextLabel_Property_HORIZONTAL_ALIGNMENT_get();
+            internal static readonly int VERTICAL_ALIGNMENT = NDalicPINVOKE.TextLabel_Property_VERTICAL_ALIGNMENT_get();
+            internal static readonly int TEXT_COLOR = NDalicPINVOKE.TextLabel_Property_TEXT_COLOR_get();
+            internal static readonly int ENABLE_MARKUP = NDalicPINVOKE.TextLabel_Property_ENABLE_MARKUP_get();
+            internal static readonly int ENABLE_AUTO_SCROLL = NDalicPINVOKE.TextLabel_Property_ENABLE_AUTO_SCROLL_get();
+            internal static readonly int AUTO_SCROLL_SPEED = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_SPEED_get();
+            internal static readonly int AUTO_SCROLL_LOOP_COUNT = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_LOOP_COUNT_get();
+            internal static readonly int AUTO_SCROLL_GAP = NDalicPINVOKE.TextLabel_Property_AUTO_SCROLL_GAP_get();
+            internal static readonly int LINE_SPACING = NDalicPINVOKE.TextLabel_Property_LINE_SPACING_get();
+            internal static readonly int UNDERLINE = NDalicPINVOKE.TextLabel_Property_UNDERLINE_get();
+            internal static readonly int SHADOW = NDalicPINVOKE.TextLabel_Property_SHADOW_get();
+            internal static readonly int EMBOSS = NDalicPINVOKE.TextLabel_Property_EMBOSS_get();
+            internal static readonly int OUTLINE = NDalicPINVOKE.TextLabel_Property_OUTLINE_get();
+            internal static readonly int PIXEL_SIZE = NDalicManualPINVOKE.TextLabel_Property_PIXEL_SIZE_get();
+            internal static readonly int ELLIPSIS = NDalicManualPINVOKE.TextLabel_Property_ELLIPSIS_get();
+            internal static readonly int AUTO_SCROLL_STOP_MODE = NDalicManualPINVOKE.TextLabel_Property_AUTO_SCROLL_STOP_MODE_get();
+            internal static readonly int AUTO_SCROLL_LOOP_DELAY = NDalicManualPINVOKE.TextLabel_Property_AUTO_SCROLL_LOOP_DELAY_get();
+            internal static readonly int LINE_COUNT = NDalicManualPINVOKE.TextLabel_Property_LINE_COUNT_get();
+            internal static readonly int LINE_WRAP_MODE = NDalicManualPINVOKE.TextLabel_Property_LINE_WRAP_MODE_get();
+            internal static readonly int TEXT_DIRECTION = NDalicManualPINVOKE.TextLabel_Property_TEXT_DIRECTION_get();
+            internal static readonly int VERTICAL_LINE_ALIGNMENT = NDalicManualPINVOKE.TextLabel_Property_VERTICAL_LINE_ALIGNMENT_get();
+            internal static readonly int MATCH_SYSTEM_LANGUAGE_DIRECTION = NDalicManualPINVOKE.TextLabel_Property_MATCH_SYSTEM_LANGUAGE_DIRECTION_get();
         }
     }
 }

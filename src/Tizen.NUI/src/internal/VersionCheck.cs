@@ -26,7 +26,9 @@ namespace Tizen.NUI
         //from dali_1.3.23 : NUI internal API version 501
         //from dali_1.3.28 : NUI internal API version 502
         //from dali_1.3.34 : NUI internal API version 503
-        public const int nuiAPIVer = 504;
+        //from dali_1.3.41 : NUI internal API version 504
+        //from dali_1.3.48 : NUI internal API version 505
+        public const int nuiAPIVer = 505;
         public const int reservedVer1 = 0;
         public const int reservedVer2 = 0;
 
@@ -63,7 +65,7 @@ namespace Tizen.NUI
         }
 
         //[Conditional("DEBUG_ON")]
-        static private void PrintDaliNativeVersion()
+        static internal void PrintDaliNativeVersion()
         {
             int ver1 = -1;
             int ver2 = -1;

@@ -1,5 +1,5 @@
 /*
- * Copyright(c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright(c) 2018 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,6 @@ namespace Tizen.NUI
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
-    using Tizen.NUI.Binding;
-    using Tizen.NUI.Binding.Internals;
 
     /**
       * @brief Event arguments that passed via NUIApplicationInit signal
@@ -309,39 +307,11 @@ namespace Tizen.NUI
         }
     }
 
-    public class GetResourcesProvider
-    {
-        static public IResourcesProvider Get()
-        {
-            return Tizen.NUI.Application.Current;
-        }
-    }
-
-    internal class Application : BaseHandle, IResourcesProvider, IApplicationController, IElementConfiguration<Application>
+    internal class Application : BaseHandle
     {
         static Application s_current;
-        Task<IDictionary<string, object>> _propertiesTask;
-        readonly Lazy<PlatformConfigurationRegistry<Application>> _platformConfigurationRegistry;
-
-        IAppIndexingProvider _appIndexProvider;
-
-        ReadOnlyCollection<Element> _logicalChildren;
-
-        Page _mainPage;
 
         static SemaphoreSlim SaveSemaphore = new SemaphoreSlim(1, 1);
-
-        public IAppLinks AppLinks
-        {
-            get
-            {
-                if (_appIndexProvider == null)
-                    throw new ArgumentException("No IAppIndexingProvider was provided");
-                if (_appIndexProvider.AppLinks == null)
-                    throw new ArgumentException("No AppLinks implementation was found, if in Android make sure you installed the Xamarin.Forms.AppLinks");
-                return _appIndexProvider.AppLinks;
-            }
-        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SetCurrentApplication(Application value) => Current = value;
@@ -359,388 +329,18 @@ namespace Tizen.NUI
             }
         }
 
-        public Page MainPage
-        {
-            get { return _mainPage; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                if (_mainPage == value)
-                    return;
-
-                OnPropertyChanging();
-                if (_mainPage != null)
-                {
-                    InternalChildren.Remove(_mainPage);
-                    _mainPage.Parent = null;
-                }
-
-                _mainPage = value;
-
-                if (_mainPage != null)
-                {
-                    _mainPage.Parent = this;
-                    _mainPage.NavigationProxy.Inner = NavigationProxy;
-                    InternalChildren.Add(_mainPage);
-                }
-                OnPropertyChanged();
-            }
-        }
-
-        public IDictionary<string, object> Properties
-        {
-            get
-            {
-                if (_propertiesTask == null)
-                {
-                    _propertiesTask = GetPropertiesAsync();
-                }
-
-                return _propertiesTask.Result;
-            }
-        }
-
-        internal override ReadOnlyCollection<Element> LogicalChildrenInternal
-        {
-            get { return _logicalChildren ?? (_logicalChildren = new ReadOnlyCollection<Element>(InternalChildren)); }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public NavigationProxy NavigationProxy { get; }
-
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int PanGestureId { get; set; }
-
-        internal IResourceDictionary SystemResources { get; }
-
-        ObservableCollection<Element> InternalChildren { get; } = new ObservableCollection<Element>();
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SetAppIndexingProvider(IAppIndexingProvider provider)
-        {
-            _appIndexProvider = provider;
-        }
-
-        ResourceDictionary _resources;
-        public bool IsResourcesCreated => _resources != null;
-
-        public delegate void resChangeCb (object sender, ResourcesChangedEventArgs e);
-
-        static private Dictionary<object, Dictionary<resChangeCb, int>> resourceChangeCallbackDict = new Dictionary<object, Dictionary<resChangeCb, int>>();
-        static public void AddResourceChangedCallback(object handle, resChangeCb cb)
-        {
-            Dictionary<resChangeCb, int> cbDict;
-            resourceChangeCallbackDict.TryGetValue(handle, out cbDict);
-
-            if (null == cbDict)
-            {
-                cbDict = new Dictionary<resChangeCb, int>();
-                resourceChangeCallbackDict.Add(handle, cbDict);
-            }
-
-            if (false == cbDict.ContainsKey(cb))
-            {
-                cbDict.Add(cb, 0);
-            }
-        }
-
-        internal override void OnResourcesChanged(object sender, ResourcesChangedEventArgs e)
-        {
-            base.OnResourcesChanged(sender, e);
-
-            foreach (KeyValuePair<object, Dictionary<resChangeCb, int>> resourcePair in resourceChangeCallbackDict)
-            {
-                foreach (KeyValuePair<resChangeCb, int> cbPair in resourcePair.Value)
-                {
-                    cbPair.Key(sender, e);
-                }
-            }
-        }
-
-        public ResourceDictionary XamlResources
-        {
-            get
-            {
-                if (_resources != null)
-                    return _resources;
-
-                _resources = new ResourceDictionary();
-                int hashCode = _resources.GetHashCode();
-                ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
-                return _resources;
-            }
-            set
-            {
-                if (_resources == value)
-                    return;
-                OnPropertyChanging();
-
-                if (_resources != null)
-                    ((IResourceDictionary)_resources).ValuesChanged -= OnResourcesChanged;
-                _resources = value;
-                OnResourcesChanged(value);
-                if (_resources != null)
-                    ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
-
-                OnPropertyChanged();
-            }
-        }
-
-        public event EventHandler<ModalPoppedEventArgs> ModalPopped;
-
-        public event EventHandler<ModalPoppingEventArgs> ModalPopping;
-
-        public event EventHandler<ModalPushedEventArgs> ModalPushed;
-
-        public event EventHandler<ModalPushingEventArgs> ModalPushing;
-
-        public event EventHandler<Page> PageAppearing;
-
-        public event EventHandler<Page> PageDisappearing;
-
-
-        async void SaveProperties()
-        {
-            try
-            {
-                await SetPropertiesAsync();
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine(nameof(Application), $"Exception while saving Application Properties: {exc}");
-            }
-        }
-
-        public async Task SavePropertiesAsync()
-        {
-            if (Device.IsInvokeRequired)
-            {
-                Device.BeginInvokeOnMainThread(SaveProperties);
-            }
-            else
-            {
-                await SetPropertiesAsync();
-            }
-        }
-
-        // Don't use this unless there really is no better option
-        internal void SavePropertiesAsFireAndForget()
-        {
-            if (Device.IsInvokeRequired)
-            {
-                Device.BeginInvokeOnMainThread(SaveProperties);
-            }
-            else
-            {
-                SaveProperties();
-            }
-        }
-
-        public IPlatformElementConfiguration<T, Application> On<T>() where T : IConfigPlatform
-        {
-            return _platformConfigurationRegistry.Value.On<T>();
-        }
-
-        protected virtual void OnAppLinkRequestReceived(Uri uri)
-        {
-        }
-
-        protected override void OnParentSet()
-        {
-            throw new InvalidOperationException("Setting a Parent on Application is invalid.");
-        }
-
-        protected virtual void OnResume()
-        {
-        }
-
-        protected virtual void OnSleep()
-        {
-        }
-
-        protected virtual void OnStart()
-        {
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static void ClearCurrent()
-        {
-            s_current = null;
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static bool IsApplicationOrNull(Element element)
-        {
-            return element == null || element is Application;
-        }
-
-        internal override void OnParentResourcesChanged(IEnumerable<KeyValuePair<string, object>> values)
-        {
-            if (!((IResourcesProvider)this).IsResourcesCreated || XamlResources.Count == 0)
-            {
-                base.OnParentResourcesChanged(values);
-                return;
-            }
-
-            var innerKeys = new HashSet<string>();
-            var changedResources = new List<KeyValuePair<string, object>>();
-            foreach (KeyValuePair<string, object> c in XamlResources)
-                innerKeys.Add(c.Key);
-            foreach (KeyValuePair<string, object> value in values)
-            {
-                if (innerKeys.Add(value.Key))
-                    changedResources.Add(value);
-            }
-            OnResourcesChanged(changedResources);
-        }
-
-        internal event EventHandler PopCanceled;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SendOnAppLinkRequestReceived(Uri uri)
-        {
-            OnAppLinkRequestReceived(uri);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SendResume()
-        {
-            s_current = this;
-            OnResume();
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SendSleep()
-        {
-            OnSleep();
-            SavePropertiesAsFireAndForget();
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Task SendSleepAsync()
-        {
-            OnSleep();
-            return SavePropertiesAsync();
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SendStart()
-        {
-            OnStart();
-        }
-
-        async Task<IDictionary<string, object>> GetPropertiesAsync()
-        {
-            var deserializer = DependencyService.Get<IDeserializer>();
-            if (deserializer == null)
-            {
-                Console.WriteLine("Startup", "No IDeserialzier was found registered");
-                return new Dictionary<string, object>(4);
-            }
-
-            IDictionary<string, object> properties = await deserializer.DeserializePropertiesAsync().ConfigureAwait(false);
-            if (properties == null)
-                properties = new Dictionary<string, object>(4);
-
-            return properties;
-        }
-
-        internal void OnPageAppearing(Page page)
-            => PageAppearing?.Invoke(this, page);
-
-        internal void OnPageDisappearing(Page page)
-            => PageDisappearing?.Invoke(this, page);
-
-        void OnModalPopped(Page modalPage)
-            => ModalPopped?.Invoke(this, new ModalPoppedEventArgs(modalPage));
-
-        bool OnModalPopping(Page modalPage)
-        {
-            var args = new ModalPoppingEventArgs(modalPage);
-            ModalPopping?.Invoke(this, args);
-            return args.Cancel;
-        }
-
-        void OnModalPushed(Page modalPage)
-            => ModalPushed?.Invoke(this, new ModalPushedEventArgs(modalPage));
-
-        void OnModalPushing(Page modalPage)
-            => ModalPushing?.Invoke(this, new ModalPushingEventArgs(modalPage));
-
-        void OnPopCanceled()
-            => PopCanceled?.Invoke(this, EventArgs.Empty);
-
-        async Task SetPropertiesAsync()
-        {
-            await SaveSemaphore.WaitAsync();
-            try
-            {
-                await DependencyService.Get<IDeserializer>().SerializePropertiesAsync(Properties);
-            }
-            finally
-            {
-                SaveSemaphore.Release();
-            }
-
-        }
-
-        class NavigationImpl : NavigationProxy
-        {
-            readonly Application _owner;
-
-            public NavigationImpl(Application owner)
-            {
-                _owner = owner;
-            }
-
-            protected override async Task<Page> OnPopModal(bool animated)
-            {
-                Page modal = ModalStack[ModalStack.Count - 1];
-                if (_owner.OnModalPopping(modal))
-                {
-                    _owner.OnPopCanceled();
-                    return null;
-                }
-                Page result = await base.OnPopModal(animated);
-                result.Parent = null;
-                _owner.OnModalPopped(result);
-                return result;
-            }
-
-            protected override async Task OnPushModal(Page modal, bool animated)
-            {
-                _owner.OnModalPushing(modal);
-
-                modal.Parent = _owner;
-
-                if (modal.NavigationProxy.ModalStack.Count == 0)
-                {
-                    modal.NavigationProxy.Inner = this;
-                    await base.OnPushModal(modal, animated);
-                }
-                else
-                {
-                    await base.OnPushModal(modal, animated);
-                    modal.NavigationProxy.Inner = this;
-                }
-
-                _owner.OnModalPushed(modal);
-            }
-        }
+        
+		internal event EventHandler PopCanceled;
 
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
         internal Application(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.Application_SWIGUpcast(cPtr), cMemoryOwn)
         {
-            NavigationProxy = new NavigationImpl(this);
             SetCurrentApplication(this);
 
-            _platformConfigurationRegistry = new Lazy<PlatformConfigurationRegistry<Application>>(() => new PlatformConfigurationRegistry<Application>(this));
             swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-
-            SendResume();
         }
 
         internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Application obj)
@@ -947,23 +547,14 @@ namespace Tizen.NUI
         // Callback for Application InitSignal
         private void OnApplicationInit(IntPtr data)
         {
-            if (Version.DaliVersionMatchWithNUI() == false)
-            {
-                Tizen.Log.Fatal("NUI", "Dali and NUI are version mismatched!");
-            }
-
             // Initialize DisposeQueue Singleton class. This is also required to create DisposeQueue on main thread.
             DisposeQueue.Instance.Initialize();
 
-            NUIApplicationInitEventArgs e = new NUIApplicationInitEventArgs();
-            // Populate all members of "e" (NUIApplicationInitEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationInitEventHandler != null)
             {
-                if (_applicationInitEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationInitEventHandler(this, e);
-                }
+                NUIApplicationInitEventArgs e = new NUIApplicationInitEventArgs();
+                e.Application = this;
+                _applicationInitEventHandler.Invoke(this, e);
             }
 
         }
@@ -1006,16 +597,15 @@ namespace Tizen.NUI
         // Callback for Application TerminateSignal
         private void OnNUIApplicationTerminate(IntPtr data)
         {
-            NUIApplicationTerminatingEventArgs e = new NUIApplicationTerminatingEventArgs();
-
-            // Populate all members of "e" (NUIApplicationTerminateEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationTerminateEventHandler != null)
             {
-                if (_applicationTerminateEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationTerminateEventHandler(this, e);
-                }
+                NUIApplicationTerminatingEventArgs e = new NUIApplicationTerminatingEventArgs();
+                e.Application = this;
+                _applicationTerminateEventHandler.Invoke(this, e);
+            }
+            if (Window.Instance)
+            {
+                Window.Instance.DisconnectNativeSignals();
             }
         }
 
@@ -1057,16 +647,11 @@ namespace Tizen.NUI
         // Callback for Application PauseSignal
         private void OnNUIApplicationPause(IntPtr data)
         {
-            NUIApplicationPausedEventArgs e = new NUIApplicationPausedEventArgs();
-
-            // Populate all members of "e" (NUIApplicationPauseEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationPauseEventHandler != null)
             {
-                if (_applicationPauseEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationPauseEventHandler(this, e);
-                }
+                NUIApplicationPausedEventArgs e = new NUIApplicationPausedEventArgs();
+                e.Application = this;
+                _applicationPauseEventHandler.Invoke(this, e);
             }
         }
 
@@ -1108,16 +693,11 @@ namespace Tizen.NUI
         // Callback for Application ResumeSignal
         private void OnNUIApplicationResume(IntPtr data)
         {
-            NUIApplicationResumedEventArgs e = new NUIApplicationResumedEventArgs();
-
-            // Populate all members of "e" (NUIApplicationResumeEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationResumeEventHandler != null)
             {
-                if (_applicationResumeEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationResumeEventHandler(this, e);
-                }
+                NUIApplicationResumedEventArgs e = new NUIApplicationResumedEventArgs();
+                e.Application = this;
+                _applicationResumeEventHandler.Invoke(this, e);
             }
         }
 
@@ -1159,16 +739,11 @@ namespace Tizen.NUI
         // Callback for Application ResetSignal
         private void OnNUIApplicationReset(IntPtr data)
         {
-            NUIApplicationResetEventArgs e = new NUIApplicationResetEventArgs();
-
-            // Populate all members of "e" (NUIApplicationResetEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationResetEventHandler != null)
             {
-                if (_applicationResetEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationResetEventHandler(this, e);
-                }
+                NUIApplicationResetEventArgs e = new NUIApplicationResetEventArgs();
+                e.Application = this;
+                _applicationResetEventHandler.Invoke(this, e);
             }
         }
 
@@ -1210,16 +785,11 @@ namespace Tizen.NUI
         // Callback for Application ResizeSignal
         private void OnNUIApplicationResize(IntPtr data)
         {
-            NUIApplicationResizedEventArgs e = new NUIApplicationResizedEventArgs();
-
-            // Populate all members of "e" (NUIApplicationResizeEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationResizeEventHandler != null)
             {
-                if (_applicationResizeEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationResizeEventHandler(this, e);
-                }
+                NUIApplicationResizedEventArgs e = new NUIApplicationResizedEventArgs();
+                e.Application = this;
+                _applicationResizeEventHandler.Invoke(this, e);
             }
         }
 
@@ -1261,16 +831,11 @@ namespace Tizen.NUI
         // Callback for Application LanguageChangedSignal
         private void OnNUIApplicationLanguageChanged(IntPtr data)
         {
-            NUIApplicationLanguageChangedEventArgs e = new NUIApplicationLanguageChangedEventArgs();
-
-            // Populate all members of "e" (NUIApplicationLanguageChangedEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationLanguageChangedEventHandler != null)
             {
-                if (_applicationLanguageChangedEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationLanguageChangedEventHandler(this, e);
-                }
+                NUIApplicationLanguageChangedEventArgs e = new NUIApplicationLanguageChangedEventArgs();
+                e.Application = this;
+                _applicationLanguageChangedEventHandler.Invoke(this, e);
             }
         }
 
@@ -1312,16 +877,11 @@ namespace Tizen.NUI
         // Callback for Application RegionChangedSignal
         private void OnNUIApplicationRegionChanged(IntPtr data)
         {
-            NUIApplicationRegionChangedEventArgs e = new NUIApplicationRegionChangedEventArgs();
-
-            // Populate all members of "e" (NUIApplicationRegionChangedEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(data))
+            if (_applicationRegionChangedEventHandler != null)
             {
-                if (_applicationRegionChangedEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationRegionChangedEventHandler(this, e);
-                }
+                NUIApplicationRegionChangedEventArgs e = new NUIApplicationRegionChangedEventArgs();
+                e.Application = this;
+                _applicationRegionChangedEventHandler.Invoke(this, e);
             }
         }
 
@@ -1363,15 +923,13 @@ namespace Tizen.NUI
         // Callback for Application BatteryLowSignal
         private void OnNUIApplicationBatteryLow(BatteryStatus status)
         {
-            NUIApplicationBatteryLowEventArgs e = new NUIApplicationBatteryLowEventArgs();
-
-            // Populate all members of "e" (NUIApplicationBatteryLowEventArgs) with real data
-            e.BatteryStatus = status;
-
-            if (_applicationBatteryLowEventHandler != null)
+            lock (this)
             {
-                //here we send all data to user event handlers
-                _applicationBatteryLowEventHandler(this, e);
+                NUIApplicationBatteryLowEventArgs e = new NUIApplicationBatteryLowEventArgs();
+
+                // Populate all members of "e" (NUIApplicationBatteryLowEventArgs) with real data
+                e.BatteryStatus = status;
+                _applicationBatteryLowEventHandler?.Invoke(this, e);
             }
         }
 
@@ -1413,15 +971,13 @@ namespace Tizen.NUI
         // Callback for Application MemoryLowSignal
         private void OnNUIApplicationMemoryLow(MemoryStatus status)
         {
-            NUIApplicationMemoryLowEventArgs e = new NUIApplicationMemoryLowEventArgs();
-
-            // Populate all members of "e" (NUIApplicationMemoryLowEventArgs) with real data
-            e.MemoryStatus = status;
-
-            if (_applicationMemoryLowEventHandler != null)
+            lock (this)
             {
-                //here we send all data to user event handlers
-                _applicationMemoryLowEventHandler(this, e);
+                NUIApplicationMemoryLowEventArgs e = new NUIApplicationMemoryLowEventArgs();
+
+                // Populate all members of "e" (NUIApplicationMemoryLowEventArgs) with real data
+                e.MemoryStatus = status;
+                _applicationMemoryLowEventHandler?.Invoke(this, e);
             }
         }
 
@@ -1463,17 +1019,12 @@ namespace Tizen.NUI
         // Callback for Application AppControlSignal
         private void OnNUIApplicationAppControl(IntPtr application, IntPtr voidp)
         {
-            NUIApplicationAppControlEventArgs e = new NUIApplicationAppControlEventArgs();
-            e.VoidP = voidp;
-
-            // Populate all members of "e" (NUIApplicationAppControlEventArgs) with real data
-            using (e.Application = Application.GetApplicationFromPtr(application))
+            if (_applicationAppControlEventHandler != null)
             {
-                if (_applicationAppControlEventHandler != null)
-                {
-                    //here we send all data to user event handlers
-                    _applicationAppControlEventHandler(this, e);
-                }
+                NUIApplicationAppControlEventArgs e = new NUIApplicationAppControlEventArgs();
+                e.VoidP = voidp;
+                e.Application = this;
+                _applicationAppControlEventHandler.Invoke(this, e);
             }
         }
 
@@ -1494,7 +1045,7 @@ namespace Tizen.NUI
                 return null;
             }
 
-            Application ret = new Application(cPtr, false);
+            Application ret = Registry.GetManagedBaseHandleFromNativePtr(cPtr) as Application;
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
@@ -1577,7 +1128,6 @@ namespace Tizen.NUI
         {
             Application ret = new Application(NDalicPINVOKE.Application_New__SWIG_3(argc, stylesheet, (int)windowMode), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            ret.SendResume();
             return ret;
         }
 
@@ -1662,32 +1212,6 @@ namespace Tizen.NUI
         public static string GetResourcePath()
         {
             string ret = NDalicPINVOKE.Application_GetResourcePath();
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        internal void SetViewMode(ViewMode viewMode)
-        {
-            NDalicPINVOKE.Application_SetViewMode(swigCPtr, (int)viewMode);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal ViewMode GetViewMode()
-        {
-            ViewMode ret = (ViewMode)NDalicPINVOKE.Application_GetViewMode(swigCPtr);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        public void SetStereoBase(float stereoBase)
-        {
-            NDalicPINVOKE.Application_SetStereoBase(swigCPtr, stereoBase);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        public float GetStereoBase()
-        {
-            float ret = NDalicPINVOKE.Application_GetStereoBase(swigCPtr);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }

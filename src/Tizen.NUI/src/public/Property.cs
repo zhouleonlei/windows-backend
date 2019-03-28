@@ -18,262 +18,50 @@
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
-using Tizen.NUI.Binding;
 
 namespace Tizen.NUI
 {
-
-    internal class Property : global::System.IDisposable
-    {
-        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-        /// <summary>
-        /// swigCMemOwn
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool swigCMemOwn;
-
-        internal Property(global::System.IntPtr cPtr, bool cMemoryOwn)
-        {
-            swigCMemOwn = cMemoryOwn;
-            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-        }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Property obj)
-        {
-            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        //A Flag to check who called Dispose(). (By User or DisposeQueue)
-        private bool isDisposeQueued = false;
-        /// <summary>
-        /// <since_tizen> 3 </since_tizen>
-        /// A Flat to check if it is already disposed.
-        /// </summary>
-        protected bool disposed = false;
-
-        ~Property()
-        {
-            if(!isDisposeQueued)
-            {
-                isDisposeQueued = true;
-                DisposeQueue.Instance.Add(this);
-            }
-        }
-
-        public void Dispose()
-        {
-            //Throw excpetion if Dispose() is called in separate thread.
-            if (!Window.IsInstalled())
-            {
-                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
-            }
-
-            if (isDisposeQueued)
-            {
-                Dispose(DisposeTypes.Implicit);
-            }
-            else
-            {
-                Dispose(DisposeTypes.Explicit);
-                System.GC.SuppressFinalize(this);
-            }
-        }
-
-        protected virtual void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if(type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-            }
-
-            //Release your own unmanaged resources here.
-            //You should not access any managed member here except static instance.
-            //because the execution order of Finalizes is non-deterministic.
-
-            if (swigCPtr.Handle != global::System.IntPtr.Zero)
-            {
-                if (swigCMemOwn)
-                {
-                    swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Property(swigCPtr);
-                }
-                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-            }
-            disposed = true;
-        }
-
-
-        internal static int INVALID_INDEX
-        {
-            get
-            {
-                int ret = NDalicPINVOKE.Property_INVALID_INDEX_get();
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-        internal static int INVALID_KEY
-        {
-            get
-            {
-                int ret = NDalicPINVOKE.Property_INVALID_KEY_get();
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-        internal static int INVALID_COMPONENT_INDEX
-        {
-            get
-            {
-                int ret = NDalicPINVOKE.Property_INVALID_COMPONENT_INDEX_get();
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// This constructor creates a property instance.
-        /// </summary>
-        /// <param name="arg0">A valid handle to the target object.</param>
-        /// <param name="propertyIndex">The index of a property.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public Property(Animatable arg0, int propertyIndex) : this(NDalicPINVOKE.new_Property__SWIG_0(Animatable.getCPtr(arg0), propertyIndex), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// This constructor creates a property instance.
-        /// </summary>
-        /// <param name="arg0">A valid handle to the target object.</param>
-        /// <param name="propertyIndex">The index of a property.</param>
-        /// <param name="componentIndex">Index to a sub component of a property, for use with Vector2, Vector3 and Vector4. -1 for the main property (default is -1).</param>
-        /// <since_tizen> 3 </since_tizen>
-        public Property(Animatable arg0, int propertyIndex, int componentIndex) : this(NDalicPINVOKE.new_Property__SWIG_1(Animatable.getCPtr(arg0), propertyIndex, componentIndex), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// This constructor creates a property instance.<br />
-        /// This performs a property index query and is therefore slower than constructing a property directly with the index.<br />
-        /// </summary>
-        /// <param name="arg0">A valid handle to the target object.</param>
-        /// <param name="propertyName">The property name.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public Property(Animatable arg0, string propertyName) : this(NDalicPINVOKE.new_Property__SWIG_2(Animatable.getCPtr(arg0), propertyName), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// This constructor creates a property instance.<br />
-        /// This performs a property index query and is therefore slower than constructing a property directly with the index.<br />
-        /// </summary>
-        /// <param name="arg0">A valid handle to the target object.</param>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="componentIndex">Index to a sub component of a property, for use with Vector2, Vector3 and Vector4. -1 for main property (default is -1).</param>
-        /// <since_tizen> 3 </since_tizen>
-        public Property(Animatable arg0, string propertyName, int componentIndex) : this(NDalicPINVOKE.new_Property__SWIG_3(Animatable.getCPtr(arg0), propertyName, componentIndex), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal Animatable _object
-        {
-            set
-            {
-                NDalicPINVOKE.Property__object_set(swigCPtr, Animatable.getCPtr(value));
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            }
-            get
-            {
-                Animatable ret = new Animatable(NDalicPINVOKE.Property__object_get(swigCPtr), false);
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the index of the property.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public int propertyIndex
-        {
-            set
-            {
-                NDalicPINVOKE.Property_propertyIndex_set(swigCPtr, value);
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            }
-            get
-            {
-                int ret = NDalicPINVOKE.Property_propertyIndex_get(swigCPtr);
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the component index of the property.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public int componentIndex
-        {
-            set
-            {
-                NDalicPINVOKE.Property_componentIndex_set(swigCPtr, value);
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            }
-            get
-            {
-                int ret = NDalicPINVOKE.Property_componentIndex_get(swigCPtr);
-                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-                return ret;
-            }
-        }
-
-    }
-
     /// <summary>
     /// An array of property values.
     /// </summary>
     /// <since_tizen> 3 </since_tizen>
     public class PropertyArray : global::System.IDisposable
     {
-        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
         /// <summary>
         /// swigCMemOwn
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
         protected bool swigCMemOwn;
+        /// <summary>
+        /// A Flat to check if it is already disposed.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool disposed = false;
+
+        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        //A Flag to check who called Dispose(). (By User or DisposeQueue)
+        private bool isDisposeQueued = false;
+
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyArray() : this(NDalicPINVOKE.new_Property_Array__SWIG_0(), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyArray(PropertyArray other) : this(NDalicPINVOKE.new_Property_Array__SWIG_1(PropertyArray.getCPtr(other)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         internal PropertyArray(global::System.IntPtr cPtr, bool cMemoryOwn)
         {
             swigCMemOwn = cMemoryOwn;
             swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
         }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyArray obj)
-        {
-            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        //A Flag to check who called Dispose(). (By User or DisposeQueue)
-        private bool isDisposeQueued = false;
-        /// <summary>
-        /// A Flat to check if it is already disposed.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool disposed = false;
 
         /// <summary>
         /// Dispose.
@@ -289,63 +77,6 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public void Dispose()
-        {
-            //Throw excpetion if Dispose() is called in separate thread.
-            if (!Window.IsInstalled())
-            {
-                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
-            }
-
-            if (isDisposeQueued)
-            {
-                Dispose(DisposeTypes.Implicit);
-            }
-            else
-            {
-                Dispose(DisposeTypes.Explicit);
-                System.GC.SuppressFinalize(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected virtual void Dispose(DisposeTypes type)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if(type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-            }
-
-            //Release your own unmanaged resources here.
-            //You should not access any managed member here except static instance.
-            //because the execution order of Finalizes is non-deterministic.
-
-            if (swigCPtr.Handle != global::System.IntPtr.Zero)
-            {
-                if (swigCMemOwn)
-                {
-                    swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Property_Array(swigCPtr);
-                }
-                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-            }
-            disposed = true;
-        }
-
-        /// <summary>
         /// The operator to access an element.
         /// </summary>
         /// <param name="index">The element index to access. No bounds checking is performed.</param>
@@ -357,20 +88,6 @@ namespace Tizen.NUI
             {
                 return ValueOfIndex(index);
             }
-        }
-
-        /// <summary>
-        /// The constructor.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyArray() : this(NDalicPINVOKE.new_Property_Array__SWIG_0(), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal PropertyArray(PropertyArray other) : this(NDalicPINVOKE.new_Property_Array__SWIG_1(PropertyArray.getCPtr(other)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
 
         /// <summary>
@@ -465,18 +182,6 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// Adds an keyvalue to the array.
-        /// This function should be first
-        /// </summary>
-        /// <param name="value">The value to add at the end of the array.</param>
-        public PropertyArray Add(KeyValue value)
-        {
-            PropertyArray ret = new PropertyArray(NDalicPINVOKE.Property_Array_Add(swigCPtr, PropertyValue.getCPtr(value.TrueValue)), false);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        /// <summary>
         /// Adds an element to the array.
         /// </summary>
         /// <param name="value">The value to add at the end of the array.</param>
@@ -502,64 +207,6 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// Retrieves the value of elements in the array.
-        /// </summary>
-        /// <param name="index">The element index to retrieve.</param>
-        /// <returns>The reference to the element.</returns>
-        private PropertyValue ValueOfIndex(uint index)
-        {
-            PropertyValue ret = new PropertyValue(NDalicPINVOKE.Property_Array_ValueOfIndex__SWIG_0(swigCPtr, index), false);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-    }
-
-    /// <summary>
-    /// A key type which can be either a std::string or a Property::Index.
-    /// </summary>
-    /// <since_tizen> 3 </since_tizen>
-    public class PropertyKey : global::System.IDisposable
-    {
-        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-        /// <summary>
-        /// swigCMemOwn
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool swigCMemOwn;
-
-        internal PropertyKey(global::System.IntPtr cPtr, bool cMemoryOwn)
-        {
-            swigCMemOwn = cMemoryOwn;
-            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-        }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyKey obj)
-        {
-            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        //A Flag to check who called Dispose(). (By User or DisposeQueue)
-        private bool isDisposeQueued = false;
-        /// <summary>
-        /// A Flat to check if it is already disposed.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool disposed = false;
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        ~PropertyKey()
-        {
-            if(!isDisposeQueued)
-            {
-                isDisposeQueued = true;
-                DisposeQueue.Instance.Add(this);
-            }
-        }
-
-        /// <summary>
         /// Dispose.
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
@@ -582,6 +229,11 @@ namespace Tizen.NUI
             }
         }
 
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyArray obj)
+        {
+            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
+        }
+
         /// <summary>
         /// Dispose.
         /// </summary>
@@ -593,7 +245,7 @@ namespace Tizen.NUI
                 return;
             }
 
-            if(type == DisposeTypes.Explicit)
+            if (type == DisposeTypes.Explicit)
             {
                 //Called by User
                 //Release your own managed resources here.
@@ -609,11 +261,103 @@ namespace Tizen.NUI
                 if (swigCMemOwn)
                 {
                     swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Property_Key(swigCPtr);
+                    NDalicPINVOKE.delete_Property_Array(swigCPtr);
                 }
                 swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
             }
             disposed = true;
+        }
+
+        /// <summary>
+        /// Retrieves the value of elements in the array.
+        /// </summary>
+        /// <param name="index">The element index to retrieve.</param>
+        /// <returns>The reference to the element.</returns>
+        private PropertyValue ValueOfIndex(uint index)
+        {
+            PropertyValue ret = new PropertyValue(NDalicPINVOKE.Property_Array_ValueOfIndex__SWIG_0(swigCPtr, index), false);
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// A key type which can be either a std::string or a Property::Index.
+    /// </summary>
+    /// <since_tizen> 3 </since_tizen>
+    public class PropertyKey : global::System.IDisposable
+    {
+        /// <summary>
+        /// swigCMemOwn
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool swigCMemOwn;
+        /// <summary>
+        /// A Flat to check if it is already disposed.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool disposed = false;
+
+        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        //A Flag to check who called Dispose(). (By User or DisposeQueue)
+        private bool isDisposeQueued = false;
+
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        /// <param name="key">The string key.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyKey(string key) : this(NDalicPINVOKE.new_Property_Key__SWIG_0(key), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        /// <param name="key">The index key.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyKey(int key) : this(NDalicPINVOKE.new_Property_Key__SWIG_1(key), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyKey(global::System.IntPtr cPtr, bool cMemoryOwn)
+        {
+            swigCMemOwn = cMemoryOwn;
+            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        ~PropertyKey()
+        {
+            if(!isDisposeQueued)
+            {
+                isDisposeQueued = true;
+                DisposeQueue.Instance.Add(this);
+            }
+        }
+
+        /// <summary>
+        /// The type of key.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public enum KeyType
+        {
+            /// <summary>
+            /// The type of key is index.
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            Index,
+            /// <summary>
+            /// The type of key is string.
+            /// </summary>
+            /// <since_tizen> 3 </since_tizen>
+            String
         }
 
         /// <summary>
@@ -674,23 +418,26 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// The constructor.
+        /// Dispose.
         /// </summary>
-        /// <param name="key">The string key.</param>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyKey(string key) : this(NDalicPINVOKE.new_Property_Key__SWIG_0(key), true)
+        public void Dispose()
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
+            //Throw excpetion if Dispose() is called in separate thread.
+            if (!Window.IsInstalled())
+            {
+                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
+            }
 
-        /// <summary>
-        /// The constructor.
-        /// </summary>
-        /// <param name="key">The index key.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyKey(int key) : this(NDalicPINVOKE.new_Property_Key__SWIG_1(key), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            if (isDisposeQueued)
+            {
+                Dispose(DisposeTypes.Implicit);
+            }
+            else
+            {
+                Dispose(DisposeTypes.Explicit);
+                System.GC.SuppressFinalize(this);
+            }
         }
 
         /// <summary>
@@ -771,92 +518,9 @@ namespace Tizen.NUI
             return ret;
         }
 
-        /// <summary>
-        /// The type of key.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public enum KeyType
-        {
-            /// <summary>
-            /// The type of key is index.
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            Index,
-            /// <summary>
-            /// The type of key is string.
-            /// </summary>
-            /// <since_tizen> 3 </since_tizen>
-            String
-        }
-
-    }
-
-    /// <summary>
-    /// A map of property values, the key type could be string or Property::Index.
-    /// </summary>
-    /// <since_tizen> 3 </since_tizen>
-    public class PropertyMap : global::System.IDisposable
-    {
-        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-        /// <summary>
-        /// swigCMemOwn
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool swigCMemOwn;
-
-        internal PropertyMap(global::System.IntPtr cPtr, bool cMemoryOwn)
-        {
-            swigCMemOwn = cMemoryOwn;
-            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-        }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyMap obj)
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyKey obj)
         {
             return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        //A Flag to check who called Dispose(). (By User or DisposeQueue)
-        private bool isDisposeQueued = false;
-        /// <summary>
-        /// A Flat to check if it is already disposed.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool disposed = false;
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        ~PropertyMap()
-        {
-            if(!isDisposeQueued)
-            {
-                isDisposeQueued = true;
-                DisposeQueue.Instance.Add(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public void Dispose()
-        {
-            //Throw excpetion if Dispose() is called in separate thread.
-            if (!Window.IsInstalled())
-            {
-                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
-            }
-
-            if (isDisposeQueued)
-            {
-                Dispose(DisposeTypes.Implicit);
-            }
-            else
-            {
-                Dispose(DisposeTypes.Explicit);
-                System.GC.SuppressFinalize(this);
-            }
         }
 
         /// <summary>
@@ -870,7 +534,7 @@ namespace Tizen.NUI
                 return;
             }
 
-            if(type == DisposeTypes.Explicit)
+            if (type == DisposeTypes.Explicit)
             {
                 //Called by User
                 //Release your own managed resources here.
@@ -886,11 +550,72 @@ namespace Tizen.NUI
                 if (swigCMemOwn)
                 {
                     swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Property_Map(swigCPtr);
+                    NDalicPINVOKE.delete_Property_Key(swigCPtr);
                 }
                 swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
             }
             disposed = true;
+        }
+    }
+
+    /// <summary>
+    /// A map of property values, the key type could be string or Property::Index.
+    /// </summary>
+    /// <since_tizen> 3 </since_tizen>
+    public class PropertyMap : global::System.IDisposable
+    {
+        /// <summary>
+        /// swigCMemOwn
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool swigCMemOwn;
+        /// <summary>
+        /// A Flat to check if it is already disposed.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool disposed = false;
+
+        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        //A Flag to check who called Dispose(). (By User or DisposeQueue)
+        private bool isDisposeQueued = false;
+
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyMap() : this(NDalicPINVOKE.new_Property_Map__SWIG_0(), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// The copy constructor.
+        /// </summary>
+        /// <param name="other">The map to copy from.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyMap(PropertyMap other) : this(NDalicPINVOKE.new_Property_Map__SWIG_1(PropertyMap.getCPtr(other)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyMap(global::System.IntPtr cPtr, bool cMemoryOwn)
+        {
+            swigCMemOwn = cMemoryOwn;
+            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        ~PropertyMap()
+        {
+            if(!isDisposeQueued)
+            {
+                isDisposeQueued = true;
+                DisposeQueue.Instance.Add(this);
+            }
         }
 
         /// <summary>
@@ -924,22 +649,26 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// The constructor.
+        /// Dispose.
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap() : this(NDalicPINVOKE.new_Property_Map__SWIG_0(), true)
+        public void Dispose()
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
+            //Throw excpetion if Dispose() is called in separate thread.
+            if (!Window.IsInstalled())
+            {
+                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
+            }
 
-        /// <summary>
-        /// The copy constructor.
-        /// </summary>
-        /// <param name="other">The map to copy from.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyMap(PropertyMap other) : this(NDalicPINVOKE.new_Property_Map__SWIG_1(PropertyMap.getCPtr(other)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            if (isDisposeQueued)
+            {
+                Dispose(DisposeTypes.Implicit);
+            }
+            else
+            {
+                Dispose(DisposeTypes.Explicit);
+                System.GC.SuppressFinalize(this);
+            }
         }
 
         /// <summary>
@@ -1019,28 +748,6 @@ namespace Tizen.NUI
         {
             PropertyMap ret = new PropertyMap(NDalicPINVOKE.Property_Map_Add__SWIG_2(swigCPtr, key, PropertyValue.getCPtr(value)), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        /// <summary>
-        /// Inserts the keyvalue to the map.<br />
-        /// Does not check for duplicates.<br />
-        /// </summary>
-        /// <param name="keyValue">The keyvalue to insert.</param>
-        /// <returns>Returns a reference to this object.</returns>
-        public PropertyMap Add(KeyValue keyValue)
-        {
-            PropertyMap ret = new PropertyMap();
-            if ( keyValue.KeyInt != null )
-            {
-                ret = new PropertyMap(NDalicPINVOKE.Property_Map_Add__SWIG_2(swigCPtr, (int)keyValue.KeyInt, PropertyValue.getCPtr(keyValue.TrueValue)), false);
-            }
-            else if ( keyValue.KeyString != null)
-            {
-                ret = new PropertyMap(NDalicPINVOKE.Property_Map_Add__SWIG_0(swigCPtr, keyValue.KeyString, PropertyValue.getCPtr(keyValue.TrueValue)), false);
-            }
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-
             return ret;
         }
 
@@ -1144,74 +851,10 @@ namespace Tizen.NUI
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
-    }
 
-    /// <summary>
-    /// A value-type representing a property value.
-    /// </summary>
-    /// <since_tizen> 3 </since_tizen>
-    public class PropertyValue : global::System.IDisposable
-    {
-        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-        /// <summary>
-        /// swigCMemOwn
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool swigCMemOwn;
-
-        internal PropertyValue(global::System.IntPtr cPtr, bool cMemoryOwn)
-        {
-            swigCMemOwn = cMemoryOwn;
-            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-        }
-
-        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyValue obj)
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyMap obj)
         {
             return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-        }
-
-        //A Flag to check who called Dispose(). (By User or DisposeQueue)
-        private bool isDisposeQueued = false;
-        /// <summary>
-        /// A Flat to check if it is already disposed.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        protected bool disposed = false;
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        ~PropertyValue()
-        {
-            if(!isDisposeQueued)
-            {
-                isDisposeQueued = true;
-                DisposeQueue.Instance.Add(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public void Dispose()
-        {
-            //Throw excpetion if Dispose() is called in separate thread.
-            if (!Window.IsInstalled())
-            {
-                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
-            }
-
-            if (isDisposeQueued)
-            {
-                Dispose(DisposeTypes.Implicit);
-            }
-            else
-            {
-                Dispose(DisposeTypes.Explicit);
-                System.GC.SuppressFinalize(this);
-            }
         }
 
         /// <summary>
@@ -1225,7 +868,7 @@ namespace Tizen.NUI
                 return;
             }
 
-            if(type == DisposeTypes.Explicit)
+            if (type == DisposeTypes.Explicit)
             {
                 //Called by User
                 //Release your own managed resources here.
@@ -1241,13 +884,266 @@ namespace Tizen.NUI
                 if (swigCMemOwn)
                 {
                     swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Property_Value(swigCPtr);
+                    NDalicPINVOKE.delete_Property_Map(swigCPtr);
                 }
                 swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
             }
             disposed = true;
         }
+    }
 
+    /// <summary>
+    /// A value-type representing a property value.
+    /// </summary>
+    /// <since_tizen> 3 </since_tizen>
+    public class PropertyValue : global::System.IDisposable
+    {
+        /// <summary>
+        /// swigCMemOwn
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool swigCMemOwn;
+        /// <summary>
+        /// A Flat to check if it is already disposed.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool disposed = false;
+
+        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        //A Flag to check who called Dispose(). (By User or DisposeQueue)
+        private bool isDisposeQueued = false;
+
+        /// <summary>
+        /// Creates a Size2D property value.
+        /// </summary>
+        /// <param name="vectorValue">Size2D values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Size2D vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Size2D.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Position2D property value.
+        /// </summary>
+        /// <param name="vectorValue">Position2D values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Position2D vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Position2D.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Position property value.
+        /// </summary>
+        /// <param name="vectorValue">Position values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Position vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Position.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Color property value.
+        /// </summary>
+        /// <param name="vectorValue">Color values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Color vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_6(Color.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+        /// <summary>
+        /// The default constructor.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue() : this(NDalicPINVOKE.new_Property_Value__SWIG_0(), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a boolean property value.
+        /// </summary>
+        /// <param name="boolValue">A boolean value.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(bool boolValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_1(boolValue), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates an integer property value.
+        /// </summary>
+        /// <param name="integerValue">An integer value.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(int integerValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_2(integerValue), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a float property value.
+        /// </summary>
+        /// <param name="floatValue">A floating-point value.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(float floatValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_3(floatValue), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Vector2 property value.
+        /// </summary>
+        /// <param name="vectorValue">A vector of 2 floating-point values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Vector2 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Vector2.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Vector3 property value.
+        /// </summary>
+        /// <param name="vectorValue">A vector of 3 floating-point values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Vector3 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Vector3.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Vector4 property value.
+        /// </summary>
+        /// <param name="vectorValue">A vector of 4 floating-point values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Vector4 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_6(Vector4.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Rectangle property value.
+        /// </summary>
+        /// <param name="vectorValue">Rectangle values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Rectangle vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_9(Rectangle.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Rotation property value.
+        /// </summary>
+        /// <param name="quaternion">Rotation values.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(Rotation quaternion) : this(NDalicPINVOKE.new_Property_Value__SWIG_11(Rotation.getCPtr(quaternion)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a string property value.
+        /// </summary>
+        /// <param name="stringValue">A string.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(string stringValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_12(stringValue), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates an array property value.
+        /// </summary>
+        /// <param name="arrayValue">An array.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(PropertyArray arrayValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_14(PropertyArray.getCPtr(arrayValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a map property value.
+        /// </summary>
+        /// <param name="mapValue">An array.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(PropertyMap mapValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_15(PropertyMap.getCPtr(mapValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Extents value.
+        /// </summary>
+        /// <param name="extentsValue">A Extents value.</param>
+        /// <since_tizen> 4 </since_tizen>
+        public PropertyValue(Extents extentsValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_16(Extents.getCPtr(extentsValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a PropertyType value.
+        /// </summary>
+        /// <param name="type">A PropertyType value.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(PropertyType type) : this(NDalicPINVOKE.new_Property_Value__SWIG_17((int)type), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a PropertyValue value.
+        /// </summary>
+        /// <param name="value">A PropertyValue value.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public PropertyValue(PropertyValue value) : this(NDalicPINVOKE.new_Property_Value__SWIG_18(PropertyValue.getCPtr(value)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Creates a Size property value.
+        /// </summary>
+        /// <param name="vectorValue">Size values.</param>
+        internal PropertyValue(Size vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Size.getCPtr(vectorValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyValue(global::System.IntPtr cPtr, bool cMemoryOwn)
+        {
+            swigCMemOwn = cMemoryOwn;
+            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+        }
+
+        internal PropertyValue(Matrix3 matrixValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_7(Matrix3.getCPtr(matrixValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyValue(Matrix matrixValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_8(Matrix.getCPtr(matrixValue)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal PropertyValue(AngleAxis angleAxis) : this(NDalicPINVOKE.new_Property_Value__SWIG_10(AngleAxis.getCPtr(angleAxis)), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        ~PropertyValue()
+        {
+            if(!isDisposeQueued)
+            {
+                isDisposeQueued = true;
+                DisposeQueue.Instance.Add(this);
+            }
+        }
 
         /// <summary>
         /// An extension to the property value class that allows us to create a
@@ -1346,54 +1242,27 @@ namespace Tizen.NUI
         }
 
         /// <summary>
-        /// Creates a Size2D property value.
+        /// Dispose.
         /// </summary>
-        /// <param name="vectorValue">Size2D values.</param>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Size2D vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Size2D.getCPtr(vectorValue)), true)
+        public void Dispose()
         {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
+            //Throw excpetion if Dispose() is called in separate thread.
+            if (!Window.IsInstalled())
+            {
+                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
+            }
 
-        /// <summary>
-        /// Creates a Position2D property value.
-        /// </summary>
-        /// <param name="vectorValue">Position2D values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Position2D vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Position2D.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            if (isDisposeQueued)
+            {
+                Dispose(DisposeTypes.Implicit);
+            }
+            else
+            {
+                Dispose(DisposeTypes.Explicit);
+                System.GC.SuppressFinalize(this);
+            }
         }
-
-        /// <summary>
-        /// Creates a Size property value.
-        /// </summary>
-        /// <param name="vectorValue">Size values.</param>
-        internal PropertyValue(Size vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Size.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Position property value.
-        /// </summary>
-        /// <param name="vectorValue">Position values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Position vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Position.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Color property value.
-        /// </summary>
-        /// <param name="vectorValue">Color values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Color vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_6(Color.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
 
         /// <summary>
         /// Retrieves a Size2D value.
@@ -1454,172 +1323,6 @@ namespace Tizen.NUI
             bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_7(swigCPtr, Color.getCPtr(vectorValue));
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
-        }
-
-
-
-        /// <summary>
-        /// The default constructor.
-        /// </summary>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue() : this(NDalicPINVOKE.new_Property_Value__SWIG_0(), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a boolean property value.
-        /// </summary>
-        /// <param name="boolValue">A boolean value.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(bool boolValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_1(boolValue), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates an integer property value.
-        /// </summary>
-        /// <param name="integerValue">An integer value.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(int integerValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_2(integerValue), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a float property value.
-        /// </summary>
-        /// <param name="floatValue">A floating-point value.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(float floatValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_3(floatValue), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Vector2 property value.
-        /// </summary>
-        /// <param name="vectorValue">A vector of 2 floating-point values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Vector2 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_4(Vector2.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Vector3 property value.
-        /// </summary>
-        /// <param name="vectorValue">A vector of 3 floating-point values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Vector3 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_5(Vector3.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Vector4 property value.
-        /// </summary>
-        /// <param name="vectorValue">A vector of 4 floating-point values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Vector4 vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_6(Vector4.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal PropertyValue(Matrix3 matrixValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_7(Matrix3.getCPtr(matrixValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal PropertyValue(Matrix matrixValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_8(Matrix.getCPtr(matrixValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Rectangle property value.
-        /// </summary>
-        /// <param name="vectorValue">Rectangle values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Rectangle vectorValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_9(Rectangle.getCPtr(vectorValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        internal PropertyValue(AngleAxis angleAxis) : this(NDalicPINVOKE.new_Property_Value__SWIG_10(AngleAxis.getCPtr(angleAxis)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Rotation property value.
-        /// </summary>
-        /// <param name="quaternion">Rotation values.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(Rotation quaternion) : this(NDalicPINVOKE.new_Property_Value__SWIG_11(Rotation.getCPtr(quaternion)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a string property value.
-        /// </summary>
-        /// <param name="stringValue">A string.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(string stringValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_12(stringValue), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates an array property value.
-        /// </summary>
-        /// <param name="arrayValue">An array.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(PropertyArray arrayValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_14(PropertyArray.getCPtr(arrayValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a map property value.
-        /// </summary>
-        /// <param name="mapValue">An array.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(PropertyMap mapValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_15(PropertyMap.getCPtr(mapValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a Extents value.
-        /// </summary>
-        /// <param name="extentsValue">A Extents value.</param>
-        /// <since_tizen> 4 </since_tizen>
-        public PropertyValue(Extents extentsValue) : this(NDalicPINVOKE.new_Property_Value__SWIG_16(Extents.getCPtr(extentsValue)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a PropertyType value.
-        /// </summary>
-        /// <param name="type">A PropertyType value.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(PropertyType type) : this(NDalicPINVOKE.new_Property_Value__SWIG_17((int)type), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-        }
-
-        /// <summary>
-        /// Creates a PropertyValue value.
-        /// </summary>
-        /// <param name="value">A PropertyValue value.</param>
-        /// <since_tizen> 3 </since_tizen>
-        public PropertyValue(PropertyValue value) : this(NDalicPINVOKE.new_Property_Value__SWIG_18(PropertyValue.getCPtr(value)), true)
-        {
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
 
         /// <summary>
@@ -1770,27 +1473,6 @@ namespace Tizen.NUI
             return ret;
         }
 
-        internal bool Get(Matrix3 matrixValue)
-        {
-            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_8(swigCPtr, Matrix3.getCPtr(matrixValue));
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        internal bool Get(Matrix matrixValue)
-        {
-            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_9(swigCPtr, Matrix.getCPtr(matrixValue));
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
-        internal bool Get(AngleAxis angleAxisValue)
-        {
-            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_10(swigCPtr, AngleAxis.getCPtr(angleAxisValue));
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
-            return ret;
-        }
-
         /// <summary>
         /// Retrieves a rotation value.
         /// </summary>
@@ -1855,333 +1537,284 @@ namespace Tizen.NUI
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
+
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PropertyValue obj)
+        {
+            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
+        }
+
+        internal bool Get(Matrix3 matrixValue)
+        {
+            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_8(swigCPtr, Matrix3.getCPtr(matrixValue));
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return ret;
+        }
+
+        internal bool Get(Matrix matrixValue)
+        {
+            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_9(swigCPtr, Matrix.getCPtr(matrixValue));
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return ret;
+        }
+
+        internal bool Get(AngleAxis angleAxisValue)
+        {
+            bool ret = NDalicPINVOKE.Property_Value_Get__SWIG_10(swigCPtr, AngleAxis.getCPtr(angleAxisValue));
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return ret;
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected virtual void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+            }
+
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+
+            if (swigCPtr.Handle != global::System.IntPtr.Zero)
+            {
+                if (swigCMemOwn)
+                {
+                    swigCMemOwn = false;
+                    NDalicPINVOKE.delete_Property_Value(swigCPtr);
+                }
+                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+            }
+            disposed = true;
+        }
     }
 
-    /// <summary>
-    /// KeyValue class.
-    /// </summary>
-    public class KeyValue
+    internal class Property : global::System.IDisposable
     {
-        private string _key = null;
-        private object _originalValue = null;
-        private object _originalKey = null;
+        /// <summary>
+        /// swigCMemOwn
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        protected bool swigCMemOwn;
+        /// <summary>
+        /// <since_tizen> 3 </since_tizen>
+        /// A Flat to check if it is already disposed.
+        /// </summary>
+        protected bool disposed = false;
+
+        private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+
+        //A Flag to check who called Dispose(). (By User or DisposeQueue)
+        private bool isDisposeQueued = false;
 
         /// <summary>
-        /// Int key.
+        /// This constructor creates a property instance.
         /// </summary>
-        public int? KeyInt = null;
+        /// <param name="arg0">A valid handle to the target object.</param>
+        /// <param name="propertyIndex">The index of a property.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public Property(Animatable arg0, int propertyIndex) : this(NDalicPINVOKE.new_Property__SWIG_0(Animatable.getCPtr(arg0), propertyIndex), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         /// <summary>
-        /// String key.
+        /// This constructor creates a property instance.
         /// </summary>
-        public string KeyString = null;
+        /// <param name="arg0">A valid handle to the target object.</param>
+        /// <param name="propertyIndex">The index of a property.</param>
+        /// <param name="componentIndex">Index to a sub component of a property, for use with Vector2, Vector3 and Vector4. -1 for the main property (default is -1).</param>
+        /// <since_tizen> 3 </since_tizen>
+        public Property(Animatable arg0, int propertyIndex, int componentIndex) : this(NDalicPINVOKE.new_Property__SWIG_1(Animatable.getCPtr(arg0), propertyIndex, componentIndex), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         /// <summary>
-        /// True value.
+        /// This constructor creates a property instance.<br />
+        /// This performs a property index query and is therefore slower than constructing a property directly with the index.<br />
         /// </summary>
-        public PropertyValue TrueValue = null;
+        /// <param name="arg0">A valid handle to the target object.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <since_tizen> 3 </since_tizen>
+        public Property(Animatable arg0, string propertyName) : this(NDalicPINVOKE.new_Property__SWIG_2(Animatable.getCPtr(arg0), propertyName), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
 
         /// <summary>
-        /// Default Constructor.
+        /// This constructor creates a property instance.<br />
+        /// This performs a property index query and is therefore slower than constructing a property directly with the index.<br />
         /// </summary>
-        public KeyValue()
-        {}
+        /// <param name="arg0">A valid handle to the target object.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="componentIndex">Index to a sub component of a property, for use with Vector2, Vector3 and Vector4. -1 for main property (default is -1).</param>
+        /// <since_tizen> 3 </since_tizen>
+        public Property(Animatable arg0, string propertyName, int componentIndex) : this(NDalicPINVOKE.new_Property__SWIG_3(Animatable.getCPtr(arg0), propertyName, componentIndex), true)
+        {
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal Property(global::System.IntPtr cPtr, bool cMemoryOwn)
+        {
+            swigCMemOwn = cMemoryOwn;
+            swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+        }
+
+        ~Property()
+        {
+            if(!isDisposeQueued)
+            {
+                isDisposeQueued = true;
+                DisposeQueue.Instance.Add(this);
+            }
+        }
 
         /// <summary>
-        /// Key property.
+        /// Gets or sets the index of the property.
         /// </summary>
-        public string Key
+        /// <since_tizen> 3 </since_tizen>
+        public int propertyIndex
+        {
+            set
+            {
+                NDalicPINVOKE.Property_propertyIndex_set(swigCPtr, value);
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            }
+            get
+            {
+                int ret = NDalicPINVOKE.Property_propertyIndex_get(swigCPtr);
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the component index of the property.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public int componentIndex
+        {
+            set
+            {
+                NDalicPINVOKE.Property_componentIndex_set(swigCPtr, value);
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            }
+            get
+            {
+                int ret = NDalicPINVOKE.Property_componentIndex_get(swigCPtr);
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
+            }
+        }
+
+        internal static int INVALID_INDEX
         {
             get
             {
-                return _key;
-            }
-            set
-            {
-                _key = value;
-                ParseKey(value);
+                int ret = NDalicPINVOKE.Property_INVALID_INDEX_get();
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
             }
         }
 
-        /// <summary>
-        /// OriginalKey property.
-        /// </summary>
-        public object OriginalKey
+        internal static int INVALID_KEY
         {
             get
             {
-                return _originalKey;
-            }
-            set
-            {
-                _originalKey = value;
-                if (value is int || value is Int32)
-                {
-                    KeyInt = (int)value;
-                }
-                else if (value is string)
-                {
-                    KeyString = value.ToString();
-                }
-                else if (value.GetType().Equals(typeof(int)) || value.GetType().Equals(typeof(Int32)))
-                {
-                    KeyInt = (int)value;
-                }
-                else if (value.GetType().Equals(typeof(string)))
-                {
-                    KeyString = value.ToString();
-                }
+                int ret = NDalicPINVOKE.Property_INVALID_KEY_get();
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
             }
         }
 
-        /// <summary>
-        /// Value property.
-        /// </summary>
-        public object Value
+        internal static int INVALID_COMPONENT_INDEX
         {
             get
             {
-                return _originalValue;
-            }
-            set
-            {
-                _originalValue = value;
-                TrueValue = PropertyValue.CreateFromObject(value);
+                int ret = NDalicPINVOKE.Property_INVALID_COMPONENT_INDEX_get();
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
             }
         }
 
-        /// <summary>
-        /// IntergerValue property.
-        /// </summary>
-        public int IntergerValue
+        internal Animatable _object
         {
             set
             {
-                TrueValue = new PropertyValue(value);
+                NDalicPINVOKE.Property__object_set(swigCPtr, Animatable.getCPtr(value));
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            }
+            get
+            {
+                Animatable ret = new Animatable(NDalicPINVOKE.Property__object_get(swigCPtr), false);
+                if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+                return ret;
             }
         }
 
-        /// <summary>
-        /// BooleanValue property.
-        /// </summary>
-        public bool BooleanValue
+        public void Dispose()
         {
-            set
+            //Throw excpetion if Dispose() is called in separate thread.
+            if (!Window.IsInstalled())
             {
-                TrueValue = new PropertyValue(value);
+                throw new System.InvalidOperationException("This API called from separate thread. This API must be called from MainThread.");
             }
-        }
 
-        /// <summary>
-        /// SingleValue property.
-        /// </summary>
-        public float SingleValue
-        {
-            set
+            if (isDisposeQueued)
             {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// StringValue property.
-        /// </summary>
-        public string StringValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// Vector2Value property.
-        /// </summary>
-        public Vector2 Vector2Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// Vector3Value property.
-        /// </summary>
-        public Vector3 Vector3Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// Vector4Value property.
-        /// </summary>
-        public Vector4 Vector4Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// PositionValue property.
-        /// </summary>
-        public Position PositionValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// Position2DValue property.
-        /// </summary>
-        public Position2D Position2DValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// SizeValue property.
-        /// </summary>
-        public Size SizeValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// Size2DValue property.
-        /// </summary>
-        public Size2D Size2DValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// ColorValue property.
-        /// </summary>
-        public Color ColorValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// RectangleValue property.
-        /// </summary>
-        public Rectangle RectangleValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// RotationValue property.
-        /// </summary>
-        public Rotation RotationValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// RelativeVector2Value property.
-        /// </summary>
-        public RelativeVector2 RelativeVector2Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// RelativeVector3Value property.
-        /// </summary>
-        public RelativeVector3 RelativeVector3Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// RelativeVector4Value property.
-        /// </summary>
-        public RelativeVector4 RelativeVector4Value
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// ExtentsValue property.
-        /// </summary>
-        public Extents ExtentsValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// PropertyArrayValue property.
-        /// </summary>
-        public PropertyArray PropertyArrayValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        /// <summary>
-        /// PropertyMapValue property.
-        /// </summary>
-        public PropertyMap PropertyMapValue
-        {
-            set
-            {
-                TrueValue = new PropertyValue(value);
-            }
-        }
-
-        private void ParseKey(string key)
-        {
-            int v = -1;
-            if (VisualExtension.KeyDictionary.ContainsKey(key))
-            {
-                VisualExtension.KeyDictionary.TryGetValue(key, out v);
-                KeyInt = v;
+                Dispose(DisposeTypes.Implicit);
             }
             else
             {
-                KeyString = Key;
+                Dispose(DisposeTypes.Explicit);
+                System.GC.SuppressFinalize(this);
             }
+        }
+
+        internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Property obj)
+        {
+            return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
+        }
+
+        protected virtual void Dispose(DisposeTypes type)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if(type == DisposeTypes.Explicit)
+            {
+                //Called by User
+                //Release your own managed resources here.
+                //You should release all of your own disposable objects here.
+            }
+
+            //Release your own unmanaged resources here.
+            //You should not access any managed member here except static instance.
+            //because the execution order of Finalizes is non-deterministic.
+
+            if (swigCPtr.Handle != global::System.IntPtr.Zero)
+            {
+                if (swigCMemOwn)
+                {
+                    swigCMemOwn = false;
+                    NDalicPINVOKE.delete_Property(swigCPtr);
+                }
+                swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+            }
+            disposed = true;
         }
     }
 }
