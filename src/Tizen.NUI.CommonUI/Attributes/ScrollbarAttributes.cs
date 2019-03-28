@@ -17,6 +17,7 @@ namespace Tizen.NUI.CommonUI
             var attrs = (ScrollBarAttributes)bindable;
             return attrs.trackImageAttrs;
         });
+
         public static readonly BindableProperty ThumbImageAttributesProperty = BindableProperty.Create("ThumbImageAttributes", typeof(ImageAttributes), typeof(ScrollBarAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ScrollBarAttributes)bindable;
@@ -30,6 +31,7 @@ namespace Tizen.NUI.CommonUI
             var attrs = (ScrollBarAttributes)bindable;
             return attrs.thumbImageAttrs;
         });
+
         public static readonly BindableProperty DirectionProperty = BindableProperty.Create("Direction", typeof(ScrollBar.DirectionType), typeof(ScrollBarAttributes), default(ScrollBar.DirectionType), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ScrollBarAttributes)bindable;
@@ -42,20 +44,6 @@ namespace Tizen.NUI.CommonUI
         {
             var attrs = (ScrollBarAttributes)bindable;
             return attrs.direction;
-        });
-
-        public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size2D), typeof(ScrollBarAttributes), default(Size2D), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ScrollBarAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.thumbImageAttrs.Size2D = (Size2D)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ScrollBarAttributes)bindable;
-            return attrs.thumbImageAttrs.Size2D;
         });
 
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create("MaxValue", typeof(uint), typeof(ScrollBarAttributes), default(uint), propertyChanged: (bindable, oldValue, newValue) =>
@@ -183,18 +171,6 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public Size2D ThumbSize
-        {
-            get
-            {
-                return (Size2D)GetValue(ThumbSizeProperty);
-            }
-            set
-            {
-                SetValue(ThumbSizeProperty, value);
-            }
-        }
-
         public uint MaxValue
         {
             get
@@ -219,7 +195,6 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        // can't change the pos of thumb
         public uint CurValue
         {
             get

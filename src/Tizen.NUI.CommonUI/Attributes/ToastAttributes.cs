@@ -4,28 +4,10 @@ namespace Tizen.NUI.CommonUI
 {
     public class ToastAttributes : ViewAttributes
     {
-        private ImageAttributes backgroundImageAttrs = null;
-        private TextAttributes textAttrs= null;
-        private int? upSpace;
-        public ToastAttributes() : base() { }
-
-        public ToastAttributes(ToastAttributes attrs) : base(attrs)
-        {
-            if(attrs.backgroundImageAttrs != null)
-            {
-                backgroundImageAttrs = attrs.backgroundImageAttrs.Clone() as ImageAttributes;
-            }
-            if(attrs.textAttrs != null)
-            {
-                textAttrs = attrs.textAttrs.Clone() as TextAttributes;
-            }
-            upSpace = attrs.upSpace;
-        }
-
         public static readonly BindableProperty BackgroundImageAttributesProperty = BindableProperty.Create("BackgroundImageAttributes", typeof(ImageAttributes), typeof(ToastAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ToastAttributes)bindable;
-            if(newValue != null)
+            if (newValue != null)
             {
                 attrs.backgroundImageAttrs = (ImageAttributes)newValue;
             }
@@ -63,6 +45,25 @@ namespace Tizen.NUI.CommonUI
             var attrs = (ToastAttributes)bindable;
             return attrs.upSpace;
         });
+
+        private ImageAttributes backgroundImageAttrs = null;
+        private TextAttributes textAttrs= null;
+        private int? upSpace;
+
+        public ToastAttributes() : base() { }
+
+        public ToastAttributes(ToastAttributes attrs) : base(attrs)
+        {
+            if(attrs.backgroundImageAttrs != null)
+            {
+                backgroundImageAttrs = attrs.backgroundImageAttrs.Clone() as ImageAttributes;
+            }
+            if(attrs.textAttrs != null)
+            {
+                textAttrs = attrs.textAttrs.Clone() as TextAttributes;
+            }
+            upSpace = attrs.upSpace;
+        }     
 
         public ImageAttributes BackgroundImageAttributes
         {

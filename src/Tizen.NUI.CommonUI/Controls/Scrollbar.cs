@@ -13,7 +13,7 @@ namespace Tizen.NUI.CommonUI
         private PanGestureDetector panGestureDetector;
         private EventHandler<PanGestureEventArgs> panGestureEventHandler;
         private Animation scrollAniPlayer = null;
-        private float thumbObjPosX;  //move to attribute?
+        private float thumbObjPosX;
         private float thumbObjPosY;
         private bool enableAni = false;
 
@@ -124,22 +124,22 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return scrollBarAttrs.ThumbSize;
+                if (scrollBarAttrs.ThumbImageAttributes.Size2D == null)
+                {
+                    scrollBarAttrs.ThumbImageAttributes.Size2D = new Size2D();
+                }
+                return scrollBarAttrs.ThumbImageAttributes.Size2D;
             }
             set
             {
-                if (value == null)
+                if (scrollBarAttrs.ThumbImageAttributes.Size2D == null)
                 {
-                    throw new InvalidOperationException("Wrong size value of the thumb object. It shoud be a not-null value!");
+                    scrollBarAttrs.ThumbImageAttributes.Size2D = new Size2D();
                 }
                 if (thumbObj != null)
                 {
-                    if (scrollBarAttrs.ThumbSize == null)
-                    {
-                        scrollBarAttrs.ThumbSize = new Size2D();
-                    }
-                    scrollBarAttrs.ThumbSize.Width = value.Width;
-                    scrollBarAttrs.ThumbSize.Height = value.Height;
+                    scrollBarAttrs.ThumbImageAttributes.Size2D.Width = value.Width;
+                    scrollBarAttrs.ThumbImageAttributes.Size2D.Height = value.Height;
                     RelayoutRequest();
                 }
             }
@@ -479,8 +479,8 @@ namespace Tizen.NUI.CommonUI
             }
             float width = (float)Size2D.Width;
             float height = (float)Size2D.Height;
-            float thumbW = scrollBarAttrs.ThumbSize.Width;
-            float thumbH = scrollBarAttrs.ThumbSize.Height;
+            float thumbW = scrollBarAttrs.ThumbImageAttributes.Size2D.Width;
+            float thumbH = scrollBarAttrs.ThumbImageAttributes.Size2D.Height;
             float ratio = (float)(scrollBarAttrs.CurValue - scrollBarAttrs.MinValue) / (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue);
 
             if (scrollBarAttrs.Direction == DirectionType.Horizontal)
