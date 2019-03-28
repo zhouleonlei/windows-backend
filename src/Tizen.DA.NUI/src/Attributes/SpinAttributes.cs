@@ -10,14 +10,14 @@
                 BackgroundImageAttributes = attributes.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.TextAttrs != null)
+            if (attributes.ItemTextAttributes != null)
             {
-                TextAttrs = attributes.TextAttrs.Clone() as TextAttributes;
+                ItemTextAttributes = attributes.ItemTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.NameTextAttrs != null)
+            if (attributes.NameTextAttributes != null)
             {
-                NameTextAttrs = attributes.NameTextAttrs.Clone() as TextAttributes;
+                NameTextAttributes = attributes.NameTextAttributes.Clone() as TextAttributes;
             }
 
             if (attributes.MaskTopImageAttributes != null)
@@ -45,19 +45,19 @@
                 NameViewAttributes = attributes.NameViewAttributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.DividerRecAttrs != null)
+            if (attributes.DividerRecAttributes != null)
             {
-                DividerRecAttrs = attributes.DividerRecAttrs.Clone() as ViewAttributes;
+                DividerRecAttributes = attributes.DividerRecAttributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.DividerRec2Attrs != null)
+            if (attributes.DividerRec2Attributes != null)
             {
-                DividerRec2Attrs = attributes.DividerRec2Attrs.Clone() as ViewAttributes;
+                DividerRec2Attributes = attributes.DividerRec2Attributes.Clone() as ViewAttributes;
             }
 
-            if (attributes.TextFieldAttrs != null)
+            if (attributes.TextFieldAttributes != null)
             {
-                TextFieldAttrs = attributes.TextFieldAttrs.Clone() as TextFieldAttributes;
+                TextFieldAttributes = attributes.TextFieldAttributes.Clone() as TextFieldAttributes;
             }
 
             Min = attributes.Min;
@@ -74,13 +74,13 @@
             set;
         }
 
-        public TextAttributes TextAttrs
+        public TextAttributes ItemTextAttributes
         {
             get;
             set;
         }
 
-        public TextAttributes NameTextAttrs
+        public TextAttributes NameTextAttributes
         {
             get;
             set;
@@ -116,19 +116,19 @@
             set;
         }
 
-        public ViewAttributes DividerRecAttrs
+        public ViewAttributes DividerRecAttributes
         {
             get;
             set;
         }
 
-        public ViewAttributes DividerRec2Attrs
+        public ViewAttributes DividerRec2Attributes
         {
             get;
             set;
         }
 
-        public ViewAttributes TextFieldAttrs
+        public ViewAttributes TextFieldAttributes
         {
             get;
             set;

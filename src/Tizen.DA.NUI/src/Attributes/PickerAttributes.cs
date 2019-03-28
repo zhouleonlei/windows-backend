@@ -70,9 +70,9 @@
                 DateTextAttributes = attributes.DateTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.DateTextAttributes2 != null)
+            if (attributes.DateText2Attributes != null)
             {
-                DateTextAttributes2 = attributes.DateTextAttributes2.Clone() as TextAttributes;
+                DateText2Attributes = attributes.DateText2Attributes.Clone() as TextAttributes;
             }
 
             if (attributes.LeftArrowImageAttributes != null)
@@ -90,14 +90,14 @@
                 MonthTextAttributes = attributes.MonthTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.DropDownAttrs != null)
+            if (attributes.YearDropDownAttributes != null)
             {
-                DropDownAttrs = attributes.DropDownAttrs.Clone() as DropDownAttributes;
+                YearDropDownAttributes = attributes.YearDropDownAttributes.Clone() as DropDownAttributes;
             }
 
-            if (attributes.DropDownItemAttrs != null)
+            if (attributes.YearDropDownItemAttributes != null)
             {
-                DropDownItemAttrs = attributes.DropDownItemAttrs.Clone() as DropDownItemAttributes;
+                YearDropDownItemAttributes = attributes.YearDropDownItemAttributes.Clone() as DropDownItemAttributes;
             }
 
             YearRange = new Vector2(attributes.YearRange.X, attributes.YearRange.Y);
@@ -182,7 +182,7 @@
             set;
         }
 
-        public TextAttributes DateTextAttributes2
+        public TextAttributes DateText2Attributes
         {
             get;
             set;
@@ -206,13 +206,13 @@
             set;
         }
 
-        public DropDownAttributes DropDownAttrs
+        public DropDownAttributes YearDropDownAttributes
         {
             get;
             set;
         }
 
-        public DropDownItemAttributes DropDownItemAttrs
+        public DropDownItemAttributes YearDropDownItemAttributes
         {
             get;
             set;
