@@ -54,7 +54,7 @@
                             Size2D="248, 68"
                             Position2D="392, 32"/>
         </PickerAttributes.MonthTextAttributes>
-        <PickerAttributes.DropDownAttrs>
+        <PickerAttributes.YearDropDownAttributes>
             <DropDownAttributes ParentOrigin="TopLeft"
                             PivotPoint="TopLeft"
                             PositionUsesPivotPoint="true"
@@ -90,8 +90,8 @@
                                             ResourceURL ="*DemoRes*/images/FH3/10. Drop Down/dropdown_bg.png"/>
                             </DropDownAttributes.ListBackgroundImageAttributes>
              </DropDownAttributes>
-        </PickerAttributes.DropDownAttrs>
-        <PickerAttributes.DropDownItemAttrs>
+        </PickerAttributes.YearDropDownAttributes>
+        <PickerAttributes.YearDropDownItemAttributes>
             <DropDownItemAttributes ParentOrigin="TopLeft"
                             PivotPoint="TopLeft"
                             PositionUsesPivotPoint="true"
@@ -114,7 +114,7 @@
                                             />
                            </DropDownItemAttributes.BackgroundColor>
            </DropDownItemAttributes>             
-        </PickerAttributes.DropDownItemAttrs>
+        </PickerAttributes.YearDropDownItemAttributes>
         <PickerAttributes.DateViewAttributes>
             <ViewAttributes ParentOrigin="TopLeft"
                             PivotPoint="TopLeft"
@@ -216,7 +216,7 @@
                             VerticalAlignment="Center"
                             Size2D="147, 88"/>
         </PickerAttributes.DateTextAttributes>
-        <PickerAttributes.DateTextAttributes2>
+        <PickerAttributes.DateText2Attributes>
             <TextAttributes ParentOrigin="TopLeft"
                             PivotPoint="TopLeft"
                             PositionUsesPivotPoint="true"
@@ -225,6 +225,6 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Size2D="148, 88"/>
-        </PickerAttributes.DateTextAttributes2>
+        </PickerAttributes.DateText2Attributes>
     </PickerAttributes>
 </StyleBase>

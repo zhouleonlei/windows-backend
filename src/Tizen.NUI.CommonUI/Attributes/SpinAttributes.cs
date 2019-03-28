@@ -18,21 +18,21 @@ namespace Tizen.NUI.CommonUI
             return attrs.backgroundImageAttrs;
         });
 
-        public static readonly BindableProperty TextAttrsProperty = BindableProperty.Create("TextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty ItemTextAttributesProperty = BindableProperty.Create("ItemTextAttributes", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
             {
-                attrs.textAttrs = (TextAttributes)newValue;
+                attrs.itemTextAttrs = (TextAttributes)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
         {
             var attrs = (SpinAttributes)bindable;
-            return attrs.textAttrs;
+            return attrs.itemTextAttrs;
         });
 
-        public static readonly BindableProperty NameTextAttrsProperty = BindableProperty.Create("NameTextAttrs", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty NameTextAttributesProperty = BindableProperty.Create("NameTextAttributes", typeof(TextAttributes), typeof(SpinAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -115,7 +115,7 @@ namespace Tizen.NUI.CommonUI
             return attrs.nameViewAttrs;
         });
 
-        public static readonly BindableProperty DividerRecAttrsProperty = BindableProperty.Create("DividerRecAttrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DividerRecAttributesProperty = BindableProperty.Create("DividerRecAttributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -129,7 +129,7 @@ namespace Tizen.NUI.CommonUI
             return attrs.dividerRecAttrs;
         });
 
-        public static readonly BindableProperty DividerRec2AttrsProperty = BindableProperty.Create("DividerRec2Attrs", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DividerRec2AttributesProperty = BindableProperty.Create("DividerRec2Attributes", typeof(ViewAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -143,7 +143,7 @@ namespace Tizen.NUI.CommonUI
             return attrs.dividerRec2Attrs;
         });
 
-        public static readonly BindableProperty TextFieldAttrsProperty = BindableProperty.Create("TextFieldAttrs", typeof(TextFieldAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty TextFieldAttributesProperty = BindableProperty.Create("TextFieldAttributes", typeof(TextFieldAttributes), typeof(SpinAttributes), default(ViewAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (SpinAttributes)bindable;
             if (newValue != null)
@@ -245,7 +245,7 @@ namespace Tizen.NUI.CommonUI
         private ViewAttributes nameViewAttrs;
         private ViewAttributes clipViewAttrs;
         private ViewAttributes aniViewAttrs;
-        private TextAttributes textAttrs;
+        private TextAttributes itemTextAttrs;
         private TextAttributes nameTextAttrs;
         private ImageAttributes maskTopImageAttrs;
         private ImageAttributes maskBottomImageAttrs;
@@ -268,9 +268,9 @@ namespace Tizen.NUI.CommonUI
                 backgroundImageAttrs = attributes.backgroundImageAttrs.Clone() as ImageAttributes;
             }
 
-            if (attributes.textAttrs != null)
+            if (attributes.itemTextAttrs != null)
             {
-                textAttrs = attributes.textAttrs.Clone() as TextAttributes;
+                itemTextAttrs = attributes.itemTextAttrs.Clone() as TextAttributes;
             }
 
             if (attributes.nameTextAttrs != null)
@@ -338,27 +338,27 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public TextAttributes TextAttrs
+        public TextAttributes ItemTextAttributes
         {
             get
             {
-                return (TextAttributes)GetValue(TextAttrsProperty);
+                return (TextAttributes)GetValue(ItemTextAttributesProperty);
             }
             set
             {
-                SetValue(TextAttrsProperty, value);
+                SetValue(ItemTextAttributesProperty, value);
             }
         }
 
-        public TextAttributes NameTextAttrs
+        public TextAttributes NameTextAttributes
         {
             get
             {
-                return (TextAttributes)GetValue(NameTextAttrsProperty);
+                return (TextAttributes)GetValue(NameTextAttributesProperty);
             }
             set
             {
-                SetValue(NameTextAttrsProperty, value);
+                SetValue(NameTextAttributesProperty, value);
             }
         }
 
@@ -422,39 +422,39 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public ViewAttributes DividerRecAttrs
+        public ViewAttributes DividerRecAttributes
         {
             get
             {
-                return (ViewAttributes)GetValue(DividerRecAttrsProperty);
+                return (ViewAttributes)GetValue(DividerRecAttributesProperty);
             }
             set
             {
-                SetValue(DividerRecAttrsProperty, value);
+                SetValue(DividerRecAttributesProperty, value);
             }
         }
 
-        public ViewAttributes DividerRec2Attrs
+        public ViewAttributes DividerRec2Attributes
         {
             get
             {
-                return (ViewAttributes)GetValue(DividerRec2AttrsProperty);
+                return (ViewAttributes)GetValue(DividerRec2AttributesProperty);
             }
             set
             {
-                SetValue(DividerRec2AttrsProperty, value);
+                SetValue(DividerRec2AttributesProperty, value);
             }
         }
 
-        public ViewAttributes TextFieldAttrs
+        public TextFieldAttributes TextFieldAttributes
         {
             get
             {
-                return (TextFieldAttributes)GetValue(TextFieldAttrsProperty);
+                return (TextFieldAttributes)GetValue(TextFieldAttributesProperty);
             }
             set
             {
-                SetValue(TextFieldAttrsProperty, value);
+                SetValue(TextFieldAttributesProperty, value);
             }
         }
 

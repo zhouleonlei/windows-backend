@@ -9,7 +9,7 @@
                              Border="0, 0, 81, 81" 
                              ResourceURL ="*DemoRes*/images/FH3/11. Popup/popup_background.png"/>
         </SpinAttributes.BackgroundImageAttributes>  
-        <SpinAttributes.TextAttrs>
+        <SpinAttributes.ItemTextAttributes>
             <TextAttributes  ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
@@ -18,8 +18,8 @@
                              Size2D="200, 116"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"/>
-        </SpinAttributes.TextAttrs>  
-        <SpinAttributes.NameTextAttrs>
+        </SpinAttributes.ItemTextAttributes>  
+        <SpinAttributes.NameTextAttributes>
             <TextAttributes  ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
@@ -29,7 +29,7 @@
                              Position2D="0,0"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"/>
-        </SpinAttributes.NameTextAttrs>
+        </SpinAttributes.NameTextAttributes>
         <SpinAttributes.MaskTopImageAttributes>
             <ImageAttributes ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
@@ -69,7 +69,7 @@
                              Size2D="200, 352"
                              Position2D="0,0"/>
         </SpinAttributes.AniViewAttributes>
-        <SpinAttributes.DividerRecAttrs>
+        <SpinAttributes.DividerRecAttributes>
             <ViewAttributes  ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
@@ -77,8 +77,8 @@
                              Opacity="0.4"
                              Size2D="200, 2"
                              Position2D="0,176"/>
-        </SpinAttributes.DividerRecAttrs>
-        <SpinAttributes.DividerRec2Attrs>
+        </SpinAttributes.DividerRecAttributes>
+        <SpinAttributes.DividerRec2Attributes>
             <ViewAttributes  ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
@@ -86,8 +86,8 @@
                              Opacity="0.4"
                              Size2D="200, 2"
                              Position2D="0,328"/>
-        </SpinAttributes.DividerRec2Attrs>
-        <SpinAttributes.TextFieldAttrs>
+        </SpinAttributes.DividerRec2Attributes>
+        <SpinAttributes.TextFieldAttributes>
             <TextFieldAttributes  ParentOrigin="TopLeft"
                              PivotPoint="TopLeft"
                              PositionUsesPivotPoint="true"
@@ -96,6 +96,6 @@
                              Position2D="0,100"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"/>
-        </SpinAttributes.TextFieldAttrs>
+        </SpinAttributes.TextFieldAttributes>
     </SpinAttributes>
 </StyleBase>

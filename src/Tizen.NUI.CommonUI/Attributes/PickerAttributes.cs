@@ -185,18 +185,18 @@ namespace Tizen.NUI.CommonUI
             return attrs.dateTextAttributes;
         });
 
-        public static readonly BindableProperty DateTextAttributes2Property = BindableProperty.Create("DateTextAttributes2", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty DateText2AttributesProperty = BindableProperty.Create("DateText2Attributes", typeof(TextAttributes), typeof(PickerAttributes), default(TextAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
             {
-                attrs.dateTextAttributes2 = (TextAttributes)newValue;
+                attrs.dateText2Attributes = (TextAttributes)newValue;
             }
         },
         defaultValueCreator: (bindable) =>
         {
             var attrs = (PickerAttributes)bindable;
-            return attrs.dateTextAttributes2;
+            return attrs.dateText2Attributes;
         });
 
         public static readonly BindableProperty LeftArrowImageAttributesProperty = BindableProperty.Create("LeftArrowImageAttributes", typeof(ImageAttributes), typeof(PickerAttributes), default(ImageAttributes), propertyChanged: (bindable, oldValue, newValue) =>
@@ -241,7 +241,7 @@ namespace Tizen.NUI.CommonUI
             return attrs.monthTextAttributes;
         });
 
-        public static readonly BindableProperty DropDownAttrsProperty = BindableProperty.Create("DropDownAttrs", typeof(DropDownAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty YearDropDownAttributesProperty = BindableProperty.Create("YearDropDownAttributes", typeof(DropDownAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -255,7 +255,7 @@ namespace Tizen.NUI.CommonUI
             return attrs.dropDownAttrs;
         });
 
-        public static readonly BindableProperty DropDownItemAttrsProperty = BindableProperty.Create("DropDownItemAttrs", typeof(DropDownItemAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
+        public static readonly BindableProperty YearDropDownItemAttributesProperty = BindableProperty.Create("YearDropDownItemAttributes", typeof(DropDownItemAttributes), typeof(PickerAttributes), default(DropDownAttributes), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (PickerAttributes)bindable;
             if (newValue != null)
@@ -296,7 +296,7 @@ namespace Tizen.NUI.CommonUI
         private TextAttributes friTextAttributes;
         private TextAttributes satTextAttributes;
         private TextAttributes dateTextAttributes;
-        private TextAttributes dateTextAttributes2;
+        private TextAttributes dateText2Attributes;
 
         private ImageAttributes leftArrowImageAttrs;
         private ImageAttributes rightArrowImageAttrs;
@@ -374,9 +374,9 @@ namespace Tizen.NUI.CommonUI
                 dateTextAttributes = attributes.dateTextAttributes.Clone() as TextAttributes;
             }
 
-            if (attributes.dateTextAttributes2 != null)
+            if (attributes.dateText2Attributes != null)
             {
-                dateTextAttributes2 = attributes.dateTextAttributes2.Clone() as TextAttributes;
+                dateText2Attributes = attributes.dateText2Attributes.Clone() as TextAttributes;
             }
 
             if (attributes.leftArrowImageAttrs != null)
@@ -564,15 +564,15 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public TextAttributes DateTextAttributes2
+        public TextAttributes DateText2Attributes
         {
             get
             {
-                return (TextAttributes)GetValue(DateTextAttributes2Property);
+                return (TextAttributes)GetValue(DateText2AttributesProperty);
             }
             set
             {
-                SetValue(DateTextAttributes2Property, value);
+                SetValue(DateText2AttributesProperty, value);
             }
         }
 
@@ -612,27 +612,27 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public DropDownAttributes DropDownAttrs
+        public DropDownAttributes YearDropDownAttributes
         {
             get
             {
-                return (DropDownAttributes)GetValue(DropDownAttrsProperty);
+                return (DropDownAttributes)GetValue(YearDropDownAttributesProperty);
             }
             set
             {
-                SetValue(DropDownAttrsProperty, value);
+                SetValue(YearDropDownAttributesProperty, value);
             }
         }
 
-        public DropDownItemAttributes DropDownItemAttrs
+        public DropDownItemAttributes YearDropDownItemAttributes
         {
             get
             {
-                return (DropDownItemAttributes)GetValue(DropDownItemAttrsProperty);
+                return (DropDownItemAttributes)GetValue(YearDropDownItemAttributesProperty);
             }
             set
             {
-                SetValue(DropDownItemAttrsProperty, value);
+                SetValue(YearDropDownItemAttributesProperty, value);
             }
         }
 
