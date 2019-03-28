@@ -34,7 +34,6 @@ namespace Tizen.NUI.Samples
             progressBar1_1.MaxValue = 100;
             progressBar1_1.MinValue = 0;
             progressBar1_1.CurrentValue = 45;
-            progressBar1_1.Direction = Progress.DirectionType.Horizontal;
             progressBar1_1.TrackColor = Color.Green;
             progressBar1_1.ProgressColor = Color.Black;
             root.Add(progressBar1_1);
@@ -45,7 +44,6 @@ namespace Tizen.NUI.Samples
             progressBar1_2.MaxValue = 100;
             progressBar1_2.MinValue = 0;
             progressBar1_2.CurrentValue = 15;
-            progressBar1_2.Direction = Progress.DirectionType.Horizontal;
             progressBar1_2.TrackColor = Color.Green;
             progressBar1_2.ProgressColor = Color.Black;
 
@@ -76,7 +74,6 @@ namespace Tizen.NUI.Samples
             progressBar2_1.MaxValue = 100;
             progressBar2_1.MinValue = 0;
             progressBar2_1.CurrentValue = 30;
-            progressBar2_1.Direction = Progress.DirectionType.Horizontal;
             root.Add(progressBar2_1);
 
             //progressBar2_2 = new Progress(att);

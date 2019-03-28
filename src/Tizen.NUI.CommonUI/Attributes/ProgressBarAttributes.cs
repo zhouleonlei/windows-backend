@@ -74,20 +74,6 @@ namespace Tizen.NUI.CommonUI
             return attrs.loadingImageAttrs;
         });
 
-        public static readonly BindableProperty DirectionProperty = BindableProperty.Create("Direction", typeof(Tizen.NUI.CommonUI.Progress.DirectionType), typeof(ProgressBarAttributes), default(Progress.DirectionType), propertyChanged: (bindable, oldValue, newValue) =>
-        {
-            var attrs = (ProgressBarAttributes)bindable;
-            if (newValue != null)
-            {
-                attrs.direction = (Progress.DirectionType)newValue;
-            }
-        },
-        defaultValueCreator: (bindable) =>
-        {
-            var attrs = (ProgressBarAttributes)bindable;
-            return attrs.direction;
-        });
-
         public static readonly BindableProperty ThumbSizeProperty = BindableProperty.Create("ThumbSize", typeof(Size), typeof(ProgressBarAttributes), default(Size), propertyChanged: (bindable, oldValue, newValue) =>
         {
             var attrs = (ProgressBarAttributes)bindable;
@@ -158,7 +144,6 @@ namespace Tizen.NUI.CommonUI
             return attrs.duration;
         });
 
-        private Progress.DirectionType direction;
         private StringSelector progressImageURLPrefix;
         private Size thumbSize;
         private uint? maxValue;
@@ -174,7 +159,6 @@ namespace Tizen.NUI.CommonUI
 
         public ProgressBarAttributes(ProgressBarAttributes attributes) : base(attributes)
         {
-            direction = attributes.direction;
             thumbSize = attributes.thumbSize;
             maxValue = attributes.maxValue;
             minValue = attributes.minValue;

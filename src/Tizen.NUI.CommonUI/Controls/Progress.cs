@@ -357,18 +357,6 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Direction of the ProgressBar.
         /// </summary>
-        public DirectionType Direction
-        {
-            get
-            {
-                return progressBarAttrs.Direction;
-            }
-            set
-            {
-                progressBarAttrs.Direction = value;
-                UpdateValue();
-            }
-        }
 
         public ProgressStatusType? ProgressState
         {
