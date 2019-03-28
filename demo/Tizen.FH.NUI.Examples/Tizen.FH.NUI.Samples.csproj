@@ -80,8 +80,8 @@
       <Project>{2aedcaa7-543f-48a1-bea3-cf3e14f6edc2}</Project>
       <Name>Tizen.Applications.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Tizen.DA.NUI\Tizen.FH.NUI.csproj">
-      <Project>{3367954d-c980-47bb-8522-37ccda3b6843}</Project>
+    <ProjectReference Include="..\..\src\Tizen.FH.NUI\Tizen.FH.NUI.csproj">
+      <Project>{f913ea19-8768-48f1-923a-227b63fa53eb}</Project>
       <Name>Tizen.FH.NUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Tizen.Log\Tizen.Log.csproj">
