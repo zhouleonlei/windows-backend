@@ -7,73 +7,52 @@ namespace Tizen.FH.NUI.Controls
 {
     public class Spin : Control
     {
-        private enum Style
-        {
-            IntStyle = 1,
-            StrStyle = 2
-        }
-        private enum TimeAniType
-        {
-            TapFinishedAni = 1,
-            PanFinishedAni = 2            
-        }
-        
-        private Style type = Style.IntStyle;
-        private TimeAniType timeAniType = TimeAniType.TapFinishedAni;
-        
-        private ImageView backgroundImage;
-        private View clipView;
-        private View aniView;
-        private View nameView;
-        private TextLabel nameText;
-        private TextLabel[] label;
-        private TextField textField;
-        private View dividerRec;
-        private View dividerRec2;
-        private ImageView maskTopImage;
-        private ImageView maskBottomImage;        
-        private Animation spinAnimation;        
-        private Timer finishedTimer;
+        private Style type = Style.IntStyle;        
+        private ImageView backgroundImage = null;
+        private View clipView = null;
+        private View aniView = null;
+        private View nameView = null;
+        private TextLabel nameText = null;
+        private TextLabel[] itemLabel = null;
+        private TextField textField = null;
+        private View dividerRec = null;
+        private View dividerRec2 = null;
+        private ImageView maskTopImage = null;
+        private ImageView maskBottomImage = null;        
+        private Animation spinAnimation = null;        
+        private Timer finishedTimer = null;
         private PanGestureDetector panGestureDetector = null;
         private TapGestureDetector tapGestureDetector = null;
         
-        private int pre = 0;
-        private int cur = 1;
-        private int next = 2;
-
-        private int curValue;
+        private int upItemIndex = 0;
+        private int midItemIndex = 1;
+        private int downItemIndex = 2;
         private int nMin = 0;
         private int nMax = 0;
-        
-        private int moveState = 0;
-        private int curHeight;
-        private float aniViewHeight; 
-        private    float movelen;
+        private int curValue = 0;
+        private int itemHeight = 0;
+        private float floatItemHeight = 0f;
+        private float floatItemHalfHeight = 0f;
+        private int upDownItemTextSize = 0;
+        private int midItemTextSize = 0;        
+        private int tapAnimationDuration = 200;
 
-        float maxMoveDown = 0;
-        float maxMoveUp = 0;
-        float curMove = 0;
-        float calculateMove = 0;
-
-        private int finishedState;
-        private uint RepeatCnt;
-        private int gestureState;
-
-        private float last;
-        private float tapFinishedMove;
-
-        private int timeSetting;
-        private int timeStep;
-
-        private int ITEMHEIGHT;
-        private int ITEMHEIGHT_HALF;
-        private float FLOARTITEMHEIGHT;
-        private float FLOARTITEMHEIGHT_HALF;
-        private int TEXTSIZE;
-        private int TEXTSIZE_CENTER;
-		private bool notRelease = false;
-        
-        const int TAP_ANIMATION_TIME = 200;
+        //Gesture variable
+        private Direction moveDirection = Direction.None;      
+        private int midItemPositionY = 0;
+        private float aniViewPositionY = 0f; 
+        private float calculateAdjustLen = 0f;
+        private float maxMoveDownHeight = 0f;
+        private float maxMoveUpHeight = 0f;
+        private float curMoveHeight = 0f;
+        private float lastMoveHeight = 0f; 
+        private FinishAniType finishAniType = FinishAniType.Tap;
+        private FinishAniAction finishAniAction = FinishAniAction.None;
+        private PanAnimationState panAnimationState = PanAnimationState.None;
+        private uint finishTimerLoopCount = 0;        
+        private int finishTimerFirstInterval = 0;
+        private int finishTimerIncreaseInterval = 0;
+        private bool isTouchRelease = true; 
         
         private SpinAttributes spinAttributes;
 
@@ -81,13 +60,50 @@ namespace Tizen.FH.NUI.Controls
         {
             Initialize();
         }
+        
         public Spin(string style) : base(style)
         {
             if (style.Contains("str") || style.Contains("Str"))
             {
                 type = Style.StrStyle;
             }
+            
             Initialize();
+        }
+        
+        private enum Style
+        {
+            IntStyle = 1,
+            StrStyle = 2
+        }
+        
+        private enum FinishAniType
+        {
+            Tap = 1,
+            Pan = 2            
+        }
+
+        private enum Direction
+        {
+            None = 0,
+            Up = 1,
+            Down = 2            
+        }
+
+        private enum PanAnimationState
+        {
+            None = 0,
+            PanAni = 1,
+            FinishAni = 2
+        }
+
+        private enum FinishAniAction
+        {
+            None = 0,
+            MoveToCenter = 1,
+            MoveToNext = 2,
+            MoveToNext5 = 3,
+            MoveToNext20 = 4
         }
 
         public string NameText
@@ -114,11 +130,12 @@ namespace Tizen.FH.NUI.Controls
             set
             {
                nMin = value;
-               if (label != null)
+               
+               if (itemLabel != null)
                {
-                   label[pre].Text = GetStrValue(curValue - 1);
-                   label[cur].Text = GetStrValue(curValue);
-                   label[next].Text = GetStrValue(curValue + 1);
+                   itemLabel[upItemIndex].Text = GetStrValue(curValue - 1);
+                   itemLabel[midItemIndex].Text = GetStrValue(curValue);
+                   itemLabel[downItemIndex].Text = GetStrValue(curValue + 1);
                }
             }
         }
@@ -132,11 +149,12 @@ namespace Tizen.FH.NUI.Controls
             set
             {
                nMax = value;
-               if (label != null)
+               
+               if (itemLabel != null)
                {
-                   label[pre].Text = GetStrValue(curValue - 1);
-                   label[cur].Text = GetStrValue(curValue);
-                   label[next].Text = GetStrValue(curValue + 1);
+                   itemLabel[upItemIndex].Text = GetStrValue(curValue - 1);
+                   itemLabel[midItemIndex].Text = GetStrValue(curValue);
+                   itemLabel[downItemIndex].Text = GetStrValue(curValue + 1);
                }
             }
         }
@@ -152,6 +170,7 @@ namespace Tizen.FH.NUI.Controls
                curValue = value;
             }
         }
+
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -229,15 +248,15 @@ namespace Tizen.FH.NUI.Controls
                 {
                     if (aniView != null)
                     {
-                        if (label != null)
+                        if (itemLabel != null)
                         {
                             for (int i = 0; i < 4; i++)
                             {
-                                if (label[i] != null)
+                                if (itemLabel[i] != null)
                                 {
-                                    aniView.Remove(label[i]);
-                                    label[i].Dispose();
-                                    label[i] = null;
+                                    aniView.Remove(itemLabel[i]);
+                                    itemLabel[i].Dispose();
+                                    itemLabel[i] = null;
                                 }
                             }
                         }
@@ -248,11 +267,9 @@ namespace Tizen.FH.NUI.Controls
                     
                     if (textField != null)
                     {
-                        textField.TouchEvent -= OnTextFieldTouchEvent;
                         textField.FocusGained -= OnTextFieldFocusGained;
                         textField.FocusLost -= OnTextFieldFocusLost;
                         textField.TextChanged -= OnTextFieldTextChanged;
-                        textField.MaxLengthReached -= OnTextFieldMaxLengthReached;
                         clipView.Remove(textField);
                         textField.Dispose();
                         textField = null;
@@ -271,29 +288,25 @@ namespace Tizen.FH.NUI.Controls
                         nameText.Dispose();
                         nameText = null;
                     }
+                    
                     Remove(nameView);
                     nameView.Dispose();
                     nameView = null;
                 }                
             }
+            
             base.Dispose(type);
         }
-           
-        protected override void OnFocusGained(object sender, EventArgs e)
-        {
-            base.OnFocusGained(sender, e);
-        }
-        protected override void OnFocusLost(object sender, EventArgs e)
-        {
-            base.OnFocusLost(sender, e);
-        }
+        
         protected override Attributes GetAttributes()
         {
             return null;
         }
+        
         protected override void OnUpdate(Attributes attributtes)
         {
             spinAttributes = attributes as SpinAttributes;
+            
             if (spinAttributes == null)
             {
                 return;
@@ -311,42 +324,40 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(maskBottomImage,spinAttributes.MaskBottomImageAttributes);
             ApplyAttributes(maskTopImage, spinAttributes.MaskTopImageAttributes);
 
-            ITEMHEIGHT = spinAttributes.ItemHeight;
-            TEXTSIZE = spinAttributes.TextSize;
-            TEXTSIZE_CENTER = spinAttributes.CenterTextSize;
+            itemHeight = spinAttributes.ItemHeight;
+            upDownItemTextSize = spinAttributes.TextSize;
+            midItemTextSize = spinAttributes.CenterTextSize;           
+            floatItemHeight = itemHeight;
+            floatItemHalfHeight = itemHeight / 2;
+            midItemPositionY = itemHeight;
             
-            ITEMHEIGHT_HALF = ITEMHEIGHT/2;
-            FLOARTITEMHEIGHT = ITEMHEIGHT;
-            FLOARTITEMHEIGHT_HALF = ITEMHEIGHT/2;
-            curHeight = ITEMHEIGHT;
-            
-            if (label != null)
+            if (itemLabel != null)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    ApplyAttributes(label[i], spinAttributes.TextAttrs);
+                    ApplyAttributes(itemLabel[i], spinAttributes.TextAttrs);
                 }
 
-                label[pre].Position2D = new Position2D(0, 0);
-                label[pre].Opacity = 0.4f;
-                label[pre].PointSize = TEXTSIZE;
-                label[cur].Position2D = new Position2D(0, ITEMHEIGHT); 
-                label[cur].Opacity = 1.0f;
-                label[cur].PointSize = TEXTSIZE_CENTER;
-                label[next].Position2D = new Position2D(0, ITEMHEIGHT*2); 
-                label[next].Opacity = 0.4f;
-                label[next].PointSize = TEXTSIZE;
-                label[next+1].Position2D = new Position2D(0, ITEMHEIGHT*3); 
-
-                label[pre].Text = GetStrValue(curValue - 1);
-                label[cur].Text = GetStrValue(curValue);
-                label[next].Text = GetStrValue(curValue + 1);
+                itemLabel[upItemIndex].Position2D = new Position2D(0, 0);
+                itemLabel[upItemIndex].Opacity = 0.4f;
+                itemLabel[upItemIndex].PointSize = upDownItemTextSize;
+                itemLabel[midItemIndex].Position2D = new Position2D(0, itemHeight); 
+                itemLabel[midItemIndex].Opacity = 1.0f;
+                itemLabel[midItemIndex].PointSize = midItemTextSize;
+                itemLabel[downItemIndex].Position2D = new Position2D(0, itemHeight * 2); 
+                itemLabel[downItemIndex].Opacity = 0.4f;
+                itemLabel[downItemIndex].PointSize = upDownItemTextSize;
+                itemLabel[downItemIndex + 1].Position2D = new Position2D(0, itemHeight * 3); 
+                itemLabel[upItemIndex].Text = GetStrValue(curValue - 1);
+                itemLabel[midItemIndex].Text = GetStrValue(curValue);
+                itemLabel[downItemIndex].Text = GetStrValue(curValue + 1);
             }                    
         }
 
         private void Initialize()
         {
             spinAttributes = attributes as SpinAttributes;
+            
             if (spinAttributes == null)
             {
                 throw new Exception("Spin attribute parse error.");
@@ -362,6 +373,7 @@ namespace Tizen.FH.NUI.Controls
                     WidthResizePolicy = ResizePolicyType.FillToParent,
                     HeightResizePolicy = ResizePolicyType.FillToParent
                 };
+                
                 Add(backgroundImage);
             }
                         
@@ -379,15 +391,14 @@ namespace Tizen.FH.NUI.Controls
                         WidthResizePolicy = ResizePolicyType.Fixed,
                         HeightResizePolicy = ResizePolicyType.Fixed
                     };
+                    
                     textField.Focusable = true;
                     textField.MaxLength = 2;
                     textField.CursorWidth = 0;
-                    textField.BackgroundColor = new Color(0,0,0,0.5f);
-                    textField.TouchEvent += OnTextFieldTouchEvent;
+                    textField.BackgroundColor = new Color(0, 0, 0, 0.5f);
                     textField.FocusGained += OnTextFieldFocusGained;
                     textField.FocusLost += OnTextFieldFocusLost;
                     textField.TextChanged += OnTextFieldTextChanged;
-                    textField.MaxLengthReached += OnTextFieldMaxLengthReached;
                     clipView.Add(textField);
                     textField.Hide();    
                 }
@@ -407,13 +418,15 @@ namespace Tizen.FH.NUI.Controls
                 tapGestureDetector = new TapGestureDetector();
                 tapGestureDetector.Detected += OnTapGestureDetected;
                 tapGestureDetector.Attach(clipView);
+                
                 if (spinAttributes.TextAttrs != null)
                 {
-                    label = new TextLabel[4];
+                    itemLabel = new TextLabel[4];
+                    
                     for (int i = 0; i < 4; i++)
                     {
-                        label[i] = new TextLabel();
-                        aniView.Add(label[i]);    
+                        itemLabel[i] = new TextLabel();
+                        aniView.Add(itemLabel[i]);    
                     }
                 }
                 
@@ -437,7 +450,8 @@ namespace Tizen.FH.NUI.Controls
                 {
                     WidthResizePolicy = ResizePolicyType.FillToParent,
                     HeightResizePolicy = ResizePolicyType.FillToParent
-                };                        
+                };
+                
                 Add(maskTopImage);
             }
 
@@ -448,6 +462,7 @@ namespace Tizen.FH.NUI.Controls
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         HeightResizePolicy = ResizePolicyType.FillToParent
                 };
+                
                 Add(maskBottomImage);
             }    
 
@@ -455,6 +470,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 nameView = new View();
                 Add(nameView);
+                
                 if (spinAttributes.NameTextAttrs != null)
                 {
                     nameText = new TextLabel();
@@ -465,16 +481,7 @@ namespace Tizen.FH.NUI.Controls
             finishedTimer = new Timer(100);
             finishedTimer.Tick += OnFinishedTickEvent;
         }
-
-        private void OnTextFieldMaxLengthReached(object source, EventArgs e)
-        {
-            return;
-        }
-
-        private bool OnTextFieldTouchEvent(object source, View.TouchEventArgs e)
-        {
-            return false;
-        }
+        
         private void OnTextFieldFocusGained(object source, EventArgs e)
         {
             Console.WriteLine("<<<----OnTextFieldFocusGained---, textField focus gained");
@@ -490,6 +497,7 @@ namespace Tizen.FH.NUI.Controls
             if (textField.Text.Length != 0)
             {
                 int value = curValue;
+                
                 if (int.TryParse(textField.Text, out value))
                 {
                     if (value > nMax)
@@ -502,6 +510,7 @@ namespace Tizen.FH.NUI.Controls
                         curValue = value;
                     }
                 }
+                
                 SwitchToAniView();
             }
             else
@@ -513,16 +522,18 @@ namespace Tizen.FH.NUI.Controls
         private void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
         {
             int textLength = 0;
+            
             if (textField != null && textField.Text != null)
             {
                 textLength = textField.Text.Length;
             }
-            Console.WriteLine("+++++++++OnTextFieldTextChanged+++++++, text changed, textLength = " + textLength);
+            
             if (textLength != 0)
             {
                 if (textLength == 2)
                 {
                     int value = curValue;
+                    
                     if (int.TryParse(textField.Text, out value))
                     {
                         if (value > nMax)
@@ -535,6 +546,7 @@ namespace Tizen.FH.NUI.Controls
                             curValue = value;
                         }
                     }
+                    
                     textField.Text = "";
                     SwitchToAniView();
                 }
@@ -545,24 +557,26 @@ namespace Tizen.FH.NUI.Controls
         {
             View view = source as View;    
             PointStateType state = e.Touch.GetState(0);
-            Console.WriteLine("---OnTouchEvent---" + gestureState + "state: " + state);
+            
+            Console.WriteLine("---OnTouchEvent---" + panAnimationState + "state: " + state);
 
-            if (gestureState == 3)
+            if (panAnimationState == PanAnimationState.FinishAni)
             {
                 if (state == PointStateType.Down)
                 {
                     finishedTimer.Stop();
                     ResetPositon();  
-                    notRelease = true;
+                    isTouchRelease = false;
                 }
             }
             else
             {
                 if (state == PointStateType.Down)
                 {
-                    notRelease = false;
+                    isTouchRelease = true;
                 }
-            }            
+            }
+            
             return false;
         }
 
@@ -570,25 +584,34 @@ namespace Tizen.FH.NUI.Controls
         {
             Console.WriteLine("----OnFinishedTickEvent----");
 
-            if (RepeatCnt == 0)
+            if (finishTimerLoopCount == 0)
             {
                 ResetPositon();
                 return false;
             }
             else
             {
-                RepeatCnt--;
-                switch (timeAniType)
+                finishTimerLoopCount--;
+                
+                switch (finishAniType)
                 {
-                    case TimeAniType.TapFinishedAni:
+                    case FinishAniType.Tap:
                         {
-                            AnimationWithTime(tapFinishedMove, TAP_ANIMATION_TIME/2);
+                            if (moveDirection == Direction.Down)
+                            {
+                                AnimationWithTime(floatItemHalfHeight, tapAnimationDuration / 2);
+                            }
+                            else
+                            {
+                                AnimationWithTime(-floatItemHalfHeight, tapAnimationDuration / 2);
+                            }
+                            
                             AdjustLabelPosition();
                         }
                         break;
-                    case TimeAniType.PanFinishedAni:
+                    case FinishAniType.Pan:
                         {
-                            if (RepeatCnt == 0)
+                            if (finishTimerLoopCount == 0)
                             {
                                 FinishAnimation(true);
                             }
@@ -601,23 +624,28 @@ namespace Tizen.FH.NUI.Controls
                     default:
                         break;
                 }
+                
                 return true;
             }    
         }
         private void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
         {
             Console.WriteLine("----OnTapGestureDetected---, e.TapGesture.y = " + e.TapGesture.LocalPoint.Y);
-            if (gestureState != 0)
+            
+            if (panAnimationState != PanAnimationState.None)
             {
                 return;
             }
-            if (notRelease)
+            
+            if (!isTouchRelease)
             {
                 return;
             }
+            
             if (!finishedTimer.IsRunning())
             {
                 float Y = e.TapGesture.LocalPoint.Y;
+                
                 if (Y < (dividerRec.Position2D.Y - clipView.Position2D.Y))
                 {
                     if (curValue == nMin)
@@ -626,16 +654,14 @@ namespace Tizen.FH.NUI.Controls
                     }
                     else
                     {
-                        moveState = 1;
-                        movelen = FLOARTITEMHEIGHT_HALF;
-                        calculateMove = FLOARTITEMHEIGHT - movelen;
-                        tapFinishedMove = ITEMHEIGHT - calculateMove;
-                        AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
+                        moveDirection = Direction.Down;
+                        calculateAdjustLen = floatItemHalfHeight;
+                        AnimationWithTime(floatItemHalfHeight, tapAnimationDuration / 2);
 
                         if (finishedTimer != null)
                         {
-                            timeAniType = TimeAniType.TapFinishedAni;
-                            RepeatCnt = 1;
+                            finishAniType = FinishAniType.Tap;
+                            finishTimerLoopCount = 1;
                             finishedTimer.Interval = (uint)spinAnimation.Duration;
                             finishedTimer.Start();
                         }
@@ -647,6 +673,7 @@ namespace Tizen.FH.NUI.Controls
                     {
                         return;
                     }
+                    
                     SwitchToTextField();                    
                     FocusManager.Instance.SetCurrentFocusView(textField);
                 }
@@ -658,17 +685,14 @@ namespace Tizen.FH.NUI.Controls
                     }
                     else
                     {
-                        moveState = 2;
-                        movelen = -FLOARTITEMHEIGHT_HALF;
-                        calculateMove = -FLOARTITEMHEIGHT - movelen;
-                        tapFinishedMove = -ITEMHEIGHT - calculateMove;
-
-                        AnimationWithTime(calculateMove, TAP_ANIMATION_TIME/2);
+                        moveDirection = Direction.Up;
+                        calculateAdjustLen = -floatItemHalfHeight;
+                        AnimationWithTime(-floatItemHalfHeight, tapAnimationDuration / 2);
 
                         if (finishedTimer != null)
                         {
-                            timeAniType = TimeAniType.TapFinishedAni;
-                            RepeatCnt = 1;
+                            finishAniType = FinishAniType.Tap;
+                            finishTimerLoopCount = 1;
                             finishedTimer.Interval = (uint)spinAnimation.Duration;
                             finishedTimer.Start();
                         }
@@ -676,21 +700,21 @@ namespace Tizen.FH.NUI.Controls
                 }
             }            
         }    
+        
         private void PanGestureInit()
         {    
-            gestureState = 1;
-            moveState = 0;
-            movelen = 0;
-
-            curHeight = ITEMHEIGHT; 
-            aniViewHeight = 0;
-            curMove = 0;
-            finishedState = 2;
-            RepeatCnt = 0;
+            panAnimationState = PanAnimationState.None;
+            moveDirection = Direction.None;
+            calculateAdjustLen = 0;
+            midItemPositionY = itemHeight; 
+            aniViewPositionY = 0;
+            curMoveHeight = 0;
+            finishAniAction = FinishAniAction.None;
+            finishTimerLoopCount = 0;
             
             //calculate the max movement
-            maxMoveDown = (curValue - nMin)*ITEMHEIGHT;
-            maxMoveUp = (curValue-nMax)*ITEMHEIGHT;            
+            maxMoveDownHeight = (curValue - nMin) * itemHeight;
+            maxMoveUpHeight = (curValue - nMax) * itemHeight;            
         }
 
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
@@ -700,50 +724,57 @@ namespace Tizen.FH.NUI.Controls
             if (e.PanGesture.State == Gesture.StateType.Started)
             {
                 Console.WriteLine("------e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time);
+                
                 if (finishedTimer.IsRunning())
                 {
                     finishedTimer.Stop();
                     ResetPositon();
                 }
+                
                 if (aniView.Position2D.Y != 0)
                 {
                     ResetPositon();
                 }
+                
                 PanGestureInit();
                 
                 if (e.PanGesture.Displacement.Y > 0)
                 {
-                    moveState = 1;
-                    movelen = ITEMHEIGHT_HALF;
+                    moveDirection = Direction.Down;
+                    calculateAdjustLen = itemHeight / 2;
                 }
                 else
                 {
-                    moveState = 2;
-                    movelen = -ITEMHEIGHT_HALF;
+                    moveDirection = Direction.Up;
+                    calculateAdjustLen = -itemHeight / 2;
                 }
-                timeAniType = TimeAniType.PanFinishedAni;
+                
+                finishAniType = FinishAniType.Pan;
             }
 
             if (e.PanGesture.State == Gesture.StateType.Continuing || e.PanGesture.State == Gesture.StateType.Started)
             {
                 Console.WriteLine("----- e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time + "Y=" + e.PanGesture.Displacement.Y);
+                
+                float calculateMove = 0f;
+                
                 spinAnimation.Stop();
-                curMove += e.PanGesture.Displacement.Y;
-
-                gestureState = 2;
+                curMoveHeight += e.PanGesture.Displacement.Y;
+                panAnimationState = PanAnimationState.PanAni;
 
                 if (e.PanGesture.Displacement.Y > 0)
                 {
-                    if (moveState == 2)
+                    if (moveDirection == Direction.Up)
                     {
-                        movelen += ITEMHEIGHT;
+                        calculateAdjustLen += itemHeight;
                     }
-                    last = e.PanGesture.Displacement.Y;
                     
-                    if (curMove > maxMoveDown)
+                    lastMoveHeight = e.PanGesture.Displacement.Y;
+                    
+                    if (curMoveHeight > maxMoveDownHeight)
                     {
-                        calculateMove = maxMoveDown - (curMove - e.PanGesture.Displacement.Y);
-                        curMove = maxMoveDown;
+                        calculateMove = maxMoveDownHeight - (curMoveHeight - e.PanGesture.Displacement.Y);
+                        curMoveHeight = maxMoveDownHeight;
                     }
                     else
                     {
@@ -752,44 +783,42 @@ namespace Tizen.FH.NUI.Controls
 
                     if(calculateMove != 0)
                     {
-                        moveState = 1;
+                        moveDirection = Direction.Down;
                     }
                     else
                     {
-                        moveState = 1;
+                        moveDirection = Direction.Down;
                         return;
                     }
-                    //  when need to change the font and color!!!!!!
 
-                    while (calculateMove > FLOARTITEMHEIGHT)// need improve
+                    while (calculateMove > floatItemHeight)// need improve
                     {
                         spinAnimation.Stop();
-                        spinAnimation.Clear();
-                        
-                        aniViewHeight += FLOARTITEMHEIGHT;
-                        spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewHeight, 0));
-
-                        AdjustLabelPosition();
-                        
-                        calculateMove -= FLOARTITEMHEIGHT;
+                        spinAnimation.Clear();                        
+                        aniViewPositionY += floatItemHeight;
+                        spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewPositionY, 0));
+                        AdjustLabelPosition();                        
+                        calculateMove -= floatItemHeight;
                     }
                     
                     AnimationWithTime(calculateMove, 50);                    
-                    movelen += calculateMove;                    
+                    calculateAdjustLen += calculateMove;                    
                 }
                 else if (e.PanGesture.Displacement.Y < 0)
                 {
-                    Console.WriteLine("----curValue : " + curValue +" " + maxMoveUp +" " + curMove);
-                    if (moveState == 1)
-                    {
-                        movelen -= ITEMHEIGHT;
-                    }
-                    last = -e.PanGesture.Displacement.Y;
+                    Console.WriteLine("----curValue : " + curValue + " " + maxMoveUpHeight + " " + curMoveHeight);
                     
-                    if (curMove < maxMoveUp)
+                    if (moveDirection == Direction.Down)
                     {
-                        calculateMove = maxMoveUp - (curMove - e.PanGesture.Displacement.Y);
-                        curMove = maxMoveUp;
+                        calculateAdjustLen -= itemHeight;
+                    }
+                    
+                    lastMoveHeight = -e.PanGesture.Displacement.Y;
+                    
+                    if (curMoveHeight < maxMoveUpHeight)
+                    {
+                        calculateMove = maxMoveUpHeight - (curMoveHeight - e.PanGesture.Displacement.Y);
+                        curMoveHeight = maxMoveUpHeight;
                     }
                     else
                     {
@@ -798,39 +827,36 @@ namespace Tizen.FH.NUI.Controls
                                         
                     if(calculateMove != 0)
                     {
-                        moveState = 2;
+                        moveDirection = Direction.Up;
                     }
                     else
                     {
-                        moveState = 2;
+                        moveDirection = Direction.Up;
                         return;
                     }
 
-                    while (calculateMove < -FLOARTITEMHEIGHT) // need improve
+                    while (calculateMove < -floatItemHeight) // need improve
                     {
                         spinAnimation.Stop();
-                        spinAnimation.Clear();
-                        
-                        aniViewHeight -= FLOARTITEMHEIGHT;
-                        spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewHeight, 0));
-                        
-                        AdjustLabelPosition();
-                        
-                        calculateMove += FLOARTITEMHEIGHT;
+                        spinAnimation.Clear();                        
+                        aniViewPositionY -= floatItemHeight;
+                        spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewPositionY, 0));                        
+                        AdjustLabelPosition();                   
+                        calculateMove += floatItemHeight;
                     }
                     
                     AnimationWithTime(calculateMove, 50);
-                    movelen += calculateMove;    
+                    calculateAdjustLen += calculateMove;    
                 }
                                 
-                if ((moveState == 1) && ((movelen >= FLOARTITEMHEIGHT)))
+                if ((moveDirection == Direction.Down) && ((calculateAdjustLen >= floatItemHeight)))
                 {
-                    movelen -= ITEMHEIGHT;
+                    calculateAdjustLen -= itemHeight;
                     AdjustLabelPosition();
                 }
-                else if ((moveState == 2) && ((movelen <= -FLOARTITEMHEIGHT)))
+                else if ((moveDirection == Direction.Up) && ((calculateAdjustLen <= -floatItemHeight)))
                 {
-                    movelen += ITEMHEIGHT;
+                    calculateAdjustLen += itemHeight;
                     AdjustLabelPosition();
                 }
             }
@@ -838,63 +864,63 @@ namespace Tizen.FH.NUI.Controls
             if (e.PanGesture.State == Gesture.StateType.Finished)
             {
                 Console.WriteLine("------e.PanGesture.State = " + e.PanGesture.State + "time = " + e.PanGesture.Time);
-                gestureState = 3;
                 
-                if (last < 2)
+                panAnimationState = PanAnimationState.FinishAni;
+                
+                if (lastMoveHeight < 2)
                 {
-                    finishedState = 0;
+                    finishAniAction = FinishAniAction.MoveToCenter;
                 }
-                else if (last >= 2 && last <= 3)
+                else if (lastMoveHeight >= 2 && lastMoveHeight <= 3)
                 {
-                    finishedState = 1; 
+                    finishAniAction = FinishAniAction.MoveToNext; 
                 }
-                else if (last > 3 && last <= 10)
+                else if (lastMoveHeight > 3 && lastMoveHeight <= 10)
                 {
-                    finishedState = 2; 
+                    finishAniAction = FinishAniAction.MoveToNext5; 
                 }
                 else
                 {
-                    finishedState = 3; 
+                    finishAniAction = FinishAniAction.MoveToNext20; 
                 }
 
-                Console.WriteLine("---finishedState: " + finishedState);
+                Console.WriteLine("---finishAniAction: " + finishAniAction);
                 
-                if (finishedState == 0)
+                if (finishAniAction == FinishAniAction.MoveToCenter)
                 {
-                    // move to center
                     if (finishedTimer != null)
                     {
-                        if (moveState == 1)
+                        if (moveDirection == Direction.Down)
                         {
-                            AnimationWithTime(FLOARTITEMHEIGHT_HALF - movelen, 100*GetAbs(FLOARTITEMHEIGHT_HALF - movelen)/ITEMHEIGHT); 
+                            AnimationWithTime(floatItemHalfHeight - calculateAdjustLen, 100 * GetAbs(floatItemHalfHeight - calculateAdjustLen) / itemHeight); 
                             
                         }
-                        else if (moveState == 2)
+                        else if (moveDirection == Direction.Up)
                         {
-                            AnimationWithTime(-FLOARTITEMHEIGHT_HALF - movelen, 100*GetAbs(-FLOARTITEMHEIGHT_HALF - movelen)/ITEMHEIGHT);
+                            AnimationWithTime(-floatItemHalfHeight - calculateAdjustLen, 100 * GetAbs(-floatItemHalfHeight - calculateAdjustLen) / itemHeight);
                         }
                                                 
                         finishedTimer.Interval = (uint)spinAnimation.Duration;
-                        RepeatCnt = 0;
+                        finishTimerLoopCount = 0;
                         finishedTimer.Start();
                     }
                 }
-                else if (finishedState == 1)
+                else if (finishAniAction == FinishAniAction.MoveToNext)
                 {
-                    timeSetting = 500;
-                    timeStep = 100;
+                    finishTimerFirstInterval = 500;
+                    finishTimerIncreaseInterval = 100;
                     StartFinishedAnimation(1);                        
                 }
-                else if (finishedState == 2)
+                else if (finishAniAction == FinishAniAction.MoveToNext5)
                 {
-                    timeSetting = 100;
-                    timeStep = 60;
+                    finishTimerFirstInterval = 100;
+                    finishTimerIncreaseInterval = 60;
                     StartFinishedAnimation(5);
                 }
-                else if (finishedState == 3)
+                else if (finishAniAction == FinishAniAction.MoveToNext20)
                 {
-                    timeSetting = 15;
-                    timeStep = 6;
+                    finishTimerFirstInterval = 15;
+                    finishTimerIncreaseInterval = 6;
                     StartFinishedAnimation(20);
                 }                    
             }
@@ -903,69 +929,67 @@ namespace Tizen.FH.NUI.Controls
         private void FinishAnimation(bool isHalfItemHeight)
         {
             float moveHeight = 0;
+            
             if (isHalfItemHeight)
             {
-                moveHeight = FLOARTITEMHEIGHT_HALF;
+                moveHeight = floatItemHalfHeight;
             }
             else
             {
-                moveHeight = FLOARTITEMHEIGHT;
+                moveHeight = floatItemHeight;
             }
             
-            timeSetting += timeStep;
-            spinAnimation.Duration = timeSetting;
+            finishTimerFirstInterval += finishTimerIncreaseInterval;
+            spinAnimation.Duration = finishTimerFirstInterval;
             finishedTimer.Interval = (uint)spinAnimation.Duration;
 
-            if (moveState == 1)
+            if (moveDirection == Direction.Down)
             {
-                if ((maxMoveDown- curMove) < FLOARTITEMHEIGHT)
+                if ((maxMoveDownHeight- curMoveHeight) < floatItemHeight)
                 {
-                    RepeatCnt = 0;
-                    moveHeight = FLOARTITEMHEIGHT_HALF;
+                    finishTimerLoopCount = 0;
+                    moveHeight = floatItemHalfHeight;
                 }
                 
-                curMove += moveHeight;
+                curMoveHeight += moveHeight;
 
-                if (curMove > maxMoveDown)
+                if (curMoveHeight > maxMoveDownHeight)
                 {
-                    curMove = maxMoveDown;
+                    curMoveHeight = maxMoveDownHeight;
                     return;
                 }
                 else
                 {
                     spinAnimation.Stop();
                     spinAnimation.Clear();
-                    aniViewHeight += moveHeight;
-                    Console.WriteLine("aniViewHeight: " + aniViewHeight + " "+aniView.Position2D.Y);
-                    spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewHeight, 0));
+                    aniViewPositionY += moveHeight;
+                    spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewPositionY, 0));
                     spinAnimation.Play();
-
                     AdjustLabelPosition();
                 }
             }
-            else if (moveState == 2)
+            else if (moveDirection == Direction.Up)
             {
-                if ((maxMoveUp- curMove) > -FLOARTITEMHEIGHT)
+                if ((maxMoveUpHeight- curMoveHeight) > -floatItemHeight)
                 {
-                    RepeatCnt = 0;
-                    moveHeight = FLOARTITEMHEIGHT_HALF;
+                    finishTimerLoopCount = 0;
+                    moveHeight = floatItemHalfHeight;
                 }
                 
-                curMove -= moveHeight;
+                curMoveHeight -= moveHeight;
 
-                if (curMove < maxMoveUp)
+                if (curMoveHeight < maxMoveUpHeight)
                 {
-                    curMove = maxMoveUp;
+                    curMoveHeight = maxMoveUpHeight;
                     return;
                 }
                 else
                 {
                     spinAnimation.Stop();
                     spinAnimation.Clear();
-                    aniViewHeight -= moveHeight;
-                    spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewHeight, 0));
-                    spinAnimation.Play();
-                
+                    aniViewPositionY -= moveHeight;
+                    spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewPositionY, 0));
+                    spinAnimation.Play();                
                     AdjustLabelPosition();
                 }
             }
@@ -973,39 +997,39 @@ namespace Tizen.FH.NUI.Controls
         
         private void AdjustLabelPosition()
         {
-            if (moveState == 1)
+            if (moveDirection == Direction.Down)
             {
-                curHeight -= ITEMHEIGHT;
+                midItemPositionY -= itemHeight;
                 
-                pre = (pre == 0)? 3: pre-1;
-                cur = (cur == 0)? 3: cur-1;
-                next = (next == 0)? 3: next-1;
-                label[pre].Position2D = new Position2D(0, curHeight - ITEMHEIGHT);
-                label[pre].Text = GetStrValue(curValue - 2);
-                label[pre].Opacity = 0.4f;
-                label[pre].PointSize = TEXTSIZE;
-                label[cur].Opacity = 1.0f;
-                label[cur].PointSize = TEXTSIZE_CENTER;
-                label[next].Opacity = 0.4f;
-                label[next].PointSize = TEXTSIZE;
+                upItemIndex = (upItemIndex == 0) ? 3 : upItemIndex - 1;
+                midItemIndex = (midItemIndex == 0) ? 3 : midItemIndex - 1;
+                downItemIndex = (downItemIndex == 0) ? 3 : downItemIndex - 1;
+                itemLabel[upItemIndex].Position2D = new Position2D(0, midItemPositionY - itemHeight);
+                itemLabel[upItemIndex].Text = GetStrValue(curValue - 2);
+                itemLabel[upItemIndex].Opacity = 0.4f;
+                itemLabel[upItemIndex].PointSize = upDownItemTextSize;
+                itemLabel[midItemIndex].Opacity = 1.0f;
+                itemLabel[midItemIndex].PointSize = midItemTextSize;
+                itemLabel[downItemIndex].Opacity = 0.4f;
+                itemLabel[downItemIndex].PointSize = upDownItemTextSize;
 
                 curValue -= 1;
             }
-            else if (moveState == 2)
+            else if (moveDirection == Direction.Up)
             {
-                curHeight += ITEMHEIGHT;
+                midItemPositionY += itemHeight;
                 
-                pre = (pre == 3)? 0: pre+1;
-                cur = (cur == 3)? 0: cur+1;
-                next = (next == 3)? 0: next+1;
-                label[next].Position2D = new Position2D(0, curHeight + ITEMHEIGHT);
-                label[next].Text = GetStrValue(curValue + 2);
-                label[pre].Opacity = 0.4f;
-                label[pre].PointSize = TEXTSIZE;
-                label[cur].Opacity = 1.0f;
-                label[cur].PointSize = TEXTSIZE_CENTER;
-                label[next].Opacity = 0.4f;
-                label[next].PointSize = TEXTSIZE;
+                upItemIndex = (upItemIndex == 3) ? 0 : upItemIndex + 1;
+                midItemIndex = (midItemIndex == 3) ? 0 : midItemIndex + 1;
+                downItemIndex = (downItemIndex == 3) ? 0 : downItemIndex + 1;
+                itemLabel[downItemIndex].Position2D = new Position2D(0, midItemPositionY + itemHeight);
+                itemLabel[downItemIndex].Text = GetStrValue(curValue + 2);
+                itemLabel[upItemIndex].Opacity = 0.4f;
+                itemLabel[upItemIndex].PointSize = upDownItemTextSize;
+                itemLabel[midItemIndex].Opacity = 1.0f;
+                itemLabel[midItemIndex].PointSize = midItemTextSize;
+                itemLabel[downItemIndex].Opacity = 0.4f;
+                itemLabel[downItemIndex].PointSize = upDownItemTextSize;
                 
                 curValue += 1;
             }
@@ -1015,38 +1039,38 @@ namespace Tizen.FH.NUI.Controls
         {
             spinAnimation.Stop();
             spinAnimation.Clear();
-            gestureState = 0;
-            movelen= 0;
-            pre = 0;
-            cur = 1;
-            next = 2;
+            panAnimationState = 0;
+            calculateAdjustLen= 0;
+            upItemIndex = 0;
+            midItemIndex = 1;
+            downItemIndex = 2;
             aniView.Position2D = new Position2D(0, 0);
-            label[0].Position2D = new Position2D(0, 0);
-            label[0].Text = GetStrValue(curValue-1);
-            label[1].Position2D = new Position2D(0, ITEMHEIGHT);
-            label[1].Text = GetStrValue(curValue);
-            label[2].Position2D = new Position2D(0, ITEMHEIGHT*2);
-            label[2].Text = GetStrValue(curValue+1);
-            label[pre].Opacity = 0.4f;
-            label[pre].PointSize = TEXTSIZE;
-            label[cur].Opacity = 1.0f;
-            label[cur].PointSize = TEXTSIZE_CENTER;
-            label[next].Opacity = 0.4f;
-            label[next].PointSize = TEXTSIZE;
-            curHeight = ITEMHEIGHT;
-            aniViewHeight = 0;
+            itemLabel[0].Position2D = new Position2D(0, 0);
+            itemLabel[0].Text = GetStrValue(curValue - 1);
+            itemLabel[1].Position2D = new Position2D(0, itemHeight);
+            itemLabel[1].Text = GetStrValue(curValue);
+            itemLabel[2].Position2D = new Position2D(0, itemHeight * 2);
+            itemLabel[2].Text = GetStrValue(curValue + 1);
+            itemLabel[upItemIndex].Opacity = 0.4f;
+            itemLabel[upItemIndex].PointSize = upDownItemTextSize;
+            itemLabel[midItemIndex].Opacity = 1.0f;
+            itemLabel[midItemIndex].PointSize = midItemTextSize;
+            itemLabel[downItemIndex].Opacity = 0.4f;
+            itemLabel[downItemIndex].PointSize = upDownItemTextSize;
+            midItemPositionY = itemHeight;
+            aniViewPositionY = 0;
         }
         
         private void AnimationWithTime(float move, int time)
         {
             spinAnimation.Stop();
             spinAnimation.Clear();
-
-            aniViewHeight += move;
+            aniViewPositionY += move;
             spinAnimation.Duration = time;
-            spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewHeight, 0));
+            spinAnimation.AnimateTo(aniView, "Position", new Position(0, aniViewPositionY, 0));
             spinAnimation.Play();
         }
+        
         private void SwitchToTextField()
         {
             aniView.Hide();
@@ -1070,34 +1094,36 @@ namespace Tizen.FH.NUI.Controls
 
         private void StartFinishedAnimation(uint cnt)
         {
-            if (movelen != FLOARTITEMHEIGHT/2 && movelen != -FLOARTITEMHEIGHT/2)
+            if (calculateAdjustLen != floatItemHeight / 2 && calculateAdjustLen != -floatItemHeight / 2)
             {
-                if (moveState == 1)
+                if (moveDirection == Direction.Down)
                 {
-                    curMove += (FLOARTITEMHEIGHT - movelen);
-                    if (curMove > maxMoveDown)
+                    curMoveHeight += (floatItemHeight - calculateAdjustLen);
+                    
+                    if (curMoveHeight > maxMoveDownHeight)
                     {
-                        AnimationWithTime(FLOARTITEMHEIGHT_HALF - movelen, 100*GetAbs(FLOARTITEMHEIGHT_HALF - movelen)/ ITEMHEIGHT);
-                        RepeatCnt = 0;
+                        AnimationWithTime(floatItemHalfHeight - calculateAdjustLen, 100 * GetAbs(floatItemHalfHeight - calculateAdjustLen) / itemHeight);
+                        finishTimerLoopCount = 0;
                     }
                     else
                     {
-                        AnimationWithTime(FLOARTITEMHEIGHT - movelen, 100*GetAbs(FLOARTITEMHEIGHT - movelen)/ ITEMHEIGHT);
-                        RepeatCnt = cnt;
+                        AnimationWithTime(floatItemHeight - calculateAdjustLen, 100 * GetAbs(floatItemHeight - calculateAdjustLen) / itemHeight);
+                        finishTimerLoopCount = cnt;
                     }
                 }
-                else if (moveState == 2)
+                else if (moveDirection == Direction.Up)
                 {
-                    curMove += (-FLOARTITEMHEIGHT - movelen);
-                    if (curMove < maxMoveUp)
+                    curMoveHeight += (-floatItemHeight - calculateAdjustLen);
+                    
+                    if (curMoveHeight < maxMoveUpHeight)
                     {
-                        AnimationWithTime(-FLOARTITEMHEIGHT_HALF - movelen, 100*GetAbs(-FLOARTITEMHEIGHT_HALF - movelen)/ ITEMHEIGHT);
-                        RepeatCnt = 0;
+                        AnimationWithTime(-floatItemHalfHeight - calculateAdjustLen, 100 * GetAbs(-floatItemHalfHeight - calculateAdjustLen) / itemHeight);
+                        finishTimerLoopCount = 0;
                     }
                     else
                     {
-                        AnimationWithTime(-FLOARTITEMHEIGHT - movelen, 100*GetAbs(-FLOARTITEMHEIGHT - movelen)/ ITEMHEIGHT);
-                        RepeatCnt = cnt;
+                        AnimationWithTime(-floatItemHeight - calculateAdjustLen, 100 * GetAbs(-floatItemHeight - calculateAdjustLen) / itemHeight);
+                        finishTimerLoopCount = cnt;
                     }
                 }
                 if (finishedTimer != null)
@@ -1108,7 +1134,7 @@ namespace Tizen.FH.NUI.Controls
             }
             else
             {
-                RepeatCnt = cnt - 1;
+                finishTimerLoopCount = cnt - 1;
                 FinishAnimation(false);
                 finishedTimer.Start();
             }

@@ -7,26 +7,32 @@ namespace Tizen.FH.NUI.Controls
 {
     public class TimePicker : Control
     {
-        private ImageView backgroundImage;
-        private ImageView shadowImage;
-        private ImageView colonImage;
-        private ImageView colonImage2;
-        
-        private Spin hourSpin;
-        private Spin minuteSpin;
-        private Spin secondSpin;
-        private Spin AMPMSpin;
-
-        private View weekView;
-        private TextLabel titleText;
-        private ImageView[] weekSelectImage;
-        private TextLabel[] weekText;
-        private TextLabel weekTitleText;
-        private bool[] selected;
-
-        DateTime curTime;
-       
+        private ImageView backgroundImage = null;
+        private ImageView shadowImage = null;
+        private ImageView colonImage = null;
+        private ImageView colonImage2 = null;        
+        private Spin hourSpin = null;
+        private Spin minuteSpin = null;
+        private Spin secondSpin = null;
+        private Spin AMPMSpin = null;
+        private View weekView = null;
+        private TextLabel titleText = null;
+        private ImageView[] weekSelectImage = null;
+        private TextLabel[] weekText = null;
+        private TextLabel weekTitleText = null;
+        private bool[] selected = null;
+        private DateTime curTime;      
         private TimePickerAttributes timePickerAttributes;
+
+        public TimePicker() : base()
+        {
+            Initialize();
+        }
+        
+        public TimePicker(string style) : base(style)
+        {
+            Initialize();
+        }
 
         public DateTime CurTime
         {
@@ -39,15 +45,7 @@ namespace Tizen.FH.NUI.Controls
                 curTime = value;
             }
         }
-
-        public TimePicker() : base()
-        {
-            Initialize();
-        }
-        public TimePicker(string style) : base(style)
-        {
-            Initialize();
-        }
+        
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -63,42 +61,49 @@ namespace Tizen.FH.NUI.Controls
                     backgroundImage.Dispose();
                     backgroundImage = null;
                 }
+                
                 if (shadowImage != null)
                 {
                     Remove(shadowImage);
                     shadowImage.Dispose();
                     shadowImage = null;
                 }
+                
                 if (colonImage != null)
                 {
                     Remove(colonImage);
                     colonImage.Dispose();
                     colonImage = null;
                 }
+                
                 if (colonImage2 != null)
                 {
                     Remove(colonImage2);
                     colonImage2.Dispose();
                     colonImage2 = null;
                 }
+                
                 if (hourSpin != null)
                 {
                     Remove(hourSpin);
                     hourSpin.Dispose();
                     hourSpin = null;
                 }
+                
                 if (minuteSpin != null)
                 {
                     Remove(minuteSpin);
                     minuteSpin.Dispose();
                     minuteSpin = null;
                 }
+                
                 if (secondSpin != null)
                 {
                     Remove(secondSpin);
                     secondSpin.Dispose();
                     secondSpin = null;
                 }
+                
                 if (AMPMSpin != null)
                 {
                     Remove(AMPMSpin);
@@ -121,6 +126,7 @@ namespace Tizen.FH.NUI.Controls
                         weekTitleText.Dispose();
                         weekTitleText = null;
                     }
+                    
                     if (weekSelectImage != null)
                     {
                         for (int i = 0; i < 7; i++)
@@ -130,6 +136,7 @@ namespace Tizen.FH.NUI.Controls
                             weekSelectImage[i] = null;
                         }
                     }
+                    
                     if (weekText!= null)
                     {
                         for (int i = 0; i < 7; i++)
@@ -140,6 +147,7 @@ namespace Tizen.FH.NUI.Controls
                             weekText[i] = null;
                         }
                     }
+                    
                     Remove(weekView);
                     weekView.Dispose();
                     weekView = null;
@@ -147,21 +155,7 @@ namespace Tizen.FH.NUI.Controls
             }
 
             base.Dispose(type);
-        }
-        
-        protected override bool OnKey(object source, KeyEventArgs e)
-        {
-            return base.OnKey(source, e);
         }   
-        protected override void OnFocusGained(object sender, EventArgs e)
-        {
-            base.OnFocusGained(sender, e);
-
-        }
-        protected override void OnFocusLost(object sender, EventArgs e)
-        {
-            base.OnFocusLost(sender, e);
-        }
 
         protected override Attributes GetAttributes()
         {
@@ -171,6 +165,7 @@ namespace Tizen.FH.NUI.Controls
         protected override void OnUpdate(Attributes attributtes)
         {
             timePickerAttributes = attributes as TimePickerAttributes;
+            
             if (timePickerAttributes == null)
             {
                 return;
@@ -197,8 +192,10 @@ namespace Tizen.FH.NUI.Controls
                 }
                 ApplyAttributes(weekTitleText, timePickerAttributes.WeekTitleTextAttributes);
             }
+            
             int w = 0;
             int h = 0;
+            
             if (shadowImage != null)
             {
                 w = (int)(Size2D.Width + timePickerAttributes.ShadowOffset.W + timePickerAttributes.ShadowOffset.X);
@@ -208,7 +205,8 @@ namespace Tizen.FH.NUI.Controls
 
             int x = 0;
             int y = 0;
-            if (secondSpin != null)
+            
+            if (colonImage2 != null)
             {
                 x = minuteSpin.Position2D.X + minuteSpin.Size2D.Width + (minuteSpin.Position2D.X - hourSpin.Position2D.X - hourSpin.Size2D.Width - colonImage.Size2D.Width)/2;
                 colonImage2.Position2D = new Position2D(x, colonImage2.Position2D.Y);
@@ -241,7 +239,6 @@ namespace Tizen.FH.NUI.Controls
             {
                 hourSpin.Max = 11;
                 hourSpin.Min = 0;
-
                 AMPMSpin.Max = 1;
                 AMPMSpin.Min = 0;
             }
@@ -265,6 +262,7 @@ namespace Tizen.FH.NUI.Controls
         private void Initialize()
         {
             timePickerAttributes = attributes as TimePickerAttributes;
+            
             if (timePickerAttributes == null)
             {
                 throw new Exception("Picker attribute parse error.");
@@ -287,6 +285,7 @@ namespace Tizen.FH.NUI.Controls
                     WidthResizePolicy = ResizePolicyType.FillToParent,
                     HeightResizePolicy = ResizePolicyType.FillToParent
                 };
+                
                 Add(backgroundImage);
             }
 
@@ -297,6 +296,7 @@ namespace Tizen.FH.NUI.Controls
                     WidthResizePolicy = ResizePolicyType.FillToParent,
                     HeightResizePolicy = ResizePolicyType.FillToParent
                 };
+                
                 Add(colonImage);
             }
 
@@ -304,6 +304,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 hourSpin = new Spin("DASpin");
                 hourSpin.NameText = "Hours";
+                
                 if (timePickerAttributes.AMPMSpinAttributes != null)
                 {
                     hourSpin.CurValue = curTime.Hour%12;
@@ -338,6 +339,7 @@ namespace Tizen.FH.NUI.Controls
                         WidthResizePolicy = ResizePolicyType.FillToParent,
                         HeightResizePolicy = ResizePolicyType.FillToParent
                     };
+                    
                     Add(colonImage2);
                 }
             }
@@ -363,7 +365,8 @@ namespace Tizen.FH.NUI.Controls
                 if (timePickerAttributes.WeekSelectImageAttributes != null)
                 {
                     weekSelectImage = new ImageView[7];
-                    selected = new bool[7];        
+                    selected = new bool[7];
+                    
                     for (int i = 0; i < 7; i++)
                     {
                         weekSelectImage[i] = new ImageView()
@@ -371,9 +374,9 @@ namespace Tizen.FH.NUI.Controls
                             WidthResizePolicy = ResizePolicyType.FillToParent,
                             HeightResizePolicy = ResizePolicyType.FillToParent
                         };
+                        
                         weekSelectImage[i].Hide();
                         weekView.Add(weekSelectImage[i]);
-
                         selected[i] = false;
                     }                
                 }
@@ -381,6 +384,7 @@ namespace Tizen.FH.NUI.Controls
                 if (timePickerAttributes.WeekTextAttributes != null)
                 {
                     weekText = new TextLabel[7];
+                    
                     for (int i = 0; i < 7; i++)
                     {
                         weekText[i] = new TextLabel();
@@ -402,9 +406,11 @@ namespace Tizen.FH.NUI.Controls
         {
             TextLabel textLabel = source as TextLabel;
             PointStateType state = e.Touch.GetState(0);
+            
             if (state == PointStateType.Down)
             {
                 int i = 0;
+                
                 for (i = 0; i < 7; i++)
                 {
                     if (weekText[i] == textLabel)
@@ -412,6 +418,7 @@ namespace Tizen.FH.NUI.Controls
                         break;
                     }
                 }
+                
                 if (selected[i] == false)
                 {
                     selected[i] = true;

@@ -31,7 +31,7 @@ namespace Tizen.NUI.CommonUI
 
         public FlexibleView()
         {
-            mRecyclerPool = new RecycledViewPool();
+            mRecyclerPool = new RecycledViewPool(this);
 
             mRecycler = new Recycler(this);
             mRecycler.SetRecycledViewPool(mRecyclerPool);
@@ -506,6 +506,14 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        private void DispatchChildDestroyed(ViewHolder holder)
+        {
+            if (mAdapter != null && holder != null)
+            {
+                mAdapter.OnDestroyViewHolder(holder);
+            }
+        }
+
         private void DispatchItemClicked(ViewHolder clickedHolder)
         {
             ItemClickEventArgs args = new ItemClickEventArgs();
@@ -581,6 +589,8 @@ namespace Tizen.NUI.CommonUI
             public abstract ViewHolder OnCreateViewHolder(int viewType);
 
             public abstract void OnBindViewHolder(ViewHolder holder, int position);
+
+            public abstract void OnDestroyViewHolder(ViewHolder holder);
 
             public abstract int GetItemCount();
 
@@ -1514,6 +1524,8 @@ namespace Tizen.NUI.CommonUI
                 foreach(ViewHolder holder in mViewList)
                 {
                     mFlexibleView.Remove(holder.ItemView);
+
+                    mFlexibleView.DispatchChildDestroyed(holder);
                 }
                 mViewList.Clear();
             }
@@ -1877,7 +1889,7 @@ namespace Tizen.NUI.CommonUI
 
         public class Recycler
         {
-            private FlexibleView mRecyclerView;
+            private FlexibleView mFlexibleView;
             private RecycledViewPool mRecyclerPool;
 
             private List<ViewHolder> mAttachedScrap = new List<ViewHolder>();
@@ -1890,7 +1902,7 @@ namespace Tizen.NUI.CommonUI
 
             public Recycler(FlexibleView recyclerView)
             {
-                mRecyclerView = recyclerView;
+                mFlexibleView = recyclerView;
             }
 
             public void SetViewCacheSize(int viewCount)
@@ -1905,7 +1917,7 @@ namespace Tizen.NUI.CommonUI
 
             public ViewHolder GetViewForPosition(int position)
             {
-                Adapter b = mRecyclerView != null ? mRecyclerView.mAdapter : null;
+                Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
                 if (b == null)
                 {
                     return null;
@@ -1989,11 +2001,14 @@ namespace Tizen.NUI.CommonUI
 
         internal class RecycledViewPool
         {
+            private FlexibleView mFlexibleView;
+
             private int mMaxTypeCount = 10;
             private List<ViewHolder>[] mScrap;
 
-            public RecycledViewPool()
+            public RecycledViewPool(FlexibleView flexibleView)
             {
+                mFlexibleView = flexibleView;
                 mScrap = new List<ViewHolder>[mMaxTypeCount];
             }
 
@@ -2040,7 +2055,7 @@ namespace Tizen.NUI.CommonUI
                     }
                     for (int j = 0; j < mScrap[i].Count; j++)
                     {
-                        mScrap[i][j].ItemView.Dispose();
+                        mFlexibleView.DispatchChildDestroyed(mScrap[i][j]);
                     }
                     mScrap[i].Clear();
                 }

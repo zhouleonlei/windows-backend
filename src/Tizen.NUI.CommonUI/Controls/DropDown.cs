@@ -664,16 +664,6 @@ namespace Tizen.NUI.CommonUI
                         listBackgroundImage = null;
                     }
 
-                    uint childCount = list.GetChildCount();
-                    for (uint i = 0; i < childCount; i++)
-                    {
-                        DropDownItemView child = list.GetChildAt(i) as DropDownItemView;
-                        if (child != null)
-                        {
-                            child.Dispose();
-                        }
-                    }
-
                     Remove(list);
                     list.Dispose();
                     list = null;
@@ -1596,6 +1586,14 @@ namespace Tizen.NUI.CommonUI
 
                     listItemView.IsSelected = listItemData.IsSelected;
                 }              
+            }
+
+            public override void OnDestroyViewHolder(FlexibleView.ViewHolder holder)
+            {
+                if (holder.ItemView != null)
+                {
+                    holder.ItemView.Dispose();
+                }
             }
 
             public override int GetItemCount()
