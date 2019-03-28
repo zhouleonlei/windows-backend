@@ -234,20 +234,20 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(focusImage, pickerAttributes.FocusImageAttributes);
             ApplyAttributes(endSelectedImage, pickerAttributes.EndSelectedImageAttributes);
 
-            if (pickerAttributes.DropDownAttrs != null)
+            if (pickerAttributes.YearDropDownAttributes != null)
             {
-                dropDown = new DropDown(pickerAttributes.DropDownAttrs);  
+                dropDown = new DropDown(pickerAttributes.YearDropDownAttributes);  
                 dropDown.ItemClickEvent += OnDropDownItemClickEvent;
                 Add(dropDown);
             }
             
-            if (pickerAttributes.DropDownItemAttrs != null)
+            if (pickerAttributes.YearDropDownItemAttributes != null)
             {
                 int value = showDate.Year;
                 
                 for (int i = (int)pickerAttributes.YearRange.X; i <= (int)pickerAttributes.YearRange.Y; i++)
                 {
-                    DropDown.DropDownItemData item = new DropDown.DropDownItemData(pickerAttributes.DropDownItemAttrs);
+                    DropDown.DropDownItemData item = new DropDown.DropDownItemData(pickerAttributes.YearDropDownItemAttributes);
                     item.Text = i.ToString();
                     dropDown.AddItem(item);
                 }
@@ -266,7 +266,7 @@ namespace Tizen.FH.NUI.Controls
                     }
                     else
                     {
-                        ApplyAttributes(dateTable[i, j], pickerAttributes.DateTextAttributes2);
+                        ApplyAttributes(dateTable[i, j], pickerAttributes.DateText2Attributes);
                     }
                 }
             }
@@ -361,7 +361,7 @@ namespace Tizen.FH.NUI.Controls
                 Add(monthText);
             }
 
-            if (pickerAttributes.DropDownAttrs != null)
+            if (pickerAttributes.YearDropDownAttributes != null)
             {
 
             }

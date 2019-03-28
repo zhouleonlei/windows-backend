@@ -52,12 +52,12 @@ namespace Tizen.FH.NUI.Controls
         {
             ImageList = new List<string>();
 
-            progressObj.WidthResizePolicy = ResizePolicyType.FillToParent;
-            progressObj.HeightResizePolicy = ResizePolicyType.FillToParent;
-            loadingObj.WidthResizePolicy = ResizePolicyType.FillToParent;
-            loadingObj.HeightResizePolicy = ResizePolicyType.FillToParent;
-            bufferObj.WidthResizePolicy = ResizePolicyType.FillToParent;
-            bufferObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            //progressObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            //progressObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            //loadingObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            //loadingObj.HeightResizePolicy = ResizePolicyType.FillToParent;
+            //bufferObj.WidthResizePolicy = ResizePolicyType.FillToParent;
+            //bufferObj.HeightResizePolicy = ResizePolicyType.FillToParent;
             textLabel = new TextLabel
             {
                 WidthResizePolicy = ResizePolicyType.UseNaturalSize,
@@ -70,18 +70,7 @@ namespace Tizen.FH.NUI.Controls
         }
         protected override void OnUpdate(Attributes attrs)
         {
-            if (attrs != null)
-                progressBarAttrs = attrs as ProgressBarAttributes;
-            if (progressBarAttrs == null)
-            {
-                return;
-            }
-
-            ApplyAttributes(this, progressBarAttrs);
-            ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
-            ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);
-            ApplyAttributes(loadingObj, progressBarAttrs.LoadingImageAttributes);
-            ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
+            base.OnUpdate(attrs);
             UpdateList();
             UpdateValue();
         }
@@ -113,7 +102,7 @@ namespace Tizen.FH.NUI.Controls
 
         protected override void UpdateValue()
         {
-            if (progressObj == null || ImageList == null ||
+            if (/*progressObj == null ||*/ ImageList == null ||
                 (currentValue == null && currentValue == null) ||
                 (maxValue == null && maxValue == null))
             {

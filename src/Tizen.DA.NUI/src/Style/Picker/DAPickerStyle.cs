@@ -187,7 +187,7 @@ namespace Tizen.FH.NUI.Controls
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
-                DateTextAttributes2 = new TextAttributes
+                DateText2Attributes = new TextAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
@@ -198,7 +198,7 @@ namespace Tizen.FH.NUI.Controls
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
-                DropDownAttrs = new DropDownAttributes
+                YearDropDownAttributes = new DropDownAttributes
                 {
                     ButtonAttributes = new ButtonAttributes
                     {
@@ -249,7 +249,7 @@ namespace Tizen.FH.NUI.Controls
                     Position2D = new Position2D(688, 32),
                     FocusedItemIndex = 0
                 },
-                DropDownItemAttrs = new DropDownItemAttributes
+                YearDropDownItemAttributes = new DropDownItemAttributes
                 {
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,

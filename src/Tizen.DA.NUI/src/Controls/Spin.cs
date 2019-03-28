@@ -314,13 +314,13 @@ namespace Tizen.FH.NUI.Controls
 
             ApplyAttributes(this, spinAttributes);
             ApplyAttributes(backgroundImage, spinAttributes.BackgroundImageAttributes);
-            ApplyAttributes(nameText, spinAttributes.NameTextAttrs);
+            ApplyAttributes(nameText, spinAttributes.NameTextAttributes);
             ApplyAttributes(nameView, spinAttributes.NameViewAttributes);
             ApplyAttributes(clipView, spinAttributes.ClipViewAttributes);
             ApplyAttributes(aniView, spinAttributes.AniViewAttributes);
-            ApplyAttributes(dividerRec, spinAttributes.DividerRecAttrs);
-            ApplyAttributes(dividerRec2, spinAttributes.DividerRec2Attrs);
-            ApplyAttributes(textField, spinAttributes.TextFieldAttrs);    
+            ApplyAttributes(dividerRec, spinAttributes.DividerRecAttributes);
+            ApplyAttributes(dividerRec2, spinAttributes.DividerRec2Attributes);
+            ApplyAttributes(textField, spinAttributes.TextFieldAttributes);    
             ApplyAttributes(maskBottomImage,spinAttributes.MaskBottomImageAttributes);
             ApplyAttributes(maskTopImage, spinAttributes.MaskTopImageAttributes);
 
@@ -335,7 +335,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    ApplyAttributes(itemLabel[i], spinAttributes.TextAttrs);
+                    ApplyAttributes(itemLabel[i], spinAttributes.ItemTextAttributes);
                 }
 
                 itemLabel[upItemIndex].Position2D = new Position2D(0, 0);
@@ -384,7 +384,7 @@ namespace Tizen.FH.NUI.Controls
                 clipView.TouchEvent += OnTouchEvent;
                 Add(clipView);
 
-                if (spinAttributes.TextFieldAttrs != null)
+                if (spinAttributes.TextFieldAttributes != null)
                 {
                     textField = new TextField()
                     {
@@ -419,7 +419,7 @@ namespace Tizen.FH.NUI.Controls
                 tapGestureDetector.Detected += OnTapGestureDetected;
                 tapGestureDetector.Attach(clipView);
                 
-                if (spinAttributes.TextAttrs != null)
+                if (spinAttributes.ItemTextAttributes != null)
                 {
                     itemLabel = new TextLabel[4];
                     
@@ -432,13 +432,13 @@ namespace Tizen.FH.NUI.Controls
                 
             }    
             
-            if (spinAttributes.DividerRecAttrs != null)
+            if (spinAttributes.DividerRecAttributes != null)
             {
                 dividerRec = new View();
                 Add(dividerRec);
             }
 
-            if (spinAttributes.DividerRec2Attrs != null)
+            if (spinAttributes.DividerRec2Attributes != null)
             {
                 dividerRec2 = new View();
                 Add(dividerRec2);
@@ -471,7 +471,7 @@ namespace Tizen.FH.NUI.Controls
                 nameView = new View();
                 Add(nameView);
                 
-                if (spinAttributes.NameTextAttrs != null)
+                if (spinAttributes.NameTextAttributes != null)
                 {
                     nameText = new TextLabel();
                     nameView.Add(nameText);

@@ -26,7 +26,6 @@ namespace Tizen.NUI.Samples
             pagination1.IndicatorSpacing = 8;
             pagination1.IndicatorCount = PAGE_COUNT;
             pagination1.SelectedIndex = 0;
-            pagination1.Focusable = true;
             window.Add(pagination1);
 
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
@@ -42,7 +41,6 @@ namespace Tizen.NUI.Samples
             pagination2.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
             pagination2.IndicatorCount = PAGE_COUNT;
             pagination2.SelectedIndex = 0;
-            pagination2.Focusable = true;
             window.Add(pagination2);
 
             window.KeyEvent += Window_KeyEvent;
@@ -81,6 +79,7 @@ namespace Tizen.NUI.Samples
         public void Deactivate()
         {
             Window window = Window.Instance;
+            window.KeyEvent -= Window_KeyEvent;
             window.Remove(pagination1);
             window.Remove(pagination2);
 
