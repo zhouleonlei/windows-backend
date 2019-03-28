@@ -2,36 +2,43 @@
 using System.Collections.Generic;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
-{
+{    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Loading : Control
-    {
+    {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public List<string> ImageArray = null;
         private LoadingAttributes loadingAttrs = null;  // Loading Attributes
 
         private ImageView imageView = null;             // ImageView object
         private AnimatedImageVisual imageVisual = null;
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading() : base()
         {
             loadingAttrs = this.attributes as LoadingAttributes;
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(string style) : base(style)
         {
             if (attributes != null)
                 loadingAttrs = attributes as LoadingAttributes;
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(LoadingAttributes attributes) : base()
         {
             this.attributes = loadingAttrs = attributes.Clone() as LoadingAttributes;
             Initialize();
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string LoadingImageURLPrefix
         {
             get
@@ -46,7 +53,8 @@ namespace Tizen.NUI.CommonUI
 
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int FPS
         {
             get
@@ -71,7 +79,8 @@ namespace Tizen.NUI.CommonUI
 
             }
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new LoadingAttributes
@@ -79,7 +88,8 @@ namespace Tizen.NUI.CommonUI
                 LoadingImageURLPrefix = new StringSelector(),
             };
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
             if (disposed)
@@ -109,7 +119,8 @@ namespace Tizen.NUI.CommonUI
             //You must call base.Dispose(type) just before exit.
             base.Dispose(type);
         }
-
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)
         {
             if (loadingAttrs == null)
