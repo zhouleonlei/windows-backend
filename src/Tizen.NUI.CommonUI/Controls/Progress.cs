@@ -12,7 +12,6 @@ namespace Tizen.NUI.CommonUI
         protected ImageView progressObj = null;
         protected ImageView bufferObj = null;
         protected ImageView loadingObj = null;
-        protected bool isLoadingEnabled = false;
         protected bool isEnabled = true;
 
         protected uint? minValue = null;
@@ -22,12 +21,6 @@ namespace Tizen.NUI.CommonUI
         protected Color trackColor = null;
         protected Color progressColor = null;
         protected Color bufferColor = null;
-        protected string trackURL = null;
-        protected string bufferURL = null;
-        protected string loadingImageURL = null;
-        protected string progressImageURL = null;
-        protected string progressImageURLPre = null;
-        protected DirectionType? direction = null;
         protected ProgressStatusType? state = null;
 
         public uint? BufValue
@@ -39,8 +32,7 @@ namespace Tizen.NUI.CommonUI
             set
             {
                 bufferValue = value;
-                //TNLog.D("maxValue = " + maxValue);
-                UpdateValue();/////
+                UpdateValue();
             }
         }
 
@@ -96,11 +88,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressImageURLPre;
+                if (progressBarAttrs.ProgressImageURLPrefix == null)
+                {
+                    progressBarAttrs.ProgressImageURLPrefix = new StringSelector();
+                }
+                return progressBarAttrs.ProgressImageURLPrefix.All;
             }
             set
             {
-                progressImageURLPre = value;
+                if (progressBarAttrs.ProgressImageURLPrefix == null)
+                {
+                    progressBarAttrs.ProgressImageURLPrefix = new StringSelector();
+                }
+                progressBarAttrs.ProgressImageURLPrefix.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -111,19 +112,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                if (trackURL != null)
+                if (progressBarAttrs.TrackImageAttributes.ResourceURL == null)
                 {
-                    return trackURL;
+                    progressBarAttrs.TrackImageAttributes.ResourceURL = new StringSelector();
                 }
-                return trackObj?.ResourceUrl;
+                return progressBarAttrs.TrackImageAttributes.ResourceURL.All;
             }
             set
             {
-                trackURL = value;
-                if (trackObj != null)
+                if (progressBarAttrs.TrackImageAttributes.ResourceURL == null)
                 {
-                    trackObj.ResourceUrl = value;
+                    progressBarAttrs.TrackImageAttributes.ResourceURL = new StringSelector();
                 }
+                progressBarAttrs.TrackImageAttributes.ResourceURL.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -134,15 +136,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressImageURL;
+                if (progressBarAttrs.ProgressImageAttributes.ResourceURL == null)
+                {
+                    progressBarAttrs.ProgressImageAttributes.ResourceURL = new StringSelector();
+                }
+                return progressBarAttrs.ProgressImageAttributes.ResourceURL.All;
             }
             set
             {
-                progressImageURL = value;
-                if (progressObj != null)
+                if (progressBarAttrs.ProgressImageAttributes.ResourceURL == null)
                 {
-                    progressBarAttrs.ProgressImageAttributes.ResourceURL.All = value;
+                    progressBarAttrs.ProgressImageAttributes.ResourceURL = new StringSelector();
                 }
+                progressBarAttrs.ProgressImageAttributes.ResourceURL.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -153,15 +160,20 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return bufferObj?.ResourceUrl;
+                if (progressBarAttrs.BufferImageAttributes.ResourceURL == null)
+                {
+                    progressBarAttrs.BufferImageAttributes.ResourceURL = new StringSelector();
+                }
+                return progressBarAttrs.BufferImageAttributes.ResourceURL.All;
             }
             set
             {
-                bufferURL = value;
-                if (bufferObj != null)
+                if (progressBarAttrs.BufferImageAttributes.ResourceURL == null)
                 {
-                    bufferObj.ResourceUrl = value;
+                    progressBarAttrs.BufferImageAttributes.ResourceURL = new StringSelector();
                 }
+                progressBarAttrs.BufferImageAttributes.ResourceURL.All = value;
+                RelayoutRequest();
             }
         }
 
@@ -349,12 +361,11 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return direction.Value;
+                return progressBarAttrs.Direction;
             }
             set
             {
-                direction = value;
-                //TNLog.I("value = " + direction);
+                progressBarAttrs.Direction = value;
                 UpdateValue();
             }
         }
@@ -560,8 +571,6 @@ namespace Tizen.NUI.CommonUI
                 }
             }
 
-            //TNLog.I("minValue = " + minVal + ", maxValue = " + maxVal + ", curValue = " + curVal);
-
             if (minVal >= maxVal || curVal < minVal || curVal > maxVal)
             {
                 if (minVal >= maxVal)
@@ -580,17 +589,17 @@ namespace Tizen.NUI.CommonUI
 
             float progressRatio = (float)curVal / (float)(maxVal - minVal);
             DirectionType dir = DirectionType.Horizontal;
-            if (direction != null)
-            {
-                dir = direction.Value;
-            }
-            else
-            {
-                if (direction != null)
-                {
-                    dir = direction.Value;
-                }
-            }
+            //if (progressBarAttrs.Direction != null)
+            //{
+            //    dir = direction.Value;
+            //}
+            //else
+            //{
+            //    if (direction != null)
+            //    {
+            //        dir = direction.Value;
+            //    }
+            //}
 
             if (dir == DirectionType.Horizontal)
             {
@@ -643,9 +652,21 @@ namespace Tizen.NUI.CommonUI
         {
             return new ProgressBarAttributes
             {
+                TrackImageAttributes = new ImageAttributes
+                {
+                },
+                ProgressImageAttributes = new ImageAttributes
+                {
+                },
+                BufferImageAttributes = new ImageAttributes
+                {
+                },
+                LoadingImageAttributes = new ImageAttributes
+                {
+                }
+
             };
         }
-
         private void Initialize()
         {
             // create necessary components
@@ -737,10 +758,6 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            if (trackURL != null)
-            {
-                trackObj.ResourceUrl = trackURL;
-            }
             else
             {
                 if (TrackImageURL != null)
@@ -776,17 +793,6 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            if (progressImageURL != null)
-            {
-                //progressObj.ResourceUrl = progressURL;
-            }
-            else
-            {
-                if (progressImageURL != null)
-                {
-                    progressObj.ResourceUrl = progressImageURL;
-                }
-            }
 
             if (progressColor != null)
             {
@@ -816,11 +822,6 @@ namespace Tizen.NUI.CommonUI
             if (bufferObj == null)
             {
                 return;
-            }
-
-            if (bufferURL != null)
-            {
-                bufferObj.ResourceUrl = bufferURL;
             }
             else
             {
@@ -859,11 +860,7 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-            if (loadingImageURL != null)
-            {
-                string url = loadingImageURL;
-                loadingObj.ResourceUrl = url;
-            }
+
         }
     }
 }

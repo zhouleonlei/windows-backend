@@ -24,7 +24,7 @@ namespace Tizen.FH.NUI.Controls
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 81, 81) },
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "11. Popup/popup_background.png" }
                 },
-                TextAttrs = new TextAttributes
+                ItemTextAttributes = new TextAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
@@ -35,7 +35,7 @@ namespace Tizen.FH.NUI.Controls
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
-                NameTextAttrs = new TextAttributes
+                NameTextAttributes = new TextAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
@@ -91,7 +91,7 @@ namespace Tizen.FH.NUI.Controls
                     Size2D = new Size2D(200, 352),
                     Position2D = new Position2D(0, 0)
                 },
-                DividerRecAttrs = new ViewAttributes
+                DividerRecAttributes = new ViewAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
@@ -101,7 +101,7 @@ namespace Tizen.FH.NUI.Controls
                     Size2D = new Size2D(200, 2),
                     Position2D = new Position2D(0, 176)
                 },
-                DividerRec2Attrs = new ViewAttributes
+                DividerRec2Attributes = new ViewAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
@@ -111,7 +111,7 @@ namespace Tizen.FH.NUI.Controls
                     Size2D = new Size2D(200, 2),
                     Position2D = new Position2D(0, 328)
                 },
-                TextFieldAttrs = new TextFieldAttributes
+                TextFieldAttributes = new TextFieldAttributes
                 {
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
