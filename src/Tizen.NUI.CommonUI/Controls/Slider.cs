@@ -865,16 +865,6 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-        public class ValueChangedArgs : EventArgs
-        {
-            public int CurrentValue;
-        }
-
-        public class StateChangedArgs : EventArgs
-        {
-            public ControlStates CurrentState;
-        }
-
         // Relayout basic component: track, thumb and indicator
         private void RelayoutBaseComponent(bool isInitial = true)
         {
@@ -1491,6 +1481,15 @@ namespace Tizen.NUI.CommonUI
                     highIndicatorImage.Hide();
                 }
             }
+        }
+        public class ValueChangedArgs : EventArgs
+        {
+            public int CurrentValue;
+        }
+
+        public class StateChangedArgs : EventArgs
+        {
+            public ControlStates CurrentState;
         }
     }
 }

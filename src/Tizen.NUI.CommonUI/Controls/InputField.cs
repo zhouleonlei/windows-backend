@@ -11,16 +11,10 @@ namespace Tizen.NUI.CommonUI
         private TextField textField = null;
         // the attributes of the inputField
         private InputFieldAttributes inputFieldAttrs = null;
-
         // the flag indicate should relayout the textField in base class
         private bool relayoutTextField = true;
 
-        static InputField()
-        {
-            RegisterStyle("DefaultInputField", typeof(InputFieldAttributes));
-        }
-
-        public InputField() : this("DefaultInputField")
+        public InputField() : base()
         {
             Initialize();
         }
@@ -107,7 +101,7 @@ namespace Tizen.NUI.CommonUI
 
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new InputFieldAttributes();
         }
 
         protected override void Dispose(DisposeTypes type)
@@ -153,42 +147,6 @@ namespace Tizen.NUI.CommonUI
             RelayoutComponent();
         }
 
-        private void Initialize()
-        {
-            inputFieldAttrs = attributes as InputFieldAttributes;
-            if (inputFieldAttrs == null)
-            {
-                throw new Exception("Fail to get the base inputField attributes.");
-            }
-            if (inputFieldAttrs.BackgroundImageAttributes != null && bgImage == null)
-            {
-                bgImage = new ImageView()
-                {
-                    WidthResizePolicy = ResizePolicyType.FillToParent,
-                    HeightResizePolicy = ResizePolicyType.FillToParent,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-                    PivotPoint = Tizen.NUI.PivotPoint.Center,
-                    PositionUsesPivotPoint = true
-                };
-                this.Add(bgImage);
-            }
-            if (inputFieldAttrs.InputBoxAttributes != null && textField == null)
-            {
-                textField = new TextField()
-                {
-                    WidthResizePolicy = ResizePolicyType.Fixed,
-                    HeightResizePolicy = ResizePolicyType.Fixed,
-                    ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
-                    PivotPoint = Tizen.NUI.PivotPoint.CenterLeft,
-                    PositionUsesPivotPoint = true
-                };
-                this.Add(textField);
-                textField.FocusGained += OnTextFieldFocusGained;
-                textField.FocusLost += OnTextFieldFocusLost;
-                textField.TextChanged += OnTextFieldTextChanged;
-                textField.KeyEvent += OnTextFieldKeyEvent;
-            }
-        }
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
             InputFieldAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as InputFieldAttributes;
@@ -196,19 +154,6 @@ namespace Tizen.NUI.CommonUI
             {
                 attributes = inputFieldAttrs = tempAttributes;
                 RelayoutRequest();
-            }
-        }
-        private void RelayoutComponent()
-        {
-            if (!relayoutTextField)
-            {
-                return;
-            }
-            int space = Space();
-            if (textField != null)
-            {
-                textField.Size2D = new Size2D(this.Size2D.Width - space * 2, this.Size2D.Height);
-                textField.PositionX = space;
             }
         }
 
@@ -271,6 +216,57 @@ namespace Tizen.NUI.CommonUI
         protected void RelayoutTextField(bool value)
         {
             relayoutTextField = value;
+        }
+
+        private void Initialize()
+        {
+            inputFieldAttrs = attributes as InputFieldAttributes;
+            if (inputFieldAttrs == null)
+            {
+                throw new Exception("Fail to get the base inputField attributes.");
+            }
+            if (inputFieldAttrs.BackgroundImageAttributes != null && bgImage == null)
+            {
+                bgImage = new ImageView()
+                {
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
+                    PivotPoint = Tizen.NUI.PivotPoint.Center,
+                    PositionUsesPivotPoint = true
+                };
+                this.Add(bgImage);
+            }
+            if (inputFieldAttrs.InputBoxAttributes != null && textField == null)
+            {
+                textField = new TextField()
+                {
+                    WidthResizePolicy = ResizePolicyType.Fixed,
+                    HeightResizePolicy = ResizePolicyType.Fixed,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.CenterLeft,
+                    PositionUsesPivotPoint = true
+                };
+                this.Add(textField);
+                textField.FocusGained += OnTextFieldFocusGained;
+                textField.FocusLost += OnTextFieldFocusLost;
+                textField.TextChanged += OnTextFieldTextChanged;
+                textField.KeyEvent += OnTextFieldKeyEvent;
+            }
+        }
+
+        private void RelayoutComponent()
+        {
+            if (!relayoutTextField)
+            {
+                return;
+            }
+            int space = Space();
+            if (textField != null)
+            {
+                textField.Size2D = new Size2D(this.Size2D.Width - space * 2, this.Size2D.Height);
+                textField.PositionX = space;
+            }
         }
     }
 }

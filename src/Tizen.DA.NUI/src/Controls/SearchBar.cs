@@ -20,12 +20,7 @@ namespace Tizen.FH.NUI.Controls
         private EventHandler<InputField.ButtonClickArgs> cancelBtnClickHandler;
         private EventHandler<InputField.ButtonClickArgs> searchBtnClickHandler;
 
-        static SearchBar()
-        {
-            RegisterStyle("DADefaultSearchBar", typeof(SearchBarAttributes));
-        }
-
-        public SearchBar() : this("DADefaultSearchBar")
+        public SearchBar() : base()
         {
             Initialize();
         }
@@ -181,7 +176,7 @@ namespace Tizen.FH.NUI.Controls
 
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new SearchBarAttributes();
         }
 
         protected override void OnUpdate(Attributes attributtes)
