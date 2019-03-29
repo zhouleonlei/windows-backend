@@ -72,7 +72,6 @@ namespace Tizen.FH.NUI.Samples
             {
                 label[i] = new MyTextView();
                 label[i].Text = examples.ElementAt(i);
-                label[i].Size = new Size(300, 40, 0);
                 label[i].FlexMargin = new Vector4(20, 20, 40, 20);
                 label[i].PointSize = 10;
                 label[i].KeyEvent += SampleMain_KeyEvent;
