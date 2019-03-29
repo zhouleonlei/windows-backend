@@ -71,7 +71,9 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Item click event.
         /// </summary>
-        internal event ClickEventHandler<ItemClickEventArgs> ItemClickEvent
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public event ClickEventHandler<ItemClickEventArgs> ItemClickEvent
         {
             add
             {
@@ -88,7 +90,9 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Item touch event.
         /// </summary>
-        internal event EventHandler<ItemTouchEventArgs> ItemTouchEvent
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public event EventHandler<ItemTouchEventArgs> ItemTouchEvent
         {
             add
             {
