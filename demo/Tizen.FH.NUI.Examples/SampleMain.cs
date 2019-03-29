@@ -11,21 +11,9 @@ namespace Tizen.FH.NUI.Samples
 {
     public class CommonResource
     {
-        public static string GetReosurceURL()
-        {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/image/";
-        }
-        public static string GetLocalReosurceURL()
-        {
-            return @"../../../demo/Tizen.TV.NUI.Example/res/images/";
-        }
         public static string GetFHResourcePath()
         {
             return @"../../../demo/csharp-demo/res/images/FH3/";
-        }
-        public static string GetTVResourcePath()
-        {
-            return @"../../../demo/csharp-demo/res/images/VD/";
         }
     }
 
