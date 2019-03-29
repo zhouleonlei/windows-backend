@@ -59,7 +59,7 @@ namespace Tizen.NUI.CommonUI
             mOrientationHelper = OrientationHelper.createOrientationHelper(this, mOrientation);
 
             mLayoutState = new LayoutState();
-            mLayoutState.mOffset = mOrientationHelper.GetStartAfterPadding();
+            mLayoutState.Offset = mOrientationHelper.GetStartAfterPadding();
         }
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -80,34 +80,34 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override void OnLayoutChildren(FlexibleView.Recycler recycler, FlexibleView.ViewState state)
         {
-            mLayoutState.mRecycle = false;
-            if (!mAnchorInfo.mValid || mPendingScrollPosition != NO_POSITION)
+            mLayoutState.Recycle = false;
+            if (!mAnchorInfo.Valid || mPendingScrollPosition != NO_POSITION)
             {
                 mAnchorInfo.Reset();
-                mAnchorInfo.mLayoutFromEnd = mShouldReverseLayout;
+                mAnchorInfo.LayoutFromEnd = mShouldReverseLayout;
                 // calculate anchor position and coordinate
                 UpdateAnchorInfoForLayout(recycler, state, mAnchorInfo);
-                mAnchorInfo.mValid = true;
+                mAnchorInfo.Valid = true;
             }
 
             ScrapAttachedViews(recycler);
 
-            if (mAnchorInfo.mLayoutFromEnd == true)
+            if (mAnchorInfo.LayoutFromEnd == true)
             {
-                UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
+                UpdateLayoutStateToFillStart(mAnchorInfo.Position, mAnchorInfo.Coordinate);
                 Fill(recycler, mLayoutState, state, false, true);
 
-                UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
+                UpdateLayoutStateToFillEnd(mAnchorInfo.Position, mAnchorInfo.Coordinate);
+                mLayoutState.CurrentPosition += mLayoutState.ItemDirection;
                 Fill(recycler, mLayoutState, state, false, true);
             }
             else
             {
-                UpdateLayoutStateToFillEnd(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
+                UpdateLayoutStateToFillEnd(mAnchorInfo.Position, mAnchorInfo.Coordinate);
                 Fill(recycler, mLayoutState, state, false, true);
 
-                UpdateLayoutStateToFillStart(mAnchorInfo.mPosition, mAnchorInfo.mCoordinate);
-                mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
+                UpdateLayoutStateToFillStart(mAnchorInfo.Position, mAnchorInfo.Coordinate);
+                mLayoutState.CurrentPosition += mLayoutState.ItemDirection;
                 Fill(recycler, mLayoutState, state, false, true);
             }
 
@@ -314,50 +314,50 @@ namespace Tizen.NUI.CommonUI
             {
                 // if we are laying out views in scrap, this may return null which means there is
                 // no more items to layout.
-                result.mFinished = true;
+                result.Finished = true;
                 return;
             }
 
-            if (mShouldReverseLayout == (layoutState.mLayoutDirection == LayoutState.LAYOUT_START))
+            if (mShouldReverseLayout == (layoutState.LayoutDirection == LayoutState.LAYOUT_START))
                 AddView(holder);
             else
                 AddView(holder, 0);
 
-            result.mConsumed = mOrientationHelper.GetViewHolderMeasurement(holder);
+            result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
 
             float left, top, width, height;
             if (mOrientation == VERTICAL)
             {
                 width = GetWidth() - GetPaddingLeft() - GetPaddingRight();
-                height = result.mConsumed;
+                height = result.Consumed;
                 left = GetPaddingLeft();
-                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
                 {
-                    top = layoutState.mOffset;
+                    top = layoutState.Offset;
                 }
                 else
                 {
-                    top = layoutState.mOffset - height;
+                    top = layoutState.Offset - height;
                 }
                 LayoutChild(holder, left, top, width, height);
             }
             else
             {
-                width = result.mConsumed;
+                width = result.Consumed;
                 height = GetHeight() - GetPaddingTop() - GetPaddingBottom();
                 top = GetPaddingTop();
-                if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
                 {
-                    left = layoutState.mOffset;
+                    left = layoutState.Offset;
                 }
                 else
                 {
-                    left = layoutState.mOffset - width;
+                    left = layoutState.Offset - width;
                 }
                 LayoutChild(holder, left, top, width, height);
             }
 
-            result.mFocusable = true;
+            result.Focusable = true;
         }
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -375,8 +375,8 @@ namespace Tizen.NUI.CommonUI
             }
             int maxScroll = (int)(MAX_SCROLL_FACTOR * mOrientationHelper.GetTotalSpace());
             UpdateLayoutState(layoutDir, maxScroll, false, state);
-            mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
-            mLayoutState.mRecycle = false;
+            mLayoutState.ScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
+            mLayoutState.Recycle = false;
             Fill(recycler, mLayoutState, state, true, true);
 
             FlexibleView.ViewHolder nextFocus;
@@ -404,8 +404,8 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            anchorInfo.mPosition = state.FocusPosition != NO_POSITION ? state.FocusPosition : 0;
-            anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
+            anchorInfo.Position = state.FocusPosition != NO_POSITION ? state.FocusPosition : 0;
+            anchorInfo.Coordinate = anchorInfo.LayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
         }
 
         /**
@@ -426,22 +426,22 @@ namespace Tizen.NUI.CommonUI
                 return false;
             }
 
-            anchorInfo.mPosition = mPendingScrollPosition;
+            anchorInfo.Position = mPendingScrollPosition;
 
             if (mPendingScrollPositionOffset == INVALID_OFFSET)
             {
-                anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
+                anchorInfo.Coordinate = anchorInfo.LayoutFromEnd ? mOrientationHelper.GetEndAfterPadding() : mOrientationHelper.GetStartAfterPadding();
             }
             else
             {
                 if (mShouldReverseLayout)
                 {
-                    anchorInfo.mCoordinate = mOrientationHelper.GetEndAfterPadding()
+                    anchorInfo.Coordinate = mOrientationHelper.GetEndAfterPadding()
                             - mPendingScrollPositionOffset;
                 }
                 else
                 {
-                    anchorInfo.mCoordinate = mOrientationHelper.GetStartAfterPadding()
+                    anchorInfo.Coordinate = mOrientationHelper.GetStartAfterPadding()
                             + mPendingScrollPositionOffset;
                 }
             }
@@ -463,8 +463,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             FlexibleView.ViewHolder anchorChild = FindFirstCompleteVisibleItemView();
-            anchorInfo.mPosition = anchorChild.LayoutPosition;
-            anchorInfo.mCoordinate = mOrientationHelper.GetViewHolderStart(anchorChild);
+            anchorInfo.Position = anchorChild.LayoutPosition;
+            anchorInfo.Coordinate = mOrientationHelper.GetViewHolderStart(anchorChild);
 
             return true;
         }
@@ -506,56 +506,56 @@ namespace Tizen.NUI.CommonUI
 
         private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool stopOnFocusable, bool immediate)
         {
-            float start = layoutState.mAvailable;
-            if (layoutState.mScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
+            float start = layoutState.Available;
+            if (layoutState.ScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
             {
                 // TODO ugly bug fix. should not happen
-                if (layoutState.mAvailable < 0)
+                if (layoutState.Available < 0)
                 {
-                    layoutState.mScrollingOffset += layoutState.mAvailable;
+                    layoutState.ScrollingOffset += layoutState.Available;
                 }
                 if (immediate == true)
                 {
                     RecycleByLayoutState(recycler, layoutState, true);
                 }
             }
-            float remainingSpace = layoutState.mAvailable + layoutState.mExtra;
+            float remainingSpace = layoutState.Available + layoutState.Extra;
             LayoutChunkResult layoutChunkResult = mLayoutChunkResult;
             while ((remainingSpace > 0) && layoutState.HasMore(state))
             {
                 layoutChunkResult.ResetInternal();
                 LayoutChunk(recycler, state, layoutState, layoutChunkResult);
-                if (layoutChunkResult.mFinished)
+                if (layoutChunkResult.Finished)
                 {
                     break;
                 }
-                layoutState.mOffset += layoutChunkResult.mConsumed * layoutState.mLayoutDirection;
+                layoutState.Offset += layoutChunkResult.Consumed * layoutState.LayoutDirection;
                 /**
                  * Consume the available space if:
                  * * layoutChunk did not request to be ignored
                  * * OR we are laying out scrap children
                  * * OR we are not doing pre-layout
                  */
-                if (!layoutChunkResult.mIgnoreConsumed || !state.IsPreLayout())
+                if (!layoutChunkResult.IgnoreConsumed || !state.IsPreLayout())
                 {
-                    layoutState.mAvailable -= layoutChunkResult.mConsumed;
+                    layoutState.Available -= layoutChunkResult.Consumed;
                     // we keep a separate remaining space because mAvailable is important for recycling
-                    remainingSpace -= layoutChunkResult.mConsumed;
+                    remainingSpace -= layoutChunkResult.Consumed;
                 }
 
-                if (layoutState.mScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
+                if (layoutState.ScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
                 {
-                    layoutState.mScrollingOffset += layoutChunkResult.mConsumed;
-                    if (layoutState.mAvailable < 0)
+                    layoutState.ScrollingOffset += layoutChunkResult.Consumed;
+                    if (layoutState.Available < 0)
                     {
-                        layoutState.mScrollingOffset += layoutState.mAvailable;
+                        layoutState.ScrollingOffset += layoutState.Available;
                     }
                     if (immediate == true)
                     {
                         RecycleByLayoutState(recycler, layoutState, true);
                     }
                 }
-                if (stopOnFocusable && layoutChunkResult.mFocusable)
+                if (stopOnFocusable && layoutChunkResult.Focusable)
                 {
                     break;
                 }
@@ -565,22 +565,22 @@ namespace Tizen.NUI.CommonUI
                 RecycleByLayoutState(recycler, layoutState, false);
             }
 
-            return start - layoutState.mAvailable;
+            return start - layoutState.Available;
         }
 
         private void RecycleByLayoutState(FlexibleView.Recycler recycler, LayoutState layoutState, bool immediate)
         {
-            if (!layoutState.mRecycle)
+            if (!layoutState.Recycle)
             {
                 return;
             }
-            if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START)
+            if (layoutState.LayoutDirection == LayoutState.LAYOUT_START)
             {
-                RecycleViewsFromEnd(recycler, layoutState.mScrollingOffset, immediate);
+                RecycleViewsFromEnd(recycler, layoutState.ScrollingOffset, immediate);
             }
             else
             {
-                RecycleViewsFromStart(recycler, layoutState.mScrollingOffset, immediate);
+                RecycleViewsFromStart(recycler, layoutState.ScrollingOffset, immediate);
             }
         }
 
@@ -663,11 +663,11 @@ namespace Tizen.NUI.CommonUI
             {
                 return 0;
             }
-            mLayoutState.mRecycle = true;
+            mLayoutState.Recycle = true;
             int layoutDirection = dy < 0 ? LayoutState.LAYOUT_END : LayoutState.LAYOUT_START;
             float absDy = Math.Abs(dy);
             UpdateLayoutState(layoutDirection, absDy, true, state);
-            float consumed = mLayoutState.mScrollingOffset 
+            float consumed = mLayoutState.ScrollingOffset 
                 + Fill(recycler, mLayoutState, state, false, immediate);
 
             if (consumed < 0)
@@ -685,19 +685,19 @@ namespace Tizen.NUI.CommonUI
 
         private void UpdateLayoutState(int layoutDirection, float requiredSpace, bool canUseExistingSpace, FlexibleView.ViewState state)
         {
-            mLayoutState.mExtra = 0;
-            mLayoutState.mLayoutDirection = layoutDirection;
+            mLayoutState.Extra = 0;
+            mLayoutState.LayoutDirection = layoutDirection;
             float scrollingOffset;
             if (layoutDirection == LayoutState.LAYOUT_END)
             {
-                mLayoutState.mExtra += mOrientationHelper.GetEndPadding();
+                mLayoutState.Extra += mOrientationHelper.GetEndPadding();
                 // get the first child in the direction we are going
                 FlexibleView.ViewHolder child = GetChildClosestToEnd();
                 // the direction in which we are traversing children
-                mLayoutState.mItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_HEAD
+                mLayoutState.ItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_HEAD
                         : LayoutState.ITEM_DIRECTION_TAIL;
-                mLayoutState.mCurrentPosition = child.LayoutPosition + mLayoutState.mItemDirection;
-                mLayoutState.mOffset = mOrientationHelper.GetViewHolderEnd(child);
+                mLayoutState.CurrentPosition = child.LayoutPosition + mLayoutState.ItemDirection;
+                mLayoutState.Offset = mOrientationHelper.GetViewHolderEnd(child);
                 // calculate how much we can scroll without adding new children (independent of layout)
                 scrollingOffset = mOrientationHelper.GetViewHolderEnd(child)
                         - mOrientationHelper.GetEndAfterPadding();
@@ -705,21 +705,21 @@ namespace Tizen.NUI.CommonUI
             }
             else
             {
-                mLayoutState.mExtra += mOrientationHelper.GetStartAfterPadding();
+                mLayoutState.Extra += mOrientationHelper.GetStartAfterPadding();
                 FlexibleView.ViewHolder child = GetChildClosestToStart();
-                mLayoutState.mItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_TAIL
+                mLayoutState.ItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_TAIL
                         : LayoutState.ITEM_DIRECTION_HEAD;
-                mLayoutState.mCurrentPosition = child.LayoutPosition + mLayoutState.mItemDirection;
-                mLayoutState.mOffset = mOrientationHelper.GetViewHolderStart(child);
+                mLayoutState.CurrentPosition = child.LayoutPosition + mLayoutState.ItemDirection;
+                mLayoutState.Offset = mOrientationHelper.GetViewHolderStart(child);
                 scrollingOffset = -mOrientationHelper.GetViewHolderStart(child)
                         + mOrientationHelper.GetStartAfterPadding();
             }
-            mLayoutState.mAvailable = requiredSpace;
+            mLayoutState.Available = requiredSpace;
             if (canUseExistingSpace)
             {
-                mLayoutState.mAvailable -= scrollingOffset;
+                mLayoutState.Available -= scrollingOffset;
             }
-            mLayoutState.mScrollingOffset = scrollingOffset;
+            mLayoutState.ScrollingOffset = scrollingOffset;
 
         }
         /**
@@ -746,26 +746,26 @@ namespace Tizen.NUI.CommonUI
 
         private void UpdateLayoutStateToFillEnd(int itemPosition, float offset)
         {
-            mLayoutState.mAvailable = mOrientationHelper.GetEndAfterPadding() - offset;
-            mLayoutState.mItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_HEAD :
+            mLayoutState.Available = mOrientationHelper.GetEndAfterPadding() - offset;
+            mLayoutState.ItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_HEAD :
                     LayoutState.ITEM_DIRECTION_TAIL;
-            mLayoutState.mCurrentPosition = itemPosition;
-            mLayoutState.mLayoutDirection = LayoutState.LAYOUT_END;
-            mLayoutState.mOffset = offset;
-            mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
-            mLayoutState.mExtra = mOrientationHelper.GetEndPadding();
+            mLayoutState.CurrentPosition = itemPosition;
+            mLayoutState.LayoutDirection = LayoutState.LAYOUT_END;
+            mLayoutState.Offset = offset;
+            mLayoutState.ScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
+            mLayoutState.Extra = mOrientationHelper.GetEndPadding();
         }
 
         private void UpdateLayoutStateToFillStart(int itemPosition, float offset)
         {
-            mLayoutState.mAvailable = offset - mOrientationHelper.GetStartAfterPadding();
-            mLayoutState.mCurrentPosition = itemPosition;
-            mLayoutState.mItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_TAIL :
+            mLayoutState.Available = offset - mOrientationHelper.GetStartAfterPadding();
+            mLayoutState.CurrentPosition = itemPosition;
+            mLayoutState.ItemDirection = mShouldReverseLayout ? LayoutState.ITEM_DIRECTION_TAIL :
                     LayoutState.ITEM_DIRECTION_HEAD;
-            mLayoutState.mLayoutDirection = LayoutState.LAYOUT_START;
-            mLayoutState.mOffset = offset;
-            mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
-            mLayoutState.mExtra = mOrientationHelper.GetStartAfterPadding();
+            mLayoutState.LayoutDirection = LayoutState.LAYOUT_START;
+            mLayoutState.Offset = offset;
+            mLayoutState.ScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
+            mLayoutState.Extra = mOrientationHelper.GetStartAfterPadding();
         }
 
         private FlexibleView.ViewHolder FindFirstVisibleItemView()
@@ -917,28 +917,28 @@ namespace Tizen.NUI.CommonUI
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public bool mRecycle = true;
+            public bool Recycle = true;
 
             /**
              * Pixel offset where layout should start
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public float mOffset;
+            public float Offset;
 
             /**
              * Number of pixels that we should fill, in the layout direction.
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public float mAvailable;
+            public float Available;
 
             /**
              * Current position on the adapter to get the next item.
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int mCurrentPosition;
+            public int CurrentPosition;
 
             /**
              * Defines the direction in which the data adapter is traversed.
@@ -946,7 +946,7 @@ namespace Tizen.NUI.CommonUI
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int mItemDirection;
+            public int ItemDirection;
 
             /**
              * Defines the direction in which the layout is filled.
@@ -954,7 +954,7 @@ namespace Tizen.NUI.CommonUI
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int mLayoutDirection;
+            public int LayoutDirection;
 
             /**
              * Used when LayoutState is constructed in a scrolling state.
@@ -963,7 +963,7 @@ namespace Tizen.NUI.CommonUI
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public float mScrollingOffset;
+            public float ScrollingOffset;
 
             /**
              * Used if you want to pre-layout items that are not yet visible.
@@ -972,7 +972,7 @@ namespace Tizen.NUI.CommonUI
              */
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public float mExtra = 0;
+            public float Extra = 0;
 
 
             /**
@@ -982,7 +982,7 @@ namespace Tizen.NUI.CommonUI
             [EditorBrowsable(EditorBrowsableState.Never)]
             public bool HasMore(FlexibleView.ViewState state)
             {
-                return mCurrentPosition >= 0 && mCurrentPosition < state.ItemCount;
+                return CurrentPosition >= 0 && CurrentPosition < state.ItemCount;
             }
 
             /**
@@ -995,8 +995,8 @@ namespace Tizen.NUI.CommonUI
             [EditorBrowsable(EditorBrowsableState.Never)]
             public FlexibleView.ViewHolder Next(FlexibleView.Recycler recycler)
             {
-                FlexibleView.ViewHolder itemView = recycler.GetViewForPosition(mCurrentPosition);
-                mCurrentPosition += mItemDirection;
+                FlexibleView.ViewHolder itemView = recycler.GetViewForPosition(CurrentPosition);
+                CurrentPosition += ItemDirection;
                 return itemView;
             }
         }
@@ -1007,41 +1007,41 @@ namespace Tizen.NUI.CommonUI
         {
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public float mConsumed;
+            public float Consumed;
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public bool mFinished;
+            public bool Finished;
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public bool mIgnoreConsumed;
+            public bool IgnoreConsumed;
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public bool mFocusable;
+            public bool Focusable;
 
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public void ResetInternal()
             {
-                mConsumed = 0;
-                mFinished = false;
-                mIgnoreConsumed = false;
-                mFocusable = false;
+                Consumed = 0;
+                Finished = false;
+                IgnoreConsumed = false;
+                Focusable = false;
             }
         }
 
         private class AnchorInfo
         {
-            public int mPosition;
-            public float mCoordinate;
-            public bool mLayoutFromEnd;
-            public bool mValid;
+            public int Position;
+            public float Coordinate;
+            public bool LayoutFromEnd;
+            public bool Valid;
 
             public void Reset()
             {
-                mPosition = NO_POSITION;
-                mCoordinate = INVALID_OFFSET;
-                mLayoutFromEnd = false;
-                mValid = false;
+                Position = NO_POSITION;
+                Coordinate = INVALID_OFFSET;
+                LayoutFromEnd = false;
+                Valid = false;
             }
 
         }

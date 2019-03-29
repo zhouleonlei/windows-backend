@@ -27,7 +27,7 @@ namespace Tizen.NUI.CommonUI
             LayoutState layoutState, LayoutChunkResult result)
         {
             bool layingOutInPrimaryDirection =
-                layoutState.mItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
+                layoutState.ItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
 
             int count = mSpanCount;
             for (int i = 0; i < count; i++)
@@ -35,7 +35,7 @@ namespace Tizen.NUI.CommonUI
                 FlexibleView.ViewHolder holder = layoutState.Next(recycler);
                 if (holder == null)
                 {
-                    result.mFinished = true;
+                    result.Finished = true;
                     return;
                 }
 
@@ -44,38 +44,38 @@ namespace Tizen.NUI.CommonUI
                 else
                     AddView(holder, 0);
 
-                result.mConsumed = mOrientationHelper.GetViewHolderMeasurement(holder);
+                result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
 
                 float left, top, width, height;
                 if (mOrientation == VERTICAL)
                 {
                     width = (GetWidth() - GetPaddingLeft() - GetPaddingRight()) / count;
-                    height = result.mConsumed;
-                    if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                    height = result.Consumed;
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
                     {
                         left = GetPaddingLeft() + width * i;
-                        top = layoutState.mOffset;
+                        top = layoutState.Offset;
                     }
                     else
                     {
                         left = GetPaddingLeft() + width * (count - 1 - i);
-                        top = layoutState.mOffset - height;
+                        top = layoutState.Offset - height;
                     }
                     LayoutChild(holder, left, top, width, height);
                 }
                 else
                 {
-                    width = result.mConsumed;
+                    width = result.Consumed;
                     height = (GetHeight() - GetPaddingTop() - GetPaddingBottom()) / count;
-                    if (layoutState.mLayoutDirection == LayoutState.LAYOUT_END)
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
                     {
                         top = GetPaddingTop() + height * i;
-                        left = layoutState.mOffset;
+                        left = layoutState.Offset;
                     }
                     else
                     {
                         top = GetPaddingTop() + height * (count - 1 - i);
-                        left = layoutState.mOffset - width;
+                        left = layoutState.Offset - width;
                     }
                     LayoutChild(holder, left, top, width, height);
                 }
