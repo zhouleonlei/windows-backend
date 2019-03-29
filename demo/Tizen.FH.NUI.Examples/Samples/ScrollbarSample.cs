@@ -30,7 +30,6 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar1.CurrentValue = 0;
             daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
             root.Add(daScrollBar1);
-            daScrollBar1.TrackImageURL = "*DemoRes*/images/VD/component/c_progressbar/c_progressbar_white_buffering.png";
 
             daScrollBar2 = new ScrollBar("DAScrollbar");
             daScrollBar2.Position2D = new Position2D(500, 100);

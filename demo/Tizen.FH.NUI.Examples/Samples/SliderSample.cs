@@ -14,7 +14,6 @@ namespace Tizen.FH.NUI.Samples
         private const int MAX_VALUE = 100;
         private const int SR_COUNT = 2;
         private const int DA_COUNT = 4;
-        private int index = 0;
 
         private static readonly string[] styleName = new string[2] {
             "DefaultSlider",
@@ -31,7 +30,7 @@ namespace Tizen.FH.NUI.Samples
         private void CreateInforText()
         {
             inforText = new TextLabel();            
-            inforText.Size2D = new Size2D(1000, 60);
+            inforText.Size2D = new Size2D(1040, 60);
             inforText.Position2D = new Position2D(20, 10);
             inforText.PointSize = 20;
             inforText.TextColor = Color.Blue;
@@ -53,11 +52,11 @@ namespace Tizen.FH.NUI.Samples
 
             slider_da[2] = CreateDA(styleName[1], 40, 200, 1000, 50, 30, Slider.DirectionType.Horizontal);
             slider_da[2].LowIndicatorTextContent = "SubText";
-            slider_da[2].LowIndicatorSize = new Size2D(100, 40);
+            slider_da[2].LowIndicatorSize = new Size2D(200, 80);
 
             slider_da[3] = CreateDA(styleName[1], 600, 250, 50, 400, 30, Slider.DirectionType.Vertical);
             slider_da[3].LowIndicatorTextContent = "SubText";
-            slider_da[3].LowIndicatorSize = new Size2D(100, 40);
+            slider_da[3].LowIndicatorSize = new Size2D(200, 80);
            
         }
 

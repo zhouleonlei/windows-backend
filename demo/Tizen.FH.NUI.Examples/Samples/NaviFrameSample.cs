@@ -56,6 +56,8 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(NextButton);
             NextButton.RaiseToTop();
+
+            ClickPush(null, null);
         }
         public void Deactivate()
         {
