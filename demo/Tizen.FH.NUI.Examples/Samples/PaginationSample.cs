@@ -1,4 +1,5 @@
-﻿using Tizen.FH.NUI.Controls;
+﻿using System;
+using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Samples
@@ -29,6 +30,8 @@ namespace Tizen.FH.NUI.Samples
             DAPagination1.Focusable = true;
             root.Add(DAPagination1);
 
+            DAPagination1.SelectChangeEvent += DAPagination_SelectChangeEvent;
+
             DAPagination2 = new Pagination("BasicPagination");
             DAPagination2.Name = "DAAppPagination2";
             DAPagination2.Position2D = new Position2D(200, 150);
@@ -38,6 +41,9 @@ namespace Tizen.FH.NUI.Samples
             DAPagination2.SelectedIndex = 1;
             DAPagination2.Focusable = true;
             root.Add(DAPagination2);
+
+            DAPagination2.SelectChangeEvent += DAPagination_SelectChangeEvent;
+
 
             ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
             DAPagination3 = new Pagination();
@@ -64,6 +70,15 @@ namespace Tizen.FH.NUI.Samples
             DAPagination3.Focusable = true;
             root.Add(DAPagination3);
 
+            DAPagination3.SelectChangeEvent += DAPagination_SelectChangeEvent;
+
+        }
+
+        private void DAPagination_SelectChangeEvent(object sender, Pagination.SelectChangeEventArgs e)
+        {
+            Pagination pagination = sender as Pagination;
+
+            Console.WriteLine($"{pagination?.Name} Select index changed from {e.PreviousIndex} to {e.CurrentIndex}");
         }
 
         //private void Window_KeyEvent(object sender, Window.KeyEventArgs e)

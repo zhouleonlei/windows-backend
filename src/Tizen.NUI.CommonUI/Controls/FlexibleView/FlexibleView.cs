@@ -36,7 +36,7 @@ namespace Tizen.NUI.CommonUI
         private Timer mScrollBarShowTimer = null;
 
         private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
-        private EventHandler<ItemTouchEventArgs> touchEventHandlers;
+        private TouchEventHandler<ItemTouchEventArgs> touchEventHandlers;
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -65,7 +65,7 @@ namespace Tizen.NUI.CommonUI
         public delegate void ClickEventHandler<ClickEventArgs>(object sender, ClickEventArgs e);
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public delegate void EventHandler<TouchEventArgs>(object sender, TouchEventArgs e);
+        public delegate void TouchEventHandler<TouchEventArgs>(object sender, TouchEventArgs e);
 
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public event EventHandler<ItemTouchEventArgs> ItemTouchEvent
+        public event TouchEventHandler<ItemTouchEventArgs> ItemTouchEvent
         {
             add
             {

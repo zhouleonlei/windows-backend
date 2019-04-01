@@ -21,6 +21,9 @@ namespace Tizen.FH.NUI.Controls
         private int maxCountOnePage = 10;
 
         private TapGestureDetector tapGestureDetector;
+
+        private SelectChangeEventHandler<SelectChangeEventArgs> selectChangeEventHandlers;
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Pagination() : base()
@@ -33,6 +36,29 @@ namespace Tizen.FH.NUI.Controls
         {
             Initialize();
         }
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public delegate void SelectChangeEventHandler<SelectChangeEventArgs>(object sender, SelectChangeEventArgs e);
+
+        /// <summary>
+        /// Item click event.
+        /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public event SelectChangeEventHandler<SelectChangeEventArgs> SelectChangeEvent
+        {
+            add
+            {
+                selectChangeEventHandlers += value;
+            }
+
+            remove
+            {
+                selectChangeEventHandlers -= value;
+            }
+        }
+		
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ReturnArrowURLs
@@ -166,11 +192,24 @@ namespace Tizen.FH.NUI.Controls
             }
             set
             {
+                if (selectedIndex == value)
+                {
+                    return;
+                }
+                int previousIndex = selectedIndex;
+
                 selectedIndex = value;
 
                 LayoutUpdate();
+
+                SelectChangeEventArgs args = new SelectChangeEventArgs();
+                args.PreviousIndex = previousIndex;
+                args.CurrentIndex = selectedIndex;
+                OnSelectChangeEvent(this, args);
+
             }
         }
+		
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -358,5 +397,25 @@ namespace Tizen.FH.NUI.Controls
             }
             return count;
         }
+
+        private void OnSelectChangeEvent(object sender, SelectChangeEventArgs e)
+        {
+            selectChangeEventHandlers?.Invoke(sender, e);
+        }
+
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class SelectChangeEventArgs : EventArgs
+        {
+	        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+	        [EditorBrowsable(EditorBrowsableState.Never)]
+            public int PreviousIndex;
+
+	        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+	        [EditorBrowsable(EditorBrowsableState.Never)]
+            public int CurrentIndex;
+        }
+
     }
 }
