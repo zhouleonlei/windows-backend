@@ -263,11 +263,17 @@ namespace Tizen.FH.NUI
 
             StyleManager.Instance.RegisterStyle("DefaultLoading", null, typeof(DefaultLoadingStyle));
 
-            StyleManager.Instance.RegisterStyle("DAPicker", null, typeof(DAPickerStyle));
+            StyleManager.Instance.RegisterStyle("DAPicker", "Utility", typeof(UtilityDatePickerStyle), true);
+            StyleManager.Instance.RegisterStyle("DAPicker", "Food", typeof(FoodDatePickerStyle));
+            StyleManager.Instance.RegisterStyle("DAPicker", "Family", typeof(FamilyDatePickerStyle));
+            StyleManager.Instance.RegisterStyle("DAPicker", "Kitchen", typeof(KitchenDatePickerStyle));
 
             StyleManager.Instance.RegisterStyle("DATimePicker", null, typeof(DATimePickerStyle));
             StyleManager.Instance.RegisterStyle("DATimePickerAMPM", null, typeof(DATimePickerAMPMStyle));
-            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", null, typeof(DATimePickerRepeatStyle));
+            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", "Utility", typeof(UtilityTimePickerRepeatStyle), true);
+            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", "Food", typeof(FoodTimePickerRepeatStyle));
+            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", "Family", typeof(FamilyTimePickerRepeatStyle));
+            StyleManager.Instance.RegisterStyle("DATimePickerRepeat", "Kitchen", typeof(KitchenTimePickerRepeatStyle));
 
             StyleManager.Instance.RegisterStyle("DASpin", null, typeof(DASpinStyle));
             StyleManager.Instance.RegisterStyle("DAStrSpin", null, typeof(DAStrSpinStyle));

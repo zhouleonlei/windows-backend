@@ -1,6 +1,7 @@
 ﻿using System;
 using Tizen.NUI.BaseComponents;
 using System.Globalization;
+using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 using System.ComponentModel;
@@ -220,7 +221,19 @@ namespace Tizen.FH.NUI.Controls
         {
             return null;
         }
-
+		
+		/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+		protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            PickerAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as PickerAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = pickerAttributes = tempAttributes;
+                RelayoutRequest();
+            }
+        }
+		
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)

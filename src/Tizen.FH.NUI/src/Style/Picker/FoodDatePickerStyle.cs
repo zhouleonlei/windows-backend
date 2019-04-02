@@ -3,7 +3,7 @@ using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class DAPickerStyle : StyleBase
+    internal class FoodDatePickerStyle : StyleBase
     {
         protected override Attributes GetAttributes()
         {
@@ -33,7 +33,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
                     Size2D = new Size2D(80, 80),
-                    ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/picker_date_select.png" }
+                    ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/picker_date_select_ec7510.png" }
                 },
                 EndSelectedImageAttributes = new ImageAttributes
                 {
