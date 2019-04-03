@@ -3,29 +3,25 @@ using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
-{    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+{
+    /// <summary>
+    /// The ProgressBar class of nui component. It's used to show the ongoing status with a long narrow bar.
+    /// </summary>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Progress : Control
     {    
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected ProgressBarAttributes progressBarAttrs = null;
+        private ImageView trackObj = null;
+        private ImageView progressObj = null;
+        private ImageView bufferObj = null;
+        private ImageView loadingObj = null;
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected ImageView trackObj = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected ImageView progressObj = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected ImageView bufferObj = null;
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected ImageView loadingObj = null;
-       
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected ProgressStatusType? state = null;
+        protected ProgressStatusType state = ProgressStatusType.Indeterminate;
 
         /// <summary>
         /// The constructor of ProgressBar
@@ -55,6 +51,9 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
+        /// <summary>
+        /// The constructor of the Progress class with specific Attributes.
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress(ProgressBarAttributes attributes) : base()
@@ -63,6 +62,9 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
+        /// <summary>
+        /// The status type of the ProgressBar.
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum ProgressStatusType
@@ -93,6 +95,9 @@ namespace Tizen.NUI.CommonUI
             [EditorBrowsable(EditorBrowsableState.Never)] Vertical
         }
 
+        /// <summary>
+        /// The property to get/set Progress object image URL prefix of the ProgressBar.
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual string ProgressImageURLPre
@@ -421,14 +426,11 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ProgressStatusType? ProgressState
+        public ProgressStatusType ProgressState
         {
             get
             {
-                if (state != null)
-                    return state.Value;
-                else
-                    return null;
+                return state;
             }
             set
             {
@@ -528,6 +530,7 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(loadingObj, progressBarAttrs.LoadingImageAttributes);
             ApplyAttributes(bufferObj, progressBarAttrs.BufferImageAttributes);
         }
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -543,25 +546,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateStates()
         {
-            if (state == ProgressStatusType.Buffering)
-            {
-                bufferObj.Show();
-                loadingObj.Hide();
-                progressObj.Hide();
-            }
-            else if (state == ProgressStatusType.Determinate)
-            {
-                bufferObj.Hide();
-                loadingObj.Hide();
-                progressObj.Show();
-                UpdateValue();
-            }
-            else
-            {
-                bufferObj.Hide();
-                loadingObj.Show();
-                progressObj.Hide();
-            }
+            ChangeImageState(state);
             //if (aniForLoading != null)
             //{
             //    aniForLoading.Stop();
@@ -720,6 +705,30 @@ namespace Tizen.NUI.CommonUI
 
             };
         }
+
+        protected void ChangeImageState(ProgressStatusType statusType)
+        {
+            if (state == ProgressStatusType.Buffering)
+            {
+                bufferObj.Show();
+                loadingObj.Hide();
+                progressObj.Hide();
+            }
+            else if (state == ProgressStatusType.Determinate)
+            {
+                bufferObj.Hide();
+                loadingObj.Hide();
+                progressObj.Show();
+                UpdateValue();
+            }
+            else
+            {
+                bufferObj.Hide();
+                loadingObj.Show();
+                progressObj.Hide();
+            }
+        }
+
         private void Initialize()
         {
             // create necessary components
