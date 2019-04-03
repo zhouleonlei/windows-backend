@@ -1,17 +1,37 @@
-﻿using System;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// Popup is one kind of common component, it can be used as popup window.
+    /// User can handle Popup button count, head title and content area.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Popup : Control
     {
         private ImageView backgroundImage;
         private ImageView shadowImage;
-        private View contentView;
         private TextLabel titleText;
         private List<Button> buttonList;
         private List<string> buttonTextList = new List<string>();
@@ -19,6 +39,10 @@ namespace Tizen.NUI.CommonUI
         private PopupAttributes popupAttributes;
         private int buttonCount = 0;
 
+        /// <summary>
+        /// Creates a new instance of a Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup() : base()
@@ -30,6 +54,11 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
+        /// <summary>
+        /// Creates a new instance of a Popup with style.
+        /// </summary>
+        /// <param name="style">Create Popup by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(string style) : base(style)
@@ -41,6 +70,11 @@ namespace Tizen.NUI.CommonUI
             }
             Initialize();
         }
+        /// <summary>
+        /// Creates a new instance of a Popup with attributes.
+        /// </summary>
+        /// <param name="attributes">Create Popup by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(PopupAttributes attributes) : base()
@@ -48,10 +82,18 @@ namespace Tizen.NUI.CommonUI
             this.attributes = popupAttributes = attributes.Clone() as PopupAttributes;
             Initialize();
         }
+        /// <summary>
+        /// An event for the button clicked signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickEventArgs> PopupButtonClickedEvent;
 
+        /// <summary>
+        /// Title text string in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string TitleText
@@ -76,6 +118,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button count in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int ButtonCount
@@ -94,16 +140,22 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Content view in Popup, only can be gotten.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public View ContentView
         {
-            get
-            {
-                return contentView;
-            }
+            get;
+            private set;
         }
 
+        /// <summary>
+        /// Shadow image's resource url in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ShadowImageURL
@@ -127,6 +179,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Shadow image's border in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle ShadowImageBorder
@@ -150,6 +206,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Background image's resource url in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string BackgroundImageURL
@@ -173,6 +233,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Background image's border in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle BackgroundImageBorder
@@ -196,6 +260,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text point size in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float TitlePointSize
@@ -216,6 +284,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text font family in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string TitleFontFamily
@@ -232,6 +304,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text color in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TitleTextColor
@@ -252,6 +328,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text horizontal alignment in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment TitleTextHorizontalAlignment
@@ -268,6 +348,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text's position in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D TitleTextPosition2D
@@ -284,6 +368,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Title text's height in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int TitleHeight
@@ -300,6 +388,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Shadow offset in Popup, including left, right, up and bottom offset.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ShadowOffset
@@ -322,6 +414,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button height in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int ButtonHeight
@@ -338,6 +434,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button text point size in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float ButtonPointSize
@@ -358,6 +458,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button text font family in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ButtonFontFamily
@@ -374,6 +478,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button text color in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color ButtonTextColor
@@ -394,6 +502,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button overlay background color selector in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector ButtonOverLayBackgroundColorSelector
@@ -413,6 +525,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button text horizontal alignment in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment ButtonTextAlignment
@@ -429,6 +545,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button background image's resource url in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ButtonBackgroundImageURL
@@ -452,6 +572,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Button background image's border in Popup.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Rectangle ButtonBackgroundImageBorder
@@ -475,6 +599,12 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Set button text by index.
+        /// </summary>
+        /// <param name="index">Button index.</param>
+        /// <param name="text">Button text string.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetButtonText(int index, string text)
@@ -494,6 +624,11 @@ namespace Tizen.NUI.CommonUI
             RelayoutRequest();
         }
 
+        /// <summary>
+        /// Dispose Popup and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -523,11 +658,11 @@ namespace Tizen.NUI.CommonUI
                     shadowImage.Dispose();
                     shadowImage = null;
                 }
-                if (contentView != null)
+                if (ContentView != null)
                 {
-                    Remove(contentView);
-                    contentView.Dispose();
-                    contentView = null;
+                    Remove(ContentView);
+                    ContentView.Dispose();
+                    ContentView = null;
                 }
                 if (buttonList != null)
                 {
@@ -542,21 +677,31 @@ namespace Tizen.NUI.CommonUI
             base.Dispose(type);
         }
 
+        /// <summary>
+        /// Focus gained callback.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusGained(object sender, EventArgs e)
         {
             base.OnFocusGained(sender, e);
-
         }
+        /// <summary>
+        /// Focus lost callback.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusLost(object sender, EventArgs e)
         {
             base.OnFocusLost(sender, e);
-
         }
 
+        /// <summary>
+        /// Get Popup attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -564,6 +709,11 @@ namespace Tizen.NUI.CommonUI
             return new PopupAttributes();
         }
 
+        /// <summary>
+        /// Update Popup by attributes.
+        /// </summary>
+        /// <param name="attributes">Popup attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -648,7 +798,7 @@ namespace Tizen.NUI.CommonUI
 
                
             }
-            contentView.RaiseToTop();
+            ContentView.RaiseToTop();
 
             UpdateButton(buttonCount);
            
@@ -656,12 +806,16 @@ namespace Tizen.NUI.CommonUI
             {
                 buttonH = popupAttributes.ButtonAttributes.Size2D.Height;
             }
-            contentView.Size2D = new Size2D(Size2D.Width - titleX * 2, Size2D.Height - titleY - titleH - buttonH);
-            contentView.Position2D = new Position2D(titleX, titleY + titleH);
+            ContentView.Size2D = new Size2D(Size2D.Width - titleX * 2, Size2D.Height - titleY - titleH - buttonH);
+            ContentView.Position2D = new Position2D(titleX, titleY + titleH);
 
             LayoutChild();
         }
 
+        /// <summary>
+        /// Layout child in Popup and it can be override by user.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void LayoutChild()
@@ -713,6 +867,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -732,14 +890,14 @@ namespace Tizen.NUI.CommonUI
             StateFocusableOnTouchMode = true;
             LeaveRequired = true;
 
-            contentView = new View()
+            ContentView = new View()
             {
                 ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 PositionUsesPivotPoint = true
             };
-            Add(contentView);
-            contentView.RaiseToTop();
+            Add(ContentView);
+            ContentView.RaiseToTop();
         }
 
         private void CreateShadowAttributes()
@@ -892,11 +1050,16 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// ButtonClickEventArgs is a class to record button click event arguments which will sent to user.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class ButtonClickEventArgs : EventArgs
         {
             /// <summary> Button index which is clicked in Popup </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public int ButtonIndex;

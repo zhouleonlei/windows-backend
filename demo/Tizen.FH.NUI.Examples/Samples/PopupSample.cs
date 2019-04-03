@@ -7,9 +7,6 @@ namespace Tizen.FH.NUI.Samples
     public class PopupSample : IExample
     {
         private SampleLayout root;
-
-        private static readonly float Height = 150;
-        private static readonly float Width = 300;
         private static readonly Size2D Padding = new Size2D(50, 50);
 
         private Popup popup = null;
