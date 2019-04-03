@@ -34,7 +34,6 @@ namespace Tizen.NUI.CommonUI
         private List<TabItem> itemList = new List<TabItem>();
         private int curIndex = 0;
         private View underline = null;
-        private EventHandler<ItemChangeEventArgs> itemChangeHander;
         private TabAttributes tabAttributes = null;
         private Animation underlineAni = null;
         private bool isNeedAnimation = false;
@@ -89,17 +88,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public event EventHandler<ItemChangeEventArgs> ItemChangedEvent
-        {
-            add
-            {
-                itemChangeHander += value;
-            }
-            remove
-            {
-                itemChangeHander -= value;
-            }
-        }
+        public event EventHandler<ItemChangeEventArgs> ItemChangedEvent;
 
         /// <summary>
         /// Selected item's index in Tab.
@@ -764,7 +753,7 @@ namespace Tizen.NUI.CommonUI
                 PreviousIndex = curIndex,
                 CurrentIndex = item.Index
             };
-            itemChangeHander?.Invoke(this, e);
+            ItemChangedEvent?.Invoke(this, e);
 
             itemList[curIndex].State = ControlStates.Normal;
             itemList[curIndex].UpdateItemText(tabAttributes.TextAttributes);

@@ -39,7 +39,6 @@ namespace Tizen.NUI.CommonUI
         private DropDownAttributes dropDownAttributes = null;
         private DropDownItemView touchedView = null;
         private int selectedItemIndex = -1;
-        private ClickEventHandler<ItemClickEventArgs> clickEventHandlers;
 
         /// <summary>
         /// Creates a new instance of a DropDown.
@@ -103,18 +102,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public event ClickEventHandler<ItemClickEventArgs> ItemClickEvent
-        {
-            add
-            {
-                clickEventHandlers += value;
-            }
-
-            remove
-            {
-                clickEventHandlers -= value;
-            }
-        }
+        public event ClickEventHandler<ItemClickEventArgs> ItemClickEvent;
 
         /// <summary>
         /// List orientation.
@@ -960,7 +948,7 @@ namespace Tizen.NUI.CommonUI
 
         private void OnClickEvent(object sender, ItemClickEventArgs e)
         {
-            clickEventHandlers?.Invoke(sender, e);
+            ItemClickEvent?.Invoke(sender, e);
         }
 
         private void CreateHeaderText()

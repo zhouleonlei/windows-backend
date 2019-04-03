@@ -37,7 +37,6 @@ namespace Tizen.FH.NUI.Controls
         private List<NavigationItem> itemList = new List<NavigationItem>();
         private List<View> dividerLineList = new List<View>();
         private int curIndex = -1;
-        private EventHandler<ItemChangeEventArgs> itemChangeHander;
         private NavigationAttributes navigationAttributes = null;
         private ImageView shadowImage;
         private ImageView backgroundImage;
@@ -97,17 +96,7 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public event EventHandler<ItemChangeEventArgs> ItemChangedEvent
-        {
-            add
-            {
-                itemChangeHander += value;
-            }
-            remove
-            {
-                itemChangeHander -= value;
-            }
-        }
+        public event EventHandler<ItemChangeEventArgs> ItemChangedEvent;
 
         /// <summary>
         /// Selected item's index in Navigation.
@@ -659,7 +648,7 @@ namespace Tizen.FH.NUI.Controls
                 PreviousIndex = curIndex,
                 CurrentIndex = item.Index
             };
-            itemChangeHander?.Invoke(this, e);
+            ItemChangedEvent?.Invoke(this, e);
 
             if (curIndex != -1)
             {
