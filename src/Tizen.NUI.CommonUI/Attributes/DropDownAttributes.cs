@@ -1,11 +1,35 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// DropDownAttributes is a class which saves DropDown's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class DropDownAttributes : ViewAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a DropDownAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownAttributes() : base()
@@ -16,6 +40,11 @@ namespace Tizen.NUI.CommonUI
             ListMargin = new Vector4(0, 0, 0, 0);
             FocusedItemIndex = 0;
         }
+        /// <summary>
+        /// Creates a new instance of a DropDownAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create DropDownAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownAttributes(DropDownAttributes attributes) : base(attributes)
@@ -60,6 +89,10 @@ namespace Tizen.NUI.CommonUI
             FocusedItemIndex = attributes.FocusedItemIndex;
         }
 
+        /// <summary>
+        /// DropDown button's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ButtonAttributes ButtonAttributes
@@ -68,6 +101,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Header text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes HeaderTextAttributes
@@ -76,6 +113,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Space between button text and button icon.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int SpaceBetweenButtonTextAndIcon
@@ -84,6 +125,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// List background image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ListBackgroundImageAttributes
@@ -92,6 +137,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Space in DropDown.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 Space
@@ -100,6 +149,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// List relative orientation.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDown.ListOrientation ListRelativeOrientation
@@ -108,6 +161,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// List margin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ListMargin
@@ -116,6 +173,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Focused item index.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FocusedItemIndex
@@ -124,6 +185,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// List size.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ListSize2D
@@ -132,6 +197,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// List padding.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Extents ListPadding
@@ -140,6 +209,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
@@ -148,13 +221,26 @@ namespace Tizen.NUI.CommonUI
         }
     }
 
+    /// <summary>
+    /// DropDownItemAttributes is a class which saves DropDownItem's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class DropDownItemAttributes : ViewAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a DropDownItemAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownItemAttributes() : base() { }
+        /// <summary>
+        /// Creates a new instance of a DropDownItemAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create DropDownItemAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownItemAttributes(DropDownItemAttributes attributes) : base(attributes)
@@ -178,6 +264,10 @@ namespace Tizen.NUI.CommonUI
             IsSelected = attributes.IsSelected;
         }
 
+        /// <summary>
+        /// Text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TextAttributes
@@ -186,6 +276,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Icon's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes IconAttributes
@@ -194,6 +288,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Check image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes CheckImageAttributes
@@ -202,6 +300,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Right space from check image.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int CheckImageRightSpace
@@ -210,6 +312,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Flag to decide item is selected or not.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsSelected
@@ -218,6 +324,10 @@ namespace Tizen.NUI.CommonUI
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

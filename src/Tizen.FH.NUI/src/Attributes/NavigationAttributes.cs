@@ -1,13 +1,37 @@
-﻿using Tizen.NUI;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using Tizen.NUI;
 using Tizen.NUI.CommonUI;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// NavigationAttributes is a class which saves Navigation's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class NavigationAttributes : ViewAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a NavigationAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NavigationAttributes() : base()
@@ -17,6 +41,11 @@ namespace Tizen.FH.NUI.Controls
             Space = new Vector4(0, 0, 0, 0);
             IsFitWithItems = false;
         }
+        /// <summary>
+        /// Creates a new instance of a NavigationAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create NavigationAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NavigationAttributes(NavigationAttributes attributes) : base(attributes)
@@ -45,6 +74,10 @@ namespace Tizen.FH.NUI.Controls
             IsFitWithItems = attributes.IsFitWithItems;
         }
 
+        /// <summary>
+        /// Shadow image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ShadowImageAttributes
@@ -53,6 +86,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Background image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -61,6 +98,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// DividerLine's color.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color DividerLineColor
@@ -69,6 +110,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Gap between items.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int ItemGap
@@ -77,6 +122,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Space in Navigation.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 Space
@@ -85,6 +134,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Flag to decide if item is fill with item text's natural width.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsFitWithItems
@@ -93,6 +146,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
@@ -101,10 +158,18 @@ namespace Tizen.FH.NUI.Controls
         }
     }
 
+    /// <summary>
+    /// NavigationItemAttributes is a class which saves Navigation item's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class NavigationItemAttributes : ButtonAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a NavigationItemAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NavigationItemAttributes() : base()
@@ -112,6 +177,11 @@ namespace Tizen.FH.NUI.Controls
             Space = new Vector4(0, 0, 0, 0);
             EnableIconCenter = false;
         }
+        /// <summary>
+        /// Creates a new instance of a NavigationItemAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create NavigationItemAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NavigationItemAttributes(NavigationItemAttributes attributes) : base(attributes)
@@ -134,6 +204,10 @@ namespace Tizen.FH.NUI.Controls
             EnableIconCenter = attributes.EnableIconCenter;
         }
 
+        /// <summary>
+        /// SubText's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes SubTextAttributes
@@ -142,6 +216,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// DividerLine's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes DividerLineAttributes
@@ -150,6 +228,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Space in NavigationItem.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 Space
@@ -158,6 +240,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Flag to decide if item icon is center or not.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool EnableIconCenter
@@ -166,6 +252,10 @@ namespace Tizen.FH.NUI.Controls
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
