@@ -26,7 +26,7 @@ namespace Tizen.FH.NUI.Controls
     /// <summary>
     /// The NaviFrame  is a component that contain head content and view content
     /// </summary>
-	/// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class NaviFrame : Control
@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Controls
         /// Initializes a new instance of the NaviFrame class.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
-		/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+	/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NaviFrame() : base()
         {
@@ -54,7 +54,7 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Initializes a new instance of the NaviFrame class.
         /// </summary>
-		/// <param name="style">Create NaviFrame by special style defined in UX.</param>
+	/// <param name="style">Create NaviFrame by special style defined in UX.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -122,7 +122,7 @@ namespace Tizen.FH.NUI.Controls
             pushStack.RemoveAt(pushStack.Count - 1);
             result.Dispose();
         }
-		/// <summary>
+	/// <summary>
         /// Get NaviFrame attribues.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
