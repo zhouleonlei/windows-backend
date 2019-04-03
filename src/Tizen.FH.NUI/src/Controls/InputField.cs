@@ -1,4 +1,20 @@
-﻿using System;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
@@ -7,6 +23,9 @@ using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputField : Tizen.NUI.CommonUI.InputField
@@ -39,18 +58,27 @@ namespace Tizen.FH.NUI.Controls
         private EventHandler<ButtonClickArgs> searchBtnClickHandler;
         private EventHandler<KeyEventArgs> keyEventHandler;
 
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField() : base()
         {
             Initialize();
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField(string style) : base(style)
         {
             Initialize();
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickArgs> CancelButtonClickEvent
@@ -64,6 +92,9 @@ namespace Tizen.FH.NUI.Controls
                 cancelBtnClickHandler -= value;
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickArgs> DeleteButtonClickEvent
@@ -77,6 +108,9 @@ namespace Tizen.FH.NUI.Controls
                 deleteBtnClickHandler -= value;
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickArgs> AddButtonClickEvent
@@ -90,7 +124,10 @@ namespace Tizen.FH.NUI.Controls
                 addBtnClickHandler -= value;
             }
         }
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <summary>
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickArgs> SearchButtonClickEvent
         {
@@ -103,6 +140,9 @@ namespace Tizen.FH.NUI.Controls
                 searchBtnClickHandler -= value;
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new event EventHandler<KeyEventArgs> KeyEvent
@@ -116,15 +156,20 @@ namespace Tizen.FH.NUI.Controls
                 keyEventHandler -= value;
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum ButtonClickState
         {
             /// <summary> Press down </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             PressDown,
             /// <summary> Bounce up </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             BounceUp
@@ -143,6 +188,9 @@ namespace Tizen.FH.NUI.Controls
             StyleB,
             SearchBar
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new bool StateEnabled
@@ -161,6 +209,9 @@ namespace Tizen.FH.NUI.Controls
                 base.StateEnabled = value;
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -220,12 +271,18 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new InputFieldAttributes();
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -247,6 +304,9 @@ namespace Tizen.FH.NUI.Controls
             RelayoutComponents();
             UpdateComponentsByStateEnabledChanged(base.StateEnabled);
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -258,6 +318,9 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutRequest();
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnTextFieldFocusGained(object source, EventArgs e)
@@ -266,6 +329,9 @@ namespace Tizen.FH.NUI.Controls
             textFieldState = ControlStates.Selected;
             RelayoutComponents(false, true, true, false);
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnTextFieldFocusLost(object source, EventArgs e)
@@ -273,6 +339,9 @@ namespace Tizen.FH.NUI.Controls
             textFieldState = ControlStates.Normal;
             RelayoutComponents(false, true, true, false);
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
@@ -293,6 +362,9 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutComponents(false, true, true, false);
             }
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
@@ -314,6 +386,9 @@ namespace Tizen.FH.NUI.Controls
             }
             return false;
         }
+        /// <summary>
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
