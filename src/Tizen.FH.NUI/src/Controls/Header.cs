@@ -1,3 +1,19 @@
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +23,10 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// The Header  is a component that contain a lable and a 1 pixel line  under it
+    /// </summary>
+	/// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Header : Control
@@ -14,24 +34,42 @@ namespace Tizen.FH.NUI.Controls
         private HeaderAttributes headerAttribute;
         private TextLabel headerTitle;
         private View headerLine;
+        /// <summary>
+        /// Initializes a new instance of the Header class.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Header() : base()
         {
             Initialize();
         }
+        /// <summary>
+        /// Initializes a new instance of the Header class.
+        /// </summary>
+		/// <param name="style">Create Header by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Header(string style) : base(style)
         {
             Initialize();
         }
+        /// <summary>
+        /// Initializes a new instance of the Header class.
+        /// </summary>
+        /// <param name="attributes">Create Header by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Header(HeaderAttributes attributes) : base()
         {
             this.attributes = headerAttribute = attributes.Clone() as HeaderAttributes;
         }
+        /// <summary>
+        ///The text showed in the header
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string HeaderText
@@ -55,6 +93,10 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
+        /// <summary>
+        ///The color of text showed in the header
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color HeaderTextColor
@@ -77,6 +119,10 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
+        /// <summary>
+        ///The color of one pixel line under the header
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color LinebackgroundColor
@@ -96,12 +142,21 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutRequest();
             }
         }
+		/// <summary>
+        /// Get Header attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new HeaderAttributes();
         }
+        /// <summary>
+        /// Dispose Header and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -133,6 +188,11 @@ namespace Tizen.FH.NUI.Controls
             }
             base.Dispose(type);
         }
+        /// <summary>
+        /// Update Header by attributes.
+        /// </summary>
+        /// <param name="attributes">Header attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
