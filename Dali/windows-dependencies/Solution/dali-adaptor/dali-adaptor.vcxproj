@@ -115,7 +115,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>dali-core.lib;libjpeg.lib;libcurl_a.lib;turbojpeg.lib;getopt.lib;giflib.lib;libEGL.lib;libexif.lib;libGLESv2.lib;pthread.lib;libpng.lib;zlibstat.lib;freetype.lib;FontConfig.lib;libexpat.lib;fribidi.lib;harfbuzz-1.4.7.lib;dlfcn.lib;Win32File.lib;WindowsPlatform.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;cairo.lib;pixman.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dali-core.lib;libjpeg.lib;libcurl_a.lib;turbojpeg.lib;getopt.lib;giflib.lib;libEGL.lib;libexif.lib;libGLESv2.lib;pthread.lib;libpng.lib;zlibstat.lib;freetype.lib;FontConfig.lib;libexpat.lib;fribidi.lib;harfbuzz-1.4.7.lib;dlfcn.lib;Win32File.lib;WindowsPlatform.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;cairo.lib;pixman.lib;uuid.lib;comdlg32.lib;advapi32.lib;libMaliEmulator.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../ExLib;../../ExLib/$(Configuration);../../../bin;../../../bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
