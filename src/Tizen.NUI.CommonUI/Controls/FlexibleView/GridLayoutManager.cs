@@ -23,67 +23,6 @@ namespace Tizen.NUI.CommonUI
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
-            LayoutState layoutState, LayoutChunkResult result)
-        {
-            bool layingOutInPrimaryDirection =
-                layoutState.ItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
-
-            int count = mSpanCount;
-            for (int i = 0; i < count; i++)
-            {
-                FlexibleView.ViewHolder holder = layoutState.Next(recycler);
-                if (holder == null)
-                {
-                    result.Finished = true;
-                    return;
-                }
-
-                if (layingOutInPrimaryDirection)
-                    AddView(holder);
-                else
-                    AddView(holder, 0);
-
-                result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
-
-                float left, top, width, height;
-                if (mOrientation == VERTICAL)
-                {
-                    width = (GetWidth() - GetPaddingLeft() - GetPaddingRight()) / count;
-                    height = result.Consumed;
-                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
-                    {
-                        left = GetPaddingLeft() + width * i;
-                        top = layoutState.Offset;
-                    }
-                    else
-                    {
-                        left = GetPaddingLeft() + width * (count - 1 - i);
-                        top = layoutState.Offset - height;
-                    }
-                    LayoutChild(holder, left, top, width, height);
-                }
-                else
-                {
-                    width = result.Consumed;
-                    height = (GetHeight() - GetPaddingTop() - GetPaddingBottom()) / count;
-                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
-                    {
-                        top = GetPaddingTop() + height * i;
-                        left = layoutState.Offset;
-                    }
-                    else
-                    {
-                        top = GetPaddingTop() + height * (count - 1 - i);
-                        left = layoutState.Offset - width;
-                    }
-                    LayoutChild(holder, left, top, width, height);
-                }
-            }
-        }
-
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
         {
             if (mOrientation == HORIZONTAL)
@@ -150,32 +89,65 @@ namespace Tizen.NUI.CommonUI
             return NO_POSITION;
         }
 
-
-
-        private void AssignSpans(FlexibleView.Recycler recycler, FlexibleView.ViewState state, int count,
-            int consumedSpanCount, bool layingOutInPrimaryDirection)
+        internal override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
+            LayoutState layoutState, LayoutChunkResult result)
         {
-            // spans are always assigned from 0 to N no matter if it is RTL or not.
-            // RTL is used only when positioning the view.
-            int span, start, end, diff;
-            // make sure we traverse from min position to max position
-            if (layingOutInPrimaryDirection)
+            bool layingOutInPrimaryDirection =
+                layoutState.ItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
+
+            int count = mSpanCount;
+            for (int i = 0; i < count; i++)
             {
-                start = 0;
-                end = count;
-                diff = 1;
-            }
-            else
-            {
-                start = count - 1;
-                end = -1;
-                diff = -1;
-            }
-            span = 0;
-            for (int i = start; i != end; i += diff)
-            {
+                FlexibleView.ViewHolder holder = layoutState.Next(recycler);
+                if (holder == null)
+                {
+                    result.Finished = true;
+                    return;
+                }
+
+                if (layingOutInPrimaryDirection)
+                    AddView(holder);
+                else
+                    AddView(holder, 0);
+
+                result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
+
+                float left, top, width, height;
+                if (mOrientation == VERTICAL)
+                {
+                    width = (GetWidth() - GetPaddingLeft() - GetPaddingRight()) / count;
+                    height = result.Consumed;
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
+                    {
+                        left = GetPaddingLeft() + width * i;
+                        top = layoutState.Offset;
+                    }
+                    else
+                    {
+                        left = GetPaddingLeft() + width * (count - 1 - i);
+                        top = layoutState.Offset - height;
+                    }
+                    LayoutChild(holder, left, top, width, height);
+                }
+                else
+                {
+                    width = result.Consumed;
+                    height = (GetHeight() - GetPaddingTop() - GetPaddingBottom()) / count;
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
+                    {
+                        top = GetPaddingTop() + height * i;
+                        left = layoutState.Offset;
+                    }
+                    else
+                    {
+                        top = GetPaddingTop() + height * (count - 1 - i);
+                        left = layoutState.Offset - width;
+                    }
+                    LayoutChild(holder, left, top, width, height);
+                }
             }
         }
+
 
     }
 }

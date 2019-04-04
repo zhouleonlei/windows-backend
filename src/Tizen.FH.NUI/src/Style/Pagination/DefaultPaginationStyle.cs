@@ -3,7 +3,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Controls
 {
-    internal class BasicPaginationStyle : StyleBase
+    internal class DefaultPaginationStyle : StyleBase
     {
         protected override Attributes GetAttributes()
         {

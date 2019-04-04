@@ -1,4 +1,20 @@
-﻿using System;
+﻿/*
+ * Copyright(c) 2018 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Tizen.NUI.BaseComponents;
@@ -9,15 +25,15 @@ namespace Tizen.NUI.CommonUI
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Pagination: Control
     {
-        protected VisualView container;
-        protected ImageVisual selectIndicator;
+        private PaginationAttributes paginationAttributes;
+
+        private VisualView container;
+
+        private List<ImageVisual> indicatorList = new List<ImageVisual>();
+        private ImageVisual selectIndicator;
 
         private int indicatorCount = 0;
         private int selectedIndex = -1;
-
-        private List<ImageVisual> indicatorList = new List<ImageVisual>();
-
-        private PaginationAttributes paginationAttributes;
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -178,6 +194,17 @@ namespace Tizen.NUI.CommonUI
                     SelectIn(indicatorList[selectedIndex]);
                 }
             }
+        }
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Position2D GetIndicatorPosition(int index)
+        {
+            if (index < 0 || index >= indicatorList.Count)
+            {
+                return new Vector2(0, 0);
+            }
+            return new Vector2(indicatorList[index].Position.X + container.PositionX, indicatorList[index].Position.Y + container.PositionY);
         }
 
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

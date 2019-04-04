@@ -173,7 +173,7 @@ namespace Tizen.FH.NUI
             StyleManager.Instance.RegisterStyle("OvalButton", "Food", typeof(FoodOvalButtonStyle));
             StyleManager.Instance.RegisterStyle("OvalButton", "Kitchen", typeof(KitchenOvalButtonStyle));
 
-            StyleManager.Instance.RegisterStyle("BasicPagination", null, typeof(BasicPaginationStyle));
+            StyleManager.Instance.RegisterStyle("DefaultPagination", null, typeof(DefaultPaginationStyle));
 
             StyleManager.Instance.RegisterStyle("CheckBox", "Utility", typeof(UtilityCheckBoxStyle), true);
             StyleManager.Instance.RegisterStyle("CheckBox", "Food", typeof(FoodCheckBoxStyle));

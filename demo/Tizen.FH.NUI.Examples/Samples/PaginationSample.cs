@@ -20,7 +20,7 @@ namespace Tizen.FH.NUI.Samples
             root.HeaderText = "Pagination";
 
             ///////////////////////////////////////////////Create by Style//////////////////////////////////////////////////////////
-            DAPagination1 = new Pagination("BasicPagination");
+            DAPagination1 = new Pagination("DefaultPagination");
             DAPagination1.Name = "DAAppPagination1";
             DAPagination1.Position2D = new Position2D(200, 50);
             DAPagination1.Size2D = new Size2D(400, 30);
@@ -32,7 +32,7 @@ namespace Tizen.FH.NUI.Samples
 
             DAPagination1.SelectChangeEvent += DAPagination_SelectChangeEvent;
 
-            DAPagination2 = new Pagination("BasicPagination");
+            DAPagination2 = new Pagination("DefaultPagination");
             DAPagination2.Name = "DAAppPagination2";
             DAPagination2.Position2D = new Position2D(200, 150);
             DAPagination2.Size2D = new Size2D(230, 30);
