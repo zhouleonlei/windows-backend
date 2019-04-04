@@ -22,9 +22,9 @@ using System.ComponentModel;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
-{    
+{
     /// <summary>
-    /// SearchBar is a compoenet 
+    /// SearchBar is a component which allow you input text and show the match results
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -43,6 +43,7 @@ namespace Tizen.FH.NUI.Controls
         private EventHandler<InputField.ButtonClickArgs> cancelBtnClickHandler;
         private EventHandler<InputField.ButtonClickArgs> searchBtnClickHandler;
         /// <summary>
+        /// Initializes a new instance of the SearchBar class.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -52,15 +53,18 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
         /// <summary>
-       /// </summary>
-       /// <since_tizen> 5.5 </since_tizen>
-       /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// Initializes a new instance of the SearchBar class.
+        /// </summary>
+        /// <param name="style">Create Header by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SearchBar(string style) : base(style)
         {
             Initialize();
         }
         /// <summary>
+        /// The Click Event attached to the Cancel Button
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -77,6 +81,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The Click Event attached to the Search Button
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -93,6 +98,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Set the status of the Search Bar editable or not 
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -113,6 +119,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The inputed Text that showed in the Search Bar
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -132,6 +139,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The Hint Text that showed before you input
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -151,6 +159,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The Color of the Text that showed in the Search Bar
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -170,6 +179,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The Height of the Result List
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -190,6 +200,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Expand the Search List Height
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -202,6 +213,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Shrink the Search List
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -215,7 +227,9 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
+        /// Dispose Search Bar and all children on it.
         /// </summary>
+        /// <param name="type">Dispose type.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -245,6 +259,7 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
         /// <summary>
+        /// Get Search Bar attribues.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -254,7 +269,9 @@ namespace Tizen.FH.NUI.Controls
             return new SearchBarAttributes();
         }
         /// <summary>
+        /// Update Search Bar by attributes.
         /// </summary>
+        /// <param name="attributes">Search Bar attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -271,6 +288,7 @@ namespace Tizen.FH.NUI.Controls
             RelayoutComponents();
         }
         /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

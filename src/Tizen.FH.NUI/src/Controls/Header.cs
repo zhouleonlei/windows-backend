@@ -47,7 +47,7 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Initializes a new instance of the Header class.
         /// </summary>
-	/// <param name="style">Create Header by special style defined in UX.</param>
+        /// <param name="style">Create Header by special style defined in UX.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -142,7 +142,7 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutRequest();
             }
         }
-	/// <summary>
+        /// <summary>
         /// Get Header attribues.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>

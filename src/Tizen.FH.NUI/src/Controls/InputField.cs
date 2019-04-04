@@ -24,6 +24,8 @@ using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
+    /// InputField is a editable input compoment with delete button or delete and add button.
+    /// After pressing Return key, search button will show
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -59,6 +61,7 @@ namespace Tizen.FH.NUI.Controls
         private EventHandler<KeyEventArgs> keyEventHandler;
 
         /// <summary>
+        /// Initializes a new instance of the InputField class.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -68,7 +71,9 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
         /// <summary>
+        /// Initializes a new instance of the InputField class.
         /// </summary>
+        /// <param name="style">Create Header by special style defined in UX.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -77,6 +82,7 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
         /// <summary>
+        /// Click Event attached to Cancel Button 
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -93,6 +99,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Click Event attached to Delete Button
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -109,6 +116,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Click Event attached to Add Button
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -125,9 +133,10 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
-    /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
-    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// Click Event attached to Search Button
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ButtonClickArgs> SearchButtonClickEvent
         {
@@ -141,6 +150,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The handler Event of Key
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -157,6 +167,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// The  state of Button Click
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -189,6 +200,7 @@ namespace Tizen.FH.NUI.Controls
             SearchBar
         }
         /// <summary>
+        /// Set the status of the Input Field editable or not 
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -210,7 +222,9 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Dispose Input Field and all children on it.
         /// </summary>
+        /// <param name="type">Dispose type.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -272,6 +286,7 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
         /// <summary>
+        /// Get Input Field attribues.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -281,7 +296,9 @@ namespace Tizen.FH.NUI.Controls
             return new InputFieldAttributes();
         }
         /// <summary>
+        /// Update Input Field by attributes.
         /// </summary>
+        /// <param name="attributes">Input Field attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -305,6 +322,7 @@ namespace Tizen.FH.NUI.Controls
             UpdateComponentsByStateEnabledChanged(base.StateEnabled);
         }
         /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -319,6 +337,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        ///  Text field focus gain  callback when focus is getted, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -330,6 +349,7 @@ namespace Tizen.FH.NUI.Controls
             RelayoutComponents(false, true, true, false);
         }
         /// <summary>
+        /// Text field lost gain  callback when focus is lost, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -340,6 +360,7 @@ namespace Tizen.FH.NUI.Controls
             RelayoutComponents(false, true, true, false);
         }
         /// <summary>
+        /// Text field change callback when text  is changed, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -363,6 +384,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
+        /// Text field key callback when "Return"  click down, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -387,6 +409,7 @@ namespace Tizen.FH.NUI.Controls
             return false;
         }
         /// <summary>
+        /// Text field touch event callback when text field  touch, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
