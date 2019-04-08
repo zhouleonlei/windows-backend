@@ -4,6 +4,10 @@ using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// A slider lets users select a value from a continuous or discrete range of values by moving the slider thumb.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Slider : Control
@@ -52,18 +56,35 @@ namespace Tizen.NUI.CommonUI
 
         bool isFocused = false;
         bool isPressed = false;
+
+        /// <summary>
+        /// The constructor of the Slider class.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Slider() 
         {
             Initialize();
         }
+
+        /// <summary>
+        /// The constructor of the Slider class with specific style
+        /// </summary>
+        /// <param name="style">The string to initialize the Slider</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Slider(string style) : base(style)
         {
             Initialize();
         }
+
+        /// <summary>
+        /// The constructor of the Slider class with specific Attributes
+        /// </summary>
+        /// <param name="attrs">The Attributes object to initialize the Slider</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Slider(SliderAttributes attrs) : base()
@@ -75,6 +96,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The value changed event handler
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ValueChangedArgs> ValueChangedEvent
@@ -92,6 +114,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The state changed event handler
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<StateChangedArgs> StateChangedEvent
@@ -109,12 +132,23 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The direction type
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum DirectionType
-        {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        {
+            /// <summary>
+            /// The Horizontal type
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Horizontal,
+
+            /// <summary>
+            /// The Vertical type
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Vertical
@@ -123,27 +157,34 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The indicator type
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum IndicatorType
         {
             /// <summary> Only contains slider bar.</summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             None,
+
             /// <summary> Contains slider bar, IndicatorImage.</summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Image,
+
+            /// <summary> Contains slider bar, IndicatorText.</summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            /// <summary> Contains slider bar, IndicatorText.</summary>
             Text
         }
 
         /// <summary>
         /// The property for the direction type
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DirectionType Direction
@@ -166,6 +207,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Property to get/set the indicator type, arrow or sign
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public IndicatorType Indicator
@@ -191,6 +236,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the minimum value
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int MinValue
@@ -209,6 +255,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the maximum value
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int MaxValue
@@ -227,6 +274,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the current value
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int CurrentValue
@@ -245,6 +293,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the size of the thumb image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ThumbSize
@@ -264,6 +313,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the resource url selector of the thumb image background object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ThumbImageBackgroundURLSelector
@@ -283,6 +333,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the resource url of the thumb image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ThumbImageURL
@@ -302,9 +353,11 @@ namespace Tizen.NUI.CommonUI
                 RelayoutRequest();
             }
         }
+
         /// <summary>
         /// The property for the resource url selector of the thumb image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ThumbImageURLSelector
@@ -321,10 +374,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
-
         /// <summary>
         /// The property for the color of the background track image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color BgTrackColor
@@ -351,6 +404,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the color of the slided track image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color SlidedTrackColor
@@ -377,6 +431,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the thickness value of the track
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint TrackThickness
@@ -416,6 +471,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the resource url of the low indicator image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string LowIndicatorImageURL
@@ -442,6 +498,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the resource url of the high indicator image object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string HighIndicatorImageURL
@@ -468,6 +525,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the text content of the low indicator text object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string LowIndicatorTextContent
@@ -494,6 +552,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the text content of the high indicator text object
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string HighIndicatorTextContent
@@ -520,6 +579,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the size of the low indicator object(image or text)
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D LowIndicatorSize
@@ -541,6 +601,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the size of the high indicator object(image or text)
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D HighIndicatorSize
@@ -562,6 +623,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the value of the space between track and indicator
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint SpaceBetweenTrackAndIndicator
@@ -580,6 +642,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// Focus gained callback.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusGained(object sender, EventArgs e)
@@ -588,6 +654,11 @@ namespace Tizen.NUI.CommonUI
             UpdateState(true, isPressed);
             base.OnFocusGained(sender, e);
         }
+
+        /// <summary>
+        /// Focus Lost callback.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnFocusLost(object sender, EventArgs e)
@@ -597,6 +668,10 @@ namespace Tizen.NUI.CommonUI
             base.OnFocusLost(sender, e);
         }
 
+        /// <summary>
+        /// Get Slider attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -604,6 +679,11 @@ namespace Tizen.NUI.CommonUI
             return new SliderAttributes();
         }
 
+        /// <summary>
+        /// Dispose Slider.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -690,9 +770,14 @@ namespace Tizen.NUI.CommonUI
             base.Dispose(type);
         }
 
+        /// <summary>
+        /// Update Slider by attributes.
+        /// </summary>
+        /// <param name="attributes">Slider attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate(Attributes attributes)
         {
             sliderAttrs = attributes as SliderAttributes;
             if (sliderAttrs == null)
@@ -812,6 +897,13 @@ namespace Tizen.NUI.CommonUI
             UpdateHighIndicatorSize();
             UpdateValue();
         }
+
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <param name="sender">serder object</param>
+        /// <param name="e">ThemeChangeEventArgs</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -823,6 +915,7 @@ namespace Tizen.NUI.CommonUI
                 RelayoutRequest();
             }
         }
+
         private void Initialize()
         {
             sliderAttrs = attributes as SliderAttributes;
@@ -836,6 +929,12 @@ namespace Tizen.NUI.CommonUI
             currentSlidedOffset = 0;
             isFocused = false;
             isPressed = false;
+            LayoutDirectionChanged += OnLayoutDirectionChanged;
+        }
+
+        private void OnLayoutDirectionChanged(object sender, LayoutDirectionChangedEventArgs e)
+        {
+            RelayoutRequest();
         }
 
         private void CreateSlidedTrackAttributes()
@@ -1235,13 +1334,19 @@ namespace Tizen.NUI.CommonUI
                 ratio = (float)(curValue - minValue) / (float)(maxValue - minValue);
             }
             uint curTrackThickness = CurrentTrackThickness();
-            float slidedTrackLength = (float)BgTrackLength() * ratio;
+
             if (direction == DirectionType.Horizontal)
             {
+                if (LayoutDirection == ViewLayoutDirectionType.RTL)
+                {
+                    ratio = 1.0f - ratio;
+                }
+                float slidedTrackLength = (float)BgTrackLength() * ratio;
                 slidedTrackImage.Size2D = new Size2D((int)slidedTrackLength, (int)curTrackThickness);
             }
             else if (direction == DirectionType.Vertical)
             {
+                float slidedTrackLength = (float)BgTrackLength() * ratio;
                 slidedTrackImage.Size2D = new Size2D((int)curTrackThickness, (int)slidedTrackLength);
             }
         }
@@ -1549,16 +1654,37 @@ namespace Tizen.NUI.CommonUI
                 }
             }
         }
+
+        /// <summary>
+        /// Value Changed event data.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class ValueChangedArgs : EventArgs
         {
+            /// <summary>
+            /// Curren value
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int CurrentValue;
         }
+
+        /// <summary>
+        /// State Changed event data.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class StateChangedArgs : EventArgs
-        {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        {
+            /// <summary>
+            /// Curent state
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public ControlStates CurrentState;
         }

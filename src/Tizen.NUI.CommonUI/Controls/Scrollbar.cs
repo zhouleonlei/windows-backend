@@ -4,21 +4,28 @@ using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// The ScrollBar class of nui component. It allows users to recognize the direction and the range of lists/content. .
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class ScrollBar : Control
     {
         private ScrollBarAttributes scrollBarAttrs;
-
         private ImageView trackObj;// = null;
         private ImageView thumbObj;// = null;
-
         private PanGestureDetector panGestureDetector;
         private EventHandler<PanGestureEventArgs> panGestureEventHandler;
         private Animation scrollAniPlayer = null;
         private float thumbObjPosX;
         private float thumbObjPosY;
         private bool enableAni = false;
+
+        /// <summary>
+        /// The constructor of ScrollBar
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar() : base()
@@ -26,6 +33,12 @@ namespace Tizen.NUI.CommonUI
             scrollBarAttrs = this.attributes as ScrollBarAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// The constructor of ScrollBar with specific style.
+        /// </summary>
+        /// <param name="style">style name</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar(string style) : base(style)
@@ -34,6 +47,12 @@ namespace Tizen.NUI.CommonUI
                 scrollBarAttrs = attributes as ScrollBarAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// The constructor of ScrollBar with specific Attributes.
+        /// </summary>
+        /// <param name="attributes">The Attributes object to initialize the ScrollBar.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar(ScrollBarAttributes attributes) : base()
@@ -42,37 +61,10 @@ namespace Tizen.NUI.CommonUI
             Initialize();
         }
 
-        ///// <summary>
-        ///// The constructor of the ScrollBar with specific Attributes.
-        ///// </summary>
-        ///// <param name="attrs">The Attributes object to initialize the ScrollBar.</param>
-        //public ScrollBar(Attributes attrs = null) : base(attrs, "ScrollBar")
-        //{
-        //    //TNLog.D("ScrollBar(Attributes);");
-        //    if (scrollBarAttrs == null)
-        //    {
-        //        scrollBarAttrs = new Attributes();
-        //    }
-        //    Initialize();
-        //}
-
-        ///// <summary>
-        ///// The constructor of the ScrollBar with specific style.
-        ///// </summary>
-        ///// <param name="style">The string to initialize the ScrollBar.</param>
-        //public ScrollBar(string style) : base(style, "ScrollBar")
-        //{
-        //    //TNLog.D("ScrollBar(style);");
-        //    if (scrollBarAttrs == null)
-        //    {
-        //        scrollBarAttrs = new Attributes();
-        //    }
-        //    Initialize();
-        //}
-
         /// <summary>
         /// The PanGesture event handler.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<PanGestureEventArgs> PanGestureEvent
@@ -86,13 +78,27 @@ namespace Tizen.NUI.CommonUI
                 panGestureEventHandler -= value;
             }
         }
+
+        /// <summary>
+        /// The direction type of the Scroll.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum DirectionType
-        {    
+        {
+            /// <summary>
+            /// The Horizontal type.
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Horizontal,
+
+            /// <summary>
+            /// The Vertical type.
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Vertical
@@ -103,6 +109,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the direction of the ScrollBar.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DirectionType Direction
@@ -135,6 +142,7 @@ namespace Tizen.NUI.CommonUI
         /// }
         /// </code>
         /// </example>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ThumbSize
@@ -162,6 +170,10 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// The property to get/set the image URL of the track object.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string TrackImageURL
@@ -187,6 +199,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the color of the track object.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TrackColor
@@ -214,6 +227,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the color of the thumb object.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color ThumbColor
@@ -234,6 +248,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the max value of the ScrollBar.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint MaxValue
@@ -256,6 +271,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the min value of the ScrollBar.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint MinValue
@@ -275,6 +291,26 @@ namespace Tizen.NUI.CommonUI
             }
         }
 
+        /// <summary>
+        /// The property to get/set the current value of the ScrollBar.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Throw when Current value is less than Min value, or greater than Max value.</exception>
+        /// <example>
+        /// <code>
+        /// ScrollBar scroll;
+        /// scroll.MaxValue = 100;
+        /// scroll.MinValue = 0;
+        /// try
+        /// {
+        ///     scroll.CurrentValue = 50;
+        /// }
+        /// catch(ArgumentOutOfRangeException e)
+        /// {
+        ///     Tizen.Log.Error(LogTag, "Failed to set Current value : " + e.Message);
+        /// }
+        /// </code>
+        /// </example>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint CurrentValue
@@ -298,6 +334,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Property to set/get animation duration.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint Duration
@@ -338,6 +375,7 @@ namespace Tizen.NUI.CommonUI
         /// }
         /// </code>
         /// </example>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetCurrentValue(uint currentValue, bool isEnableAni = true)
@@ -357,6 +395,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose ScrollBar.
         /// </summary>
         /// <param name="type">The DisposeTypes value.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -416,6 +455,7 @@ namespace Tizen.NUI.CommonUI
         /// The method to update Attributes.
         /// </summary>
         /// <param name="attrs">The specified attributes object.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)
@@ -438,6 +478,11 @@ namespace Tizen.NUI.CommonUI
                 UpdateValue();
             }
         }
+
+        /// <summary>
+        /// Get Scrollbar attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -749,10 +794,28 @@ namespace Tizen.NUI.CommonUI
                 scrollBarAttrs.CurValue = (uint)((thumbObjPosY) / (float)(trackSize.Height - thumbSize.Height) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
             }
         }
+
+        /// <summary>
+        /// The PanGesture event args.
+        /// </summary>
+        /// <code>
+        /// scrollBar.PanGestureEvent += OnPanGestureEvent;
+        /// private void OnPanGestureEvent(object sender, ScrollBar.PanGestureEventArgs args)
+        /// {
+        ///      Log.Info("TV.NUI.Example", "args.currentValue = " + args.currentValue);
+        /// }
+        /// </code>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class PanGestureEventArgs : EventArgs
         {
+            /// <summary>
+            /// The current value
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int currentValue;
         }
     }
