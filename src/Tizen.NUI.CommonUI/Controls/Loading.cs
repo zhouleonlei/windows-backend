@@ -5,16 +5,27 @@ using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
-{    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+{
+    /// <summary>
+    /// The Loading class of nui component. It's used to indicate informs users of the ongoing operation.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Loading : Control
-    {    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    {
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public List<string> ImageArray = null;
         private LoadingAttributes loadingAttrs = null;  // Loading Attributes
 
         private ImageView imageView = null;             // ImageView object
         private AnimatedImageVisual imageVisual = null;
+
+        /// <summary>
+        /// The constructor of Loading
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading() : base()
@@ -22,6 +33,12 @@ namespace Tizen.NUI.CommonUI
             loadingAttrs = this.attributes as LoadingAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// Constructor of the Loading class with special style.
+        /// </summary>
+        /// <param name="style">The string to initialize the Loading.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(string style) : base(style)
@@ -30,6 +47,12 @@ namespace Tizen.NUI.CommonUI
                 loadingAttrs = attributes as LoadingAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// The constructor of the Loading class with specific Attributes.
+        /// </summary>
+        /// <param name="attributes">The Attributes object to initialize the Loading.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(LoadingAttributes attributes) : base()
@@ -37,6 +60,11 @@ namespace Tizen.NUI.CommonUI
             this.attributes = loadingAttrs = attributes.Clone() as LoadingAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// Get or set LoadingImageURLPrefix
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string LoadingImageURLPrefix
@@ -53,6 +81,11 @@ namespace Tizen.NUI.CommonUI
 
             }
         }
+
+        /// <summary>
+        /// Get or set FPS of attributes
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FPS
@@ -78,6 +111,11 @@ namespace Tizen.NUI.CommonUI
 
             }
         }
+
+        /// <summary>
+        /// Get Loading attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -87,6 +125,12 @@ namespace Tizen.NUI.CommonUI
                 LoadingImageURLPrefix = new StringSelector(),
             };
         }
+
+        /// <summary>
+        /// Dispose Loading.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -118,6 +162,12 @@ namespace Tizen.NUI.CommonUI
             //You must call base.Dispose(type) just before exit.
             base.Dispose(type);
         }
+
+        /// <summary>
+        /// Update Loading by attributes.
+        /// </summary>
+        /// <param name="attributes">Loading attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)
