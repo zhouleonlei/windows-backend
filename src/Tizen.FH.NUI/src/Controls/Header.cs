@@ -167,23 +167,17 @@ namespace Tizen.FH.NUI.Controls
             }
             if (type == DisposeTypes.Explicit)
             {
-                if (headerAttribute.TextAttributes != null)
+                if (headerTitle != null)
                 {
-                    if (headerTitle== null)
-                    {
-                        headerTitle= new TextLabel();
-                        this.Add(headerTitle);
-                    }
-                    ApplyAttributes(headerTitle, headerAttribute.TextAttributes);
+                    Remove(headerTitle);
+                    headerTitle.Dispose();
+                    headerTitle = null;
                 }
-                if (headerAttribute.LineAttributes != null)
+                if (headerLine != null)
                 {
-                    if (headerLine== null)
-                    {
-                        headerLine = new View();
-                        this.Add(headerLine);
-                    }
-                    ApplyAttributes(headerLine, headerAttribute.LineAttributes);
+                    Remove(headerLine);
+                    headerLine.Dispose();
+                    headerLine = null;
                 }
             }
             base.Dispose(type);

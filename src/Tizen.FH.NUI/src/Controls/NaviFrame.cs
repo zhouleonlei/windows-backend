@@ -120,6 +120,8 @@ namespace Tizen.FH.NUI.Controls
             AnitMateContent(true);
             NaviItem result = pushStack[pushStack.Count - 1];
             pushStack.RemoveAt(pushStack.Count - 1);
+            contentView.Remove(result.contentView);
+            headContent.Remove(result.header);
             result.Dispose();
         }
 	/// <summary>
