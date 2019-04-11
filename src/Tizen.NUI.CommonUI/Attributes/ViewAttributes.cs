@@ -1,14 +1,40 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// The base class for Children attributes in Components.
+    /// </summary>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class ViewAttributes : Attributes
     {
+        /// <summary>
+        /// Construct ViewAttributes.
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes() : base() { }
+        /// <summary>
+        /// Constructs a ViewAttributes that is a copy of attrs.
+        /// </summary>
+        /// <param name="attributes">Construct Attributes</param>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes(ViewAttributes attributes)
@@ -73,6 +99,9 @@ namespace Tizen.NUI.CommonUI
             PaddingTop = attributes.PaddingTop;
             PaddingBottom = attributes.PaddingBottom;
         }
+        /// <summary>
+        /// View Position
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D Position2D
@@ -80,6 +109,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary> 
+        /// View Size 
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D Size2D
@@ -87,6 +119,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View BackgroundColor
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector BackgroundColor
@@ -94,6 +129,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View PositionUsesPivotPoint
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? PositionUsesPivotPoint
@@ -101,6 +139,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View ParentOrigin
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position ParentOrigin
@@ -108,6 +149,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View PivotPoint
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position PivotPoint
@@ -115,6 +159,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View WidthResizePolicy
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ResizePolicyType? WidthResizePolicy
@@ -122,6 +169,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View HeightResizePolicy
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ResizePolicyType? HeightResizePolicy
@@ -129,6 +179,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View MinimumSize
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D MinimumSize
@@ -136,6 +189,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View SizeModeFactor
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector3 SizeModeFactor
@@ -143,6 +199,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View Opacity
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector Opacity
@@ -150,6 +209,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View left padding
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int PaddingLeft
@@ -157,6 +219,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View right padding
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int PaddingRight
@@ -164,6 +229,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View top padding
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int PaddingTop
@@ -171,6 +239,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// View bottom padding
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int PaddingBottom
@@ -178,6 +249,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
