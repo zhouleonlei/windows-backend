@@ -15,7 +15,6 @@ namespace Tizen.FH.NUI.Samples
         {
             CreateRootView();
             CreateSearchBar();
-            CreateGuideText();
             button =  new Button();
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;
