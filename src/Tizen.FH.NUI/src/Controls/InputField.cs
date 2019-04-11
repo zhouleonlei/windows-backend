@@ -320,6 +320,7 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(searchBtn, inputFieldAttrs.SearchButtonAttributes);
             RelayoutComponents();
             UpdateComponentsByStateEnabledChanged(base.StateEnabled);
+            OnLayoutDirectionChanged();
         }
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
@@ -521,7 +522,113 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
         }
+        private void OnLayoutDirectionChanged()
+        {
+            if (inputFieldAttrs == null) return;
 
+            if (LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                if (cancelBtn)
+                {
+                    if (inputFieldAttrs.CancelButtonAttributes != null)
+                    {
+                        inputFieldAttrs.CancelButtonAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.CancelButtonAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        inputFieldAttrs.CancelButtonAttributes.PositionUsesPivotPoint = true;
+                    }
+                    cancelBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    cancelBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    cancelBtn.PositionUsesPivotPoint = true;
+                }
+                if(addBtnBg)
+                {
+                    if (inputFieldAttrs.AddButtonBgAttributes != null)
+                    {
+                        inputFieldAttrs.AddButtonBgAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.AddButtonBgAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        inputFieldAttrs.AddButtonBgAttributes.PositionUsesPivotPoint = true;
+                    }
+                    addBtnBg.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    addBtnBg.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    addBtnBg.PositionUsesPivotPoint = true;
+                }
+                if(searchBtn)
+                {
+                    if (inputFieldAttrs.SearchButtonAttributes != null)
+                    {
+                        inputFieldAttrs.SearchButtonAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.SearchButtonAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.SearchButtonAttributes.PositionUsesPivotPoint = true;
+                    }
+                    searchBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    searchBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    searchBtn.PositionUsesPivotPoint = true;
+                }
+                if(deleteBtn)
+                {
+                    if (inputFieldAttrs.DeleteButtonAttributes != null)
+                    {
+                        inputFieldAttrs.DeleteButtonAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.DeleteButtonAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        inputFieldAttrs.DeleteButtonAttributes.PositionUsesPivotPoint = true;
+                    }
+                    deleteBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    deleteBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    deleteBtn.PositionUsesPivotPoint = true;
+                }
+            }
+            else
+            {
+                if (cancelBtn)
+                {
+                    if (inputFieldAttrs.AddButtonBgAttributes != null)
+                    {
+                        inputFieldAttrs.AddButtonBgAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.AddButtonBgAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.AddButtonBgAttributes.PositionUsesPivotPoint = true;
+                    }
+                    cancelBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    cancelBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    cancelBtn.PositionUsesPivotPoint = true;
+                }
+                if (addBtnBg)
+                {
+                    if (inputFieldAttrs.AddButtonBgAttributes != null)
+                    {
+                        inputFieldAttrs.AddButtonBgAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.AddButtonBgAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.AddButtonBgAttributes.PositionUsesPivotPoint = true;
+                    }
+                    addBtnBg.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    addBtnBg.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    addBtnBg.PositionUsesPivotPoint = true;
+                }
+                if (searchBtn)
+                {
+                    if (inputFieldAttrs.SearchButtonAttributes != null)
+                    {
+                        inputFieldAttrs.SearchButtonAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.SearchButtonAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        inputFieldAttrs.SearchButtonAttributes.PositionUsesPivotPoint = true;
+                    }
+                    searchBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    searchBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    searchBtn.PositionUsesPivotPoint = true;
+                }
+                if (deleteBtn)
+                {
+                    if (inputFieldAttrs.DeleteButtonAttributes != null)
+                    {
+                        inputFieldAttrs.DeleteButtonAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.DeleteButtonAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.DeleteButtonAttributes.PositionUsesPivotPoint = true;
+                    }
+                    deleteBtn.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    deleteBtn.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    deleteBtn.PositionUsesPivotPoint = true;
+                }
+            }
+        }
         private void RelayoutComponents(bool shouldUpdate = true, bool enableRelayoutDefault = true, bool enableRelayoutSearchBar = true, bool enableRelayoutStyleB = true)
         {
             switch(style)
@@ -571,11 +678,18 @@ namespace Tizen.FH.NUI.Controls
             }
             if (shouldUpdate)
             {
-                SetTextFieldPosX(space);
-                cancelBtn.PositionX = -space;
+                if(this.LayoutDirection == ViewLayoutDirectionType.RTL)
+                {
+                    SetTextFieldPosX(-space);
+                    cancelBtn.PositionX = space;
+                }
+                else
+                {
+                    SetTextFieldPosX(space);
+                    cancelBtn.PositionX = -space;
+                }
             }
         }
-
         private void RelayoutComponentsForSearchBar(bool shouldUpdate)
         {
             if (searchBtn == null || cancelBtn == null)
@@ -587,11 +701,12 @@ namespace Tizen.FH.NUI.Controls
             // #2 SearchBtn + TextField + CancelBtn     input state, text's length > 0, press "Done" key on IME;
             // #3 TextField + CancelBtn                 excepte #1 & #2.
             int space = Space();
+            int textfieldX = 0;
             if (textFieldState == ControlStates.Normal && textState == TextState.Guide)
             {// #1
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
                 SetTextFieldSize2D(Size2D.Width - space * 2 - searchBtn.Size2D.Width - spaceBetweenTextFieldAndLeftButton, Size2D.Height);
-                SetTextFieldPosX(space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton);
+                textfieldX = space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton;
                 searchBtn.Show();
                 cancelBtn.Hide();
             }
@@ -600,7 +715,7 @@ namespace Tizen.FH.NUI.Controls
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
                 int spaceBetweenTextFieldAndRightButton = SpaceBetweenTextFieldAndRightButton();
                 SetTextFieldSize2D(Size2D.Width - space * 2 - searchBtn.Size2D.Width - spaceBetweenTextFieldAndLeftButton - cancelBtn.Size2D.Width - spaceBetweenTextFieldAndRightButton, Size2D.Height);
-                SetTextFieldPosX(space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton);
+                textfieldX = space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton;
                 searchBtn.Show();
                 cancelBtn.Show();
             }
@@ -608,15 +723,28 @@ namespace Tizen.FH.NUI.Controls
             {// #3
                 int spaceBetweenTextFieldAndRighttButton = SpaceBetweenTextFieldAndRightButton();
                 SetTextFieldSize2D(Size2D.Width - space * 2 - cancelBtn.Size2D.Width - spaceBetweenTextFieldAndRighttButton, Size2D.Height);
-                SetTextFieldPosX(space);
+                textfieldX = space;
                 searchBtn.Hide();
                 cancelBtn.Show();
             }
 
-            if (shouldUpdate)
+            if (this.LayoutDirection == ViewLayoutDirectionType.RTL)
             {
-                searchBtn.PositionX = space;
-                cancelBtn.PositionX = -space;
+                if (shouldUpdate)
+                {
+                    searchBtn.PositionX = -space;
+                    cancelBtn.PositionX = space;
+                }
+                SetTextFieldPosX(-textfieldX);
+            }
+            else
+            {
+                if (shouldUpdate)
+                {
+                    searchBtn.PositionX = space;
+                    cancelBtn.PositionX = -space;
+                }
+                SetTextFieldPosX(textfieldX);
             }
         }
 
@@ -633,10 +761,22 @@ namespace Tizen.FH.NUI.Controls
             int space = Space();
             int spaceBetweenTextFieldAndRightButton = SpaceBetweenTextFieldAndRightButton();
             SetTextFieldSize2D(Size2D.Width - space - spaceBetweenTextFieldAndRightButton - deleteBtn.Size2D.Width - addBtnBg.Size2D.Width, Size2D.Height);
-            SetTextFieldPosX(space);
 
-            addBtnBg.PositionX = 0;
-            deleteBtn.PositionX = -addBtnBg.Size2D.Width;
+            if (this.LayoutDirection == ViewLayoutDirectionType.RTL)
+            {
+                SetTextFieldPosX(-space);
+
+                addBtnBg.PositionX = 0;
+                deleteBtn.PositionX = addBtnBg.Size2D.Width;
+            }
+            else
+            {
+                SetTextFieldPosX(space);
+
+                addBtnBg.PositionX = 0;
+                deleteBtn.PositionX = -addBtnBg.Size2D.Width;
+            }
+
         }
 
         private int SpaceBetweenTextFieldAndRightButton()

@@ -282,6 +282,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
+            inputField.LayoutDirection = LayoutDirection;
             ApplyAttributes(this, searchBarAttrs);
             ApplyAttributes(inputField, searchBarAttrs.SearchBoxAttributes);
             ApplyAttributes(resultListRoot, searchBarAttrs.ResultListAttributes);

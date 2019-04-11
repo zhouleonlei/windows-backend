@@ -214,6 +214,7 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(bgImage, inputFieldAttrs.BackgroundImageAttributes);
             ApplyAttributes(textField, inputFieldAttrs.InputBoxAttributes);
             RelayoutComponent();
+            OnLayoutDirectionChanged();
         }
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
@@ -393,7 +394,40 @@ namespace Tizen.NUI.CommonUI
                 textField.KeyEvent += OnTextFieldKeyEvent;
             }
         }
-
+        private void OnLayoutDirectionChanged()
+        {
+            if (inputFieldAttrs == null) return;
+            if (textField != null)
+            {
+                if (LayoutDirection == ViewLayoutDirectionType.LTR)
+                {
+                    if(inputFieldAttrs.InputBoxAttributes != null)
+                    {
+                        inputFieldAttrs.InputBoxAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                        inputFieldAttrs.InputBoxAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.InputBoxAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.InputBoxAttributes.PositionUsesPivotPoint = true;
+                    }
+                    textField.HorizontalAlignment = HorizontalAlignment.Begin;
+                    textField.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    textField.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    textField.PositionUsesPivotPoint = true;
+                }
+                else //ViewLayoutDirectionType.RTL
+                {
+                    if (inputFieldAttrs.InputBoxAttributes != null)
+                    {
+                        inputFieldAttrs.InputBoxAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                        inputFieldAttrs.InputBoxAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.InputBoxAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    }
+                    textField.HorizontalAlignment = HorizontalAlignment.End;
+                    textField.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    textField.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    textField.PositionUsesPivotPoint = true;
+                }
+            }
+        }
         private void RelayoutComponent()
         {
             if (!relayoutTextField)

@@ -12,6 +12,7 @@ namespace Tizen.FH.NUI.Samples
         private TextLabel guideText;
         private SampleLayout rootView;
         private int posY;
+        private Button button;
 
         public void Activate()
         {
@@ -20,9 +21,29 @@ namespace Tizen.FH.NUI.Samples
             CreateRootView();
             CreateFamily();
             CreateGuideText();
+            button = new Button();
+            button.Size2D = new Size2D(300, 80);
+            button.BackgroundColor = Color.Green;
+            button.Position2D = new Position2D(200, 0);
+            button.Text = "LTR/RTL";
+            button.ClickEvent += OnLayoutChanged;
+            rootView.Add(button);
             Window.Instance.KeyEvent += OnWindowsKeyEvent;
         }
-
+        private void OnLayoutChanged(object sender, global::System.EventArgs e)
+        {
+            for (int i = 0; i < COUNT; i++)
+            {
+                if (inputFieldArr[i].LayoutDirection == ViewLayoutDirectionType.LTR)
+                {
+                    inputFieldArr[i].LayoutDirection = ViewLayoutDirectionType.RTL;
+                }
+                else
+                {
+                    inputFieldArr[i].LayoutDirection = ViewLayoutDirectionType.LTR;
+                }
+            }
+        }
         private void CreateRootView()
         {
             rootView = new SampleLayout();
@@ -170,6 +191,13 @@ namespace Tizen.FH.NUI.Samples
                 rootView.Remove(guideText);
                 guideText.Dispose();
                 guideText = null;
+            }
+
+            if (button != null)
+            {
+                rootView.Remove(button);
+                button.Dispose();
+                button = null;
             }
 
             if (rootView != null)
