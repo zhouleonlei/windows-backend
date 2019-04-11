@@ -15,13 +15,17 @@
  *
  */
 using System;
+using System.ComponentModel;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
-using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// Pagination shows the number of pages available and the currently active page. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Pagination : Tizen.NUI.CommonUI.Pagination
@@ -38,12 +42,21 @@ namespace Tizen.FH.NUI.Controls
 
         private EventHandler<SelectChangeEventArgs> selectChangeEventHandlers;
 
+        /// <summary>
+        /// Creates a new instance of a Pagination.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Pagination() : base()
         {
             Initialize();
         }
+
+        /// <summary>
+        /// Creates a new instance of a Pagination using style.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Pagination(string style) : base(style)
@@ -52,8 +65,9 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
-        /// Item click event.
+        /// Select indicator changed event.
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<SelectChangeEventArgs> SelectChangeEvent
@@ -68,7 +82,11 @@ namespace Tizen.FH.NUI.Controls
                 selectChangeEventHandlers -= value;
             }
         }
-		
+
+        /// <summary>
+        /// Gets or sets the resource of return arrow button.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ReturnArrowURLs
@@ -95,6 +113,11 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.ReturnArrowAttributes.ResourceURL = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the resource of next arrow button.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector NextArrowURLs
@@ -121,6 +144,11 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.NextArrowAttributes.ResourceURL = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the size of return arrow button.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D ReturnArrowSize
@@ -147,6 +175,11 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.ReturnArrowAttributes.Size2D = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the size of next arrow button.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D NextArrowSize
@@ -173,6 +206,11 @@ namespace Tizen.FH.NUI.Controls
                 paginationAttributes.NextArrowAttributes.Size2D = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the count of the pages/indicators.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new int IndicatorCount
@@ -192,6 +230,11 @@ namespace Tizen.FH.NUI.Controls
                 LayoutUpdate();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the index of the select indicator.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new int SelectedIndex
@@ -219,7 +262,12 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
-		
+
+        /// <summary>
+        /// you can override it to clean-up your own resources.
+        /// </summary>
+        /// <param name="type">DisposeTypes</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -254,12 +302,23 @@ namespace Tizen.FH.NUI.Controls
 
             base.Dispose(type);
         }
+
+        /// <summary>
+        /// you can override it to create your own default attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new PaginationAttributes();
         }
+
+        /// <summary>
+        /// you can override it to update your own resources.
+        /// </summary>
+        /// <param name="attributtes">Attributes</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -283,6 +342,12 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// you can override it to handle the tap gesture.
+        /// </summary>
+        /// <param name="source">TapGestureDetector</param>
+        /// <param name="e">DetectedEventArgs</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
@@ -416,16 +481,28 @@ namespace Tizen.FH.NUI.Controls
         }
 
 
+        /// <summary>
+        /// SelectChange Event Arguments. 
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class SelectChangeEventArgs : EventArgs
         {
-	        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-	        [EditorBrowsable(EditorBrowsableState.Never)]
+            /// <summary>
+            /// Previous select indicator index. 
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int PreviousIndex;
 
-	        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-	        [EditorBrowsable(EditorBrowsableState.Never)]
+            /// <summary>
+            /// Previous select indicator index. 
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public int CurrentIndex;
         }
 

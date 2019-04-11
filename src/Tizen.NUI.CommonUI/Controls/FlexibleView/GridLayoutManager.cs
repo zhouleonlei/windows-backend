@@ -1,7 +1,27 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright(c) 2018 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// Layout collection of views in a grid. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class GridLayoutManager : LinearLayoutManager
@@ -9,11 +29,13 @@ namespace Tizen.NUI.CommonUI
         private static readonly int DEFAULT_SPAN_COUNT = -1;
 
         private int mSpanCount = DEFAULT_SPAN_COUNT;
-        /**
-         * @param spanCount The number of columns or rows in the grid
-         * @param orientation Layout orientation. Should be {@link #HORIZONTAL} or {@link
-         *                      #VERTICAL}.
-         */
+
+        /// <summary>
+        /// Creates a GridLayoutManager with orientation. 
+        /// </summary>
+        /// <param name="spanCount">The number of columns or rows in the grid</param>
+        /// <param name="orientation">Layout orientation.Should be HORIZONTAL or VERTICAL</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public GridLayoutManager(int spanCount, int orientation) : base(orientation)
@@ -21,6 +43,13 @@ namespace Tizen.NUI.CommonUI
             mSpanCount = spanCount;
         }
 
+        /// <summary>
+        /// Retrieves a position that neighbor to current position by direction. 
+        /// </summary>
+        /// <param name="position">The anchor adapter position</param>
+        /// <param name="direction">The direction.</param>
+        /// <param name="state">Transient state of FlexibleView </param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)

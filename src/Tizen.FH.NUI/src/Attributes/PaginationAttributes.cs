@@ -27,9 +27,17 @@ namespace Tizen.FH.NUI.Controls
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class PaginationAttributes : Tizen.NUI.CommonUI.PaginationAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a PaginationAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PaginationAttributes() : base() { }
+        /// <summary>
+        /// Creates a new instance of a PaginationAttributes using attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
@@ -43,6 +51,11 @@ namespace Tizen.FH.NUI.Controls
                 NextArrowAttributes = attributes.NextArrowAttributes.Clone() as ImageAttributes;
             }
         }
+
+        /// <summary>
+        /// Gets or sets return arrow icon attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ReturnArrowAttributes
@@ -50,6 +63,11 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets next arrow icon attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes NextArrowAttributes
@@ -57,6 +75,11 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
+        /// <summary>
+        /// Retrieves a copy of PaginationAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
