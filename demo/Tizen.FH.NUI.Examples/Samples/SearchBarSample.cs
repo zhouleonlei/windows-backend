@@ -10,12 +10,32 @@ namespace Tizen.FH.NUI.Samples
         private SampleLayout rootView = null;
         private Tizen.FH.NUI.Controls.SearchBar searchBar = null;
 
+        private Button button;
         public void Activate()
         {
             CreateRootView();
             CreateSearchBar();
+            button =  new Button();
+            button.Size2D = new Size2D(300, 80);
+            button.BackgroundColor = Color.Green;
+            button.Position2D = new Position2D(40,400 );
+            button.Text = "LTR/RTL";
+            button.ClickEvent += OnLayoutChanged;
+            rootView.Add(button);
+            Window.Instance.KeyEvent += OnWindowsKeyEvent;
         }
+        private void OnLayoutChanged(object sender, global::System.EventArgs e)
+        {
+            if (searchBar.LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                searchBar.LayoutDirection = ViewLayoutDirectionType.RTL;
+            }
+            else
+            {
+                searchBar.LayoutDirection = ViewLayoutDirectionType.LTR;
 
+            }
+        }
         private void CreateRootView()
         {
             rootView = new SampleLayout();
@@ -96,6 +116,13 @@ namespace Tizen.FH.NUI.Samples
                 rootView.Remove(searchBar);
                 searchBar.Dispose();
                 searchBar = null;
+            }
+
+            if (button != null)
+            {
+                rootView.Remove(button);
+                button.Dispose();
+                button = null;
             }
             if (rootView != null)
             {

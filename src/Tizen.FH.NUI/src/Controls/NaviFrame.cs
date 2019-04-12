@@ -120,7 +120,6 @@ namespace Tizen.FH.NUI.Controls
             AnitMateContent(true);
             NaviItem result = pushStack[pushStack.Count - 1];
             pushStack.RemoveAt(pushStack.Count - 1);
-            result.Dispose();
         }
 	/// <summary>
         /// Get NaviFrame attribues.
@@ -231,6 +230,8 @@ namespace Tizen.FH.NUI.Controls
             {
                 if (prevItem != null)
                 {
+                    contentView.Remove(prevItem.contentView);
+                    headContent.Remove(prevItem.header);
                     prevItem.Dispose();
                     prevItem = null;
                 }
@@ -255,7 +256,21 @@ namespace Tizen.FH.NUI.Controls
 
                 flickAnimation.Clear();
             }
-            if (prevItem != null) prevItem.Hide();//in case animation is not finished
+            if (prevItem != null)
+            {
+                if (popFlag)
+                {
+                    contentView.Remove(prevItem.contentView);
+                    headContent.Remove(prevItem.header);
+                    prevItem.Dispose();
+                    prevItem = null;
+                }
+                else
+                {
+                    prevItem.Hide();
+                }
+
+            }
             if (currentItem != null) currentItem.SetX(endcur);
         }
         private void AnitMateContent(bool nextflag)
@@ -273,7 +288,12 @@ namespace Tizen.FH.NUI.Controls
                     startcur = prevItem.contentView.SizeWidth;
                     endcur = 0;
                 }
+                startcur = startcur / 2;
                 currentItem.SetX(startcur);
+                currentItem.contentView.Opacity = 1.0f;
+                currentItem.header.Opacity = 1.0f;
+                //flickAnimation.AnimateTo(currentItem.contentView, "Opacity", 1.0f);
+                //flickAnimation.AnimateTo(currentItem.header, "Opacity", 1.0f);
                 flickAnimation.AnimateTo(currentItem.contentView, "PositionX", endcur);
                 flickAnimation.AnimateTo(currentItem.header, "PositionX", endcur);
             }
@@ -282,16 +302,20 @@ namespace Tizen.FH.NUI.Controls
             {
                 if (nextflag)
                 {
-                    startpre = 0;
                     endpre = prevItem.contentView.SizeWidth;
                 }
                 else
                 {
-                    startpre = 0;
                     endpre = prevItem.contentView.SizeWidth * (-1);
                 }
+                startcur = 0;
+                endpre = endpre / 2;
                 prevItem.Show();
-                prevItem.SetX(startpre); 
+                prevItem.contentView.Opacity = 1.0f;
+                prevItem.header.Opacity = 1.0f;
+                prevItem.SetX(startpre);
+                flickAnimation.AnimateTo(prevItem.contentView, "Opacity", 0f);
+                flickAnimation.AnimateTo(prevItem.header, "Opacity", 0f);
                 flickAnimation.AnimateTo(prevItem.contentView, "PositionX", endpre);
                 flickAnimation.AnimateTo(prevItem.header, "PositionX", endpre);
             }

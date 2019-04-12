@@ -23,6 +23,7 @@ using System.ComponentModel;
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
+    /// ListItem is a component which is the item of list
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -58,6 +59,7 @@ namespace Tizen.FH.NUI.Controls
         private CheckBox checkBoxObj = null;
         private Switch switchObj = null;
         /// <summary>
+        /// Initializes a new instance of the ListItem class.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -67,7 +69,9 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
         /// <summary>
+        /// Initializes a new instance of the ListItem class.
         /// </summary>
+        /// <param name="style">Create Header by special style defined in UX.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -83,13 +87,16 @@ namespace Tizen.FH.NUI.Controls
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum ItemAlignTypes
-        {    /// <summary>
-             /// </summary>
-             /// <since_tizen> 5.5 </since_tizen>
-             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        {
+            /// <summary>
+            /// Icon type for item align style
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Icon,
             /// <summary>
+            /// Check Icon type for item align style
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -106,24 +113,28 @@ namespace Tizen.FH.NUI.Controls
         public enum GroupIndexTypes
         {
             /// <summary>
+            /// Have no group index style
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             None,
             /// <summary>
+            /// Drop down type for group index style
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             DropDown,
             /// <summary>
+            /// Next type for group index style
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Next,
             /// <summary>
+            /// Switch type for group index style
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -140,48 +151,56 @@ namespace Tizen.FH.NUI.Controls
         public enum StyleTypes
         {
             /// <summary>
+            /// have no  style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             None,
             /// <summary>
+            /// default style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Default,
             /// <summary>
+            /// mutil sub text style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             MultiSubText,
             /// <summary>
+            /// effect style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Effect,
             /// <summary>
+            /// item align style type 
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             ItemAlign,
             /// <summary>
+            /// next depth style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             NextDepth,
             /// <summary>
+            /// group index style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             GroupIndex,
             /// <summary>
+            /// drop down style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -578,7 +597,9 @@ namespace Tizen.FH.NUI.Controls
             rightItemRootView.Add(obj as View);
         }
         /// <summary>
+        /// Dispose List Item and all children on it.
         /// </summary>
+        /// <param name="type">Dispose type.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -712,6 +733,7 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
         /// <summary>
+        /// Get List Item attribues.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -721,7 +743,9 @@ namespace Tizen.FH.NUI.Controls
             return new ListItemAttributes();
         }
         /// <summary>
+        /// Update List Item by attributes.
         /// </summary>
+        /// <param name="attributes">List Item attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -743,6 +767,7 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(rightIcon, listItemAttrs.RightIconAttributes);
             ApplyAttributes(rightText, listItemAttrs.RightTextAttributes);
             RelayoutComponents();
+            OnLayoutDirectionChanged();
         }
 
         private void ApplyMainTextAttributes()
@@ -815,6 +840,137 @@ namespace Tizen.FH.NUI.Controls
             }
             InitializeRightIcon();
             this.TouchEvent += OnTouchEvent;
+        }
+
+        private void OnLayoutDirectionChanged()
+        {
+            if (listItemAttrs == null)
+            {
+                return;
+            }
+            if (LayoutDirection == ViewLayoutDirectionType.LTR)
+            {
+                for (int i = 0; i < subTextCount; ++i)
+                {
+                    if(subTextLabelArray[i])
+                    {
+                        subTextLabelArray[i].LayoutDirection = ViewLayoutDirectionType.LTR;
+                        subTextLabelArray[i].HorizontalAlignment = HorizontalAlignment.Begin;
+                    }
+                }
+                if (listItemAttrs.SubTextAttributes != null)
+                    listItemAttrs.SubTextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                if (textRootView)
+                {
+                    textRootView.LayoutDirection = ViewLayoutDirectionType.LTR;
+                    textRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    textRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    textRootView.PositionUsesPivotPoint = true;
+                }
+                if(mainTextLabel)
+                {
+                    if (styleType == StyleTypes.GroupIndex && groupIndexType == GroupIndexTypes.None)
+                    {
+                        if(listItemAttrs.MainText2Attributes != null)
+                            listItemAttrs.MainText2Attributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                    }
+                    else
+                    {
+                        if(listItemAttrs.MainTextAttributes != null)
+                           listItemAttrs.MainTextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                    }
+                    mainTextLabel.LayoutDirection = ViewLayoutDirectionType.LTR;
+                    mainTextLabel.HorizontalAlignment = HorizontalAlignment.Begin;
+                }
+
+                if (leftItemRootView)
+                {
+                    if(listItemAttrs.LeftItemRootViewAttributes != null)
+                    {
+                        listItemAttrs.LeftItemRootViewAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        listItemAttrs.LeftItemRootViewAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        listItemAttrs.LeftItemRootViewAttributes.PositionUsesPivotPoint = true;
+                    }
+                    leftItemRootView.LayoutDirection = ViewLayoutDirectionType.LTR;
+                    leftItemRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    leftItemRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    leftItemRootView.PositionUsesPivotPoint = true;
+                }
+                if(rightItemRootView)
+                {
+                    if(listItemAttrs.RightItemRootViewAttributes != null)
+                    {
+                        listItemAttrs.RightItemRootViewAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        listItemAttrs.RightItemRootViewAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        listItemAttrs.RightItemRootViewAttributes.PositionUsesPivotPoint = true;
+                    }
+                    rightItemRootView.LayoutDirection = ViewLayoutDirectionType.LTR;
+                    rightItemRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    rightItemRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    rightItemRootView.PositionUsesPivotPoint = true;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < subTextCount; ++i)
+                {
+                    if (subTextLabelArray[i])
+                    {
+                        subTextLabelArray[i].LayoutDirection = ViewLayoutDirectionType.RTL;
+                        subTextLabelArray[i].HorizontalAlignment = HorizontalAlignment.End;
+                    }
+                }
+                if(listItemAttrs.SubTextAttributes !=null )
+                    listItemAttrs.SubTextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                if (textRootView)
+                {
+                    textRootView.LayoutDirection = ViewLayoutDirectionType.RTL;
+                    textRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    textRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    textRootView.PositionUsesPivotPoint = true;
+                }
+                if (mainTextLabel)
+                {
+                    if (styleType == StyleTypes.GroupIndex && groupIndexType == GroupIndexTypes.None)
+                    {
+                        if(listItemAttrs.MainText2Attributes != null)
+                            listItemAttrs.MainText2Attributes.HorizontalAlignment = HorizontalAlignment.End;
+                    }
+                    else
+                    {
+                        if(listItemAttrs.MainTextAttributes != null)
+                            listItemAttrs.MainTextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                    }
+                    mainTextLabel.LayoutDirection = ViewLayoutDirectionType.RTL;
+                    mainTextLabel.HorizontalAlignment = HorizontalAlignment.End;
+                }
+                if (leftItemRootView)
+                {
+                    if (listItemAttrs.LeftItemRootViewAttributes != null)
+                    {
+                        listItemAttrs.LeftItemRootViewAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        listItemAttrs.LeftItemRootViewAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                        listItemAttrs.LeftItemRootViewAttributes.PositionUsesPivotPoint = true;
+                    }
+                    leftItemRootView.LayoutDirection = ViewLayoutDirectionType.RTL;
+                    leftItemRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    leftItemRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    leftItemRootView.PositionUsesPivotPoint = true;
+                }
+                if (rightItemRootView)
+                {
+                    if (listItemAttrs.RightItemRootViewAttributes != null)
+                    {
+                        listItemAttrs.RightItemRootViewAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        listItemAttrs.RightItemRootViewAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        listItemAttrs.RightItemRootViewAttributes.PositionUsesPivotPoint = true;
+                    }
+                    rightItemRootView.LayoutDirection = ViewLayoutDirectionType.RTL;
+                    rightItemRootView.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    rightItemRootView.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    rightItemRootView.PositionUsesPivotPoint = true;
+                }
+            }
         }
 
         private void InitializeSubText()
@@ -925,8 +1081,12 @@ namespace Tizen.FH.NUI.Controls
             }
             if (textRootView != null)
             {
+                int testrootx = LeftSpaceValue() + LeftItemRootViewWidth() + SpaceBetweenLeftItemAndTextValue();
                 textRootView.Size2D = new Size2D(rootWidth, heightSum);
-                textRootView.Position2D = new Position2D(LeftSpaceValue() + LeftItemRootViewWidth() + SpaceBetweenLeftItemAndTextValue(), 0);
+                if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
+                    textRootView.Position2D = new Position2D(testrootx, 0);
+                else
+                    textRootView.Position2D = new Position2D(-testrootx, 0);
             }
         }
 
@@ -955,7 +1115,11 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            leftItemRootView.Position2D = new Position2D(LeftSpaceValue(), 0);
+            int leftspace = LeftSpaceValue();
+            if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
+                leftItemRootView.Position2D = new Position2D(leftspace, 0);
+            else
+                leftItemRootView.Position2D = new Position2D(-leftspace, 0);
         }
 
         private void ResizeRightItemRootView()
@@ -973,7 +1137,11 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            rightItemRootView.Position2D = new Position2D(-RightSpaceValue(), 0);
+            int rightspace = RightSpaceValue();
+            if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
+                rightItemRootView.Position2D = new Position2D(-rightspace, 0);
+            else
+                rightItemRootView.Position2D = new Position2D(rightspace, 0);
         }
 
         private int TextRootViewWidth()

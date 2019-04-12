@@ -1,7 +1,27 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright(c) 2018 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// Layout collection of views in a grid. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class GridLayoutManager : LinearLayoutManager
@@ -9,11 +29,13 @@ namespace Tizen.NUI.CommonUI
         private static readonly int DEFAULT_SPAN_COUNT = -1;
 
         private int mSpanCount = DEFAULT_SPAN_COUNT;
-        /**
-         * @param spanCount The number of columns or rows in the grid
-         * @param orientation Layout orientation. Should be {@link #HORIZONTAL} or {@link
-         *                      #VERTICAL}.
-         */
+
+        /// <summary>
+        /// Creates a GridLayoutManager with orientation. 
+        /// </summary>
+        /// <param name="spanCount">The number of columns or rows in the grid</param>
+        /// <param name="orientation">Layout orientation.Should be HORIZONTAL or VERTICAL</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public GridLayoutManager(int spanCount, int orientation) : base(orientation)
@@ -21,67 +43,13 @@ namespace Tizen.NUI.CommonUI
             mSpanCount = spanCount;
         }
 
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
-            LayoutState layoutState, LayoutChunkResult result)
-        {
-            bool layingOutInPrimaryDirection =
-                layoutState.ItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
-
-            int count = mSpanCount;
-            for (int i = 0; i < count; i++)
-            {
-                FlexibleView.ViewHolder holder = layoutState.Next(recycler);
-                if (holder == null)
-                {
-                    result.Finished = true;
-                    return;
-                }
-
-                if (layingOutInPrimaryDirection)
-                    AddView(holder);
-                else
-                    AddView(holder, 0);
-
-                result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
-
-                float left, top, width, height;
-                if (mOrientation == VERTICAL)
-                {
-                    width = (GetWidth() - GetPaddingLeft() - GetPaddingRight()) / count;
-                    height = result.Consumed;
-                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
-                    {
-                        left = GetPaddingLeft() + width * i;
-                        top = layoutState.Offset;
-                    }
-                    else
-                    {
-                        left = GetPaddingLeft() + width * (count - 1 - i);
-                        top = layoutState.Offset - height;
-                    }
-                    LayoutChild(holder, left, top, width, height);
-                }
-                else
-                {
-                    width = result.Consumed;
-                    height = (GetHeight() - GetPaddingTop() - GetPaddingBottom()) / count;
-                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
-                    {
-                        top = GetPaddingTop() + height * i;
-                        left = layoutState.Offset;
-                    }
-                    else
-                    {
-                        top = GetPaddingTop() + height * (count - 1 - i);
-                        left = layoutState.Offset - width;
-                    }
-                    LayoutChild(holder, left, top, width, height);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Retrieves a position that neighbor to current position by direction. 
+        /// </summary>
+        /// <param name="position">The anchor adapter position</param>
+        /// <param name="direction">The direction.</param>
+        /// <param name="state">Transient state of FlexibleView </param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
@@ -150,32 +118,65 @@ namespace Tizen.NUI.CommonUI
             return NO_POSITION;
         }
 
-
-
-        private void AssignSpans(FlexibleView.Recycler recycler, FlexibleView.ViewState state, int count,
-            int consumedSpanCount, bool layingOutInPrimaryDirection)
+        internal override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
+            LayoutState layoutState, LayoutChunkResult result)
         {
-            // spans are always assigned from 0 to N no matter if it is RTL or not.
-            // RTL is used only when positioning the view.
-            int span, start, end, diff;
-            // make sure we traverse from min position to max position
-            if (layingOutInPrimaryDirection)
+            bool layingOutInPrimaryDirection =
+                layoutState.ItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
+
+            int count = mSpanCount;
+            for (int i = 0; i < count; i++)
             {
-                start = 0;
-                end = count;
-                diff = 1;
-            }
-            else
-            {
-                start = count - 1;
-                end = -1;
-                diff = -1;
-            }
-            span = 0;
-            for (int i = start; i != end; i += diff)
-            {
+                FlexibleView.ViewHolder holder = layoutState.Next(recycler);
+                if (holder == null)
+                {
+                    result.Finished = true;
+                    return;
+                }
+
+                if (layingOutInPrimaryDirection)
+                    AddView(holder);
+                else
+                    AddView(holder, 0);
+
+                result.Consumed = mOrientationHelper.GetViewHolderMeasurement(holder);
+
+                float left, top, width, height;
+                if (mOrientation == VERTICAL)
+                {
+                    width = (GetWidth() - GetPaddingLeft() - GetPaddingRight()) / count;
+                    height = result.Consumed;
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
+                    {
+                        left = GetPaddingLeft() + width * i;
+                        top = layoutState.Offset;
+                    }
+                    else
+                    {
+                        left = GetPaddingLeft() + width * (count - 1 - i);
+                        top = layoutState.Offset - height;
+                    }
+                    LayoutChild(holder, left, top, width, height);
+                }
+                else
+                {
+                    width = result.Consumed;
+                    height = (GetHeight() - GetPaddingTop() - GetPaddingBottom()) / count;
+                    if (layoutState.LayoutDirection == LayoutState.LAYOUT_END)
+                    {
+                        top = GetPaddingTop() + height * i;
+                        left = layoutState.Offset;
+                    }
+                    else
+                    {
+                        top = GetPaddingTop() + height * (count - 1 - i);
+                        left = layoutState.Offset - width;
+                    }
+                    LayoutChild(holder, left, top, width, height);
+                }
             }
         }
+
 
     }
 }

@@ -1,9 +1,29 @@
-﻿using System;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
 namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// InputField is a editable input compoment
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputField : Control
@@ -17,6 +37,10 @@ namespace Tizen.NUI.CommonUI
         // the flag indicate should relayout the textField in base class
         private bool relayoutTextField = true;
 
+        /// <summary>
+        /// Initializes a new instance of the InputField class.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField() : base()
@@ -29,6 +53,12 @@ namespace Tizen.NUI.CommonUI
         {
             Initialize();
         }
+
+        /// <summary>
+        /// Initializes a new instance of the InputField class.
+        /// </summary>
+        /// <param name="style">Create Header by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField(InputFieldAttributes attributes) : base()
@@ -40,6 +70,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the enabled state
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool StateEnabled
@@ -57,6 +88,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the text content
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text
@@ -77,6 +109,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the hint text
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string HintText
@@ -97,6 +130,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the color of the input text
         /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TextColor
@@ -113,12 +147,23 @@ namespace Tizen.NUI.CommonUI
                 }
             }
         }
+
+        /// <summary>
+        /// Get Input Field attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
             return new InputFieldAttributes();
         }
+
+        /// <summary>
+        /// Dispose Input Field and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -150,6 +195,12 @@ namespace Tizen.NUI.CommonUI
 
             base.Dispose(type);
         }
+
+        /// <summary>
+        /// Update Input Field by attributes.
+        /// </summary>
+        /// <param name="attributes">Input Field attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -163,7 +214,12 @@ namespace Tizen.NUI.CommonUI
             ApplyAttributes(bgImage, inputFieldAttrs.BackgroundImageAttributes);
             ApplyAttributes(textField, inputFieldAttrs.InputBoxAttributes);
             RelayoutComponent();
+            OnLayoutDirectionChanged();
         }
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -175,6 +231,11 @@ namespace Tizen.NUI.CommonUI
                 RelayoutRequest();
             }
         }
+
+        /// <summary>
+        /// The property for the inputfield space
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected int Space()
@@ -186,33 +247,65 @@ namespace Tizen.NUI.CommonUI
             }
             return space;
         }
+
+        /// <summary>
+        /// Theme change callback when text field focus is gained, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldFocusGained(object source, EventArgs e)
         {
         }
+
+        /// <summary>
+        /// Theme change callback when text field is lost, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldFocusLost(object source, EventArgs e)
         {
         }
+
+        /// <summary>
+        /// Theme change callback when text field's text is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
         {
         }
+
+        /// <summary>
+        /// Theme change callback when text field have a key event, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
         {
             return false;
         }
+
+        /// <summary>
+        /// Theme change callback when text field is touched, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
         {
             return false;
         }
+
+        /// <summary>
+        /// Set the text field 2D size
+        /// </summary>
+        /// <param name="w">Input Field' width.</param>
+        /// <param name="h">Input Field' height.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldSize2D(int w, int h)
@@ -222,6 +315,12 @@ namespace Tizen.NUI.CommonUI
                 textField.Size2D = new Size2D(w, h);
             }
         }
+
+        /// <summary>
+        /// Set the text field X pose
+        /// </summary>
+        /// <param name="X">Input Field' X.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldPosX(int x)
@@ -231,6 +330,12 @@ namespace Tizen.NUI.CommonUI
                 textField.PositionX = x;
             }
         }
+
+        /// <summary>
+        /// Set the text field  text color
+        /// </summary>
+        /// <param name="color">Input Field' color.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldTextColor(Color color)
@@ -240,6 +345,12 @@ namespace Tizen.NUI.CommonUI
                 textField.TextColor = color;
             }
         }
+
+        /// <summary>
+        /// Set the text field relayout flag
+        /// </summary>
+        /// <param name="value">relayout text field' value.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void RelayoutTextField(bool value)
@@ -283,7 +394,40 @@ namespace Tizen.NUI.CommonUI
                 textField.KeyEvent += OnTextFieldKeyEvent;
             }
         }
-
+        private void OnLayoutDirectionChanged()
+        {
+            if (inputFieldAttrs == null) return;
+            if (textField != null)
+            {
+                if (LayoutDirection == ViewLayoutDirectionType.LTR)
+                {
+                    if(inputFieldAttrs.InputBoxAttributes != null)
+                    {
+                        inputFieldAttrs.InputBoxAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
+                        inputFieldAttrs.InputBoxAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                        inputFieldAttrs.InputBoxAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                        inputFieldAttrs.InputBoxAttributes.PositionUsesPivotPoint = true;
+                    }
+                    textField.HorizontalAlignment = HorizontalAlignment.Begin;
+                    textField.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    textField.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    textField.PositionUsesPivotPoint = true;
+                }
+                else //ViewLayoutDirectionType.RTL
+                {
+                    if (inputFieldAttrs.InputBoxAttributes != null)
+                    {
+                        inputFieldAttrs.InputBoxAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                        inputFieldAttrs.InputBoxAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                        inputFieldAttrs.InputBoxAttributes.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    }
+                    textField.HorizontalAlignment = HorizontalAlignment.End;
+                    textField.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    textField.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    textField.PositionUsesPivotPoint = true;
+                }
+            }
+        }
         private void RelayoutComponent()
         {
             if (!relayoutTextField)

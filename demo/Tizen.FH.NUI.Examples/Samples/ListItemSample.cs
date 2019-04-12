@@ -13,6 +13,7 @@ namespace Tizen.FH.NUI.Samples
         private int itemPosY, itemPosX;
         private int itemPosYOffset;
         private uint index;
+        private Button button;
 
         public void Activate()
         {
@@ -74,8 +75,33 @@ namespace Tizen.FH.NUI.Samples
             CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, drop down");
             listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.DropDown;
             listItemArray[index].RightItemRootViewSize = new Size2D(48, 48);
-            
+
+            button = new Button();
+            button.Size2D = new Size2D(300, 80);
+            button.BackgroundColor = Color.Green;
+            button.Position2D = new Position2D(itemPosX+10, itemPosY);
+            button.Text = "LTR/RTL";
+            button.ClickEvent += OnLayoutChanged;
+            rootView.Add(button);
             Window.Instance.KeyEvent += OnWindowsKeyEvent;
+        }
+        private void OnLayoutChanged(object sender, global::System.EventArgs e)
+        {
+            for (int i = 0; i < COUNT; ++i)
+            {
+                if(listItemArray[i])
+                {
+                    if (listItemArray[i].LayoutDirection == ViewLayoutDirectionType.LTR)
+                    {
+                        listItemArray[i].LayoutDirection = ViewLayoutDirectionType.RTL;
+                    }
+                    else
+                    {
+                        listItemArray[i].LayoutDirection = ViewLayoutDirectionType.LTR;
+
+                    }
+                }
+            }
         }
 
         private void CreateRootView()
@@ -142,6 +168,12 @@ namespace Tizen.FH.NUI.Samples
                     }
                 }
                 listItemArray = null;
+            }
+            if (button != null)
+            {
+                rootView.Remove(button);
+                button.Dispose();
+                button = null;
             }
             if (rootView != null)
             {
