@@ -1,4 +1,20 @@
-﻿using System;
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
@@ -6,6 +22,10 @@ using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {    
+    /// <summary>
+    /// The Spin is one kind of FH component, used for Time Picker. It can change time by TapGesture and PanGesture with animation. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Spin : Control
@@ -59,6 +79,10 @@ namespace Tizen.FH.NUI.Controls
         
         private SpinAttributes spinAttributes;
 
+        /// <summary>
+        /// Creates a new instance of a Spin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Spin() : base()
@@ -66,6 +90,11 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Creates a new instance of a Spin with style.
+        /// </summary>
+        /// <param name="style">Create Spin by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Spin(string style) : base(style)
@@ -113,6 +142,10 @@ namespace Tizen.FH.NUI.Controls
             MoveToNext20 = 4
         }
 
+        /// <summary>
+        /// Name text string in Spin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string NameText
@@ -130,6 +163,10 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Min selected value in Spin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Min
@@ -151,6 +188,10 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Max selected value in Spin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Max
@@ -172,6 +213,10 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Current selected value in Spin.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int CurValue
@@ -186,6 +231,11 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose Spin and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -315,13 +365,22 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
 
+        /// <summary>
+        /// Get Spin attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new SpinAttributes();
         }
 
+        /// <summary>
+        /// Update Spin by attributes.
+        /// </summary>
+        /// <param name="attributes">Spin attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)

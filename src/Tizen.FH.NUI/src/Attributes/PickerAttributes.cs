@@ -1,15 +1,44 @@
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 using System.ComponentModel;
 
-﻿namespace Tizen.NUI.CommonUI
+namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// PickerAttributes is a class which saves Date Picker's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class PickerAttributes : ViewAttributes
     {  
+        /// <summary>
+        /// Creates a new instance of a PickerAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PickerAttributes() : base() { }
 
+        /// <summary>
+        /// Creates a new instance of a PickerAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create PickerAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PickerAttributes(PickerAttributes attributes) : base(attributes)
@@ -113,6 +142,10 @@ using System.ComponentModel;
 
         }
 
+        /// <summary>
+        /// Date Picker shaow image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ShadowImageAttributes
@@ -121,6 +154,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker background image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -128,7 +165,11 @@ using System.ComponentModel;
             get;
             set;
         }
-
+        
+        /// <summary>
+        /// Date Picker focus image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes FocusImageAttributes
@@ -136,7 +177,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker end selected image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes EndSelectedImageAttributes
@@ -144,7 +189,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker date view's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]        
         public ViewAttributes DateViewAttributes
@@ -152,7 +201,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker sunday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)] 
         public TextAttributes SunTextAttributes
@@ -160,7 +213,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker mondy text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes MonTextAttributes
@@ -168,7 +225,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker tuesday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TueTextAttributes
@@ -176,7 +237,11 @@ using System.ComponentModel;
             get;
             set;
         }
-        
+
+        /// <summary>
+        /// Date Picker wensday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes WenTextAttributes
@@ -185,6 +250,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker thursday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes ThuTextAttributes
@@ -193,6 +262,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker friday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes FriTextAttributes
@@ -201,6 +274,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker saturday text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes SatTextAttributes
@@ -209,6 +286,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker date text's attributes. Date of a month.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes DateTextAttributes
@@ -217,6 +298,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker date text's attributes. Date of a month. They have width difference from DateTextAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes DateText2Attributes
@@ -225,6 +310,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker left arrow image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes LeftArrowImageAttributes
@@ -233,6 +322,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker right arrow image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes RightArrowImageAttributes
@@ -241,6 +334,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker month text's attributes. Show the current month.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes MonthTextAttributes
@@ -249,6 +346,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker year dropdown's attributes. It can change year.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownAttributes YearDropDownAttributes
@@ -257,6 +358,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker year dropdown item's attributes. used for YearDropDownAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownItemAttributes YearDropDownItemAttributes
@@ -265,6 +370,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Date Picker year range.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2 YearRange
@@ -273,6 +382,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

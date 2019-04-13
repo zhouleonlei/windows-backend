@@ -1,4 +1,20 @@
-﻿using System;
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using Tizen.NUI.BaseComponents;
 using System.Globalization;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
@@ -8,6 +24,10 @@ using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// Picker is one kind of Fhub component, a picker allows the user to change date information: year/month/day. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Picker : Control
@@ -35,6 +55,10 @@ namespace Tizen.FH.NUI.Controls
         private DataArgs data;        
         private PickerAttributes pickerAttributes = null;
 
+        /// <summary>
+        /// Creates a new instance of a Picker.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Picker() : base()
@@ -42,6 +66,11 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Creates a new instance of a Picker with style.
+        /// </summary>
+        /// <param name="style">Create Picker by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Picker(string style) : base(style)
@@ -49,6 +78,10 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Current date in Picker.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DateTime CurDate
@@ -64,6 +97,11 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose Picker and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -215,13 +253,21 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }
 
+        /// <summary>
+        /// Get Picker attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new PickerAttributes();
         }
-		
+
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
 		/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
 		protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -233,7 +279,12 @@ namespace Tizen.FH.NUI.Controls
                 RelayoutRequest();
             }
         }
-		
+
+        /// <summary>
+        /// Update Picker by attributes.
+        /// </summary>
+        /// <param name="attributes">Picker attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)

@@ -1,4 +1,20 @@
-﻿using System;
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
@@ -7,6 +23,10 @@ using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
+    /// <summary>
+    /// TimePicker is one kind of Fhub component, a timePicker allows the user to change time information: hour/minute/second/AMPM. 
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class TimePicker : Control
@@ -28,6 +48,10 @@ namespace Tizen.FH.NUI.Controls
         private DateTime curTime;      
         private TimePickerAttributes timePickerAttributes;
 
+        /// <summary>
+        /// Creates a new instance of a TimePicker.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePicker() : base()
@@ -35,6 +59,11 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Creates a new instance of a TimePicker with style.
+        /// </summary>
+        /// <param name="style">Create TimePicker by special style defined in UX.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePicker(string style) : base(style)
@@ -42,6 +71,10 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
 
+        /// <summary>
+        /// Current time in TimePicker.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DateTime CurTime
@@ -56,6 +89,11 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose TimePicker and all children on it.
+        /// </summary>
+        /// <param name="type">Dispose type.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -169,13 +207,21 @@ namespace Tizen.FH.NUI.Controls
             base.Dispose(type);
         }   
 
+        /// <summary>
+        /// Get TimePicker attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
-            return null;
+            return new TimePickerAttributes();
         }
-		
+
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
 		/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
 		protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -188,6 +234,11 @@ namespace Tizen.FH.NUI.Controls
             }
         }
 
+        /// <summary>
+        /// Update TimePicker by attributes.
+        /// </summary>
+        /// <param name="attributes">TimePicker attributes which record all data information.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)

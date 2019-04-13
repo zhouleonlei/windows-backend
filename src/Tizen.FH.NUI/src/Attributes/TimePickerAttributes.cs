@@ -1,15 +1,44 @@
+/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 using System.ComponentModel;
 
-﻿namespace Tizen.NUI.CommonUI
+namespace Tizen.NUI.CommonUI
 {
+    /// <summary>
+    /// TimePickerAttributes is a class which saves Time Picker's ux data.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class TimePickerAttributes : ViewAttributes
     {
+        /// <summary>
+        /// Creates a new instance of a TimePickerAttributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePickerAttributes() : base() { }
 
+        /// <summary>
+        /// Creates a new instance of a TimePickerAttributes with attributes.
+        /// </summary>
+        /// <param name="attributes">Create TimePickerAttributes by attributes customized by user.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TimePickerAttributes(TimePickerAttributes attributes) : base(attributes)
@@ -77,6 +106,10 @@ using System.ComponentModel;
             }
         }
 
+        /// <summary>
+        /// Time Picker shaow image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ShadowImageAttributes
@@ -85,6 +118,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker background image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -93,6 +130,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker title text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TitleTextAttributes
@@ -101,6 +142,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// ShadowOffset.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ShadowOffset
@@ -109,6 +154,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker hour spin's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes HourSpinAttributes
@@ -117,6 +166,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker minute spin's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes MinuteSpinAttributes
@@ -125,6 +178,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker second spin's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes SecondSpinAttributes
@@ -133,6 +190,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker AMPM spin's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SpinAttributes AMPMSpinAttributes
@@ -141,6 +202,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker colon image's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ColonImageAttributes
@@ -149,6 +214,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker week view's attributes. Used for add week title and week text.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes WeekViewAttributes
@@ -157,6 +226,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker week title text's attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes WeekTitleTextAttributes
@@ -165,6 +238,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker week select image's attributes. 
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes WeekSelectImageAttributes
@@ -173,6 +250,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Time Picker week text's attributes. 
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes WeekTextAttributes
@@ -181,6 +262,10 @@ using System.ComponentModel;
             set;
         }
 
+        /// <summary>
+        /// Attributes's clone function.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
