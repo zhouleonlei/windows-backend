@@ -1,11 +1,34 @@
-﻿using Tizen.NUI.BaseComponents;
+﻿/*
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 using Tizen.NUI;
 using System;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
-{   
+{
+    /// <summary>
+    /// Use a toast to provide simple messages when the user does not need to make an additional action or confirmation.
+    /// Unlike other popups, a toast only has the body field as it is just used for providing simple feedback to user actions.
+    /// A toast will automatically disappear after a certain time.
+    /// </summary>
+    /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Toast : Tizen.NUI.CommonUI.Toast
@@ -17,6 +40,109 @@ namespace Tizen.FH.NUI.Controls
         private ToastLengthType lengthType = ToastLengthType.CUSTOM;
         private ToastLinesType linesType = ToastLinesType.ONE;
         private bool loadingEnable = false;
+
+        /// <summary>
+        /// Construct Toast with null.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Toast() : base()
+        {
+            SetAttribute();
+
+            Initialize();
+            base.SetAttribute();
+        }
+
+        /// <summary>
+        /// Constructor of the Toast class with special style.
+        /// </summary>
+        /// <param name="style"> style name </param>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Toast(string style) : base(style)
+        {
+            SetAttribute();
+            if (toastAttributes == null)
+            {
+                throw new Exception("Toast attribute parse error.");
+            }
+            base.SetAttribute();
+            ApplyAttributes(this, toastAttributes);
+        }
+
+        /// <summary>
+        /// The Toast length type
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public enum ToastLengthType
+        {
+            /// <summary>
+            /// The short type
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            SHORT,
+
+            /// <summary>
+            /// The long type
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            LONG,
+
+            /// <summary>
+            /// The custom type
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            CUSTOM
+        };
+
+        /// <summary>
+        /// The how many lines type
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public enum ToastLinesType
+        {
+            /// <summary>
+            /// One line
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            ONE,
+
+            /// <summary>
+            /// Two lines
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            TWO,
+
+            /// <summary>
+            /// Three lines
+            /// </summary>
+            /// <since_tizen> 5.5 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            THREE
+        };
+
+        /// <summary>
+        /// Get or set text length.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastLengthType LengthType
@@ -43,6 +169,11 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
+
+        /// <summary>
+        /// Get or set how many lines.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastLinesType LinesType
@@ -119,6 +250,11 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
+
+        /// <summary>
+        /// Get or set loading enable.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool LoadingEnable
@@ -145,6 +281,11 @@ namespace Tizen.FH.NUI.Controls
 
             }
         }
+
+        /// <summary>
+        /// Get or set text of second line.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text2Line
@@ -160,6 +301,11 @@ namespace Tizen.FH.NUI.Controls
             }
 
         }
+
+        /// <summary>
+        /// Get or set text of third lie.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text3Line
@@ -175,57 +321,12 @@ namespace Tizen.FH.NUI.Controls
             }
 
         }
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Toast() : base()
-        {
-            SetAttribute();
 
-            Initialize();
-            base.SetAttribute();
-        }
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Toast(string style) : base(style)
-        {
-            SetAttribute();
-            if (toastAttributes == null)
-            {
-                throw new Exception("Toast attribute parse error.");
-            }
-            base.SetAttribute();
-            ApplyAttributes(this, toastAttributes);
-        }
-
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public enum ToastLengthType
-        {
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            SHORT,
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            LONG,
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            CUSTOM
-        };
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public enum ToastLinesType
-        {
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            ONE,
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            TWO,
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            THREE
-        };
-
+        /// <summary>
+        /// Dispose ToastPopup.
+        /// </summary>
+        /// <param name="type">dispose types.</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -248,6 +349,12 @@ namespace Tizen.FH.NUI.Controls
 
             base.Dispose(type);
         }
+
+        /// <summary>
+        /// Relayout control's elements
+        /// </summary>
+        /// <param name="attributes">Attributes to be applied</param>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributes)
@@ -272,6 +379,35 @@ namespace Tizen.FH.NUI.Controls
             base.OnUpdate(attributes);
         }
 
+        /// <summary>
+        /// Get Toast attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override Attributes GetAttributes()
+        {
+            return new ToastAttributes
+            {
+                TextAttributes = new TextAttributes
+                {
+
+                },
+
+                BackgroundImageAttributes = new ImageAttributes
+                {
+
+                },
+                LoadingAttributes = new LoadingAttributes
+                {
+                }
+            };
+        }
+
+        /// <summary>
+        /// LayoutChild include textLabel and loading.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void LayoutChild()
@@ -325,30 +461,12 @@ namespace Tizen.FH.NUI.Controls
                 toastText_3line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 120;//TODO
             }
 
-
-
-
         }
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override Attributes GetAttributes()
-        {
-            return new ToastAttributes
-            {
-                TextAttributes = new TextAttributes
-                {
 
-                },
-
-                BackgroundImageAttributes = new ImageAttributes
-                {
-
-                },
-                LoadingAttributes = new LoadingAttributes
-                {
-                }
-            };
-        }
+        /// <summary>
+        /// Set ToastAttributes as control.attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetAttribute()
@@ -390,5 +508,6 @@ namespace Tizen.FH.NUI.Controls
             loadingEnable = false;
             RelayoutRequest();
         }
+
     }
 }
