@@ -6,7 +6,7 @@ namespace Tizen.FH.NUI.Samples
 {
     public class ScrollbarSample : IExample
     {
-        private TextLabel board1, board2, board;
+        private TextLabel board1, board2;
         private Button button1, button2, button3, button4;
         private ScrollBar scrollBar1, scrollBar2;
         private ScrollBar daScrollBar1, daScrollBar2;
@@ -81,8 +81,6 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(scrollBar2);
 
-            board.UpFocusableView = button1;
-
             window.Add(root);
 
             FocusManager.Instance.SetCurrentFocusView(button1);
@@ -90,19 +88,6 @@ namespace Tizen.FH.NUI.Samples
 
         private void CreateBoardAndButtons()
         {
-            board = new TextLabel();
-            board.Size2D = new Size2D(1000, 100);
-            board.Position2D = new Position2D(100, 600);
-            board.PointSize = 30;
-            board.HorizontalAlignment = HorizontalAlignment.Center;
-            board.VerticalAlignment = VerticalAlignment.Center;
-            board.BackgroundColor = Color.Magenta;
-            board.Text = "Hello World!";
-            root.Add(board);
-            board.Focusable = true;
-            board.FocusGained += Board_FocusGained;
-            board.FocusLost += Board_FocusLost;
-
             board1 = new TextLabel();
             board1.Size2D = new Size2D(200, 70);
             board1.Position2D = new Position2D(100, 0);
@@ -113,8 +98,6 @@ namespace Tizen.FH.NUI.Samples
             board1.Text = "Honrizal";
             root.Add(board1);
             board1.Focusable = true;
-            board1.FocusGained += Board_FocusGained;
-            board1.FocusLost += Board_FocusLost;
 
             board2 = new TextLabel();
             board2.Size2D = new Size2D(200, 70);
@@ -126,8 +109,6 @@ namespace Tizen.FH.NUI.Samples
             board2.Text = "vertical";
             root.Add(board2);
             board2.Focusable = true;
-            board2.FocusGained += Board_FocusGained;
-            board2.FocusLost += Board_FocusLost;
 
             button1 = new Button();
             button1.BackgroundColor = Color.Green;
@@ -166,16 +147,6 @@ namespace Tizen.FH.NUI.Samples
             button4.ClickEvent += Scroll2Minus;
         }
 
-        private void Board_FocusLost(object sender, global::System.EventArgs e)
-        {
-            board.BackgroundColor = Color.Magenta;
-        }
-
-        private void Board_FocusGained(object sender, global::System.EventArgs e)
-        {
-            board.BackgroundColor = Color.Cyan;
-        }
-
         private void Scroll1Add(object sender, global::System.EventArgs e)
         {
             daScrollBar1.CurrentValue++;
@@ -191,13 +162,6 @@ namespace Tizen.FH.NUI.Samples
         private void Scroll2Minus(object sender, global::System.EventArgs e)
         {
             daScrollBar2.CurrentValue--;
-        }
-
-        private void ScrollPan(object sender, global::System.EventArgs e)
-        {
-            board.Text=board.Text+" 1";
-            if (board.Text.Length > 20)
-                board.Text = "";
         }
 
         public void Deactivate()

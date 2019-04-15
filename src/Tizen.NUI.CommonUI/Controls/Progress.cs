@@ -568,9 +568,28 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
+            uint max = 0;
+            uint min = 0;
+            uint cur = 0;
+            if (progressBarAttrs.MaxValue != null)
+            {
+                max = progressBarAttrs.MaxValue.Value;
+            }
+            if (progressBarAttrs.MinValue != null)
+            {
+                min = progressBarAttrs.MinValue.Value;
+            }
+            if (progressBarAttrs.CurValue != null)
+            {
+                cur = progressBarAttrs.CurValue.Value;
+            }
+
             ProgressBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressBarAttributes;
             if (tempAttributes != null)
             {
+                tempAttributes.MaxValue = max;
+                tempAttributes.MinValue = min;
+                tempAttributes.CurValue = cur;
                 attributes = progressBarAttrs = tempAttributes;
                 RelayoutRequest();
             }
