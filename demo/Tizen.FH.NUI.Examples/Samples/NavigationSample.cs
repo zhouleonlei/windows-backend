@@ -229,7 +229,7 @@ namespace Tizen.FH.NUI.Samples
         private void NavigationItemChangedEvent(object sender, Navigation.ItemChangeEventArgs e)
         {
             //conditionNavigation.DeleteItem(0);
-            text.Text = "Create Navigation just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
+            text.Text = "Create Navigation by style, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
 
         public void Deactivate()
