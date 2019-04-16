@@ -1526,8 +1526,7 @@ namespace Tizen.NUI.CommonUI
             [EditorBrowsable(EditorBrowsableState.Never)]
             public void AddView(ViewHolder holder, int index)
             {
-                mChildHelper.AddView(holder, index);
-                addViewInt(holder, index);
+                addViewInt(holder, index, false);
             }
 
             /// <summary>
@@ -1694,14 +1693,6 @@ namespace Tizen.NUI.CommonUI
             private void OnScrollAnimationFinished(object sender, EventArgs e)
             {
                 RecycleChildrenInt(mFlexibleView.mRecycler);
-            }
-
-            private void addViewInt(ViewHolder holder, int index)
-            {
-                if (holder.IsScrap())
-                {
-                    holder.Unscrap();
-                }
             }
 
             private void addViewInt(ViewHolder holder, int index, bool disappearing)
