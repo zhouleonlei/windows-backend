@@ -333,6 +333,7 @@ namespace Tizen.FH.NUI.Controls
                 
                 dropDown.FocusedItemIndex = value - (int)pickerAttributes.YearRange.X;
                 dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
+                dropDown.ButtonText = showDate.Year.ToString();
             }
 
             for (int i = 0; i < 6; i++)
@@ -558,6 +559,8 @@ namespace Tizen.FH.NUI.Controls
                 }
                 
                 dropDown.FocusedItemIndex = dropDown.SelectedItemIndex;
+                dropDown.ButtonText = showDate.Year.ToString();
+                
                 UpdateDate();
             }
         }
@@ -578,6 +581,8 @@ namespace Tizen.FH.NUI.Controls
                     {
                         dropDown.FocusedItemIndex += 1;
                         dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
+                        dropDown.ButtonText = (showDate.Year + 1).ToString();
+                        
                     }
                 }
                 
@@ -615,6 +620,7 @@ namespace Tizen.FH.NUI.Controls
                     {
                         dropDown.FocusedItemIndex -= 1;
                         dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
+                        dropDown.ButtonText = (showDate.Year - 1).ToString();
                     }
                 }
                 
@@ -770,7 +776,6 @@ namespace Tizen.FH.NUI.Controls
 
             preTouch = dateTable[focusidx / 7, focusidx % 7];
             monthText.Text =  showDate.ToString("MMMM", new CultureInfo("en-us"));
-            dropDown.ButtonText = showDate.Year.ToString();
         }
 
         private struct DataArgs
