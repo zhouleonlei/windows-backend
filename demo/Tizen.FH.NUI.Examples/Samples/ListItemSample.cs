@@ -7,6 +7,7 @@ namespace Tizen.FH.NUI.Samples
 {
     public class ListItemSample : IExample
     {
+        private SampleLayout root;
         private const int COUNT = 12;
         private View rootView = null;
         private Tizen.FH.NUI.Controls.ListItem[] listItemArray = null;
@@ -106,12 +107,14 @@ namespace Tizen.FH.NUI.Samples
 
         private void CreateRootView()
         {
+            root = new SampleLayout(false);
+            root.HeaderText = "List Item";
             rootView = new View();
             rootView.WidthResizePolicy = ResizePolicyType.FillToParent;
             rootView.HeightResizePolicy = ResizePolicyType.FillToParent;
             rootView.BackgroundColor = Color.White;// new Color(78.0f / 255.0f, 216.0f / 255.0f, 231.0f / 255.0f, 1.0f);
             rootView.Focusable = true;
-            Window.Instance.Add(rootView);
+            root.Add(rootView);
         }
 
         private void CreateListItem(uint idx, string str, int height, uint subTextCount, string mainTextStr)
@@ -154,8 +157,7 @@ namespace Tizen.FH.NUI.Samples
 
         public void Deactivate()
         {
-            Window window = Window.Instance;
-            window.KeyEvent -= OnWindowsKeyEvent;
+            Window.Instance.KeyEvent -= OnWindowsKeyEvent;
             if (listItemArray != null)
             {
                 for (int i = 0; i < COUNT; ++i)
@@ -177,10 +179,12 @@ namespace Tizen.FH.NUI.Samples
             }
             if (rootView != null)
             {
-                Window.Instance.Remove(rootView);
+                root.Remove(rootView);
                 rootView.Dispose();
                 rootView = null;
             }
+
+            root.Dispose();
         }
     }
 }

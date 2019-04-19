@@ -14,8 +14,6 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
-            Window window = Window.Instance;
-
             root = new SampleLayout(false);
             root.HeaderText = "Toast";
 
@@ -50,8 +48,6 @@ namespace Tizen.FH.NUI.Samples
             global::System.Console.WriteLine("set url");
 
             board.UpFocusableView = button1;
-
-            window.Add(root);
 
             FocusManager.Instance.SetCurrentFocusView(button1);
         }
@@ -153,7 +149,6 @@ namespace Tizen.FH.NUI.Samples
         {
             if (root != null)
             {
-                Window.Instance.Remove(root);
                 root.Dispose();
             }
         }

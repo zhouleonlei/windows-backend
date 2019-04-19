@@ -21,8 +21,6 @@ namespace Tizen.FH.NUI.Samples
         };
         public void Activate()
         {
-            Window window = Window.Instance;
-
             root = new SampleLayout();
             root.HeaderText = "Time Picker";
 

@@ -41,6 +41,7 @@ namespace Tizen.FH.NUI.Controls
         private ImageView shadowImage;
         private ImageView backgroundImage;
         private View rootView;
+        private EventHandler<TouchEventArgs> itemTouchHander;
 
         /// <summary>
         /// Creates a new instance of a Navigation.
@@ -97,6 +98,23 @@ namespace Tizen.FH.NUI.Controls
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ItemChangeEventArgs> ItemChangedEvent;
+
+        /// <summary>
+        /// An event for the item touch signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        public event EventHandler<TouchEventArgs> ItemTouchEvent
+        {
+            add
+            {
+                itemTouchHander += value;
+            }
+            remove
+            {
+                itemTouchHander -= value;
+            }
+        }
 
         /// <summary>
         /// Selected item's index in Navigation.
@@ -516,7 +534,7 @@ namespace Tizen.FH.NUI.Controls
         private void AddItemByIndex(NavigationItemData itemData, int index)
         {
             NavigationItem item = new NavigationItem(itemData.ItemAttributes);
-            item.TouchEvent += ItemTouchEvent;
+            item.TouchEvent += OnItemTouchEvent;
             rootView.Add(item);
             item.Size2D = itemData.ItemAttributes.Size2D;
             if (index >= itemList.Count)
@@ -678,7 +696,7 @@ namespace Tizen.FH.NUI.Controls
             ApplyAttributes(backgroundImage, navigationAttributes.BackgroundImageAttributes);
         }
 
-        private bool ItemTouchEvent(object source, TouchEventArgs e)
+        private bool OnItemTouchEvent(object source, TouchEventArgs e)
         {
             NavigationItem item = source as NavigationItem;
             if (item == null)
@@ -690,6 +708,8 @@ namespace Tizen.FH.NUI.Controls
             {
                 UpdateSelectedItem(item);
             }
+
+            itemTouchHander?.Invoke(this, e);
 
             return true;
         }

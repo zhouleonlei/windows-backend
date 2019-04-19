@@ -281,7 +281,7 @@ namespace Tizen.FH.NUI.Samples
                     blackEditNavigation.Dispose();
                     blackEditNavigation = null;
                 }
-                Window.Instance.Remove(root);
+                
                 root.Dispose();
                 root = null;
             }

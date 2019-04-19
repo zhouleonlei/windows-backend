@@ -7,13 +7,14 @@ namespace Tizen.FH.NUI.Samples
 {
     public class HeaderSample : IExample
     {
-
+        private SampleLayout root;
         private View root1;
         private View root2;
         private View root3;
         public void Activate()
         {
-           Window window = Window.Instance;
+            root = new SampleLayout(false);
+            root.HeaderText = "Header";
 
             root1 = new View()
             {
@@ -33,7 +34,7 @@ namespace Tizen.FH.NUI.Samples
             header1.LinebackgroundColor = new Color(0, 0, 0, 0.2f);//white
 
             root1.Add(header1);
-            window.Add(root1);
+            root.Add(root1);
 
             root2 = new View()
             {
@@ -53,7 +54,7 @@ namespace Tizen.FH.NUI.Samples
 
 
             root2.Add(header2);
-            window.Add(root2);
+            root.Add(root2);
 
             root3 = new View()
             {
@@ -72,26 +73,28 @@ namespace Tizen.FH.NUI.Samples
 
 
             root3.Add(header3);
-            window.Add(root3);
+            root.Add(root3);
         }
 
         public void Deactivate()
         {
             if (root1 != null)
             {
-                Window.Instance.Remove(root1);
+                root.Remove(root1);
                 root1.Dispose();
             }
             if (root2 != null)
             {
-                Window.Instance.Remove(root2);
+                root.Remove(root2);
                 root2.Dispose();
             }
             if (root3 != null)
             {
-                Window.Instance.Remove(root3);
+                root.Remove(root3);
                 root3.Dispose();
             }
+
+            root.Dispose();
         }
     }
 }

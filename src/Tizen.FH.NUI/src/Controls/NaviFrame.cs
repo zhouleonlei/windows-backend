@@ -74,6 +74,20 @@ namespace Tizen.FH.NUI.Controls
             this.attributes = naviframeAttributes = attributes.Clone() as NaviFrameAttributes;
             Initialize();
         }
+
+        /// <summary>
+        /// Item count in navi list.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public int Count
+        {
+            get
+            {
+                return pushStack.Count;
+            }
+        }
         /// <summary>
         ///Create a nave naviframe item with given header and content
         /// </summary>

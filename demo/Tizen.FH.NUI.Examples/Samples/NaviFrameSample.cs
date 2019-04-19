@@ -9,7 +9,7 @@ namespace Tizen.FH.NUI.Samples
 {
     public class NaviFrameSample : IExample
     {
-        private View root;
+        private SampleLayout root;
         private Button NextButton;
         private Button BackButton;
         private NaviFrame  navi;
@@ -18,14 +18,10 @@ namespace Tizen.FH.NUI.Samples
         private int i;
         public void Activate()
         {
+            
             i = 1;
-            Window window = Window.Instance;
-              root = new View()
-              {
-                  Position2D = new Position2D(0, 0),
-                  Size2D = new Size2D(1080, 900),
-              };
-              window.Add(root);
+            root = new SampleLayout(false);
+            root.HeaderText = "NaviFrame";
 
             navi = new NaviFrame("DefaultNaviFrame");
             root.Add(navi);
@@ -80,7 +76,6 @@ namespace Tizen.FH.NUI.Samples
                     NextButton.Dispose();
                 }
 
-                Window.Instance.Remove(root);
                 root.Dispose();
             }
         }

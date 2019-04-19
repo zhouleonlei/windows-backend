@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Tizen.FH.NUI;
+using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.CommonUI;
 using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
@@ -16,38 +18,176 @@ namespace Tizen.FH.NUI.Samples
             return @"../../../demo/csharp-demo/res/images/FH3/";
         }
     }
+    public class NaviListItemData
+    {
+        private string str;
 
+        public NaviListItemData(string s)
+        {
+            str = s;
+        }
+
+        public string TextString
+        {
+            get
+            {
+                return str;
+            }
+        }
+    }
+
+    public class NaviListItemView : View
+    {
+        private TextLabel mText;
+
+        public NaviListItemView()
+        {
+            mText = new TextLabel();
+            mText.WidthResizePolicy = ResizePolicyType.FillToParent;
+            mText.HeightResizePolicy = ResizePolicyType.FillToParent;
+            mText.PointSize = 40;
+            mText.HorizontalAlignment = HorizontalAlignment.Begin;
+            mText.VerticalAlignment = VerticalAlignment.Center;
+            Add(mText);
+        }
+
+        public string MainText
+        {
+            get
+            {
+                return mText.Text;
+            }
+            set
+            {
+                mText.Text = value;
+            }
+        }
+    }
+
+    public class NaviListBridge : Tizen.NUI.CommonUI.FlexibleView.Adapter
+    {
+        private List<NaviListItemData> mDatas;
+
+        public NaviListBridge(List<NaviListItemData> datas)
+        {
+            mDatas = datas;
+        }
+
+        public void InsertData(int position)
+        {
+            mDatas.Insert(position, new NaviListItemData((1000 + position).ToString()));
+            NotifyItemInserted(position);
+        }
+
+        public void RemoveData(int position)
+        {
+            mDatas.RemoveAt(position);
+            NotifyItemRemoved(position);
+        }
+
+        public override FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
+        {
+            FlexibleView.ViewHolder viewHolder = new FlexibleView.ViewHolder(new NaviListItemView());
+
+            return viewHolder;
+        }
+
+        public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
+        {
+            NaviListItemData listItemData = mDatas[position];
+            NaviListItemView listItemView = holder.ItemView as NaviListItemView;
+
+            listItemView.Name = "Item" + position;
+            listItemView.SizeWidth = 1000;
+            listItemView.SizeHeight = 163;
+
+            if (listItemView != null)
+            {
+                listItemView.MainText = listItemData.TextString;
+            }
+            listItemView.Margin = new Extents(0, 0, 1, 0);
+            listItemView.BackgroundColor = new Color(1f, 1f, 1f, 1f);
+        }
+
+        public override void OnDestroyViewHolder(FlexibleView.ViewHolder holder)
+        {
+            if (holder.ItemView != null)
+            {
+                holder.ItemView.Dispose();
+            }
+        }
+
+        public override int GetItemCount()
+        {
+            return mDatas.Count;
+        }
+
+        public override void OnFocusChange(FlexibleView flexibleView, int previousFocus, int currentFocus)
+        {
+            FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
+            if (previousFocusView != null)
+            {
+            
+            }
+            FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
+            if (currentFocusView != null)
+            {
+                
+            }
+        }
+
+        public override void OnViewAttachedToWindow(FlexibleView.ViewHolder holder)
+        {
+
+        }
+
+        public override void OnViewDetachedFromWindow(FlexibleView.ViewHolder holder)
+        {
+
+        }
+
+    }
     public class SampleMain : FHNUIApplication, IExample
     {
+        public static NaviFrame SampleNaviFrame
+        {
+            get
+            {
+                Console.WriteLine("test naviFrame!!");
+                if (naviFrame == null)
+                {
+                    Console.WriteLine("test naviFrame null!!");
+                }
+                return naviFrame;
+            }
+        }
         public void Activate()
         {
-            defaultFocusIndicator = new View();
-            defaultFocusIndicator.BackgroundColor = Color.Transparent;
-            FocusManager.Instance.FocusIndicator = defaultFocusIndicator;
-
-            Window.Instance.BackgroundColor = new Color(1.0f, 0.92f, 0.80f, 1.0f);
-            Window.Instance.GetDefaultLayer().Add(container);
-            FocusManager.Instance.SetCurrentFocusView(label[currentIndex]);
+            Window.Instance.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            Window.Instance.GetDefaultLayer().Add(naviFrame);
+            Window.Instance.GetDefaultLayer().Add(backNavigation);
         }
 
         public void Deactivate()
         {
-            Window.Instance.BackgroundColor = new Color(0.96f, 0.96f, 0.86f, 1.0f);
-            View currentView = FocusManager.Instance.GetCurrentFocusView();
-            currentIndex = Array.FindIndex(label, x => x == currentView);
-
-            Window.Instance.GetDefaultLayer().Remove(container);
+            if (backNavigation != null)
+            {
+                Window.Instance.GetDefaultLayer().Remove(backNavigation);
+                backNavigation.Dispose();
+                backNavigation = null;
+            }
+            
+            if (naviFrame != null)
+            {
+                Window.Instance.GetDefaultLayer().Remove(naviFrame);
+                naviFrame.Dispose();
+                naviFrame = null;
+            }
         }
 
         protected override void OnCreate()
         {
             base.OnCreate();
-            container = new FlexContainer();
-            container.Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height);
-            container.PivotPoint = PivotPoint.TopLeft;
-            //container.Padding = new Vector4(100, 100, 100, 100);
-            container.FlexWrap = FlexContainer.WrapType.Wrap;
-            container.FlexDirection = (int)FlexContainer.FlexDirectionType.Column;
 
             var examples = from type in Assembly.GetEntryAssembly().GetTypes()
                            where typeof(IExample).GetTypeInfo().IsAssignableFrom(type) && type.Namespace == this.GetType().Namespace
@@ -55,21 +195,47 @@ namespace Tizen.FH.NUI.Samples
                            orderby type.Name ascending
                            select type.Name;
 
-            label = new MyTextView[examples.Count()];
-            for (int i = 0; i < label.Length; i++)
-            {
-                label[i] = new MyTextView();
-                label[i].Text = examples.ElementAt(i);
-                label[i].FlexMargin = new Vector4(10, 10, 10, 10);
-                label[i].PointSize = 10;
-                label[i].KeyEvent += SampleMain_KeyEvent;
-                label[i].TouchEvent += SampleMain_TouchEvent;
-                label[i].PivotPoint = PivotPoint.TopLeft;
-                container.Add(label[i]);
-            }
+            naviFrame = new NaviFrame("DefaultNaviFrame");
+            Header head = new Header("DefaultHeader");
+            head.BackgroundColor = new Color(1f, 1f, 1f, 0.7f);
+            head.HeaderText = "FHub Samples";
 
-            label.First().UpFocusableView = label.Last();
-            label.Last().DownFocusableView = label.First();
+            contentList = new FlexibleView();
+            contentList.Name = "Sample List";
+            contentList.Position2D = new Position2D(0, 1);
+            //contentList.Size2D = new Size2D(1080, 1790);
+            contentList.Size2D = new Size2D(1080, 896);
+            contentList.Padding = new Extents(0, 8, 0, 0);
+            contentList.BackgroundColor = new Color(0, 0, 0, 0.2f);
+            contentList.ItemClickEvent += OnListItemClickEvent;
+            
+            List<NaviListItemData> dataList = new List<NaviListItemData>();
+            for (int i = 0; i < examples.Count(); ++i)
+            {
+                dataList.Add(new NaviListItemData(examples.ElementAt(i)));
+            }
+            adapter = new NaviListBridge(dataList);
+            contentList.SetAdapter(adapter);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(LinearLayoutManager.VERTICAL);
+            contentList.SetLayoutManager(layoutManager);
+
+            scrollBar = new ScrollBar("DAScrollbar");
+            scrollBar.Direction = ScrollBar.DirectionType.Vertical;
+            scrollBar.Position2D = new Position2D(1074, 2);
+            //scrollBar.Size2D = new Size2D(4, 1786);
+            scrollBar.Size2D = new Size2D(4, 894);
+            scrollBar.ThumbSize = new Size2D(4, 30);
+            contentList.AttachScrollBar(scrollBar);
+
+            naviFrame.NaviFrameItemPush(head, contentList);
+
+            backNavigation = new Navigation("Back");
+            backNavigation.Position2D = new Position2D(0, 950);
+            backNavigation.ItemTouchEvent += OnBackNaviTouchEvent;
+
+            Navigation.NavigationItemData backItem = new Navigation.NavigationItemData("WhiteBackItem");
+            backNavigation.AddItem(backItem);
 
             Window.Instance.KeyEvent += Instance_Key;
 
@@ -77,32 +243,45 @@ namespace Tizen.FH.NUI.Samples
             sampleStack.Push(this);
         }
 
-        private bool SampleMain_TouchEvent(object source, View.TouchEventArgs e)
+        private void OnListItemClickEvent(object sender, FlexibleView.ItemClickEventArgs e)
         {
-            TextLabel textLabel = source as TextLabel;
-            string sampleName = textLabel.Text;
-            RunSample("Tizen.FH.NUI.Samples", sampleName);
-            return false; ;
+            if (e.ClickedView != null)
+            {
+                int index = e.ClickedView.AdapterPosition;
+                string sampleName = (e.ClickedView.ItemView as NaviListItemView)?.MainText;
+                RunSample("Tizen.FH.NUI.Samples", sampleName);        
+            }
+        }
+
+        private void OnBackNaviTouchEvent(object source, View.TouchEventArgs e)
+        {
+            Log.Debug("NUI", $"OnNaviTouchEvent! touch position=({e.Touch.GetScreenPosition(0).X}, {e.Touch.GetScreenPosition(0).Y}), {e.Touch.GetState(0)}");
+            if (e.Touch.GetState(0) == PointStateType.Up)
+            {
+                ExitSample();
+            }
+            return;
         }
 
         public void ExitSample()
         {
-            if (sampleStack.Count() == 1)
+            if (naviFrame.Count == 1)
             {
+                if (sampleStack.Count() == 2)
+                {
+                    IExample lastSample = sampleStack.Pop();
+                    lastSample.Deactivate();
+                    FullGC();
+                }
+                Deactivate();
                 Exit();
                 Environment.Exit(0);
                 return;
             }
-
-            IExample currentSample = sampleStack.Pop();
-
-            currentSample.Deactivate();
-            currentSample = null;
-
-            FullGC();
-
-            IExample nextSample = sampleStack.Peek();
-            nextSample.Activate();
+            else
+            {
+                naviFrame.NaviFrameItemPop();
+            }
         }
 
         private void Instance_Key(object sender, Window.KeyEventArgs e)
@@ -117,23 +296,25 @@ namespace Tizen.FH.NUI.Samples
             object item = Activator.CreateInstance(global::System.Type.GetType(@namespace + "." + sampleName));
             if (item is IExample)
             {
-                IExample currentSample = sampleStack.Peek();
-                currentSample.Deactivate();
-
-                FullGC();
-
-                currentSample = item as IExample;
-                sampleStack.Push(currentSample);
-
-                currentSample.Activate();
+                if (sampleStack.Count() > 1)
+                {
+                    IExample lastSample = sampleStack.Pop();
+                    lastSample.Deactivate();
+                    FullGC();
+                }
+                example = item as IExample;
+                sampleStack.Push(example);
+                example.Activate();
             }
         }
+        
         private void FullGC()
         {
             global::System.GC.Collect();
             global::System.GC.WaitForPendingFinalizers();
             global::System.GC.Collect();
         }
+        
         private bool SampleMain_KeyEvent(object source, View.KeyEventArgs e)
         {
             TextLabel textLabel = source as TextLabel;
@@ -162,52 +343,22 @@ namespace Tizen.FH.NUI.Samples
                     case "4":
                         StyleManager.Instance.Theme = "Kitchen";
                         break;
-                }
-
-                
+                }  
             }
 
             return false;
         }
 
-        MyTextView[] label;
-        FlexContainer container;
-        View defaultFocusIndicator;
+        private static NaviFrame naviFrame;
+        private Header header;
+        private FlexibleView contentList;
+        private NaviListBridge adapter;
+        private ScrollBar scrollBar;
+        private Navigation backNavigation;
+        IExample example; 
+
         int currentIndex = 0;
         Stack<IExample> sampleStack = new Stack<IExample>();
-    }
-
-    public class MyTextView : TextLabel
-    {
-        Animation focusInAni;
-        Animation focusOutAni;
-
-        public MyTextView()
-        {
-            this.Focusable = true;
-            this.FocusGained += MyTextView_FocusGained;
-            this.FocusLost += MyTextView_FocusLost;
-
-            focusInAni = new Animation(400);
-            focusOutAni = new Animation(400);
-
-            focusInAni.AnimateTo(this, "Scale", new Vector3(1.2f, 1.2f, 1.0f));
-            focusOutAni.AnimateTo(this, "Scale", new Vector3(1.0f, 1.0f, 1.0f));
-        }
-
-        private void MyTextView_FocusLost(object sender, EventArgs e)
-        {
-            focusOutAni.Play();
-            this.BackgroundColor = Color.Transparent;
-            this.TextColor = Color.Black;
-        }
-
-        private void MyTextView_FocusGained(object sender, EventArgs e)
-        {
-            focusInAni.Play();
-            this.BackgroundColor = new Color(0.69f, 0.77f, 0.87f, 1.0f);
-            this.TextColor = Color.Red;
-        }
     }
 }
 

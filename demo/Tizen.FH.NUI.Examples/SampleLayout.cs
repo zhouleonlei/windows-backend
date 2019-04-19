@@ -17,6 +17,7 @@ namespace Tizen.FH.NUI.Samples
         private Button KitchenButton;
 
         private View Content;
+        private View LayoutContent;
         public string HeaderText
         {
             get
@@ -40,10 +41,22 @@ namespace Tizen.FH.NUI.Samples
         public SampleLayout(bool isThemeButtonVisiable = true)
         {
             Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height);
-            Window.Instance.Add(this);
+            //Window.Instance.Add(this);
             LayoutHeader = new Header("DefaultHeader");
             LayoutHeader.PositionY = 0;
-            base.Add(LayoutHeader);
+
+            LayoutContent = new View
+            {
+                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128),
+                Position2D = new Position2D(0, 128),
+            };
+
+            Content = new View
+            {
+                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128 -150),
+                Position2D = new Position2D(0, 150),
+            };
+            LayoutContent.Add(Content);
 
             if (isThemeButtonVisiable)
             {
@@ -85,45 +98,38 @@ namespace Tizen.FH.NUI.Samples
 
                 UtilityButton = new Button(buttonAttributes);
                 UtilityButton.Size2D = new Size2D(200, 80);
-                UtilityButton.Position2D = new Position2D(56, 150);
+                UtilityButton.Position2D = new Position2D(56, 32);
                 UtilityButton.Text = "Utility";
                 UtilityButton.ClickEvent += UtilityButton_ClickEvent;
-                base.Add(UtilityButton);
+                LayoutContent.Add(UtilityButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_ec7510.png";
                 FoodButton = new Button(buttonAttributes);
                 FoodButton.Size2D = new Size2D(200, 80);
-                FoodButton.Position2D = new Position2D(312, 150);
+                FoodButton.Position2D = new Position2D(312, 32);
                 FoodButton.Text = "Food";
                 FoodButton.ClickEvent += FoodButton_ClickEvent;
-                base.Add(FoodButton);
+                LayoutContent.Add(FoodButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png";
                 FamilyButton = new Button(buttonAttributes);
                 FamilyButton.Size2D = new Size2D(200, 80);
-                FamilyButton.Position2D = new Position2D(578, 150);
+                FamilyButton.Position2D = new Position2D(578, 32);
                 FamilyButton.Text = "Family";
                 FamilyButton.ClickEvent += FamilyButton_ClickEvent;
-                base.Add(FamilyButton);
+                LayoutContent.Add(FamilyButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_9762d9.png";
                 KitchenButton = new Button(buttonAttributes);
                 KitchenButton.Size2D = new Size2D(200, 80);
-                KitchenButton.Position2D = new Position2D(834, 150);
+                KitchenButton.Position2D = new Position2D(834, 32);
                 KitchenButton.Text = "Kitchen";
                 KitchenButton.ClickEvent += KitchenButton_ClickEvent;
-                base.Add(KitchenButton);
+                LayoutContent.Add(KitchenButton);
             }
 
             this.isThemeButtonVisible = isThemeButtonVisiable;
-
-            Content = new View
-            {
-                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128 - 150),
-                Position2D = new Position2D(0, 128 + 150),
-            };
-
-            base.Add(Content);
+            SampleMain.SampleNaviFrame.NaviFrameItemPush(LayoutHeader, LayoutContent);      
 
             //this.ResourceUrl = CommonResource.GetFHResourcePath() + "0. BG/background_default_overlay.png";
         }
@@ -167,24 +173,33 @@ namespace Tizen.FH.NUI.Samples
 
             if (type == DisposeTypes.Explicit)
             {
-                Remove(Content);
-                Content.Dispose();
-                Remove(LayoutHeader);
-                LayoutHeader.Dispose();
-
-                if(isThemeButtonVisible)
+                if (LayoutContent != null)
                 {
-                    Remove(UtilityButton);
-                    UtilityButton.Dispose();
-                    Remove(FoodButton);
-                    FoodButton.Dispose();
-                    Remove(FamilyButton);
-                    FamilyButton.Dispose();
-                    Remove(KitchenButton);
-                    KitchenButton.Dispose();
+                    LayoutContent.Remove(Content);
+                    Content.Dispose();
+                    Content = null;
+                    
+                    if(isThemeButtonVisible)
+                    {
+                        LayoutContent.Remove(UtilityButton);
+                        UtilityButton.Dispose();
+                        LayoutContent.Remove(FoodButton);
+                        FoodButton.Dispose();
+                        LayoutContent.Remove(FamilyButton);
+                        FamilyButton.Dispose();
+                        LayoutContent.Remove(KitchenButton);
+                        KitchenButton.Dispose();
+                    }
+
+                    LayoutContent.Dispose();
+                    LayoutContent = null;
                 }
 
-                Window.Instance.Remove(this);
+                if (LayoutHeader != null)
+                {
+                    LayoutHeader.Dispose();
+                    LayoutHeader = null;
+                }
             }
 
             base.Dispose(type);
