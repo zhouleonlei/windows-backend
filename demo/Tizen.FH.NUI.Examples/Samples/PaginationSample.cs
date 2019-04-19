@@ -30,7 +30,7 @@ namespace Tizen.FH.NUI.Samples
             DAPagination1.Focusable = true;
             root.Add(DAPagination1);
 
-            //DAPagination1.SelectChangeEvent += DAPagination_SelectChangeEvent;
+            DAPagination1.SelectChangeEvent += DAPagination_SelectChangeEvent;
 
             DAPagination2 = new Pagination("DefaultPagination");
             DAPagination2.Name = "DAAppPagination2";
@@ -42,7 +42,7 @@ namespace Tizen.FH.NUI.Samples
             DAPagination2.Focusable = true;
             root.Add(DAPagination2);
 
-            //DAPagination2.SelectChangeEvent += DAPagination_SelectChangeEvent;
+            DAPagination2.SelectChangeEvent += DAPagination_SelectChangeEvent;
 
 
             ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ namespace Tizen.FH.NUI.Samples
             DAPagination3.Focusable = true;
             root.Add(DAPagination3);
 
-            //DAPagination3.SelectChangeEvent += DAPagination_SelectChangeEvent;
+            DAPagination3.SelectChangeEvent += DAPagination_SelectChangeEvent;
 
         }
 
