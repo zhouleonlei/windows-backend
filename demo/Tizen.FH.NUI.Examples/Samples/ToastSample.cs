@@ -20,13 +20,13 @@ namespace Tizen.FH.NUI.Samples
             CreateBoardAndButtons();
 
             toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
-            toast1_1.Position2D = new Position2D(50, 0);
+            toast1_1.Position2D = new Position2D(30, 0);
             root.Add(toast1_1);
             toast1_1.Text = "Basic Short Toast";
 
 
             toast2_1 = new FH.NUI.Controls.Toast("BasicLongToast");
-            toast2_1.Position2D = new Position2D(0, 200);
+            toast2_1.Position2D = new Position2D(30, 200);
             root.Add(toast2_1);
             toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
             toast2_1.LoadingEnable = true;
@@ -34,7 +34,7 @@ namespace Tizen.FH.NUI.Samples
 
             toast2_3 = new Tizen.FH.NUI.Controls.Toast();
             toast2_3.BackgroundBorder = new Rectangle(64, 64, 4, 4);
-            toast2_3.Position2D = new Position2D(0, 350);
+            toast2_3.Position2D = new Position2D(30, 350);
             toast2_3.Size2D = new Size2D(1000, 272);
             toast2_3.LeftSpace = 96;
             toast2_3.UpSpace = 48;
@@ -44,7 +44,7 @@ namespace Tizen.FH.NUI.Samples
             toast2_3.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
             toast2_3.Text2Line = "This is my 2 line, I have a very long long text, I have a very long long text";
             toast2_3.Text3Line = "This is my 3 line, I have a very long long text, I have a very long long text";
-            toast2_3.BackgroundImageURL = "*DemoRes*/images/FH3/12. Toast Popup/toast_background.png";
+            toast2_3.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
             global::System.Console.WriteLine("set url");
 
             board.UpFocusableView = button1;
@@ -56,7 +56,7 @@ namespace Tizen.FH.NUI.Samples
         {
             board = new TextLabel();
             board.Size2D = new Size2D(1000, 100);
-            board.Position2D = new Position2D(0, 650);
+            board.Position2D = new Position2D(94, 650);
             board.PointSize = 30;
             board.HorizontalAlignment = HorizontalAlignment.Center;
             board.VerticalAlignment = VerticalAlignment.Center;
@@ -69,8 +69,8 @@ namespace Tizen.FH.NUI.Samples
 
             button1 = new Button();
             button1.BackgroundColor = Color.Green;
-            button1.Position2D = new Position2D(80, 150);
-            button1.Size2D = new Size2D(200, 50);
+            button1.Position2D = new Position2D(30, 125);
+            button1.Size2D = new Size2D(220, 80);
             button1.Text = "toast1_1 Show";
             root.Add(button1);
             button1.Focusable = true;
@@ -78,8 +78,8 @@ namespace Tizen.FH.NUI.Samples
 
             button2 = new Button();
             button2.BackgroundColor = Color.Green;
-            button2.Position2D = new Position2D(350, 150);
-            button2.Size2D = new Size2D(200, 50);
+            button2.Position2D = new Position2D(270, 125);
+            button2.Size2D = new Size2D(220, 80);
             button2.Text = "toast2_1 Show";
             root.Add(button2);
             button2.Focusable = true;
@@ -87,8 +87,8 @@ namespace Tizen.FH.NUI.Samples
 
             button3 = new Button();
             button3.BackgroundColor = Color.Green;
-            button3.Position2D = new Position2D(620, 150);
-            button3.Size2D = new Size2D(250, 50);
+            button3.Position2D = new Position2D(510, 125);
+            button3.Size2D = new Size2D(270, 80);
             button3.Text = "changed Direction";
             root.Add(button3);
             button3.Focusable = true;
@@ -96,8 +96,8 @@ namespace Tizen.FH.NUI.Samples
 
             button4 = new Button();
             button4.BackgroundColor = Color.Green;
-            button4.Position2D = new Position2D(890, 150);
-            button4.Size2D = new Size2D(200, 50);
+            button4.Position2D = new Position2D(800, 125);
+            button4.Size2D = new Size2D(220, 80);
             button4.Text = "change loading";
             root.Add(button4);
             button4.Focusable = true;

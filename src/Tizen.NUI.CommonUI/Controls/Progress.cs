@@ -55,7 +55,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The constructor of the Progress class with specific style.
         /// </summary>
-        /// <param name="attrs">The Attributes object to initialize the Progress.</param>
+        /// <param name="style">style name</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -64,6 +64,10 @@ namespace Tizen.NUI.CommonUI
             if (attributes != null)
             {
                 progressBarAttrs = attributes as ProgressBarAttributes;
+            }
+            if (progressBarAttrs == null)
+            {
+                throw new Exception("Progress attribute parse error.");
             }
 
             Initialize();
