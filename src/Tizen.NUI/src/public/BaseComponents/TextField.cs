@@ -1238,6 +1238,44 @@ namespace Tizen.NUI.BaseComponents
         }
 
         /// <summary>
+        /// The Enable selection property.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public bool EnableGrabHandle
+        {
+            get
+            {
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE, new Tizen.NUI.PropertyValue((bool)value));
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The Enable selection property.
+        /// </summary>
+        /// <since_tizen> 3 </since_tizen>
+        public bool EnableGrabHandlePopup
+        {
+            get
+            {
+                bool temp = false;
+                Tizen.NUI.Object.GetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE_POPUP).Get(out temp);
+                return temp;
+            }
+            set
+            {
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE_POPUP, new Tizen.NUI.PropertyValue((bool)value));
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// The Placeholder property.
         /// Gets or sets the placeholder: text, color, font family, font style, point size, and pixel size.
         /// </summary>
@@ -1355,6 +1393,16 @@ namespace Tizen.NUI.BaseComponents
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             }
             return inputMethodCotext;
+        }
+
+        /// <summary>
+        /// Select the whole text.
+        /// </summary>
+        /// <since_tizen> 5 </since_tizen>
+        public void SelectWholeText()
+        {
+            NDalicPINVOKE.TextField_SelectWholeText(swigCPtr);
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
 
         internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TextField obj)
@@ -1597,6 +1645,8 @@ namespace Tizen.NUI.BaseComponents
             internal static readonly int ELLIPSIS = NDalicManualPINVOKE.TextField_Property_ELLIPSIS_get();
             internal static readonly int ENABLE_SHIFT_SELECTION = NDalicManualPINVOKE.TextField_Property_ENABLE_SHIFT_SELECTION_get();
             internal static readonly int MATCH_SYSTEM_LANGUAGE_DIRECTION = NDalicManualPINVOKE.TextField_Property_MATCH_SYSTEM_LANGUAGE_DIRECTION_get();
+            internal static readonly int ENABLE_GRAB_HANDLE = NDalicManualPINVOKE.TextField_Property_ENABLE_GRAB_HANDLE_get();
+            internal static readonly int ENABLE_GRAB_HANDLE_POPUP = NDalicManualPINVOKE.TextField_Property_ENABLE_GRAB_HANDLE_POPUP_get();
         }
 
         internal class InputStyle
