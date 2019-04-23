@@ -75,7 +75,8 @@ namespace Tizen.FH.NUI.Controls
         private uint finishTimerLoopCount = 0;        
         private int finishTimerFirstInterval = 0;
         private int finishTimerIncreaseInterval = 0;
-        private bool isTouchRelease = true; 
+        private bool isTouchRelease = true;
+        private bool isWaitInput = false;
         
         private SpinAttributes spinAttributes;
 
@@ -337,6 +338,7 @@ namespace Tizen.FH.NUI.Controls
                         textField.FocusGained -= OnTextFieldFocusGained;
                         textField.FocusLost -= OnTextFieldFocusLost;
                         textField.TextChanged -= OnTextFieldTextChanged;
+                        textField.KeyEvent -= OnTextFieldKeyEvent;
                         clipView.Remove(textField);
                         textField.Dispose();
                         textField = null;
@@ -475,10 +477,13 @@ namespace Tizen.FH.NUI.Controls
                     textField.Focusable = true;
                     textField.MaxLength = 2;
                     textField.CursorWidth = 0;
-                    textField.BackgroundColor = new Color(0, 0, 0, 0.5f);
+                    textField.EnableSelection = true;
+                    textField.EnableGrabHandlePopup = false;
+                    textField.EnableGrabHandle = false;
                     textField.FocusGained += OnTextFieldFocusGained;
                     textField.FocusLost += OnTextFieldFocusLost;
                     textField.TextChanged += OnTextFieldTextChanged;
+                    textField.KeyEvent += OnTextFieldKeyEvent;
                     clipView.Add(textField);
                     textField.Hide();    
                 }
@@ -564,14 +569,10 @@ namespace Tizen.FH.NUI.Controls
         
         private void OnTextFieldFocusGained(object source, EventArgs e)
         {
-
-            textField.PlaceholderTextFocused = GetStrValue(curValue);
-            textField.PlaceholderTextColor = Color.Black;
-            textField.Text = "";
+            isWaitInput = true;
         }
         private void OnTextFieldFocusLost(object source, EventArgs e)
         {
-
             if (textField.Text.Length != 0)
             {
                 int value = curValue;
@@ -595,6 +596,8 @@ namespace Tizen.FH.NUI.Controls
             {
                 SwitchToAniView();
             }
+            
+            isWaitInput = false;
         }
 
         private void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
@@ -608,6 +611,10 @@ namespace Tizen.FH.NUI.Controls
             
             if (textLength != 0)
             {
+                if (isWaitInput == false)
+                {
+                    return;
+                }
                 if (textLength == 2)
                 {
                     int value = curValue;
@@ -625,12 +632,25 @@ namespace Tizen.FH.NUI.Controls
                         }
                     }
                     
-                    textField.Text = "";
                     SwitchToAniView();
                 }
             }
         }
 
+        private bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
+        {
+            if (e.Key.State == Key.StateType.Down)
+            {
+                if (e.Key.KeyPressedName == "Return")
+                {
+                    // when press "Return" key("Done" key in IME)
+                    SwitchToAniView();
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         private bool OnTouchEvent(object source, View.TouchEventArgs e)
         {
             View view = source as View;    
@@ -748,6 +768,7 @@ namespace Tizen.FH.NUI.Controls
                     
                     SwitchToTextField();                    
                     FocusManager.Instance.SetCurrentFocusView(textField);
+                    textField.SelectWholeText();
                 }
                 else
                 {
@@ -1133,6 +1154,7 @@ namespace Tizen.FH.NUI.Controls
         
         private void SwitchToTextField()
         {
+            textField.Text = GetStrValue(curValue);
             aniView.Hide();
             dividerRec.Hide();
             dividerRec2.Hide();
