@@ -26,7 +26,7 @@ namespace Tizen.NUI.CommonUI
     public abstract class Attributes
     {
         /// <summary>
-        /// Clone the Attributes, each derived class need to override this method. 
+        /// Clone the Attributes, each derived class need to override this method.
         /// </summary>
         /// <returns> Return the attributes clone.</returns>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

@@ -10,7 +10,7 @@ namespace Tizen.FH.NUI.Controls
             if (Content != null)
             {
                 return base.GetAttributes();
-                
+
             }
             PickerAttributes attributes = new PickerAttributes
             {

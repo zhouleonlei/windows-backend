@@ -46,7 +46,7 @@ namespace Tizen.FH.NUI.Samples
         {
                      
         }
-        
+
         private void DestoryDatePicker()
         {
             if (popup != null)
@@ -65,7 +65,7 @@ namespace Tizen.FH.NUI.Samples
         }
 
         public void Deactivate()
-        {         
+        {
             if (root != null)
             {
                 DestoryDatePicker();

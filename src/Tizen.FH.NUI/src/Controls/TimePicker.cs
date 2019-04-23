@@ -24,7 +24,7 @@ using StyleManager = Tizen.NUI.CommonUI.StyleManager;
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
-    /// TimePicker is one kind of Fhub component, a timePicker allows the user to change time information: hour/minute/second/AMPM. 
+    /// TimePicker is one kind of Fhub component, a timePicker allows the user to change time information: hour/minute/second/AMPM.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

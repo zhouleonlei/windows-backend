@@ -98,7 +98,7 @@ namespace Tizen.FH.NUI.Controls
             }
         }
         /// <summary>
-        /// Set the status of the Search Bar editable or not 
+        /// Set the status of the Search Bar editable or not
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

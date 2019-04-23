@@ -82,7 +82,7 @@ namespace Tizen.FH.NUI.Controls
             Initialize();
         }
         /// <summary>
-        /// Click Event attached to Cancel Button 
+        /// Click Event attached to Cancel Button.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -200,7 +200,7 @@ namespace Tizen.FH.NUI.Controls
             SearchBar
         }
         /// <summary>
-        /// Set the status of the Input Field editable or not 
+        /// Set the status of the Input Field editable or not.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

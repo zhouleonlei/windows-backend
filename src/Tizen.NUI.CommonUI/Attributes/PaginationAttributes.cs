@@ -19,7 +19,7 @@ using System.ComponentModel;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// PaginationAttributes used to config the pagination represent. 
+    /// PaginationAttributes used to config the pagination represent.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

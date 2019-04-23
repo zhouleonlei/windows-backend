@@ -23,7 +23,7 @@ using System.ComponentModel;
 namespace Tizen.FH.NUI.Controls
 {    
     /// <summary>
-    /// The Spin is one kind of FH component, used for Time Picker. It can change time by TapGesture and PanGesture with animation. 
+    /// The Spin is one kind of FH component, used for Time Picker. It can change time by TapGesture and PanGesture with animation.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

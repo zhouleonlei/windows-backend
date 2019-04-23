@@ -20,7 +20,7 @@ using System.ComponentModel;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// Layout collection of views horizontally/vertically. 
+    /// Layout collection of views horizontally/vertically.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -28,28 +28,28 @@ namespace Tizen.NUI.CommonUI
     public class LinearLayoutManager : FlexibleView.LayoutManager
     {
         /// <summary>
-        /// Constant value: 0. 
+        /// Constant value: 0.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int HORIZONTAL = OrientationHelper.HORIZONTAL;
         /// <summary>
-        /// Constant value: 1. 
+        /// Constant value: 1.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int VERTICAL = OrientationHelper.VERTICAL;
         /// <summary>
-        /// Constant value: -1. 
+        /// Constant value: -1.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int NO_POSITION = FlexibleView.NO_POSITION;
         /// <summary>
-        /// Constant value: -2^31. 
+        /// Constant value: -2^31.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -59,7 +59,7 @@ namespace Tizen.NUI.CommonUI
         private static readonly float MAX_SCROLL_FACTOR = 1 / 3f;
 
         /// <summary>
-        /// Current orientation. 
+        /// Current orientation.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -91,7 +91,7 @@ namespace Tizen.NUI.CommonUI
         private int mPendingScrollPositionOffset = INVALID_OFFSET;
 
         /// <summary>
-        /// Creates a LinearLayoutManager with orientation. 
+        /// Creates a LinearLayoutManager with orientation.
         /// </summary>
         /// <param name="orientation">Layout orientation.Should be HORIZONTAL or VERTICAL</param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -129,7 +129,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Lay out all relevant child views from the given adapter. 
+        /// Lay out all relevant child views from the given adapter.
         /// </summary>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
         /// <param name="state">Transient state of FlexibleView </param>
@@ -173,7 +173,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Scroll horizontally by dy pixels in screen coordinates. 
+        /// Scroll horizontally by dy pixels in screen coordinates.
         /// </summary>
         /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
@@ -192,7 +192,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Scroll vertically by dy pixels in screen coordinates. 
+        /// Scroll vertically by dy pixels in screen coordinates.
         /// </summary>
         /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
@@ -211,7 +211,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Compute the offset of the scrollbar's thumb within the range. 
+        /// Compute the offset of the scrollbar's thumb within the range.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -241,7 +241,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Compute the extent of the scrollbar's thumb within the range. 
+        /// Compute the extent of the scrollbar's thumb within the range.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -261,7 +261,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Compute the range that the scrollbar represents. 
+        /// Compute the range that the scrollbar represents.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -283,7 +283,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Retrieves the first visible item position. 
+        /// Retrieves the first visible item position.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -295,7 +295,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Retrieves the first complete visible item position. 
+        /// Retrieves the first complete visible item position.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -307,7 +307,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Retrieves the last visible item position. 
+        /// Retrieves the last visible item position.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -319,7 +319,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Retrieves the last complete visible item position. 
+        /// Retrieves the last complete visible item position.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -346,7 +346,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Scroll to the specified adapter position with the given offset from resolved layout start. 
+        /// Scroll to the specified adapter position with the given offset from resolved layout start.
         /// </summary>
         /// <param name="position">Scroll to this adapter position</param>
         /// <param name="offset">The distance (in pixels) between the start edge of the item view and start edge of the FlexibleView.</param>
@@ -382,7 +382,7 @@ namespace Tizen.NUI.CommonUI
 
 
         /// <summary>
-        /// Retrieves a position that neighbor to current position by direction. 
+        /// Retrieves a position that neighbor to current position by direction.
         /// </summary>
         /// <param name="position">The anchor adapter position</param>
         /// <param name="direction">The direction.</param>
@@ -619,7 +619,7 @@ namespace Tizen.NUI.CommonUI
                 case "Right":
                     return mOrientation == HORIZONTAL ? LayoutState.LAYOUT_END
                             : LayoutState.INVALID_LAYOUT;
-                default:                    
+                default:
                     return LayoutState.INVALID_LAYOUT;
             }
 
@@ -789,7 +789,7 @@ namespace Tizen.NUI.CommonUI
             int layoutDirection = dy < 0 ? LayoutState.LAYOUT_END : LayoutState.LAYOUT_START;
             float absDy = Math.Abs(dy);
             UpdateLayoutState(layoutDirection, absDy, true, state);
-            float consumed = mLayoutState.ScrollingOffset 
+            float consumed = mLayoutState.ScrollingOffset
                 + Fill(recycler, mLayoutState, state, false, immediate);
 
             if (consumed < 0)

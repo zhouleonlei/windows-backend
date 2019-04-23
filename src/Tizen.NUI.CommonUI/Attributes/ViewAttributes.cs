@@ -109,8 +109,8 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
-        /// <summary> 
-        /// View Size 
+        /// <summary>
+        /// View Size
         /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]

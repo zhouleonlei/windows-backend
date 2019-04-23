@@ -18,7 +18,7 @@ namespace Tizen.FH.NUI.Samples
         private int i;
         public void Activate()
         {
-            
+
             i = 1;
             root = new SampleLayout(false);
             root.HeaderText = "NaviFrame";

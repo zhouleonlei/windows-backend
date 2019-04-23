@@ -22,7 +22,7 @@ using Tizen.NUI.BaseComponents;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// A flexible view for providing a limited window into a large data set.  
+    /// A flexible view for providing a limited window into a large data set.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -30,14 +30,14 @@ namespace Tizen.NUI.CommonUI
     public class FlexibleView : Control
     {
         /// <summary>
-        /// Constant value: -1. 
+        /// Constant value: -1.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int NO_POSITION = -1;
         /// <summary>
-        /// Constant value: -1. 
+        /// Constant value: -1.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -65,7 +65,7 @@ namespace Tizen.NUI.CommonUI
         private EventHandler<ItemTouchEventArgs> touchEventHandlers;
 
         /// <summary>
-        /// Creates a FlexibleView instance. 
+        /// Creates a FlexibleView instance.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -184,7 +184,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Set a new adapter to provide child views on demand.  
+        /// Set a new adapter to provide child views on demand.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -201,7 +201,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Retrieves the previously set adapter or null if no adapter is set. 
+        /// Retrieves the previously set adapter or null if no adapter is set.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -304,8 +304,8 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Return the ViewHolder for the item in the given position of the data set as of the latest layout pass. 
-        /// This method checks only the children of RecyclerView. If the item at the given position is not laid out, it will not create a new one. 
+        /// Return the ViewHolder for the item in the given position of the data set as of the latest layout pass.
+        /// This method checks only the children of RecyclerView. If the item at the given position is not laid out, it will not create a new one.
         /// </summary>
         /// <param name="position">The position of the item in the data set of the adapter</param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -329,8 +329,8 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Return the ViewHolder for the item in the given position of the data set. 
-        /// This method checks only the children of RecyclerView. If the item at the given position is not laid out, it will not create a new one. 
+        /// Return the ViewHolder for the item in the given position of the data set.
+        /// This method checks only the children of RecyclerView. If the item at the given position is not laid out, it will not create a new one.
         /// </summary>
         /// <param name="position">The position of the item in the data set of the adapter</param>
         /// <since_tizen> 5.5 </since_tizen>
@@ -712,7 +712,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// ItemClick Event Arguments. 
+        /// ItemClick Event Arguments.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -720,7 +720,7 @@ namespace Tizen.NUI.CommonUI
         public class ItemClickEventArgs : EventArgs
         {
             /// <summary>
-            /// The clicked ViewHolder. 
+            /// The clicked ViewHolder.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -729,7 +729,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// ItemTouch Event Arguments. 
+        /// ItemTouch Event Arguments.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -737,7 +737,7 @@ namespace Tizen.NUI.CommonUI
         public class ItemTouchEventArgs : TouchEventArgs
         {
             /// <summary>
-            /// The touched ViewHolder. 
+            /// The touched ViewHolder.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -777,7 +777,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Called when FlexibleView needs a new FlexibleView.ViewHolder of the given type to represent an item. 
+            /// Called when FlexibleView needs a new FlexibleView.ViewHolder of the given type to represent an item.
             /// </summary>
             /// <param name="viewType">The view type of the new View</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -786,7 +786,7 @@ namespace Tizen.NUI.CommonUI
             public abstract ViewHolder OnCreateViewHolder(int viewType);
 
             /// <summary>
-            /// Called by FlexibleView to display the data at the specified position. 
+            /// Called by FlexibleView to display the data at the specified position.
             /// </summary>
             /// <param name="holder">The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.</param>
             /// <param name="position">The position of the item within the adapter's data set.</param>
@@ -796,7 +796,7 @@ namespace Tizen.NUI.CommonUI
             public abstract void OnBindViewHolder(ViewHolder holder, int position);
 
             /// <summary>
-            /// Called when a ViewHolder is never used. 
+            /// Called when a ViewHolder is never used.
             /// </summary>
             /// <param name="holder">The ViewHolder which need to be disposed</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -805,7 +805,7 @@ namespace Tizen.NUI.CommonUI
             public abstract void OnDestroyViewHolder(ViewHolder holder);
 
             /// <summary>
-            /// Returns the total number of items in the data set held by the adapter. 
+            /// Returns the total number of items in the data set held by the adapter.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -813,7 +813,7 @@ namespace Tizen.NUI.CommonUI
             public abstract int GetItemCount();
 
             /// <summary>
-            /// Return the view type of the item at position for the purposes of view recycling. 
+            /// Return the view type of the item at position for the purposes of view recycling.
             /// </summary>
             /// <param name="position">The position of the item within the adapter's data set.</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -873,8 +873,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Called when a view created by this adapter has been attached to a window. 
-            /// This can be used as a reasonable signal that the view is about to be seen by the user. I
+            /// Called when a view created by this adapter has been attached to a window.
+            /// This can be used as a reasonable signal that the view is about to be seen by the user.
             /// </summary>
             /// <param name="holder">Holder of the view being attached.</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -885,7 +885,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Called when a view created by this adapter has been detached from its window. 
+            /// Called when a view created by this adapter has been detached from its window.
             /// </summary>
             /// <param name="holder">Holder of the view being detached.</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -896,7 +896,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the data set has changed. 
+            /// Notify any registered observers that the data set has changed.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -906,7 +906,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the data set has changed. 
+            /// Notify any registered observers that the data set has changed.
             /// It indicates that any reflection of the data at position is out of date and should be updated.
             /// </summary>
             /// <param name="position">Position of the item that has changed</param>
@@ -925,8 +925,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the itemCount items starting at position positionStart have changed. 
-            /// An optional payload can be passed to each changed item. 
+            /// Notify any registered observers that the itemCount items starting at position positionStart have changed.
+            /// An optional payload can be passed to each changed item.
             /// </summary>
             /// <param name="positionStart">Position of the first item that has changed</param>
             /// <param name="itemCount">Number of items that have changed</param>
@@ -938,7 +938,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the data set has been newly inserted. 
+            /// Notify any registered observers that the data set has been newly inserted.
             /// It indicates that any reflection of the data at position is out of date and should be updated.
             /// </summary>
             /// <param name="position">Position of the item that has been newly inserted</param>
@@ -951,7 +951,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the itemCount items starting at position positionStart have been newly inserted. 
+            /// Notify any registered observers that the itemCount items starting at position positionStart have been newly inserted.
             /// </summary>
             /// <param name="positionStart">Position of the first item that was inserted</param>
             /// <param name="itemCount">Number of items inserted</param>
@@ -970,7 +970,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the item previously located at position has been removed from the data set.  
+            /// Notify any registered observers that the item previously located at position has been removed from the data set. 
             /// </summary>
             /// <param name="position">Previous position of the first item that was removed</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -982,7 +982,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the itemCount items previously located at positionStart have been removed from the data set. 
+            /// Notify any registered observers that the itemCount items previously located at positionStart have been removed from the data set.
             /// </summary>
             /// <param name="positionStart">Previous position of the first item that was removed</param>
             /// <param name="itemCount">Number of items removed from the data set </param>
@@ -1001,7 +1001,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Notify any registered observers that the item reflected at fromPosition has been moved to toPosition. 
+            /// Notify any registered observers that the item reflected at fromPosition has been moved to toPosition.
             /// </summary>
             /// <param name="fromPosition">Previous position of the item</param>
             /// <param name="toPosition">New position of the item. </param>
@@ -1054,7 +1054,7 @@ namespace Tizen.NUI.CommonUI
             private Animation mScrollAni;
 
             /// <summary>
-            /// Lay out all relevant child views from the given adapter. 
+            /// Lay out all relevant child views from the given adapter.
             /// </summary>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
             /// <param name="state">Transient state of FlexibleView </param>
@@ -1097,7 +1097,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Scroll horizontally by dy pixels in screen coordinates. 
+            /// Scroll horizontally by dy pixels in screen coordinates.
             /// </summary>
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
@@ -1112,7 +1112,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Scroll vertically by dy pixels in screen coordinates. 
+            /// Scroll vertically by dy pixels in screen coordinates.
             /// </summary>
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
@@ -1127,7 +1127,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Compute the extent of the scrollbar's thumb within the range. 
+            /// Compute the extent of the scrollbar's thumb within the range.
             /// </summary>
             /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1139,7 +1139,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Compute the offset of the scrollbar's thumb within the range. 
+            /// Compute the offset of the scrollbar's thumb within the range.
             /// </summary>
             /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1151,7 +1151,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Compute the range that the scrollbar represents. 
+            /// Compute the range that the scrollbar represents.
             /// </summary>
             /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1175,7 +1175,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Scroll to the specified adapter position with the given offset from resolved layout start. 
+            /// Scroll to the specified adapter position with the given offset from resolved layout start.
             /// </summary>
             /// <param name="position">Scroll to this adapter position</param>
             /// <param name="offset">The distance (in pixels) between the start edge of the item view and start edge of the FlexibleView.</param>
@@ -1245,7 +1245,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Calls {@code FlexibleView#RelayoutRequest} on the underlying FlexibleView. 
+            /// Calls {@code FlexibleView#RelayoutRequest} on the underlying FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1259,7 +1259,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Lay out the given child view within the FlexibleView using coordinates that include view margins. 
+            /// Lay out the given child view within the FlexibleView using coordinates that include view margins.
             /// </summary>
             /// <param name="child">Child to lay out</param>
             /// <param name="left">Left edge, with item view left margin included</param>
@@ -1279,7 +1279,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Change the ViewHolder with focusPosition to focus. 
+            /// Change the ViewHolder with focusPosition to focus.
             /// </summary>
             /// <param name="focusPosition">the newly focus position</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1294,7 +1294,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the current number of child views attached to the parent FlexibleView. 
+            /// Return the current number of child views attached to the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1317,7 +1317,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Finds the view which represents the given adapter position. 
+            /// Finds the view which represents the given adapter position.
             /// </summary>
             /// <param name="index">adapter index</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1329,7 +1329,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Offset all child views attached to the parent FlexibleView by dx pixels along the horizontal axis. 
+            /// Offset all child views attached to the parent FlexibleView by dx pixels along the horizontal axis.
             /// </summary>
             /// <param name="dx">Pixels to offset by </param>
             /// <param name="immediate">specify if the offset need animation</param>
@@ -1383,7 +1383,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Offset all child views attached to the parent FlexibleView by dy pixels along the vertical axis. 
+            /// Offset all child views attached to the parent FlexibleView by dy pixels along the vertical axis.
             /// </summary>
             /// <param name="dx">Pixels to offset by </param>
             /// <param name="immediate">specify if the offset need animation</param>
@@ -1437,7 +1437,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the width of the parent FlexibleView. 
+            /// Return the width of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1448,7 +1448,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the height of the parent FlexibleView. 
+            /// Return the height of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1459,7 +1459,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the left padding of the parent FlexibleView. 
+            /// Return the left padding of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1470,7 +1470,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the top padding of the parent FlexibleView. 
+            /// Return the top padding of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1481,7 +1481,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the right padding of the parent FlexibleView. 
+            /// Return the right padding of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1492,7 +1492,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Return the bottom padding of the parent FlexibleView. 
+            /// Return the bottom padding of the parent FlexibleView.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1503,7 +1503,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Add a view to the currently attached FlexibleView if needed. 
+            /// Add a view to the currently attached FlexibleView if needed.
             /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).
             /// </summary>
             /// <param name="holder">view to add</param>
@@ -1516,7 +1516,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Add a view to the currently attached FlexibleView if needed. 
+            /// Add a view to the currently attached FlexibleView if needed.
             /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).
             /// </summary>
             /// <param name="holder">view to add</param>
@@ -1530,7 +1530,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Temporarily detach and scrap all currently attached child views. 
+            /// Temporarily detach and scrap all currently attached child views.
             /// Views will be scrapped into the given Recycler.
             /// The Recycler may prefer to reuse scrap views before other views that were previously recycled.
             /// </summary>
@@ -1604,7 +1604,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Retrieves a position that neighbor to current position by direction. 
+            /// Retrieves a position that neighbor to current position by direction.
             /// </summary>
             /// <param name="position">The anchor adapter position</param>
             /// <param name="direction">The direction.</param>
@@ -1727,7 +1727,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// A ViewHolder describes an item view and metadata about its place within the FlexibleView. 
+        /// A ViewHolder describes an item view and metadata about its place within the FlexibleView.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1793,7 +1793,7 @@ namespace Tizen.NUI.CommonUI
             private FlexibleView.Recycler mScrapContainer;
 
             /// <summary>
-            /// ViewHolder constructor. 
+            /// ViewHolder constructor.
             /// </summary>
             /// <param name="itemView">View</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -1809,7 +1809,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the view. 
+            /// Returns the view.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1823,7 +1823,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the left edge includes the view left margin. 
+            /// Returns the left edge includes the view left margin.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1837,7 +1837,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the right edge includes the view right margin. 
+            /// Returns the right edge includes the view right margin.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1851,7 +1851,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the top edge includes the view top margin. 
+            /// Returns the top edge includes the view top margin.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1865,7 +1865,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the bottom edge includes the view bottom margin. 
+            /// Returns the bottom edge includes the view bottom margin.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1879,7 +1879,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the position of the ViewHolder in terms of the latest layout pass. 
+            /// Returns the position of the ViewHolder in terms of the latest layout pass.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -2140,7 +2140,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Obtain a view initialized for the given position. 
+            /// Obtain a view initialized for the given position.
             /// </summary>
             /// <param name="position">Position to obtain a view for</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -2190,7 +2190,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Recycle a detached view. 
+            /// Recycle a detached view.
             /// </summary>
             /// <param name="itemView">Removed holder for recycling</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -2203,7 +2203,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Returns the count in scrap list. 
+            /// Returns the count in scrap list.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -2214,7 +2214,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Gets the scrap view at index. 
+            /// Gets the scrap view at index.
             /// </summary>
             /// <param name="index">index</param>
             /// <since_tizen> 5.5 </since_tizen>
@@ -2226,7 +2226,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Clear scrap views out of this recycler. Detached views contained within a recycled view pool will remain. 
+            /// Clear scrap views out of this recycler. Detached views contained within a recycled view pool will remain.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

@@ -22,7 +22,7 @@ using Tizen.NUI.BaseComponents;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// Pagination shows the number of pages available and the currently active page. 
+    /// Pagination shows the number of pages available and the currently active page.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

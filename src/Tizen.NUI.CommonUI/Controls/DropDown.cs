@@ -22,7 +22,7 @@ using System.ComponentModel;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// DropDown is one kind of common component, a dropdown allows the user click dropdown button to choose one value from a list. 
+    /// DropDown is one kind of common component, a dropdown allows the user click dropdown button to choose one value from a list.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

@@ -23,7 +23,7 @@ using Tizen.NUI;
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
-    /// Pagination shows the number of pages available and the currently active page. 
+    /// Pagination shows the number of pages available and the currently active page.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -482,7 +482,7 @@ namespace Tizen.FH.NUI.Controls
 
 
         /// <summary>
-        /// SelectChange Event Arguments. 
+        /// SelectChange Event Arguments.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -490,7 +490,7 @@ namespace Tizen.FH.NUI.Controls
         public class SelectChangeEventArgs : EventArgs
         {
             /// <summary>
-            /// Previous select indicator index. 
+            /// Previous select indicator index.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -498,7 +498,7 @@ namespace Tizen.FH.NUI.Controls
             public int PreviousIndex;
 
             /// <summary>
-            /// Previous select indicator index. 
+            /// Previous select indicator index.
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

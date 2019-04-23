@@ -69,7 +69,7 @@ namespace Tizen.FH.NUI.Samples
             popup.SetButtonText(1, "OK");
             popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
             root.Add(popup);
- 
+
             timePicker = new TimePicker("DATimePickerAMPM");
             timePicker.Size2D = new Size2D(1032, 524);
             timePicker.Position2D = new Position2D(0, 0);
@@ -88,17 +88,17 @@ namespace Tizen.FH.NUI.Samples
             popup.SetButtonText(1, "OK");
             popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
             root.Add(popup);
- 
+
             timePicker = new TimePicker("DATimePickerRepeat");
             timePicker.Size2D = new Size2D(1032, 812);
             timePicker.Position2D = new Position2D(0, 0);
             popup.ContentView.Add(timePicker);
         }
-        
-        
+
+
         private void PopupButtonClickedEvent(object sender, Popup.ButtonClickEventArgs e)
         {
-            
+
         }
 
         private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
@@ -136,7 +136,7 @@ namespace Tizen.FH.NUI.Samples
         }
 
         public void Deactivate()
-        {         
+        {
             if (root != null)
             {
                 DestoryTimePicker();

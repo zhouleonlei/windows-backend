@@ -25,7 +25,7 @@ using System.ComponentModel;
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
-    /// Picker is one kind of Fhub component, a picker allows the user to change date information: year/month/day. 
+    /// Picker is one kind of Fhub component, a picker allows the user to change date information: year/month/day.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -560,7 +560,7 @@ namespace Tizen.FH.NUI.Controls
                 
                 dropDown.FocusedItemIndex = dropDown.SelectedItemIndex;
                 dropDown.ButtonText = showDate.Year.ToString();
-                
+
                 UpdateDate();
             }
         }
@@ -582,7 +582,7 @@ namespace Tizen.FH.NUI.Controls
                         dropDown.FocusedItemIndex += 1;
                         dropDown.SelectedItemIndex = dropDown.FocusedItemIndex;
                         dropDown.ButtonText = (showDate.Year + 1).ToString();
-                        
+
                     }
                 }
                 

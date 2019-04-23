@@ -19,7 +19,7 @@ using System.ComponentModel;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// Layout collection of views in a grid. 
+    /// Layout collection of views in a grid.
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

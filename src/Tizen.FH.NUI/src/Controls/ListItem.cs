@@ -179,7 +179,7 @@ namespace Tizen.FH.NUI.Controls
             [EditorBrowsable(EditorBrowsableState.Never)]
             Effect,
             /// <summary>
-            /// item align style type 
+            /// item align style type
             /// </summary>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.

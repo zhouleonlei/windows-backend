@@ -165,7 +165,7 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
-        
+
         /// <summary>
         /// Date Picker focus image's attributes.
         /// </summary>
