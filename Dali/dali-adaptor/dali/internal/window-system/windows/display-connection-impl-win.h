@@ -26,6 +26,7 @@
 namespace Dali
 {
 
+class RenderSurface;
 class DisplayConnection;
 
 namespace Internal
@@ -66,18 +67,23 @@ public:
   void ConsumeEvents();
 
   /**
-   * @copydoc Dali::DisplayConnection::InitializeGraphics
+   * @copydoc Dali::DisplayConnection::InitializeEgl
    */
+  bool InitializeEgl(EglInterface& egl);
+
+  /**
+  * @copydoc Dali::DisplayConnection::InitializeGraphics
+  */
   bool InitializeGraphics();
 
   /**
-   * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetSurfaceType
-   */
-  void SetSurfaceType( Integration::RenderSurface::Type type );
+  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetSurfaceType
+  */
+  void SetSurfaceType( Dali::Integration::RenderSurface::Type type );
 
   /**
-   * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetGraphicsInterface
-   */
+  * @copydoc Dali::Internal::Adaptor::DisplayConnection::SetGraphicsInterface
+  */
   void SetGraphicsInterface( GraphicsInterface& graphics );
 
 public:
@@ -98,9 +104,6 @@ private:
 private:
 
   GraphicsInterface *mGraphics; ///< The graphics interface
-
-public:
-
   HDC mDisplay;
 };
 

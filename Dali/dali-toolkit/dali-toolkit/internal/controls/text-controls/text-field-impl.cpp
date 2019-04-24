@@ -765,17 +765,17 @@ void TextField::SetProperty( BaseObject* object, Property::Index index, const Pr
         }
         break;
       }
-	  case Toolkit::DevelTextField::Property::ENABLE_GRAB_HANDLE_POPUP:
-	  {
-		  if (impl.mController)
-		  {
-			  const bool grabHandlePopupEnabled = value.Get<bool>();
-			  DALI_LOG_INFO(gLogFilter, Debug::General, "TextField %p ENABLE_GRAB_HANDLE_POPUP %d\n", impl.mController.Get(), grabHandlePopupEnabled);
+      case Toolkit::DevelTextField::Property::ENABLE_GRAB_HANDLE_POPUP:
+      {
+        if (impl.mController)
+        {
+          const bool grabHandlePopupEnabled = value.Get<bool>();
+          DALI_LOG_INFO(gLogFilter, Debug::General, "TextField %p ENABLE_GRAB_HANDLE_POPUP %d\n", impl.mController.Get(), grabHandlePopupEnabled);
 
-			  impl.mController->SetGrabHandlePopupEnabled(grabHandlePopupEnabled);
-			  break;
-		  }
-	  }
+          impl.mController->SetGrabHandlePopupEnabled(grabHandlePopupEnabled);
+          break;
+        }
+      }
     } // switch
   } // textfield
 }
@@ -1183,32 +1183,32 @@ Property::Value TextField::GetProperty( BaseObject* object, Property::Index inde
         }
         break;
       }
-	  case Toolkit::DevelTextField::Property::ENABLE_GRAB_HANDLE_POPUP:
-	  {
-		  if (impl.mController)
-		  {
-			  value = impl.mController->IsGrabHandlePopupEnabled();
-		  }
-		  break;
-	  }
+      case Toolkit::DevelTextField::Property::ENABLE_GRAB_HANDLE_POPUP:
+      {
+        if (impl.mController)
+        {
+          value = impl.mController->IsGrabHandlePopupEnabled();
+        }
+        break;
+      }
     } //switch
   }
 
   return value;
 }
 
+void TextField::SelectWholeText()
+{
+  if( mController && mController->IsShowingRealText() )
+  {
+    mController->SelectEvent( 0.f, 0.f, true );
+    SetKeyInputFocus();
+  }
+}
+
 InputMethodContext TextField::GetInputMethodContext()
 {
   return mInputMethodContext;
-}
-
-void TextField::SelectWholeText()
-{
-	if (mController && mController->IsShowingRealText())
-	{
-		mController->SelectEvent(0.f, 0.f, true);
-		SetKeyInputFocus();
-	}
 }
 
 bool TextField::DoConnectSignal( BaseObject* object, ConnectionTrackerInterface* tracker, const std::string& signalName, FunctorDelegate* functor )

@@ -35,15 +35,13 @@ namespace Adaptor
 
 DisplayConnection* DisplayConnectionWin::New()
 {
-  //DisplayConnection* pDisplayConnection(new DisplayConnection());
+  DisplayConnection* pDisplayConnection(new DisplayConnectionWin());
 
-  //return pDisplayConnection;
-  return nullptr;
+  return pDisplayConnection;
 }
 
 DisplayConnectionWin::DisplayConnectionWin()
-: mGraphics( nullptr ),
-  mDisplay( nullptr )
+: mDisplay(NULL)
 {
 }
 
@@ -60,6 +58,19 @@ void DisplayConnectionWin::ConsumeEvents()
 {
 }
 
+bool DisplayConnectionWin::InitializeEgl(EglInterface& egl)
+{
+  EglImplementation& eglImpl = static_cast<EglImplementation&>( egl );
+
+  if( !eglImpl.InitializeGles( reinterpret_cast<EGLNativeDisplayType>( mDisplay ) ) )
+  {
+    DALI_LOG_ERROR( "Failed to initialize GLES.\n" );
+    return false;
+  }
+
+  return true;
+}
+
 bool DisplayConnectionWin::InitializeGraphics()
 {
   auto eglGraphics = static_cast<EglGraphics *>( mGraphics );
@@ -74,9 +85,9 @@ bool DisplayConnectionWin::InitializeGraphics()
   return true;
 }
 
-void DisplayConnectionWin::SetSurfaceType( Integration::RenderSurface::Type type )
+void DisplayConnectionWin::SetSurfaceType( Dali::Integration::RenderSurface::Type type )
 {
-  if( type == Integration::RenderSurface::WINDOW_RENDER_SURFACE )
+  if( type == Dali::Integration::RenderSurface::WINDOW_RENDER_SURFACE )
   {
      mDisplay = GetDC( GetForegroundWindow() );
   }

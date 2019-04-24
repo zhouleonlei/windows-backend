@@ -154,6 +154,12 @@ public:
    */
   float GetCurrentProgress() const;
 
+  /**
+   * @brief Gets the default size of the file,.
+   * @return The default size of the file
+   */
+  void GetDefaultSize( uint32_t& width, uint32_t& height ) const;
+
 protected:
 
   /**
@@ -165,15 +171,9 @@ protected:
 private:
 
   /**
-   * @brief Called by the rasterize thread which ensures a wait if required.
-   * @return false if the thread should stop.
+   * @brief Initialize the vector renderer.
    */
-  bool IsThreadReady();
-
-  /**
-   * @brief Start rendering
-   */
-  bool StartRender();
+  void Initialize();
 
   /**
    * @brief Rasterize the current frame.
@@ -191,7 +191,6 @@ private:
   std::string                 mUrl;
   VectorAnimationRenderer     mVectorRenderer;
   ConditionalWait             mConditionalWait;
-  Dali::Mutex                 mMutex;
   std::unique_ptr< EventThreadCallback > mResourceReadyTrigger;
   std::unique_ptr< EventThreadCallback > mAnimationFinishedTrigger;
   Vector2                     mPlayRange;
@@ -210,6 +209,7 @@ private:
   bool                        mNeedRender;
   bool                        mDestroyThread;  ///< Whether the thread be destroyed
   bool                        mResourceReady;
+  bool                        mCurrentFrameUpdated;
   const Dali::LogFactoryInterface& mLogFactory; ///< The log factory
 
 };

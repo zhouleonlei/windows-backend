@@ -425,7 +425,7 @@ public: // Configure the text controller.
    *
    * @param[in] enabled Whether to enable the grab handles
    */
-  void SetGrabHandlePopupEnabled(bool enabled);
+  void SetGrabHandlePopupEnabled( bool enabled );
 
   /**
    * @brief Returns whether the grab handles are enabled.
@@ -1281,7 +1281,6 @@ public: // Queries & retrieves.
    */
   bool IsShowingRealText() const;
 
-
 public: // Relayout.
 
   /**
@@ -1369,7 +1368,7 @@ public: // Text-input Event Queuing.
    * @param[in] y The y position relative to the top-left of the parent control.
    * @param[in] selectAll Whether the whole text is selected.
    */
-  void SelectEvent(float x, float y, bool selectAll);
+  void SelectEvent( float x, float y, bool selectAll );
 
   /**
    * @brief Event received from input method context

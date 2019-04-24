@@ -437,7 +437,7 @@ void Controller::SetLayoutDirection( Dali::LayoutDirection::Type layoutDirection
 
 bool Controller::IsShowingRealText() const
 {
-	return mImpl->IsShowingRealText();
+  return mImpl->IsShowingRealText();
 }
 
 
@@ -529,12 +529,12 @@ bool Controller::IsGrabHandleEnabled() const
 
 void Controller::SetGrabHandlePopupEnabled(bool enabled)
 {
-	mImpl->mEventData->mGrabHandlePopupEnabled = enabled;
+  mImpl->mEventData->mGrabHandlePopupEnabled = enabled;
 }
 
 bool Controller::IsGrabHandlePopupEnabled() const
 {
-	return mImpl->mEventData->mGrabHandlePopupEnabled;
+  return mImpl->mEventData->mGrabHandlePopupEnabled;
 }
 
 // public : Update
@@ -2623,9 +2623,9 @@ bool Controller::KeyEvent( const Dali::KeyEvent& keyEvent )
 
       // This branch avoids calling the InsertText() method of the 'else' branch which can delete selected text.
     }
-    else if( Dali::DALI_KEY_SHIFT_LEFT == keyCode )
+    else if( ( Dali::DALI_KEY_SHIFT_LEFT == keyCode ) || ( Dali::DALI_KEY_SHIFT_RIGHT == keyCode ) )
     {
-      // DALI_KEY_SHIFT_LEFT is the key code for the Left Shift. It's sent (by the InputMethodContext?) when the predictive text is enabled
+      // DALI_KEY_SHIFT_LEFT or DALI_KEY_SHIFT_RIGHT is the key code for Shift. It's sent (by the InputMethodContext?) when the predictive text is enabled
       // and a character is typed after the type of a upper case latin character.
 
       // Do nothing.
@@ -2660,6 +2660,7 @@ bool Controller::KeyEvent( const Dali::KeyEvent& keyEvent )
          ( mImpl->mEventData->mState != EventData::INACTIVE ) &&
          ( !isNullKey ) &&
          ( Dali::DALI_KEY_SHIFT_LEFT != keyCode ) &&
+         ( Dali::DALI_KEY_SHIFT_RIGHT != keyCode ) &&
          ( Dali::DALI_KEY_VOLUME_UP != keyCode ) &&
          ( Dali::DALI_KEY_VOLUME_DOWN != keyCode ) )
     {
@@ -2828,30 +2829,30 @@ void Controller::LongPressEvent( Gesture::State state, float x, float y  )
   }
 }
 
-void Controller::SelectEvent(float x, float y, bool selectAll)
+void Controller::SelectEvent( float x, float y, bool selectAll )
 {
-	DALI_LOG_INFO(gLogFilter, Debug::Verbose, "Controller::SelectEvent\n");
+  DALI_LOG_INFO( gLogFilter, Debug::Verbose, "Controller::SelectEvent\n" );
 
-	if (NULL != mImpl->mEventData)
-	{
-		if (selectAll)
-		{
-			Event event(Event::SELECT_ALL);
-			mImpl->mEventData->mEventQueue.push_back(event);
-		}
-		else
-		{
-			Event event(Event::SELECT);
-			event.p2.mFloat = x;
-			event.p3.mFloat = y;
-			mImpl->mEventData->mEventQueue.push_back(event);
-		}
+  if( NULL != mImpl->mEventData )
+  {
+    if( selectAll )
+    {
+      Event event( Event::SELECT_ALL );
+      mImpl->mEventData->mEventQueue.push_back( event );
+    }
+    else
+    {
+      Event event( Event::SELECT );
+      event.p2.mFloat = x;
+      event.p3.mFloat = y;
+      mImpl->mEventData->mEventQueue.push_back( event );
+    }
 
-		mImpl->mEventData->mCheckScrollAmount = true;
-		mImpl->mEventData->mIsLeftHandleSelected = true;
-		mImpl->mEventData->mIsRightHandleSelected = true;
-		mImpl->RequestRelayout();
-	}
+    mImpl->mEventData->mCheckScrollAmount = true;
+    mImpl->mEventData->mIsLeftHandleSelected = true;
+    mImpl->mEventData->mIsRightHandleSelected = true;
+    mImpl->RequestRelayout();
+  }
 }
 
 InputMethodContext::CallbackData Controller::OnInputMethodContextEvent( InputMethodContext& inputMethodContext, const InputMethodContext::EventData& inputMethodContextEvent )

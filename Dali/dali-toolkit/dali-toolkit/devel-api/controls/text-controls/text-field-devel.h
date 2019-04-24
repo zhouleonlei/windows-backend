@@ -109,12 +109,12 @@ namespace Property
        */
       MATCH_SYSTEM_LANGUAGE_DIRECTION = ELLIPSIS + 3,
 
-	  /**
-		* @brief Enables the grab handle popup for text selection.
-		* @details Name "enableGrabHandlePopup", type Property::BOOLEAN.
-		* @note The default value is true, which means the grab handle popup is enabled by default.
-		*/
-	  ENABLE_GRAB_HANDLE_POPUP = ELLIPSIS + 4
+      /**
+        * @brief Enables the grab handle popup for text selection.
+        * @details Name "enableGrabHandlePopup", type Property::BOOLEAN.
+        * @note The default value is true, which means the grab handle popup is enabled by default.
+        */
+      ENABLE_GRAB_HANDLE_POPUP = ELLIPSIS + 4
 
   };
 } // namespace Property
@@ -133,7 +133,7 @@ DALI_TOOLKIT_API InputMethodContext GetInputMethodContext( TextField textField )
  * @param[in] textField The instance of TextField.
  * @return InputMethodContext instance.
  */
-DALI_TOOLKIT_API void SelectWholeText(TextField textField);
+DALI_TOOLKIT_API void SelectWholeText( TextField textField );
 
 } // namespace DevelText
 

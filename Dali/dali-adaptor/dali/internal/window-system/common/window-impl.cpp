@@ -94,8 +94,10 @@ Window::~Window()
     mAdaptor = NULL;
   }
 
-  // Do we need to do it?
-  mEventHandler->SetRotationObserver( nullptr );
+  if ( mEventHandler )
+  {
+    mEventHandler->SetRotationObserver( nullptr );
+  }
 }
 
 void Window::Initialize(const PositionSize& positionSize, const std::string& name, const std::string& className)
@@ -160,15 +162,16 @@ void Window::SetAdaptor(Adaptor& adaptor)
   // Can only create the detector when we know the Core has been instantiated.
   mDragAndDropDetector = DragAndDropDetector::New();
 
-  if( mOrientation )
-  {
-    mOrientation->SetAdaptor( adaptor );
-  }
-
   mSurface->SetAdaptor( *mAdaptor );
 
   mEventHandler = EventHandlerPtr(
       new EventHandler( mScene, *mAdaptor, *mAdaptor->GetGestureManager(), *mAdaptor ) );
+
+  // TODO: Orientation should be passed into the constructor of EventHandler
+  if( mOrientation )
+  {
+    SetRotationObserver( &(*mOrientation) );
+  }
 }
 
 WindowRenderSurface* Window::GetSurface() const
