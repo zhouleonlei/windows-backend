@@ -16,38 +16,61 @@
  */
 
 // CLASS HEADER
-#include <dali-toolkit/internal/frame-update-callback/frame-callback.h>
+#include <dali/internal/frame-update-callback/frame-callback.h>
+
+// EXTERNAL HEADER
+#include <dali/devel-api/update/update-proxy.h>
+
+// INTERNAL HEADER
+#include <dali/internal/adaptor/common/adaptor-impl.h>
 
 namespace Dali
-{
-
-namespace ToolKit
 {
 
 namespace Internal
 {
 
+namespace Adaptor
+{
+
 FrameCallback::FrameCallback()
 : mUpdateProxy(NULL),
-mFrameCallback(NULL)
+  mFrameCallback(NULL),
+  mMainThreadFrameCallback(NULL)
 {
   //making sure that RBM is initialized in main thread	
+  Dali::Internal::Adaptor::Adaptor& adaptorImpl = Dali::Internal::Adaptor::Adaptor::GetImplementation( Dali::Adaptor::Get() );
+  eventTrigger = adaptorImpl.GetTriggerEventFactoryInterface().CreateTriggerEvent( MakeCallback( this, &FrameCallback::ProcessCallback ), TriggerEventInterface::KEEP_ALIVE_AFTER_TRIGGER );
 }
 
 FrameCallback::~FrameCallback()
 {
   mUpdateProxy = NULL;
   mFrameCallback = NULL;
+  mMainThreadFrameCallback = NULL;
+
+  Dali::Internal::Adaptor::Adaptor& adaptorImpl = Dali::Internal::Adaptor::Adaptor::GetImplementation( Dali::Adaptor::Get() );
+  adaptorImpl.GetTriggerEventFactoryInterface().DestroyTriggerEvent( eventTrigger );
 }
 
-void FrameCallback::SetUpdateCallback( FrameCallbackFunction callback )
+void FrameCallback::SetUpdateCallback( Dali::FrameCallbackFunction callback )
 {
   mFrameCallback = callback;
+}
+
+void FrameCallback::SetMainThreadUpdateCallback( Dali::FrameCallbackFunction callback )
+{
+  mMainThreadFrameCallback = callback;
 }
 
 void FrameCallback::RemoveFrameUpdateCallback( )
 {
   mFrameCallback = NULL;
+}
+
+void FrameCallback::RemoveMainThreadFrameUpdateCallback()
+{
+  mMainThreadFrameCallback = NULL;
 }
 
 bool FrameCallback::GetPosition( unsigned int id, Vector3& position ) const
@@ -160,16 +183,28 @@ bool FrameCallback::BakeColor( unsigned int id, const Vector4& color ) const
 
 void FrameCallback::Update( Dali::UpdateProxy& updateProxy, float elapsedSeconds )
 {
+  mElapsedSeconds = elapsedSeconds;
+
   if(mUpdateProxy != NULL)
   {
     mUpdateProxy = NULL;
   }
   
   mUpdateProxy = &updateProxy;
+
+  eventTrigger->Trigger();
   
   if(mFrameCallback != NULL)
   {
     mFrameCallback( elapsedSeconds );
+  }
+}
+
+void FrameCallback::ProcessCallback()
+{
+  if( mMainThreadFrameCallback != NULL )
+  {
+    mMainThreadFrameCallback( mElapsedSeconds );
   }
 }
 }

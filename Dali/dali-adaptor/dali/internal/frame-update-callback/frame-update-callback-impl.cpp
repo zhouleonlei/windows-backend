@@ -10,29 +10,30 @@
  */
 
 // CLASS HEADER
-#include <dali-toolkit/internal/frame-update-callback/frame-update-callback-impl.h>
+#include <dali/internal/frame-update-callback/frame-update-callback-impl.h>
 
 // EXTERNAL INCLUDES
-#include <dali-toolkit/dali-toolkit.h>
-#include <dali/devel-api/common/stage-devel.h>
 
 // INTERNAL INCLUDES
+#include <dali/devel-api/common/stage-devel.h>
+#include <dali/public-api/actors/layer.h>
 
 using namespace Dali;
 
 namespace Dali
 {
 
-namespace ToolKit
+namespace Internal
 {
 
-namespace Internal
+namespace Adaptor
 {
 
 FrameUpdateCallback::FrameUpdateCallback()
   : mFrameCallback()
 {
-  mStage = Stage::GetCurrent();
+  mStage = Dali::Stage::GetCurrent();
+  mHasBeenAdded = false;
 }
 
 FrameUpdateCallback::~FrameUpdateCallback()
@@ -110,13 +111,31 @@ IntrusivePtr<FrameUpdateCallback> FrameUpdateCallback::New()
 void FrameUpdateCallback::AddCallback(FrameCallbackFunction frameCallback)
 {
   mFrameCallback.SetUpdateCallback(frameCallback);
-  DevelStage::AddFrameCallback( mStage, mFrameCallback, mStage.GetRootLayer() );
+
+  if( false == mHasBeenAdded )
+  {
+    mHasBeenAdded = true;
+    DevelStage::AddFrameCallback( mStage, mFrameCallback, mStage.GetRootLayer() );
+  }
+}
+
+void FrameUpdateCallback::AddMainThreadCallback( FrameCallbackFunction frameCallback )
+{
+  mFrameCallback.SetMainThreadUpdateCallback( frameCallback );
+
+  if( false == mHasBeenAdded )
+  {
+    mHasBeenAdded = true;
+    DevelStage::AddFrameCallback( mStage, mFrameCallback, mStage.GetRootLayer() );
+  }
 }
 
 void FrameUpdateCallback::RemoveCallback()
 {
+  mHasBeenAdded = false;
   DevelStage::RemoveFrameCallback( mStage, mFrameCallback );
   mFrameCallback.RemoveFrameUpdateCallback();
+  mFrameCallback.RemoveMainThreadFrameUpdateCallback();
 }
 } // namespace Internal
 } // namespace ToolKit

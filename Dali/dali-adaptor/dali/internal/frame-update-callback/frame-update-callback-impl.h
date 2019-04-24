@@ -1,71 +1,65 @@
-#ifndef __DALI_EXTENSION_INTERNAL_FRAME_CALLBACK_H
-#define __DALI_EXTENSION_INTERNAL_FRAME_CALLBACK_H
+#ifndef __DALI_FRAME_UPDATE_CALLBACK_IMPL_H__
+#define __DALI_FRAME_UPDATE_CALLBACK_IMPL_H__
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright 2017 by Samsung Electronics, Inc.,
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This software is the confidential and proprietary information
+ * of Samsung Electronics, Inc. ("Confidential Information").  You
+ * shall not disclose such Confidential Information and shall use
+ * it only in accordance with the terms of the license agreement
+ * you entered into with Samsung.
  *
  */
 
 // EXTERNAL INCLUDES
-#include <dali/devel-api/update/frame-callback-interface.h>
-#include <dali/devel-api/update/update-proxy.h>
-#include <dali/public-api/common/dali-common.h>
-#include <dali/public-api/math/matrix.h>
-#include <dali/public-api/math/vector3.h>
+#include <dali/devel-api/common/stage-devel.h>
+#include <dali/public-api/object/base-handle.h>
+#include <dali/public-api/object/base-object.h>
 
 // INTERNAL INCLUDES
-#include <dali-toolkit/public-api/frame-update-callback/frame-update-callback.h>
+#include <dali/public-api/frame-update-callback/frame-update-callback.h>
+#include <dali/internal/frame-update-callback/frame-callback.h>
 
 namespace Dali
-{
-
-namespace ToolKit
 {
 
 namespace Internal
 {
 
-/**
- * @brief Implementation of the FrameCallbackInterface.
- *
- * When this is used, it will expand the size of the actors the closer they get to the horizontal edge.
- */
-class FrameCallback : public Dali::FrameCallbackInterface
+namespace Adaptor
+{
+
+class FrameUpdateCallback : public Dali::BaseObject
 {
 public:
 
   /**
-   * @brief Constructor.
+   * @brief Creates an uninitialized FrameUpdateCallback object.
    */
-  FrameCallback();
+  FrameUpdateCallback();
 
+  static IntrusivePtr<FrameUpdateCallback> New();
+  
   /**
    * @brief Destructor.
    */
-  ~FrameCallback();
+  ~FrameUpdateCallback();
   
   /**
-   * @brief Allows setting Frame callback function.
-   * @param[in]  updateCallback    The callback function
+   * @brief sets frame callback.
    */
-  void SetUpdateCallback( FrameCallbackFunction callback );
+  void AddCallback(FrameCallbackFunction updateCallback);
+
+  /**
+   * @brief sets main thread frame callback.
+   */
+  void AddMainThreadCallback( FrameCallbackFunction updateCallback );
   
   /**
-   * @brief Removes frame callback function.
+   * @brief removes frame callback.
    */
-  void RemoveFrameUpdateCallback( );
+  void RemoveCallback();
   
   /**
    * @brief Given the Actor ID, this retrieves that Actor's local position.
@@ -149,7 +143,7 @@ public:
    * @param[in]  color  The color to set
    * @note The value is saved so will cause undesired effects if this property is being animated.
    */
-  bool SetColor( unsigned int id, const Dali::Vector4& color ) const;
+  bool SetColor( unsigned int id, const Dali::Vector4& color );
 
   /**
    * @brief Allows baking an Actor's local color from the Frame callback function.
@@ -159,22 +153,23 @@ public:
    */
   bool BakeColor( unsigned int id, const Dali::Vector4& color ) const;
 
-private:
+private: 
 
-  /**
-   * @brief Called when every frame is updated.
-   * @param[in]  updateProxy  Used to set the world-matrix and sizes.
-   */
-  virtual void Update( Dali::UpdateProxy& updateProxy, float elapsedSeconds );
-
-private:
-
-  Dali::UpdateProxy* mUpdateProxy;
-  
-  FrameCallbackFunction mFrameCallback;
+  FrameCallback mFrameCallback;
+  bool mHasBeenAdded;
+  Dali::Stage         mStage;
 };
-}
-}
-} // namespace DaliExtTv
 
-#endif // __DALI_EXTENSION_INTERNAL_FRAME_CALLBACK_H
+inline FrameUpdateCallback& GetImplementation( Dali::FrameUpdateCallback& handle )
+{
+  DALI_ASSERT_ALWAYS( handle && "FrameBuffer handle is empty" );
+
+  BaseObject& object = handle.GetBaseObject();
+
+  return static_cast<FrameUpdateCallback&>( object );
+}
+} // namespace Internal
+} // namespace ToolKit
+} // namespace Dali
+
+#endif // __DALI_EXTENSION_FRAME_UPDATE_CALLBACK_H__

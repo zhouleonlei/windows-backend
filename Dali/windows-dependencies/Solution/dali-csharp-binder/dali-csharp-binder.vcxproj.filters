@@ -117,6 +117,9 @@
     <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\layout-controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\dali-csharp-binder\dali-csharp-binder\src\frame-update-callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">

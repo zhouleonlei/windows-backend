@@ -1,5 +1,5 @@
-#ifndef __DALI_FRAME_UPDATE_CALLBACK_IMPL_H__
-#define __DALI_FRAME_UPDATE_CALLBACK_IMPL_H__
+#ifndef __DALI_FRAME_UPDATE_CALLBACK_H__
+#define __DALI_FRAME_UPDATE_CALLBACK_H__
 
 /*
  * Copyright 2017 by Samsung Electronics, Inc.,
@@ -18,50 +18,40 @@
 #include <dali/public-api/object/base-object.h>
 
 // INTERNAL INCLUDES
-#include <dali-toolkit/public-api/frame-update-callback/frame-update-callback.h>
-#include <dali-toolkit/internal/frame-update-callback/frame-callback.h>
+#include <dali/public-api/dali-adaptor-common.h>
 
 namespace Dali
 {
 
-namespace ToolKit
-{
-
 namespace Internal
 {
+namespace Adaptor
+{
+class FrameUpdateCallback;
+}
+}
 
-class FrameUpdateCallback : public Dali::BaseObject
+typedef void( *FrameCallbackFunction )( float elapsedSeconds );
+
+class DALI_ADAPTOR_API FrameUpdateCallback : public BaseHandle
 {
 public:
+  static FrameUpdateCallback New();
 
-  /**
-   * @brief Creates an uninitialized FrameUpdateCallback object.
-   */
-  FrameUpdateCallback();
+  FrameUpdateCallback( Internal::Adaptor::FrameUpdateCallback *implementation );
 
-  static IntrusivePtr<FrameUpdateCallback> New();
-  
-  /**
-   * @brief Destructor.
-   */
-  ~FrameUpdateCallback();
-  
-  /**
-   * @brief sets frame callback.
-   */
-  void AddCallback(FrameCallbackFunction updateCallback);
-  
-  /**
-   * @brief removes frame callback.
-   */
+  void AddCallback( FrameCallbackFunction updateCallback );
+
+  void AddMainThreadCallback( FrameCallbackFunction updateCallback );
+
   void RemoveCallback();
-  
+
   /**
    * @brief Given the Actor ID, this retrieves that Actor's local position.
    * @param[in]  id  The Actor ID
    * @return If valid Actor ID, then the Actor's position is returned.
    */
-  bool GetPosition( unsigned int id, Dali::Vector3& position ) const;
+  bool GetPosition( unsigned int id, Dali::Vector3& position );
 
   /**
    * @brief Allows seting an Actor's local position from the Frame callback function.
@@ -84,7 +74,7 @@ public:
    * @param[in]  id  The Actor ID
    * @return If valid Actor ID, then the Actor's size is returned.
    */
-  bool GetSize( uint32_t id, Vector3& size ) const;
+  bool GetSize( uint32_t id, Vector3& size );
 
   /**
    * @brief Allows seting an Actor's size from the Frame callback function.
@@ -107,7 +97,7 @@ public:
    * @param[in]  id  The Actor ID
    * @return If valid Actor ID, then the Actor's scale is returned.
    */
-  bool GetScale( unsigned int id, Dali::Vector3& scale ) const;
+  bool GetScale( unsigned int id, Dali::Vector3& scale );
 
   /**
    * @brief Allows seting an Actor's local scale from the Frame callback function.
@@ -130,7 +120,7 @@ public:
    * @param[in]   id        The Actor ID
    * @return If valid Actor ID, then Actor's color is returned, otherwise Vector4::ZERO.
    */
-  bool GetColor( unsigned int id, Dali::Vector4& color ) const;
+  bool GetColor( unsigned int id, Dali::Vector4& color );
 
   /**
    * @brief Allows seting an Actor's local color from the Frame callback function.
@@ -146,24 +136,9 @@ public:
    * @param[in]  color  The color to set
    * @note The value is saved so will cause undesired effects if this property is being animated.
    */
-  bool BakeColor( unsigned int id, const Dali::Vector4& color ) const;
+  bool BakeColor( unsigned int id, const Dali::Vector4& color );
 
-private: 
-
-  FrameCallback mFrameCallback;
-  Dali::Stage         mStage;
 };
-
-inline FrameUpdateCallback& GetImplementation( Dali::ToolKit::FrameUpdateCallback& handle )
-{
-  DALI_ASSERT_ALWAYS( handle && "FrameBuffer handle is empty" );
-
-  BaseObject& object = handle.GetBaseObject();
-
-  return static_cast<FrameUpdateCallback&>( object );
-}
-} // namespace Internal
-} // namespace ToolKit
 } // namespace Dali
 
 #endif // __DALI_EXTENSION_FRAME_UPDATE_CALLBACK_H__

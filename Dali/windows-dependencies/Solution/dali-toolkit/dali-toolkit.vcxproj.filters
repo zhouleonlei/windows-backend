@@ -820,15 +820,6 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\builder\base64-encoding.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\frame-update-callback\frame-update-callback.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-update-callback-impl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-callback.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\text\markup-processor-embedded-item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

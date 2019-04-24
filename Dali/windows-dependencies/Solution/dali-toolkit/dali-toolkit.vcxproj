@@ -342,8 +342,6 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\controls\scene3d-view\scene3d-view-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\controls\web-view\web-view-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\drag-drop-detector\drag-and-drop-detector-impl.cpp" />
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-callback.cpp" />
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-update-callback-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\bin-layout-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\grid-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\grid-locations.cpp" />
@@ -531,7 +529,6 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\controls\text-controls\text-label.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\controls\text-controls\text-field.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\controls\video-view\video-view.cpp" />
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\frame-update-callback\frame-update-callback.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\image-loader\async-image-loader.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\image-loader\sync-image-loader.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\styling\style-manager.cpp" />
