@@ -462,7 +462,8 @@ namespace Tizen.FH.NUI.Controls
             if (spinAttributes.ClipViewAttributes != null)
             {    
                 clipView = new View();
-                clipView.ClippingMode = ClippingModeType.ClipChildren;
+
+                clipView.ClippingMode = ClippingModeType.ClipToBoundingBox;//ClipChildren;
                 clipView.TouchEvent += OnTouchEvent;
                 Add(clipView);
 
