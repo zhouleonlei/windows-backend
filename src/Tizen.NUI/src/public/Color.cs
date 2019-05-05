@@ -103,7 +103,7 @@ namespace Tizen.NUI
         /// Default constructor
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public Color() : this(NDalicPINVOKE.new_Vector4__SWIG_0(), true)
+        public Color() : this(Interop.Vector4.new_Vector4__SWIG_0(), true)
         {
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
@@ -117,7 +117,7 @@ namespace Tizen.NUI
         /// <param name="b">The blue component.</param>
         /// <param name="a">The alpha component.</param>
         /// <since_tizen> 3 </since_tizen>
-        public Color(float r, float g, float b, float a) : this(NDalicPINVOKE.new_Vector4__SWIG_1(ValueCheck(r), ValueCheck(g), ValueCheck(b), ValueCheck(a)), true)
+        public Color(float r, float g, float b, float a) : this(Interop.Vector4.new_Vector4__SWIG_1(ValueCheck(r), ValueCheck(g), ValueCheck(b), ValueCheck(a)), true)
         {
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
@@ -127,7 +127,7 @@ namespace Tizen.NUI
         /// </summary>
         /// <param name="array">array Array of R,G,B,A.</param>
         /// <since_tizen> 3 </since_tizen>
-        public Color(float[] array) : this(NDalicPINVOKE.new_Vector4__SWIG_2(ValueCheck(array)), true)
+        public Color(float[] array) : this(Interop.Vector4.new_Vector4__SWIG_2(ValueCheck(array)), true)
         {
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
@@ -160,12 +160,12 @@ namespace Tizen.NUI
         {
             set
             {
-                NDalicPINVOKE.Vector4_r_set(swigCPtr, ValueCheck(value));
+                Interop.Vector4.Vector4_r_set(swigCPtr, ValueCheck(value));
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             }
             get
             {
-                float ret = NDalicPINVOKE.Vector4_r_get(swigCPtr);
+                float ret = Interop.Vector4.Vector4_r_get(swigCPtr);
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
                 return ret;
             }
@@ -179,12 +179,12 @@ namespace Tizen.NUI
         {
             set
             {
-                NDalicPINVOKE.Vector4_g_set(swigCPtr, ValueCheck(value));
+                Interop.Vector4.Vector4_g_set(swigCPtr, ValueCheck(value));
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             }
             get
             {
-                float ret = NDalicPINVOKE.Vector4_g_get(swigCPtr);
+                float ret = Interop.Vector4.Vector4_g_get(swigCPtr);
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
                 return ret;
             }
@@ -198,12 +198,12 @@ namespace Tizen.NUI
         {
             set
             {
-                NDalicPINVOKE.Vector4_b_set(swigCPtr, ValueCheck(value));
+                Interop.Vector4.Vector4_b_set(swigCPtr, ValueCheck(value));
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             }
             get
             {
-                float ret = NDalicPINVOKE.Vector4_b_get(swigCPtr);
+                float ret = Interop.Vector4.Vector4_b_get(swigCPtr);
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
                 return ret;
             }
@@ -217,12 +217,12 @@ namespace Tizen.NUI
         {
             set
             {
-                NDalicPINVOKE.Vector4_a_set(swigCPtr, ValueCheck(value));
+                Interop.Vector4.Vector4_a_set(swigCPtr, ValueCheck(value));
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             }
             get
             {
-                float ret = NDalicPINVOKE.Vector4_a_get(swigCPtr);
+                float ret = Interop.Vector4.Vector4_a_get(swigCPtr);
                 if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
                 return ret;
             }
@@ -383,7 +383,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public bool EqualTo(Color rhs)
         {
-            bool ret = NDalicPINVOKE.Vector4_EqualTo(swigCPtr, Color.getCPtr(rhs));
+            bool ret = Interop.Vector4.Vector4_EqualTo(swigCPtr, Color.getCPtr(rhs));
 
             if (rhs == null) return false;
 
@@ -399,7 +399,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public bool NotEqualTo(Color rhs)
         {
-            bool ret = NDalicPINVOKE.Vector4_NotEqualTo(swigCPtr, Color.getCPtr(rhs));
+            bool ret = Interop.Vector4.Vector4_NotEqualTo(swigCPtr, Color.getCPtr(rhs));
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
@@ -521,7 +521,7 @@ namespace Tizen.NUI
                 if (swigCMemOwn)
                 {
                     swigCMemOwn = false;
-                    NDalicPINVOKE.delete_Vector4(swigCPtr);
+                    Interop.Vector4.delete_Vector4(swigCPtr);
                 }
                 swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
             }
@@ -530,91 +530,91 @@ namespace Tizen.NUI
 
         private Color Add(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Add(swigCPtr, Color.getCPtr(rhs)), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Add(swigCPtr, Color.getCPtr(rhs)), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color AddAssign(Vector4 rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_AddAssign(swigCPtr, Color.getCPtr(rhs)), false);
+            Color ret = new Color(Interop.Vector4.Vector4_AddAssign(swigCPtr, Color.getCPtr(rhs)), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Subtract(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Subtract__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Subtract__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color SubtractAssign(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_SubtractAssign(swigCPtr, Color.getCPtr(rhs)), false);
+            Color ret = new Color(Interop.Vector4.Vector4_SubtractAssign(swigCPtr, Color.getCPtr(rhs)), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Multiply(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Multiply__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Multiply__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Multiply(float rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Multiply__SWIG_1(swigCPtr, rhs), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Multiply__SWIG_1(swigCPtr, rhs), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color MultiplyAssign(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_MultiplyAssign__SWIG_0(swigCPtr, Color.getCPtr(rhs)), false);
+            Color ret = new Color(Interop.Vector4.Vector4_MultiplyAssign__SWIG_0(swigCPtr, Color.getCPtr(rhs)), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color MultiplyAssign(float rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_MultiplyAssign__SWIG_1(swigCPtr, rhs), false);
+            Color ret = new Color(Interop.Vector4.Vector4_MultiplyAssign__SWIG_1(swigCPtr, rhs), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Divide(Vector4 rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Divide__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Divide__SWIG_0(swigCPtr, Color.getCPtr(rhs)), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Divide(float rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Divide__SWIG_1(swigCPtr, rhs), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Divide__SWIG_1(swigCPtr, rhs), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color DivideAssign(Color rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_DivideAssign__SWIG_0(swigCPtr, Color.getCPtr(rhs)), false);
+            Color ret = new Color(Interop.Vector4.Vector4_DivideAssign__SWIG_0(swigCPtr, Color.getCPtr(rhs)), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color DivideAssign(float rhs)
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_DivideAssign__SWIG_1(swigCPtr, rhs), false);
+            Color ret = new Color(Interop.Vector4.Vector4_DivideAssign__SWIG_1(swigCPtr, rhs), false);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
 
         private Color Subtract()
         {
-            Color ret = new Color(NDalicPINVOKE.Vector4_Subtract__SWIG_1(swigCPtr), true);
+            Color ret = new Color(Interop.Vector4.Vector4_Subtract__SWIG_1(swigCPtr), true);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
@@ -670,7 +670,7 @@ namespace Tizen.NUI
 
         private float ValueOfIndex(uint index)
         {
-            float ret = NDalicPINVOKE.Vector4_ValueOfIndex__SWIG_0(swigCPtr, index);
+            float ret = Interop.Vector4.Vector4_ValueOfIndex__SWIG_0(swigCPtr, index);
             if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
             return ret;
         }
