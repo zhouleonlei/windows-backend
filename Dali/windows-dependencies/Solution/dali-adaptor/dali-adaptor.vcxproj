@@ -342,8 +342,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\adaptor\windows\framework-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\clipboard\common\clipboard-event-notifier-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\clipboard\generic\clipboard-impl-generic.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\frame-update-callback\frame-callback.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\frame-update-callback\frame-update-callback-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles\egl-debug.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles\egl-graphics-factory.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\graphics\gles\egl-graphics.cpp" />
@@ -508,7 +506,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\widget-application.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\adaptor-framework\widget-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\dali-adaptor-version.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\public-api\frame-update-callback\frame-update-callback.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\third-party\glyphy\glyphy-arcs.cc" />
     <ClCompile Include="..\..\..\dali-adaptor\third-party\glyphy\glyphy-blob-impl.cc" />
     <ClCompile Include="..\..\..\dali-adaptor\third-party\glyphy\glyphy-extents.cc" />

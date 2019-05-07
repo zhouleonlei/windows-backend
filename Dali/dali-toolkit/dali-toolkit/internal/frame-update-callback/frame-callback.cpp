@@ -16,21 +16,21 @@
  */
 
 // CLASS HEADER
-#include <dali/internal/frame-update-callback/frame-callback.h>
+#include <dali-toolkit/internal/frame-update-callback/frame-callback.h>
 
 // EXTERNAL HEADER
 #include <dali/devel-api/update/update-proxy.h>
 
 // INTERNAL HEADER
-#include <dali/internal/adaptor/common/adaptor-impl.h>
+#include <dali/integration-api/trigger-event-factory.h>
 
 namespace Dali
 {
 
-namespace Internal
+namespace Toolkit
 {
 
-namespace Adaptor
+namespace Internal
 {
 
 FrameCallback::FrameCallback()
@@ -38,9 +38,9 @@ FrameCallback::FrameCallback()
   mFrameCallback(NULL),
   mMainThreadFrameCallback(NULL)
 {
-  //making sure that RBM is initialized in main thread	
-  Dali::Internal::Adaptor::Adaptor& adaptorImpl = Dali::Internal::Adaptor::Adaptor::GetImplementation( Dali::Adaptor::Get() );
-  eventTrigger = adaptorImpl.GetTriggerEventFactoryInterface().CreateTriggerEvent( MakeCallback( this, &FrameCallback::ProcessCallback ), TriggerEventInterface::KEEP_ALIVE_AFTER_TRIGGER );
+  mTriggerFactory = new TriggerEventFactory();
+
+  eventTrigger = mTriggerFactory->CreateTriggerEvent( MakeCallback( this, &FrameCallback::ProcessCallback ), TriggerEventInterface::KEEP_ALIVE_AFTER_TRIGGER );
 }
 
 FrameCallback::~FrameCallback()
@@ -49,16 +49,16 @@ FrameCallback::~FrameCallback()
   mFrameCallback = NULL;
   mMainThreadFrameCallback = NULL;
 
-  Dali::Internal::Adaptor::Adaptor& adaptorImpl = Dali::Internal::Adaptor::Adaptor::GetImplementation( Dali::Adaptor::Get() );
-  adaptorImpl.GetTriggerEventFactoryInterface().DestroyTriggerEvent( eventTrigger );
+  mTriggerFactory->DestroyTriggerEvent( eventTrigger );
+  delete mTriggerFactory;
 }
 
-void FrameCallback::SetUpdateCallback( Dali::FrameCallbackFunction callback )
+void FrameCallback::SetUpdateCallback( FrameCallbackFunction callback )
 {
   mFrameCallback = callback;
 }
 
-void FrameCallback::SetMainThreadUpdateCallback( Dali::FrameCallbackFunction callback )
+void FrameCallback::SetMainThreadUpdateCallback( FrameCallbackFunction callback )
 {
   mMainThreadFrameCallback = callback;
 }

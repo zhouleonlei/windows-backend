@@ -301,6 +301,7 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\drag-drop-detector\drag-and-drop-detector.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\focus-manager\keyinput-focus-manager.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\focus-manager\keyboard-focus-manager-devel.cpp" />
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\frame-update-callback\frame-update-callback.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\image-loader\async-image-loader-devel.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\image-loader\atlas-upload-observer.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\devel-api\image-loader\image-atlas.cpp" />
@@ -342,6 +343,8 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\controls\scene3d-view\scene3d-view-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\controls\web-view\web-view-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\drag-drop-detector\drag-and-drop-detector-impl.cpp" />
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-callback.cpp" />
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\frame-update-callback\frame-update-callback-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\bin-layout-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\grid-impl.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\internal\layouting\grid-locations.cpp" />

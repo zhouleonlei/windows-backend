@@ -10,102 +10,106 @@
  */
 
 // CLASS HEADER
-#include <dali/public-api/frame-update-callback/frame-update-callback.h>
+#include <dali-toolkit/devel-api/frame-update-callback/frame-update-callback.h>
 
 // EXTERNAL INCLUDES
 #include <dali/dali.h>
 #include <dali/devel-api/common/stage-devel.h>
 
 // INTERNAL INCLUDES
-#include <dali/internal/frame-update-callback/frame-update-callback-impl.h>
+#include <dali-toolkit/internal/frame-update-callback/frame-update-callback-impl.h>
 
 namespace Dali
 {
 
-FrameUpdateCallback::FrameUpdateCallback( Internal::Adaptor::FrameUpdateCallback *implementation )
-  : BaseHandle(implementation)
+namespace Toolkit
 {
-
-}
 
 FrameUpdateCallback FrameUpdateCallback::New()
 {
-  IntrusivePtr<Internal::Adaptor::FrameUpdateCallback> callback = Internal::Adaptor::FrameUpdateCallback::New();
+  IntrusivePtr<Internal::FrameUpdateCallback> callback = Internal::FrameUpdateCallback::New();
   return FrameUpdateCallback( callback.Get() );
+}
+
+FrameUpdateCallback::FrameUpdateCallback( Toolkit::Internal::FrameUpdateCallback *implementation )
+  : BaseHandle( implementation )
+{
+
 }
 
 void FrameUpdateCallback::AddCallback( FrameCallbackFunction updateCallback )
 {
-  Internal::Adaptor::GetImplementation( *this ).AddCallback( updateCallback );
+  Internal::GetImplementation( *this ).AddCallback( updateCallback );
 }
 
 void FrameUpdateCallback::AddMainThreadCallback( FrameCallbackFunction updateCallback )
 {
-  Internal::Adaptor::GetImplementation( *this ).AddMainThreadCallback( updateCallback );
+  Internal::GetImplementation( *this ).AddMainThreadCallback( updateCallback );
 }
 
 void FrameUpdateCallback::RemoveCallback()
 {
-	Internal::Adaptor::GetImplementation(*this).RemoveCallback();
+	Internal::GetImplementation(*this).RemoveCallback();
 }
 
 bool FrameUpdateCallback::GetPosition( unsigned int id, Vector3& position )
 {
-  return Internal::Adaptor::GetImplementation( *this ).GetPosition( id, position );
+  return Internal::GetImplementation( *this ).GetPosition( id, position );
 }
 
 bool FrameUpdateCallback::SetPosition( unsigned int id, const Vector3& position )
 {
-  return Internal::Adaptor::GetImplementation( *this ).SetPosition( id, position );
+  return Internal::GetImplementation( *this ).SetPosition( id, position );
 }
 
 bool FrameUpdateCallback::BakePosition( unsigned int id, const Dali::Vector3& position )
 {
-  return Internal::Adaptor::GetImplementation( *this ).BakePosition( id, position );
+  return Internal::GetImplementation( *this ).BakePosition( id, position );
 }
 
 bool FrameUpdateCallback::GetSize( uint32_t id, Vector3& size )
 {
-  return Internal::Adaptor::GetImplementation( *this ).GetSize( id, size );
+  return Internal::GetImplementation( *this ).GetSize( id, size );
 }
 
 bool FrameUpdateCallback::SetSize( uint32_t id, const Vector3& size )
 {
-  return Internal::Adaptor::GetImplementation( *this ).SetSize( id, size );
+  return Internal::GetImplementation( *this ).SetSize( id, size );
 }
 
 bool FrameUpdateCallback::BakeSize( uint32_t id, const Vector3& size )
 {
-  return Internal::Adaptor::GetImplementation( *this ).BakeSize( id, size );
+  return Internal::GetImplementation( *this ).BakeSize( id, size );
 }
 
 bool FrameUpdateCallback::GetScale( unsigned int id, Dali::Vector3& scale )
 {
-  return Internal::Adaptor::GetImplementation( *this ).GetScale( id, scale );
+  return Internal::GetImplementation( *this ).GetScale( id, scale );
 }
 
 bool FrameUpdateCallback::SetScale( unsigned int id, const Dali::Vector3& scale )
 {
-  return Internal::Adaptor::GetImplementation( *this ).SetScale( id, scale );
+  return Internal::GetImplementation( *this ).SetScale( id, scale );
 }
 
 bool FrameUpdateCallback::BakeScale( unsigned int id, const Dali::Vector3& scale )
 {
-  return Internal::Adaptor::GetImplementation( *this ).BakeScale( id, scale );
+  return Internal::GetImplementation( *this ).BakeScale( id, scale );
 }
 
 bool FrameUpdateCallback::GetColor( unsigned int id, Dali::Vector4& color )
 {
-  return Internal::Adaptor::GetImplementation( *this ).GetColor( id, color );
+  return Internal::GetImplementation( *this ).GetColor( id, color );
 }
 
 bool FrameUpdateCallback::SetColor( unsigned int id, const Dali::Vector4& color )
 {
-  return Internal::Adaptor::GetImplementation( *this ).SetColor( id, color );
+  return Internal::GetImplementation( *this ).SetColor( id, color );
 }
 
 bool FrameUpdateCallback::BakeColor( unsigned int id, const Dali::Vector4& color )
 {
-  return Internal::Adaptor::GetImplementation( *this ).BakeColor( id, color );
+  return Internal::GetImplementation( *this ).BakeColor( id, color );
+}
 }
 } // namespace DaliExt

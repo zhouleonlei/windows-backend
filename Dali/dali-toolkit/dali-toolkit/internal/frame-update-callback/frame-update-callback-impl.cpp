@@ -10,7 +10,7 @@
  */
 
 // CLASS HEADER
-#include <dali/internal/frame-update-callback/frame-update-callback-impl.h>
+#include <dali-toolkit/internal/frame-update-callback/frame-update-callback-impl.h>
 
 // EXTERNAL INCLUDES
 
@@ -23,10 +23,10 @@ using namespace Dali;
 namespace Dali
 {
 
-namespace Internal
+namespace Toolkit
 {
 
-namespace Adaptor
+namespace Internal
 {
 
 FrameUpdateCallback::FrameUpdateCallback()
@@ -108,7 +108,7 @@ IntrusivePtr<FrameUpdateCallback> FrameUpdateCallback::New()
   return handle;
 }
 
-void FrameUpdateCallback::AddCallback(FrameCallbackFunction frameCallback)
+void FrameUpdateCallback::AddCallback( Dali::Toolkit::FrameCallbackFunction frameCallback)
 {
   mFrameCallback.SetUpdateCallback(frameCallback);
 
@@ -119,7 +119,7 @@ void FrameUpdateCallback::AddCallback(FrameCallbackFunction frameCallback)
   }
 }
 
-void FrameUpdateCallback::AddMainThreadCallback( FrameCallbackFunction frameCallback )
+void FrameUpdateCallback::AddMainThreadCallback( Dali::Toolkit::FrameCallbackFunction frameCallback )
 {
   mFrameCallback.SetMainThreadUpdateCallback( frameCallback );
 
@@ -138,5 +138,5 @@ void FrameUpdateCallback::RemoveCallback()
   mFrameCallback.RemoveMainThreadFrameUpdateCallback();
 }
 } // namespace Internal
-} // namespace ToolKit
+} // namespace Toolkit
 } // namespace DaliExt

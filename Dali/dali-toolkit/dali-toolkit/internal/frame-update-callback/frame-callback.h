@@ -27,15 +27,17 @@
 #include <dali/public-api/math/vector3.h>
 
 // INTERNAL INCLUDES
-#include <dali/public-api/frame-update-callback/frame-update-callback.h>
+#include <dali-toolkit/devel-api/frame-update-callback/frame-update-callback.h>
+
+using namespace Dali::Toolkit;
 
 namespace Dali
 {
 
-namespace Internal
+namespace Toolkit
 {
 
-namespace Adaptor
+namespace Internal
 {
 
 /**
@@ -61,13 +63,13 @@ public:
    * @brief Allows setting Frame callback function.
    * @param[in]  updateCallback    The callback function
    */
-  void SetUpdateCallback( Dali::FrameCallbackFunction callback );
+  void SetUpdateCallback( FrameCallbackFunction callback );
 
   /**
    * @brief Allows setting main thread Frame callback function.
    * @param[in]  updateCallback    The callback function
    */
-  void SetMainThreadUpdateCallback( Dali::FrameCallbackFunction callback );
+  void SetMainThreadUpdateCallback( FrameCallbackFunction callback );
   
   /**
    * @brief Removes frame callback function.
@@ -188,6 +190,8 @@ private:
   FrameCallbackFunction mMainThreadFrameCallback;
 
   TriggerEventInterface* eventTrigger;
+
+  TriggerEventFactory* mTriggerFactory;
 
   float mElapsedSeconds;
 
