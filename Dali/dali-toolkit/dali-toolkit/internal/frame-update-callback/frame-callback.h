@@ -25,6 +25,7 @@
 #include <dali/public-api/common/dali-common.h>
 #include <dali/public-api/math/matrix.h>
 #include <dali/public-api/math/vector3.h>
+#include <dali/public-api/animation/alpha-function.h>
 
 // INTERNAL INCLUDES
 #include <dali-toolkit/devel-api/frame-update-callback/frame-update-callback.h>
@@ -173,6 +174,34 @@ public:
    */
   bool BakeColor( unsigned int id, const Dali::Vector4& color ) const;
 
+  /**
+   * @brief Allows set alpha function for the framecallback.
+   * @param[in]  alphaFunction     The alphaFunction
+   */
+  void SetAlphaFunction(Dali::AlphaFunction alphaFunction);
+
+  /**
+   * @brief Retrieves the alpha function for the framecallback.
+   *
+   * @return The alpha function
+   */
+  Dali::AlphaFunction GetAlphaFunction() const;
+
+  /**
+   * @brief Sets the duration of the framecallback.
+   *
+   * @param[in] seconds The duration in seconds
+   * @pre seconds must be greater than zero.
+   */
+  void SetDuration(float seconds);
+
+  /**
+   * @brief Retrieves the duration of the framecallback.
+   *
+   * @return The duration in seconds
+   */
+  float GetDuration() const;
+
 private:
 
   /**
@@ -180,6 +209,14 @@ private:
    * @param[in]  updateProxy  Used to set the world-matrix and sizes.
    */
   virtual void Update( Dali::UpdateProxy& updateProxy, float elapsedSeconds );
+
+  float ApplyAlphaFunction(float progress) const;
+
+  float EvaluateCubicBezier(float p0, float p1, float t) const
+  {
+	  float tSquare = t * t;
+	  return 3.0f*(1.0f - t)*(1.0f - t)*t*p0 + 3.0f*(1.0f - t)*tSquare*p1 + tSquare * t;
+  }
 
 private:
 
@@ -191,14 +228,18 @@ private:
 
   TriggerEventInterface* eventTrigger;
 
-  TriggerEventFactory* mTriggerFactory;
+  Dali::TriggerEventFactory* mTriggerFactory;
 
+  Dali::AlphaFunction mAlphaFunction;
+
+  float mDurationSeconds;
   float mElapsedSeconds;
+  float mProgress;
 
   void ProcessCallback();
 };
-}
-}
-} // namespace DaliExtTv
+} // namespace Internal
+} // namespace Toolkit
+} // namespace Dali
 
 #endif // __DALI_EXTENSION_INTERNAL_FRAME_CALLBACK_H

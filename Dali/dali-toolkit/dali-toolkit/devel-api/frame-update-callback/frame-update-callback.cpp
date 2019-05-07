@@ -111,5 +111,25 @@ bool FrameUpdateCallback::BakeColor( unsigned int id, const Dali::Vector4& color
 {
   return Internal::GetImplementation( *this ).BakeColor( id, color );
 }
+
+void FrameUpdateCallback::SetAlphaFunction(Dali::AlphaFunction alphaFunction)
+{
+	return Internal::GetImplementation(*this).SetAlphaFunction(alphaFunction);
 }
-} // namespace DaliExt
+
+Dali::AlphaFunction FrameUpdateCallback::GetAlphaFunction() const
+{
+	return Internal::GetImplementation(*this).GetAlphaFunction();
+}
+
+void FrameUpdateCallback::SetDuration(float seconds)
+{
+	return Internal::GetImplementation(*this).SetDuration(seconds);
+}
+
+float FrameUpdateCallback::GetDuration() const
+{
+	return Internal::GetImplementation(*this).GetDuration();
+}
+} // namespace Toolkit
+} // namespace Dali
