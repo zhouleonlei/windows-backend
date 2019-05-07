@@ -102,13 +102,34 @@ bool FrameUpdateCallback::BakeColor( unsigned int id, const Vector4& color ) con
   return mFrameCallback.BakeColor( id, color );
 }
 
+void FrameUpdateCallback::SetAlphaFunction(Dali::AlphaFunction alphaFunction)
+{
+	return mFrameCallback.SetAlphaFunction(alphaFunction);
+}
+
+Dali::AlphaFunction FrameUpdateCallback::GetAlphaFunction() const
+{
+	return mFrameCallback.GetAlphaFunction();
+}
+
+void FrameUpdateCallback::SetDuration(float seconds)
+{
+	return mFrameCallback.SetDuration(seconds);
+}
+
+float FrameUpdateCallback::GetDuration() const
+{
+	return mFrameCallback.GetDuration();
+}
+
+
 IntrusivePtr<FrameUpdateCallback> FrameUpdateCallback::New()
 {
   IntrusivePtr<FrameUpdateCallback> handle( new FrameUpdateCallback() );
   return handle;
 }
 
-void FrameUpdateCallback::AddCallback( Dali::Toolkit::FrameCallbackFunction frameCallback)
+void FrameUpdateCallback::AddCallback(FrameCallbackFunction frameCallback)
 {
   mFrameCallback.SetUpdateCallback(frameCallback);
 
@@ -119,7 +140,7 @@ void FrameUpdateCallback::AddCallback( Dali::Toolkit::FrameCallbackFunction fram
   }
 }
 
-void FrameUpdateCallback::AddMainThreadCallback( Dali::Toolkit::FrameCallbackFunction frameCallback )
+void FrameUpdateCallback::AddMainThreadCallback( FrameCallbackFunction frameCallback )
 {
   mFrameCallback.SetMainThreadUpdateCallback( frameCallback );
 
@@ -139,4 +160,4 @@ void FrameUpdateCallback::RemoveCallback()
 }
 } // namespace Internal
 } // namespace Toolkit
-} // namespace DaliExt
+} // namespace Dali

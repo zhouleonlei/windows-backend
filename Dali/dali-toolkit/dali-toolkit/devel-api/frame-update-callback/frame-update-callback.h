@@ -16,6 +16,7 @@
 #include <dali/devel-api/common/stage-devel.h>
 #include <dali/public-api/object/base-handle.h>
 #include <dali/public-api/object/base-object.h>
+#include <dali/public-api/animation/alpha-function.h>
 
 // INTERNAL INCLUDES
 #include <dali-toolkit/public-api/dali-toolkit-common.h>
@@ -138,7 +139,36 @@ public:
    */
   bool BakeColor( unsigned int id, const Dali::Vector4& color );
 
+  /**
+   * @brief Allows set alpha function for the framecallback.
+   * @param[in]  alphaFunction     The alphaFunction
+   */
+  void SetAlphaFunction(Dali::AlphaFunction alphaFunction);
+
+  /**
+   * @brief Retrieves the alpha function for the framecallback.
+   *
+   * @return The alpha function
+   */
+  Dali::AlphaFunction GetAlphaFunction() const;
+
+  /**
+   * @brief Sets the duration of the framecallback.
+   *
+   * @param[in] seconds The duration in seconds
+   * @pre seconds must be greater than zero.
+   */
+  void SetDuration(float seconds);
+
+  /**
+   * @brief Retrieves the duration of the framecallback.
+   *
+   * @return The duration in seconds
+   */
+  float GetDuration() const;
+
 };
+} // namespace Toolkit
 } // namespace Dali
-}
+
 #endif // __DALI_EXTENSION_FRAME_UPDATE_CALLBACK_H__

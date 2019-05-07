@@ -457,6 +457,142 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_BakeColor( Dali::Too
   }
 }
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetAlphaFunction(Dali::Toolkit::FrameUpdateCallback *jarg1, void *jarg2)
+{
+	Dali::Toolkit::FrameUpdateCallback *arg1 = jarg1;
+	Dali::AlphaFunction alphaFunction = *((Dali::AlphaFunction*)jarg2);
+
+	{
+		try {
+			arg1->SetAlphaFunction(alphaFunction);
+		}
+		catch (std::out_of_range& e) {
+			{
+				SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return;
+			};
+		}
+		catch (std::exception& e) {
+			{
+				SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return;
+			};
+		}
+		catch (Dali::DaliException e) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, e.condition); return;
+			};
+		}
+		catch (...) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return;
+			};
+		}
+	}
+}
+
+SWIGEXPORT void* SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetAlphaFunction(Dali::Toolkit::FrameUpdateCallback *jarg1)
+{
+	void* jresult;
+	Dali::Toolkit::FrameUpdateCallback *arg1 = jarg1;
+	Dali::AlphaFunction result;
+
+	{
+		try {
+			result = ((Dali::Toolkit::FrameUpdateCallback const *)arg1)->GetAlphaFunction();
+		}
+		catch (std::out_of_range& e) {
+			{
+				SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+			};
+		}
+		catch (std::exception& e) {
+			{
+				SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+			};
+		}
+		catch (Dali::DaliException e) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+			};
+		}
+		catch (...) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+			};
+		}
+	}
+
+	jresult = new Dali::AlphaFunction((const Dali::AlphaFunction &)result);
+	return jresult;
+}
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_SetDuration(Dali::Toolkit::FrameUpdateCallback *jarg1, float jarg2)
+{
+	Dali::Toolkit::FrameUpdateCallback *arg1 = jarg1;
+	float arg2 = jarg2;
+
+	{
+		try {
+			arg1->SetDuration(arg2);
+		}
+		catch (std::out_of_range& e) {
+			{
+				SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return;
+			};
+		}
+		catch (std::exception& e) {
+			{
+				SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return;
+			};
+		}
+		catch (Dali::DaliException e) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, e.condition); return;
+			};
+		}
+		catch (...) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return;
+			};
+		}
+	}
+}
+
+SWIGEXPORT float SWIGSTDCALL CSharp_Dali_FrameUpdateCallback_GetDuration(Dali::Toolkit::FrameUpdateCallback *jarg1)
+{
+	float jresult;
+	Dali::Toolkit::FrameUpdateCallback *arg1 = jarg1;
+	float result;
+
+	{
+		try {
+			result = ((Dali::Toolkit::FrameUpdateCallback const *)arg1)->GetDuration();
+		}
+		catch (std::out_of_range& e) {
+			{
+				SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0;
+			};
+		}
+		catch (std::exception& e) {
+			{
+				SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return 0;
+			};
+		}
+		catch (Dali::DaliException e) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, e.condition); return 0;
+			};
+		}
+		catch (...) {
+			{
+				SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return 0;
+			};
+		}
+	}
+
+	jresult = result;
+	return jresult;
+}
+
 #ifdef __cplusplus
 }
 #endif

@@ -153,6 +153,34 @@ public:
    */
   bool BakeColor( unsigned int id, const Dali::Vector4& color ) const;
 
+  /**
+   * @brief Allows set alpha function for the framecallback.
+   * @param[in]  alphaFunction     The alphaFunction
+   */
+  void SetAlphaFunction(Dali::AlphaFunction alphaFunction);
+
+  /**
+   * @brief Retrieves the alpha function for the framecallback.
+   *
+   * @return The alpha function
+   */
+  Dali::AlphaFunction GetAlphaFunction() const;
+
+  /**
+   * @brief Sets the duration of the framecallback.
+   *
+   * @param[in] seconds The duration in seconds
+   * @pre seconds must be greater than zero.
+   */
+  void SetDuration(float seconds);
+
+  /**
+   * @brief Retrieves the duration of the framecallback.
+   *
+   * @return The duration in seconds
+   */
+  float GetDuration() const;
+
 private: 
 
   FrameCallback mFrameCallback;
@@ -162,14 +190,23 @@ private:
 
 inline FrameUpdateCallback& GetImplementation( Dali::Toolkit::FrameUpdateCallback& handle )
 {
-  DALI_ASSERT_ALWAYS( handle && "FrameBuffer handle is empty" );
+  DALI_ASSERT_ALWAYS( handle && "FrameUpdateCallback handle is empty" );
 
   BaseObject& object = handle.GetBaseObject();
 
   return static_cast<FrameUpdateCallback&>( object );
 }
+
+inline const FrameUpdateCallback& GetImplementation(const Dali::Toolkit::FrameUpdateCallback& handle)
+{
+	DALI_ASSERT_ALWAYS(handle && "FrameUpdateCallback handle is empty");
+
+	const BaseObject& object = handle.GetBaseObject();
+
+	return static_cast<const FrameUpdateCallback&>(object);
+}
 } // namespace Internal
-} // namespace ToolKit
+} // namespace Toolkit
 } // namespace Dali
 
 #endif // __DALI_EXTENSION_FRAME_UPDATE_CALLBACK_H__

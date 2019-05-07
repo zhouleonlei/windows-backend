@@ -36,7 +36,11 @@ namespace Internal
 FrameCallback::FrameCallback()
 : mUpdateProxy(NULL),
   mFrameCallback(NULL),
-  mMainThreadFrameCallback(NULL)
+  mMainThreadFrameCallback(NULL),
+  mDurationSeconds(0.0f),
+  mElapsedSeconds(0.0f),
+  mAlphaFunction(Dali::AlphaFunction::DEFAULT),
+  mProgress(0.0f)
 {
   mTriggerFactory = new TriggerEventFactory();
 
@@ -65,6 +69,9 @@ void FrameCallback::SetMainThreadUpdateCallback( FrameCallbackFunction callback 
 
 void FrameCallback::RemoveFrameUpdateCallback( )
 {
+  mElapsedSeconds = 0.0f;
+  mProgress = 0.0f;
+  mDurationSeconds = 0.0f;
   mFrameCallback = NULL;
 }
 
@@ -181,9 +188,155 @@ bool FrameCallback::BakeColor( unsigned int id, const Vector4& color ) const
   return false;
 }
 
+void FrameCallback::SetAlphaFunction(Dali::AlphaFunction alphaFunction)
+{
+	mAlphaFunction = alphaFunction;
+}
+
+Dali::AlphaFunction FrameCallback::GetAlphaFunction() const
+{
+	return mAlphaFunction;
+}
+
+void FrameCallback::SetDuration(float seconds)
+{
+	mDurationSeconds = seconds;
+}
+
+float FrameCallback::GetDuration() const
+{
+	return mDurationSeconds;
+}
+
+float FrameCallback::ApplyAlphaFunction(float progress) const
+{
+	float result = progress;
+
+	Dali::AlphaFunction::Mode alphaFunctionMode(mAlphaFunction.GetMode());
+	if (alphaFunctionMode == AlphaFunction::BUILTIN_FUNCTION)
+	{
+		switch (mAlphaFunction.GetBuiltinFunction())
+		{
+		case AlphaFunction::DEFAULT:
+		case AlphaFunction::LINEAR:
+		{
+			break;
+		}
+		case AlphaFunction::REVERSE:
+		{
+			result = 1.0f - progress;
+			break;
+		}
+		case AlphaFunction::EASE_IN_SQUARE:
+		{
+			result = progress * progress;
+			break;
+		}
+		case AlphaFunction::EASE_OUT_SQUARE:
+		{
+			result = 1.0f - (1.0f - progress) * (1.0f - progress);
+			break;
+		}
+		case AlphaFunction::EASE_IN:
+		{
+			result = progress * progress * progress;
+			break;
+		}
+		case AlphaFunction::EASE_OUT:
+		{
+			result = (progress - 1.0f) * (progress - 1.0f) * (progress - 1.0f) + 1.0f;
+			break;
+		}
+		case AlphaFunction::EASE_IN_OUT:
+		{
+			result = progress * progress*(3.0f - 2.0f*progress);
+			break;
+		}
+		case AlphaFunction::EASE_IN_SINE:
+		{
+			result = -1.0f * cosf(progress * Math::PI_2) + 1.0f;
+			break;
+		}
+		case AlphaFunction::EASE_OUT_SINE:
+		{
+			result = sinf(progress * Math::PI_2);
+			break;
+		}
+		case AlphaFunction::EASE_IN_OUT_SINE:
+		{
+			result = -0.5f * (cosf(Math::PI * progress) - 1.0f);
+			break;
+		}
+		case AlphaFunction::BOUNCE:
+		{
+			result = sinf(progress * Math::PI);
+			break;
+		}
+		case AlphaFunction::SIN:
+		{
+			result = 0.5f - cosf(progress * 2.0f * Math::PI) * 0.5f;
+			break;
+		}
+		case AlphaFunction::EASE_OUT_BACK:
+		{
+			const float sqrt2 = 1.70158f;
+			progress -= 1.0f;
+			result = 1.0f + progress * progress * ((sqrt2 + 1.0f) * progress + sqrt2);
+			break;
+		}
+		case AlphaFunction::COUNT:
+		{
+			break;
+		}
+		}
+	}
+	else if (alphaFunctionMode == AlphaFunction::CUSTOM_FUNCTION)
+	{
+		AlphaFunctionPrototype customFunction = mAlphaFunction.GetCustomFunction();
+		if (customFunction)
+		{
+			result = customFunction(progress);
+		}
+	}
+	else
+	{
+		//If progress is very close to 0 or very close to 1 we don't need to evaluate the curve as the result will
+		//be almost 0 or almost 1 respectively
+		if ((progress > Math::MACHINE_EPSILON_1) && ((1.0f - progress) > Math::MACHINE_EPSILON_1))
+		{
+			Dali::Vector4 controlPoints = mAlphaFunction.GetBezierControlPoints();
+
+			static const float tolerance = 0.001f;  //10 iteration max
+
+			//Perform a binary search on the curve
+			float lowerBound(0.0f);
+			float upperBound(1.0f);
+			float currentT(0.5f);
+			float currentX = EvaluateCubicBezier(controlPoints.x, controlPoints.z, currentT);
+			while (fabsf(progress - currentX) > tolerance)
+			{
+				if (progress > currentX)
+				{
+					lowerBound = currentT;
+				}
+				else
+				{
+					upperBound = currentT;
+				}
+				currentT = (upperBound + lowerBound)*0.5f;
+				currentX = EvaluateCubicBezier(controlPoints.x, controlPoints.z, currentT);
+			}
+			result = EvaluateCubicBezier(controlPoints.y, controlPoints.w, currentT);
+		}
+	}
+
+	return result;
+
+}
+
 void FrameCallback::Update( Dali::UpdateProxy& updateProxy, float elapsedSeconds )
 {
-  mElapsedSeconds = elapsedSeconds;
+  mElapsedSeconds += elapsedSeconds;
 
   if(mUpdateProxy != NULL)
   {
@@ -193,10 +346,20 @@ void FrameCallback::Update( Dali::UpdateProxy& updateProxy, float elapsedSeconds
   mUpdateProxy = &updateProxy;
 
   eventTrigger->Trigger();
+  float elapsedSecondsClamped = Clamp(mElapsedSeconds, 0.0f, mDurationSeconds);
+  float progress(1.0f);
+
+  if (mDurationSeconds > 0.0f)
+  {
+	  progress = Clamp(elapsedSecondsClamped / mDurationSeconds, 0.0f, 1.0f);
+  }
+
+  float alpha = ApplyAlphaFunction(progress);
+  mProgress = alpha;
   
   if(mFrameCallback != NULL)
   {
-    mFrameCallback( elapsedSeconds );
+    mFrameCallback(alpha);
   }
 }
 
@@ -204,9 +367,9 @@ void FrameCallback::ProcessCallback()
 {
   if( mMainThreadFrameCallback != NULL )
   {
-    mMainThreadFrameCallback( mElapsedSeconds );
+    mMainThreadFrameCallback( mProgress );
   }
 }
-}
-}
-} // namespace DaliExt
+} // namespace Internal
+} // namespace Toolkit
+} // namespace Dali
