@@ -1241,6 +1241,8 @@ namespace Tizen.NUI.BaseComponents
         /// The Enable selection property.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
+        /// This will be released at Tizen.NET API Level 5, so currently this would be used as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool EnableGrabHandle
         {
             get
@@ -1251,7 +1253,7 @@ namespace Tizen.NUI.BaseComponents
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE, new Tizen.NUI.PropertyValue((bool)value));
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE, new Tizen.NUI.PropertyValue(value));
                 NotifyPropertyChanged();
             }
         }
@@ -1260,6 +1262,8 @@ namespace Tizen.NUI.BaseComponents
         /// The Enable selection property.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
+        /// This will be released at Tizen.NET API Level 5, so currently this would be used as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool EnableGrabHandlePopup
         {
             get
@@ -1270,7 +1274,7 @@ namespace Tizen.NUI.BaseComponents
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE_POPUP, new Tizen.NUI.PropertyValue((bool)value));
+                Tizen.NUI.Object.SetProperty(swigCPtr, TextField.Property.ENABLE_GRAB_HANDLE_POPUP, new Tizen.NUI.PropertyValue(value));
                 NotifyPropertyChanged();
             }
         }
@@ -1399,6 +1403,8 @@ namespace Tizen.NUI.BaseComponents
         /// Select the whole text.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
+        /// This will be released at Tizen.NET API Level 5.5, so currently this would be used as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void SelectWholeText()
         {
             Interop.TextField.TextField_SelectWholeText(swigCPtr);

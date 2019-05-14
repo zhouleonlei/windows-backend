@@ -242,11 +242,7 @@ namespace Tizen.NUI
 
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_TextField_InputStyleChangedSignal")]
             public static extern global::System.IntPtr TextField_InputStyleChangedSignal(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-
-            [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_TextField_SelectWholeText")]
-            public static extern void TextField_SelectWholeText(global::System.Runtime.InteropServices.HandleRef jarg1);
-
+            
 
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_TextFieldSignal_Empty")]
             public static extern bool TextFieldSignal_Empty(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -284,14 +280,6 @@ namespace Tizen.NUI
             public static extern int TextField_Property_ENABLE_SHIFT_SELECTION_get();
 
 
-            [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_TextField_Property_ENABLE_GRAB_HANDLE_get")]
-            public static extern int TextField_Property_ENABLE_GRAB_HANDLE_get();
-
-
-            [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_TextField_Property_ENABLE_GRAB_HANDLE_POPUP_get")]
-            public static extern int TextField_Property_ENABLE_GRAB_HANDLE_POPUP_get();
-
-
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_TextField_Property_MATCH_SYSTEM_LANGUAGE_DIRECTION_get")]
             public static extern int TextField_Property_MATCH_SYSTEM_LANGUAGE_DIRECTION_get();
 
@@ -314,6 +302,16 @@ namespace Tizen.NUI
 
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_TextField_Property_ELLIPSIS_get")]
             public static extern int TextField_Property_ELLIPSIS_get();
+
+			
+            [global::System.Runtime.InteropServices.DllImport("libdali-csharp-binder.so", EntryPoint = "CSharp_Dali_TextField_SelectWholeText")]
+            public static extern void TextField_SelectWholeText(global::System.Runtime.InteropServices.HandleRef jarg1);
+    		
+            [global::System.Runtime.InteropServices.DllImport("libdali-csharp-binder.so", EntryPoint = "CSharp_TextField_Property_ENABLE_GRAB_HANDLE_get")]
+            public static extern int TextField_Property_ENABLE_GRAB_HANDLE_get();
+    
+            [global::System.Runtime.InteropServices.DllImport("libdali-csharp-binder.so", EntryPoint = "CSharp_TextField_Property_ENABLE_GRAB_HANDLE_POPUP_get")]
+            public static extern int TextField_Property_ENABLE_GRAB_HANDLE_POPUP_get();
         }
     }
 }
