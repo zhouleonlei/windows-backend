@@ -239,7 +239,7 @@ void WindowBaseWin::OnKeyUp( int type, TWinEventInfo *event )
     // Ensure key event string is not NULL as keys like SHIFT have a null string.
     keyString.push_back( event->wParam );
 
-    Integration::KeyEvent keyEvent( keyName, emptyString, keyString, keyCode, modifier, time, Integration::KeyEvent::Down, emptyString, emptyString, DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
+    Integration::KeyEvent keyEvent( keyName, emptyString, keyString, keyCode, modifier, time, Integration::KeyEvent::Up, emptyString, emptyString, DEFAULT_DEVICE_CLASS, DEFAULT_DEVICE_SUBCLASS );
 
     mKeyEventSignal.Emit( keyEvent );
   }

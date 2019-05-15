@@ -438,6 +438,29 @@ namespace Tizen.NUI
             return ret;
         }
 
+        public class DisposeEventArgs : EventArgs
+        {
+            public DisposeEventArgs(DisposeTypes type)
+            {
+                this.type = type;
+            }
+
+            public DisposeTypes type;
+        }
+
+        private event EventHandler<DisposeEventArgs> disposeEvent;
+        public event EventHandler<DisposeEventArgs> DisposeEvent
+        {
+            add
+            {
+                disposeEvent += value;
+            }
+            remove
+            {
+                disposeEvent -= value;
+            }
+        }
+
         /// <summary>
         /// Dispose.
         /// </summary>

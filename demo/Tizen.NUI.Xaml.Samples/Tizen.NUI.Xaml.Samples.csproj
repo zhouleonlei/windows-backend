@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="Tizen.NUI.Xaml.Build.Tasks.XamlGTask" AssemblyFile="XamlBuild\Tizen.NUI.XamlBuild.dll" />
+  <UsingTask TaskName="Tizen.NUI.Xaml.Build.Tasks.XamlCTask" AssemblyFile="XamlBuild\Tizen.NUI.XamlBuild.dll" />
+  <!-- XamlG -->
+  <Target Name="UpdateDesignTimeXaml" DependsOnTargets="XamlG" />
+  <PropertyGroup>
+    <CoreCompileDependsOn>
+			XamlG;
+			$(CoreCompileDependsOn);
+		</CoreCompileDependsOn>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <Target Name="_FindXamlGFiles" DependsOnTargets="PrepareResourceNames">
+    <ItemGroup>
+      <_XamlGInputs Include="@(EmbeddedResource)" Condition="'%(Extension)' == '.xaml' AND '$(DefaultLanguageSourceExtension)' == '.cs' AND '%(TargetPath)' != ''" />
+      <_XamlGOutputs Include="@(_XamlGInputs->'$(IntermediateOutputPath)%(TargetPath).g.cs')" />
+    </ItemGroup>
+  </Target>
+  <Target Name="XamlG" BeforeTargets="BeforeCompile" DependsOnTargets="_FindXamlGFiles" Inputs="@(_XamlGInputs)" Outputs="@(_XamlGOutputs)">
+    <XamlGTask XamlFiles="@(_XamlGInputs)" OutputFiles="@(_XamlGOutputs)" Language="$(Language)" AssemblyName="$(AssemblyName)" AddXamlCompilationAttribute="True" />
+    <ItemGroup>
+      <FileWrites Include="@(_XamlGOutputs)" />
+      <Compile Include="@(_XamlGOutputs)" />
+    </ItemGroup>
+  </Target>
+  <!-- XamlC -->
+  <PropertyGroup>
+    <CompileDependsOn>
+		$(CompileDependsOn);
+		XamlC;
+	</CompileDependsOn>
+  </PropertyGroup>
+  <!--Target Name="XamlC" AfterTargets="AfterCompile" Inputs="$(IntermediateOutputPath)$(TargetFileName)" Outputs="$(IntermediateOutputPath)XamlC.stamp" Condition=" '$(DesignTimeBuild)' != 'True' ">
+	<XamlCTask
+	  Assembly = "$(IntermediateOutputPath)$(TargetFileName)"
+	  ReferencePath = "@(ReferencePath)"
+      OptimizeIL = "true"
+      DebugSymbols = "$(DebugSymbols)"
+      DebugType = "$(DebugType)"
+      KeepXamlResources = "$(XFKeepXamlResources)" />
+    <Touch Files="$(IntermediateOutputPath)XamlC.stamp" AlwaysCreate="True" />
+    <ItemGroup>
+      <FileWrites Include="$(IntermediateOutputPath)XamlC.stamp" />
+    </ItemGroup>
+  </Target-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{954B7E72-9810-47F2-A665-E4B66F8F8059}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>DemoUseSplitTizenNUI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Dali\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>nuirun</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vscode\" />
+    <Folder Include=".vs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\layout\TestStaticDynamicResourcePage.xaml" />
+    <EmbeddedResource Include="res\layout\ViewToViewPage.xaml" />
+    <EmbeddedResource Include="res\layout\1920x1080\DataTriggerDemoPage.xaml" />
+    <EmbeddedResource Include="res\layout\1920x1080\TriggerWithDataBindingDemoPage.xaml" />
+    <EmbeddedResource Include="res\layout\1920x1080\AnimationWithXamlDemoPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Sample\AnimationWithXamlDemo\AnimationWithXamlDemo.cs" />
+    <Compile Include="Sample\AnimationWithXamlDemo\AnimationWithXamlDemoPage.xaml.cs" />
+    <Compile Include="Sample\DataTriggerDemo\DataTriggerDemo.cs" />
+    <Compile Include="Sample\DataTriggerDemo\DataTriggerDemo.xaml.cs" />
+    <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResource.cs" />
+    <Compile Include="Sample\TestStaticDynamicResource\TestStaticDynamicResourcePage.xaml.cs" />
+    <Compile Include="Sample\ViewToView\ViewToViewPage.xaml.cs" />
+    <Compile Include="Sample\ViewToView\ViewToViewTest.cs" />
+    <Compile Include="Sample\TriggerWithDataBindingDemo\TriggerWithDataBindingDemo.cs" />
+    <Compile Include="Sample\TriggerWithDataBindingDemo\TriggerWithDataBindingDemoPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Tizen.Applications.Common\Tizen.Applications.Common.csproj">
+      <Project>{2aedcaa7-543f-48a1-bea3-cf3e14f6edc2}</Project>
+      <Name>Tizen.Applications.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.Log\Tizen.Log.csproj">
+      <Project>{1c550c1f-9370-42ff-86fa-edcd6262b258}</Project>
+      <Name>Tizen.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI\Tizen.NUI.csproj">
+      <Project>{b69c603f-ae97-4dd7-acf5-9c38a62e0ede}</Project>
+      <Name>Tizen.NUI.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI.Xaml\Tizen.NUI.Xaml.csproj">
+      <Project>{1e08b7be-2a96-481c-a691-413902b9fa40}</Project>
+      <Name>Tizen.NUI.Xaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj">
+      <Project>{8d71b1b6-9901-436f-8914-9f812e1b10a7}</Project>
+      <Name>Tizen.System.SystemSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen\Tizen.csproj">
+      <Project>{33b7efd5-0050-416d-a2d1-8f18f26f106d}</Project>
+      <Name>Tizen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>
