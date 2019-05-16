@@ -18,14 +18,11 @@ namespace Tizen.NUI
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_FrameUpdateCallback_AddCallback")]
             public static extern global::System.IntPtr FrameUpdateCallback_AddCallback(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_FrameUpdateCallback_AddMainThreadCallback")]
             public static extern global::System.IntPtr FrameUpdateCallback_AddMainThreadCallback(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_FrameUpdateCallback_RemoveCallback")]
             public static extern global::System.IntPtr FrameUpdateCallback_RemoveCallback(global::System.Runtime.InteropServices.HandleRef jarg1);
-
 
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetPosition")]
             public static extern global::System.IntPtr FrameUpdateCallback_GetPosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
@@ -74,7 +71,6 @@ namespace Tizen.NUI
 
             [global::System.Runtime.InteropServices.DllImport(NDalicPINVOKE.Lib, EntryPoint = "CSharp_Dali_FrameUpdateCallback_GetDuration")]
             public static extern float FrameUpdateCallback_GetDuration(global::System.Runtime.InteropServices.HandleRef jarg1);
-
         }
     }
 }

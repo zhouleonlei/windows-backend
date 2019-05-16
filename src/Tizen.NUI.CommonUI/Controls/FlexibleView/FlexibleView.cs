@@ -748,9 +748,6 @@ namespace Tizen.NUI.CommonUI
                     mFrameUpdateCallbackY = new FrameCallback.FrameUpdateCallback(UpdateVerticallyBy);
                     mFrameUpdateCallbackX = new FrameCallback.FrameUpdateCallback(UpdateHorizontallyBy);
                     mUpdate = new FrameCallback.FrameUpdateCallback(update);
-
-                    //mFrameCallback.AddMainThreadCallback(mFrameUpdateCallbackY);
-                    //mFrameCallback.AddMainThreadCallback(mFrameUpdateCallbackX);
                 }
 
                 if (mLayout.CanScrollVertically())
