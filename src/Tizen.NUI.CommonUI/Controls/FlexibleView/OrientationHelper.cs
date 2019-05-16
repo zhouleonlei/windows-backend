@@ -139,7 +139,7 @@ namespace Tizen.NUI.CommonUI
          *
          * @param amount Value to add to each child's layout parameters
          */
-        public abstract void OffsetChildren(float amount, bool immediate);
+        public abstract void OffsetChildren(float amount);
 
         /**
          * Returns the total space to layout. This number is the difference between
@@ -229,9 +229,9 @@ namespace Tizen.NUI.CommonUI
             return mLayoutManager.GetWidth();
         }
 
-        public override void OffsetChildren(float amount, bool immediate)
+        public override void OffsetChildren(float amount)
         {
-            mLayoutManager.OffsetChildrenHorizontal(amount, immediate);
+            mLayoutManager.OffsetChildrenHorizontal(amount);
         }
 
 
@@ -295,9 +295,9 @@ namespace Tizen.NUI.CommonUI
             return mLayoutManager.GetHeight();
         }
 
-        public override void OffsetChildren(float amount, bool immediate)
+        public override void OffsetChildren(float amount)
         {
-            mLayoutManager.OffsetChildrenVertical(amount, immediate);
+            mLayoutManager.OffsetChildrenVertical(amount);
         }
 
         public override float GetStartAfterPadding()
