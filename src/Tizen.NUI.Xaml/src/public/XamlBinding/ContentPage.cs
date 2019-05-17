@@ -30,7 +30,7 @@ namespace Tizen.NUI.Xaml
     /// </summary>
     [ContentProperty("Content")]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class ContentPage : TemplatedPage
+    public class ContentPage : TemplatedPage, IResourcesProvider
     {
         /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -54,6 +54,40 @@ namespace Tizen.NUI.Xaml
         {
             get { return (View)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
+        }
+
+        ResourceDictionary _resources;
+        bool IResourcesProvider.IsResourcesCreated => _resources != null;
+
+        /// <summary>
+        /// Method that is called when the binding content changes.
+        /// </summary>
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ResourceDictionary XamlResources
+        {
+            get
+            {
+                if (_resources != null)
+                    return _resources;
+
+                _resources = new ResourceDictionary();
+                ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
+                return _resources;
+            }
+            set
+            {
+                if (_resources == value)
+                    return;
+                OnPropertyChanging();
+                if (_resources != null)
+                    ((IResourceDictionary)_resources).ValuesChanged -= OnResourcesChanged;
+                _resources = value;
+                OnResourcesChanged(value);
+                if (_resources != null)
+                    ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -97,26 +131,9 @@ namespace Tizen.NUI.Xaml
             Root = new View();
             Root.WidthResizePolicy = ResizePolicyType.FillToParent;
             Root.HeightResizePolicy = ResizePolicyType.FillToParent;
+            (Root as IElement).Parent = this;
 
             win.Add(Root.view);
-        }
-
-        /// <summary>
-        /// The Resources property.
-        /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ResourceDictionary XamlResources
-        {
-            get
-            {
-                return Binding.Application.Current.XamlResources;
-            }
-
-            set
-            {
-                Binding.Application.Current.XamlResources = value;
-            }
         }
 
         ///// <summary>

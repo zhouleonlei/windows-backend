@@ -19,12 +19,11 @@ namespace Tizen.NUI.Examples
         }
     }
 
-    public class ViewToViewTest : Tizen.NUI.Binding.Application
+    public class ViewToViewTest : NUIApplication
     {
         protected override void OnCreate() 
         {
             base.OnCreate();
-
             Window window = Window.Instance;
             window.BackgroundColor = Color.Green;
 

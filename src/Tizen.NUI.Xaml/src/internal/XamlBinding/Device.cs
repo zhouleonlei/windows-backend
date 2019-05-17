@@ -84,7 +84,8 @@ namespace Tizen.NUI.Binding
             {
                 if (s_platformServices == null)
                 {
-                    throw new InvalidOperationException("You MUST call Tizen.NUI.Init(); prior to using it.");
+                    s_platformServices = new TizenPlatformServices();
+                    //throw new InvalidOperationException("You MUST call Tizen.NUI.Init(); prior to using it.");
                 }
                 return s_platformServices;
             }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.StyleSheets;
 
 namespace Tizen.NUI.Binding
 {
@@ -13,7 +15,7 @@ namespace Tizen.NUI.Binding
     /// Provides the base class for all Tizen.NUI.Binding hierarchal elements. This class contains all the methods and properties required to represent an element in the Tizen.NUI.Binding hierarchy.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public abstract partial class Element : BindableObject, IElement, INameScope, IElementController
+    public abstract partial class Element : BindableObject, IElement, INameScope, IElementController, IStyleSelectable
     {
 
         // public static readonly BindableProperty MenuProperty = BindableProperty.CreateAttached(nameof(Menu), typeof(Menu), typeof(Element), null);
@@ -54,6 +56,12 @@ namespace Tizen.NUI.Binding
         IPlatform _platform;
 
         string _styleId;
+
+        IEnumerable<IStyleSelectable> IStyleSelectable.Children => LogicalChildrenInternal;
+
+        string[] _styleSelectableNameAndBaseNames;
+
+        IStyleSelectable IStyleSelectable.Parent => Parent;
 
         /// <summary>
         /// Gets or sets a value that allows the automation framework to find and interact with this element.
@@ -305,6 +313,29 @@ namespace Tizen.NUI.Binding
             }
         }
 
+        IList<string> IStyleSelectable.Classes => null;
+
+        string IStyleSelectable.Id => StyleId;
+
+        string[] IStyleSelectable.NameAndBases
+        {
+            get
+            {
+                if (_styleSelectableNameAndBaseNames == null)
+                {
+                    var list = new List<string>();
+                    var t = GetType();
+                    while (t != typeof(BindableObject))
+                    {
+                        list.Add(t.Name);
+                        t = t.GetTypeInfo().BaseType;
+                    }
+                    _styleSelectableNameAndBaseNames = list.ToArray();
+                }
+                return _styleSelectableNameAndBaseNames;
+            }
+        }
+
         //void IElementController.SetValueFromRenderer(BindableProperty property, object value) => SetValueFromRenderer(property, value);
 
         /// <summary>
@@ -487,7 +518,7 @@ namespace Tizen.NUI.Binding
         protected virtual void OnParentSet()
         {
             ParentSet?.Invoke(this, EventArgs.Empty);
-            // ApplyStyleSheetsOnParentSet();
+            ApplyStyleSheetsOnParentSet();
         }
 
         /// <summary>
@@ -534,10 +565,10 @@ namespace Tizen.NUI.Binding
 
         internal virtual void OnParentResourcesChanged(object sender, ResourcesChangedEventArgs e)
         {
-            // if (e == ResourcesChangedEventArgs.StyleSheets)
-            // 	// ApplyStyleSheetsOnParentSet();
-            // else
-            // 	OnParentResourcesChanged(e.Values);
+            if (e == ResourcesChangedEventArgs.StyleSheets)
+             	ApplyStyleSheetsOnParentSet();
+             else
+                OnParentResourcesChanged(e.Values);
         }
 
         internal virtual void OnParentResourcesChanged(IEnumerable<KeyValuePair<string, object>> values)
@@ -606,11 +637,6 @@ namespace Tizen.NUI.Binding
             object value;
             if (this.TryGetResource(key, out value))
                 OnResourceChanged(property, value);
-
-            if (!(this is Application))
-            {
-                (Application.Current as IElement).AddResourcesChangedListener(OnResourcesChanged);
-            }
         }
 
         internal event EventHandler ParentSet;
@@ -769,6 +795,25 @@ namespace Tizen.NUI.Binding
         void OnResourceChanged(BindableProperty property, object value)
         {
             SetValueCore(property, value, SetValueFlags.ClearOneWayBindings | SetValueFlags.ClearTwoWayBindings);
+        }
+
+        //on parent set, or on parent stylesheet changed, reapply all
+        void ApplyStyleSheetsOnParentSet()
+        {
+            var parent = Parent;
+            if (parent == null)
+                return;
+            var sheets = new List<StyleSheet>();
+            while (parent != null)
+            {
+                var resourceProvider = parent as IResourcesProvider;
+                var vpSheets = resourceProvider?.GetStyleSheets();
+                if (vpSheets != null)
+                    sheets.AddRange(vpSheets);
+                parent = parent.Parent;
+            }
+            for (var i = sheets.Count - 1; i >= 0; i--)
+                ((IStyle)sheets[i]).Apply(this);
         }
     }
 }

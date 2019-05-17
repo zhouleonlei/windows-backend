@@ -27,6 +27,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
     /// View is the base class for all views.
     /// </summary>
     /// <since_tizen> 3 </since_tizen>
+    [ContentProperty("Content")]
     public class View : Tizen.NUI.Xaml.Forms.Container, IResourcesProvider
     {
         private Tizen.NUI.BaseComponents.View _view;
@@ -61,7 +62,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
 
         internal View(Tizen.NUI.BaseComponents.View nuiInstance) : base(nuiInstance)
         {
-            _view = nuiInstance as Tizen.NUI.BaseComponents.View;
+            _view = nuiInstance;
             SetNUIInstance(nuiInstance);
         }
 
@@ -102,14 +103,38 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         {
             get
             {
-                return Binding.Application.Current.XamlResources;
+                if (_resources != null)
+                    return _resources;
+
+                _resources = new ResourceDictionary();
+                ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
+                return _resources;
             }
             set
             {
-                Binding.Application.Current.XamlResources = value;
+                if (_resources == value)
+                    return;
+                OnPropertyChanging();
+                if (_resources != null)
+                    ((IResourceDictionary)_resources).ValuesChanged -= OnResourcesChanged;
+                _resources = value;
+                OnResourcesChanged(value);
+                if (_resources != null)
+                    ((IResourceDictionary)_resources).ValuesChanged += OnResourcesChanged;
+                OnPropertyChanged();
             }
         }
 
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ContentProperty = BindableProperty.Create("Content", typeof(View), typeof(ContentPage), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var self = (View)bindable;
+            if (newValue != null)
+            {
+                self.Add((View)newValue);
+            }
+        });
         /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty StyleNameProperty = BindableProperty.Create("StyleName", typeof(string), typeof(View), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
@@ -860,6 +885,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <since_tizen> 4 </since_tizen>
         public override void Add(View child)
         {
+            (child as IElement).Parent = this;
             view.Add(child.view);
         }
 
@@ -890,6 +916,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <since_tizen> 4 </since_tizen>
         public override void Remove(View child)
         {
+            (child as IElement).Parent = null;
             view.Remove(child.view);
         }
 
@@ -1183,6 +1210,17 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         public void ClearBackground()
         {
             view.ClearBackground();
+        }
+
+        /// <summary>
+        /// The contents of ContentPage can be added into it.
+        /// </summary>
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public View Content
+        {
+            get { return (View)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
         }
 
         /// <summary>

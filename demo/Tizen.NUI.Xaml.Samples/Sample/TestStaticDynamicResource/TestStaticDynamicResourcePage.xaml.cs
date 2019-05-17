@@ -20,13 +20,11 @@ using Tizen.NUI.Xaml;
 
 namespace Tizen.NUI.Examples
 {
-    public partial class TestStaticDynamicResourcePage : ContentPage
+    public partial class TestStaticDynamicResourcePage : View
     {
-        public TestStaticDynamicResourcePage(Window win) : base (win)
+        public TestStaticDynamicResourcePage()
         {
             InitializeComponent();
-
-            ClearEvent += OnClearEvent;
 
             Window.Instance.KeyEvent += (object sender, Window.KeyEventArgs e)=>
             {
@@ -85,15 +83,5 @@ namespace Tizen.NUI.Examples
 
         int positionX = 200;
         int positionY = 200;
-
-        public new void SetFocus()
-        {
-            base.SetFocus();
-        }
-
-        private void OnClearEvent(object obj, EventArgs e)
-        {
-            (Content as View).BackgroundImage = "E:/Dali/dali-windows-backend/csharp-demo/res/images/ambient/photoduo_img_bg_01_no9patch.png";
-        }
     }
 }

@@ -1,18 +1,18 @@
 using Tizen.NUI.Xaml;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public class TestStaticDynamicResource : Tizen.NUI.Binding.Application
+    public class TestStaticDynamicResource : NUIApplication
     {
-        private ContentPage myPage;
+        private View myPage;
         private Window window;
 
         protected override void OnCreate() 
         {
             window = Window.Instance;
-
-            myPage = new TestStaticDynamicResourcePage(window);
-            myPage.SetFocus();
+            myPage = new TestStaticDynamicResourcePage();
+            window.Add(myPage.ViewInstance);
         }
     }
 }
