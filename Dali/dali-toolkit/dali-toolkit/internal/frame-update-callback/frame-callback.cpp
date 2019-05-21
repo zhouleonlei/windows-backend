@@ -71,7 +71,7 @@ void FrameCallback::RemoveFrameUpdateCallback( )
 {
   mElapsedSeconds = 0.0f;
   mProgress = 0.0f;
-  //mDurationSeconds = 0.0f;
+  mDurationSeconds = 0.0f;
   mFrameCallback = NULL;
 }
 

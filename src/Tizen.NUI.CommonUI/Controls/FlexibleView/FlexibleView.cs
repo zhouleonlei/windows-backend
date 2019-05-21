@@ -44,8 +44,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int INVALID_TYPE = -1;
 
-        private static readonly float FRAME_CALLBACK_DURATION = 2.0f;
-
         private Adapter mAdapter;
         private LayoutManager mLayout;
         private Recycler mRecycler;
@@ -62,19 +60,6 @@ namespace Tizen.NUI.CommonUI
 
         private ScrollBar mScrollBar = null;
         private Timer mScrollBarShowTimer = null;
-
-        private FrameCallback mFrameCallback = null;
-
-        private FrameCallback.FrameUpdateCallback mFrameUpdateCallbackX = null;
-        private FrameCallback.FrameUpdateCallback mFrameUpdateCallbackY = null;
-        private FrameCallback.FrameUpdateCallback mUpdate = null;
-        private float mLastProgress = 0.0f;
-        private float mTotalLengthX = 0.0f;
-        private float mTotalLengthY = 0.0f;
-
-        private int mMainThreadCallbackCount = 0;
-        private int mThreadCallbaclCount = 0;
-
 
         private EventHandler<ItemClickEventArgs> clickEventHandlers;
         private EventHandler<ItemTouchEventArgs> touchEventHandlers;
@@ -192,7 +177,7 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    mLayout.RequestChildRectangleOnScreen(this, nextFocusView, mRecycler, mState);
+                    mLayout.RequestChildRectangleOnScreen(this, nextFocusView, mRecycler, mState, true);
                     DispatchFocusChanged(value);
                 }
             }
@@ -659,107 +644,34 @@ namespace Tizen.NUI.CommonUI
             OnTouchEvent(this, args);
         }
 
-        private void RemoveFrameCallback()
-        {
-            if (mFrameCallback != null)
-            {
-                mLastProgress = 0.0f;
-                mMainThreadCallbackCount = 0;
-                mThreadCallbaclCount = 0;
-                mFrameCallback.RemoveCallback();
-            }
-        }
-
-        private void update(float progress)
-        {
-            Console.WriteLine($"mThreadCallbaclCount: {mThreadCallbaclCount}");
-            Tizen.Log.Fatal("COUNT", "mThreadCallbaclCount: " + mThreadCallbaclCount);
-            mThreadCallbaclCount++;
-        }
-
-        private void UpdateVerticallyBy(float progress)
-        {
-            Console.WriteLine($"mMainThreadCallbackCount: {mMainThreadCallbackCount}");
-            Tizen.Log.Fatal("COUNT", "mMainThreadCallbackCount: " + mMainThreadCallbackCount);
-            mMainThreadCallbackCount++;
-            //global::System.Diagnostics.Stopwatch watch = new global::System.Diagnostics.Stopwatch();
-            //watch.Start();
-            if (mFrameCallback == null)
-            {
-                return;
-            }
-            float dy = mTotalLengthY * (progress - mLastProgress);
-            mLayout.ScrollVerticallyBy(dy, mRecycler, mState);
-            mLastProgress = progress;
-
-            if (progress == 1.0f)
-            {
-                RemoveFrameCallback();
-            }
-            //watch.Stop();
-            //TimeSpan span = watch.Elapsed;
-
-        }
-
-        private void UpdateHorizontallyBy(float progress)
-        {
-
-            if (mFrameCallback == null)
-            {
-                return;
-            }
-
-            float dx = mTotalLengthX * (progress - mLastProgress);
-            mLayout.ScrollHorizontallyBy(dx, mRecycler, mState);
-            mLastProgress = progress;
-
-            if (progress == 1.0f)
-            {
-                RemoveFrameCallback();
-            }
-        }
-
         private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
         {
             if (e.PanGesture.State == Gesture.StateType.Started)
             {
-                RemoveFrameCallback();
+                mLayout.StopScroll();
             }
             else if (e.PanGesture.State == Gesture.StateType.Continuing)
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy(e.PanGesture.Displacement.Y, mRecycler, mState);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Displacement.Y, mRecycler, mState, true);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy(e.PanGesture.Displacement.X, mRecycler, mState);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Displacement.X, mRecycler, mState, true);
                 }
 
                 ShowScrollBar();
             }
             else if (e.PanGesture.State == Gesture.StateType.Finished)
             {
-                if (mFrameCallback == null)
-                {
-                    mFrameCallback = new FrameCallback();
-                    mFrameCallback.SetAlphaFunction(new AlphaFunction(AlphaFunction.BuiltinFunctions.EaseInOutSine));
-                    mFrameCallback.SetDuration(FRAME_CALLBACK_DURATION);
-                    mFrameUpdateCallbackY = new FrameCallback.FrameUpdateCallback(UpdateVerticallyBy);
-                    mFrameUpdateCallbackX = new FrameCallback.FrameUpdateCallback(UpdateHorizontallyBy);
-                    mUpdate = new FrameCallback.FrameUpdateCallback(update);
-                }
-
                 if (mLayout.CanScrollVertically())
                 {
-                    mTotalLengthY = e.PanGesture.Velocity.Y * 300;
-                    mFrameCallback.AddMainThreadCallback(mFrameUpdateCallbackY);
-                    mFrameCallback.AddCallback(mUpdate);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 300, mRecycler, mState, false);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mTotalLengthX = e.PanGesture.Velocity.X * 300;
-                    mFrameCallback.AddMainThreadCallback(mFrameUpdateCallbackX);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 300, mRecycler, mState, false);
                 }
                 ShowScrollBar(1200, true);
             }
@@ -1139,6 +1051,8 @@ namespace Tizen.NUI.CommonUI
 
             private List<ViewHolder> mPendingRecycleViews = new List<ViewHolder>();
 
+            private Animation mScrollAni;
+
             /// <summary>
             /// Lay out all relevant child views from the given adapter.
             /// </summary>
@@ -1188,10 +1102,11 @@ namespace Tizen.NUI.CommonUI
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
             /// <param name="state">Transient state of FlexibleView </param>
+            /// <param name="immediate">Specify if the scroll need animation</param>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ScrollHorizontallyBy(float dy, Recycler recycler, ViewState state)
+            public virtual float ScrollHorizontallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
             {
                 return 0;
             }
@@ -1202,10 +1117,11 @@ namespace Tizen.NUI.CommonUI
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
             /// <param name="state">Transient state of FlexibleView </param>
+            /// <param name="immediate">Specify if the scroll need animation</param>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ScrollVerticallyBy(float dy, Recycler recycler, ViewState state)
+            public virtual float ScrollVerticallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
             {
                 return 0;
             }
@@ -1288,7 +1204,7 @@ namespace Tizen.NUI.CommonUI
 
                 if (nextFocusChild != null)
                 {
-                    RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, state);
+                    RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, state, false);
 
                     ChangeFocus(nextFocusPosition);
                 }
@@ -1303,10 +1219,12 @@ namespace Tizen.NUI.CommonUI
              * @param child The direct child making the request.
              * @param rect The rectangle in the child's coordinates the child
              *              wishes to be on the screen.
+             * @param immediate True to forbid animated or delayed scrolling,
+             *                  false otherwise
              * @param focusedChildVisible Whether the currently focused view must stay visible.
              * @return Whether the group scrolled to handle the operation
              */
-            internal bool RequestChildRectangleOnScreen(FlexibleView parent, FlexibleView.ViewHolder child, Recycler recycler, ViewState state)
+            internal bool RequestChildRectangleOnScreen(FlexibleView parent, FlexibleView.ViewHolder child, Recycler recycler, ViewState state, bool immediate)
             {
                 Vector2 scrollAmount = GetChildRectangleOnScreenScrollAmount(parent, child);
                 float dx = scrollAmount[0];
@@ -1315,11 +1233,11 @@ namespace Tizen.NUI.CommonUI
                 {
                     if (dx != 0 && CanScrollHorizontally())
                     {
-                        ScrollHorizontallyBy(dx, recycler, state);
+                        ScrollHorizontallyBy(dx, recycler, state, immediate);
                     }
                     else if (dy != 0 && CanScrollVertically())
                     {
-                        ScrollVerticallyBy(dy, recycler, state);
+                        ScrollVerticallyBy(dy, recycler, state, immediate);
                     }
                     return true;
                 }
@@ -1414,21 +1332,53 @@ namespace Tizen.NUI.CommonUI
             /// Offset all child views attached to the parent FlexibleView by dx pixels along the horizontal axis.
             /// </summary>
             /// <param name="dx">Pixels to offset by </param>
+            /// <param name="immediate">specify if the offset need animation</param>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public void OffsetChildrenHorizontal(float dx)
+            public void OffsetChildrenHorizontal(float dx, bool immediate)
             {
                 if (mChildHelper == null)
                 {
                     return;
                 }
 
-                int childCount = mChildHelper.GetChildCount();
-                for (int i = childCount - 1; i >= 0; i--)
+                if (mScrollAni == null)
                 {
-                    ViewHolder v = mChildHelper.GetChildAt(i);
-                    v.ItemView.PositionX += dx;
+                    mScrollAni = new Animation(500);
+                    mScrollAni.Finished += OnScrollAnimationFinished;
+                }
+                else if (mScrollAni.State == Animation.States.Playing)
+                {
+                    StopScroll();
+                    mScrollAni.Duration = 100;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                }
+                else
+                {
+                    mScrollAni.Duration = 500;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
+                }
+
+                mScrollAni.Clear();
+
+                int childCount = mChildHelper.GetChildCount();
+                if (immediate == true)
+                {
+                    for (int i = childCount - 1; i >= 0; i--)
+                    {
+                        ViewHolder v = mChildHelper.GetChildAt(i);
+                        v.ItemView.PositionX += dx;
+                    }
+                }
+                else
+                {
+                    for (int i = childCount - 1; i >= 0; i--)
+                    {
+                        ViewHolder v = mChildHelper.GetChildAt(i);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionX", v.ItemView.PositionX + dx);
+                    }
+                    mScrollAni.Play();
                 }
             }
 
@@ -1436,23 +1386,53 @@ namespace Tizen.NUI.CommonUI
             /// Offset all child views attached to the parent FlexibleView by dy pixels along the vertical axis.
             /// </summary>
             /// <param name="dx">Pixels to offset by </param>
+            /// <param name="immediate">specify if the offset need animation</param>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public void OffsetChildrenVertical(float dy)
+            public void OffsetChildrenVertical(float dy, bool immediate)
             {
                 if (mChildHelper == null)
                 {
                     return;
                 }
 
-                int childCount = mChildHelper.GetChildCount();
-
-                for (int i = childCount - 1; i >= 0; i--)
+                if (mScrollAni == null)
                 {
-                    ViewHolder v = mChildHelper.GetChildAt(i);
-                    v.ItemView.PositionY += dy;
-                    //Console.WriteLine($"{i} AdapterPosition:{v.AdapterPosition} Y:{v.ItemView.PositionY}");
+                    mScrollAni = new Animation(500);
+                    mScrollAni.Finished += OnScrollAnimationFinished;
+                }
+                else if (mScrollAni.State == Animation.States.Playing)
+                {
+                    StopScroll();
+                    mScrollAni.Duration = 100;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                }
+                else
+                {
+                    mScrollAni.Duration = 500;
+                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
+                }
+
+                mScrollAni.Clear();
+
+                int childCount = mChildHelper.GetChildCount();
+                if (immediate == true)
+                {
+                    for (int i = childCount - 1; i >= 0; i--)
+                    {
+                        ViewHolder v = mChildHelper.GetChildAt(i);
+                        v.ItemView.PositionY += dy;
+                    }
+                }
+                else
+                {
+                    for (int i = childCount - 1; i >= 0; i--)
+                    {
+                        ViewHolder v = mChildHelper.GetChildAt(i);
+                        mScrollAni.AnimateTo(v.ItemView, "PositionY", v.ItemView.PositionY + dy);
+                    }
+                    mScrollAni.Play();
                 }
             }
 
@@ -1591,10 +1571,11 @@ namespace Tizen.NUI.CommonUI
             /// <param name="recycler">Recycler to recycle views into</param>
             /// <param name="startIndex">inclusive</param>
             /// <param name="endIndex">exclusive</param>
+            /// <param name="immediate">recycle immediately or add to pending list and recycle later.</param>
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public void RecycleChildren(FlexibleView.Recycler recycler, int startIndex, int endIndex)
+            public void RecycleChildren(FlexibleView.Recycler recycler, int startIndex, int endIndex, bool immediate)
             {
                 if (startIndex == endIndex)
                 {
@@ -1616,7 +1597,10 @@ namespace Tizen.NUI.CommonUI
                         mPendingRecycleViews.Add(v);
                     }
                 }
-                RecycleChildrenInt(recycler);
+                if (immediate == true)
+                {
+                    RecycleChildrenInt(recycler);
+                }
             }
 
             /// <summary>
@@ -1641,6 +1625,16 @@ namespace Tizen.NUI.CommonUI
                 mChildHelper = recyclerView.mChildHelper;
             }
 
+            internal void StopScroll()
+            {
+                if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
+                {
+                    mScrollAni.Stop();
+                    mScrollAni.Clear();
+                    OnScrollAnimationFinished(mScrollAni, null);
+                }
+            }
+
             /**
              * Returns the scroll amount that brings the given rect in child's coordinate system within
              * the padded area of RecyclerView.
@@ -1648,6 +1642,8 @@ namespace Tizen.NUI.CommonUI
              * @param child The direct child making the request.
              * @param rect The rectangle in the child's coordinates the child
              *             wishes to be on the screen.
+             * @param immediate True to forbid animated or delayed scrolling,
+             *                  false otherwise
              * @return The array containing the scroll amount in x and y directions that brings the
              * given rect into RV's padded area.
              */
@@ -1694,6 +1690,10 @@ namespace Tizen.NUI.CommonUI
                 return ret;
             }
 
+            private void OnScrollAnimationFinished(object sender, EventArgs e)
+            {
+                RecycleChildrenInt(mFlexibleView.mRecycler);
+            }
 
             private void addViewInt(ViewHolder holder, int index, bool disappearing)
             {

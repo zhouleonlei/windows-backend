@@ -153,20 +153,20 @@ namespace Tizen.NUI.CommonUI
             if (mAnchorInfo.LayoutFromEnd == true)
             {
                 UpdateLayoutStateToFillStart(mAnchorInfo.Position, mAnchorInfo.Coordinate);
-                Fill(recycler, mLayoutState, state, false);
+                Fill(recycler, mLayoutState, state, false, true);
 
                 UpdateLayoutStateToFillEnd(mAnchorInfo.Position, mAnchorInfo.Coordinate);
                 mLayoutState.CurrentPosition += mLayoutState.ItemDirection;
-                Fill(recycler, mLayoutState, state, false);
+                Fill(recycler, mLayoutState, state, false, true);
             }
             else
             {
                 UpdateLayoutStateToFillEnd(mAnchorInfo.Position, mAnchorInfo.Coordinate);
-                Fill(recycler, mLayoutState, state, false);
+                Fill(recycler, mLayoutState, state, false, true);
 
                 UpdateLayoutStateToFillStart(mAnchorInfo.Position, mAnchorInfo.Coordinate);
                 mLayoutState.CurrentPosition += mLayoutState.ItemDirection;
-                Fill(recycler, mLayoutState, state, false);
+                Fill(recycler, mLayoutState, state, false, true);
             }
 
             OnLayoutCompleted(state);
@@ -182,13 +182,13 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (mOrientation == VERTICAL)
             {
                 return 0;
             }
-            return ScrollBy(dx, recycler, state);
+            return ScrollBy(dx, recycler, state, immediate);
         }
 
         /// <summary>
@@ -197,16 +197,17 @@ namespace Tizen.NUI.CommonUI
         /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
         /// <param name="state">Transient state of FlexibleView </param>
+        /// <param name="immediate">Specify if the scroll need animation</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override float ScrollVerticallyBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        public override float ScrollVerticallyBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (mOrientation == HORIZONTAL)
             {
                 return 0;
             }
-            return ScrollBy(dy, recycler, state);
+            return ScrollBy(dy, recycler, state, immediate); ;
         }
 
         /// <summary>
@@ -500,7 +501,7 @@ namespace Tizen.NUI.CommonUI
             UpdateLayoutState(layoutDir, maxScroll, false, state);
             mLayoutState.ScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
             mLayoutState.Recycle = false;
-            Fill(recycler, mLayoutState, state, true);
+            Fill(recycler, mLayoutState, state, true, true);
 
             FlexibleView.ViewHolder nextFocus;
             if (layoutDir == LayoutState.LAYOUT_START)
@@ -625,7 +626,7 @@ namespace Tizen.NUI.CommonUI
         }
 
 
-        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool stopOnFocusable)
+        private float Fill(FlexibleView.Recycler recycler, LayoutState layoutState, FlexibleView.ViewState state, bool stopOnFocusable, bool immediate)
         {
             float start = layoutState.Available;
             if (layoutState.ScrollingOffset != LayoutState.SCROLLING_OFFSET_NaN)
@@ -635,7 +636,10 @@ namespace Tizen.NUI.CommonUI
                 {
                     layoutState.ScrollingOffset += layoutState.Available;
                 }
-                RecycleByLayoutState(recycler, layoutState);
+                if (immediate == true)
+                {
+                    RecycleByLayoutState(recycler, layoutState, true);
+                }
             }
             float remainingSpace = layoutState.Available + layoutState.Extra;
             LayoutChunkResult layoutChunkResult = mLayoutChunkResult;
@@ -668,18 +672,25 @@ namespace Tizen.NUI.CommonUI
                     {
                         layoutState.ScrollingOffset += layoutState.Available;
                     }
-                    RecycleByLayoutState(recycler, layoutState);
+                    if (immediate == true)
+                    {
+                        RecycleByLayoutState(recycler, layoutState, true);
+                    }
                 }
                 if (stopOnFocusable && layoutChunkResult.Focusable)
                 {
                     break;
                 }
             }
+            if (immediate == false)
+            {
+                RecycleByLayoutState(recycler, layoutState, false);
+            }
 
             return start - layoutState.Available;
         }
 
-        private void RecycleByLayoutState(FlexibleView.Recycler recycler, LayoutState layoutState)
+        private void RecycleByLayoutState(FlexibleView.Recycler recycler, LayoutState layoutState, bool immediate)
         {
             if (!layoutState.Recycle)
             {
@@ -687,15 +698,15 @@ namespace Tizen.NUI.CommonUI
             }
             if (layoutState.LayoutDirection == LayoutState.LAYOUT_START)
             {
-                RecycleViewsFromEnd(recycler, layoutState.ScrollingOffset);
+                RecycleViewsFromEnd(recycler, layoutState.ScrollingOffset, immediate);
             }
             else
             {
-                RecycleViewsFromStart(recycler, layoutState.ScrollingOffset);
+                RecycleViewsFromStart(recycler, layoutState.ScrollingOffset, immediate);
             }
         }
 
-        private void RecycleViewsFromStart(FlexibleView.Recycler recycler, float dt)
+        private void RecycleViewsFromStart(FlexibleView.Recycler recycler, float dt, bool immediate)
         {
             if (dt < 0)
             {
@@ -712,7 +723,7 @@ namespace Tizen.NUI.CommonUI
                     if (mOrientationHelper.GetViewHolderEnd(child) > limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, childCount - 1, i);
+                        RecycleChildren(recycler, childCount - 1, i, immediate);
                         return;
                     }
                 }
@@ -725,14 +736,14 @@ namespace Tizen.NUI.CommonUI
                     if (mOrientationHelper.GetViewHolderEnd(child) > limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, 0, i);
+                        RecycleChildren(recycler, 0, i, immediate);
                         return;
                     }
                 }
             }
         }
 
-        private void RecycleViewsFromEnd(FlexibleView.Recycler recycler, float dt)
+        private void RecycleViewsFromEnd(FlexibleView.Recycler recycler, float dt, bool immediate)
         {
             int childCount = GetChildCount();
             if (dt < 0)
@@ -748,7 +759,7 @@ namespace Tizen.NUI.CommonUI
                     if (mOrientationHelper.GetViewHolderStart(child) < limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, 0, i);
+                        RecycleChildren(recycler, 0, i, immediate);
                         return;
                     }
                 }
@@ -761,14 +772,14 @@ namespace Tizen.NUI.CommonUI
                     if (mOrientationHelper.GetViewHolderStart(child) < limit)
                     {
                         // stop here
-                        RecycleChildren(recycler, childCount - 1, i);
+                        RecycleChildren(recycler, childCount - 1, i, immediate);
                         return;
                     }
                 }
             }
         }
 
-        private float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state)
+        private float ScrollBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
         {
             if (GetChildCount() == 0 || dy == 0)
             {
@@ -779,7 +790,7 @@ namespace Tizen.NUI.CommonUI
             float absDy = Math.Abs(dy);
             UpdateLayoutState(layoutDirection, absDy, true, state);
             float consumed = mLayoutState.ScrollingOffset
-                + Fill(recycler, mLayoutState, state, false);
+                + Fill(recycler, mLayoutState, state, false, immediate);
 
             if (consumed < 0)
             {
@@ -788,7 +799,7 @@ namespace Tizen.NUI.CommonUI
 
             float scrolled = absDy > consumed ? -layoutDirection * consumed : dy;
 
-            mOrientationHelper.OffsetChildren(scrolled);
+            mOrientationHelper.OffsetChildren(scrolled, immediate);
 
 
             return scrolled;
