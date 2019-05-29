@@ -15,7 +15,6 @@
  *
  */
 using System;
-using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 
