@@ -25,7 +25,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// The Loading class of nui component. It's used to indicate informs users of the ongoing operation.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Loading : Control
@@ -41,7 +41,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The constructor of Loading
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading() : base()
@@ -54,7 +54,7 @@ namespace Tizen.NUI.CommonUI
         /// Constructor of the Loading class with special style.
         /// </summary>
         /// <param name="style">The string to initialize the Loading.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(string style) : base(style)
@@ -68,7 +68,7 @@ namespace Tizen.NUI.CommonUI
         /// The constructor of the Loading class with specific Attributes.
         /// </summary>
         /// <param name="attributes">The Attributes object to initialize the Loading.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(LoadingAttributes attributes) : base()
@@ -80,7 +80,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get or set LoadingImageURLPrefix
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string LoadingImageURLPrefix
@@ -101,7 +101,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get or set FPS of attributes
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FPS
@@ -131,7 +131,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get Loading attribues.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -146,7 +146,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Loading.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -183,7 +183,7 @@ namespace Tizen.NUI.CommonUI
         /// Update Loading by attributes.
         /// </summary>
         /// <param name="attributes">Loading attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)

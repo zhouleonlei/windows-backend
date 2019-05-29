@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
     /// checkGroup.Add(check1);
     /// checkGroup.Add(check2);
     /// </code>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class CheckBoxGroup : SelectGroup
@@ -37,7 +37,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Construct CheckBoxGroup
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBoxGroup()
@@ -49,7 +49,7 @@ namespace Tizen.NUI.CommonUI
         /// Add CheckBox to the end of CheckBoxGroup.
         /// </summary>
         /// <param name="check">The CheckBox to be added to the CheckBoxGroup</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void Add(CheckBox check)
@@ -62,7 +62,7 @@ namespace Tizen.NUI.CommonUI
         /// Remove CheckBox from the CheckBoxGroup.
         /// </summary>
         /// <param name="check">The CheckBox to remove from the CheckBoxGroup</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void Remove(CheckBox check)
@@ -76,7 +76,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="index">The item index</param>
         /// <returns>CheckBox</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox GetItemByIndex(int index)
@@ -88,7 +88,7 @@ namespace Tizen.NUI.CommonUI
         /// Get the index array of checked items.
         /// </summary>
         /// <returns>The array of index</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int[] GetCheckedIndexArray()
@@ -110,7 +110,7 @@ namespace Tizen.NUI.CommonUI
         /// Get the CheckBox array of checked items.
         /// </summary>
         /// <returns>The array of CheckBox</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox[] GetCheckedItemArray()
@@ -132,7 +132,7 @@ namespace Tizen.NUI.CommonUI
         /// Determines whether every checkboxes in the CheckBoxGroup are checked
         /// </summary>
         /// <returns>If all of CheckBoxes are checked, return true. otherwise false</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsCheckedAll()
@@ -151,7 +151,7 @@ namespace Tizen.NUI.CommonUI
         /// Check or Uncheck all of child checkboxes by the specified value
         /// </summary>
         /// <param name="state">The boolean state of the check box</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void CheckingAll(bool state)

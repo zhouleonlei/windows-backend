@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// TextFieldAttributes is a class which saves TextField's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class TextFieldAttributes : ViewAttributes
@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a TextField.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextFieldAttributes() : base() { }
@@ -37,7 +37,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a TextField with style.
         /// </summary>
         /// <param name="style">Create TextField by special style defined in UX.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextFieldAttributes(TextFieldAttributes attributes) : base(attributes)
@@ -115,7 +115,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Text's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector Text
@@ -127,7 +127,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Place holder text's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector PlaceholderText
@@ -139,7 +139,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Translatable place holder text's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector TranslatablePlaceholderText
@@ -151,7 +151,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Horizontal alignment's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HorizontalAlignment? HorizontalAlignment
@@ -163,7 +163,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Vertical alignment's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public VerticalAlignment? VerticalAlignment
@@ -175,7 +175,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Enable mark up's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableMarkup
@@ -187,7 +187,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Text color's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector TextColor
@@ -199,7 +199,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Place holder text color's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector PlaceholderTextColor
@@ -211,7 +211,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Primary cursor color's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector PrimaryCursorColor
@@ -223,7 +223,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Secondary cursor color's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector SecondaryCursorColor
@@ -235,7 +235,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Font family's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string FontFamily
@@ -247,7 +247,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Poin size's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector PointSize
@@ -259,7 +259,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Enable cursor blink's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableCursorBlink
@@ -271,7 +271,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Enable selection's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableSelection
@@ -283,7 +283,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Cursor width's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? CursorWidth
@@ -295,7 +295,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Enable ellipsisn's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? EnableEllipsis
@@ -307,7 +307,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

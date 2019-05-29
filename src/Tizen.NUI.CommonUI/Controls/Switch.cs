@@ -24,7 +24,7 @@ namespace Tizen.NUI.CommonUI
     /// Switch is one kind of common component, it can be used as selector.
     /// User can handle Navigation by adding/inserting/deleting NavigationItem.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Switch : Button
@@ -38,7 +38,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Switch() : base()
@@ -49,7 +49,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a Switch with style.
         /// </summary>
         /// <param name="style">Create Switch by special style defined in UX.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Switch(string style) : base(style)
@@ -60,7 +60,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a Switch with attributes.
         /// </summary>
         /// <param name="attrs">Create Switch by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Switch(SwitchAttributes attrs) : base(attrs)
@@ -71,7 +71,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// An event for the item selected signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<SelectEventArgs> SelectedEvent;
@@ -79,7 +79,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's resource url in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string SwitchBackgroundImageURL
@@ -106,7 +106,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's resource url selector in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector SwitchBackgroundImageURLSelector
@@ -129,7 +129,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Handler image's resource url in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string SwitchHandlerImageURL
@@ -156,7 +156,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Handler image's resource url selector in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector SwitchHandlerImageURLSelector
@@ -179,7 +179,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's size in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D SwitchBackgroundImageSize2D
@@ -199,7 +199,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Handler image's size in Switch.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D SwitchHandlerImageSize2D
@@ -220,7 +220,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Switch and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -263,7 +263,7 @@ namespace Tizen.NUI.CommonUI
         /// Update Switch by attributes.
         /// </summary>
         /// <param name="attributes">Switch attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -313,7 +313,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="source">Source which recieved key event.</param>
         /// <param name="e">Key event argument.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnKey(object source, KeyEventArgs e)
@@ -339,7 +339,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="source">Source which recieved touch event.</param>
         /// <param name="e">Touch event argument.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnTouch(object source, TouchEventArgs e)
@@ -364,7 +364,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get Switch attribues.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -445,13 +445,13 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// SelectEventArgs is a class to record item selected arguments which will sent to user.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class SelectEventArgs : EventArgs
         {
             /// <summary> Select state of Switch </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public bool IsSelected;

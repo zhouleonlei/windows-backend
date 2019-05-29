@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// Layout collection of views in a grid.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class GridLayoutManager : LinearLayoutManager
@@ -35,7 +35,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="spanCount">The number of columns or rows in the grid</param>
         /// <param name="orientation">Layout orientation.Should be HORIZONTAL or VERTICAL</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public GridLayoutManager(int spanCount, int orientation) : base(orientation)
@@ -49,7 +49,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="position">The anchor adapter position</param>
         /// <param name="direction">The direction.</param>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)

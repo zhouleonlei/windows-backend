@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// ToastAttributes is a class which saves Toast's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class ToastAttributes : ViewAttributes
@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a ToastAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes() : base() { }
@@ -38,7 +38,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a ToastAttributes with attributes.
         /// </summary>
         /// <param name="attributes">Create ToastAttributes by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes(ToastAttributes attributes) : base(attributes)
@@ -61,7 +61,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get or set background Image Attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -73,7 +73,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get or set Text Attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TextAttributes
@@ -85,7 +85,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get or set space between Toast up with text up.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? UpSpace
@@ -97,7 +97,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// TabAttributes is a class which saves Tab's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class TabAttributes : ViewAttributes
@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a TabAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TabAttributes() : base()
@@ -42,7 +42,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a TabAttributes with attributes.
         /// </summary>
         /// <param name="attributes">Create TabAttributes by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TabAttributes(TabAttributes attributes) : base(attributes)
@@ -72,7 +72,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// UnderLine's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes UnderLineAttributes
@@ -84,7 +84,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Text's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TextAttributes
@@ -96,7 +96,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Flag to decide if item is fill with item text's natural width.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsNatureTextWidth
@@ -108,7 +108,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Gap between items.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int ItemGap
@@ -120,7 +120,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Space in Tab.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 Space
@@ -132,7 +132,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

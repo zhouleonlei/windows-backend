@@ -25,7 +25,7 @@ namespace Tizen.NUI.CommonUI
     /// It can be used as selector and add into group for single-choice or multiple-choice .
     /// User can handle Navigation by adding/inserting/deleting NavigationItem.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class SelectButton : Button
@@ -33,7 +33,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Item group which is used to manager all SelectButton in it.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected SelectGroup itemGroup = null;
@@ -47,7 +47,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton() : base()
@@ -63,7 +63,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a SelectButton with style.
         /// </summary>
         /// <param name="style">Create SelectButton by special style defined in UX.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(string style) : base(style)
@@ -80,7 +80,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a SelectButton with attributes.
         /// </summary>
         /// <param name="attributes">Create SelectButton by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(SelectButtonAttributes attributes) : base()
@@ -92,7 +92,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// An event for the item selected signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<SelectEventArgs> SelectedEvent;
@@ -100,7 +100,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Index of selection in selection group. If selection is not in the group, return -1;
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Index
@@ -119,7 +119,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's resource url in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckImageURL
@@ -146,7 +146,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's resource url selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckImageURLSelector
@@ -169,7 +169,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's opacity in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckImageOpacity
@@ -193,7 +193,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's opacity selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckImageOpacitySelector
@@ -216,7 +216,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's size in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckImageSize2D
@@ -236,7 +236,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Check image's position in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckImagePosition2D
@@ -256,7 +256,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's resource url in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckBackgroundImageURL
@@ -283,7 +283,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's resource url selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckBackgroundImageURLSelector
@@ -306,7 +306,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's opacity in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckBackgroundImageOpacity
@@ -330,7 +330,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's opacity selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckBackgroundImageOpacitySelector
@@ -353,7 +353,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's size in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckBackgroundImageSize2D
@@ -373,7 +373,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's position in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckBackgroundImagePosition2D
@@ -393,7 +393,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's resource url in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string CheckShadowImageURL
@@ -420,7 +420,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's resource url selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector CheckShadowImageURLSelector
@@ -443,7 +443,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's opacity in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float CheckShadowImageOpacity
@@ -467,7 +467,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's opacity selector in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FloatSelector CheckShadowImageOpacitySelector
@@ -490,7 +490,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's size in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D CheckShadowImageSize2D
@@ -510,7 +510,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's position in SelectButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Position2D CheckShadowImagePosition2D
@@ -529,7 +529,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -546,7 +546,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose SelectButton and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -585,7 +585,7 @@ namespace Tizen.NUI.CommonUI
         /// Update SelectButton by attributes.
         /// </summary>
         /// <param name="attributes">Tab attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -671,7 +671,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="source">Source which recieved key event.</param>
         /// <param name="e">Key event argument.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnKey(object source, KeyEventArgs e)
@@ -697,7 +697,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="source">Source which recieved touch event.</param>
         /// <param name="e">Touch event argument.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override bool OnTouch(object source, TouchEventArgs e)
@@ -722,7 +722,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get SelectButton attribues.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -733,7 +733,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Overrides this method if want to handle behavior after pressing return key by user.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnSelected()
@@ -850,13 +850,13 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// SelectEventArgs is a class to record item selected arguments which will sent to user.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class SelectEventArgs : EventArgs
         {
             /// <summary> Select state of SelectButton </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public bool IsSelected;

@@ -24,7 +24,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// The control component is base class of tv nui components. It's abstract class, so cann't instantiate and can only be inherited.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Control : VisualView
@@ -32,14 +32,14 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Control style.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected string style;
         /// <summary>
         /// Control attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Attributes attributes;
@@ -52,7 +52,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Construct an empty Control.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Control() : base()
@@ -63,7 +63,7 @@ namespace Tizen.NUI.CommonUI
         /// Construct with style
         /// </summary>
         /// <param name="style">Style to be applied</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Control(string style) : base()
@@ -74,7 +74,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get/Set the control state.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new ControlStates State
@@ -85,7 +85,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Whether focusable when touch
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool StateFocusableOnTouchMode
@@ -106,7 +106,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="view">View which will be applied attrs</param>
         /// <param name="attrs">Attributes for View, Image or TextLabel</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected  void ApplyAttributes(View view, ViewAttributes attrs)
@@ -335,7 +335,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Control and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -361,7 +361,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get attribues, it is abstract function and must be override.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected abstract Attributes GetAttributes();
@@ -371,7 +371,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="source">The source</param>
         /// <param name="e">The key event data</param>
         /// <returns>True if the key event should be consumed</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnKey(object source, KeyEventArgs e)
@@ -383,7 +383,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnRelayout(object sender, EventArgs e)
@@ -395,7 +395,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnFocusGained(object sender, EventArgs e)
@@ -407,7 +407,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnFocusLost(object sender, EventArgs e)
@@ -419,7 +419,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The tap gesture event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
@@ -430,7 +430,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The touch event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTouch(object source, TouchEventArgs e)
@@ -441,7 +441,7 @@ namespace Tizen.NUI.CommonUI
         /// Update by attributes.
         /// </summary>
         /// <param name="attributes">Button attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnUpdate(Attributes attributtes)
@@ -450,7 +450,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)

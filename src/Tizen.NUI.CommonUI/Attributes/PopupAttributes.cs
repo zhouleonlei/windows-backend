@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// PopupAttributes is a class which saves Popup's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class PopupAttributes : ViewAttributes
@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a PopupAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PopupAttributes() : base() { }
@@ -37,7 +37,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a PopupAttributes with attributes.
         /// </summary>
         /// <param name="attributes">Create PopupAttributes by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PopupAttributes(PopupAttributes attributes) : base(attributes)
@@ -68,7 +68,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow image's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes ShadowImageAttributes
@@ -80,7 +80,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Background image's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -92,7 +92,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Title Text's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextAttributes TitleTextAttributes
@@ -104,7 +104,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Shadow offset.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 ShadowOffset
@@ -116,7 +116,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Popup button's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ButtonAttributes ButtonAttributes
@@ -128,7 +128,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

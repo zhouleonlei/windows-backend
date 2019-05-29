@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// InputFieldAttributes is a class which saves InputField's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputFieldAttributes : ViewAttributes
@@ -29,7 +29,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a InputFieldAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes() : base() { }
@@ -38,7 +38,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a InputFieldAttributes with attributes.
         /// </summary>
         /// <param name="attributes">Create InputFieldAttributes by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
@@ -59,7 +59,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Back ground image's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes BackgroundImageAttributes
@@ -70,7 +70,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Text field's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextFieldAttributes InputBoxAttributes
@@ -81,7 +81,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Textfield space's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? Space
@@ -92,7 +92,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

@@ -23,7 +23,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// The Progress class of nui component. It's used to show the ongoing status with a long narrow bar.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Progress : Control
@@ -43,7 +43,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The constructor of Progress
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress() : base()
@@ -56,7 +56,7 @@ namespace Tizen.NUI.CommonUI
         /// The constructor of the Progress class with specific style.
         /// </summary>
         /// <param name="style">style name</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress(string style) : base(style)
@@ -77,7 +77,7 @@ namespace Tizen.NUI.CommonUI
         /// The constructor of the Progress class with specific Attributes.
         /// </summary>
         /// <param name="attributes">The Attributes object to initialize the Progress.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress(ProgressBarAttributes attributes) : base()
@@ -89,7 +89,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The status type of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum ProgressStatusType
@@ -97,7 +97,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Show TrackImage
             /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Buffering,
@@ -105,7 +105,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Show ProgressImage
             /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Determinate,
@@ -113,7 +113,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Show LoadingImage
             /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Indeterminate
@@ -122,7 +122,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The direction type of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public enum DirectionType
@@ -130,7 +130,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary> 
             /// The progress moving follow horizontal direction. 
             /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Horizontal,
@@ -138,7 +138,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary> 
             /// The progress moving follow vertical direction. 
             /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
+            /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             Vertical
@@ -147,7 +147,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Progress object image URL prefix of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual string ProgressImageURLPre
@@ -174,7 +174,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Track image object URL of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string TrackImageURL
@@ -201,7 +201,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Progress object image URL of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ProgressImageURL
@@ -228,7 +228,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Buffer object image resource URL of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string BufferImageURL
@@ -255,7 +255,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Track object color of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TrackColor
@@ -282,7 +282,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Progress object color of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color ProgressColor
@@ -309,7 +309,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set Buffer object color of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color BufferColor
@@ -336,7 +336,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the maximum value of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint? MaxValue
@@ -363,7 +363,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the minim value of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint MinValue
@@ -390,7 +390,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the current value of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint? CurrentValue
@@ -421,7 +421,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set the buffer value of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public uint BufferValue
@@ -452,7 +452,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property to get/set ProgressState of the Progress.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ProgressStatusType ProgressState
@@ -472,7 +472,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Progress and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -545,7 +545,7 @@ namespace Tizen.NUI.CommonUI
         /// The method to update Attributes.
         /// </summary>
         /// <param name="attrs">The specified attributes object.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attrs)
@@ -567,7 +567,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="sender">serder object</param>
         /// <param name="e">ThemeChangeEventArgs</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -602,7 +602,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Change Image status. It can be override.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateStates()
@@ -624,7 +624,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update progress value
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateValue()
@@ -752,7 +752,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get Progress attribues.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -778,7 +778,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Change Image status
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// <param name="statusType">New status type</param>
         protected void ChangeImageState(ProgressStatusType statusType)
         {

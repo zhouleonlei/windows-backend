@@ -28,7 +28,7 @@ namespace Tizen.NUI.CommonUI
     /// radio.Text = "RadioButton";
     /// radio.Focusable = true;
     /// </code>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class RadioButton : SelectButton
@@ -36,7 +36,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a RadioButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton() : base() { }
@@ -44,7 +44,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a RadioButton with style.
         /// </summary>
         /// <param name="style"></param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton(string style) : base(style) { }
@@ -52,14 +52,14 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a RadioButton with attributes.
         /// </summary>
         /// <param name="attrs"></param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButton(SelectButtonAttributes attrs) : base(attrs) { }
         /// <summary>
         /// Get RadioButtonGroup to which this selections belong.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RadioButtonGroup ItemGroup
@@ -77,7 +77,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Set CheckState to true after selecting RadioButton.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnSelected()

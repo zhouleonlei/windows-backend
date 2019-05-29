@@ -23,7 +23,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// StyleManager is a class to manager all style.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class StyleManager
@@ -36,14 +36,14 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// StyleManager construct.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         private StyleManager()
         {
         }
         /// <summary>
         /// An event for the theme changed signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ThemeChangeEventArgs> ThemeChangedEvent
@@ -61,7 +61,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// StyleManager static instance.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static StyleManager Instance { get; } = new StyleManager();
@@ -69,7 +69,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Style theme.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public  string Theme
@@ -96,7 +96,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="theme">Theme.</param>
         /// <param name="styleType">Style type.</param>
         /// <param name="bDefault">Flag to decide if it is default style.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RegisterStyle(string style, string theme, Type styleType, bool bDefault = false)
@@ -134,7 +134,7 @@ namespace Tizen.NUI.CommonUI
         /// Get attributes by style.
         /// </summary>
         /// <param name="style">Style name.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Attributes GetAttributes(string style)
@@ -160,7 +160,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// ThemeChangeEventArgs is a class to record theme change event arguments which will sent to user.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class ThemeChangeEventArgs : EventArgs

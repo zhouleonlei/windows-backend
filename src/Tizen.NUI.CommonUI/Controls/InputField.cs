@@ -23,7 +23,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// InputField is a editable input compoment
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputField : Control
@@ -40,7 +40,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Initializes a new instance of the InputField class.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField() : base()
@@ -58,7 +58,7 @@ namespace Tizen.NUI.CommonUI
         /// Initializes a new instance of the InputField class.
         /// </summary>
         /// <param name="style">Create Header by special style defined in UX.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputField(InputFieldAttributes attributes) : base()
@@ -70,7 +70,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the enabled state
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool StateEnabled
@@ -88,7 +88,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the text content
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Text
@@ -109,7 +109,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the hint text
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string HintText
@@ -130,7 +130,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the color of the input text
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TextColor
@@ -151,7 +151,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get Input Field attribues.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
@@ -163,7 +163,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Input Field and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -200,7 +200,7 @@ namespace Tizen.NUI.CommonUI
         /// Update Input Field by attributes.
         /// </summary>
         /// <param name="attributes">Input Field attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate(Attributes attributtes)
@@ -219,7 +219,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -235,7 +235,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The property for the inputfield space
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected int Space()
@@ -251,7 +251,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when text field focus is gained, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldFocusGained(object source, EventArgs e)
@@ -261,7 +261,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when text field is lost, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldFocusLost(object source, EventArgs e)
@@ -271,7 +271,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when text field's text is changed, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTextFieldTextChanged(object sender, TextField.TextChangedEventArgs e)
@@ -281,7 +281,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when text field have a key event, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTextFieldKeyEvent(object source, KeyEventArgs e)
@@ -292,7 +292,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Theme change callback when text field is touched, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual bool OnTextFieldTouchEvent(object sender, View.TouchEventArgs e)
@@ -305,7 +305,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="w">Input Field' width.</param>
         /// <param name="h">Input Field' height.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldSize2D(int w, int h)
@@ -320,7 +320,7 @@ namespace Tizen.NUI.CommonUI
         /// Set the text field X pose
         /// </summary>
         /// <param name="X">Input Field' X.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldPosX(int x)
@@ -335,7 +335,7 @@ namespace Tizen.NUI.CommonUI
         /// Set the text field  text color
         /// </summary>
         /// <param name="color">Input Field' color.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void SetTextFieldTextColor(Color color)
@@ -350,7 +350,7 @@ namespace Tizen.NUI.CommonUI
         /// Set the text field relayout flag
         /// </summary>
         /// <param name="value">relayout text field' value.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void RelayoutTextField(bool value)

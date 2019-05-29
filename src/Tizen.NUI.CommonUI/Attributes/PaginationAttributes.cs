@@ -21,7 +21,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// PaginationAttributes used to config the pagination represent.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class PaginationAttributes : ViewAttributes
@@ -29,14 +29,14 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a PaginationAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PaginationAttributes() : base() { }
         /// <summary>
         /// Creates a new instance of a PaginationAttributes using attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
@@ -59,7 +59,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Gets or sets the size of the indicator.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D IndicatorSize
@@ -71,7 +71,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Gets or sets the background resource of indicator.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string IndicatorBackgroundURL
@@ -83,7 +83,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Gets or sets the resource of the select indicator.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string IndicatorSelectURL
@@ -95,7 +95,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Gets or sets the space of the indicator.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int IndicatorSpacing
@@ -108,7 +108,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Retrieves a copy of PaginationAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()

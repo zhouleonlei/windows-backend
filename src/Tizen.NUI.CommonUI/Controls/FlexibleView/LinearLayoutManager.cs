@@ -22,7 +22,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// Layout collection of views horizontally/vertically.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class LinearLayoutManager : FlexibleView.LayoutManager
@@ -30,28 +30,28 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Constant value: 0.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int HORIZONTAL = OrientationHelper.HORIZONTAL;
         /// <summary>
         /// Constant value: 1.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int VERTICAL = OrientationHelper.VERTICAL;
         /// <summary>
         /// Constant value: -1.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int NO_POSITION = FlexibleView.NO_POSITION;
         /// <summary>
         /// Constant value: -2^31.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly int INVALID_OFFSET = -2147483648;
@@ -61,7 +61,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Current orientation.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected int mOrientation;
@@ -94,7 +94,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a LinearLayoutManager with orientation.
         /// </summary>
         /// <param name="orientation">Layout orientation.Should be HORIZONTAL or VERTICAL</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LinearLayoutManager(int orientation)
@@ -109,7 +109,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Query if horizontal scrolling is currently supported. The default implementation returns false.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool CanScrollHorizontally()
@@ -120,7 +120,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Query if vertical scrolling is currently supported. The default implementation returns false.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool CanScrollVertically()
@@ -133,7 +133,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override void OnLayoutChildren(FlexibleView.Recycler recycler, FlexibleView.ViewState state)
@@ -179,7 +179,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
         /// <param name="state">Transient state of FlexibleView </param>
         /// <param name="immediate">Specify if the scroll need animation</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override float ScrollHorizontallyBy(float dx, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
@@ -198,7 +198,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
         /// <param name="state">Transient state of FlexibleView </param>
         /// <param name="immediate">Specify if the scroll need animation</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override float ScrollVerticallyBy(float dy, FlexibleView.Recycler recycler, FlexibleView.ViewState state, bool immediate)
@@ -214,7 +214,7 @@ namespace Tizen.NUI.CommonUI
         /// Compute the offset of the scrollbar's thumb within the range.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override float ComputeScrollOffset(FlexibleView.ViewState state)
@@ -244,7 +244,7 @@ namespace Tizen.NUI.CommonUI
         /// Compute the extent of the scrollbar's thumb within the range.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override float ComputeScrollExtent(FlexibleView.ViewState state)
@@ -264,7 +264,7 @@ namespace Tizen.NUI.CommonUI
         /// Compute the range that the scrollbar represents.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override float ComputeScrollRange(FlexibleView.ViewState state)
@@ -285,7 +285,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Retrieves the first visible item position.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FindFirstVisibleItemPosition()
@@ -297,7 +297,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Retrieves the first complete visible item position.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FindFirstCompleteVisibleItemPosition()
@@ -309,7 +309,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Retrieves the last visible item position.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FindLastVisibleItemPosition()
@@ -321,7 +321,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Retrieves the last complete visible item position.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int FindLastCompleteVisibleItemPosition()
@@ -334,7 +334,7 @@ namespace Tizen.NUI.CommonUI
         /// Scroll the FlexibleView to make the position visible.
         /// </summary>
         /// <param name="position">Scroll to this adapter position</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override void ScrollToPosition(int position)
@@ -350,7 +350,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="position">Scroll to this adapter position</param>
         /// <param name="offset">The distance (in pixels) between the start edge of the item view and start edge of the FlexibleView.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override void ScrollToPositionWithOffset(int position, int offset)
@@ -365,7 +365,7 @@ namespace Tizen.NUI.CommonUI
         /// Called after a full layout calculation is finished.
         /// </summary>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override void OnLayoutCompleted(FlexibleView.ViewState state)
@@ -387,7 +387,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="position">The anchor adapter position</param>
         /// <param name="direction">The direction.</param>
         /// <param name="state">Transient state of FlexibleView </param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
