@@ -78,9 +78,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public DropDown(DropDownAttributes attributes) : base()
+        public DropDown(DropDownAttributes attributes) : base(attributes)
         {
-            this.attributes = dropDownAttributes = attributes.Clone() as DropDownAttributes;
+            dropDownAttributes = attributes as DropDownAttributes;
             if (dropDownAttributes == null)
             {
                 throw new Exception("DropDown attribute parse error.");

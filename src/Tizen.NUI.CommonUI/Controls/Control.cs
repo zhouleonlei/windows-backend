@@ -59,6 +59,20 @@ namespace Tizen.NUI.CommonUI
         {
             Initialize(null);
         }
+
+        /// <summary>
+        /// Construct with attributes
+        /// </summary>
+        /// <param name="attributes">Create attributes customized by user</param>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Control(Attributes attributes) : base()
+        {
+            Initialize(null);
+            this.attributes = attributes.Clone();
+        }
+
         /// <summary>
         /// Construct with style
         /// </summary>
