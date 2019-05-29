@@ -29,8 +29,8 @@ namespace Tizen.NUI.CommonUI
     public sealed class StyleManager
     {
         private string theme = "default";
-        private Dictionary<string, Dictionary<string, Type>> ThemeStyleSet = new Dictionary<string, Dictionary<string, Type>>();
-        private Dictionary<string, Type> DefaultStyleSet = new Dictionary<string, Type>();
+        private Dictionary<string, Dictionary<string, Type>> themeStyleSet = new Dictionary<string, Dictionary<string, Type>>();
+        private Dictionary<string, Type> defaultStyleSet = new Dictionary<string, Type>();
         private EventHandler<ThemeChangeEventArgs> themeChangeHander;
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public  string Theme
+        public string Theme
         {
             get
             {
@@ -108,26 +108,26 @@ namespace Tizen.NUI.CommonUI
 
             if(theme == null || bDefault == true)
             {
-                if(DefaultStyleSet.ContainsKey(style))
-            {
-                throw new InvalidOperationException($"{style}] already be used");
-            }
+                if(defaultStyleSet.ContainsKey(style))
+                {
+                    throw new InvalidOperationException($"{style}] already be used");
+                }
                 else
-            {
-                    DefaultStyleSet.Add(style, styleType);
+                {
+                    defaultStyleSet.Add(style, styleType);
                 }
                 return;
             }
 
-            if(ThemeStyleSet.ContainsKey(style) && ThemeStyleSet[style].ContainsKey(theme))
+            if(themeStyleSet.ContainsKey(style) && themeStyleSet[style].ContainsKey(theme))
             {
                 throw new InvalidOperationException($"{style}] already be used");
             }
-                if(!ThemeStyleSet.ContainsKey(style))
-                {
-                    ThemeStyleSet.Add(style, new Dictionary<string, Type>());
-                }
-                ThemeStyleSet[style].Add(theme, styleType);
+            if(!themeStyleSet.ContainsKey(style))
+            {
+                themeStyleSet.Add(style, new Dictionary<string, Type>());
+            }
+            themeStyleSet[style].Add(theme, styleType);
         }
 
         /// <summary>
@@ -145,13 +145,13 @@ namespace Tizen.NUI.CommonUI
             }
             object obj = null;
 
-            if(ThemeStyleSet.ContainsKey(style) && ThemeStyleSet[style].ContainsKey(Theme))
+            if(themeStyleSet.ContainsKey(style) && themeStyleSet[style].ContainsKey(Theme))
             {
-                obj = Activator.CreateInstance(ThemeStyleSet[style][Theme]);
+                obj = Activator.CreateInstance(themeStyleSet[style][Theme]);
             }
-            else if(DefaultStyleSet.ContainsKey(style))
+            else if(defaultStyleSet.ContainsKey(style))
             {
-                obj = Activator.CreateInstance(DefaultStyleSet[style]);
+                obj = Activator.CreateInstance(defaultStyleSet[style]);
             }
 
             return (obj as StyleBase)?.GetAttributes();
