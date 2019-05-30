@@ -71,9 +71,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ScrollBar(ScrollBarAttributes attributes) : base()
+        public ScrollBar(ScrollBarAttributes attributes) : base(attributes)
         {
-            this.attributes = scrollBarAttrs = attributes.Clone() as ScrollBarAttributes;
+            scrollBarAttrs = this.attributes as ScrollBarAttributes;
             Initialize();
         }
 

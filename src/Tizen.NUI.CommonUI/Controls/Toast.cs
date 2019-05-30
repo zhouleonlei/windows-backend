@@ -48,7 +48,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
-            SetAttribute();
+            toastAttributes = this.attributes as ToastAttributes;
 
             Initialize();
         }
@@ -60,9 +60,8 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Toast(ToastAttributes attributes)
+        public Toast(ToastAttributes attributes) : base(attributes)
         {
-            this.attributes = toastAttributes = attributes.Clone() as ToastAttributes;
             Initialize();
         }
 
@@ -332,17 +331,6 @@ namespace Tizen.NUI.CommonUI
             toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
             toastAttributes.TextAttributes.Position2D.X = LeftSpace;
             toastAttributes.TextAttributes.Position2D.Y = UpSpace;
-        }
-
-        /// <summary>
-        /// Set ToastAttributes as control.attribues.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected void SetAttribute()
-        {
-            toastAttributes = this.attributes as ToastAttributes;
         }
 
         private void Initialize()

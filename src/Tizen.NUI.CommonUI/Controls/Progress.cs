@@ -80,9 +80,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Progress(ProgressBarAttributes attributes) : base()
+        public Progress(ProgressBarAttributes attributes) : base(attributes)
         {
-            this.attributes = progressBarAttrs = attributes.Clone() as ProgressBarAttributes;
+            progressBarAttrs = this.attributes as ProgressBarAttributes;
             Initialize();
         }
 
