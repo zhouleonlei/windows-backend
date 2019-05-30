@@ -34,8 +34,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Tizen.NUI.Xaml.Forms.BaseComponents;
-using Tizen.NUI.Binding;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding;
+using Tizen.NUI.XamlBinding.Internals;
 using Tizen.NUI;
 
 namespace Tizen.NUI.Xaml.Internals
@@ -61,7 +61,7 @@ namespace Tizen.NUI.Xaml.Internals
 
 namespace Tizen.NUI.Xaml
 {
-    static class XamlLoader
+    static internal class XamlLoader
     {
         public static void Load(object view, Type callingType)
         {
@@ -164,19 +164,7 @@ namespace Tizen.NUI.Xaml
                         continue;
                     }
 
-                    for (int i = 0; i < 100; i++)
-                    {
-                        XmlType temp = new XmlType(reader.NamespaceURI, reader.Name, null);
-                    }
-
-                    XmlType xmlType = new XmlType(reader.NamespaceURI, reader.Name, null);
-
-                    for (int i = 0; i < 100; i++)
-                    {
-                        new RuntimeRootNode(xmlType, view, (IXmlNamespaceResolver)reader);
-                    }
-
-                    var rootnode = new RuntimeRootNode (xmlType, view, (IXmlNamespaceResolver)reader);
+                    var rootnode = new RuntimeRootNode (new XmlType (reader.NamespaceURI, reader.Name, null), view, (IXmlNamespaceResolver)reader);
                     XamlParser.ParseXaml (rootnode, reader);
                     Visit (rootnode, new HydrationContext {
                         RootElement = view,
@@ -242,6 +230,8 @@ namespace Tizen.NUI.Xaml
             {
                 StreamReader reader = new StreamReader(animationXamlPath);
                 xaml = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
                 Tizen.Log.Fatal("NUI", "File is exist!, try with xaml: " + xaml);
                 return xaml;
             }
@@ -274,6 +264,8 @@ namespace Tizen.NUI.Xaml
             {
                 StreamReader reader = new StreamReader(likelyResourcePath);
                 xaml = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
                 Tizen.Log.Fatal("NUI", "File is exist!, try with xaml: " + xaml);
                 var pattern = String.Format("x:Class *= *\"{0}\"", type.FullName);
                 var regex = new Regex(pattern, RegexOptions.ECMAScript);
@@ -291,37 +283,6 @@ namespace Tizen.NUI.Xaml
         }
 
         //if the assembly was generated using a version of XamlG that doesn't outputs XamlResourceIdAttributes, we still need to find the resource, and load it
-
-        //        static string GetXamlForType(Type type)
-        //        {
-        //            //the Previewer might want to provide it's own xaml for this... let them do that
-        //            //the check at the end is preferred (using ResourceLoader). keep this until all the previewers are updated
-
-        //            string xaml;
-        //#pragma warning disable 0618
-        //            if (ResourceLoader.ResourceProvider == null && (xaml = Internals.XamlLoader.XamlFileProvider?.Invoke(type)) != null)
-        //                return xaml;
-        //#pragma warning restore 0618
-
-        //            var assembly = type.GetTypeInfo().Assembly;
-        //            var resourceId = XamlResourceIdAttribute.GetResourceIdForType(type);
-
-        //            if (resourceId == null)
-        //                return LegacyGetXamlForType(type);
-
-        //            using (var stream = assembly.GetManifestResourceStream(resourceId))
-        //            {
-        //                if (stream != null)
-        //                    using (var reader = new StreamReader(stream))
-        //                        xaml = reader.ReadToEnd();
-        //                else
-        //                    xaml = null;
-        //            }
-
-        //            var alternateXaml = ResourceLoader.ResourceProvider?.Invoke(assembly.GetName(), XamlResourceIdAttribute.GetPathForType(type));
-        //            return alternateXaml ?? xaml;
-        //        }
-
         static readonly Dictionary<Type, string> XamlResources = new Dictionary<Type, string>();
         static string LegacyGetXamlForType(Type type)
         {

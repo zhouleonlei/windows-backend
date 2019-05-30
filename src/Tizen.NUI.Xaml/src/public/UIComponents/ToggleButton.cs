@@ -16,7 +16,7 @@
  */
 using System.ComponentModel;
 using Tizen.NUI;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding;
 
 namespace Tizen.NUI.Xaml.UIComponents
 {
@@ -24,7 +24,9 @@ namespace Tizen.NUI.Xaml.UIComponents
     /// <summary>
     /// A ToggleButton allows the user to change a setting between two or more states.
     /// </summary>
-    /// <since_tizen> 3 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class ToggleButton : Button
     {
         private Tizen.NUI.ToggleButton _toggleButton;
@@ -42,9 +44,11 @@ namespace Tizen.NUI.Xaml.UIComponents
         }
 
         /// <summary>
-        /// Constructor.
+        /// Create an instance for toggleButton.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ToggleButton() : this(new Tizen.NUI.ToggleButton())
         {
         }
@@ -54,7 +58,7 @@ namespace Tizen.NUI.Xaml.UIComponents
             SetNUIInstance(nuiInstance);
         }
 
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty StateVisualsProperty = BindableProperty.Create("StateVisuals", typeof(PropertyArray), typeof(ToggleButton), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -66,7 +70,7 @@ namespace Tizen.NUI.Xaml.UIComponents
             var toggleButton = ((ToggleButton)bindable).toggleButton;
             return toggleButton.StateVisuals;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty TooltipsProperty = BindableProperty.Create("Tooltips", typeof(PropertyArray), typeof(ToggleButton), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -78,7 +82,7 @@ namespace Tizen.NUI.Xaml.UIComponents
             var toggleButton = ((ToggleButton)bindable).toggleButton;
             return toggleButton.Tooltips;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty CurrentStateIndexProperty = BindableProperty.Create("CurrentStateIndex", typeof(int), typeof(ToggleButton), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -94,7 +98,9 @@ namespace Tizen.NUI.Xaml.UIComponents
         /// <summary>
         /// Gets and Sets the state visual array of toggle button.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public PropertyArray StateVisuals
         {
             get
@@ -110,7 +116,9 @@ namespace Tizen.NUI.Xaml.UIComponents
         /// <summary>
         /// Gets and Sets the tooltips of toggle button.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public PropertyArray Tooltips
         {
             get
@@ -126,7 +134,9 @@ namespace Tizen.NUI.Xaml.UIComponents
         /// <summary>
         /// Gets and Sets the current state index of toggle button.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int CurrentStateIndex
         {
             get

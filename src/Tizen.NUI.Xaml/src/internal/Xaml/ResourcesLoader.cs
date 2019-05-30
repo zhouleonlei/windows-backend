@@ -2,9 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding.Internals;
 
-// [assembly:Dependency(typeof(Tizen.NUI.Xaml.ResourcesLoader))]
 namespace Tizen.NUI.Xaml
 {
     internal class ResourcesLoader : IResourcesLoader

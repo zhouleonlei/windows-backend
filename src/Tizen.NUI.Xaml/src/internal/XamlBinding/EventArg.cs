@@ -1,9 +1,7 @@
 using System;
-using System.ComponentModel;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class EventArg<T> : EventArgs
     {
         // Property variable

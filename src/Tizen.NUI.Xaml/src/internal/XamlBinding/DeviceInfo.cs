@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal abstract class DeviceInfo : INotifyPropertyChanged, IDisposable
     {
         DeviceOrientation _currentOrientation;

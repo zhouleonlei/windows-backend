@@ -1,13 +1,11 @@
 using System;
 using System.ComponentModel;
-using Tizen.NUI.Binding.Internals;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
     /// A collection of styles and properties that can be added to an element at run time.
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal abstract class Effect
     {
         internal Effect()
@@ -38,7 +36,7 @@ namespace Tizen.NUI.Binding
         public static Effect Resolve(string name)
         {
             Effect result = null;
-            if (Tizen.NUI.Binding.Internals.Registrar.Effects.TryGetValue(name, out Type effectType))
+            if (Tizen.NUI.XamlBinding.Internals.Registrar.Effects.TryGetValue(name, out Type effectType))
             {
                 result = (Effect)DependencyResolver.ResolveOrCreate(effectType);
             }

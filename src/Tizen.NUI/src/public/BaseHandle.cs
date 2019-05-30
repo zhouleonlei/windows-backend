@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI
 {
@@ -25,7 +26,7 @@ namespace Tizen.NUI
     /// BaseHandle is a handle to an internal Dali resource.
     /// </summary>
     /// <since_tizen> 3 </since_tizen>
-    public class BaseHandle : global::System.IDisposable
+    public class BaseHandle : Element, global::System.IDisposable
     {
         /// <summary>
         /// swigCMemOwn
@@ -438,27 +439,14 @@ namespace Tizen.NUI
             return ret;
         }
 
-        public class DisposeEventArgs : EventArgs
+        internal object GetValue(BindableProperty property)
         {
-            public DisposeEventArgs(DisposeTypes type)
-            {
-                this.type = type;
-            }
-
-            public DisposeTypes type;
+            return property.DefaultValueCreator?.Invoke(this);
         }
 
-        private event EventHandler<DisposeEventArgs> disposeEvent;
-        public event EventHandler<DisposeEventArgs> DisposeEvent
+        internal void SetValue(BindableProperty property, object value)
         {
-            add
-            {
-                disposeEvent += value;
-            }
-            remove
-            {
-                disposeEvent -= value;
-            }
+            property.PropertyChanged?.Invoke(this, null, value);
         }
 
         /// <summary>

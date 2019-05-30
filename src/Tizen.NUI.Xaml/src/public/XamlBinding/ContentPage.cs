@@ -16,7 +16,7 @@
  */
 using System;
 using System.ComponentModel;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding;
 using Tizen.NUI.Xaml.Forms.BaseComponents;
 using Tizen.NUI;
 using System.Collections.Generic;
@@ -30,12 +30,14 @@ namespace Tizen.NUI.Xaml
     /// </summary>
     [ContentProperty("Content")]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class ContentPage : TemplatedPage, IResourcesProvider
+    public class ContentPage : TemplatedPage, Tizen.NUI.Binding.IResourcesProvider
     {
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public View Root {get; internal set;}
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(ContentPage), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var self = (ContentPage)bindable;
@@ -48,7 +50,7 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// The contents of ContentPage can be added into it.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public View Content
         {
@@ -57,12 +59,12 @@ namespace Tizen.NUI.Xaml
         }
 
         ResourceDictionary _resources;
-        bool IResourcesProvider.IsResourcesCreated => _resources != null;
+        bool Tizen.NUI.Binding.IResourcesProvider.IsResourcesCreated => _resources != null;
 
         /// <summary>
         /// Method that is called when the binding content changes.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ResourceDictionary XamlResources
         {
@@ -93,7 +95,7 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// Method that is called when the binding content changes.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnBindingContextChanged()
         {
@@ -124,7 +126,7 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// The constructor.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ContentPage(Window win)
         {
@@ -136,41 +138,10 @@ namespace Tizen.NUI.Xaml
             win.Add(Root.view);
         }
 
-        ///// <summary>
-        ///// To make the ContentPage instance be disposed.
-        ///// </summary>
-        ///// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void Dispose(DisposeTypes type)
-        //{
-        //    if (disposed)
-        //    {
-        //        return;
-        //    }
-
-        //    if (type == DisposeTypes.Explicit)
-        //    {
-        //        //Called by User
-        //        //Release your own managed resources here.
-        //        //You should release all of your own disposable objects here.
-        //    }
-
-        //    //Release your own unmanaged resources here.
-        //    //You should not access any managed member here except static instance.
-        //    //because the execution order of Finalizes is non-deterministic.
-        //    if(Root != null) 
-        //    {
-        //        Window.Instance.Remove(Root);
-        //        Root.Dispose();
-        //        Root = null;
-        //    }
-        //    base.Dispose(type);
-        //}
-
         /// <summary>
         /// Check whether the content is empty.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsEmpty
         {
@@ -183,7 +154,7 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// Clear all contents from this ContentPage.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void ClearContent()
         {
@@ -209,7 +180,7 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// Clear event.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler ClearEvent
         {
@@ -234,58 +205,8 @@ namespace Tizen.NUI.Xaml
         /// <summary>
         /// Users can set focus logic codes here.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual void SetFocus() { }
-
-        private Dictionary<string, Transition> transDictionary = new Dictionary<string, Transition>();
-
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Transition GetTransition(string transitionName)
-        {
-            Transition trans = null;
-            transDictionary.TryGetValue(transitionName, out trans);
-            return trans;
-        }
-
-        private void LoadTransitions()
-        {
-            foreach (string str in transitionNames)
-            {
-                string resourceName = str + ".xaml";
-                Transition trans = null;
-
-                string resource = Tizen.Applications.Application.Current.DirectoryInfo.Resource;
-
-                string likelyResourcePath = resource + "animation/" + resourceName;
-
-                if (File.Exists(likelyResourcePath))
-                {
-                    trans = Extensions.LoadObject<Transition>(likelyResourcePath);
-                }
-                if (trans)
-                {
-                    transDictionary.Add(trans.Name, trans);
-                }
-            }
-        }
-
-        private string[] transitionNames;
-
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string[] TransitionNames
-        {
-            get
-            {
-                return transitionNames;
-            }
-            set
-            {
-                transitionNames = value;
-                LoadTransitions();
-            }
-        }
     }
 }

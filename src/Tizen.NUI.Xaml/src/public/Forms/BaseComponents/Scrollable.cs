@@ -16,7 +16,7 @@
  */
 using System.ComponentModel;
 using Tizen.NUI;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding;
 using static Tizen.NUI.BaseComponents.Scrollable;
 
 namespace Tizen.NUI.Xaml.Forms.BaseComponents
@@ -25,7 +25,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
     /// Base class for derived Scrollables that contains actors that can be scrolled manually
     /// (via touch) or automatically.
     /// </summary>
-    /// <since_tizen> 3 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class Scrollable : View
     {
         private Tizen.NUI.BaseComponents.Scrollable _scrollable;
@@ -45,7 +46,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Scrollable() : this(new Tizen.NUI.BaseComponents.Scrollable())
         {
         }
@@ -55,7 +57,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             SetNUIInstance(nuiInstance);
         }
 
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty OvershootEffectColorProperty = BindableProperty.Create("OvershootEffectColor", typeof(Vector4), typeof(Scrollable), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -67,7 +69,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.OvershootEffectColor;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty OvershootAnimationSpeedProperty = BindableProperty.Create("OvershootAnimationSpeed", typeof(float), typeof(Scrollable), default(float), propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -79,7 +81,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.OvershootAnimationSpeed;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty OvershootEnabledProperty = BindableProperty.Create("OvershootEnabled", typeof(bool), typeof(Scrollable), false, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -91,7 +93,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.OvershootEnabled;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty OvershootSizeProperty = BindableProperty.Create("OvershootSize", typeof(Vector2), typeof(Scrollable), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -103,7 +105,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.OvershootSize;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ScrollToAlphaFunctionProperty = BindableProperty.Create("ScrollToAlphaFunction", typeof(int), typeof(Scrollable), default(int), propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -115,7 +117,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.ScrollToAlphaFunction;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ScrollRelativePositionProperty = BindableProperty.Create("ScrollRelativePosition", typeof(Vector2), typeof(Scrollable), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -127,7 +129,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.ScrollRelativePosition;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ScrollPositionMinProperty = BindableProperty.Create("ScrollPositionMin", typeof(Vector2), typeof(Scrollable), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -139,7 +141,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.ScrollPositionMin;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty ScrollPositionMaxProperty = BindableProperty.Create("ScrollPositionMax", typeof(Vector2), typeof(Scrollable), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -151,7 +153,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.ScrollPositionMax;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty CanScrollVerticalProperty = BindableProperty.Create("CanScrollVertical", typeof(bool), typeof(Scrollable), false, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -163,7 +165,7 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
             var scrollable = ((Scrollable)bindable).scrollable;
             return scrollable.CanScrollVertical;
         });
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static readonly BindableProperty CanScrollHorizontalProperty = BindableProperty.Create("CanScrollHorizontal", typeof(bool), typeof(Scrollable), false, propertyChanged: (bindable, oldValue, newValue) =>
         {
@@ -179,7 +181,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// The ScrollStarted event emitted when the Scrollable has moved (whether by touch or animation).
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event DaliEventHandler<object, StartedEventArgs> ScrollStarted
         {
             add
@@ -196,7 +199,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// The ScrollUpdated event emitted when the Scrollable has moved (whether by touch or animation).
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event DaliEventHandler<object, UpdatedEventArgs> ScrollUpdated
         {
             add
@@ -214,7 +218,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// The ScrollCompleted event emitted when the Scrollable has completed movement
         /// (whether by touch or animation).
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public event DaliEventHandler<object, CompletedEventArgs> ScrollCompleted
         {
             add
@@ -231,7 +236,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Sets and Gets the color of the overshoot effect.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector4 OvershootEffectColor
         {
             get
@@ -247,7 +253,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Sets and Gets the speed of overshoot animation in pixels per second.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public float OvershootAnimationSpeed
         {
             get
@@ -263,7 +270,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Checks if scroll overshoot has been enabled or not.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool OvershootEnabled
         {
             get
@@ -279,7 +287,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets OvershootSize property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2 OvershootSize
         {
             get
@@ -295,7 +304,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets ScrollToAlphaFunction property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int ScrollToAlphaFunction
         {
             get
@@ -311,7 +321,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets ScrollRelativePosition property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2 ScrollRelativePosition
         {
             get
@@ -327,7 +338,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets ScrollPositionMin property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2 ScrollPositionMin
         {
             get
@@ -343,7 +355,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets ScrollPositionMax property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Vector2 ScrollPositionMax
         {
             get
@@ -359,7 +372,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets CanScrollVertical property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool CanScrollVertical
         {
             get
@@ -375,7 +389,8 @@ namespace Tizen.NUI.Xaml.Forms.BaseComponents
         /// <summary>
         /// Gets and Sets CanScrollHorizontal property.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool CanScrollHorizontal
         {
             get

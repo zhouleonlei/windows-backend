@@ -1,7 +1,7 @@
 using System;
 
 using System.Globalization;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding;
 
 namespace Tizen.NUI.Examples
 {
@@ -27,9 +27,9 @@ namespace Tizen.NUI.Examples
             Window window = Window.Instance;
             window.BackgroundColor = Color.Green;
 
-            ViewToViewPage myPage = new ViewToViewPage(window);
+            ViewToViewPage myPage = new ViewToViewPage();
+            window.Add(myPage.ViewInstance);
             Console.WriteLine("==================  Set BindingContext in Application !!!! ==================");
-            myPage.SetFocus();
         }
     }
 }

@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Tizen.NUI.Xaml;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
     /// For internal use.
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class NavigationProxy : INavigation
     {
         INavigation _inner;

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding.Internals;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
-    /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class NameScopeExtensions
     {
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static T FindByName<T>(this Element element, string name)
         {
@@ -32,6 +32,7 @@ namespace Tizen.NUI.Binding
             elementStack.Pop();
         }
 
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static T FindByNameInCurrentNameScope<T>(string name)
         {

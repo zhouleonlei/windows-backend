@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Tizen.NUI.Binding;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     // Previewer uses reflection to bind to this method; Removal or modification of visibility will break previewer.
     internal static class Registrar
@@ -14,13 +12,12 @@ namespace Tizen.NUI.Binding
     }
 }
 
-namespace Tizen.NUI.Binding.Internals
+namespace Tizen.NUI.XamlBinding.Internals
 {
     /// <summary>
     /// For internal use.
     /// </summary>
     /// <typeparam name="TRegistrable"></typeparam>
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class Registrar<TRegistrable> where TRegistrable : class
     {
         readonly Dictionary<Type, Type> _handlers = new Dictionary<Type, Type>();
@@ -200,7 +197,6 @@ namespace Tizen.NUI.Binding.Internals
     /// <summary>
     /// For internal use
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal static class Registrar
     {
         static Registrar()

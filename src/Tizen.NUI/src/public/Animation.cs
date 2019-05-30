@@ -417,6 +417,46 @@ namespace Tizen.NUI
             }
         }
 
+        /// <summary>
+        /// Gets or sets the properties of the animation.
+        /// </summary>
+        /// Deprecated. Do not use.
+        public string[] Properties
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the destination value for each property of the animation.
+        /// </summary>
+        /// Deprecated. Do not use.
+        public string[] DestValue
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the start time for each property of the animation.
+        /// </summary>
+        /// Deprecated. Do not use.
+        public int[] StartTime
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the end time for each property of the animation.
+        /// </summary>
+        /// Deprecated. Do not use.
+        public int[] EndTime
+        {
+            get;
+            set;
+        }
+
         private bool DisableAnimation
         {
             get
@@ -567,6 +607,15 @@ namespace Tizen.NUI
             {
                 AnimateTo(_prop, val);
             }
+        }
+
+        /// <summary>
+        /// Animates one or more properties to a destination value.<br />
+        /// </summary>
+        /// <param name="target">The target object to animate.</param>
+        /// Deprecated. Do not use.
+        public void PlayAnimateTo(View target)
+        {
         }
 
         /// <summary>

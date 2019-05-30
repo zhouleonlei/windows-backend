@@ -18,6 +18,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Tizen.NUI.BaseComponents;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.UIComponents
 {
@@ -27,6 +28,160 @@ namespace Tizen.NUI.UIComponents
     /// <since_tizen> 3 </since_tizen>
     public class ProgressBar : View
     {
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ProgressValueProperty = BindableProperty.Create("ProgressValue", typeof(float), typeof(ProgressBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.PROGRESS_VALUE, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.PROGRESS_VALUE).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SecondaryProgressValueProperty = BindableProperty.Create("SecondaryProgressValue", typeof(float), typeof(ProgressBar), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VALUE, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VALUE).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty IndeterminateProperty = BindableProperty.Create("Indeterminate", typeof(bool), typeof(ProgressBar), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty TrackVisualProperty = BindableProperty.Create("TrackVisual", typeof(PropertyMap), typeof(ProgressBar), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.TRACK_VISUAL, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.TRACK_VISUAL).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ProgressVisualProperty = BindableProperty.Create("ProgressVisual", typeof(PropertyMap), typeof(ProgressBar), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.PROGRESS_VISUAL, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.PROGRESS_VISUAL).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SecondaryProgressVisualProperty = BindableProperty.Create("SecondaryProgressVisual", typeof(PropertyMap), typeof(ProgressBar), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VISUAL, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VISUAL).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty IndeterminateVisualProperty = BindableProperty.Create("IndeterminateVisual", typeof(PropertyMap), typeof(ProgressBar), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty IndeterminateVisualAnimationProperty = BindableProperty.Create("IndeterminateVisualAnimation", typeof(PropertyArray), typeof(ProgressBar), new PropertyArray(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL_ANIMATION, new Tizen.NUI.PropertyValue((PropertyArray)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyArray temp = new Tizen.NUI.PropertyArray();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL_ANIMATION).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty LabelVisualProperty = BindableProperty.Create("LabelVisual", typeof(PropertyMap), typeof(ProgressBar), new PropertyMap(), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(progressBar.swigCPtr, ProgressBar.Property.LABEL_VISUAL, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var progressBar = (ProgressBar)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(progressBar.swigCPtr, ProgressBar.Property.LABEL_VISUAL).Get(temp);
+            return temp;
+        });
+
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
         private EventHandler<ValueChangedEventArgs> _progressBarValueChangedEventHandler;
         private ValueChangedCallbackDelegate _progressBarValueChangedCallbackDelegate;
@@ -85,13 +240,11 @@ namespace Tizen.NUI.UIComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.PROGRESS_VALUE).Get(out temp);
-                return temp;
+                return (float)GetValue(ProgressValueProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.PROGRESS_VALUE, new PropertyValue(value));
+                SetValue(ProgressValueProperty, value);
             }
         }
 
@@ -107,13 +260,11 @@ namespace Tizen.NUI.UIComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VALUE).Get(out temp);
-                return temp;
+                return (float)GetValue(SecondaryProgressValueProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VALUE, new PropertyValue(value));
+                SetValue(SecondaryProgressValueProperty, value);
             }
         }
 
@@ -125,13 +276,11 @@ namespace Tizen.NUI.UIComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE).Get(out temp);
-                return temp;
+                return (bool)GetValue(IndeterminateProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE, new PropertyValue(value));
+                SetValue(IndeterminateProperty, value);
             }
         }
 
@@ -140,20 +289,15 @@ namespace Tizen.NUI.UIComponents
         /// Optional. If not supplied, the default track visual will be shown.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap TrackVisual
+        public Tizen.NUI.PropertyMap TrackVisual
         {
             get
             {
-                PropertyMap temp = new PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.TRACK_VISUAL).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(TrackVisualProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.TRACK_VISUAL, new PropertyValue((PropertyMap)value));
-                }
+                SetValue(TrackVisualProperty, value);
             }
         }
 
@@ -162,20 +306,15 @@ namespace Tizen.NUI.UIComponents
         /// Optional. If not supplied, then the default progress visual will be shown.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap ProgressVisual
+        public Tizen.NUI.PropertyMap ProgressVisual
         {
             get
             {
-                PropertyMap temp = new PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.PROGRESS_VISUAL).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(ProgressVisualProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.PROGRESS_VISUAL, new PropertyValue((PropertyMap)value));
-                }
+                SetValue(ProgressVisualProperty, value);
             }
         }
 
@@ -184,20 +323,15 @@ namespace Tizen.NUI.UIComponents
         /// Optional. If not supplied, then the secondary progress visual will not be shown.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap SecondaryProgressVisual
+        public Tizen.NUI.PropertyMap SecondaryProgressVisual
         {
             get
             {
-                PropertyMap temp = new PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VISUAL).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(SecondaryProgressVisualProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.SECONDARY_PROGRESS_VISUAL, new PropertyValue((PropertyMap)value));
-                }
+                SetValue(SecondaryProgressVisualProperty, value);
             }
         }
 
@@ -206,20 +340,15 @@ namespace Tizen.NUI.UIComponents
         /// Optional. If not supplied, then the default indeterminate visual will be shown.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap IndeterminateVisual
+        public Tizen.NUI.PropertyMap IndeterminateVisual
         {
             get
             {
-                PropertyMap temp = new PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(IndeterminateVisualProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL, new PropertyValue((PropertyMap)value));
-                }
+                SetValue(IndeterminateVisualProperty, value);
             }
         }
 
@@ -228,20 +357,15 @@ namespace Tizen.NUI.UIComponents
         /// Optional. If not supplied, then the default animation will be played.<br />
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyArray IndeterminateVisualAnimation
+        public Tizen.NUI.PropertyArray IndeterminateVisualAnimation
         {
             get
             {
-                PropertyArray temp = new PropertyArray();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL_ANIMATION).Get(temp);
-                return temp;
+                return (PropertyArray)GetValue(IndeterminateVisualAnimationProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.INDETERMINATE_VISUAL_ANIMATION, new PropertyValue((PropertyArray)value));
-                }
+                SetValue(IndeterminateVisualAnimationProperty, value);
             }
         }
 
@@ -249,20 +373,15 @@ namespace Tizen.NUI.UIComponents
         /// The label visual of the progress bar.
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
-        public PropertyMap LabelVisual
+        public Tizen.NUI.PropertyMap LabelVisual
         {
             get
             {
-                PropertyMap temp = new PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, ProgressBar.Property.LABEL_VISUAL).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(LabelVisualProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ProgressBar.Property.LABEL_VISUAL, new PropertyValue((PropertyMap)value));
-                }
+                SetValue(LabelVisualProperty, value);
             }
         }
 

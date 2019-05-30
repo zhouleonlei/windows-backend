@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-
-namespace Tizen.NUI.Binding
+﻿namespace Tizen.NUI.XamlBinding
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal static class DataTemplateExtensions
     {
         public static DataTemplate SelectDataTemplate(this DataTemplate self, object item, BindableObject container)
