@@ -6,6 +6,7 @@ using Tizen.NUI.Xaml;
 [assembly: XamlCompilationAttribute(XamlCompilationOptions.Compile)]
 
 // Tizen.NUI.Xaml.Loader.dll Tizen.NUI.Xaml.XamlLoader.Load(object, string), kzu@microsoft.com
+[assembly: XmlnsDefinition("http://tizen.org/Tizen.NUI/2018/XAML", "Tizen.NUI")]
 [assembly: XmlnsDefinition("http://tizen.org/Tizen.NUI/2018/XAML", "Tizen.NUI.Xaml.Forms.BaseComponents")]
 [assembly: XmlnsDefinition("http://tizen.org/Tizen.NUI/2018/XAML", "Tizen.NUI.UIComponents")]
 [assembly: XmlnsDefinition("http://tizen.org/Tizen.NUI/2018/XAML", "Tizen.NUI.Xaml")]
