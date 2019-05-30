@@ -868,7 +868,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                CreateIconAttributes();
+                CreateTextAttributes();
                 buttonAttributes.TextAttributes.PaddingLeft = value;
                 RelayoutRequest();
             }
@@ -888,7 +888,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                CreateIconAttributes();
+                CreateTextAttributes();
                 buttonAttributes.TextAttributes.PaddingRight = value;
                 RelayoutRequest();
             }
@@ -908,7 +908,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                CreateIconAttributes();
+                CreateTextAttributes();
                 buttonAttributes.TextAttributes.PaddingTop = value;
                 RelayoutRequest();
             }
@@ -928,7 +928,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                CreateIconAttributes();
+                CreateTextAttributes();
                 buttonAttributes.TextAttributes.PaddingBottom = value;
                 RelayoutRequest();
             }
@@ -952,33 +952,23 @@ namespace Tizen.NUI.CommonUI
                 if (buttonIcon != null)
                 {
                     buttonIcon.Relayout -= OnIconRelayout;
-                    this.Remove(buttonIcon);
-                    buttonIcon.Dispose();
-                    buttonIcon = null;
+                    Utility.Dispose(buttonIcon);
                 }
                 if (buttonText != null)
                 {
-                    this.Remove(buttonText);
-                    buttonText.Dispose();
-                    buttonText = null;
+                    Utility.Dispose(buttonText);
                 }
                 if (overlayImage != null)
                 {
-                    this.Remove(overlayImage);
-                    overlayImage.Dispose();
-                    overlayImage = null;
+                    Utility.Dispose(overlayImage);
                 }
                 if (backgroundImage != null)
                 {
-                    this.Remove(backgroundImage);
-                    backgroundImage.Dispose();
-                    backgroundImage = null;
+                    Utility.Dispose(backgroundImage);
                 }
                 if (shadowImage != null)
                 {
-                    this.Remove(shadowImage);
-                    shadowImage.Dispose();
-                    shadowImage = null;
+                    Utility.Dispose(shadowImage);
                 }
             }
 
@@ -1007,7 +997,7 @@ namespace Tizen.NUI.CommonUI
                     }
                 }
             }
-            else
+            else if (e.Key.State == Key.StateType.Up)
             {
                 if (e.Key.KeyPressedName == "Return")
                 {
@@ -1402,10 +1392,7 @@ namespace Tizen.NUI.CommonUI
 
         private void OnClick(ClickEventArgs eventArgs)
         {
-            if (ClickEvent != null)
-            {
-                ClickEvent(this, eventArgs);
-            }
+            ClickEvent?.Invoke(this, eventArgs);
         }
 
         private void OnIconRelayout(object sender, EventArgs e)
