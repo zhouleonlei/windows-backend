@@ -1097,11 +1097,10 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update Button by attributes.
         /// </summary>
-        /// <param name="attributes">Button attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             buttonAttributes = attributes as ButtonAttributes;
             if (buttonAttributes == null)
@@ -1201,7 +1200,7 @@ namespace Tizen.NUI.CommonUI
             {
                 State = targetState;
 
-                OnUpdate(attributes);
+                OnUpdate();
 
                 StateChangeEventArgs e = new StateChangeEventArgs
                 {
@@ -1224,6 +1223,7 @@ namespace Tizen.NUI.CommonUI
             {
                 throw new Exception("Button attribute parse error.");
             }
+
             ApplyAttributes(this, buttonAttributes);
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }

@@ -271,11 +271,10 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Search Bar by attributes.
         /// </summary>
-        /// <param name="attributes">Search Bar attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             searchBarAttrs = attributes as SearchBarAttributes;
             if (searchBarAttrs == null)
@@ -309,7 +308,7 @@ namespace Tizen.FH.NUI.Controls
             searchBarAttrs = attributes as SearchBarAttributes;
             if (searchBarAttrs == null)
             {
-                throw new Exception("Fail to get the base searchBar attributes.");
+                throw new Exception("SearchBar attribute parse error.");
             }
             if (searchBarAttrs.SearchBoxAttributes != null && inputField == null)
             {

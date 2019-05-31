@@ -283,11 +283,10 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Picker by attributes.
         /// </summary>
-        /// <param name="attributes">Picker attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             pickerAttributes = attributes as PickerAttributes;
             
@@ -385,7 +384,6 @@ namespace Tizen.FH.NUI.Controls
         private void Initialize()
         {
             pickerAttributes = attributes as PickerAttributes;
-            
             if (pickerAttributes == null)
             {
                 throw new Exception("Picker attribute parse error.");

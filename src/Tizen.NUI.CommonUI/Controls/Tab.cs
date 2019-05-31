@@ -46,11 +46,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab() : base()
         {
-            tabAttributes = attributes as TabAttributes;
-            if (tabAttributes == null)
-            {
-                throw new Exception("Tab attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -62,11 +57,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab(string style) : base(style)
         {
-            tabAttributes = attributes as TabAttributes;
-            if (tabAttributes == null)
-            {
-                throw new Exception("Tab attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -78,7 +68,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab(TabAttributes attributes) : base(attributes)
         {
-            tabAttributes = this.attributes as TabAttributes;
             Initialize();
         }
 
@@ -470,11 +459,10 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update Tab by attributes.
         /// </summary>
-        /// <param name="attributes">Tab attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             tabAttributes = attributes as TabAttributes;
             if (tabAttributes == null)
@@ -616,6 +604,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            tabAttributes = attributes as TabAttributes;
+            if (tabAttributes == null)
+            {
+                throw new Exception("Tab attribute parse error.");
+            }
+
             ApplyAttributes(this, tabAttributes);
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }

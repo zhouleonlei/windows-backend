@@ -745,11 +745,10 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update List Item by attributes.
         /// </summary>
-        /// <param name="attributes">List Item attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             listItemAttrs = attributes as ListItemAttributes;
             if (listItemAttrs == null)
@@ -791,7 +790,7 @@ namespace Tizen.FH.NUI.Controls
             listItemAttrs = attributes as ListItemAttributes;
             if (listItemAttrs == null)
             {
-                throw new Exception("Fail to get the ListItem attributes.");
+                throw new Exception("ListItem attributes parse error.");
             }
             if (textRootView == null)
             {

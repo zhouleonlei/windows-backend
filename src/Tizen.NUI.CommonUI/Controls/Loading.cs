@@ -14,6 +14,7 @@
  * limitations under the License.
  *
  */
+using System;
 using System.Collections.Generic;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
@@ -44,7 +45,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading() : base()
         {
-            loadingAttrs = this.attributes as LoadingAttributes;
             Initialize();
         }
 
@@ -57,8 +57,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(string style) : base(style)
         {
-            if (attributes != null)
-                loadingAttrs = attributes as LoadingAttributes;
             Initialize();
         }
 
@@ -71,7 +69,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Loading(LoadingAttributes attributes) : base(attributes)
         {
-            loadingAttrs = attributes as LoadingAttributes;
             Initialize();
         }
 
@@ -180,11 +177,10 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update Loading by attributes.
         /// </summary>
-        /// <param name="attributes">Loading attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attrs)
+        protected override void OnUpdate()
         {
             if (loadingAttrs == null)
             {
@@ -195,6 +191,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            loadingAttrs = attributes as LoadingAttributes;
+            if(loadingAttrs == null)
+            {
+                throw new Exception("Loading attribute parse error.");
+            }
+
             ImageArray = new List<string>();
             imageVisual = new AnimatedImageVisual()
             {

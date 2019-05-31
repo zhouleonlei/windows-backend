@@ -47,11 +47,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup() : base()
         {
-            popupAttributes = attributes as PopupAttributes;
-            if (popupAttributes == null)
-            {
-                throw new Exception("Popup attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -63,11 +58,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(string style) : base(style)
         {
-            popupAttributes = attributes as PopupAttributes;
-            if (popupAttributes == null)
-            {
-                throw new Exception("Popup attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -79,7 +69,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Popup(PopupAttributes attributes) : base(attributes)
         {
-            popupAttributes = this.attributes as PopupAttributes;
             Initialize();
         }
         /// <summary>
@@ -712,11 +701,10 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update Popup by attributes.
         /// </summary>
-        /// <param name="attributes">Popup attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             popupAttributes = attributes as PopupAttributes;
             if (popupAttributes == null)
@@ -885,6 +873,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            popupAttributes = attributes as PopupAttributes;
+            if (popupAttributes == null)
+            {
+                throw new Exception("Popup attribute parse error.");
+            }
+
             ApplyAttributes(this, popupAttributes);
 
             StateFocusableOnTouchMode = true;

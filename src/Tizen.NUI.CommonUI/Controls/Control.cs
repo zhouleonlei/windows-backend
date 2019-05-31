@@ -44,9 +44,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Attributes attributes;
 
-        private static Dictionary<string, Type> styleToAttributes = new Dictionary<string, Type>();
         private TapGestureDetector tapGestureDetector = new TapGestureDetector();
-        private ControlStates state;
         private bool isFocused = false;
 
         /// <summary>
@@ -100,9 +98,7 @@ namespace Tizen.NUI.CommonUI
         /// Whether focusable when touch
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public bool StateFocusableOnTouchMode
+        internal bool StateFocusableOnTouchMode
         {
             get;
             set;
@@ -265,7 +261,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     Color outstrokeColor = textAttrs.OutstrokeColor.GetValue(State);
                     PropertyMap outlineMap = new PropertyMap();
-                    outlineMap.Add("color", new PropertyValue(new Color(outstrokeColor.R, outstrokeColor.G, outstrokeColor.B, outstrokeColor.R)));
+                    outlineMap.Add("color", new PropertyValue(new Color(outstrokeColor.R, outstrokeColor.G, outstrokeColor.B, outstrokeColor.A)));
                     outlineMap.Add("width", new PropertyValue(thickness));
                     text.Outline = outlineMap;
                 }
@@ -309,7 +305,7 @@ namespace Tizen.NUI.CommonUI
                 }
                 if (textFieldAttrs.PlaceholderTextColor?.GetValue(State) != null)
                 {
-                    textField.TextColor = textFieldAttrs.PlaceholderTextColor.GetValue(State);
+                    textField.PlaceholderTextColor = textFieldAttrs.PlaceholderTextColor.GetValue(State);
                 }
                 if (textFieldAttrs.PrimaryCursorColor?.GetValue(State) != null)
                 {
@@ -402,7 +398,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnRelayout(object sender, EventArgs e)
         {
-            OnUpdate(attributes);
+            OnUpdate();
         }
         /// <summary>
         /// Focus gain callback.
@@ -454,11 +450,10 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update by attributes.
         /// </summary>
-        /// <param name="attributes">Button attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnUpdate(Attributes attributtes)
+        protected virtual void OnUpdate()
         {
         }
         /// <summary>

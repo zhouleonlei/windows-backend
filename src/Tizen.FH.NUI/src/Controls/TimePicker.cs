@@ -237,11 +237,10 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update TimePicker by attributes.
         /// </summary>
-        /// <param name="attributes">TimePicker attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             timePickerAttributes = attributes as TimePickerAttributes;
             
@@ -344,7 +343,7 @@ namespace Tizen.FH.NUI.Controls
             
             if (timePickerAttributes == null)
             {
-                throw new Exception("Picker attribute parse error.");
+                throw new Exception("TimePicker attribute parse error.");
             }
 
             StateFocusableOnTouchMode = true;

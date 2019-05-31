@@ -39,6 +39,11 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes(ImageAttributes attributes) : base(attributes)
         {
+            if (attributes == null)
+            {
+                return;
+            }
+
             if (attributes.ResourceURL != null)
             {
                 ResourceURL = attributes.ResourceURL.Clone() as StringSelector;
@@ -77,7 +82,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
-            return new ImageAttributes(this); ;
+            return new ImageAttributes(this);
         }
 
     }

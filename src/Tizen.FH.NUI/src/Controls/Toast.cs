@@ -49,10 +49,7 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
-            SetAttribute();
-
             Initialize();
-            base.SetAttribute();
         }
 
         /// <summary>
@@ -64,13 +61,7 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
-            SetAttribute();
-            if (toastAttributes == null)
-            {
-                throw new Exception("Toast attribute parse error.");
-            }
-            base.SetAttribute();
-            ApplyAttributes(this, toastAttributes);
+            Initialize();
         }
 
         /// <summary>
@@ -353,16 +344,11 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Relayout control's elements
         /// </summary>
-        /// <param name="attributes">Attributes to be applied</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributes)
+        protected override void OnUpdate()
         {
-            if (toastAttributes == null)
-            {
-                return;
-            }
             DownSpace = UpSpace;
             if (loadingEnable)
             {
@@ -376,7 +362,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 DownSpace = 98;
             }
-            base.OnUpdate(attributes);
+            base.OnUpdate();
         }
 
         /// <summary>
@@ -463,19 +449,14 @@ namespace Tizen.FH.NUI.Controls
 
         }
 
-        /// <summary>
-        /// Set ToastAttributes as control.attribues.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected void SetAttribute()
-        {
-            toastAttributes = this.attributes as ToastAttributes;
-        }
-
         private void Initialize()
         {
+            toastAttributes = this.attributes as ToastAttributes;
+            if(toastAttributes == null)
+            {
+                throw new Exception("Toast attribute parse error.");
+            }
+            ApplyAttributes(this, toastAttributes);
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }
 
