@@ -242,12 +242,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            timePickerAttributes = attributes as TimePickerAttributes;
-            
-            if (timePickerAttributes == null)
-            {
-                return;
-            }
 
             ApplyAttributes(this, timePickerAttributes);            
             ApplyAttributes(shadowImage, timePickerAttributes.ShadowImageAttributes);
@@ -346,7 +340,6 @@ namespace Tizen.FH.NUI.Controls
                 throw new Exception("TimePicker attribute parse error.");
             }
 
-            StateFocusableOnTouchMode = true;
             LeaveRequired = true;
             curTime = DateTime.Now;
 

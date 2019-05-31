@@ -712,7 +712,6 @@ namespace Tizen.FH.NUI.Controls
 
             public NavigationItem(NavigationItemAttributes attributes) : base(attributes)
             {
-                base.Initialize();
                 Initialize();
             }           
 
@@ -779,7 +778,7 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
-            private new void Initialize()
+            private void Initialize()
             {
                 itemAttributes = attributes as NavigationItemAttributes;
                 if (itemAttributes == null)
@@ -1299,8 +1298,6 @@ namespace Tizen.FH.NUI.Controls
 
             private void Initalize()
             {
-                base.Initialize();
-
                 ItemAttributes = attributes as NavigationItemAttributes;
                 if (ItemAttributes == null)
                 {

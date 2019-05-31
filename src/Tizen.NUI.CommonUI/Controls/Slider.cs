@@ -793,12 +793,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            sliderAttrs = attributes as SliderAttributes;
-            if (sliderAttrs == null)
-            {
-                return;
-            }
-
             if (sliderAttrs.BackgroundTrackAttributes != null && bgTrackImage == null)
             {
                 bgTrackImage = new ImageView()

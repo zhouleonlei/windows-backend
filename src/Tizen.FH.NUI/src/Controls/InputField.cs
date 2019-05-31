@@ -305,12 +305,6 @@ namespace Tizen.FH.NUI.Controls
         {
             RelayoutTextField(false);
             base.OnUpdate();
-
-            inputFieldAttrs = attributes as InputFieldAttributes;
-            if (inputFieldAttrs == null)
-            {
-                return;
-            }
             ApplyAttributes(cancelBtn, inputFieldAttrs.CancelButtonAttributes);
             ApplyAttributes(deleteBtn, inputFieldAttrs.DeleteButtonAttributes);
             ApplyAttributes(addBtnBg, inputFieldAttrs.AddButtonBgAttributes);

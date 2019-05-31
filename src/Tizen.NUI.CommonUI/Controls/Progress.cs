@@ -538,11 +538,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            if (progressBarAttrs == null)
-            {
-                return;
-            }
-
             ApplyAttributes(this, progressBarAttrs);
             ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
             ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);

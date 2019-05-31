@@ -366,7 +366,7 @@ namespace Tizen.NUI.CommonUI
             return new SwitchAttributes();
         }
 
-        private new void Initialize()
+        private void Initialize()
         {
             switchAttributes = attributes as SwitchAttributes;
             if (switchAttributes == null)

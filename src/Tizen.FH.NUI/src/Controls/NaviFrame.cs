@@ -200,12 +200,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            
-            naviframeAttributes = attributes as NaviFrameAttributes;
-            if (naviframeAttributes == null)
-            {
-                return;
-            }
             if(naviframeAttributes.NaviHeaderAttributes != null)
             {
                 ApplyAttributes(headContent, naviframeAttributes.NaviHeaderAttributes);

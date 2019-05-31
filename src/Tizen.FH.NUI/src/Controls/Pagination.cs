@@ -324,12 +324,6 @@ namespace Tizen.FH.NUI.Controls
         {
             base.OnUpdate();
 
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                return;
-            }
-
             ApplyAttributes(returnArrow, paginationAttributes.ReturnArrowAttributes);
             ApplyAttributes(nextArrow, paginationAttributes.NextArrowAttributes);
 

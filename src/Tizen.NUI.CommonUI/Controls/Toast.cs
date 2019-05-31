@@ -263,10 +263,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            if (toastAttributes == null)
-            {
-                return;
-            }
 
             LayoutChild();
 

@@ -288,12 +288,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            pickerAttributes = attributes as PickerAttributes;
-            
-            if (pickerAttributes == null)
-            {
-                return;
-            }
 
             ApplyAttributes(this, pickerAttributes);            
             ApplyAttributes(shadowImage, pickerAttributes.ShadowImageAttributes);
@@ -389,7 +383,6 @@ namespace Tizen.FH.NUI.Controls
                 throw new Exception("Picker attribute parse error.");
             }
 
-            StateFocusableOnTouchMode = true;
             LeaveRequired = true;
 
             if (pickerAttributes.ShadowImageAttributes != null)

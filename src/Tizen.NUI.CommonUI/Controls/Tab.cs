@@ -464,12 +464,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            tabAttributes = attributes as TabAttributes;
-            if (tabAttributes == null)
-            {
-                return;
-            }
-
             if (tabAttributes.UnderLineAttributes != null)
             {
                 if (underline == null)

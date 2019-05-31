@@ -386,12 +386,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            spinAttributes = attributes as SpinAttributes;
-            
-            if (spinAttributes == null)
-            {
-                return;
-            }
 
             ApplyAttributes(this, spinAttributes);
             ApplyAttributes(backgroundImage, spinAttributes.BackgroundImageAttributes);
@@ -444,7 +438,6 @@ namespace Tizen.FH.NUI.Controls
                 throw new Exception("Spin attribute parse error.");
             }
 
-            StateFocusableOnTouchMode = true;
             LeaveRequired = true;
             
             if (spinAttributes.BackgroundImageAttributes != null)

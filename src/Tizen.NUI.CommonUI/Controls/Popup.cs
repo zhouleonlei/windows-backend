@@ -706,12 +706,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            popupAttributes = attributes as PopupAttributes;
-            if (popupAttributes == null)
-            {
-                return;
-            }
-
             int w = 0;
             int h = 0;
             int titleX = 0;
@@ -880,8 +874,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             ApplyAttributes(this, popupAttributes);
-
-            StateFocusableOnTouchMode = true;
             LeaveRequired = true;
 
             ContentView = new View()

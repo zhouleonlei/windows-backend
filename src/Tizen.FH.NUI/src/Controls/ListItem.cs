@@ -750,11 +750,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            listItemAttrs = attributes as ListItemAttributes;
-            if (listItemAttrs == null)
-            {
-                return;
-            }
             CurrentStyleType();
             ApplyAttributes(this, listItemAttrs);
             ApplyMainTextAttributes();

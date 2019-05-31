@@ -321,11 +321,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                return;
-            }
 
             for (int i = 0; i < indicatorList.Count; i++)
             {

@@ -578,12 +578,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                return;
-            }
-
             if (selectButtonAttributes.CheckImageAttributes != null)
             {
                 if (checkImage == null)

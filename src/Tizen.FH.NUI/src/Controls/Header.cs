@@ -190,11 +190,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            headerAttribute = attributes as HeaderAttributes;
-            if (headerAttribute == null)
-            {
-                return;
-            }
             if (headerAttribute.TextAttributes != null)
             {
                 if (headerTitle== null)

@@ -203,11 +203,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            inputFieldAttrs = attributes as InputFieldAttributes;
-            if (inputFieldAttrs == null)
-            {
-                return;
-            }
             ApplyAttributes(this, inputFieldAttrs);
             ApplyAttributes(bgImage, inputFieldAttrs.BackgroundImageAttributes);
             ApplyAttributes(textField, inputFieldAttrs.InputBoxAttributes);

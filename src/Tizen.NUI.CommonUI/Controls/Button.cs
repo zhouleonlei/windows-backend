@@ -1102,12 +1102,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            buttonAttributes = attributes as ButtonAttributes;
-            if (buttonAttributes == null)
-            {
-                return;
-            }
-
             if (buttonAttributes.ShadowImageAttributes != null)
             {
                 if(shadowImage == null)
@@ -1214,9 +1208,7 @@ namespace Tizen.NUI.CommonUI
         /// It is hijack by using protected, attributes copy problem when class inherited from Button.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected void Initialize()
+        private void Initialize()
         {
             buttonAttributes = attributes as ButtonAttributes;
             if (buttonAttributes == null)

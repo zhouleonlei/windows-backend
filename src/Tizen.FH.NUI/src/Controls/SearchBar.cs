@@ -276,11 +276,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            searchBarAttrs = attributes as SearchBarAttributes;
-            if (searchBarAttrs == null)
-            {
-                return;
-            }
             inputField.LayoutDirection = LayoutDirection;
             ApplyAttributes(this, searchBarAttrs);
             ApplyAttributes(inputField, searchBarAttrs.SearchBoxAttributes);

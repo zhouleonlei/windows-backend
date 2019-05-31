@@ -471,11 +471,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            if (scrollBarAttrs == null)
-            {
-                return;
-            }
-
             ApplyAttributes(this, scrollBarAttrs);
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);

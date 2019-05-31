@@ -765,12 +765,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            dropDownAttributes = attributes as DropDownAttributes;
-            if (dropDownAttributes == null)
-            {
-                return;
-            }
-
             if (dropDownAttributes.HeaderTextAttributes != null)
             {
                 if (headerText == null)
