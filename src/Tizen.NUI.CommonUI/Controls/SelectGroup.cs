@@ -37,12 +37,8 @@ namespace Tizen.NUI.CommonUI
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected List<SelectButton> itemGroup;
-        /// <summary> Selected item index</summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected int selectedIndex;
-        private EventHandler<SelectGroupEventArgs> selectionGroupHandlers = null;
+
+        private int selectedIndex;
 
         /// <summary>
         /// Get the number of items in the SelectionGroup.
@@ -81,24 +77,6 @@ namespace Tizen.NUI.CommonUI
         protected SelectGroup()
         {
             itemGroup = new List<SelectButton>();
-        }
-
-        /// <summary>
-        /// Event for state change signal which can be used to subscribe/unsubscribe the event handler provided by the user.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public event EventHandler<SelectGroupEventArgs> SelectionGroupEvent
-        {
-            add
-            {
-                selectionGroupHandlers += value;
-            }
-            remove
-            {
-                selectionGroupHandlers -= value;
-            }
         }
 
         /// <summary>

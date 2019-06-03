@@ -65,7 +65,8 @@ namespace Tizen.NUI.Samples
                 utilityRadioButton[i].Size2D = new Size2D(48, 48);
                 utilityRadioButton[i].Position2D = new Position2D(300, 300 + i * 100);
                 utilityRadioButton[i].CheckImageSize2D = new Size2D(48, 48);
-                utilityRadioButton[i].CheckImagePosition2D = new Position2D(0, 0);
+                utilityRadioButton[i].CheckImagePaddingLeft = 5;
+                utilityRadioButton[i].CheckImagePaddingRight = 5;
                 utilityRadioButton[i].CheckImageOpacitySelector = new FloatSelector
                 {
                     Normal = 1.0f,
@@ -87,7 +88,8 @@ namespace Tizen.NUI.Samples
                 familyRadioButton[i].Size2D = new Size2D(48, 48);
                 familyRadioButton[i].Position2D = new Position2D(500, 300 + i * 100);
                 familyRadioButton[i].CheckImageSize2D = new Size2D(48, 48);
-                familyRadioButton[i].CheckImagePosition2D = new Position2D(0, 0);
+                familyRadioButton[i].CheckImagePaddingLeft = 5;
+                familyRadioButton[i].CheckImagePaddingRight = 5;
                 familyRadioButton[i].CheckImageOpacitySelector = new FloatSelector
                 {
                     Normal = 1.0f,
@@ -109,7 +111,8 @@ namespace Tizen.NUI.Samples
                 foodRadioButton[i].Size2D = new Size2D(150, 48);
                 foodRadioButton[i].Position2D = new Position2D(700, 300 + i * 100);
                 foodRadioButton[i].CheckImageSize2D = new Size2D(48, 48);
-                foodRadioButton[i].CheckImagePosition2D = new Position2D(0, 0);
+                foodRadioButton[i].CheckImagePaddingLeft = 5;
+                foodRadioButton[i].CheckImagePaddingRight = 5;
                 foodRadioButton[i].CheckImageOpacitySelector = new FloatSelector
                 {
                     Normal = 1.0f,
@@ -136,7 +139,8 @@ namespace Tizen.NUI.Samples
                 kitchenRadioButton[i].Size2D = new Size2D(48, 48);
                 kitchenRadioButton[i].Position2D = new Position2D(900, 300 + i * 100);
                 kitchenRadioButton[i].CheckImageSize2D = new Size2D(48, 48);
-                kitchenRadioButton[i].CheckImagePosition2D = new Position2D(0, 0);
+                kitchenRadioButton[i].CheckImagePaddingLeft = 5;
+                kitchenRadioButton[i].CheckImagePaddingRight = 5;
                 kitchenRadioButton[i].CheckImageOpacitySelector = new FloatSelector
                 {
                     Normal = 1.0f,
@@ -182,7 +186,6 @@ namespace Tizen.NUI.Samples
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D =  new Size2D(48, 48),
-                    Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -204,7 +207,6 @@ namespace Tizen.NUI.Samples
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D =  new Size2D(48, 48),
-                    Position2D =  new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -226,7 +228,6 @@ namespace Tizen.NUI.Samples
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
@@ -248,7 +249,6 @@ namespace Tizen.NUI.Samples
                 CheckImageAttributes = new ImageAttributes
                 {
                     Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_radio_off.png",
