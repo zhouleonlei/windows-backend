@@ -262,18 +262,12 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update Switch by attributes.
         /// </summary>
-        /// <param name="attributes">Switch attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            switchAttributes = attributes as SwitchAttributes;
-            if (switchAttributes == null)
-            {
-                return;
-            }
-            base.OnUpdate(attributtes);
+            base.OnUpdate();
 
             if (switchAttributes.SwitchBackgroundImageAttributes != null)
             {
@@ -372,7 +366,7 @@ namespace Tizen.NUI.CommonUI
             return new SwitchAttributes();
         }
 
-        private new void Initialize()
+        private void Initialize()
         {
             switchAttributes = attributes as SwitchAttributes;
             if (switchAttributes == null)

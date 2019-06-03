@@ -69,9 +69,8 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public NaviFrame(NaviFrameAttributes attributes) : base()
+        public NaviFrame(NaviFrameAttributes attributes) : base(attributes)
         {
-            this.attributes = naviframeAttributes = attributes.Clone() as NaviFrameAttributes;
             Initialize();
         }
 
@@ -196,18 +195,11 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update NaviFrame by attributes.
         /// </summary>
-        /// <param name="attributes">NaviFrame attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            
-            naviframeAttributes = attributes as NaviFrameAttributes;
-            if (naviframeAttributes == null)
-            {
-                return;
-            }
             if(naviframeAttributes.NaviHeaderAttributes != null)
             {
                 ApplyAttributes(headContent, naviframeAttributes.NaviHeaderAttributes);
@@ -221,13 +213,13 @@ namespace Tizen.FH.NUI.Controls
        
         private void Initialize()
         {
-            ClippingMode = ClippingModeType.ClipToBoundingBox;
-            popFlag = false;
             naviframeAttributes = attributes as NaviFrameAttributes;
             if (naviframeAttributes == null)
             {
-                throw new Exception("Header attribute parse error.");
+                throw new Exception("Fail to get the NaviFrame attributes.");
             }
+            ClippingMode = ClippingModeType.ClipToBoundingBox;
+            popFlag = false;
             flickAnimation = new Animation(300);
             flickAnimation.Finished += FlickFinish;
 

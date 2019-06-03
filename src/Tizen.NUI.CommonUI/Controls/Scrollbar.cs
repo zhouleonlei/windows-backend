@@ -46,7 +46,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar() : base()
         {
-            scrollBarAttrs = this.attributes as ScrollBarAttributes;
             Initialize();
         }
 
@@ -59,8 +58,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar(string style) : base(style)
         {
-            if (attributes != null)
-                scrollBarAttrs = attributes as ScrollBarAttributes;
             Initialize();
         }
 
@@ -73,7 +70,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar(ScrollBarAttributes attributes) : base(attributes)
         {
-            scrollBarAttrs = this.attributes as ScrollBarAttributes;
             Initialize();
         }
 
@@ -470,17 +466,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The method to update Attributes.
         /// </summary>
-        /// <param name="attrs">The specified attributes object.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attrs)
+        protected override void OnUpdate()
         {
-            if (scrollBarAttrs == null)
-            {
-                return;
-            }
-
             ApplyAttributes(this, scrollBarAttrs);
             ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
             ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
@@ -519,6 +509,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            scrollBarAttrs = this.attributes as ScrollBarAttributes;
+            if(scrollBarAttrs == null)
+            {
+                throw new Exception("ScrollBar attribute parse error.");
+            }
+
             this.Focusable = false;
 
             trackObj = new ImageView

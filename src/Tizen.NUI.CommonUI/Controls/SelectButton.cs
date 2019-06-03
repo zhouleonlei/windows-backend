@@ -52,11 +52,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton() : base()
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                throw new Exception("SelectButton attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -68,11 +63,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(string style) : base(style)
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                throw new Exception("SelectButton attribute parse error.");
-            }
             Initialize();
         }
 
@@ -85,7 +75,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SelectButton(SelectButtonAttributes attributes) : base(attributes)
         {
-            selectButtonAttributes = this.attributes as SelectButtonAttributes;
             Initialize();
         }
 
@@ -584,18 +573,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update SelectButton by attributes.
         /// </summary>
-        /// <param name="attributes">Tab attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            selectButtonAttributes = attributes as SelectButtonAttributes;
-            if (selectButtonAttributes == null)
-            {
-                return;
-            }
-
             if (selectButtonAttributes.CheckImageAttributes != null)
             {
                 if (checkImage == null)
@@ -659,7 +641,7 @@ namespace Tizen.NUI.CommonUI
             }
 
             UpdateTextAttributes();
-            base.OnUpdate(attributtes);
+            base.OnUpdate();
 
             checkShadowImage?.RaiseToTop();
             checkBackgroundImage?.RaiseToTop();
@@ -742,6 +724,12 @@ namespace Tizen.NUI.CommonUI
 
         private new void Initialize()
         {
+            selectButtonAttributes = attributes as SelectButtonAttributes;
+            if (selectButtonAttributes == null)
+            {
+                throw new Exception("SelectButton attribute parse error.");
+            }
+
             selectButtonAttributes.IsSelectable = true;
             LayoutDirectionChanged += SelectButtonLayoutDirectionChanged;
         }

@@ -48,8 +48,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
-            toastAttributes = this.attributes as ToastAttributes;
-
             Initialize();
         }
 
@@ -74,12 +72,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
-            if (attributes != null)
-                toastAttributes = attributes as ToastAttributes;
-            if (toastAttributes == null)
-            {
-                throw new Exception("Toast attribute parse error.");
-            }
             Initialize();
         }
 
@@ -266,16 +258,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Relayout control's elements
         /// </summary>
-        /// <param name="attributes">Attributes to be applied</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributes)
+        protected override void OnUpdate()
         {
-            if (toastAttributes == null)
-            {
-                return;
-            }
 
             LayoutChild();
 
@@ -335,6 +322,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            toastAttributes = attributes as ToastAttributes;
+            if (toastAttributes == null)
+            {
+                throw new Exception("Toast attribute parse error.");
+            }
+
             toastBackground = new ImageView()
             {
                 WidthResizePolicy = ResizePolicyType.FillToParent,

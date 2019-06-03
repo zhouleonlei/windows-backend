@@ -48,11 +48,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDown() : base()
         {
-            dropDownAttributes = attributes as DropDownAttributes;
-            if (dropDownAttributes == null)
-            {
-                throw new Exception("DropDown attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -64,11 +59,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDown(string style) : base(style)
         {
-            dropDownAttributes = attributes as DropDownAttributes;
-            if (dropDownAttributes == null)
-            {
-                throw new Exception("DropDown attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -80,11 +70,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDown(DropDownAttributes attributes) : base(attributes)
         {
-            dropDownAttributes = attributes as DropDownAttributes;
-            if (dropDownAttributes == null)
-            {
-                throw new Exception("DropDown attribute parse error.");
-            }
             Initialize();
         }
 
@@ -775,18 +760,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Update DropDown by attributes.
         /// </summary>
-        /// <param name="attributes">DropDown attributes which record all data information.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributes)
+        protected override void OnUpdate()
         {
-            dropDownAttributes = attributes as DropDownAttributes;
-            if (dropDownAttributes == null)
-            {
-                return;
-            }
-
             if (dropDownAttributes.HeaderTextAttributes != null)
             {
                 if (headerText == null)
@@ -943,6 +921,11 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            dropDownAttributes = attributes as DropDownAttributes;
+            if (dropDownAttributes == null)
+            {
+                throw new Exception("DropDown attribute parse error.");
+            }
             ApplyAttributes(this, dropDownAttributes);                  
         }
 
@@ -1236,9 +1219,8 @@ namespace Tizen.NUI.CommonUI
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public DropDownItemData(DropDownItemAttributes attributes) : base()
+            public DropDownItemData(DropDownItemAttributes attributes) : base(attributes)
             {
-                this.attributes = attributes.Clone() as DropDownItemAttributes;
                 Initalize();
             }
 

@@ -48,7 +48,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress() : base()
         {
-            progressBarAttrs = attributes as ProgressBarAttributes;
             Initialize();
         }
 
@@ -61,15 +60,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress(string style) : base(style)
         {
-            if (attributes != null)
-            {
-                progressBarAttrs = attributes as ProgressBarAttributes;
-            }
-            if (progressBarAttrs == null)
-            {
-                throw new Exception("Progress attribute parse error.");
-            }
-
             Initialize();
         }
 
@@ -82,7 +72,6 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Progress(ProgressBarAttributes attributes) : base(attributes)
         {
-            progressBarAttrs = this.attributes as ProgressBarAttributes;
             Initialize();
         }
 
@@ -544,17 +533,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// The method to update Attributes.
         /// </summary>
-        /// <param name="attrs">The specified attributes object.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attrs)
+        protected override void OnUpdate()
         {
-            if (progressBarAttrs == null)
-            {
-                return;
-            }
-
             ApplyAttributes(this, progressBarAttrs);
             ApplyAttributes(trackObj, progressBarAttrs.TrackImageAttributes);
             ApplyAttributes(progressObj, progressBarAttrs.ProgressImageAttributes);
@@ -805,6 +788,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            progressBarAttrs = attributes as ProgressBarAttributes;
+            if (progressBarAttrs == null)
+            {
+                throw new Exception("Progress attribute parse error.");
+            }
+
             // create necessary components
             InitializeTrack();
             InitializeBuffer();

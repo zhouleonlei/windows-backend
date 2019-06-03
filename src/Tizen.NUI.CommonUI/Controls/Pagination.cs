@@ -316,17 +316,11 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// you can override it to update your own resources.
         /// </summary>
-        /// <param name="attributtes">Attributes</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                return;
-            }
 
             for (int i = 0; i < indicatorList.Count; i++)
             {
@@ -344,6 +338,12 @@ namespace Tizen.NUI.CommonUI
 
         private void Initialize()
         {
+            paginationAttributes = attributes as PaginationAttributes;
+            if (paginationAttributes == null)
+            {
+                throw new Exception("Pagination attributes is null.");
+            }
+
             container = new VisualView()
             {
                 Name = "Container",
@@ -359,12 +359,6 @@ namespace Tizen.NUI.CommonUI
                 URL = " "
             };
             container.AddVisual("SelectIndicator", selectIndicator);
-
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                throw new Exception("Pagination attributes is null.");
-            }
         }
 
         private void CreateIndicator()

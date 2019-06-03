@@ -298,20 +298,13 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Input Field by attributes.
         /// </summary>
-        /// <param name="attributes">Input Field attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
             RelayoutTextField(false);
-            base.OnUpdate(attributtes);
-
-            inputFieldAttrs = attributes as InputFieldAttributes;
-            if (inputFieldAttrs == null)
-            {
-                return;
-            }
+            base.OnUpdate();
             ApplyAttributes(cancelBtn, inputFieldAttrs.CancelButtonAttributes);
             ApplyAttributes(deleteBtn, inputFieldAttrs.DeleteButtonAttributes);
             ApplyAttributes(addBtnBg, inputFieldAttrs.AddButtonBgAttributes);
@@ -430,7 +423,7 @@ namespace Tizen.FH.NUI.Controls
             inputFieldAttrs = attributes as InputFieldAttributes;
             if (inputFieldAttrs == null)
             {
-                throw new Exception("Fail to get the inputField attributes.");
+                throw new Exception("Fail to get the InputField attributes.");
             }
             if (inputFieldAttrs.CancelButtonAttributes != null && cancelBtn == null)
             {

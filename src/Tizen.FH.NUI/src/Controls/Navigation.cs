@@ -51,11 +51,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Navigation() : base()
         {
-            navigationAttributes = attributes as NavigationAttributes;
-            if (navigationAttributes == null)
-            {
-                throw new Exception("Navigation attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -67,11 +62,6 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Navigation(string style) : base(style)
         {
-            navigationAttributes = attributes as NavigationAttributes;
-            if (navigationAttributes == null)
-            {
-                throw new Exception("Navigation attribute parse error.");
-            }
             Initialize();
         }
         /// <summary>
@@ -81,13 +71,8 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Navigation(NavigationAttributes attributes) : base()
+        public Navigation(NavigationAttributes attributes) : base(attributes)
         {
-            this.attributes = navigationAttributes = attributes.Clone() as NavigationAttributes;
-            if (navigationAttributes == null)
-            {
-                throw new Exception("Navigation attribute parse error.");
-            }
             Initialize();
         }
 
@@ -431,11 +416,10 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Navigation by attributes.
         /// </summary>
-        /// <param name="attributes">Navigation attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributes)
+        protected override void OnUpdate()
         {
             UpdateItem();
         }
@@ -518,6 +502,12 @@ namespace Tizen.FH.NUI.Controls
 
         private void Initialize()
         {
+            navigationAttributes = attributes as NavigationAttributes;
+            if (navigationAttributes == null)
+            {
+                throw new Exception("Navigation attribute parse error.");
+            }
+
             shadowImage = new ImageView();
             shadowImage.Name = "ShadowImage";
             Add(shadowImage);
@@ -720,15 +710,9 @@ namespace Tizen.FH.NUI.Controls
             private View dividerLine;
             private NavigationItemAttributes itemAttributes;
 
-            public NavigationItem(NavigationItemAttributes attributes) : base()
+            public NavigationItem(NavigationItemAttributes attributes) : base(attributes)
             {
-                this.attributes = itemAttributes = attributes.Clone() as NavigationItemAttributes;
-                if (itemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
-                base.Initialize();
-                InitializeItem();
+                Initialize();
             }           
 
             internal int Index
@@ -778,17 +762,11 @@ namespace Tizen.FH.NUI.Controls
 
             }
 
-            protected override void OnUpdate(Attributes attrs)
+            protected override void OnUpdate()
             {
-                itemAttributes = attrs as NavigationItemAttributes;
-                if (itemAttributes == null)
-                {
-                    return;
-                }
-
                 LayoutIconAndText();
 
-                base.OnUpdate(attrs);
+                base.OnUpdate();
                 if (subText != null)
                 {
                     ApplyAttributes(subText, itemAttributes.SubTextAttributes);
@@ -800,8 +778,14 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
-            private void InitializeItem()
+            private void Initialize()
             {
+                itemAttributes = attributes as NavigationItemAttributes;
+                if (itemAttributes == null)
+                {
+                    throw new Exception("NavigationItem attribute parse error.");
+                }
+
                 CreateSubText();
                 CreateDividerLine();
                 ApplyAttributes(this, itemAttributes);
@@ -899,11 +883,6 @@ namespace Tizen.FH.NUI.Controls
             [EditorBrowsable(EditorBrowsableState.Never)]
             public NavigationItemData() : base()
             {
-                ItemAttributes = attributes as NavigationItemAttributes;
-                if (ItemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
                 Initalize();
             }
 
@@ -916,11 +895,6 @@ namespace Tizen.FH.NUI.Controls
             [EditorBrowsable(EditorBrowsableState.Never)]
             public NavigationItemData(string style) : base(style)
             {
-                ItemAttributes = attributes as NavigationItemAttributes;
-                if (ItemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
                 Initalize();
             }
 
@@ -931,13 +905,8 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public NavigationItemData(NavigationItemAttributes attributes) : base()
+            public NavigationItemData(NavigationItemAttributes attributes) : base(attributes)
             {
-                this.attributes = ItemAttributes = attributes.Clone() as NavigationItemAttributes;
-                if (ItemAttributes == null)
-                {
-                    throw new Exception("NavigationItem attribute parse error.");
-                }
                 Initalize();
             }
 
@@ -1322,14 +1291,19 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            protected override void OnUpdate(Attributes attributtes)
+            protected override void OnUpdate()
             {
                 
             }
 
             private void Initalize()
             {
-                base.Initialize();
+                ItemAttributes = attributes as NavigationItemAttributes;
+                if (ItemAttributes == null)
+                {
+                    throw new Exception("NavigationItem attribute parse error.");
+                }
+
                 CreateIconAttributes();
                 CreateTextAttributes();
             }
