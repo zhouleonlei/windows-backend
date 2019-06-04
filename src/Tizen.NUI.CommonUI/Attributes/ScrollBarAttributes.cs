@@ -46,6 +46,11 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBarAttributes(ScrollBarAttributes attributes) : base(attributes)
         {
+            if(attributes == null)
+            {
+                return;
+            }
+
             if (attributes.TrackImageAttributes != null)
             {
                 TrackImageAttributes = attributes.TrackImageAttributes.Clone() as ImageAttributes;
@@ -57,9 +62,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             Direction = attributes.Direction;
-            MaxValue = attributes.MaxValue;
-            MinValue = attributes.MinValue;
-            CurValue = attributes.CurValue;
             Duration = attributes.Duration;
         }
 
@@ -94,42 +96,6 @@ namespace Tizen.NUI.CommonUI
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ScrollBar.DirectionType? Direction
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Get or set maximum value
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint MaxValue
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Get or set minim value
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint MinValue
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Get or set current value
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint CurValue
         {
             get;
             set;
