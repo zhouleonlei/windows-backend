@@ -41,6 +41,11 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PaginationAttributes(PaginationAttributes attributes) : base(attributes)
         {
+            if (attributes == null)
+            {
+                return;
+            }
+
             if (attributes.IndicatorSize != null)
             {
                 IndicatorSize = new Size2D(attributes.IndicatorSize.Width, attributes.IndicatorSize.Height);

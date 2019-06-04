@@ -82,7 +82,7 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return (Size2D)paginationAttributes?.IndicatorSize;
+                return paginationAttributes?.IndicatorSize;
             }
             set
             {
@@ -105,7 +105,7 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return (string)paginationAttributes?.IndicatorBackgroundURL;
+                return paginationAttributes?.IndicatorBackgroundURL;
             }
             set
             {
@@ -128,7 +128,7 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return (string)paginationAttributes?.IndicatorSelectURL;
+                return paginationAttributes?.IndicatorSelectURL;
             }
             set
             {
@@ -179,7 +179,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                if (indicatorCount == value)
+                if (indicatorCount == value || indicatorCount < 0)
                 {
                     return;
                 }
@@ -198,6 +198,15 @@ namespace Tizen.NUI.CommonUI
                         container.RemoveVisual("Indicator" + i);
                     }
                     indicatorList.RemoveRange(value, indicatorCount - value);
+                    if(value <= 0)
+                    {
+                        container.RemoveVisual("SelectIndicator");
+                    }
+                    else if(selectedIndex >= value)
+                    {
+                        selectedIndex = 0;
+                        SelectIn(indicatorList[selectedIndex]);
+                    }
                 }
                 indicatorCount = value;
 
@@ -246,7 +255,7 @@ namespace Tizen.NUI.CommonUI
         {
             if (index < 0 || index >= indicatorList.Count)
             {
-                return new Vector2(0, 0);
+                return null;
             }
             return new Vector2(indicatorList[index].Position.X + container.PositionX, indicatorList[index].Position.Y + container.PositionY);
         }
