@@ -398,7 +398,6 @@ namespace Tizen.NUI.CommonUI
 
                 if (trackImage != null)
                 {
-                    trackImage.TouchEvent -= OnTouchEvent;
                     Utility.Dispose(trackImage);
                 }
 
@@ -514,7 +513,6 @@ namespace Tizen.NUI.CommonUI
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft
 
             };
-            trackImage.TouchEvent += OnTouchEvent;
             thumbImage = new ImageView
             {
                 Focusable = false,
@@ -670,58 +668,6 @@ namespace Tizen.NUI.CommonUI
             }
 
             return (int)curValue;
-        }
-
-        private bool OnTouchEvent(object source, TouchEventArgs e)
-        {
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
-            {
-                Vector2 pos = e.Touch.GetLocalPosition(0);
-                ChangeValueByTouch(pos);
-            }
-            return false;
-        }  
-
-        private void ChangeValueByTouch(Vector2 pos)
-        {
-            if (thumbImage == null)
-            {
-                return;
-            }
-            Size2D thumbSize = thumbImage.Size2D;
-            Size2D trackSize = trackImage.Size2D;
-            DirectionType direction = CurrentDirection();
-            //TNLog.I("pos.X = " + pos.X + ", pos.Y = " + pos.Y + ", direction = " + direction);
-
-            if (direction == DirectionType.Horizontal)
-            {
-                if (pos.X > trackSize.Width - thumbSize.Width)
-                {
-                    thumbImagePosX = trackSize.Width - thumbSize.Width;
-                }
-                else
-                {
-                    thumbImagePosX = pos.X;
-                }
-
-                thumbImage.PositionX = thumbImagePosX;
-                curValue = (uint)((thumbImagePosX) / (float)(trackSize.Width - thumbSize.Width) * (float)(maxValue - minValue) + 0.5f);
-            }
-            else
-            {
-                if (pos.Y > trackSize.Height - thumbSize.Height)
-                {
-                    thumbImagePosY = trackSize.Height - thumbSize.Height;
-                }
-                else
-                {
-                    thumbImagePosY = pos.Y;
-                }
-
-                thumbImage.PositionY = thumbImagePosY;
-                curValue = (uint)((thumbImagePosY) / (float)(trackSize.Height - thumbSize.Height) * (float)(maxValue - minValue) + 0.5f);
-            }
         }
     }
 }
