@@ -67,7 +67,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set LoadingImageURLPrefix
+        /// Gets or sets loading image resource array.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -89,7 +89,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set LoadingImageURLPrefix
+        /// Gets or sets loading size.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -108,7 +108,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set FPS of attributes
+        /// Gets or sets FPS of loading.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -212,15 +212,15 @@ namespace Tizen.NUI.CommonUI
 
         private void UpdateVisual()
         {
-            if (loadingAttrs.ImageArray != null)
+            if (null != loadingAttrs.ImageArray)
             {
                 imageVisual.URLS = new List<string>(loadingAttrs.ImageArray);
             }
-            if (loadingAttrs.FPS != null)
+            if (null != loadingAttrs.FPS)
             {
                 imageVisual.FrameDelay = 1000.0f / (float)loadingAttrs.FPS.All;
             }
-            if (loadingAttrs.LoadingSize != null)
+            if (null != loadingAttrs.LoadingSize)
             {
                 imageVisual.Size = loadingAttrs.LoadingSize;
             }

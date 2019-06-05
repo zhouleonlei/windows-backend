@@ -48,10 +48,11 @@ namespace Tizen.FH.NUI.Controls
             {
                 LoadingAttributes = attributes.LoadingAttributes.Clone() as LoadingAttributes;
             }
+            LoadingEnable = attributes.LoadingEnable;
         }
 
         /// <summary>
-        /// Get or set loading Image Attributes.
+        /// Gets or sets loading Image Attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -63,7 +64,7 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
-        /// Get or set loading Image.
+        /// Gets or sets loading Image.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.

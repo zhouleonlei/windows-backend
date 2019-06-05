@@ -55,10 +55,13 @@ namespace Tizen.NUI.CommonUI
             {
                 TextAttributes = attributes.TextAttributes.Clone() as TextAttributes;
             }
+            TextLineHeight = attributes.TextLineHeight;
+            TextLineSpace = attributes.TextLineSpace;
+            Duration = attributes.Duration;
         }
 
         /// <summary>
-        /// Get or set background Image Attributes.
+        /// Gets or sets background image attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -70,7 +73,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set Text Attributes.
+        /// Gets or sets text attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -82,7 +85,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set toast text line height.
+        /// Gets or sets toast text line height.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -94,7 +97,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set toast text line space.
+        /// Gets or sets toast text line space.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -106,7 +109,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set toast show duration time.
+        /// Gets or sets toast show duration time.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.

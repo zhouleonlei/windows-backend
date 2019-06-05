@@ -82,7 +82,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text string of ToastPopup
+        /// Gets or sets the text array of toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -95,24 +95,17 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                if (value != null)
+                if (null != value)
                 {
                     textArray = value;
                     SetToastText();
-                    //CreateTextAttributes();
-                    //if (toastAttributes.TextAttributes.Text == null)
-                    //{
-                    //    toastAttributes.TextAttributes.Text = new StringSelector();
-                    //}
-                    //toastAttributes.TextAttributes.Text.All = value;
-
                     RelayoutRequest();
                 }
             }
         }
 
         /// <summary>
-        /// Text point size in Button.
+        /// Gets or sets text point size in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -126,7 +119,7 @@ namespace Tizen.NUI.CommonUI
             set
             {
                 CreateTextAttributes();
-                if (toastAttributes.TextAttributes.PointSize == null)
+                if (null == toastAttributes.TextAttributes.PointSize)
                 {
                     toastAttributes.TextAttributes.PointSize = new FloatSelector();
                 }
@@ -136,7 +129,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text font family in Button.
+        /// Gets or sets text font family in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -156,7 +149,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text color in Button.
+        /// Gets or sets text color in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -170,7 +163,7 @@ namespace Tizen.NUI.CommonUI
             set
             {
                 CreateTextAttributes();
-                if (toastAttributes.TextAttributes.TextColor == null)
+                if (null == toastAttributes.TextAttributes.TextColor)
                 {
                     toastAttributes.TextAttributes.TextColor = new ColorSelector();
                 }
@@ -180,7 +173,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text horizontal alignment in Button.
+        /// Gets or sets text horizontal alignment in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -200,7 +193,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set BackgroundImage resource URL
+        /// Gets or sets background image resource of toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -213,10 +206,10 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                if (value != null)
+                if (null != value)
                 {
                     CreateBackgroundAttributes();
-                    if (toastAttributes.BackgroundImageAttributes?.ResourceURL == null)
+                    if (null == toastAttributes.BackgroundImageAttributes?.ResourceURL)
                     {
                         toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
                     }
@@ -228,7 +221,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Background image's border in Button.
+        /// Gets or sets background image's border of toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -241,10 +234,10 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                if (value != null)
+                if (null != value)
                 {
                     CreateBackgroundAttributes();
-                    if (toastAttributes.BackgroundImageAttributes.Border == null)
+                    if (null == toastAttributes.BackgroundImageAttributes.Border)
                     {
                         toastAttributes.BackgroundImageAttributes.Border = new RectangleSelector();
                     }
@@ -255,7 +248,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text left padding in Toast.
+        /// Gets or sets text left padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -275,7 +268,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text right padding in Toast.
+        /// Gets or sets text right padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -295,7 +288,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text top padding in Toast.
+        /// Gets or sets text top padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -315,7 +308,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text bottom padding in Toast.
+        /// Gets or sets text bottom padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -335,7 +328,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text line height in Toast.
+        /// Gets or sets text line height in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -354,7 +347,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text line space in Toast.
+        /// Gets or sets text line space in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -373,7 +366,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set text bottom padding in Toast.
+        /// Gets or sets duration of toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -434,7 +427,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            if (toastAttributes == null)
+            if (null == toastAttributes)
             {
                 return;
             }
@@ -505,7 +498,7 @@ namespace Tizen.NUI.CommonUI
         private void Initialize()
         {
             toastAttributes = attributes as ToastAttributes;
-            if (toastAttributes == null)
+            if (null == toastAttributes)
             {
                 throw new Exception("Toast attribute parse error.");
             }
@@ -528,7 +521,7 @@ namespace Tizen.NUI.CommonUI
 
         private void OnVisibilityChanged(object sender, VisibilityChangedEventArgs e)
         {
-            if (e.Visibility == true)
+            if (true == e.Visibility)
             {
                 timer.Start();
             }
@@ -571,7 +564,7 @@ namespace Tizen.NUI.CommonUI
 
         private void CreateBackgroundAttributes()
         {
-            if (toastAttributes.BackgroundImageAttributes == null)
+            if (null == toastAttributes.BackgroundImageAttributes)
             {
                 toastAttributes.BackgroundImageAttributes = new ImageAttributes();
             }
@@ -579,7 +572,7 @@ namespace Tizen.NUI.CommonUI
 
         private void CreateTextAttributes()
         {
-            if (toastAttributes.TextAttributes == null)
+            if (null == toastAttributes.TextAttributes)
             {
                 toastAttributes.TextAttributes = new TextAttributes();
             }

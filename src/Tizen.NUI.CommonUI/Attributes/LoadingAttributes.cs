@@ -63,7 +63,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Loading Image resource URL array.
+        /// Gets or sets loading image resource array.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -75,7 +75,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get/Set Loading Image size.
+        /// Gets or sets loading image size.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -87,7 +87,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get/Set Loading frame per second.
+        /// Gets or sets loading frame per second.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.

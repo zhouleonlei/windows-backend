@@ -61,7 +61,7 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
-        /// Get or set loading enable.
+        /// Gets or sets if loading enable.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -118,12 +118,10 @@ namespace Tizen.FH.NUI.Controls
         {
             base.OnUpdate();
 
-            if (toastAttributes == null)
+            if (null == toastAttributes)
             {
                 return;
             }
-
-            //LayoutChild();
         }
 
         /// <summary>
@@ -173,7 +171,7 @@ namespace Tizen.FH.NUI.Controls
         private void Initialize()
         {
             toastAttributes = this.attributes as ToastAttributes;
-            if (toastAttributes == null)
+            if (null == toastAttributes)
             {
                 throw new Exception("Toast attribute parse error.");
             }
