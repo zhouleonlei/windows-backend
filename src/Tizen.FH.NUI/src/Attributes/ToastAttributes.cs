@@ -63,6 +63,30 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
+        /// Get or set loading Image Attributes.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool? LoadingEnable
+        {
+            get;
+            set;
+        }
+
+        public string Text2Line
+        {
+            get;
+            set;
+        }
+
+        public string Text3Line
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Attributes's clone function.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>

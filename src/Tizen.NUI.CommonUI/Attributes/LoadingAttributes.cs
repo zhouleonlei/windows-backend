@@ -48,27 +48,39 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            if (attributes.LoadingImageURLPrefix != null)
-            {
-                LoadingImageURLPrefix = attributes.LoadingImageURLPrefix.Clone() as StringSelector;
-            }
             if (attributes.FPS != null)
             {
                 FPS = attributes.FPS.Clone() as IntSelector;
             }
-            if (attributes.LoadingImageAttributes != null)
+            if (attributes.LoadingSize!= null)
             {
-                LoadingImageAttributes = attributes.LoadingImageAttributes.Clone() as ImageAttributes;
+                LoadingSize = attributes.LoadingSize;
+            }
+            if (attributes.ImageArray != null)
+            {
+                ImageArray = attributes.ImageArray;
             }
         }
 
         /// <summary>
-        /// Loading Image resource URL Prefix.
+        /// Loading Image resource URL array.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public StringSelector LoadingImageURLPrefix
+        public string[] ImageArray
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Loading Image resource URL array.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Size2D LoadingSize
         {
             get;
             set;
@@ -87,18 +99,6 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Loading Image's attributes.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImageAttributes LoadingImageAttributes
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Attributes's clone function.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
@@ -108,6 +108,5 @@ namespace Tizen.NUI.CommonUI
         {
             return new LoadingAttributes(this);
         }
-
     }
 }

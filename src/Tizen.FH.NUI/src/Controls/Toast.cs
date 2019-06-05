@@ -35,11 +35,7 @@ namespace Tizen.FH.NUI.Controls
     {
         private ToastAttributes toastAttributes;
         private Loading loading;
-        private TextLabel toastText_2line;
-        private TextLabel toastText_3line;
-        private ToastLengthType lengthType = ToastLengthType.CUSTOM;
-        private ToastLinesType linesType = ToastLinesType.ONE;
-        private bool loadingEnable = false;
+        private readonly Size2D loadingSize = new Size2D(100, 100);
 
         /// <summary>
         /// Construct Toast with null.
@@ -65,184 +61,6 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
-        /// The Toast length type
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public enum ToastLengthType
-        {
-            /// <summary>
-            /// The short type
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            SHORT,
-
-            /// <summary>
-            /// The long type
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            LONG,
-
-            /// <summary>
-            /// The custom type
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            CUSTOM
-        };
-
-        /// <summary>
-        /// The how many lines type
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public enum ToastLinesType
-        {
-            /// <summary>
-            /// One line
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            ONE,
-
-            /// <summary>
-            /// Two lines
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            TWO,
-
-            /// <summary>
-            /// Three lines
-            /// </summary>
-            /// <since_tizen> 5.5 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            THREE
-        };
-
-        /// <summary>
-        /// Get or set text length.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ToastLengthType LengthType
-        {
-            get
-            {
-                return lengthType;
-            }
-            set
-            {
-                if (value != lengthType)
-                {
-                    if (value == ToastLengthType.LONG)
-                    {
-                        this.SizeWidth = 1000;
-                    }
-                    else if (value == ToastLengthType.SHORT)
-                    {
-                        this.SizeWidth = 512;
-                    }
-
-                    lengthType = value;
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Get or set how many lines.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ToastLinesType LinesType
-        {
-            get
-            {
-                return linesType;
-            }
-            set
-            {
-                if (value != linesType)
-                {
-                    if (value == ToastLinesType.ONE)
-                    {
-                        if (toastText_3line != null)
-                        {
-                            toastText_3line.Dispose();
-                        }
-                        if (toastText_2line != null)
-                        {
-                            toastText_2line.Dispose();
-                        }
-
-                        linesType = value;
-                    }
-                    else if (value == ToastLinesType.TWO)
-                    {
-                        if (toastText_3line != null)
-                        {
-                            toastText_3line.Dispose();
-                        }
-                        if (toastText_2line == null)
-                        {
-                            toastText_2line = new TextLabel()
-                            {
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-
-                                ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-                                PivotPoint = Tizen.NUI.PivotPoint.Center,
-                                PositionUsesPivotPoint = true,
-                            };
-                            this.Add(toastText_2line);
-                        }
-
-                        linesType = value;
-                    }
-                    else if (value == ToastLinesType.THREE)
-                    {
-                        if (toastText_3line == null)
-                        {
-                            toastText_3line = new TextLabel()
-                            {
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-                            };
-                        }
-                        if (toastText_2line == null)
-                        {
-                            toastText_2line = new TextLabel()
-                            {
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-                            };
-                        }
-
-                        this.Add(toastText_2line);
-                        this.Add(toastText_3line);
-
-                        linesType = value;
-                    }
-
-                }
-
-            }
-        }
-
-        /// <summary>
         /// Get or set loading enable.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
@@ -252,65 +70,14 @@ namespace Tizen.FH.NUI.Controls
         {
             get
             {
-                return loadingEnable;
+                return toastAttributes.LoadingEnable ?? false;
             }
             set
             {
-                if (value != loadingEnable)
-                {
-                    if (value == true)
-                    {
-                        AddLoading();
-                    }
-                    else
-                    {
-                        RemoveLoading();
-                    }
-
-                    loadingEnable = value;
-                }
-
+                toastAttributes.LoadingEnable = value;
+                SetLoading();
+                RelayoutRequest();
             }
-        }
-
-        /// <summary>
-        /// Get or set text of second line.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Text2Line
-        {
-            get
-            {
-                return toastText_2line?.Text;
-            }
-            set
-            {
-                if (linesType == ToastLinesType.TWO || linesType == ToastLinesType.THREE)
-                    toastText_2line.Text = value;
-            }
-
-        }
-
-        /// <summary>
-        /// Get or set text of third lie.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Text3Line
-        {
-            get
-            {
-                return toastText_3line?.Text;
-            }
-            set
-            {
-                if (linesType == ToastLinesType.THREE)
-                    toastText_3line.Text = value;
-            }
-
         }
 
         /// <summary>
@@ -329,13 +96,13 @@ namespace Tizen.FH.NUI.Controls
 
             if (type == DisposeTypes.Explicit)
             {
-                if (loading != null)
+                this.LayoutDirectionChanged -= OnLayoutDirectionChanged;
+                if (null != loading)
                 {
                     this.Remove(loading);
                     loading.Dispose();
                     loading = null;
                 }
-
             }
 
             base.Dispose(type);
@@ -349,45 +116,14 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-            DownSpace = UpSpace;
-            if (loadingEnable)
-            {
-                ApplyAttributes(loading, toastAttributes.LoadingAttributes);
-            }
-            if (linesType == ToastLinesType.THREE)
-            {
-                DownSpace = 168;
-            }
-            if (linesType == ToastLinesType.TWO)
-            {
-                DownSpace = 98;
-            }
             base.OnUpdate();
-        }
 
-        /// <summary>
-        /// Get Toast attribues.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override Attributes GetAttributes()
-        {
-            return new ToastAttributes
+            if (toastAttributes == null)
             {
-                TextAttributes = new TextAttributes
-                {
+                return;
+            }
 
-                },
-
-                BackgroundImageAttributes = new ImageAttributes
-                {
-
-                },
-                LoadingAttributes = new LoadingAttributes
-                {
-                }
-            };
+            //LayoutChild();
         }
 
         /// <summary>
@@ -398,65 +134,52 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void LayoutChild()
         {
-            if (toastAttributes.TextAttributes.Size2D == null)
+            base.LayoutChild();
+            if (LayoutDirection == ViewLayoutDirectionType.LTR)
             {
-                toastAttributes.TextAttributes.Size2D = new Size2D();
-            }
-            if (toastAttributes.TextAttributes.Position2D == null)
-            {
-                toastAttributes.TextAttributes.Position2D = new Position2D();
-            }
-            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - DownSpace;
-            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
-
-            if (loadingEnable)
-            {
-                toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace - 108;
-                if (LayoutDirection == ViewLayoutDirectionType.LTR)
+                if (null != loading)
                 {
-                    loading.Position2D.X = LeftSpace;
-                    toastAttributes.TextAttributes.Position2D.X = LeftSpace + 108;
-                    toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.Begin;
-
-                }
-                else
-                {
-                    loading.Position2D.X = this.Size2D.Width - LeftSpace - loading.Size2D.Width;
-                    toastAttributes.TextAttributes.Position2D.X = LeftSpace;
-                    toastAttributes.TextAttributes.HorizontalAlignment = HorizontalAlignment.End;
+                    loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
+                    loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
+                    loading.PositionUsesPivotPoint = true;
+                    loading.Size2D = loadingSize;
+                    loading.Position2D = new Position2D(TextPaddingLeft - loadingSize.Width - 8, 0);
                 }
             }
             else
             {
-                toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
-
-                toastAttributes.TextAttributes.Position2D.X = LeftSpace;
-
+                if (null != loading)
+                {
+                    loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
+                    loading.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
+                    loading.PositionUsesPivotPoint = true;
+                    loading.Size2D = loadingSize;
+                    loading.Position2D = new Position2D(-TextPaddingLeft + loadingSize.Width + 8, 0);
+                }
             }
+        }
 
-            if (toastText_2line != null)
-            {
-                toastText_2line.Size2D = toastAttributes.TextAttributes.Size2D;
-                toastText_2line.Position2D.X = toastAttributes.TextAttributes.Position2D.X;
-                toastText_2line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 60;//TODO
-            }
-            if (toastText_3line != null)
-            {
-                toastText_3line.Size2D = toastAttributes.TextAttributes.Size2D;
-                toastText_3line.Position2D.X = toastAttributes.TextAttributes.Position2D.X;
-                toastText_3line.Position2D.Y = toastAttributes.TextAttributes.Position2D.Y + 120;//TODO
-            }
-
+        /// <summary>
+        /// Get Toast attribues.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override Attributes GetAttributes()
+        {
+            return new ToastAttributes();
         }
 
         private void Initialize()
         {
             toastAttributes = this.attributes as ToastAttributes;
-            if(toastAttributes == null)
+            if (toastAttributes == null)
             {
                 throw new Exception("Toast attribute parse error.");
             }
             ApplyAttributes(this, toastAttributes);
+
+            SetLoading();
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }
 
@@ -465,30 +188,29 @@ namespace Tizen.FH.NUI.Controls
             RelayoutRequest();
         }
 
-        private void AddLoading()
+        private void SetLoading()
         {
-            loading = new Loading("DefaultLoading");
-            this.Add(loading);
-            loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
-            loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
-            loading.Size2D = new Size2D(100, 100);
-            loading.PositionUsesPivotPoint = true;
-            loading.Position2D.Y = 0;
-            loadingEnable = true;
-            RelayoutRequest();
-        }
-
-        private void RemoveLoading()
-        {
-            if (loading != null)
+            if (null != toastAttributes.LoadingEnable)
             {
-                this.Remove(loading);
-                loading.Dispose();
+                if (true == toastAttributes.LoadingEnable)
+                {
+                    if (null == loading)
+                    {
+                        loading = new Loading("DefaultLoading");
+                        this.Add(loading);
+                    }
+                    ApplyAttributes(loading, toastAttributes.LoadingAttributes);
+                }
+                else
+                {
+                    if (null != loading)
+                    {
+                        this.Remove(loading);
+                        loading.Dispose();
+                        loading = null;
+                    }
+                }
             }
-
-            loadingEnable = false;
-            RelayoutRequest();
         }
-
     }
 }

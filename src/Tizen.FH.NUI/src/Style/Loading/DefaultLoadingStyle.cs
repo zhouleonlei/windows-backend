@@ -10,13 +10,20 @@ namespace Tizen.FH.NUI.Controls
             {
                 return (Content as Attributes).Clone();
             }
-            LoadingAttributes attributes = new LoadingAttributes
+            string[] imageArray = new string[36];
+            for (int i = 0; i < 36; i++)
             {
-                LoadingImageURLPrefix = new StringSelector
+                if (i < 10)
                 {
-                    All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
+                    imageArray[i] = CommonResource.Instance.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_0" + i + ".png";
                 }
-            };
+                else
+                {
+                    imageArray[i] = CommonResource.Instance.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_" + i + ".png";
+                }
+            }
+
+            LoadingAttributes attributes = new LoadingAttributes { ImageArray = imageArray };
             return attributes;
         }
     }
