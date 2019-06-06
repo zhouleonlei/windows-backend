@@ -44,7 +44,11 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes(ToastAttributes attributes) : base(attributes)
         {
-            if(attributes.LoadingAttributes != null)
+            if (null == attributes)
+            {
+                return;
+            }
+            if(null != attributes.LoadingAttributes)
             {
                 LoadingAttributes = attributes.LoadingAttributes.Clone() as LoadingAttributes;
             }

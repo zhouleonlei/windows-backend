@@ -43,20 +43,20 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LoadingAttributes(LoadingAttributes attributes) : base(attributes)
         {
-            if(attributes == null)
+            if(null == attributes)
             {
                 return;
             }
 
-            if (attributes.FPS != null)
+            if (null != attributes.FPS)
             {
                 FPS = attributes.FPS.Clone() as IntSelector;
             }
-            if (attributes.LoadingSize!= null)
+            if (null != attributes.LoadingSize)
             {
                 LoadingSize = attributes.LoadingSize;
             }
-            if (attributes.ImageArray != null)
+            if (null != attributes.ImageArray)
             {
                 ImageArray = attributes.ImageArray;
             }

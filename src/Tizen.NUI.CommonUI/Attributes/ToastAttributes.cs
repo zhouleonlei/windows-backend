@@ -43,15 +43,15 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes(ToastAttributes attributes) : base(attributes)
         {
-            if(attributes == null)
+            if(null == attributes)
             {
                 return;
             }
-            if(attributes.BackgroundImageAttributes != null)
+            if(null != attributes.BackgroundImageAttributes)
             {
                 BackgroundImageAttributes = attributes.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
-            if(attributes.TextAttributes != null)
+            if(null != attributes.TextAttributes)
             {
                 TextAttributes = attributes.TextAttributes.Clone() as TextAttributes;
             }
