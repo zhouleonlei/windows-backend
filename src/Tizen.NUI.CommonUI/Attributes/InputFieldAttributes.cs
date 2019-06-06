@@ -43,21 +43,26 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
         {
-            if (attrs.BackgroundImageAttributes != null)
+            if (null == attrs)
+            {
+                return;
+            }
+            if (null != attrs.BackgroundImageAttributes)
             {
                 BackgroundImageAttributes = attrs.BackgroundImageAttributes.Clone() as ImageAttributes;
             }
-            if (attrs.InputBoxAttributes != null)
+            if (null != attrs.InputBoxAttributes)
             {
                 InputBoxAttributes = attrs.InputBoxAttributes.Clone() as TextFieldAttributes;
             }
-            if (attrs.Space != null)
+            if (null != attrs.Space)
             {
                 Space = attrs.Space;
             }
         }
+
         /// <summary>
-        /// Back ground image's attributes.
+        /// Gets or sets background image attributes of input field.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -67,8 +72,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+
         /// <summary>
-        /// Text field's attributes.
+        /// Gets or sets input box attributes of input field.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -78,8 +84,9 @@ namespace Tizen.NUI.CommonUI
             get;
             set;
         }
+
         /// <summary>
-        /// Textfield space's attributes.
+        /// Gets or sets space.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -88,7 +95,8 @@ namespace Tizen.NUI.CommonUI
         {
             get;
             set;
-        }
+        }; 
+
         /// <summary>
         /// Attributes's clone function.
         /// </summary>

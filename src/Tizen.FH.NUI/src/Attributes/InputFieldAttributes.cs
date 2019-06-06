@@ -82,6 +82,7 @@ namespace Tizen.FH.NUI.Controls
                 SpaceBetweenTextFieldAndLeftButton = attrs.SpaceBetweenTextFieldAndLeftButton;
             }
         }
+
         /// <summary>
         /// Cancel button's attributes.
         /// </summary>
@@ -93,6 +94,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Delete button's attributes.
         /// </summary>
@@ -104,6 +106,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Add button background's attributes.
         /// </summary>
@@ -115,6 +118,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Add button over lay's attributes.
         /// </summary>
@@ -126,6 +130,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Add button foreground's attributes.
         /// </summary>
@@ -137,6 +142,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Search  button's attributes.
         /// </summary>
@@ -148,6 +154,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Space bwtwwen text field and right button 's attributes.
         /// </summary>
@@ -159,6 +166,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Space betwwen text field and left button's attributes.
         /// </summary>
@@ -170,6 +178,7 @@ namespace Tizen.FH.NUI.Controls
             get;
             set;
         }
+
         /// <summary>
         /// Attributes's clone function.
         /// </summary>

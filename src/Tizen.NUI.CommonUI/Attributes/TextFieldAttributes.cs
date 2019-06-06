@@ -33,6 +33,7 @@ namespace Tizen.NUI.CommonUI
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextFieldAttributes() : base() { }
+
         /// <summary>
         /// Creates a new instance of a TextField with style.
         /// </summary>
@@ -42,78 +43,78 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextFieldAttributes(TextFieldAttributes attributes) : base(attributes)
         {
-            if(attributes == null)
+            if(null == attributes)
             {
                 return;
             }
-            if (attributes.Text != null)
+            if (null != attributes.Text)
             {
                 Text = attributes.Text.Clone() as StringSelector;
             }
-            if (attributes.PlaceholderText != null)
+            if (null != attributes.PlaceholderText)
             {
                 PlaceholderText = attributes.PlaceholderText.Clone() as StringSelector;
             }
-            if (attributes.TranslatablePlaceholderText != null)
+            if (null != attributes.TranslatablePlaceholderText)
             {
                 TranslatablePlaceholderText = attributes.TranslatablePlaceholderText.Clone() as StringSelector;
             }
-            if (attributes.HorizontalAlignment != null)
+            if (null != attributes.HorizontalAlignment)
             {
                 HorizontalAlignment = attributes.HorizontalAlignment;
             }
-            if (attributes.VerticalAlignment != null)
+            if (null != attributes.VerticalAlignment)
             {
                 VerticalAlignment = attributes.VerticalAlignment;
             }
-            if (attributes.EnableMarkup != null)
+            if (null != attributes.EnableMarkup)
             {
                 EnableMarkup = attributes.EnableMarkup;
             }
-            if (attributes.TextColor != null)
+            if (null != attributes.TextColor)
             {
                 TextColor = attributes.TextColor.Clone() as ColorSelector;
             }
-            if (attributes.PlaceholderTextColor != null)
+            if (null != attributes.PlaceholderTextColor)
             {
                 PlaceholderTextColor = attributes.PlaceholderTextColor.Clone() as ColorSelector;
             }
-            if (attributes.PrimaryCursorColor != null)
+            if (null != attributes.PrimaryCursorColor)
             {
                 PrimaryCursorColor = attributes.PrimaryCursorColor.Clone() as ColorSelector;
             }
-            if (attributes.SecondaryCursorColor != null)
+            if (null != attributes.SecondaryCursorColor)
             {
                 SecondaryCursorColor = attributes.SecondaryCursorColor.Clone() as ColorSelector;
             }
-            if (attributes.FontFamily != null)
+            if (null != attributes.FontFamily)
             {
                 FontFamily = attributes.FontFamily;
             }
-            if (attributes.PointSize != null)
+            if (null != attributes.PointSize)
             {
                 PointSize = attributes.PointSize.Clone() as FloatSelector;
             }
-            if (attributes.EnableCursorBlink != null)
+            if (null != attributes.EnableCursorBlink)
             {
                 EnableCursorBlink = attributes.EnableCursorBlink;
             }
-            if (attributes.EnableSelection != null)
+            if (null != attributes.EnableSelection)
             {
                 EnableSelection = attributes.EnableSelection;
             }
-            if (attributes.CursorWidth != null)
+            if (null != attributes.CursorWidth)
             {
                 CursorWidth = attributes.CursorWidth;
             }
-            if (attributes.EnableEllipsis != null)
+            if (null != attributes.EnableEllipsis)
             {
                 EnableEllipsis = attributes.EnableEllipsis;
             }
         }
 
         /// <summary>
-        /// Text's attributes.
+        /// Gets or sets text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -125,7 +126,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Place holder text's attributes.
+        /// Gets or sets place holder text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -137,7 +138,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Translatable place holder text's attributes.
+        /// Gets or sets translatable place holder text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -149,7 +150,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Horizontal alignment's attributes.
+        /// Gets or sets horizontal alignment of text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -161,7 +162,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Vertical alignment's attributes.
+        /// Gets or sets vertical alignment of text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -173,7 +174,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Enable mark up's attributes.
+        /// Gets or sets enable mark up.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -185,7 +186,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text color's attributes.
+        /// Gets or sets text color.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -197,7 +198,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Place holder text color's attributes.
+        /// Gets or sets place holder text color.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -209,7 +210,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Primary cursor color's attributes.
+        /// Gets or sets primary cursor color.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -221,7 +222,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Secondary cursor color's attributes.
+        /// Gets or sets secondary cursor color.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -233,7 +234,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Font family's attributes.
+        /// Gets or sets font family of text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -245,7 +246,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Poin size's attributes.
+        /// Gets or sets point size of text.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -257,7 +258,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Enable cursor blink's attributes.
+        /// Gets or sets enable cursor blink.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -269,7 +270,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Enable selection's attributes.
+        /// Gets or sets enable selection.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -281,7 +282,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Cursor width's attributes.
+        /// Gets or sets cursor width.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -293,7 +294,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Enable ellipsisn's attributes.
+        /// Gets or sets if enable ellipsis.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
