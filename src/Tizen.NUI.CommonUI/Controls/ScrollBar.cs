@@ -29,14 +29,15 @@ namespace Tizen.NUI.CommonUI
     public class ScrollBar : Control
     {
         private ScrollBarAttributes scrollBarAttrs;
-        private ImageView trackObj;// = null;
-        private ImageView thumbObj;// = null;
-        private PanGestureDetector panGestureDetector;
-        private EventHandler<PanGestureEventArgs> panGestureEventHandler;
+        private ImageView trackImage;
+        private ImageView thumbImage;
         private Animation scrollAniPlayer = null;
-        private float thumbObjPosX;
-        private float thumbObjPosY;
+        private float thumbImagePosX;
+        private float thumbImagePosY;
         private bool enableAni = false;
+        private uint minValue;
+        private uint maxValue;
+        private uint curValue;
 
         /// <summary>
         /// The constructor of ScrollBar
@@ -71,24 +72,6 @@ namespace Tizen.NUI.CommonUI
         public ScrollBar(ScrollBarAttributes attributes) : base(attributes)
         {
             Initialize();
-        }
-
-        /// <summary>
-        /// The PanGesture event handler.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public event EventHandler<PanGestureEventArgs> PanGestureEvent
-        {
-            add
-            {
-                panGestureEventHandler += value;
-            }
-            remove
-            {
-                panGestureEventHandler -= value;
-            }
         }
 
         /// <summary>
@@ -173,7 +156,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     scrollBarAttrs.ThumbImageAttributes.Size2D = new Size2D();
                 }
-                if (thumbObj != null)
+                if (thumbImage != null)
                 {
                     scrollBarAttrs.ThumbImageAttributes.Size2D.Width = value.Width;
                     scrollBarAttrs.ThumbImageAttributes.Size2D.Height = value.Height;
@@ -196,7 +179,7 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                if (trackObj != null)
+                if (trackImage != null)
                 {
                     if (scrollBarAttrs.TrackImageAttributes.ResourceURL == null)
                     {
@@ -218,21 +201,19 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                //if (trackColor != null)
-                //{
-                //    return trackColor;
-                //}
-                //return scrollBarAttrs.TrackColor;
-                return trackObj?.BackgroundColor;
+                return scrollBarAttrs.TrackImageAttributes.BackgroundColor?.All;
             }
             set
             {
-                //TNLog.D("trackColor, r = " + value.R + ", g = " + value.G + ", b = " + value.B + ", a = " + value.A + ";");
-                // trackColor = new Color(value.R, value.G, value.B, value.A);
-                if (trackObj != null)
+                if (scrollBarAttrs.TrackImageAttributes.BackgroundColor == null)
                 {
-                    trackObj.BackgroundColor = value;
+                    scrollBarAttrs.TrackImageAttributes.BackgroundColor = new ColorSelector { All = value };
                 }
+                else
+                {
+                    scrollBarAttrs.TrackImageAttributes.BackgroundColor.All = value;
+                }
+                RelayoutRequest();
             }
         }
 
@@ -246,14 +227,19 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return thumbObj?.BackgroundColor;
+                return scrollBarAttrs.ThumbImageAttributes.BackgroundColor?.All;
             }
             set
             {
-                if (thumbObj != null)
+                if(scrollBarAttrs.ThumbImageAttributes.BackgroundColor == null)
                 {
-                    thumbObj.BackgroundColor = value;
+                    scrollBarAttrs.ThumbImageAttributes.BackgroundColor = new ColorSelector { All = value };
                 }
+                else
+                {
+                    scrollBarAttrs.ThumbImageAttributes.BackgroundColor.All = value;
+                }
+                RelayoutRequest();
             }
         }
 
@@ -267,15 +253,11 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return scrollBarAttrs.MaxValue;
+                return maxValue;
             }
             set
             {
-                if (scrollBarAttrs.MaxValue == value)
-                {
-                    return;
-                }
-                scrollBarAttrs.MaxValue = value;
+                maxValue = value;
                 RelayoutRequest();
             }
         }
@@ -290,15 +272,12 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return scrollBarAttrs.MinValue;
+                return minValue;
             }
             set
             {
-                if (scrollBarAttrs.MinValue == value)
-                {
-                    return;
-                }
-                scrollBarAttrs.MinValue = value;
+
+                minValue = value;
                 RelayoutRequest();
             }
         }
@@ -329,16 +308,11 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return scrollBarAttrs.CurValue;
+                return curValue;
             }
             set
             {
-                if (value < scrollBarAttrs.MinValue || value > scrollBarAttrs.MaxValue)
-                {
-                    return;
-                    //throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
-                }
-                scrollBarAttrs.CurValue = value;
+                curValue = value;
                 RelayoutRequest();
             }
         }
@@ -392,15 +366,14 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetCurrentValue(uint currentValue, bool isEnableAni = true)
         {
-            if (currentValue < scrollBarAttrs.MinValue || currentValue > scrollBarAttrs.MaxValue)
+            if (currentValue < minValue || currentValue > maxValue)
             {
                 //TNLog.E("Current value is less than the Min value, or greater than the Max value. currentValue = " + currentValue + ";");
                 throw new ArgumentOutOfRangeException("Wrong Current value. It shoud be greater than the Min value, and less than the Max value!");
             }
 
-            scrollBarAttrs.CurValue = currentValue;
             enableAni = isEnableAni;
-            RelayoutRequest();
+            CurrentValue = currentValue;
         }
 
         /// <summary>
@@ -422,26 +395,15 @@ namespace Tizen.NUI.CommonUI
                 //Called by User
                 //Release your own managed resources here.
                 //You should release all of your own disposable objects here.
-                if (thumbObj != null)
-                {
-                    panGestureDetector.Detach(thumbObj);
-                }
-                panGestureDetector.Detected -= OnPanGestureDetected;
-                panGestureDetector.Dispose();
 
-                if (trackObj != null)
+                if (trackImage != null)
                 {
-                    trackObj.TouchEvent -= OnTouchEvent;
-                    Remove(trackObj);
-                    trackObj.Dispose();
-                    trackObj = null;
+                    Utility.Dispose(trackImage);
                 }
 
-                if (thumbObj != null)
+                if (thumbImage != null)
                 {
-                    Remove(thumbObj);
-                    thumbObj.Dispose();
-                    thumbObj = null;
+                    Utility.Dispose(thumbImage);
                 }
 
                 if (scrollAniPlayer != null)
@@ -472,8 +434,8 @@ namespace Tizen.NUI.CommonUI
         protected override void OnUpdate()
         {
             ApplyAttributes(this, scrollBarAttrs);
-            ApplyAttributes(trackObj, scrollBarAttrs.TrackImageAttributes);
-            ApplyAttributes(thumbObj, scrollBarAttrs.ThumbImageAttributes);
+            ApplyAttributes(trackImage, scrollBarAttrs.TrackImageAttributes);
+            ApplyAttributes(thumbImage, scrollBarAttrs.ThumbImageAttributes);
             if (enableAni)
             {
                 UpdateValue(true);
@@ -497,14 +459,38 @@ namespace Tizen.NUI.CommonUI
             {
                 ThumbImageAttributes = new ImageAttributes
                 {
-
+                    WidthResizePolicy = ResizePolicyType.Fixed,
+                    HeightResizePolicy = ResizePolicyType.Fixed,
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                 },
                 TrackImageAttributes = new ImageAttributes
                 {
-
+                    WidthResizePolicy = ResizePolicyType.FillToParent,
+                    HeightResizePolicy = ResizePolicyType.FillToParent,
+                    PositionUsesPivotPoint = true,
+                    ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
+                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft
                 }
 
             };
+        }
+
+        /// <summary>
+        /// Theme change callback when theme is changed, this callback will be trigger.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
+        {
+            ScrollBarAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ScrollBarAttributes;
+            if (tempAttributes != null)
+            {
+                attributes = scrollBarAttrs = tempAttributes;
+                RelayoutRequest();
+            }
         }
 
         private void Initialize()
@@ -517,7 +503,7 @@ namespace Tizen.NUI.CommonUI
 
             this.Focusable = false;
 
-            trackObj = new ImageView
+            trackImage = new ImageView
             {
                 Focusable = false,
                 WidthResizePolicy = ResizePolicyType.FillToParent,
@@ -527,8 +513,7 @@ namespace Tizen.NUI.CommonUI
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft
 
             };
-            trackObj.TouchEvent += OnTouchEvent;
-            thumbObj = new ImageView
+            thumbImage = new ImageView
             {
                 Focusable = false,
                 WidthResizePolicy = ResizePolicyType.Fixed,
@@ -538,13 +523,14 @@ namespace Tizen.NUI.CommonUI
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft
             };
 
-            Add(trackObj);
-            Add(thumbObj);
+            Add(trackImage);
+            Add(thumbImage);
 
             scrollAniPlayer = new Animation(334);
             scrollAniPlayer.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
 
-            InitializePanGestureDetector();
+            thumbImagePosX = 0;
+            thumbImagePosY = 0;
             LayoutDirectionChanged += OnLayoutDirectionChanged;
         }
 
@@ -555,28 +541,20 @@ namespace Tizen.NUI.CommonUI
 
         private void UpdateValue(bool enableAni = false)
         {
-            if (trackObj == null || thumbObj == null || scrollBarAttrs.Direction == null || scrollBarAttrs.MaxValue == null || scrollBarAttrs.MinValue == null || scrollBarAttrs.CurValue == null)
+            if (trackImage == null || thumbImage == null || scrollBarAttrs.Direction == null)
             {             
                 return;
             }
 
-            if (scrollBarAttrs.MinValue >= scrollBarAttrs.MaxValue || scrollBarAttrs.CurValue < scrollBarAttrs.MinValue || scrollBarAttrs.CurValue > scrollBarAttrs.MaxValue)
+            if (minValue >= maxValue || curValue < minValue || curValue > maxValue)
             {
-                if (scrollBarAttrs.MinValue >= scrollBarAttrs.MaxValue)
-                {
-                    //Console.WriteLine("[Scrollbar] Min value>= Max value");//gwfdebug
-                }
-                if (scrollBarAttrs.CurValue < scrollBarAttrs.MinValue || scrollBarAttrs.CurValue > scrollBarAttrs.MaxValue)
-                {
-                    //Console.WriteLine("[Scrollbar] Current value error");//gwfdebug
-                }
                 return;
             }
             float width = (float)Size2D.Width;
             float height = (float)Size2D.Height;
             float thumbW = scrollBarAttrs.ThumbImageAttributes.Size2D.Width;
             float thumbH = scrollBarAttrs.ThumbImageAttributes.Size2D.Height;
-            float ratio = (float)(scrollBarAttrs.CurValue - scrollBarAttrs.MinValue) / (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue);
+            float ratio = (float)(curValue - minValue) / (float)(maxValue - minValue);
 
             if (scrollBarAttrs.Direction == DirectionType.Horizontal)
             {
@@ -588,7 +566,7 @@ namespace Tizen.NUI.CommonUI
                 float posX = ratio * (width - thumbW);
                 float posY = (height - thumbH) / 2.0f;
 
-                thumbObjPosX = posX;
+                thumbImagePosX = posX;
                 if (scrollAniPlayer != null)
                 {
                     scrollAniPlayer.Stop();
@@ -596,14 +574,14 @@ namespace Tizen.NUI.CommonUI
 
                 if (!enableAni)
                 {
-                    thumbObj.Position = new Position(posX, posY, 0);
+                    thumbImage.Position = new Position(posX, posY, 0);
                 }
                 else
                 {
                     if (scrollAniPlayer != null)
                     {
                         scrollAniPlayer.Clear();
-                        scrollAniPlayer.AnimateTo(thumbObj, "PositionX", posX);
+                        scrollAniPlayer.AnimateTo(thumbImage, "PositionX", posX);
                         scrollAniPlayer.Play();
                     }
                 }
@@ -613,7 +591,7 @@ namespace Tizen.NUI.CommonUI
                 float posX = (width - thumbW) / 2.0f;
                 float posY = ratio * (height - thumbH);
 
-                thumbObjPosY = posY;
+                thumbImagePosY = posY;
                 if (scrollAniPlayer != null)
                 {
                     scrollAniPlayer.Stop();
@@ -621,40 +599,17 @@ namespace Tizen.NUI.CommonUI
 
                 if (!enableAni)
                 {
-                    thumbObj.Position = new Position(posX, posY, 0);
+                    thumbImage.Position = new Position(posX, posY, 0);
                 }
                 else
                 {
                     if (scrollAniPlayer != null)
                     {
                         scrollAniPlayer.Clear();
-                        scrollAniPlayer.AnimateTo(thumbObj, "PositionY", posY);
+                        scrollAniPlayer.AnimateTo(thumbImage, "PositionY", posY);
                         scrollAniPlayer.Play();
                     }
                 }
-            }
-        }
-
-        private void InitializePanGestureDetector()
-        {
-            panGestureDetector = new PanGestureDetector();
-            //panGestureDetector.AddDirection(PanGestureDetector.DirectionHorizontal);
-            panGestureDetector.Attach(thumbObj);
-            panGestureDetector.Detected += OnPanGestureDetected;
-            thumbObjPosX = 0;
-            thumbObjPosY = 0;
-        }
-
-        private void ApplyPanGestureDetectorDirection()
-        {
-            DirectionType dir = CurrentDirection();
-            if (dir == DirectionType.Horizontal)
-            {
-                panGestureDetector.AddDirection(PanGestureDetector.DirectionHorizontal);
-            }
-            else
-            {
-                panGestureDetector.AddDirection(PanGestureDetector.DirectionVertical);
             }
         }
 
@@ -671,164 +626,48 @@ namespace Tizen.NUI.CommonUI
             return dir;
         }
 
-        private void OnPanGestureDetected(object source, PanGestureDetector.DetectedEventArgs e)
-        {
-            DirectionType dir = CurrentDirection();
-            if (e.PanGesture.State == Gesture.StateType.Continuing)
-            {
-                PanGestureEventArgs eventArgs = null;
-                eventArgs = new PanGestureEventArgs();
-                if (dir == DirectionType.Horizontal)
-                {
-                    eventArgs.currentValue = CalculateCurrentValue(e.PanGesture.Displacement.X, dir);
-                }
-                else
-                {
-                    eventArgs.currentValue = CalculateCurrentValue(e.PanGesture.Displacement.Y, dir);
-                }
-                OnPanGestureEvent(this, eventArgs);
-            }
-            if (e.PanGesture.State == Gesture.StateType.Started)
-            {
-                PanGestureEventArgs eventArgs = null;
-                eventArgs = new PanGestureEventArgs();
-                if (dir == DirectionType.Horizontal)
-                {
-                    thumbObjPosX = thumbObj.PositionX;
-                    eventArgs.currentValue = CalculateCurrentValue(e.PanGesture.Displacement.X, dir);
-                }
-                else
-                {
-                    thumbObjPosY = thumbObj.PositionY;
-                    eventArgs.currentValue = CalculateCurrentValue(e.PanGesture.Displacement.Y, dir);
-                }
-                OnPanGestureEvent(this, eventArgs);
-            }
-        }
-
         private int CalculateCurrentValue(float offset, DirectionType dir)
         {
             if (dir == DirectionType.Horizontal)
             {
-                thumbObjPosX += offset;
-                if (thumbObjPosX < 0)
+                thumbImagePosX += offset;
+                if (thumbImagePosX < 0)
                 {
-                    thumbObj.PositionX = 0;
-                    scrollBarAttrs.CurValue = scrollBarAttrs.MinValue;
+                    thumbImage.PositionX = 0;
+                    curValue = minValue;
                 }
-                else if (thumbObjPosX > Size2D.Width - thumbObj.Size2D.Width)
+                else if (thumbImagePosX > Size2D.Width - thumbImage.Size2D.Width)
                 {
-                    thumbObj.PositionX = Size2D.Width - thumbObj.Size2D.Width;
-                    scrollBarAttrs.CurValue = scrollBarAttrs.MaxValue;
+                    thumbImage.PositionX = Size2D.Width - thumbImage.Size2D.Width;
+                    curValue = maxValue;
                 }
                 else
                 {
-                    thumbObj.PositionX = thumbObjPosX;
-                    scrollBarAttrs.CurValue = (uint)((thumbObjPosX / (float)(Size2D.Width - thumbObj.Size2D.Width)) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
+                    thumbImage.PositionX = thumbImagePosX;
+                    curValue = (uint)((thumbImagePosX / (float)(Size2D.Width - thumbImage.Size2D.Width)) * (float)(maxValue - minValue) + 0.5f);
                 }
             }
             else
             {
-                thumbObjPosY += offset;
-                if (thumbObjPosY < 0)
+                thumbImagePosY += offset;
+                if (thumbImagePosY < 0)
                 {
-                    thumbObj.PositionY = 0;
-                    scrollBarAttrs.CurValue = scrollBarAttrs.MinValue;
+                    thumbImage.PositionY = 0;
+                    curValue = minValue;
                 }
-                else if (thumbObjPosY > Size2D.Height - thumbObj.Size2D.Height)
+                else if (thumbImagePosY > Size2D.Height - thumbImage.Size2D.Height)
                 {
-                    thumbObj.PositionY = Size2D.Height - thumbObj.Size2D.Height;
-                    scrollBarAttrs.CurValue = scrollBarAttrs.MaxValue;
-                }
-                else
-                {
-                    thumbObj.PositionY = thumbObjPosY;
-                    scrollBarAttrs.CurValue = (uint)((thumbObjPosY / (float)(Size2D.Height - thumbObj.Size2D.Height)) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
-                }
-            }
-
-            return (int)scrollBarAttrs.CurValue;
-        }
-
-        private void OnPanGestureEvent(object sender, PanGestureEventArgs e)
-        {
-            panGestureEventHandler?.Invoke(sender, e);
-        }
-
-        private bool OnTouchEvent(object source, TouchEventArgs e)
-        {
-            PointStateType state = e.Touch.GetState(0);
-            if (state == PointStateType.Down)
-            {
-                Vector2 pos = e.Touch.GetLocalPosition(0);
-                ChangeValueByTouch(pos);
-            }
-            return false;
-        }  
-
-        private void ChangeValueByTouch(Vector2 pos)
-        {
-            if (thumbObj == null)
-            {
-                return;
-            }
-            Size2D thumbSize = thumbObj.Size2D;
-            Size2D trackSize = trackObj.Size2D;
-            DirectionType direction = CurrentDirection();
-            //TNLog.I("pos.X = " + pos.X + ", pos.Y = " + pos.Y + ", direction = " + direction);
-
-            if (direction == DirectionType.Horizontal)
-            {
-                if (pos.X > trackSize.Width - thumbSize.Width)
-                {
-                    thumbObjPosX = trackSize.Width - thumbSize.Width;
+                    thumbImage.PositionY = Size2D.Height - thumbImage.Size2D.Height;
+                    curValue = maxValue;
                 }
                 else
                 {
-                    thumbObjPosX = pos.X;
+                    thumbImage.PositionY = thumbImagePosY;
+                    curValue = (uint)((thumbImagePosY / (float)(Size2D.Height - thumbImage.Size2D.Height)) * (float)(maxValue - minValue) + 0.5f);
                 }
-
-                thumbObj.PositionX = thumbObjPosX;
-                scrollBarAttrs.CurValue = (uint)((thumbObjPosX) / (float)(trackSize.Width - thumbSize.Width) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
             }
-            else
-            {
-                if (pos.Y > trackSize.Height - thumbSize.Height)
-                {
-                    thumbObjPosY = trackSize.Height - thumbSize.Height;
-                }
-                else
-                {
-                    thumbObjPosY = pos.Y;
-                }
 
-                thumbObj.PositionY = thumbObjPosY;
-                scrollBarAttrs.CurValue = (uint)((thumbObjPosY) / (float)(trackSize.Height - thumbSize.Height) * (float)(scrollBarAttrs.MaxValue - scrollBarAttrs.MinValue) + 0.5f);
-            }
-        }
-
-        /// <summary>
-        /// The PanGesture event args.
-        /// </summary>
-        /// <code>
-        /// scrollBar.PanGestureEvent += OnPanGestureEvent;
-        /// private void OnPanGestureEvent(object sender, ScrollBar.PanGestureEventArgs args)
-        /// {
-        ///      Log.Info("TV.NUI.Example", "args.currentValue = " + args.currentValue);
-        /// }
-        /// </code>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public class PanGestureEventArgs : EventArgs
-        {
-            /// <summary>
-            /// The current value
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public int currentValue;
+            return (int)curValue;
         }
     }
 }
