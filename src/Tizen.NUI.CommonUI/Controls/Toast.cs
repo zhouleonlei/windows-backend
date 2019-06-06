@@ -26,25 +26,31 @@ namespace Tizen.NUI.CommonUI
     /// A toast will automatically disappear after a certain time.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
-    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Toast : Control
     {
-        private ToastAttributes toastAttributes;
-        private ImageView toastBackground;
-        private TextLabel toastText;
-        private Timer timer;
-        private Animation showAnimation;
-        private Animation hideAnimation;
-        private int leftSpace;
-        private int downSpace;
-        private bool autoDestroy = false;
+        protected TextLabel[] textLabels = null;
+        private ToastAttributes toastAttributes = null;
+        private string[] textArray = null;
+        private NPatchVisual toastBackground = null;
+        private Timer timer = null;
+
+        private readonly int maxTextAreaWidth = 808;
+        private readonly uint textLineHeight = 56;
+        private readonly uint textLineSpace = 4;
+        private readonly float textPointSize = 38;
+        private readonly int textPaddingLeft = 96;
+        private readonly int textPaddingRight = 96;
+        private readonly int textPaddingTop = 38;
+        private readonly int textPaddingBottom = 38;
+        private readonly uint duration = 3000;
 
         /// <summary>
         /// Construct Toast with null.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
@@ -56,7 +62,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="attributes">Construct Attributes</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(ToastAttributes attributes) : base(attributes)
         {
@@ -68,7 +74,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="style"> style name </param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
@@ -76,149 +82,306 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Text string of ToastPopup
+        /// Gets or sets the text array of toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Text
+        public string[] TextArray
         {
             get
             {
-                return toastText?.Text;
+                return textArray;
             }
             set
             {
-                toastText.Text = value;
+                if (null != value)
+                {
+                    textArray = value;
+                    SetToastText();
+                    RelayoutRequest();
+                }
             }
-
         }
 
         /// <summary>
-        /// Get or set BackgroundImage resource URL
+        /// Gets or sets text point size in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public float PointSize
+        {
+            get
+            {
+                return toastAttributes.TextAttributes?.PointSize?.All ?? textPointSize;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (null == toastAttributes.TextAttributes.PointSize)
+                {
+                    toastAttributes.TextAttributes.PointSize = new FloatSelector();
+                }
+                toastAttributes.TextAttributes.PointSize.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets text font family in toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string FontFamily
+        {
+            get
+            {
+                return toastAttributes.TextAttributes?.FontFamily;
+            }
+            set
+            {
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.FontFamily = value;
+                RelayoutRequest();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets text color in toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Color TextColor
+        {
+            get
+            {
+                return toastAttributes.TextAttributes?.TextColor?.All;
+            }
+            set
+            {
+                CreateTextAttributes();
+                if (null == toastAttributes.TextAttributes.TextColor)
+                {
+                    toastAttributes.TextAttributes.TextColor = new ColorSelector();
+                }
+                toastAttributes.TextAttributes.TextColor.All = value;
+                RelayoutRequest();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets text horizontal alignment in toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public HorizontalAlignment TextAlignment
+        {
+            get
+            {
+                return toastAttributes.TextAttributes?.HorizontalAlignment ?? HorizontalAlignment.Center;
+            }
+            set
+            {
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.HorizontalAlignment = value;
+                RelayoutRequest();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets background image resource of toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string BackgroundImageURL
         {
             get
             {
-                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
-                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                return toastAttributes.BackgroundImageAttributes.ResourceURL.All;
+                return toastAttributes.BackgroundImageAttributes?.ResourceURL?.All;
             }
             set
             {
-                if (toastAttributes.BackgroundImageAttributes.ResourceURL == null)
+                if (null != value)
                 {
-                    toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
-                }
+                    CreateBackgroundAttributes();
+                    if (null == toastAttributes.BackgroundImageAttributes?.ResourceURL)
+                    {
+                        toastAttributes.BackgroundImageAttributes.ResourceURL = new StringSelector();
+                    }
 
-                toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                    toastAttributes.BackgroundImageAttributes.ResourceURL.All = value;
+                    SetToastBackground();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets background image's border of toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Rectangle BackgroundImageBorder
+        {
+            get
+            {
+                return toastAttributes.BackgroundImageAttributes?.Border?.All;
+            }
+            set
+            {
+                if (null != value)
+                {
+                    CreateBackgroundAttributes();
+                    if (null == toastAttributes.BackgroundImageAttributes.Border)
+                    {
+                        toastAttributes.BackgroundImageAttributes.Border = new RectangleSelector();
+                    }
+                    toastAttributes.BackgroundImageAttributes.Border.All = value;
+                    SetToastBackground();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets text left padding in toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public int TextPaddingLeft
+        {
+            get
+            {
+                return toastAttributes.TextAttributes?.PaddingLeft ?? textPaddingLeft;
+            }
+            set
+            {
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.PaddingLeft = value;
                 RelayoutRequest();
             }
         }
 
         /// <summary>
-        /// Get or set space of left with text
+        /// Gets or sets text right padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public int LeftSpace
+        public int TextPaddingRight
         {
             get
             {
-                return leftSpace;
+                return toastAttributes.TextAttributes?.PaddingRight ?? textPaddingRight;
             }
             set
             {
-                leftSpace = value;
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.PaddingRight = value;
                 RelayoutRequest();
             }
         }
 
         /// <summary>
-        /// Get or set space of up with text
+        /// Gets or sets text top padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public int UpSpace
+        public int TextPaddingTop
         {
             get
             {
-                if (toastAttributes.UpSpace == null)
-                {
-                    toastAttributes.UpSpace = new int();
-                }
-                return toastAttributes.UpSpace.Value;
+                return toastAttributes.TextAttributes?.PaddingTop ?? textPaddingTop;
             }
             set
             {
-                if (toastAttributes.UpSpace == null)
-                {
-                    toastAttributes.UpSpace = new int();
-                }
-                toastAttributes.UpSpace = value;
-                downSpace = value;
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.PaddingTop = value;
+                RelayoutRequest();
             }
         }
 
         /// <summary>
-        /// Get or set space of down with text
+        /// Gets or sets text bottom padding in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public int DownSpace
+        public int TextPaddingBottom
         {
             get
             {
-                return downSpace;
+                return toastAttributes.TextAttributes?.PaddingBottom ?? textPaddingBottom;
             }
             set
             {
-                downSpace = value;
+                CreateTextAttributes();
+                toastAttributes.TextAttributes.PaddingBottom = value;
+                RelayoutRequest();
             }
         }
 
         /// <summary>
-        /// Get or set border of backgroundImage
+        /// Gets or sets text line height in toast.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Rectangle BackgroundBorder
+        public uint TextLineHeight
         {
             get
             {
-                return toastAttributes?.BackgroundImageAttributes?.Border.All;
+                return toastAttributes.TextLineHeight ?? textLineHeight;
             }
             set
             {
-                if (toastAttributes.BackgroundImageAttributes.Border == null)
-                {
-                    toastAttributes.BackgroundImageAttributes.Border = new RectangleSelector();
-                }
-                toastAttributes.BackgroundImageAttributes.Border.All = value;
+                toastAttributes.TextLineHeight = value;
+                RelayoutRequest();
             }
-
         }
 
         /// <summary>
-        /// Show ToastPopup and reset timer.
+        /// Gets or sets text line space in toast.
         /// </summary>
-        /// <param name="millisecond">timer time</param>
-        /// <param name="autoDestroy">If need auto dispose itself, default is false. If it is true, ToastPopup will dispose itself and can't be used again</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Show(uint millisecond, bool autoDestroy = false)
+        public uint TextLineSpace
         {
-            ShowWithAnimation(opacityDuration: 700, opacityStart: 0.5f, scaleDuration: 700, scaleStart: 0.97f);
-            CreateTimer(millisecond);
+            get
+            {
+                return toastAttributes.TextLineSpace ?? textLineSpace;
+            }
+            set
+            {
+                toastAttributes.TextLineSpace = value;
+                RelayoutRequest();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets duration of toast.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public uint Duration
+        {
+            get
+            {
+                return toastAttributes.Duration ?? duration;
+            }
+            set
+            {
+                toastAttributes.Duration = value;
+                timer.Interval = value;
+            }
         }
 
         /// <summary>
@@ -226,7 +389,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="type">dispose types.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
@@ -237,18 +400,19 @@ namespace Tizen.NUI.CommonUI
 
             if (type == DisposeTypes.Explicit)
             {
-                if (toastBackground != null)
+                this.VisibilityChanged -= OnVisibilityChanged;
+                if (null != timer)
                 {
-                    this.Remove(toastBackground);
-                    toastBackground.Dispose();
-                    toastBackground = null;
+                    timer.Tick -= OnTick;
+                    timer.Dispose();
+                    timer = null;
                 }
-
-                if (toastText != null)
+                if (null != textLabels)
                 {
-                    this.Remove(toastText);
-                    toastText.Dispose();
-                    toastText = null;
+                    for (int i=0; i<textLabels.Length; i++)
+                    {
+                        Utility.Dispose(textLabels[i]);
+                    }
                 }
             }
 
@@ -259,233 +423,159 @@ namespace Tizen.NUI.CommonUI
         /// Relayout control's elements
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
-
-            LayoutChild();
-
-            /////////////////////////////////////////////////////
-            ApplyAttributes(this, toastAttributes);
-
-            ///////////////////// Background ///////////////////////////////
-            ApplyAttributes(toastBackground, toastAttributes.BackgroundImageAttributes);
-            ////////////////////// Text //////////////////////////////
-            ApplyAttributes(toastText, toastAttributes.TextAttributes);
-        }
-
-        /// <summary>
-        /// Get Toast attribues.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override Attributes GetAttributes()
-        {
-            return new ToastAttributes
+            if (null == toastAttributes)
             {
-                TextAttributes = new TextAttributes
+                return;
+            }
+            if (null != toastAttributes.TextAttributes)
+            {
+                for (int i = 0; i < textLabels.Length; i++)
                 {
-
-                },
-
-                BackgroundImageAttributes = new ImageAttributes
-                {
-
+                    ApplyAttributes(textLabels[i], toastAttributes.TextAttributes);
                 }
-
-            };
+            }
+            LayoutChild();
         }
 
         /// <summary>
         /// LayoutChild include textLabel.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void LayoutChild()
         {
-            if (toastAttributes.TextAttributes.Size2D == null)
+            int _textPaddingLeft = toastAttributes.TextAttributes?.PaddingLeft ?? textPaddingLeft;
+            int _textPaddingRight = toastAttributes.TextAttributes?.PaddingRight ?? _textPaddingLeft;
+            int _textPaddingTop = toastAttributes.TextAttributes?.PaddingTop ?? textPaddingTop;
+            int _textPaddingBottom = toastAttributes.TextAttributes?.PaddingBottom ?? _textPaddingTop;
+
+            int _textAreaWidth = this.Size2D.Width - _textPaddingLeft - _textPaddingRight;
+            int _textAreaHeight = this.Size2D.Height - _textPaddingTop - _textPaddingBottom;
+            int _textLineSpace = (int)(toastAttributes.TextLineSpace ?? textLineSpace);
+            int _textLineHeight = (int)(toastAttributes.TextLineHeight ?? textLineHeight);
+            int _positionY = 0;
+
+            _textAreaWidth = _textAreaWidth > maxTextAreaWidth ? maxTextAreaWidth : _textAreaWidth;
+            if (LayoutDirection == ViewLayoutDirectionType.LTR)
             {
-                toastAttributes.TextAttributes.Size2D = new Size2D();
+                for (int i = 0; i < textLabels?.Length; i++)
+                {
+                    textLabels[i].Position2D = new Position2D(_textPaddingLeft, _textPaddingTop + _positionY);
+                    textLabels[i].Size2D = new Size2D(_textAreaWidth, _textLineHeight);
+                    _positionY += _textLineHeight + _textLineSpace;
+                }
             }
-            if (toastAttributes.TextAttributes.Position2D == null)
+            else
             {
-                toastAttributes.TextAttributes.Position2D = new Position2D();
+                for (int i = 0; i < textLabels?.Length; i++)
+                {
+                    textLabels[i].ParentOrigin = Tizen.NUI.ParentOrigin.TopRight;
+                    textLabels[i].PivotPoint = Tizen.NUI.PivotPoint.TopRight;
+                    textLabels[i].PositionUsesPivotPoint = true;
+                    textLabels[i].Position2D = new Position2D(-_textPaddingLeft, _textPaddingTop + _positionY);
+                    textLabels[i].Size2D = new Size2D(_textAreaWidth, _textLineHeight);
+                    _positionY += _textLineHeight + _textLineSpace;
+                }
             }
-            toastAttributes.TextAttributes.Size2D.Width = this.Size2D.Width - 2 * LeftSpace;
-            toastAttributes.TextAttributes.Size2D.Height = this.Size2D.Height - UpSpace - downSpace;
-            toastAttributes.TextAttributes.Position2D.X = LeftSpace;
-            toastAttributes.TextAttributes.Position2D.Y = UpSpace;
+        }
+
+        /// <summary>
+        /// Get Toast attribues.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override Attributes GetAttributes()
+        {
+            return new ToastAttributes();
         }
 
         private void Initialize()
         {
             toastAttributes = attributes as ToastAttributes;
-            if (toastAttributes == null)
+            if (null == toastAttributes)
             {
                 throw new Exception("Toast attribute parse error.");
             }
+            ApplyAttributes(this, toastAttributes);
 
-            toastBackground = new ImageView()
-            {
-                WidthResizePolicy = ResizePolicyType.FillToParent,
-                HeightResizePolicy = ResizePolicyType.FillToParent,
-            };
-            this.Add(toastBackground);
+            toastBackground = new NPatchVisual();
+            SetToastBackground();
 
-            toastText = new TextLabel()
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-            this.Add(toastText);
-        }
-
-        private void ShowWithAnimation(float opacityStart = 0.5f,
-                                        float opacityEnd = 1.0f,
-                                        int opacityStartTime = 0,
-                                        int opacityDuration = 700,
-                                        string opacityMotionCurve = "Basic",
-                                        float scaleStart = 0.98f,
-                                        float scaleEnd = 1.0f,
-                                        int scaleStartTime = 0,
-                                        int scaleDuration = 700,
-                                        string scaleMotionCurve = "Elastic"
-                                                                    )
-        {
-            if (hideAnimation != null && hideAnimation.State == Animation.States.Playing)
-            {
-                hideAnimation.Finished -= HideAnimationFinished;
-                hideAnimation.Stop();
-            }
-            else if (Visibility == true)
-            {
-                //return;
-            }
-
-            if (showAnimation == null)
-            {
-                showAnimation = new Animation();
-            }
-            else if (showAnimation.State == Animation.States.Playing)
-            {
-                return;
-            }
-
-            //set start value
-            Opacity = opacityStart;
-            float scaleStartVal = scaleStart;
-            float scaleEndVal = scaleEnd;
-            showAnimation.Clear();
-            Scale = new Vector3(scaleStartVal, scaleStartVal, 1);
-            Show();
-
-            showAnimation.Clear();
-
-            int opacityEndTime = opacityStartTime + opacityDuration;
-            int scaleEndTime = scaleStartTime + scaleDuration;
-            showAnimation.Duration = opacityEndTime > scaleEndTime ? opacityEndTime : scaleEndTime;
-            showAnimation.AnimateTo(this, "Opacity", opacityEnd, opacityStartTime, opacityEndTime);
-            showAnimation.AnimateTo(this, "Scale", new Vector3(scaleEndVal, scaleEndVal, 1), scaleStartTime, scaleEndTime);
-
-            showAnimation.Play();
-
-        }
-
-        private void HideWithAnimation(float opacityStart = 1.0f,
-                                        float opacityEnd = 0.0f,
-                                        int opacityStartTime = 0,
-                                        int opacityDuration = 200,
-                                        string opacityMotionCurve = "Basic",
-                                        float scaleStart = 1.0f,
-                                        float scaleEnd = 0.99f,
-                                        int scaleStartTime = 0,
-                                        int scaleDuration = 200,
-                                        string scaleMotionCurve = "Elastic",
-                                        bool autoDestroy = false
-                                        )
-        {
-            if (showAnimation != null && showAnimation.State == Animation.States.Playing)
-            {
-                showAnimation.Stop();
-            }
-            if (Visibility == false)
-            {
-                return;
-            }
-
-            if (hideAnimation == null)
-            {
-                hideAnimation = new Animation();
-            }
-            else if (hideAnimation.State == Animation.States.Playing)
-            {
-                return;
-            }
-
-            hideAnimation.Finished += HideAnimationFinished;
-
-            Opacity = opacityStart;
-            float scaleStartVal = scaleStart;
-
-            Scale = new Vector3(scaleStartVal, scaleStartVal, 1);
-
-            hideAnimation.Clear();
-
-            int opacityEndTime = opacityStartTime + opacityDuration;
-            int scaleEndTime = scaleStartTime + scaleDuration;
-            hideAnimation.Duration = opacityEndTime > scaleEndTime ? opacityEndTime : scaleEndTime;
-            hideAnimation.AnimateTo(this, "Opacity", opacityEnd, opacityStartTime, opacityEndTime);
-            float scaleEndVal = scaleEnd;
-            hideAnimation.AnimateTo(this, "Scale", new Vector3(scaleEndVal, scaleEndVal, 1), scaleStartTime, scaleEndTime);
-
-            hideAnimation.Play();
-        }
-
-        private void HideAnimationFinished(object sender, EventArgs e)
-        {
-            hideAnimation.Finished -= HideAnimationFinished;
-            if (autoDestroy == true)
-            {
-                if (this.GetParent() != null)
-                {
-                    this.GetParent().Remove(this);
-                }
-                this.Dispose();
-            }
-            else
-            {
-                Hide();
-                Opacity = 1.0f;
-                Scale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-        }
-
-        private void CreateTimer(uint millisecond)
-        {
-            if (timer != null)
-            {
-                timer.Dispose();
-                timer = null;
-            }
-
-            timer = new Timer(millisecond);
-            timer.Tick += TimerTick;
+            this.VisibilityChanged += OnVisibilityChanged;
+            timer = new Timer(toastAttributes.Duration ?? duration);
+            timer.Tick += OnTick;
             timer.Start();
         }
 
-        private bool TimerTick(object sender, EventArgs e)
+        private bool OnTick(object sender, EventArgs e)
         {
-            timer.Stop();
-            timer.Tick -= TimerTick;
-            timer.Dispose();
-
-            timer = null;
-            HideWithAnimation(opacityDuration: 200, opacityEnd: 0.5f, scaleDuration: 200, scaleEnd: 0.95f);
-
+            Hide();
             return false;
+        }
+
+        private void OnVisibilityChanged(object sender, VisibilityChangedEventArgs e)
+        {
+            if (true == e.Visibility)
+            {
+                timer.Start();
+            }
+        }
+
+        private void SetToastText()
+        {
+            for (int i = 0; i < textLabels?.Length; i++)
+            {
+                if (null != textLabels[i])
+                {
+                    this.Remove(textLabels[i]);
+                    textLabels[i].Dispose();
+                    textLabels[i] = null;
+                }
+            }
+
+            textLabels = new TextLabel[textArray.Length];
+            for (int i = 0; i < textArray.Length; i++)
+            {
+                textLabels[i] = new TextLabel();
+                textLabels[i].Text = textArray[i];
+                textLabels[i].BackgroundColor = Color.Blue;
+                this.Add(textLabels[i]);
+            }
+        }
+
+        private void SetToastBackground()
+        {
+            if (null != toastAttributes?.BackgroundImageAttributes?.ResourceURL)
+            {
+                toastBackground.URL = toastAttributes.BackgroundImageAttributes.ResourceURL.All;
+            }
+            if (null != toastAttributes?.BackgroundImageAttributes?.Border)
+            {
+                toastBackground.Border = toastAttributes.BackgroundImageAttributes.Border.All;
+            }
+            this.Background = toastBackground.OutputVisualMap;
+        }
+
+        private void CreateBackgroundAttributes()
+        {
+            if (null == toastAttributes.BackgroundImageAttributes)
+            {
+                toastAttributes.BackgroundImageAttributes = new ImageAttributes();
+            }
+        }
+
+        private void CreateTextAttributes()
+        {
+            if (null == toastAttributes.TextAttributes)
+            {
+                toastAttributes.TextAttributes = new TextAttributes();
+            }
         }
     }
 }

@@ -22,30 +22,28 @@ namespace Tizen.FH.NUI.Samples
             toast1_1 = new FH.NUI.Controls.Toast("BasicShortToast");
             toast1_1.Position2D = new Position2D(30, 0);
             root.Add(toast1_1);
-            toast1_1.Text = "Basic Short Toast";
+            toast1_1.TextArray = new string[1] { "Basic Short Toast" };
 
 
             toast2_1 = new FH.NUI.Controls.Toast("BasicLongToast");
             toast2_1.Position2D = new Position2D(30, 200);
             root.Add(toast2_1);
-            toast2_1.Text = "Long Toast, I can have a loading, I have a very long long long text, I have a very long long";
+            toast2_1.TextArray = new string[1] { "Long Toast, I can have a loading, I have a very long long long text, I have a very long long" };
             toast2_1.LoadingEnable = true;
-            toast2_1.LeftSpace = 96;
+            //toast2_1.TextPaddingLeft = 204;
 
             toast2_3 = new Tizen.FH.NUI.Controls.Toast();
-            toast2_3.BackgroundBorder = new Rectangle(64, 64, 4, 4);
+            toast2_3.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
+            toast2_3.BackgroundImageBorder = new Rectangle(64, 64, 4, 4);
             toast2_3.Position2D = new Position2D(30, 350);
             toast2_3.Size2D = new Size2D(1000, 272);
-            toast2_3.LeftSpace = 96;
-            toast2_3.UpSpace = 48;
-            //toast2_3.LengthType = Controls.Toast.ToastLengthType.LONG;
+            toast2_3.TextPaddingLeft = 96;
+            toast2_3.TextPaddingTop = 48;
+            toast2_3.TextArray = new string[3] {
+                "I have a very long long text, I have a very long long text, I have a very long long text",
+                "This is my 2 line, I have a very long long text, I have a very long long text",
+                "This is my 3 line, I have a very long long text, I have a very long long text" };
             root.Add(toast2_3);
-            toast2_3.LinesType = Controls.Toast.ToastLinesType.THREE;
-            toast2_3.Text = "I have a very long long text, I have a very long long text, I have a very long long text";
-            toast2_3.Text2Line = "This is my 2 line, I have a very long long text, I have a very long long text";
-            toast2_3.Text3Line = "This is my 3 line, I have a very long long text, I have a very long long text";
-            toast2_3.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
-            global::System.Console.WriteLine("set url");
 
             board.UpFocusableView = button1;
 
@@ -117,13 +115,13 @@ namespace Tizen.FH.NUI.Samples
         private void toast1_1Show(object sender, global::System.EventArgs e)
         {
             board.Text = "toast1_1 show: ";
-            toast1_1.Show(3000, false);
+            toast1_1.Show();
         }
 
         private void toast2_1Show(object sender, global::System.EventArgs e)
         {
             board.Text = "toast2_1 show: ";
-            toast2_1.Show(3000, false);
+            toast2_1.Show();
         }
 
         private void toast2_1ChangeDirection(object sender, global::System.EventArgs e)
@@ -132,7 +130,7 @@ namespace Tizen.FH.NUI.Samples
                 toast2_1.LayoutDirection = ViewLayoutDirectionType.RTL;
             else
                 toast2_1.LayoutDirection = ViewLayoutDirectionType.LTR;
-            toast2_1.Show(3000, false);
+            toast2_1.Show();
         }
 
         private void toast2_1ChangeLoading(object sender, global::System.EventArgs e)
@@ -142,7 +140,7 @@ namespace Tizen.FH.NUI.Samples
                 toast2_1.LoadingEnable = false;
             else
                 toast2_1.LoadingEnable = true;
-            toast2_1.Show(3000, false);
+            toast2_1.Show();
         }
 
         public void Deactivate()
