@@ -672,9 +672,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnFocusGained(object sender, EventArgs e)
+        public override void OnFocusGained()
         {
-            base.OnFocusGained(sender, e);
+            base.OnFocusGained();
         }
         /// <summary>
         /// Focus lost callback.
@@ -682,9 +682,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnFocusLost(object sender, EventArgs e)
+        public override void OnFocusLost()
         {
-            base.OnFocusLost(sender, e);
+            base.OnFocusLost();
         }
 
         /// <summary>

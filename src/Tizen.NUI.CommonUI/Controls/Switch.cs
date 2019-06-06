@@ -303,23 +303,23 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Key event callback.
+        /// Called after a key event is received by the view that has had its focus set.
         /// </summary>
-        /// <param name="source">Source which recieved key event.</param>
-        /// <param name="e">Key event argument.</param>
+        /// <param name="key">The key event.</param>
+        /// <returns>True if the key event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override bool OnKey(object source, KeyEventArgs e)
+        public override bool OnKey(Key key)
         {
             if (IsEnabled == false)
             {
                 return false;
             }
-            bool ret = base.OnKey(source, e);
-            if (e.Key.State == Key.StateType.Up)
+            bool ret = base.OnKey(key);
+            if (key.State == Key.StateType.Up)
             {
-                if (e.Key.KeyPressedName == "Return")
+                if (key.KeyPressedName == "Return")
                 {
                     OnSelect();
                 }
@@ -329,21 +329,22 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Touch event callback.
+        /// Called after a touch event is received by the owning view.<br />
+        /// CustomViewBehaviour.REQUIRES_TOUCH_EVENTS must be enabled during construction. See CustomView(ViewWrapperImpl.CustomViewBehaviour behaviour).<br />
         /// </summary>
-        /// <param name="source">Source which recieved touch event.</param>
-        /// <param name="e">Touch event argument.</param>
+        /// <param name="touch">The touch event.</param>
+        /// <returns>True if the event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override bool OnTouch(object source, TouchEventArgs e)
+        public override bool OnTouch(Touch touch)
         {
             if(IsEnabled == false)
             {
                 return false;
             }
-            PointStateType state = e.Touch.GetState(0);
-            bool ret = base.OnTouch(source, e);
+            PointStateType state = touch.GetState(0);
+            bool ret = base.OnTouch(touch);
             switch (state)
             {
                 case PointStateType.Up:

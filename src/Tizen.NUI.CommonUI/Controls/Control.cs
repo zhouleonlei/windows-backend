@@ -358,11 +358,6 @@ namespace Tizen.NUI.CommonUI
             if (type == DisposeTypes.Explicit)
             {
                 StyleManager.Instance.ThemeChangedEvent -= OnThemeChangedEvent;
-                KeyEvent -= OnKey;
-                Relayout -= OnRelayout;
-                FocusGained -= OnFocusGained;
-                FocusLost -= OnFocusLost;
-                TouchEvent -= OnTouch;
                 tapGestureDetector.Detected -= OnTapGestureDetected;
                 tapGestureDetector.Detach(this);
             }
@@ -376,54 +371,56 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected abstract Attributes GetAttributes();
         /// <summary>
-        /// Called after a key-event is received by the view that has had its focus set.
+        /// Called after a key event is received by the view that has had its focus set.
         /// </summary>
-        /// <param name="source">The source</param>
-        /// <param name="e">The key event data</param>
-        /// <returns>True if the key event should be consumed</returns>
+        /// <param name="key">The key event.</param>
+        /// <returns>True if the key event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual bool OnKey(object source, KeyEventArgs e)
+        public override bool OnKey(Key key)
         {
             return false;
         }
+
         /// <summary>
-        /// Relayout callback.
+        /// Called after the size negotiation has been finished for this control.<br />
+        /// The control is expected to assign this given size to itself or its children.<br />
+        /// Should be overridden by derived classes if they need to layout views differently after certain operations like add or remove views, resize, or after changing specific properties.<br />
+        /// As this function is called from inside the size negotiation algorithm, you cannot call RequestRelayout (the call would just be ignored).<br />
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
+        /// <param name="size">The allocated size.</param>
+        /// <param name="container">The control should add views to this container that it is not able to allocate a size for.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnRelayout(object sender, EventArgs e)
+        public override void OnRelayout(Vector2 size, RelayoutContainer container)
         {
             OnUpdate();
         }
+
         /// <summary>
-        /// Focus gain callback.
+        /// Called when the control gain key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is gained.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnFocusGained(object sender, EventArgs e)
+        public override void OnFocusGained()
         {
             isFocused = true;
         }
+
         /// <summary>
-        /// Focus lost callback.
+        /// Called when the control loses key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is lost.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnFocusLost(object sender, EventArgs e)
+        public override void OnFocusLost()
         {
             isFocused = false;
         }
+
         /// <summary>
         /// Tap gesture callback.
         /// </summary>
@@ -436,17 +433,19 @@ namespace Tizen.NUI.CommonUI
         {
         }
         /// <summary>
-        /// Touch callback.
+        /// Called after a touch event is received by the owning view.<br />
+        /// CustomViewBehaviour.REQUIRES_TOUCH_EVENTS must be enabled during construction. See CustomView(ViewWrapperImpl.CustomViewBehaviour behaviour).<br />
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The touch event data</param>
+        /// <param name="touch">The touch event.</param>
+        /// <returns>True if the event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual bool OnTouch(object source, TouchEventArgs e)
+        public override bool OnTouch(Touch touch)
         {
             return false;
         }
+
         /// <summary>
         /// Update by attributes.
         /// </summary>
@@ -471,13 +470,7 @@ namespace Tizen.NUI.CommonUI
             attributes = (style == null) ? GetAttributes() : GetAttributes(style);
             State = ControlStates.Normal;
 
-            KeyEvent += OnKey;
-            Relayout += OnRelayout;
-            FocusGained += OnFocusGained;
-            FocusLost += OnFocusLost;
-
             LeaveRequired = true;
-            TouchEvent += OnTouch;
 
             StateFocusableOnTouchMode = false;
 
