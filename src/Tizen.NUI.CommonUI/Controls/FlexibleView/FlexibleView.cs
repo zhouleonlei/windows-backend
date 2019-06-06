@@ -421,7 +421,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnRelayout(object sender, EventArgs e)
+        public override void OnRelayout(Vector2 size, RelayoutContainer container)
         {
             if (mAdapter == null)
             {

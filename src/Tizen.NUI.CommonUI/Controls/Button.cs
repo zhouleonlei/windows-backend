@@ -974,18 +974,18 @@ namespace Tizen.NUI.CommonUI
             base.Dispose(type);
         }
         /// <summary>
-        /// Key event callback.
+        /// Called after a key event is received by the view that has had its focus set.
         /// </summary>
-        /// <param name="source">Source which recieved key event.</param>
-        /// <param name="e">Key event argument.</param>
+        /// <param name="key">The key event.</param>
+        /// <returns>True if the key event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override bool OnKey(object source, KeyEventArgs e)
+        public override bool OnKey(Key key)
         {
-            if (e.Key.State == Key.StateType.Down)
+            if (key.State == Key.StateType.Down)
             {
-                if (e.Key.KeyPressedName == "Return")
+                if (key.KeyPressedName == "Return")
                 {
                     isPressed = true;
                     UpdateState();
@@ -996,9 +996,9 @@ namespace Tizen.NUI.CommonUI
                     }
                 }
             }
-            else if (e.Key.State == Key.StateType.Up)
+            else if (key.State == Key.StateType.Up)
             {
-                if (e.Key.KeyPressedName == "Return")
+                if (key.KeyPressedName == "Return")
                 {
                     isPressed = false;
                     if (buttonAttributes.IsSelectable != null && buttonAttributes.IsSelectable == true)
@@ -1008,28 +1008,28 @@ namespace Tizen.NUI.CommonUI
                     UpdateState();
                 }
             }
-            return base.OnKey(source, e);
+            return base.OnKey(key);
         }
         /// <summary>
-        /// Focus gained callback.
+        /// Called when the control gain key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is gained.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnFocusGained(object sender, EventArgs e)
+        public override void OnFocusGained()
         {
-            base.OnFocusGained(sender, e);
+            base.OnFocusGained();
             UpdateState();
         }
         /// <summary>
-        /// Focus lost callback.
+        /// Called when the control loses key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is lost.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnFocusLost(object sender, EventArgs e)
+        public override void OnFocusLost()
         {
-            base.OnFocusLost(sender, e);
+            base.OnFocusLost();
             UpdateState();
         }
         /// <summary>
@@ -1049,17 +1049,19 @@ namespace Tizen.NUI.CommonUI
                 base.OnTapGestureDetected(source, e);
             }
         }
+
         /// <summary>
-        /// Touch event callback.
+        /// Called after a touch event is received by the owning view.<br />
+        /// CustomViewBehaviour.REQUIRES_TOUCH_EVENTS must be enabled during construction. See CustomView(ViewWrapperImpl.CustomViewBehaviour behaviour).<br />
         /// </summary>
-        /// <param name="source">Source which recieved touch event.</param>
-        /// <param name="e">Touch event argument.</param>
+        /// <param name="touch">The touch event.</param>
+        /// <returns>True if the event should be consumed.</returns>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override bool OnTouch(object source, TouchEventArgs e)
+        public override bool OnTouch(Touch touch)
         {
-            PointStateType state = e.Touch.GetState(0);
+            PointStateType state = touch.GetState(0);
       
             switch(state)
             {
@@ -1082,7 +1084,7 @@ namespace Tizen.NUI.CommonUI
                 default:
                     break;
             }
-            return base.OnTouch(source, e);
+            return base.OnTouch(touch);
         }
         /// <summary>
         /// Get Button attribues.
