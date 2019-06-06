@@ -35,9 +35,9 @@ namespace Tizen.NUI.CommonUI
         private float thumbImagePosX;
         private float thumbImagePosY;
         private bool enableAni = false;
-        private uint minValue;
-        private uint maxValue;
-        private uint curValue;
+        private int minValue;
+        private int maxValue;
+        private int curValue;
 
         /// <summary>
         /// The constructor of ScrollBar
@@ -249,7 +249,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint MaxValue
+        public int MaxValue
         {
             get
             {
@@ -257,8 +257,11 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                maxValue = value;
-                RelayoutRequest();
+                if(value >= 0)
+                {
+                    maxValue = value;
+                    RelayoutRequest();
+                }
             }
         }
 
@@ -268,7 +271,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint MinValue
+        public int MinValue
         {
             get
             {
@@ -276,9 +279,11 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-
-                minValue = value;
-                RelayoutRequest();
+                if(value >= 0)
+                {
+                    minValue = value;
+                    RelayoutRequest();
+                }
             }
         }
 
@@ -304,7 +309,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint CurrentValue
+        public int CurrentValue
         {
             get
             {
@@ -312,8 +317,11 @@ namespace Tizen.NUI.CommonUI
             }
             set
             {
-                curValue = value;
-                RelayoutRequest();
+                if(value >= 0)
+                {
+                    curValue = value;
+                    RelayoutRequest();
+                }
             }
         }
 
@@ -364,7 +372,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void SetCurrentValue(uint currentValue, bool isEnableAni = true)
+        public void SetCurrentValue(int currentValue, bool isEnableAni = true)
         {
             if (currentValue < minValue || currentValue > maxValue)
             {
@@ -644,7 +652,7 @@ namespace Tizen.NUI.CommonUI
                 else
                 {
                     thumbImage.PositionX = thumbImagePosX;
-                    curValue = (uint)((thumbImagePosX / (float)(Size2D.Width - thumbImage.Size2D.Width)) * (float)(maxValue - minValue) + 0.5f);
+                    curValue = (int)((thumbImagePosX / (float)(Size2D.Width - thumbImage.Size2D.Width)) * (float)(maxValue - minValue) + 0.5f);
                 }
             }
             else
@@ -663,7 +671,7 @@ namespace Tizen.NUI.CommonUI
                 else
                 {
                     thumbImage.PositionY = thumbImagePosY;
-                    curValue = (uint)((thumbImagePosY / (float)(Size2D.Height - thumbImage.Size2D.Height)) * (float)(maxValue - minValue) + 0.5f);
+                    curValue = (int)((thumbImagePosY / (float)(Size2D.Height - thumbImage.Size2D.Height)) * (float)(maxValue - minValue) + 0.5f);
                 }
             }
 
