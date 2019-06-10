@@ -19,30 +19,35 @@ using System.ComponentModel;
 namespace Tizen.NUI.CommonUI
 {
     /// <summary>
-    /// ProgressBarAttributes is a class which saves Progress's ux data.
+    /// ProgressAttributes is a class which saves Progress's ux data.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class ProgressBarAttributes : ViewAttributes
-    {    
+    public class ProgressAttributes : ViewAttributes
+    {
         /// <summary>
-        /// Creates a new instance of a ProgressBarAttributes.
+        /// Creates a new instance of a ProgressAttributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ProgressBarAttributes() : base() { }
+        public ProgressAttributes() : base() { }
 
         /// <summary>
-        /// Creates a new instance of a ProgressBarAttributes with attributes.
+        /// Creates a new instance of a ProgressAttributes with attributes.
         /// </summary>
-        /// <param name="attributes">Create ProgressBarAttributes by attributes customized by user.</param>
+        /// <param name="attributes">Create ProgressAttributes by attributes customized by user.</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ProgressBarAttributes(ProgressBarAttributes attributes) : base(attributes)
+        public ProgressAttributes(ProgressAttributes attributes) : base(attributes)
         {
+            if (null == attributes)
+            {
+                return;
+            }
+
             MaxValue = attributes.MaxValue;
             MinValue = attributes.MinValue;
             CurValue = attributes.CurValue;
@@ -141,11 +146,11 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint? MaxValue
+        public int? MaxValue
         {
             get;
             set;
-        }
+        } = 100;
 
         /// <summary>
         /// Get or set minim value.
@@ -153,11 +158,11 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint? MinValue
+        public int? MinValue
         {
             get;
             set;
-        }
+        } = 0;
 
         /// <summary>
         /// Get or set current value.
@@ -165,11 +170,11 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint? CurValue
+        public int? CurValue
         {
             get;
             set;
-        }
+        } = 0;
 
         /// <summary>
         /// Get or set buffer value.
@@ -177,11 +182,11 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint? BufferValue
+        public int? BufferValue
         {
             get;
             set;
-        }
+        } = 0;
 
         /// <summary>
         /// Get or set duration of Progress.
@@ -189,7 +194,7 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public uint? Duration
+        public int? Duration
         {
             get;
             set;
@@ -203,8 +208,7 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
-            return new ProgressBarAttributes(this);
+            return new ProgressAttributes(this);
         }
-
     }
 }

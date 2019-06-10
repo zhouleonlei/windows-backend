@@ -23,7 +23,7 @@ namespace Tizen.FH.NUI.Controls
     /// ToastAttributes is a class which saves Toast's ux data.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
-    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class ToastAttributes : Tizen.NUI.CommonUI.ToastAttributes
     {
@@ -31,7 +31,7 @@ namespace Tizen.FH.NUI.Controls
         /// Creates a new instance of a ToastAttributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes() : base() { }
 
@@ -40,7 +40,7 @@ namespace Tizen.FH.NUI.Controls
         /// </summary>
         /// <param name="attributes">Create ToastAttributes by attributes customized by user.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToastAttributes(ToastAttributes attributes) : base(attributes)
         {
@@ -59,7 +59,7 @@ namespace Tizen.FH.NUI.Controls
         /// Gets or sets loading Image Attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LoadingAttributes LoadingAttributes
         {
@@ -71,7 +71,7 @@ namespace Tizen.FH.NUI.Controls
         /// Gets or sets loading Image.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool? LoadingEnable
         {
@@ -83,7 +83,7 @@ namespace Tizen.FH.NUI.Controls
         /// Attributes's clone function.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {

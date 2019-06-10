@@ -29,7 +29,7 @@ namespace Tizen.FH.NUI.Controls
     /// A toast will automatically disappear after a certain time.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
-    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Toast : Tizen.NUI.CommonUI.Toast
     {
@@ -41,7 +41,7 @@ namespace Tizen.FH.NUI.Controls
         /// Construct Toast with null.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast() : base()
         {
@@ -53,7 +53,7 @@ namespace Tizen.FH.NUI.Controls
         /// </summary>
         /// <param name="style"> style name </param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Toast(string style) : base(style)
         {
@@ -64,7 +64,7 @@ namespace Tizen.FH.NUI.Controls
         /// Gets or sets if loading enable.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool LoadingEnable
         {
@@ -85,7 +85,7 @@ namespace Tizen.FH.NUI.Controls
         /// </summary>
         /// <param name="type">dispose types.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
@@ -112,7 +112,7 @@ namespace Tizen.FH.NUI.Controls
         /// Relayout control's elements
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
@@ -128,7 +128,7 @@ namespace Tizen.FH.NUI.Controls
         /// LayoutChild include textLabel and loading.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void LayoutChild()
         {
@@ -161,7 +161,7 @@ namespace Tizen.FH.NUI.Controls
         /// Get Toast attribues.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
