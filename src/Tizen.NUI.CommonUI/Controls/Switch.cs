@@ -177,26 +177,6 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Background image's size in Switch.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D SwitchBackgroundImageSize2D
-        {
-            get
-            {
-                return switchAttributes?.SwitchBackgroundImageAttributes?.Size2D ?? new Size2D(0, 0);
-            }
-            set
-            {
-                CreateSwitchBackgroundImageAttributes();
-                switchAttributes.SwitchBackgroundImageAttributes.Size2D = value;
-                RelayoutRequest();
-            }
-        }
-
-        /// <summary>
         /// Handler image's size in Switch.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
@@ -244,15 +224,11 @@ namespace Tizen.NUI.CommonUI
 
                 if (switchHandlerImage != null)
                 {
-                    switchBackgroundImage.Remove(switchHandlerImage);
-                    switchHandlerImage.Dispose();
-                    switchHandlerImage = null;
+                    Utility.Dispose(switchHandlerImage);
                 }
                 if (switchBackgroundImage != null)
                 {
-                    Remove(switchBackgroundImage);
-                    switchBackgroundImage.Dispose();
-                    switchBackgroundImage = null;
+                    Utility.Dispose(switchBackgroundImage);
                 }
             }
 
@@ -278,6 +254,8 @@ namespace Tizen.NUI.CommonUI
                         ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                         PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                         PositionUsesPivotPoint = true,
+                        WidthResizePolicy = ResizePolicyType.FillToParent,
+                        HeightResizePolicy = ResizePolicyType.FillToParent,
                     };
                     switchBackgroundImage.Name = "SwitchBackgroundImage";
                     Add(switchBackgroundImage);
