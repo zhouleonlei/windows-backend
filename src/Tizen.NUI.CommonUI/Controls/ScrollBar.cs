@@ -560,8 +560,17 @@ namespace Tizen.NUI.CommonUI
             }
             float width = (float)Size2D.Width;
             float height = (float)Size2D.Height;
-            float thumbW = scrollBarAttrs.ThumbImageAttributes.Size2D.Width;
-            float thumbH = scrollBarAttrs.ThumbImageAttributes.Size2D.Height;
+            float thumbW = 0.0f;
+            float thumbH = 0.0f;
+            if (scrollBarAttrs.ThumbImageAttributes.Size2D == null)
+            {
+                return;
+            }
+            else
+            {
+                thumbW = scrollBarAttrs.ThumbImageAttributes.Size2D.Width;
+                thumbH = scrollBarAttrs.ThumbImageAttributes.Size2D.Height;
+            }
             float ratio = (float)(curValue - minValue) / (float)(maxValue - minValue);
 
             if (scrollBarAttrs.Direction == DirectionType.Horizontal)

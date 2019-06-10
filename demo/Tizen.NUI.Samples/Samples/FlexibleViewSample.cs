@@ -265,19 +265,19 @@ namespace Tizen.NUI.Samples
             {
                 if (key.KeyPressedName == "Up")
                 {
-                    flexibleView.MoveFocus("Up");
+                    flexibleView.MoveFocus(FlexibleView.LayoutManager.Direction.Up);
                 }
                 else if (key.KeyPressedName == "Down")
                 {
-                    flexibleView.MoveFocus("Down");
+                    flexibleView.MoveFocus(FlexibleView.LayoutManager.Direction.Down);
                 }
                 if (key.KeyPressedName == "Left")
                 {
-                    flexibleView.MoveFocus("Left");
+                    flexibleView.MoveFocus(FlexibleView.LayoutManager.Direction.Left);
                 }
                 else if (key.KeyPressedName == "Right")
                 {
-                    flexibleView.MoveFocus("Right");
+                    flexibleView.MoveFocus(FlexibleView.LayoutManager.Direction.Right);
                 }
                 else if (key.KeyPressedName == "0")
                 {

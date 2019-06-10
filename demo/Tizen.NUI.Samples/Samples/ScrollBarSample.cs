@@ -26,7 +26,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_1.Position2D = new Position2D(50, 300);
             scrollBar1_1.Size2D = new Size2D(300, 4);
             scrollBar1_1.TrackColor = Color.Green;           
-            scrollBar1_1.MaxValue = (uint)scrollBar1_1.SizeWidth / 10;
+            scrollBar1_1.MaxValue = (int)scrollBar1_1.SizeWidth / 10;
             scrollBar1_1.MinValue = 0;
             scrollBar1_1.ThumbSize = new Size2D(30, 4);
             scrollBar1_1.CurrentValue = 0; //set after thumbsize
@@ -37,7 +37,7 @@ namespace Tizen.NUI.Samples
             scrollBar1_2.Position2D = new Position2D(50, 400);
             scrollBar1_2.Size2D = new Size2D(300, 4);
             scrollBar1_2.TrackColor = Color.Green;
-            scrollBar1_2.MaxValue = (uint)scrollBar1_2.SizeWidth / 10;
+            scrollBar1_2.MaxValue = (int)scrollBar1_2.SizeWidth / 10;
             scrollBar1_2.MinValue = 0;
             scrollBar1_2.ThumbSize = new Size2D(30, 4);
             scrollBar1_2.CurrentValue = 0;//set after thumbsize
@@ -68,7 +68,7 @@ namespace Tizen.NUI.Samples
             scrollBar2_1 = new ScrollBar(attr);
             scrollBar2_1.Position2D = new Position2D(500, 300);
             scrollBar2_1.Size2D = new Size2D(300, 4);
-            scrollBar2_1.MaxValue = (uint)scrollBar2_1.SizeWidth / 10;
+            scrollBar2_1.MaxValue = (int)scrollBar2_1.SizeWidth / 10;
             scrollBar2_1.MinValue = 0;
             scrollBar2_1.ThumbSize = new Size2D(30, 4);
             scrollBar2_1.CurrentValue = 0; //set after thumbsize

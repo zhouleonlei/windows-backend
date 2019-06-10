@@ -24,7 +24,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar1 = new ScrollBar("DAScrollbar");
             daScrollBar1.Position2D = new Position2D(100, 200);
             daScrollBar1.Size2D = new Size2D(300, 4);
-            daScrollBar1.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
+            daScrollBar1.MaxValue = (int)daScrollBar1.SizeWidth / 10;
             daScrollBar1.MinValue = 0;
             daScrollBar1.ThumbSize = new Size2D(30, 4);
             daScrollBar1.CurrentValue = 0;
@@ -34,7 +34,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar2 = new ScrollBar("DAScrollbar");
             daScrollBar2.Position2D = new Position2D(500, 100);
             daScrollBar2.Size2D = new Size2D(4, 300);
-            daScrollBar2.MaxValue = (uint)daScrollBar1.SizeWidth / 10;
+            daScrollBar2.MaxValue = (int)daScrollBar1.SizeWidth / 10;
             daScrollBar2.MinValue = 0;
             daScrollBar2.ThumbSize = new Size2D(4, 30);
             daScrollBar2.CurrentValue = 0;
@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar1.Position2D = new Position2D(100, 300);
             scrollBar1.Size2D = new Size2D(300, 4);
             scrollBar1.TrackColor = Color.Green;
-            scrollBar1.MaxValue = (uint)scrollBar1.SizeWidth / 10;
+            scrollBar1.MaxValue = (int)scrollBar1.SizeWidth / 10;
             scrollBar1.MinValue = 0;
             scrollBar1.ThumbSize = new Size2D(30, 4);
             scrollBar1.CurrentValue = 0;
@@ -74,7 +74,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar2 = new ScrollBar(attr);
             scrollBar2.Position2D = new Position2D(100, 400);
             scrollBar2.Size2D = new Size2D(300, 4);
-            scrollBar2.MaxValue = (uint)scrollBar2.SizeWidth / 10;
+            scrollBar2.MaxValue = (int)scrollBar2.SizeWidth / 10;
             scrollBar2.MinValue = 0;
             scrollBar2.ThumbSize = new Size2D(30, 4);
             scrollBar2.CurrentValue = 0;
