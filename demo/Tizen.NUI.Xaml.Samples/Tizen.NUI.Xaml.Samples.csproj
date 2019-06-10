@@ -1,44 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="Tizen.NUI.Xaml.Build.Tasks.XamlGTask" AssemblyFile="XamlBuild\Tizen.NUI.XamlBuild.dll" />
-  <UsingTask TaskName="Tizen.NUI.Xaml.Build.Tasks.XamlCTask" AssemblyFile="XamlBuild\Tizen.NUI.XamlBuild.dll" />
-  <!-- XamlG -->
-  <Target Name="UpdateDesignTimeXaml" DependsOnTargets="XamlG" />
-  <PropertyGroup>
-    <CoreCompileDependsOn>
-			XamlG;
-			$(CoreCompileDependsOn);
-		</CoreCompileDependsOn>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <Target Name="_FindXamlGFiles" DependsOnTargets="PrepareResourceNames">
-    <ItemGroup>
-      <_XamlGInputs Include="@(EmbeddedResource)" Condition="'%(Extension)' == '.xaml' AND '$(DefaultLanguageSourceExtension)' == '.cs' AND '%(TargetPath)' != ''" />
-      <_XamlGOutputs Include="@(_XamlGInputs->'$(IntermediateOutputPath)%(TargetPath).g.cs')" />
-    </ItemGroup>
-  </Target>
-  <Target Name="XamlG" BeforeTargets="BeforeCompile" DependsOnTargets="_FindXamlGFiles" Inputs="@(_XamlGInputs)" Outputs="@(_XamlGOutputs)">
-    <XamlGTask XamlFiles="@(_XamlGInputs)" OutputFiles="@(_XamlGOutputs)" Language="$(Language)" AssemblyName="$(AssemblyName)" AddXamlCompilationAttribute="True" />
-    <ItemGroup>
-      <FileWrites Include="@(_XamlGOutputs)" />
-      <Compile Include="@(_XamlGOutputs)" />
-    </ItemGroup>
-  </Target>
-  <!-- XamlC -->
-  <PropertyGroup>
-    <CompileDependsOn>
-		$(CompileDependsOn);
-		XamlC;
-	</CompileDependsOn>
-  </PropertyGroup>
-  <Target Name="XamlC" AfterTargets="AfterCompile" Inputs="$(IntermediateOutputPath)$(TargetFileName)" Outputs="$(IntermediateOutputPath)XamlC.stamp" Condition=" '$(DesignTimeBuild)' != 'True' ">
-    <XamlCTask Assembly="$(IntermediateOutputPath)$(TargetFileName)" ReferencePath="@(ReferencePath)" OptimizeIL="true" DebugSymbols="$(DebugSymbols)" DebugType="$(DebugType)" KeepXamlResources="$(XFKeepXamlResources)" />
-    <Touch Files="$(IntermediateOutputPath)XamlC.stamp" AlwaysCreate="True" />
-    <ItemGroup>
-      <FileWrites Include="$(IntermediateOutputPath)XamlC.stamp" />
-    </ItemGroup>
-  </Target>
+  <Import Project="packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.props" Condition="Exists('packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -109,6 +71,9 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Tizen.NUI.XamlBuild, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Tizen.NUI.XamlBuild.1.0.0\lib\netstandard2.0\Tizen.NUI.XamlBuild.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="res\layout\TestStaticDynamicResourcePage.xaml" />
@@ -184,4 +150,15 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <NeedInjection>True</NeedInjection>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.props'))" />
+    <Error Condition="!Exists('packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.targets'))" />
+  </Target>
+  <Import Project="packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.targets" Condition="Exists('packages\Tizen.NUI.XamlBuild.1.0.0\build\netstandard2.0\Tizen.NUI.XamlBuild.targets')" />
 </Project>
