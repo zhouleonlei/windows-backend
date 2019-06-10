@@ -25,13 +25,17 @@ namespace Tizen.NUI.CommonUI
         public static void Dispose(View child)
         {
             View parent = child?.GetParent() as View;
-            if (parent != null && child != null)
+            if(child != null)
             {
-                parent.Remove(child);
+                if(parent != null)
+                {
+                    parent.Remove(child);
+                   
+                }
+
                 child.Dispose();
                 child = null;
             }
-
         }
     }
 }
