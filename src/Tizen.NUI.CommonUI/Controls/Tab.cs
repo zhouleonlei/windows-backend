@@ -26,7 +26,7 @@ namespace Tizen.NUI.CommonUI
     /// User can handle Tab by adding/inserting/deleting TabItem.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
-    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class Tab : Control
     {
@@ -42,29 +42,31 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab() : base()
         {
             Initialize();
         }
+
         /// <summary>
         /// Creates a new instance of a Tab with style.
         /// </summary>
         /// <param name="style">Create Tab by special style defined in UX.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab(string style) : base(style)
         {
             Initialize();
         }
+
         /// <summary>
         /// Creates a new instance of a Tab with attributes.
         /// </summary>
         /// <param name="attributes">Create Tab by attributes customized by user.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Tab(TabAttributes attributes) : base(attributes)
         {
@@ -75,7 +77,7 @@ namespace Tizen.NUI.CommonUI
         /// An event for the item changed signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler<ItemChangeEventArgs> ItemChangedEvent;
 
@@ -83,7 +85,7 @@ namespace Tizen.NUI.CommonUI
         /// Selected item's index in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int SelectedItemIndex
         {
@@ -105,7 +107,7 @@ namespace Tizen.NUI.CommonUI
         /// If true, TabItem's width will be equal as text's natural width, if false, it will be decided by Tab's width and tab item count.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsNatureTextWidth
         {
@@ -124,7 +126,7 @@ namespace Tizen.NUI.CommonUI
         /// Gap between items.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int ItemGap
         {
@@ -143,7 +145,7 @@ namespace Tizen.NUI.CommonUI
         /// Left space in Navigation.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int LeftSpace
         {
@@ -162,7 +164,7 @@ namespace Tizen.NUI.CommonUI
         /// Bottom space in Navigation.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int BottomSpace
         {
@@ -181,7 +183,7 @@ namespace Tizen.NUI.CommonUI
         /// Right space in Navigation.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int RightSpace
         {
@@ -200,7 +202,7 @@ namespace Tizen.NUI.CommonUI
         /// Top space in Navigation.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int TopSpace
         {
@@ -219,7 +221,7 @@ namespace Tizen.NUI.CommonUI
         /// UnderLine view's size in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size2D UnderLineSize2D
         {
@@ -242,7 +244,7 @@ namespace Tizen.NUI.CommonUI
         /// UnderLine view's background in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color UnderLineBackgroundColor
         {
@@ -269,7 +271,7 @@ namespace Tizen.NUI.CommonUI
         /// Text point size in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public float PointSize
         {
@@ -293,7 +295,7 @@ namespace Tizen.NUI.CommonUI
         /// Text font family in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string FontFamily
         {
@@ -313,7 +315,7 @@ namespace Tizen.NUI.CommonUI
         /// Text color in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Color TextColor
         {
@@ -337,7 +339,7 @@ namespace Tizen.NUI.CommonUI
         /// Text color selector in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ColorSelector TextColorSelector
         {
@@ -361,7 +363,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="itemData">Item data which will apply to tab item view.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddItem(TabItemData itemData)
         {
@@ -374,7 +376,7 @@ namespace Tizen.NUI.CommonUI
         /// <param name="itemData">Item data which will apply to tab item view.</param>
         /// <param name="index">Position index where will be inserted.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void InsertItem(TabItemData itemData, int index)
         {
@@ -386,7 +388,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="itemIndex">Position index where will be deleted.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void DeleteItem(int itemIndex)
         {
@@ -394,7 +396,6 @@ namespace Tizen.NUI.CommonUI
             {
                 return;
             }
-
 
             if (curIndex > itemIndex || (curIndex == itemIndex && itemIndex == itemList.Count - 1))
             {
@@ -413,7 +414,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="type">Dispose type.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
         {
@@ -433,13 +434,7 @@ namespace Tizen.NUI.CommonUI
                     underlineAni.Dispose();
                     underlineAni = null;
                 }
-                if (underline != null)
-                {
-                    Remove(underline);
-                    underline.Dispose();
-                    underline = null;
-                }
-
+                Utility.Dispose(underline);
                 if(itemList != null)
                 {
                     for(int i = 0; i < itemList.Count; i++)
@@ -460,7 +455,7 @@ namespace Tizen.NUI.CommonUI
         /// Update Tab by attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnUpdate()
         {
@@ -495,7 +490,7 @@ namespace Tizen.NUI.CommonUI
         /// Get Tab attribues.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override Attributes GetAttributes()
         {
@@ -506,7 +501,7 @@ namespace Tizen.NUI.CommonUI
         /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
@@ -523,7 +518,7 @@ namespace Tizen.NUI.CommonUI
         /// Layout child in Tab and it can be override by user.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void LayoutChild()
         {
@@ -844,7 +839,7 @@ namespace Tizen.NUI.CommonUI
         /// TabItemData is a class to record all data which will be applied to Tab item.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class TabItemData
         {
@@ -852,7 +847,7 @@ namespace Tizen.NUI.CommonUI
             /// Text string in tab item view.
             /// </summary>
             /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public string Text
             {
@@ -865,18 +860,18 @@ namespace Tizen.NUI.CommonUI
         /// ItemChangeEventArgs is a class to record item change event arguments which will sent to user.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public class ItemChangeEventArgs : EventArgs
         {
             /// <summary> Previous selected index of Tab </summary>
             /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public int PreviousIndex;
             /// <summary> Current selected index of Tab </summary>
             /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
             public int CurrentIndex;
         }
