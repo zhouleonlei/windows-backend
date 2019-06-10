@@ -48,33 +48,22 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            MaxValue = attributes.MaxValue;
-            MinValue = attributes.MinValue;
-            CurValue = attributes.CurValue;
-            BufferValue = attributes.BufferValue;
-            Duration = attributes.Duration;
-
-            if (attributes.ProgressImageURLPrefix != null)
-            {
-                ProgressImageURLPrefix = attributes.ProgressImageURLPrefix.Clone() as StringSelector;
-            }
-
-            if (attributes.TrackImageAttributes != null)
+            if (null != attributes.TrackImageAttributes)
             {
                 TrackImageAttributes = attributes.TrackImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.ProgressImageAttributes != null)
+            if (null != attributes.ProgressImageAttributes)
             {
                 ProgressImageAttributes = attributes.ProgressImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.BufferImageAttributes != null)
+            if (null != attributes.BufferImageAttributes)
             {
                 BufferImageAttributes = attributes.BufferImageAttributes.Clone() as ImageAttributes;
             }
 
-            if (attributes.LoadingImageAttributes != null)
+            if (null != attributes.LoadingImageAttributes)
             {
                 LoadingImageAttributes = attributes.LoadingImageAttributes.Clone() as ImageAttributes;
             }
@@ -135,66 +124,6 @@ namespace Tizen.NUI.CommonUI
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StringSelector ProgressImageURLPrefix
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Get or set maximum value.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? MaxValue
-        {
-            get;
-            set;
-        } = 100;
-
-        /// <summary>
-        /// Get or set minim value.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? MinValue
-        {
-            get;
-            set;
-        } = 0;
-
-        /// <summary>
-        /// Get or set current value.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? CurValue
-        {
-            get;
-            set;
-        } = 0;
-
-        /// <summary>
-        /// Get or set buffer value.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? BufferValue
-        {
-            get;
-            set;
-        } = 0;
-
-        /// <summary>
-        /// Get or set duration of Progress.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? Duration
         {
             get;
             set;

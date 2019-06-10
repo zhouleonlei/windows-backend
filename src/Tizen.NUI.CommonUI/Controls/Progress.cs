@@ -39,6 +39,10 @@ namespace Tizen.NUI.CommonUI
         private ImageView progressObj = null;
         private ImageView bufferObj = null;
         private ImageView loadingObj = null;
+        private int maxValue = 100;
+        private int minValue = 0;
+        private int currentValue = 0;
+        private int bufferValue = 0;
 
         /// <summary>
         /// The constructor of Progress
@@ -287,11 +291,11 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressAttrs.MaxValue.Value;
+                return maxValue;
             }
             set
             {
-                progressAttrs.MaxValue = value;
+                maxValue = value;
                 UpdateValue();
             }
         }
@@ -306,11 +310,11 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressAttrs.MinValue.Value;
+                return minValue;
             }
             set
             {
-                progressAttrs.MinValue = value;
+                minValue = value;
                 UpdateValue();
             }
         }
@@ -325,15 +329,15 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressAttrs.CurValue.Value;
+                return currentValue;
             }
             set
             {
-                if (value > progressAttrs.MaxValue || value < progressAttrs.MinValue)
+                if (value > maxValue || value < minValue)
                 {
                     return;
                 }
-                progressAttrs.CurValue = value;
+                currentValue = value;
                 UpdateValue();
             }
         }
@@ -348,15 +352,15 @@ namespace Tizen.NUI.CommonUI
         {
             get
             {
-                return progressAttrs.BufferValue.Value;
+                return bufferValue;
             }
             set
             {
-                if (value > progressAttrs.MaxValue || value < progressAttrs.MinValue)
+                if (value > maxValue || value < minValue)
                 {
                     return;
                 }
-                progressAttrs.BufferValue = value;
+                bufferValue = value;
                 UpdateValue();
             }
         }
@@ -403,23 +407,7 @@ namespace Tizen.NUI.CommonUI
                 Utility.Dispose(progressObj);
                 Utility.Dispose(bufferObj);
                 Utility.Dispose(loadingObj);
-
-                ///if (aniForLoading != null)
-                ///{
-                ///    aniForLoading.Stop();
-                ///    aniForLoading.Clear();
-                ///    aniForLoading.Dispose();
-                ///    aniForLoading = null;
-                ///}
-
-                ///if (aniForOpacity != null)
-                ///{
-                ///    aniForOpacity.Stop();
-                ///    aniForOpacity.Clear();
-                ///    aniForOpacity.Dispose();
-                ///    aniForOpacity = null;
-                ///}
-            }
+             }
 
             //Release your own unmanaged resources here.
             //You should not access any managed member here except static instance.
@@ -455,28 +443,9 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
         {
-            int max = 0;
-            int min = 0;
-            int cur = 0;
-            if (progressAttrs.MaxValue != null)
-            {
-                max = progressAttrs.MaxValue.Value;
-            }
-            if (progressAttrs.MinValue != null)
-            {
-                min = progressAttrs.MinValue.Value;
-            }
-            if (progressAttrs.CurValue != null)
-            {
-                cur = progressAttrs.CurValue.Value;
-            }
-
             ProgressAttributes tempAttributes = StyleManager.Instance.GetAttributes(style) as ProgressAttributes;
-            if (tempAttributes != null)
+            if (null != tempAttributes)
             {
-                tempAttributes.MaxValue = max;
-                tempAttributes.MinValue = min;
-                tempAttributes.CurValue = cur;
                 attributes = progressAttrs = tempAttributes;
                 RelayoutRequest();
             }
@@ -501,28 +470,19 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void UpdateValue()
         {
-            if (trackObj == null || progressObj == null ||
-                (progressAttrs.MaxValue == null ||
-                progressAttrs.MinValue == null ||
-                progressAttrs.CurValue == null))
+            if (null == trackObj || null == progressObj)
             {
                 return;
             }
 
-            int minVal = 0;
-            minVal = progressAttrs.MinValue.Value;
-            int maxVal = 0;
-            maxVal = progressAttrs.MaxValue.Value;
-            int curVal = 0;
-            curVal = progressAttrs.CurValue.Value;
-            if (minVal >= maxVal || curVal < minVal || curVal > maxVal)
+            if (minValue >= maxValue || currentValue < minValue || currentValue > maxValue)
             {
                 return;
             }
 
             float width = this.SizeWidth;
             float height = this.SizeHeight;
-            float progressRatio = (float)curVal / (float)(maxVal - minVal);
+            float progressRatio = (float)currentValue / (float)(maxValue - minValue);
             DirectionType dir = DirectionType.Horizontal;
             if (dir == DirectionType.Horizontal)
             {
@@ -535,16 +495,14 @@ namespace Tizen.NUI.CommonUI
                 progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
             }
 
-            if (bufferObj != null && (progressAttrs.BufferValue != null))
+            if (null != bufferObj)
             {
-                int bufVal = 0;
-                bufVal = (int)progressAttrs.BufferValue;
-                if (bufVal < minVal || bufVal > maxVal)
+                if (bufferValue < minValue || bufferValue > maxValue)
                 {
                     return;
                 }
 
-                float bufferRatio = (float)bufVal / (float)(maxVal - minVal);
+                float bufferRatio = (float)bufferValue / (float)(maxValue - minValue);
                 if (dir == DirectionType.Horizontal)
                 {
                     float bufferWidth = width * bufferRatio;
