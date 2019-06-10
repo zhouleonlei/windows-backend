@@ -142,7 +142,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Left space in Navigation.
+        /// Left space in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -161,7 +161,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Bottom space in Navigation.
+        /// Bottom space in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -180,7 +180,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Right space in Navigation.
+        /// Right space in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -199,7 +199,7 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Top space in Navigation.
+        /// Top space in Tab.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
