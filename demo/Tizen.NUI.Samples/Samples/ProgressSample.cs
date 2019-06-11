@@ -49,7 +49,7 @@ namespace Tizen.NUI.Samples
 
             root.Add(progressBar1_2);
 
-            ProgressBarAttributes attr = new ProgressBarAttributes
+            ProgressAttributes attr = new ProgressAttributes
             {
                 TrackImageAttributes = new ImageAttributes
                 {
