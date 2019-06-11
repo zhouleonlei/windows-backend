@@ -49,6 +49,11 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DropDownAttributes(DropDownAttributes attributes) : base(attributes)
         {
+            if(attributes == null)
+            {
+                return;
+            }
+
             if (attributes.ButtonAttributes != null)
             {
                 ButtonAttributes = attributes.ButtonAttributes.Clone() as ButtonAttributes;
