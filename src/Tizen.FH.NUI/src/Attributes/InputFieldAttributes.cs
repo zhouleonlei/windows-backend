@@ -25,8 +25,8 @@ namespace Tizen.FH.NUI.Controls
     /// <summary>
     /// InputFieldAttributes is a class which saves InputField's ux data.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
-    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// <since_tizen> 6 </since_tizen>
+    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputFieldAttributes : Tizen.NUI.CommonUI.InputFieldAttributes
     {
@@ -34,8 +34,8 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Creates a new instance of a InputFieldAttributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes() : base() { }
 
@@ -44,8 +44,8 @@ namespace Tizen.FH.NUI.Controls
         /// Creates a new instance of a InputFieldAttributes with attributes.
         /// </summary>
         /// <param name="attributes">Create InputFieldAttributes by attributes customized by user.</param>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
         {
@@ -82,99 +82,108 @@ namespace Tizen.FH.NUI.Controls
                 SpaceBetweenTextFieldAndLeftButton = attrs.SpaceBetweenTextFieldAndLeftButton;
             }
         }
+
         /// <summary>
         /// Cancel button's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes CancelButtonAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Delete button's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes DeleteButtonAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Add button background's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonBgAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Add button over lay's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonOverlayAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Add button foreground's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonFgAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Search  button's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes SearchButtonAttributes
         {
             get;
             set;
         }
+
         /// <summary>
         /// Space bwtwwen text field and right button 's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? SpaceBetweenTextFieldAndRightButton
         {
             get;
             set;
         }
+
         /// <summary>
         /// Space betwwen text field and left button's attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? SpaceBetweenTextFieldAndLeftButton
         {
             get;
             set;
         }
+
         /// <summary>
         /// Attributes's clone function.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
