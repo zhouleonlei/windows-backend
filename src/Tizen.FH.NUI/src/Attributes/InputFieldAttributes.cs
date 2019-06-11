@@ -26,7 +26,7 @@ namespace Tizen.FH.NUI.Controls
     /// InputFieldAttributes is a class which saves InputField's ux data.
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
-    /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class InputFieldAttributes : Tizen.NUI.CommonUI.InputFieldAttributes
     {
@@ -35,7 +35,7 @@ namespace Tizen.FH.NUI.Controls
         /// Creates a new instance of a InputFieldAttributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes() : base() { }
 
@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Controls
         /// </summary>
         /// <param name="attributes">Create InputFieldAttributes by attributes customized by user.</param>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InputFieldAttributes(InputFieldAttributes attrs) : base(attrs)
         {
@@ -87,7 +87,7 @@ namespace Tizen.FH.NUI.Controls
         /// Cancel button's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes CancelButtonAttributes
         {
@@ -99,7 +99,7 @@ namespace Tizen.FH.NUI.Controls
         /// Delete button's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes DeleteButtonAttributes
         {
@@ -111,7 +111,7 @@ namespace Tizen.FH.NUI.Controls
         /// Add button background's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonBgAttributes
         {
@@ -123,7 +123,7 @@ namespace Tizen.FH.NUI.Controls
         /// Add button over lay's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonOverlayAttributes
         {
@@ -135,7 +135,7 @@ namespace Tizen.FH.NUI.Controls
         /// Add button foreground's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes AddButtonFgAttributes
         {
@@ -147,7 +147,7 @@ namespace Tizen.FH.NUI.Controls
         /// Search  button's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ImageAttributes SearchButtonAttributes
         {
@@ -159,7 +159,7 @@ namespace Tizen.FH.NUI.Controls
         /// Space bwtwwen text field and right button 's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? SpaceBetweenTextFieldAndRightButton
         {
@@ -171,7 +171,7 @@ namespace Tizen.FH.NUI.Controls
         /// Space betwwen text field and left button's attributes.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int? SpaceBetweenTextFieldAndLeftButton
         {
@@ -183,7 +183,7 @@ namespace Tizen.FH.NUI.Controls
         /// Attributes's clone function.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_6 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override Attributes Clone()
         {
