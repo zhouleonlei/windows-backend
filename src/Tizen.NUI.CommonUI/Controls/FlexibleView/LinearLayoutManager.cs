@@ -192,7 +192,6 @@ namespace Tizen.NUI.CommonUI
         /// Lay out all relevant child views from the given adapter.
         /// </summary>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -237,7 +236,6 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <param name="immediate">Specify if the scroll need animation</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -256,7 +254,6 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
         /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <param name="immediate">Specify if the scroll need animation</param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -273,7 +270,6 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Compute the offset of the scrollbar's thumb within the range.
         /// </summary>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -303,7 +299,6 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Compute the extent of the scrollbar's thumb within the range.
         /// </summary>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -323,7 +318,6 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Compute the range that the scrollbar represents.
         /// </summary>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -376,7 +370,6 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Called after a full layout calculation is finished.
         /// </summary>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -398,7 +391,6 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="position">The anchor adapter position</param>
         /// <param name="direction">The direction.</param>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
