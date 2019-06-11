@@ -50,8 +50,6 @@ namespace Tizen.NUI.CommonUI
         private RecycledViewPool mRecyclerPool;
         private ChildHelper mChildHelper;
 
-        private ViewState mState;
-
         private PanGestureDetector mPanGestureDetector;
 
         private int mFocusedItemIndex = NO_POSITION;
@@ -78,8 +76,6 @@ namespace Tizen.NUI.CommonUI
             mRecycler.SetRecycledViewPool(mRecyclerPool);
 
             mChildHelper = new ChildHelper(this);
-
-            mState = new ViewState(this);
 
             mPanGestureDetector = new PanGestureDetector();
             mPanGestureDetector.Attach(this);
@@ -177,7 +173,7 @@ namespace Tizen.NUI.CommonUI
                 }
                 else
                 {
-                    mLayout.RequestChildRectangleOnScreen(this, nextFocusView, mRecycler, mState, true);
+                    mLayout.RequestChildRectangleOnScreen(this, nextFocusView, mRecycler, true);
                     DispatchFocusChanged(value);
                 }
             }
@@ -265,9 +261,9 @@ namespace Tizen.NUI.CommonUI
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void MoveFocus(string direction)
+        public void MoveFocus(FlexibleView.LayoutManager.Direction direction)
         {
-            mLayout.MoveFocus(direction, mRecycler, mState);
+            mLayout.MoveFocus(direction, mRecycler);
         }
 
         /// <summary>
@@ -435,7 +431,7 @@ namespace Tizen.NUI.CommonUI
 
             DispatchLayoutStep1();
 
-            mLayout.OnLayoutChildren(mRecycler, mState);
+            mLayout.OnLayoutChildren(mRecycler);
 
             RemoveAndRecycleScrapInt();
         }
@@ -543,9 +539,13 @@ namespace Tizen.NUI.CommonUI
                 return;
             }
 
-            float extent = mLayout.ComputeScrollExtent(mState);
-            float range = mLayout.ComputeScrollRange(mState);
-            float offset = mLayout.ComputeScrollOffset(mState);
+            float extent = mLayout.ComputeScrollExtent();
+            float range = mLayout.ComputeScrollRange();
+            if(range == 0)
+            {
+                return;
+            }
+            float offset = mLayout.ComputeScrollOffset();
 
             float size = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeHeight : mScrollBar.SizeWidth;
             float thickness = mScrollBar.Direction == ScrollBar.DirectionType.Vertical ? mScrollBar.SizeWidth : mScrollBar.SizeHeight;
@@ -571,8 +571,8 @@ namespace Tizen.NUI.CommonUI
                 mScrollBar.ThumbSize = new Size2D((int)length, (int)thickness);
             }
             mScrollBar.MinValue = 0;
-            mScrollBar.MaxValue = (uint)(range - extent);
-            mScrollBar.SetCurrentValue((uint)offset, flagAni);
+            mScrollBar.MaxValue = (int)(range - extent);
+            mScrollBar.SetCurrentValue((int)offset, flagAni);
             mScrollBar.Show();
             if (mScrollBarShowTimer == null)
             {
@@ -654,11 +654,11 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy(e.PanGesture.Displacement.Y, mRecycler, mState, true);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Displacement.Y, mRecycler, true);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy(e.PanGesture.Displacement.X, mRecycler, mState, true);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Displacement.X, mRecycler, true);
                 }
 
                 ShowScrollBar();
@@ -667,11 +667,11 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 300, mRecycler, mState, false);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 300, mRecycler, false);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 300, mRecycler, mState, false);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 300, mRecycler, false);
                 }
                 ShowScrollBar(1200, true);
             }
@@ -1046,6 +1046,14 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract class LayoutManager
         {
+            public enum Direction
+            {
+                Left,
+                Right,
+                Up,
+                Down
+            }
+
             private FlexibleView mFlexibleView;
             private ChildHelper mChildHelper;
 
@@ -1054,24 +1062,53 @@ namespace Tizen.NUI.CommonUI
             private Animation mScrollAni;
 
             /// <summary>
-            /// Lay out all relevant child views from the given adapter.
+            /// Layout all relevant child views from the given adapter.
             /// </summary>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public abstract void OnLayoutChildren(Recycler recycler, ViewState state);
+            public abstract void OnLayoutChildren(Recycler recycler);
 
             /// <summary>
             /// Called after a full layout calculation is finished.
             /// </summary>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual void OnLayoutCompleted(ViewState state)
+            public virtual void OnLayoutCompleted()
             {
+            }
+
+
+            /// <summary>
+            /// Gets the current focus position in adapter.
+            /// </summary>
+            /// <since_tizen> 6 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public int FocusPosition
+            {
+                get
+                {
+                    return mFlexibleView.mFocusedItemIndex;
+                }
+            }
+
+            /// <summary>
+            /// Gets the datas count in data sets.
+            /// </summary>
+            /// <since_tizen> 6 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public int ItemCount
+            {
+                get
+                {
+                    Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
+
+                    return b != null ? b.GetItemCount() : 0;
+                }
             }
 
             /// <summary>
@@ -1101,12 +1138,11 @@ namespace Tizen.NUI.CommonUI
             /// </summary>
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <param name="immediate">Specify if the scroll need animation</param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ScrollHorizontallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
+            public virtual float ScrollHorizontallyBy(float dy, Recycler recycler, bool immediate)
             {
                 return 0;
             }
@@ -1116,12 +1152,11 @@ namespace Tizen.NUI.CommonUI
             /// </summary>
             /// <param name="dy">distance to scroll in pixels. Y increases as scroll position approaches the top.</param>
             /// <param name="recycler">Recycler to use for fetching potentially cached views for a position</param>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <param name="immediate">Specify if the scroll need animation</param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ScrollVerticallyBy(float dy, Recycler recycler, ViewState state, bool immediate)
+            public virtual float ScrollVerticallyBy(float dy, Recycler recycler, bool immediate)
             {
                 return 0;
             }
@@ -1129,11 +1164,10 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Compute the extent of the scrollbar's thumb within the range.
             /// </summary>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ComputeScrollExtent(ViewState state)
+            public virtual float ComputeScrollExtent()
             {
                 return 0;
             }
@@ -1141,11 +1175,10 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Compute the offset of the scrollbar's thumb within the range.
             /// </summary>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ComputeScrollOffset(ViewState state)
+            public virtual float ComputeScrollOffset()
             {
                 return 0;
             }
@@ -1153,11 +1186,10 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Compute the range that the scrollbar represents.
             /// </summary>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public virtual float ComputeScrollRange(ViewState state)
+            public virtual float ComputeScrollRange()
             {
                 return 0;
             }
@@ -1187,10 +1219,10 @@ namespace Tizen.NUI.CommonUI
 
             }
 
-            internal void MoveFocus(string direction, Recycler recycler, ViewState state)
+            internal void MoveFocus(FlexibleView.LayoutManager.Direction direction, Recycler recycler)
             {
-                int prevFocusPosition = state.FocusPosition;
-                int nextFocusPosition = GetNextPosition(state.FocusPosition, direction, state);
+                int prevFocusPosition = FocusPosition;
+                int nextFocusPosition = GetNextPosition(FocusPosition, direction);
                 if (nextFocusPosition == NO_POSITION)
                 {
                     return;
@@ -1199,12 +1231,12 @@ namespace Tizen.NUI.CommonUI
                 FlexibleView.ViewHolder nextFocusChild = FindItemViewByPosition(nextFocusPosition);
                 if (nextFocusChild == null)
                 {
-                    nextFocusChild = OnFocusSearchFailed(null, direction, recycler, state);
+                    nextFocusChild = OnFocusSearchFailed(null, direction, recycler);
                 }
 
                 if (nextFocusChild != null)
                 {
-                    RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, state, false);
+                    RequestChildRectangleOnScreen(mFlexibleView, nextFocusChild, recycler, false);
 
                     ChangeFocus(nextFocusPosition);
                 }
@@ -1224,7 +1256,7 @@ namespace Tizen.NUI.CommonUI
              * @param focusedChildVisible Whether the currently focused view must stay visible.
              * @return Whether the group scrolled to handle the operation
              */
-            internal bool RequestChildRectangleOnScreen(FlexibleView parent, FlexibleView.ViewHolder child, Recycler recycler, ViewState state, bool immediate)
+            internal bool RequestChildRectangleOnScreen(FlexibleView parent, FlexibleView.ViewHolder child, Recycler recycler, bool immediate)
             {
                 Vector2 scrollAmount = GetChildRectangleOnScreenScrollAmount(parent, child);
                 float dx = scrollAmount[0];
@@ -1233,11 +1265,11 @@ namespace Tizen.NUI.CommonUI
                 {
                     if (dx != 0 && CanScrollHorizontally())
                     {
-                        ScrollHorizontallyBy(dx, recycler, state, immediate);
+                        ScrollHorizontallyBy(dx, recycler, immediate);
                     }
                     else if (dy != 0 && CanScrollVertically())
                     {
-                        ScrollVerticallyBy(dy, recycler, state, immediate);
+                        ScrollVerticallyBy(dy, recycler, immediate);
                     }
                     return true;
                 }
@@ -1526,7 +1558,7 @@ namespace Tizen.NUI.CommonUI
             [EditorBrowsable(EditorBrowsableState.Never)]
             public void AddView(ViewHolder holder, int index)
             {
-                addViewInt(holder, index, false);
+                AddViewInternal(holder, index, false);
             }
 
             /// <summary>
@@ -1608,13 +1640,12 @@ namespace Tizen.NUI.CommonUI
             /// </summary>
             /// <param name="position">The anchor adapter position</param>
             /// <param name="direction">The direction.</param>
-            /// <param name="state">Transient state of FlexibleView </param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            protected abstract int GetNextPosition(int position, string direction, FlexibleView.ViewState state);
+            protected abstract int GetNextPosition(int position, FlexibleView.LayoutManager.Direction direction);
 
-            internal virtual ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, string direction, Recycler recycler, ViewState state)
+            internal virtual ViewHolder OnFocusSearchFailed(FlexibleView.ViewHolder focused, LayoutManager.Direction direction, Recycler recycler)
             {
                 return null;
             }
@@ -1667,17 +1698,8 @@ namespace Tizen.NUI.CommonUI
                 // Favor the "start" layout direction over the end when bringing one side or the other
                 // of a large rect into view. If we decide to bring in end because start is already
                 // visible, limit the scroll such that start won't go out of bounds.
-                int dx;
-                if (false)
-                {
-                    dx = offScreenRight != 0 ? offScreenRight
-                            : Math.Max(offScreenLeft, childRight - parentRight);
-                }
-                else
-                {
-                    dx = offScreenLeft != 0 ? offScreenLeft
+                int dx= offScreenLeft != 0 ? offScreenLeft
                             : Math.Min(childLeft - parentLeft, offScreenRight);
-                }
 
                 // Favor bringing the top into view over the bottom. If top is already visible and
                 // we should scroll to make bottom visible, make sure top does not go out of bounds.
@@ -1695,7 +1717,7 @@ namespace Tizen.NUI.CommonUI
                 RecycleChildrenInt(mFlexibleView.mRecycler);
             }
 
-            private void addViewInt(ViewHolder holder, int index, bool disappearing)
+            private void AddViewInternal(ViewHolder holder, int index, bool disappearing)
             {
                 if (holder.IsScrap())
                 {
@@ -1718,11 +1740,10 @@ namespace Tizen.NUI.CommonUI
                 mPendingRecycleViews.Clear();
             }
 
-            private void ScrapOrRecycleView(Recycler recycler, int index, ViewHolder itemView)
+            private void ScrapOrRecycleView(Recycler recycler, ViewHolder itemView)
             {
                 recycler.ScrapView(itemView);
             }
-
 
         }
 
@@ -1735,19 +1756,19 @@ namespace Tizen.NUI.CommonUI
         public class ViewHolder
         {
             /**
-             * This ViewHolder has been bound to a position; mPosition, mItemId and mItemViewType
+             * This ViewHolder has been bound to a position; AdapterPosition, mItemId and mItemViewType
              * are all valid.
              */
             //static readonly int FLAG_BOUND = 1 << 0;
 
             /**
              * The data this ViewHolder's view reflects is stale and needs to be rebound
-             * by the adapter. mPosition and mItemId are consistent.
+             * by the adapter. AdapterPosition and mItemId are consistent.
              */
             //static readonly int FLAG_UPDATE = 1 << 1;
 
             /**
-             * This ViewHolder's data is invalid. The identity implied by mPosition and mItemId
+             * This ViewHolder's data is invalid. The identity implied by AdapterPosition and mItemId
              * are not to be trusted and may no longer match the item view type.
              * This ViewHolder must be fully rebound to different data.
              */
@@ -1781,16 +1802,7 @@ namespace Tizen.NUI.CommonUI
             //static readonly int FLAG_IGNORE = 1 << 7;
 
             private int mFlags;
-
-            private View mItemView;
-
-            private int mPosition = NO_POSITION;
-            private int mOldPosition = NO_POSITION;
-            private int mItemViewType = INVALID_TYPE;
             private int mPreLayoutPosition = NO_POSITION;
-
-
-            private FlexibleView.Recycler mScrapContainer;
 
             /// <summary>
             /// ViewHolder constructor.
@@ -1805,7 +1817,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     throw new ArgumentNullException("itemView may not be null");
                 }
-                this.mItemView = itemView;
+                this.ItemView = itemView;
             }
 
             /// <summary>
@@ -1814,13 +1826,7 @@ namespace Tizen.NUI.CommonUI
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public View ItemView
-            {
-                get
-                {
-                    return mItemView;
-                }
-            }
+            public View ItemView { get; }
 
             /// <summary>
             /// Returns the left edge includes the view left margin.
@@ -1832,7 +1838,7 @@ namespace Tizen.NUI.CommonUI
             {
                 get
                 {
-                    return mItemView.PositionX - mItemView.Margin.Start;
+                    return ItemView.PositionX - ItemView.Margin.Start;
                 }
             }
 
@@ -1846,7 +1852,7 @@ namespace Tizen.NUI.CommonUI
             {
                 get
                 {
-                    return mItemView.PositionX + mItemView.SizeWidth + mItemView.Margin.End;
+                    return ItemView.PositionX + ItemView.SizeWidth + ItemView.Margin.End;
                 }
             }
 
@@ -1860,7 +1866,7 @@ namespace Tizen.NUI.CommonUI
             {
                 get
                 {
-                    return mItemView.PositionY - mItemView.Margin.Top;
+                    return ItemView.PositionY - ItemView.Margin.Top;
                 }
             }
 
@@ -1874,7 +1880,7 @@ namespace Tizen.NUI.CommonUI
             {
                 get
                 {
-                    return mItemView.PositionY + mItemView.SizeHeight + mItemView.Margin.Bottom;
+                    return ItemView.PositionY + ItemView.SizeHeight + ItemView.Margin.Bottom;
                 }
             }
 
@@ -1888,7 +1894,7 @@ namespace Tizen.NUI.CommonUI
             {
                 get
                 {
-                    return mPreLayoutPosition == NO_POSITION ? mPosition : mPreLayoutPosition;
+                    return mPreLayoutPosition == NO_POSITION ? AdapterPosition : mPreLayoutPosition;
                 }
             }
 
@@ -1898,17 +1904,7 @@ namespace Tizen.NUI.CommonUI
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int AdapterPosition
-            {
-                get
-                {
-                    return mPosition;
-                }
-                internal set
-                {
-                    mPosition = value;
-                }
-            }
+            public int AdapterPosition { get; internal set; } = NO_POSITION;
 
             /// <summary>
             /// Get old position of item view.
@@ -1916,13 +1912,7 @@ namespace Tizen.NUI.CommonUI
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int OldPosition
-            {
-                get
-                {
-                    return mOldPosition;
-                }
-            }
+            public int OldPosition { get; private set; } = NO_POSITION;
 
             /// <summary>
             /// Gets or sets item view type.
@@ -1930,17 +1920,7 @@ namespace Tizen.NUI.CommonUI
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public int ItemViewType
-            {
-                get
-                {
-                    return mItemViewType;
-                }
-                set
-                {
-                    mItemViewType = value;
-                }
-            }
+            public int ItemViewType { get; set; } = INVALID_TYPE;
 
             internal bool IsBound
             {
@@ -1948,26 +1928,16 @@ namespace Tizen.NUI.CommonUI
                 set;
             }
 
-            internal Recycler ScrapContainer
-            {
-                get
-                {
-                    return mScrapContainer;
-                }
-                set
-                {
-                    mScrapContainer = value;
-                }
-            }
+            internal Recycler ScrapContainer { get; set; }
 
             internal bool IsScrap()
             {
-                return mScrapContainer != null;
+                return ScrapContainer != null;
             }
 
             internal void Unscrap()
             {
-                mScrapContainer.UnscrapView(this);
+                ScrapContainer.UnscrapView(this);
             }
 
 
@@ -1975,37 +1945,37 @@ namespace Tizen.NUI.CommonUI
             {
                 //AddFlags(ViewHolder.FLAG_REMOVED);
                 OffsetPosition(offset, applyToPreLayout);
-                mPosition = mNewPosition;
+                AdapterPosition = mNewPosition;
             }
 
             internal void OffsetPosition(int offset, bool applyToPreLayout)
             {
-                if (mOldPosition == NO_POSITION)
+                if (OldPosition == NO_POSITION)
                 {
-                    mOldPosition = mPosition;
+                    OldPosition = AdapterPosition;
                 }
                 if (mPreLayoutPosition == NO_POSITION)
                 {
-                    mPreLayoutPosition = mPosition;
+                    mPreLayoutPosition = AdapterPosition;
                 }
                 if (applyToPreLayout)
                 {
                     mPreLayoutPosition += offset;
                 }
-                mPosition += offset;
+                AdapterPosition += offset;
             }
 
             internal void ClearOldPosition()
             {
-                mOldPosition = NO_POSITION;
+                OldPosition = NO_POSITION;
                 mPreLayoutPosition = NO_POSITION;
             }
 
             internal void SaveOldPosition()
             {
-                if (mOldPosition == NO_POSITION)
+                if (OldPosition == NO_POSITION)
                 {
-                    mOldPosition = mPosition;
+                    OldPosition = AdapterPosition;
                 }
             }
 
@@ -2019,86 +1989,6 @@ namespace Tizen.NUI.CommonUI
                 mFlags |= flags;
             }
 
-        }
-
-        /// <summary>
-        /// Contains useful information about the current RecyclerView state like target scroll position or view focus.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public class ViewState
-        {
-            //static readonly int STEP_START = 1;
-            //static readonly int STEP_LAYOUT = 1 << 1;
-            //static readonly int STEP_ANIMATIONS = 1 << 2;
-
-            //public int mLayoutStep = STEP_START;
-            /**
-            * Number of items adapter had in the previous layout.
-            */
-            //public int mPreviousLayoutItemCount = 0;
-            /**
-             * Number of items adapter has.
-             */
-            //public int mItemCount = 0;
-            /**
-             * This data is saved before a layout calculation happens. After the layout is finished,
-             * if the previously focused view has been replaced with another view for the same item, we
-             * move the focus to the new item automatically.
-             */
-
-            private FlexibleView mFlexibleView;
-
-            private bool mInPreLayout = false;
-
-            /// <summary>
-            /// Constructor.
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public ViewState(FlexibleView flexibleView)
-            {
-                mFlexibleView = flexibleView;
-            }
-
-            /// <summary>
-            /// Gets the current focus position in adapter.
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public int FocusPosition
-            {
-                get
-                {
-                    return mFlexibleView.mFocusedItemIndex;
-                }
-            }
-
-            /// <summary>
-            /// Gets the datas count in data sets.
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public int ItemCount
-            {
-                get
-                {
-                    Adapter b = mFlexibleView != null ? mFlexibleView.mAdapter : null;
-
-                    return b != null ? b.GetItemCount() : 0;
-                }
-            }
-
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public bool IsPreLayout()
-            {
-                return mInPreLayout;
-            }
         }
 
         /// <summary>
@@ -2370,17 +2260,13 @@ namespace Tizen.NUI.CommonUI
                 }
                 mViewList.Insert(index, holder);
 
-                if (itemViewTable.ContainsKey(holder.ItemView.ID))
+                if (!itemViewTable.ContainsKey(holder.ItemView.ID))
                 {
-                    itemViewTable[holder.ItemView.ID] = holder;
-                }
-                else
-                {
-                    itemViewTable.Add(holder.ItemView.ID, holder);
                     mTapGestureDetector.Attach(holder.ItemView);
-                    holder.ItemView.TouchEvent += OnTouchEvent;
-                    //holder.ItemView.LeaveRequired = true;
+                    holder.ItemView.TouchEvent += OnTouchEvent; 
                 }
+
+                itemViewTable[holder.ItemView.ID] = holder;
             }
 
             public void AddView(ViewHolder holder, int index)
@@ -2454,9 +2340,6 @@ namespace Tizen.NUI.CommonUI
                 if (itemView != null && itemViewTable.ContainsKey(itemView.ID))
                 {
                     ViewHolder holder = itemViewTable[itemView.ID];
-                    if (e.Touch.GetState(0) != PointStateType.Motion)
-                    {
-                    }
 
                     mFlexibleView.DispatchItemTouched(holder, e.Touch);
                     return true;
@@ -2587,19 +2470,8 @@ namespace Tizen.NUI.CommonUI
                 return true;
             }
 
-            public int HashCode()
-            {
-                int result = cmd;
-                result = 31 * result + positionStart;
-                result = 31 * result + itemCount;
-                return result;
-            }
-
         }
 
-        //private class ViewInfoStore
-        //{
-        //}
         private class InfoRecord
         {
             public static readonly int FLAG_DISAPPEARED = 1;

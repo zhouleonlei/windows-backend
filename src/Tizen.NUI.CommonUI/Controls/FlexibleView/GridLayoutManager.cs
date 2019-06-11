@@ -48,36 +48,35 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="position">The anchor adapter position</param>
         /// <param name="direction">The direction.</param>
-        /// <param name="state">Transient state of FlexibleView </param>
         /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override int GetNextPosition(int position, string direction, FlexibleView.ViewState state)
+        protected override int GetNextPosition(int position, FlexibleView.LayoutManager.Direction direction)
         {
             if (mOrientation == HORIZONTAL)
             {
                 switch (direction)
                 {
-                    case "Left":
+                    case FlexibleView.LayoutManager.Direction.Left:
                         if (position >= mSpanCount)
                         {
                             return position - mSpanCount;
                         }
                         break;
-                    case "Right":
-                        if (position < state.ItemCount - mSpanCount)
+                    case FlexibleView.LayoutManager.Direction.Right:
+                        if (position < ItemCount - mSpanCount)
                         {
                             return position + mSpanCount;
                         }
                         break;
-                    case "Up":
+                    case FlexibleView.LayoutManager.Direction.Up:
                         if (position % mSpanCount > 0)
                         {
                             return position - 1;
                         }
                         break;
-                    case "Down":
-                        if (position < state.ItemCount - 1 && (position % mSpanCount < mSpanCount - 1))
+                    case FlexibleView.LayoutManager.Direction.Down:
+                        if (position < ItemCount - 1 && (position % mSpanCount < mSpanCount - 1))
                         {
                             return position + 1;
                         }
@@ -88,26 +87,26 @@ namespace Tizen.NUI.CommonUI
             {
                 switch (direction)
                 {
-                    case "Left":
+                    case FlexibleView.LayoutManager.Direction.Left:
                         if (position % mSpanCount > 0)
                         {
                             return position - 1;
                         }
                         break;
-                    case "Right":
-                        if (position < state.ItemCount - 1 && (position % mSpanCount < mSpanCount - 1))
+                    case FlexibleView.LayoutManager.Direction.Right:
+                        if (position < ItemCount - 1 && (position % mSpanCount < mSpanCount - 1))
                         {
                             return position + 1;
                         }
                         break;
-                    case "Up":
+                    case FlexibleView.LayoutManager.Direction.Up:
                         if (position >= mSpanCount)
                         {
                             return position - mSpanCount;
                         }
                         break;
-                    case "Down":
-                        if (position < state.ItemCount - mSpanCount)
+                    case FlexibleView.LayoutManager.Direction.Down:
+                        if (position < ItemCount - mSpanCount)
                         {
                             return position + mSpanCount;
                         }
@@ -118,7 +117,7 @@ namespace Tizen.NUI.CommonUI
             return NO_POSITION;
         }
 
-        internal override void LayoutChunk(FlexibleView.Recycler recycler, FlexibleView.ViewState state,
+        internal override void LayoutChunk(FlexibleView.Recycler recycler,
             LayoutState layoutState, LayoutChunkResult result)
         {
             bool layingOutInPrimaryDirection =
