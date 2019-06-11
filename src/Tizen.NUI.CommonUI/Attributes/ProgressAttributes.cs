@@ -118,18 +118,6 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// Get or set Progress Image resource URL Prefix.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public StringSelector ProgressImageURLPrefix
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Attributes's clone function.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>

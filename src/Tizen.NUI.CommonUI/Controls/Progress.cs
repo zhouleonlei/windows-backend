@@ -113,31 +113,6 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
-        /// The direction type of the Progress.
-        /// </summary>
-        /// <since_tizen> 6 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public enum DirectionType
-        {
-            /// <summary> 
-            /// The progress moving follow horizontal direction. 
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            Horizontal,
-
-            /// <summary> 
-            /// The progress moving follow vertical direction. 
-            /// </summary>
-            /// <since_tizen> 6 </since_tizen>
-            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            Vertical
-        }
-
-        /// <summary>
         /// The property to get/set Track image object URL of the Progress.
         /// </summary>
         /// <since_tizen> 6 </since_tizen>
@@ -407,7 +382,7 @@ namespace Tizen.NUI.CommonUI
                 Utility.Dispose(progressObj);
                 Utility.Dispose(bufferObj);
                 Utility.Dispose(loadingObj);
-             }
+            }
 
             //Release your own unmanaged resources here.
             //You should not access any managed member here except static instance.
@@ -483,18 +458,8 @@ namespace Tizen.NUI.CommonUI
             float width = this.SizeWidth;
             float height = this.SizeHeight;
             float progressRatio = (float)currentValue / (float)(maxValue - minValue);
-            DirectionType dir = DirectionType.Horizontal;
-            if (dir == DirectionType.Horizontal)
-            {
-                float progressWidth = width * progressRatio;
-                progressObj.Size2D = new Size2D((int)progressWidth, (int)height);
-            }
-            else
-            {
-                float progressHeight = height * progressRatio;
-                progressObj.Size2D = new Size2D((int)width, (int)progressHeight);
-            }
-
+            float progressWidth = width * progressRatio;
+            progressObj.Size2D = new Size2D((int)progressWidth, (int)height);
             if (null != bufferObj)
             {
                 if (bufferValue < minValue || bufferValue > maxValue)
@@ -503,16 +468,8 @@ namespace Tizen.NUI.CommonUI
                 }
 
                 float bufferRatio = (float)bufferValue / (float)(maxValue - minValue);
-                if (dir == DirectionType.Horizontal)
-                {
-                    float bufferWidth = width * bufferRatio;
-                    bufferObj.Size2D = new Size2D((int)bufferWidth, (int)height);
-                }
-                else
-                {
-                    float bufferHeight = height * bufferRatio;
-                    bufferObj.Size2D = new Size2D((int)width, (int)bufferHeight);
-                }
+                float bufferWidth = width * bufferRatio;
+                bufferObj.Size2D = new Size2D((int)bufferWidth, (int)height);
             }
         }
 
