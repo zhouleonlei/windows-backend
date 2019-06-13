@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright(c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright(c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,7 +155,7 @@ namespace Tizen.NUI.CommonUI
          * @param view   View to offset
          * @param offset offset amount
          */
-        public abstract void OffsetChild(FlexibleView.ViewHolder holder, int offset);
+        internal abstract void OffsetChild(FlexibleView.ViewHolder holder, int offset);
 
         /**
          * Returns the padding at the end of the layout. For horizontal helper, this is the right
@@ -173,7 +173,7 @@ namespace Tizen.NUI.CommonUI
          * @param orientation   Desired orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}
          * @return A new OrientationHelper
          */
-        public static OrientationHelper createOrientationHelper(
+        public static OrientationHelper CreateOrientationHelper(
                 FlexibleView.LayoutManager layoutManager, int orientation)
         {
             if (orientation == HORIZONTAL)
@@ -266,7 +266,7 @@ namespace Tizen.NUI.CommonUI
                     - mLayoutManager.GetPaddingRight();
         }
 
-        public override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
+        internal override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
         {
             //holder.offsetLeftAndRight(offset);
         }
@@ -331,7 +331,7 @@ namespace Tizen.NUI.CommonUI
                     - mLayoutManager.GetPaddingBottom();
         }
 
-        public override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
+        internal override void OffsetChild(FlexibleView.ViewHolder holder, int offset)
         {
             //holder.offsetTopAndBottom(offset);
         }

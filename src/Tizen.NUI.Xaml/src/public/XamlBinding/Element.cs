@@ -3,33 +3,23 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding.Internals;
 using Tizen.NUI.StyleSheets;
+using Tizen.NUI.Xaml;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
-    /// Provides the base class for all Tizen.NUI.Binding hierarchal elements. This class contains all the methods and properties required to represent an element in the Tizen.NUI.Binding hierarchy.
+    /// Provides the base class for all Tizen.NUI.XamlBinding hierarchal elements. This class contains all the methods and properties required to represent an element in the Tizen.NUI.XamlBinding hierarchy.
     /// </summary>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract partial class Element : BindableObject, IElement, INameScope, IElementController, IStyleSelectable
     {
-
-        // public static readonly BindableProperty MenuProperty = BindableProperty.CreateAttached(nameof(Menu), typeof(Menu), typeof(Element), null);
-
-        // public static Menu GetMenu(BindableObject bindable)
-        // {
-        //   return (Menu)bindable.GetValue(MenuProperty);
-        // }
-
-        // public static void SetMenu(BindableObject bindable, Menu menu)
-        // {
-        //   bindable.SetValue(MenuProperty, menu);
-        // }
-
         internal static readonly ReadOnlyCollection<Element> EmptyChildren = new ReadOnlyCollection<Element>(new Element[0]);
 
         /// <summary>
@@ -66,7 +56,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets or sets a value that allows the automation framework to find and interact with this element.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string AutomationId
         {
@@ -82,7 +72,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets or sets a value used to identify a collection of semantically similar elements.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ClassId
         {
@@ -107,7 +97,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets a value that can be used to uniquely identify an element through the run of an application.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Guid Id
         {
@@ -122,8 +112,8 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets the element which is the closest ancestor of this element that is a BaseHandle.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [Obsolete("ParentView is obsolete as of version 2.1.0. Please use Parent instead.")]
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Element ParentView
         {
@@ -144,7 +134,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets or sets a user defined value to uniquely identify the element.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string StyleId
         {
@@ -165,6 +155,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// For internal use.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ReadOnlyCollection<Element> LogicalChildren => LogicalChildrenInternal;
 
@@ -218,6 +209,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// For internal use.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Element RealParent { get; private set; }
 
@@ -235,7 +227,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Gets or sets the parent element of the element.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Element Parent
         {
@@ -363,6 +355,7 @@ namespace Tizen.NUI.Binding
         /// </summary>
         /// <param name="name">The nameof the effect</param>
         /// <returns>true if attached</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool EffectIsAttached(string name)
         {
@@ -443,7 +436,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Invoked whenever the binding context of the element changes. Implement this method to add class handling for this event.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnBindingContextChanged()
         {
@@ -476,7 +469,7 @@ namespace Tizen.NUI.Binding
         /// Invoked whenever the ChildAdded event needs to be emitted.Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="child">The element that was added.</param>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnChildAdded(Element child)
         {
@@ -497,7 +490,7 @@ namespace Tizen.NUI.Binding
         /// Invoked whenever the ChildRemoved event needs to be emitted.Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="child">The element that was removed.</param>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnChildRemoved(Element child)
         {
@@ -513,7 +506,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// Invoked whenever the Parent of an element is set.Implement this method in order to add behavior when the element is added to a parent.
         /// </summary>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnParentSet()
         {
@@ -525,7 +518,7 @@ namespace Tizen.NUI.Binding
         /// Method that is called when a bound property is changed.
         /// </summary>
         /// <param name="propertyName">The name of the bound property that changed.</param>
-        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -545,6 +538,7 @@ namespace Tizen.NUI.Binding
         /// For internal use.
         /// </summary>
         /// <returns>the elements</returns>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public IEnumerable<Element> Descendants()
         {
@@ -665,6 +659,7 @@ namespace Tizen.NUI.Binding
         /// <summary>
         /// For internal use.
         /// </summary>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler PlatformSet;
 
@@ -806,7 +801,7 @@ namespace Tizen.NUI.Binding
             var sheets = new List<StyleSheet>();
             while (parent != null)
             {
-                var resourceProvider = parent as IResourcesProvider;
+                var resourceProvider = parent as Tizen.NUI.Binding.IResourcesProvider;
                 var vpSheets = resourceProvider?.GetStyleSheets();
                 if (vpSheets != null)
                     sheets.AddRange(vpSheets);
@@ -814,6 +809,56 @@ namespace Tizen.NUI.Binding
             }
             for (var i = sheets.Count - 1; i >= 0; i--)
                 ((IStyle)sheets[i]).Apply(this);
+        }
+
+        private Dictionary<string, Transition> transDictionary = new Dictionary<string, Transition>();
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Transition GetTransition(string transitionName)
+        {
+            Transition trans = null;
+            transDictionary.TryGetValue(transitionName, out trans);
+            return trans;
+        }
+
+        private void LoadTransitions()
+        {
+            foreach (string str in transitionNames)
+            {
+                string resourceName = str + ".xaml";
+                Transition trans = null;
+
+                string resource = Tizen.Applications.Application.Current.DirectoryInfo.Resource;
+
+                string likelyResourcePath = resource + "animation/" + resourceName;
+
+                if (File.Exists(likelyResourcePath))
+                {
+                    trans = Extensions.LoadObject<Transition>(likelyResourcePath);
+                }
+                if (trans)
+                {
+                    transDictionary.Add(trans.Name, trans);
+                }
+            }
+        }
+
+        private string[] transitionNames;
+
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string[] TransitionNames
+        {
+            get
+            {
+                return transitionNames;
+            }
+            set
+            {
+                transitionNames = value;
+                LoadTransitions();
+            }
         }
     }
 }

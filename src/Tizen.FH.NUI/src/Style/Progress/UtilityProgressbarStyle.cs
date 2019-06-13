@@ -7,7 +7,7 @@ namespace Tizen.FH.NUI.Controls
     {
         protected override Attributes GetAttributes()
         {
-            ProgressBarAttributes attributes = new ProgressBarAttributes
+            ProgressAttributes attributes = new ProgressAttributes
             {
                 TrackImageAttributes = new ImageAttributes
                 {

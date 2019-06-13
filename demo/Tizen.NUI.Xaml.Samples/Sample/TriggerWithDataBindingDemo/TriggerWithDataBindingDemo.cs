@@ -1,14 +1,10 @@
-
-using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
 using Tizen.NUI.Xaml.Forms.BaseComponents;
-using Tizen.NUI.Xaml.UIComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public class TriggerWithDataBindingDemo : Tizen.NUI.Binding.Application
+    public class TriggerWithDataBindingDemo : NUIApplication
     {
-        private ContentPage myPage;
+        private View rootView;
         private Window window;
 
         protected override void OnCreate() 
@@ -18,9 +14,9 @@ namespace Tizen.NUI.Examples
             window = Window.Instance;
             window.BackgroundColor = Color.White;
 
-            myPage = new TriggerWithDataBindingDemoPage(window);
+            rootView = new TriggerWithDataBindingDemoPage();
 
-            myPage.SetFocus();
+            window.Add(rootView.ViewInstance);
         }
     }
 }

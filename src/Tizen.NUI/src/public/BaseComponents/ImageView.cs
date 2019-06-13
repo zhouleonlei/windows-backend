@@ -17,6 +17,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.BaseComponents
 {
@@ -28,6 +29,164 @@ namespace Tizen.NUI.BaseComponents
     /// <since_tizen> 3 </since_tizen>
     public class ImageView : View
     {
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ResourceUrlProperty = BindableProperty.Create(nameof(ImageView.ResourceUrl), typeof(string), typeof(ImageView), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                string url = (string)newValue;
+                imageView._url = url;
+                imageView.UpdateImage();
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            if(imageView._imageType == ImageType.Normal)
+            {
+                Tizen.NUI.Object.GetProperty(imageView.swigCPtr, ImageView.Property.IMAGE).Get(out imageView._url);
+            }
+            return imageView._url;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(ImageView.Image), typeof(PropertyMap), typeof(ImageView), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                PropertyMap map = (PropertyMap)newValue;
+
+                if (imageView._border == null)
+                {
+                    imageView._image = map;
+                    imageView.UpdateImage();
+                }
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (imageView._border == null)
+            {
+                PropertyMap temp = new PropertyMap();
+                Tizen.NUI.Object.GetProperty(imageView.swigCPtr, ImageView.Property.IMAGE).Get(temp);
+                return temp;
+            }
+            else
+            {
+                return null;
+            }
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PreMultipliedAlphaProperty = BindableProperty.Create("PreMultipliedAlpha", typeof(bool), typeof(ImageView), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(imageView.swigCPtr, ImageView.Property.PRE_MULTIPLIED_ALPHA, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(imageView.swigCPtr, ImageView.Property.PRE_MULTIPLIED_ALPHA).Get(out temp);
+            return temp;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PixelAreaProperty = BindableProperty.Create("PixelArea", typeof(RelativeVector4), typeof(ImageView), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(imageView.swigCPtr, ImageView.Property.PIXEL_AREA, new Tizen.NUI.PropertyValue((RelativeVector4)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(imageView.swigCPtr, ImageView.Property.PIXEL_AREA).Get(temp);
+            RelativeVector4 relativeTemp = new RelativeVector4(temp.X, temp.Y, temp.Z, temp.W);
+            return relativeTemp;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty BorderProperty = BindableProperty.Create("Border", typeof(Rectangle), typeof(ImageView), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                imageView._border = (Rectangle)newValue;
+                imageView.UpdateImage();
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            return imageView._border;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty BorderOnlyProperty = BindableProperty.Create("BorderOnly", typeof(bool), typeof(ImageView), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                imageView._borderOnly = (bool)newValue;
+                imageView.UpdateImage();
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            return imageView._borderOnly ?? false;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SynchronosLoadingProperty = BindableProperty.Create("SynchronosLoading", typeof(bool), typeof(ImageView), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                imageView._synchronousLoading = (bool)newValue;
+                imageView.UpdateImage();
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            return imageView._synchronousLoading ?? false;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty OrientationCorrectionProperty = BindableProperty.Create("OrientationCorrection", typeof(bool), typeof(ImageView), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var imageView = (ImageView)bindable;
+            if (newValue != null)
+            {
+                imageView._orientationCorrection = (bool)newValue;
+                imageView.UpdateImage();
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var imageView = (ImageView)bindable;
+            return imageView._orientationCorrection ?? false;
+        });
+
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
         private EventHandler<ResourceReadyEventArgs> _resourceReadyEventHandler;
         private ResourceReadyEventCallbackType _resourceReadyEventCallback;
@@ -166,16 +325,12 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Tizen.NUI.Object.GetProperty(swigCPtr, ImageView.Property.IMAGE).Get(out _url);
-                return _url;
+                return (string)GetValue(ResourceUrlProperty);
             }
             set
             {
                 _url = (value == null ? "" : value);
-                if (_imageType == ImageType.Normal)
-                {
-                    UpdateImage();
-                }
+                SetValue(ResourceUrlProperty, _url);
                 NotifyPropertyChanged();
             }
         }
@@ -223,9 +378,7 @@ namespace Tizen.NUI.BaseComponents
             {
                 if (_border == null)
                 {
-                    PropertyMap temp = new PropertyMap();
-                    Tizen.NUI.Object.GetProperty(swigCPtr, ImageView.Property.IMAGE).Get(temp);
-                    return temp;
+                    return (PropertyMap)GetValue(ImageProperty);
                 }
                 else
                 {
@@ -236,7 +389,7 @@ namespace Tizen.NUI.BaseComponents
             {
                 if (_border == null)
                 {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, ImageView.Property.IMAGE, new Tizen.NUI.PropertyValue(value));
+                    SetValue(ImageProperty, value);
                     NotifyPropertyChanged();
                 }
             }
@@ -251,13 +404,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, ImageView.Property.PRE_MULTIPLIED_ALPHA).Get(out temp);
-                return temp;
+                return (bool)GetValue(PreMultipliedAlphaProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, ImageView.Property.PRE_MULTIPLIED_ALPHA, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(PreMultipliedAlphaProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -271,13 +422,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, ImageView.Property.PIXEL_AREA).Get(temp);
-                return new RelativeVector4(temp.X, temp.Y, temp.Z, temp.W);
+                return (RelativeVector4)GetValue(PixelAreaProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, ImageView.Property.PIXEL_AREA, new Tizen.NUI.PropertyValue((RelativeVector4)value));
+                SetValue(PixelAreaProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -293,15 +442,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return _border;
+                return (Rectangle)GetValue(BorderProperty);
             }
             set
             {
-                if (null != value)
-                {
-                    _border = (Rectangle)value;
-                    UpdateImage();
-                }
+                SetValue(BorderProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -317,12 +462,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return _borderOnly ?? false;
+                return (bool)GetValue(BorderOnlyProperty);
             }
             set
             {
-                _borderOnly = value;
-                UpdateImage();
+                SetValue(BorderOnlyProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -335,12 +479,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return _synchronousLoading ?? false;
+                return (bool)GetValue(SynchronosLoadingProperty);
             }
             set
             {
-                _synchronousLoading = (bool)value;
-                UpdateImage();
+                SetValue(SynchronosLoadingProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -353,12 +496,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                return _orientationCorrection ?? false;
+                return (bool)GetValue(OrientationCorrectionProperty);
             }
             set
             {
-                _orientationCorrection = value;
-                UpdateImage();
+                SetValue(OrientationCorrectionProperty, value);
                 NotifyPropertyChanged();
             }
         }

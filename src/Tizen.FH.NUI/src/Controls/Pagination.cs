@@ -317,19 +317,12 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// you can override it to update your own resources.
         /// </summary>
-        /// <param name="attributtes">Attributes</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            base.OnUpdate(attributtes);
-
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                return;
-            }
+            base.OnUpdate();
 
             ApplyAttributes(returnArrow, paginationAttributes.ReturnArrowAttributes);
             ApplyAttributes(nextArrow, paginationAttributes.NextArrowAttributes);
@@ -388,6 +381,12 @@ namespace Tizen.FH.NUI.Controls
 
         private void Initialize()
         {
+            paginationAttributes = attributes as PaginationAttributes;
+            if (paginationAttributes == null)
+            {
+                throw new Exception("Pagination attributes parse error.");
+            }
+
             returnArrow = new ImageView()
             {
                 Name = "ReturnArrow",
@@ -406,12 +405,6 @@ namespace Tizen.FH.NUI.Controls
             tapGestureDetector.Detected += OnTapGestureDetected;
             tapGestureDetector.Attach(returnArrow);
             tapGestureDetector.Attach(nextArrow);
-
-            paginationAttributes = attributes as PaginationAttributes;
-            if (paginationAttributes == null)
-            {
-                throw new Exception("Pagination attributes is null.");
-            }
         }
 
         private void LayoutUpdate()

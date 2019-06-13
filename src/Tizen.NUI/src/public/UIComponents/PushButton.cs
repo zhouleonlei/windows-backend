@@ -17,9 +17,9 @@
 
 using System;
 using System.ComponentModel;
-using Tizen.NUI.BaseComponents;
 using System.Windows.Input;
 using System.Collections.Generic;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.UIComponents
 {
@@ -29,6 +29,14 @@ namespace Tizen.NUI.UIComponents
     /// <since_tizen> 3 </since_tizen>
     public class PushButton : Button
     {
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(PushButton), null, null);
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(PushButton), null, null);
+
+
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
         /// <summary>
@@ -51,10 +59,11 @@ namespace Tizen.NUI.UIComponents
         {
             get
             {
-                return null;
+                return (ICommand)base.GetValue(PushButton.CommandProperty);
             }
             set
             {
+                base.SetValue(PushButton.CommandProperty, value);
             }
         }
 
@@ -64,10 +73,11 @@ namespace Tizen.NUI.UIComponents
         {
             get
             {
-                return null;
+                return base.GetValue(PushButton.CommandParameterProperty);
             }
             set
             {
+                base.SetValue(PushButton.CommandParameterProperty, value);
             }
         }
 

@@ -1,12 +1,8 @@
-using System.ComponentModel;
-using Tizen.NUI.Xaml.Forms;
-
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
     /// For internal use.
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal interface IPlatform
     {
         /// <summary>

@@ -7,8 +7,8 @@ namespace Tizen.NUI.Samples
     public class ToastSample : IExample
     {
         private TextLabel board1, board2, board;
-        private Button button1, button2, button3, button4;
-        private Toast toast1_1, toast1_2, toast2_1, toast2_2;  //1-null para 2-attributes; X_1-color; X_2 image track
+        private Button button1, button2;
+        private Toast toast1_1, toast2_1;  //1-null para 2-attributes; X_1-color; X_2 image track
         private View root;
 
         public void Activate()
@@ -25,31 +25,30 @@ namespace Tizen.NUI.Samples
             toast1_1 = new Toast();
             toast1_1.Position2D = new Position2D(50, 350);
             toast1_1.Size2D = new Size2D(512, 132);
-            toast1_1.BackgroundBorder = new Rectangle(64, 64, 4, 4);
-            
-            root.Add(toast1_1);
-            toast1_1.Text = "null parameter construction";
+            toast1_1.BackgroundImageBorder = new Rectangle(64, 64, 4, 4);
+            toast1_1.TextArray = new string[1] { "null parameter construction" };
+            toast1_1.PointSize = 26;
+            toast1_1.TextColor = Color.White;
             toast1_1.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
-            toast1_1.UpSpace = 38;
-            toast1_1.LeftSpace = 96;
+            toast1_1.TextPaddingTop = 38;
+            toast1_1.TextPaddingBottom = 38;
+            toast1_1.TextPaddingLeft = 96;
+            toast1_1.TextPaddingRight = 96;
+            
+            toast1_1.Duration = 1500;
+            root.Add(toast1_1);
 
             ToastAttributes attr = new ToastAttributes
             {
+                Size2D = new Size2D(512, 132),
                 TextAttributes = new TextAttributes
                 {
-                    //    Position2D = "0,0"
-                    //Size2D = "352,56"
-                    //ParentOrigin = "Center"
-                    //PivotPoint = "Center"
-                    //PositionUsesPivotPoint = "True"
-
-                    ParentOrigin = ParentOrigin.Center,
-                    PivotPoint = PivotPoint.Center,
-                    PositionUsesPivotPoint = true,
-                    Text = new StringSelector
-                    {
-                        All = "attibute parameter construction",
-                    }
+                    PaddingTop = 38,
+                    PaddingBottom = 38,
+                    PaddingLeft = 96,
+                    PaddingRight = 96,
+                    PointSize = new FloatSelector { All = 26 },
+                    TextColor = new ColorSelector { All = Color.White },
                 },
                 BackgroundImageAttributes = new ImageAttributes
                 {
@@ -61,13 +60,16 @@ namespace Tizen.NUI.Samples
                     {
                         All = new Rectangle(64, 64, 4, 4),
                     }
-                }
-
+                },
+                TextLineHeight = 56,
+                TextLineSpace = 4,
+                Duration = 3000,
             };
 
             toast2_1 = new Toast(attr);
+            toast2_1.TextArray = new string[1] {"attibute parameter construction" };
             toast2_1.Position2D = new Position2D(650, 350);
-            toast2_1.Size2D = new Size2D(512, 110);
+            //toast2_1.Size2D = new Size2D(512, 132);
             root.Add(toast2_1);
 
             board.UpFocusableView = button1;
@@ -135,24 +137,6 @@ namespace Tizen.NUI.Samples
             root.Add(button2);
             button2.Focusable = true;
             button2.ClickEvent += toast2_1Show;
-
-            //button3 = new Button();
-            //button3.BackgroundColor = Color.Green;
-            //button3.Position2D = new Position2D(450, 600);
-            //button3.Size2D = new Size2D(80, 50);
-            //button3.Text = "+";
-            //root.Add(button3);
-            //button3.Focusable = true;
-            //button3.ClickEvent += Scroll2Add;
-
-            //button4 = new Button();
-            //button4.BackgroundColor = Color.Green;
-            //button4.Position2D = new Position2D(550, 600);
-            //button4.Size2D = new Size2D(80, 50);
-            //button4.Text = "-";
-            //root.Add(button4);
-            //button4.Focusable = true;
-           // button4.ClickEvent += Scroll2Minus;
         }
 
         private void Board_FocusLost(object sender, global::System.EventArgs e)
@@ -168,13 +152,13 @@ namespace Tizen.NUI.Samples
         private void toast1_1Show(object sender, global::System.EventArgs e)
         {
             board.Text = "toast1_1 show: ";
-            toast1_1.Show(3000, false);
+            toast1_1.Show();
         }
 
         private void toast2_1Show(object sender, global::System.EventArgs e)
         {
             board.Text = "toast2_1 show: ";
-            toast2_1.Show(3000, false);
+            toast2_1.Show();
         }
 
         private void toast1FPSMinus(object sender, global::System.EventArgs e)

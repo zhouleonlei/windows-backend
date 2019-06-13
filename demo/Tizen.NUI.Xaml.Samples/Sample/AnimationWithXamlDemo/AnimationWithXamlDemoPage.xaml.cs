@@ -15,14 +15,14 @@
  *
  */
 using System;
-using Tizen.NUI.Binding;
-using Tizen.NUI.Xaml;
+using Tizen.NUI.XamlBinding;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public partial class AnimationWithXamlDemoPage : ContentPage
+    public partial class AnimationWithXamlDemoPage : View
     {
-        public AnimationWithXamlDemoPage(Window win) : base (win)
+        public AnimationWithXamlDemoPage()
         {
             InitializeComponent();
 
@@ -52,11 +52,6 @@ namespace Tizen.NUI.Examples
                 }
                 return true;
             };
-        }
-        
-        public new void SetFocus()
-        {
-            base.SetFocus();
         }
     }
 }

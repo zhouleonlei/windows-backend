@@ -381,18 +381,11 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Spin by attributes.
         /// </summary>
-        /// <param name="attributes">Spin attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            spinAttributes = attributes as SpinAttributes;
-            
-            if (spinAttributes == null)
-            {
-                return;
-            }
 
             ApplyAttributes(this, spinAttributes);
             ApplyAttributes(backgroundImage, spinAttributes.BackgroundImageAttributes);
@@ -445,7 +438,6 @@ namespace Tizen.FH.NUI.Controls
                 throw new Exception("Spin attribute parse error.");
             }
 
-            StateFocusableOnTouchMode = true;
             LeaveRequired = true;
             
             if (spinAttributes.BackgroundImageAttributes != null)

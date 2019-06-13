@@ -15,8 +15,11 @@
  *
  */
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.BaseComponents
 {
@@ -88,7 +91,1187 @@ namespace Tizen.NUI.BaseComponents
     /// <since_tizen> 3 </since_tizen>
     public class View : Container
     {
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty StyleNameProperty = BindableProperty.Create("StyleName", typeof(string), typeof(View), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.STYLE_NAME, new Tizen.NUI.PropertyValue((string)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.STYLE_NAME).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create("BackgroundColor", typeof(Color), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((Color)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Color backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
+            Tizen.NUI.PropertyMap background = view.Background;
+            int visualType = 0;
+            background.Find(Visual.Property.Type)?.Get(out visualType);
+            if (visualType == (int)Visual.Type.Color)
+            {
+                background.Find(ColorVisualProperty.MixColor)?.Get(backgroundColor);
+            }
+
+            return backgroundColor;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create("BackgroundImage", typeof(string), typeof(View), default(string), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((string)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string backgroundImage = "";
+
+            Tizen.NUI.PropertyMap background = view.Background;
+            int visualType = 0;
+            background.Find(Visual.Property.Type)?.Get(out visualType);
+            if (visualType == (int)Visual.Type.Image)
+            {
+                background.Find(ImageVisualProperty.URL)?.Get(out backgroundImage);
+            }
+
+            return backgroundImage;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create("Background", typeof(PropertyMap), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.BACKGROUND).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty StateProperty = BindableProperty.Create("State", typeof(States), typeof(View), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.STATE, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            int temp = 0;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.STATE).Get(out temp) == false)
+            {
+                NUILog.Error("State get error!");
+            }
+            switch (temp)
+            {
+                case 0: return States.Normal;
+                case 1: return States.Focused;
+                case 2: return States.Disabled;
+                default: return States.Normal;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SubStateProperty = BindableProperty.Create("SubState", typeof(States), typeof(View), States.Normal, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            string valueToString = "";
+            if (newValue != null)
+            {
+                switch ((States)newValue)
+                {
+                    case States.Normal: { valueToString = "NORMAL"; break; }
+                    case States.Focused: { valueToString = "FOCUSED"; break; }
+                    case States.Disabled: { valueToString = "DISABLED"; break; }
+                    default: { valueToString = "NORMAL"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SUB_STATE, new Tizen.NUI.PropertyValue(valueToString));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SUB_STATE).Get(out temp) == false)
+            {
+                NUILog.Error("subState get error!");
+            }
+            switch (temp)
+            {
+                case "NORMAL": return States.Normal;
+                case "FOCUSED": return States.Focused;
+                case "DISABLED": return States.Disabled;
+                default: return States.Normal;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty TooltipProperty = BindableProperty.Create("Tooltip", typeof(PropertyMap), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.TOOLTIP, new Tizen.NUI.PropertyValue((PropertyMap)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.TOOLTIP).Get(temp);
+            return temp;
+        });
+
+        /// Only for XAML property binding. This will be changed as Inhouse API by ACR later.
+        public static readonly BindableProperty FlexProperty = BindableProperty.Create("Flex", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, FlexContainer.ChildProperty.FLEX, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, FlexContainer.ChildProperty.FLEX).Get(out temp);
+            return temp;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty AlignSelfProperty = BindableProperty.Create("AlignSelf", typeof(int), typeof(View), default(int), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, FlexContainer.ChildProperty.ALIGN_SELF, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            int temp = 0;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, FlexContainer.ChildProperty.ALIGN_SELF).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty FlexMarginProperty = BindableProperty.Create("FlexMargin", typeof(Vector4), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, FlexContainer.ChildProperty.FLEX_MARGIN, new Tizen.NUI.PropertyValue((Vector4)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, FlexContainer.ChildProperty.FLEX_MARGIN).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty CellIndexProperty = BindableProperty.Create("CellIndex", typeof(Vector2), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, TableView.ChildProperty.CELL_INDEX, new Tizen.NUI.PropertyValue((Vector2)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Vector2 temp = new Vector2(0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, TableView.ChildProperty.CELL_INDEX).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty RowSpanProperty = BindableProperty.Create("RowSpan", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, TableView.ChildProperty.ROW_SPAN, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, TableView.ChildProperty.ROW_SPAN).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ColumnSpanProperty = BindableProperty.Create("ColumnSpan", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, TableView.ChildProperty.COLUMN_SPAN, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, TableView.ChildProperty.COLUMN_SPAN).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty CellHorizontalAlignmentProperty = BindableProperty.Create("CellHorizontalAlignment", typeof(HorizontalAlignmentType), typeof(View), HorizontalAlignmentType.Left, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            string valueToString = "";
+
+            if (newValue != null)
+            {
+                switch ((HorizontalAlignmentType)newValue)
+                {
+                    case Tizen.NUI.HorizontalAlignmentType.Left: { valueToString = "left"; break; }
+                    case Tizen.NUI.HorizontalAlignmentType.Center: { valueToString = "center"; break; }
+                    case Tizen.NUI.HorizontalAlignmentType.Right: { valueToString = "right"; break; }
+                    default: { valueToString = "left"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, TableView.ChildProperty.CELL_HORIZONTAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, TableView.ChildProperty.CELL_HORIZONTAL_ALIGNMENT).Get(out temp) == false)
+            {
+                NUILog.Error("CellHorizontalAlignment get error!");
+            }
+
+            switch (temp)
+            {
+                case "left": return Tizen.NUI.HorizontalAlignmentType.Left;
+                case "center": return Tizen.NUI.HorizontalAlignmentType.Center;
+                case "right": return Tizen.NUI.HorizontalAlignmentType.Right;
+                default: return Tizen.NUI.HorizontalAlignmentType.Left;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty CellVerticalAlignmentProperty = BindableProperty.Create("CellVerticalAlignment", typeof(VerticalAlignmentType), typeof(View), VerticalAlignmentType.Top, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            string valueToString = "";
+
+            if (newValue != null)
+            {
+                switch ((VerticalAlignmentType)newValue)
+                {
+                    case Tizen.NUI.VerticalAlignmentType.Top: { valueToString = "top"; break; }
+                    case Tizen.NUI.VerticalAlignmentType.Center: { valueToString = "center"; break; }
+                    case Tizen.NUI.VerticalAlignmentType.Bottom: { valueToString = "bottom"; break; }
+                    default: { valueToString = "top"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, TableView.ChildProperty.CELL_VERTICAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, TableView.ChildProperty.CELL_VERTICAL_ALIGNMENT).Get(out temp);
+            {
+                NUILog.Error("CellVerticalAlignment get error!");
+            }
+
+            switch (temp)
+            {
+                case "top": return Tizen.NUI.VerticalAlignmentType.Top;
+                case "center": return Tizen.NUI.VerticalAlignmentType.Center;
+                case "bottom": return Tizen.NUI.VerticalAlignmentType.Bottom;
+                default: return Tizen.NUI.VerticalAlignmentType.Top;
+            }
+        });
+
         /// <summary>
+        /// "Please DO NOT use! This will be deprecated! Please use 'View Weight' instead of BindableProperty"
+        /// This needs to be hidden as inhouse API until all applications using it have been updated.  Do not make public.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty WeightProperty = BindableProperty.Create("Weight", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                view.Weight = (float)newValue;
+            }
+        },
+
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            return view.Weight;
+        });
+
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty LeftFocusableViewProperty = BindableProperty.Create(nameof(View.LeftFocusableView), typeof(View), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null) { view.LeftFocusableViewId = (int)(newValue as View)?.GetId(); }
+            else { view.LeftFocusableViewId = -1; }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            if (view.LeftFocusableViewId >= 0) { return view.ConvertIdToView((uint)view.LeftFocusableViewId); }
+            return null;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty RightFocusableViewProperty = BindableProperty.Create(nameof(View.RightFocusableView), typeof(View), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null) { view.RightFocusableViewId = (int)(newValue as View)?.GetId(); }
+            else { view.RightFocusableViewId = -1; }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            if (view.RightFocusableViewId >= 0) { return view.ConvertIdToView((uint)view.RightFocusableViewId); }
+            return null;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty UpFocusableViewProperty = BindableProperty.Create(nameof(View.UpFocusableView), typeof(View), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null) { view.UpFocusableViewId = (int)(newValue as View)?.GetId(); }
+            else { view.UpFocusableViewId = -1; }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            if (view.UpFocusableViewId >= 0) { return view.ConvertIdToView((uint)view.UpFocusableViewId); }
+            return null;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty DownFocusableViewProperty = BindableProperty.Create(nameof(View.DownFocusableView), typeof(View), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null) { view.DownFocusableViewId = (int)(newValue as View)?.GetId(); }
+            else { view.DownFocusableViewId = -1; }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            if (view.DownFocusableViewId >= 0) { return view.ConvertIdToView((uint)view.DownFocusableViewId); }
+            return null;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty FocusableProperty = BindableProperty.Create("Focusable", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null) { view.SetKeyboardFocusable((bool)newValue); }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            return view.IsKeyboardFocusable();
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty Size2DProperty = BindableProperty.Create("Size2D", typeof(Size2D), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE, new Tizen.NUI.PropertyValue(new Size((Size2D)newValue)));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Size temp = new Size(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE).Get(temp);
+            Size2D size = new Size2D((int)temp.Width, (int)temp.Height);
+            return size;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty OpacityProperty = BindableProperty.Create("Opacity", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.OPACITY, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.OPACITY).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty Position2DProperty = BindableProperty.Create("Position2D", typeof(Position2D), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION, new Tizen.NUI.PropertyValue(new Position((Position2D)newValue)));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Position temp = new Position(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION).Get(temp);
+            return new Position2D(temp);
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PositionUsesPivotPointProperty = BindableProperty.Create("PositionUsesPivotPoint", typeof(bool), typeof(View), true, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION_USES_ANCHOR_POINT, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION_USES_ANCHOR_POINT).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SiblingOrderProperty = BindableProperty.Create("SiblingOrder", typeof(int), typeof(View), default(int), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            int value;
+            if (newValue != null)
+            {
+                value = (int)newValue;
+                if (value < 0)
+                {
+                    NUILog.Error("SiblingOrder should be bigger than 0 or equal to 0.");
+                    return;
+                }
+                var siblings = view.GetParent()?.Children;
+                if (siblings != null)
+                {
+                    int currentOrder = siblings.IndexOf(view);
+                    if (value != currentOrder)
+                    {
+                        if (value == 0) { view.LowerToBottom(); }
+                        else if (value < siblings.Count - 1)
+                        {
+                            if (value > currentOrder) { view.RaiseAbove(siblings[value]); }
+                            else { view.LowerBelow(siblings[value]); }
+                        }
+                        else { view.RaiseToTop(); }
+                    }
+                }
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            var parentChildren = view.GetParent()?.Children;
+            int currentOrder = 0;
+            if (parentChildren != null)
+            {
+                currentOrder = parentChildren.IndexOf(view);
+
+                if (currentOrder < 0) { return 0; }
+                else if (currentOrder < parentChildren.Count) { return currentOrder; }
+            }
+
+            return 0;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ParentOriginProperty = BindableProperty.Create("ParentOrigin", typeof(Position), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.PARENT_ORIGIN, new Tizen.NUI.PropertyValue((Position)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Position temp = new Position(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.PARENT_ORIGIN).Get(temp);
+            return temp;
+        }
+        );
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PivotPointProperty = BindableProperty.Create("PivotPoint", typeof(Position), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.ANCHOR_POINT, new Tizen.NUI.PropertyValue((Position)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Position temp = new Position(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.ANCHOR_POINT).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SizeWidthProperty = BindableProperty.Create("SizeWidth", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE_WIDTH, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE_WIDTH).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SizeHeightProperty = BindableProperty.Create("SizeHeight", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE_HEIGHT, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE_HEIGHT).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PositionProperty = BindableProperty.Create("Position", typeof(Position), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION, new Tizen.NUI.PropertyValue((Position)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Position temp = new Position(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PositionXProperty = BindableProperty.Create("PositionX", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION_X, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION_X).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PositionYProperty = BindableProperty.Create("PositionY", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION_Y, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION_Y).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PositionZProperty = BindableProperty.Create("PositionZ", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.POSITION_Z, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.POSITION_Z).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty OrientationProperty = BindableProperty.Create("Orientation", typeof(Rotation), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.ORIENTATION, new Tizen.NUI.PropertyValue((Rotation)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Rotation temp = new Rotation();
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.ORIENTATION).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ScaleProperty = BindableProperty.Create("Scale", typeof(Vector3), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SCALE, new Tizen.NUI.PropertyValue((Vector3)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Vector3 temp = new Vector3(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SCALE).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ScaleXProperty = BindableProperty.Create("ScaleX", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SCALE_X, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SCALE_X).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ScaleYProperty = BindableProperty.Create("ScaleY", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SCALE_Y, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SCALE_Y).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ScaleZProperty = BindableProperty.Create("ScaleZ", typeof(float), typeof(View), default(float), propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SCALE_Z, new Tizen.NUI.PropertyValue((float)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            float temp = 0.0f;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SCALE_Z).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty NameProperty = BindableProperty.Create("Name", typeof(string), typeof(View), string.Empty, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.NAME, new Tizen.NUI.PropertyValue((string)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.NAME).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SensitiveProperty = BindableProperty.Create("Sensitive", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SENSITIVE, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SENSITIVE).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty LeaveRequiredProperty = BindableProperty.Create("LeaveRequired", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.LEAVE_REQUIRED, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.LEAVE_REQUIRED).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty InheritOrientationProperty = BindableProperty.Create("InheritOrientation", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.INHERIT_ORIENTATION, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.INHERIT_ORIENTATION).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty InheritScaleProperty = BindableProperty.Create("InheritScale", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.INHERIT_SCALE, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.INHERIT_SCALE).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty DrawModeProperty = BindableProperty.Create("DrawMode", typeof(DrawModeType), typeof(View), DrawModeType.Normal, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.DRAW_MODE, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.DRAW_MODE).Get(out temp) == false)
+            {
+                NUILog.Error("DrawMode get error!");
+            }
+            switch (temp)
+            {
+                case "NORMAL": return DrawModeType.Normal;
+                case "OVERLAY_2D": return DrawModeType.Overlay2D;
+#pragma warning disable CS0618 // Disable deprecated warning as we do need to use the deprecated API here.
+                case "STENCIL": return DrawModeType.Stencil;
+#pragma warning restore CS0618
+                default: return DrawModeType.Normal;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SizeModeFactorProperty = BindableProperty.Create("SizeModeFactor", typeof(Vector3), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE_MODE_FACTOR, new Tizen.NUI.PropertyValue((Vector3)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Vector3 temp = new Vector3(0.0f, 0.0f, 0.0f);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE_MODE_FACTOR).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty WidthResizePolicyProperty = BindableProperty.Create("WidthResizePolicy", typeof(ResizePolicyType), typeof(View), ResizePolicyType.Fixed, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.WIDTH_RESIZE_POLICY, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.WIDTH_RESIZE_POLICY).Get(out temp) == false)
+            {
+                NUILog.Error("WidthResizePolicy get error!");
+            }
+            switch (temp)
+            {
+                case "FIXED": return ResizePolicyType.Fixed;
+                case "USE_NATURAL_SIZE": return ResizePolicyType.UseNaturalSize;
+                case "FILL_TO_PARENT": return ResizePolicyType.FillToParent;
+                case "SIZE_RELATIVE_TO_PARENT": return ResizePolicyType.SizeRelativeToParent;
+                case "SIZE_FIXED_OFFSET_FROM_PARENT": return ResizePolicyType.SizeFixedOffsetFromParent;
+                case "FIT_TO_CHILDREN": return ResizePolicyType.FitToChildren;
+                case "DIMENSION_DEPENDENCY": return ResizePolicyType.DimensionDependency;
+                case "USE_ASSIGNED_SIZE": return ResizePolicyType.UseAssignedSize;
+                default: return ResizePolicyType.Fixed;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty HeightResizePolicyProperty = BindableProperty.Create("HeightResizePolicy", typeof(ResizePolicyType), typeof(View), ResizePolicyType.Fixed, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.HEIGHT_RESIZE_POLICY, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.HEIGHT_RESIZE_POLICY).Get(out temp) == false)
+            {
+                NUILog.Error("HeightResizePolicy get error!");
+            }
+            switch (temp)
+            {
+                case "FIXED": return ResizePolicyType.Fixed;
+                case "USE_NATURAL_SIZE": return ResizePolicyType.UseNaturalSize;
+                case "FILL_TO_PARENT": return ResizePolicyType.FillToParent;
+                case "SIZE_RELATIVE_TO_PARENT": return ResizePolicyType.SizeRelativeToParent;
+                case "SIZE_FIXED_OFFSET_FROM_PARENT": return ResizePolicyType.SizeFixedOffsetFromParent;
+                case "FIT_TO_CHILDREN": return ResizePolicyType.FitToChildren;
+                case "DIMENSION_DEPENDENCY": return ResizePolicyType.DimensionDependency;
+                case "USE_ASSIGNED_SIZE": return ResizePolicyType.UseAssignedSize;
+                default: return ResizePolicyType.Fixed;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SizeScalePolicyProperty = BindableProperty.Create("SizeScalePolicy", typeof(SizeScalePolicyType), typeof(View), SizeScalePolicyType.UseSizeSet, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            string valueToString = "";
+            if (newValue != null)
+            {
+                switch ((SizeScalePolicyType)newValue)
+                {
+                    case SizeScalePolicyType.UseSizeSet: { valueToString = "USE_SIZE_SET"; break; }
+                    case SizeScalePolicyType.FitWithAspectRatio: { valueToString = "FIT_WITH_ASPECT_RATIO"; break; }
+                    case SizeScalePolicyType.FillWithAspectRatio: { valueToString = "FILL_WITH_ASPECT_RATIO"; break; }
+                    default: { valueToString = "USE_SIZE_SET"; break; }
+                }
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE_SCALE_POLICY, new Tizen.NUI.PropertyValue(valueToString));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            string temp;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE_SCALE_POLICY).Get(out temp) == false)
+            {
+                NUILog.Error("SizeScalePolicy get error!");
+            }
+            switch (temp)
+            {
+                case "USE_SIZE_SET": return SizeScalePolicyType.UseSizeSet;
+                case "FIT_WITH_ASPECT_RATIO": return SizeScalePolicyType.FitWithAspectRatio;
+                case "FILL_WITH_ASPECT_RATIO": return SizeScalePolicyType.FillWithAspectRatio;
+                default: return SizeScalePolicyType.UseSizeSet;
+            }
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty WidthForHeightProperty = BindableProperty.Create("WidthForHeight", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.WIDTH_FOR_HEIGHT, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.WIDTH_FOR_HEIGHT).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty HeightForWidthProperty = BindableProperty.Create("HeightForWidth", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.HEIGHT_FOR_WIDTH, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.HEIGHT_FOR_WIDTH).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty PaddingProperty = BindableProperty.Create("Padding", typeof(Extents), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.PADDING, new Tizen.NUI.PropertyValue((Extents)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Extents temp = new Extents(0, 0, 0, 0);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.PADDING).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty SizeProperty = BindableProperty.Create("Size", typeof(Size), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.SIZE, new Tizen.NUI.PropertyValue((Size)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Size temp = new Size(0, 0, 0);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.SIZE).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty MinimumSizeProperty = BindableProperty.Create("MinimumSize", typeof(Size2D), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.MINIMUM_SIZE, new Tizen.NUI.PropertyValue((Size2D)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Size2D temp = new Size2D(0, 0);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.MINIMUM_SIZE).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty MaximumSizeProperty = BindableProperty.Create("MaximumSize", typeof(Size2D), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.MAXIMUM_SIZE, new Tizen.NUI.PropertyValue((Size2D)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Size2D temp = new Size2D(0, 0);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.MAXIMUM_SIZE).Get(temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty InheritPositionProperty = BindableProperty.Create("InheritPosition", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.INHERIT_POSITION, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.INHERIT_POSITION).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty ClippingModeProperty = BindableProperty.Create("ClippingMode", typeof(ClippingModeType), typeof(View), ClippingModeType.Disabled, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.CLIPPING_MODE, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            int temp = 0;
+            if (Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.CLIPPING_MODE).Get(out temp) == false)
+            {
+                NUILog.Error("ClippingMode get error!");
+            }
+            return (ClippingModeType)temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty InheritLayoutDirectionProperty = BindableProperty.Create("InheritLayoutDirection", typeof(bool), typeof(View), false, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.INHERIT_LAYOUT_DIRECTION, new Tizen.NUI.PropertyValue((bool)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            bool temp = false;
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.INHERIT_LAYOUT_DIRECTION).Get(out temp);
+            return temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty LayoutDirectionProperty = BindableProperty.Create("LayoutDirection", typeof(ViewLayoutDirectionType), typeof(View), ViewLayoutDirectionType.LTR, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.LAYOUT_DIRECTION, new Tizen.NUI.PropertyValue((int)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            int temp;
+            if (false == Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.LAYOUT_DIRECTION).Get(out temp))
+            {
+                NUILog.Error("LAYOUT_DIRECTION get error!");
+            }
+            return (ViewLayoutDirectionType)temp;
+        });
+        /// This will be public opened in tizen_5.0 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static readonly BindableProperty MarginProperty = BindableProperty.Create("Margin", typeof(Extents), typeof(View), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var view = (View)bindable;
+            if (newValue != null)
+            {
+                Tizen.NUI.Object.SetProperty(view.swigCPtr, View.Property.MARGIN, new Tizen.NUI.PropertyValue((Extents)newValue));
+            }
+        },
+        defaultValueCreator: (bindable) =>
+        {
+            var view = (View)bindable;
+            Extents temp = new Extents(0, 0, 0, 0);
+            Tizen.NUI.Object.GetProperty(view.swigCPtr, View.Property.MARGIN).Get(temp);
+            return temp;
+        });
 
         /// <summary>
         /// Flag to indicate if layout set explicitly via API call or View was automatically given a Layout.
@@ -210,12 +1393,12 @@ namespace Tizen.NUI.BaseComponents
         /// Event when a child is removed.
         /// </summary>
         /// <since_tizen> 5 </since_tizen>
-        public new event EventHandler<ChildRemovedEventArgs> ChildRemoved;
+        public event EventHandler<ChildRemovedEventArgs> ChildRemoved;
         /// <summary>
         /// Event when a child is added.
         /// </summary>
         /// <since_tizen> 5 </since_tizen>
-        public new event EventHandler<ChildAddedEventArgs> ChildAdded;
+        public event EventHandler<ChildAddedEventArgs> ChildAdded;
 
         /// <summary>
         /// An event for the KeyInputFocusGained signal which can be used to subscribe or unsubscribe the event handler provided by the user.<br />
@@ -665,16 +1848,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.STYLE_NAME).Get(out temp);
-                return temp;
+                return (string)GetValue(StyleNameProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.STYLE_NAME, new Tizen.NUI.PropertyValue((string)value));
-                }
+                SetValue(StyleNameProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -687,24 +1865,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Color backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-
-                Tizen.NUI.PropertyMap background = Background;
-                int visualType = 0;
-                background.Find(Visual.Property.Type)?.Get(out visualType);
-                if (visualType == (int)Visual.Type.Color)
-                {
-                    background.Find(ColorVisualProperty.MixColor)?.Get(backgroundColor);
-                }
-
-                return backgroundColor;
+                return (Color)GetValue(BackgroundColorProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((Color)value));
-                }
+                SetValue(BackgroundColorProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -717,24 +1882,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string backgroundImage = "";
-
-                Tizen.NUI.PropertyMap background = Background;
-                int visualType = 0;
-                background.Find(Visual.Property.Type)?.Get(out visualType);
-                if (visualType == (int)Visual.Type.Image)
-                {
-                    background.Find(ImageVisualProperty.URL)?.Get(out backgroundImage);
-                }
-
-                return backgroundImage;
+                return (string)GetValue(BackgroundImageProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((string)value));
-                }
+                SetValue(BackgroundImageProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -747,16 +1899,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.BACKGROUND).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(BackgroundProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.BACKGROUND, new Tizen.NUI.PropertyValue((PropertyMap)value));
-                }
+                SetValue(BackgroundProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -770,23 +1917,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                int temp = 0;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.STATE).Get(out temp) == false)
-                {
-                    NUILog.Error("State get error!");
-                }
-
-                switch (temp)
-                {
-                    case 0: return States.Normal;
-                    case 1: return States.Focused;
-                    case 2: return States.Disabled;
-                    default: return States.Normal;
-                }
+                return (States)GetValue(StateProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.STATE, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(StateProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -799,30 +1934,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SUB_STATE).Get(out temp) == false)
-                {
-                    NUILog.Error("subState get error!");
-                }
-                switch (temp)
-                {
-                    case "NORMAL": return States.Normal;
-                    case "FOCUSED": return States.Focused;
-                    case "DISABLED": return States.Disabled;
-                    default: return States.Normal;
-                }
+                return (States)GetValue(SubStateProperty);
             }
             set
             {
-                string valueToString = "";
-                switch ((States)value)
-                {
-                    case States.Normal: { valueToString = "NORMAL"; break; }
-                    case States.Focused: { valueToString = "FOCUSED"; break; }
-                    case States.Disabled: { valueToString = "DISABLED"; break; }
-                    default: { valueToString = "NORMAL"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SUB_STATE, new Tizen.NUI.PropertyValue(valueToString));
+                SetValue(SubStateProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -835,16 +1951,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Tizen.NUI.PropertyMap temp = new Tizen.NUI.PropertyMap();
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.TOOLTIP).Get(temp);
-                return temp;
+                return (PropertyMap)GetValue(TooltipProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.TOOLTIP, new Tizen.NUI.PropertyValue((PropertyMap)value));
-                }
+                SetValue(TooltipProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -872,13 +1983,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, FlexContainer.ChildProperty.FLEX).Get(out temp);
-                return temp;
+                return (float)GetValue(FlexProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, FlexContainer.ChildProperty.FLEX, new Tizen.NUI.PropertyValue(value));
+                SetValue(FlexProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -892,13 +2001,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                int temp = 0;
-                Tizen.NUI.Object.GetProperty(swigCPtr, FlexContainer.ChildProperty.ALIGN_SELF).Get(out temp);
-                return temp;
+                return (int)GetValue(AlignSelfProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, FlexContainer.ChildProperty.ALIGN_SELF, new Tizen.NUI.PropertyValue(value));
+                SetValue(AlignSelfProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -912,16 +2019,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Vector4 temp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, FlexContainer.ChildProperty.FLEX_MARGIN).Get(temp);
-                return temp;
+                return (Vector4)GetValue(FlexMarginProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, FlexContainer.ChildProperty.FLEX_MARGIN, new Tizen.NUI.PropertyValue((Vector4)value));
-                }
+                SetValue(FlexMarginProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -934,16 +2036,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Vector2 temp = new Vector2(0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, TableView.ChildProperty.CELL_INDEX).Get(temp);
-                return temp;
+                return (Vector2)GetValue(CellIndexProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, TableView.ChildProperty.CELL_INDEX, new Tizen.NUI.PropertyValue((Vector2)value));
-                }
+                SetValue(CellIndexProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -956,13 +2053,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, TableView.ChildProperty.ROW_SPAN).Get(out temp);
-                return temp;
+                return (float)GetValue(RowSpanProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, TableView.ChildProperty.ROW_SPAN, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(RowSpanProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -975,13 +2070,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, TableView.ChildProperty.COLUMN_SPAN).Get(out temp);
-                return temp;
+                return (float)GetValue(ColumnSpanProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, TableView.ChildProperty.COLUMN_SPAN, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(ColumnSpanProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -994,33 +2087,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, TableView.ChildProperty.CELL_HORIZONTAL_ALIGNMENT).Get(out temp) == false)
-                {
-                    NUILog.Error("CellHorizontalAlignment get error!");
-                }
-
-                switch (temp)
-                {
-                    case "left": return Tizen.NUI.HorizontalAlignmentType.Left;
-                    case "center": return Tizen.NUI.HorizontalAlignmentType.Center;
-                    case "right": return Tizen.NUI.HorizontalAlignmentType.Right;
-                    default: return Tizen.NUI.HorizontalAlignmentType.Left;
-                }
+                return (HorizontalAlignmentType)GetValue(CellHorizontalAlignmentProperty);
             }
             set
             {
-                string valueToString = "";
-
-                switch ((HorizontalAlignmentType)value)
-                {
-                    case Tizen.NUI.HorizontalAlignmentType.Left: { valueToString = "left"; break; }
-                    case Tizen.NUI.HorizontalAlignmentType.Center: { valueToString = "center"; break; }
-                    case Tizen.NUI.HorizontalAlignmentType.Right: { valueToString = "right"; break; }
-                    default: { valueToString = "left"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(swigCPtr, TableView.ChildProperty.CELL_HORIZONTAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
-
+                SetValue(CellHorizontalAlignmentProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1033,32 +2104,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                Tizen.NUI.Object.GetProperty(swigCPtr, TableView.ChildProperty.CELL_VERTICAL_ALIGNMENT).Get(out temp);
-                {
-                    NUILog.Error("CellVerticalAlignment get error!");
-                }
-
-                switch (temp)
-                {
-                    case "top": return Tizen.NUI.VerticalAlignmentType.Top;
-                    case "center": return Tizen.NUI.VerticalAlignmentType.Center;
-                    case "bottom": return Tizen.NUI.VerticalAlignmentType.Bottom;
-                    default: return Tizen.NUI.VerticalAlignmentType.Top;
-                }
+                return (VerticalAlignmentType)GetValue(CellVerticalAlignmentProperty);
             }
             set
             {
-                string valueToString = "";
-
-                switch ((VerticalAlignmentType)value)
-                {
-                    case Tizen.NUI.VerticalAlignmentType.Top: { valueToString = "top"; break; }
-                    case Tizen.NUI.VerticalAlignmentType.Center: { valueToString = "center"; break; }
-                    case Tizen.NUI.VerticalAlignmentType.Bottom: { valueToString = "bottom"; break; }
-                    default: { valueToString = "top"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(swigCPtr, TableView.ChildProperty.CELL_VERTICAL_ALIGNMENT, new Tizen.NUI.PropertyValue(valueToString));
+                SetValue(CellVerticalAlignmentProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1074,26 +2124,11 @@ namespace Tizen.NUI.BaseComponents
             // As native side will be only storing IDs so need a logic to convert View to ID and vice-versa.
             get
             {
-                if (LeftFocusableViewId >= 0)
-                {
-                    return ConvertIdToView((uint)LeftFocusableViewId);
-                }
-                else
-                {
-                    return null;
-                }
+                return (View)GetValue(LeftFocusableViewProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    LeftFocusableViewId = (int)(value as View)?.GetId();
-                }
-                else
-                {
-                    LeftFocusableViewId = -1;
-                }
-
+                SetValue(LeftFocusableViewProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1109,26 +2144,11 @@ namespace Tizen.NUI.BaseComponents
             // As native side will be only storing IDs so need a logic to convert View to ID and vice-versa.
             get
             {
-                if (RightFocusableViewId >= 0)
-                {
-                    return ConvertIdToView((uint)RightFocusableViewId);
-                }
-                else
-                {
-                    return null;
-                }
+                return (View)GetValue(RightFocusableViewProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    RightFocusableViewId = (int)(value as View)?.GetId();
-                }
-                else
-                {
-                    RightFocusableViewId = -1;
-                }
-
+                SetValue(RightFocusableViewProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1144,25 +2164,11 @@ namespace Tizen.NUI.BaseComponents
             // As native side will be only storing IDs so need a logic to convert View to ID and vice-versa.
             get
             {
-                if (UpFocusableViewId >= 0)
-                {
-                    return ConvertIdToView((uint)UpFocusableViewId);
-                }
-                else
-                {
-                    return null;
-                }
+                return (View)GetValue(UpFocusableViewProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    UpFocusableViewId = (int)(value as View)?.GetId();
-                }
-                else
-                {
-                    UpFocusableViewId = -1;
-                }
+                SetValue(UpFocusableViewProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1178,26 +2184,11 @@ namespace Tizen.NUI.BaseComponents
             // As native side will be only storing IDs so need a logic to convert View to ID and vice-versa.
             get
             {
-                if (DownFocusableViewId >= 0)
-                {
-                    return ConvertIdToView((uint)DownFocusableViewId);
-                }
-                else
-                {
-                    return null;
-                }
+                return (View)GetValue(DownFocusableViewProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    DownFocusableViewId = (int)(value as View)?.GetId();
-                }
-                else
-                {
-                    DownFocusableViewId = -1;
-                }
-
+                SetValue(DownFocusableViewProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1210,12 +2201,12 @@ namespace Tizen.NUI.BaseComponents
         {
             set
             {
-                SetKeyboardFocusable(value);
+                SetValue(FocusableProperty, value);
                 NotifyPropertyChanged();
             }
             get
             {
-                return IsKeyboardFocusable();
+                return (bool)GetValue(FocusableProperty);
             }
         }
 
@@ -1252,18 +2243,12 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Size temp = new Size(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE).Get(temp);
-                Size2D size = new Size2D((int)temp.Width, (int)temp.Height);
- 
-                return new Size2D(OnSize2DChanged, size.Width, size.Height);
+                Size2D temp = (Size2D)GetValue(Size2DProperty);
+                return new Size2D(OnSize2DChanged, temp.Width, temp.Height);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE, new Tizen.NUI.PropertyValue(new Size((Size2D)value)));
-                }
+                SetValue(Size2DProperty, value);
                 // Set Specification so when layouts measure this View it matches the value set here.
                 // All Views are currently Layouts.
                 MeasureSpecificationWidth = new MeasureSpecification(new LayoutLength(value.Width), MeasureSpecification.ModeType.Exactly);
@@ -1293,13 +2278,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.OPACITY).Get(out temp);
-                return temp;
+                return (float)GetValue(OpacityProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.OPACITY, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(OpacityProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1322,17 +2305,12 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Position temp = new Position(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION).Get(temp);
-                Position2D postion2D = new Position2D(temp);
-                return new Position2D(OnPosition2DChanged, postion2D.X, postion2D.Y);
+                Position2D temp = (Position2D)GetValue(Position2DProperty);
+                return new Position2D(OnPosition2DChanged, temp.X, temp.Y);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION, new Tizen.NUI.PropertyValue(new Position((Position2D)value)));
-                }
+                SetValue(Position2DProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1363,13 +2341,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION_USES_ANCHOR_POINT).Get(out temp);
-                return temp;
+                return (bool)GetValue(PositionUsesPivotPointProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION_USES_ANCHOR_POINT, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(PositionUsesPivotPointProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1439,59 +2415,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                var parentChildren = GetParent()?.Children;
-                int currentOrder = 0;
-                if (parentChildren != null)
-                {
-                    currentOrder = parentChildren.IndexOf(this);
-
-                    if (currentOrder < 0)
-                    {
-                        return 0;
-                    }
-                    else if (currentOrder < parentChildren.Count)
-                    {
-                        return currentOrder;
-                    }
-                }
-
-                return 0;
+                return (int)GetValue(SiblingOrderProperty);
             }
             set
             {
-                if(value < 0)
-                {
-                    NUILog.Error("SiblingOrder should be bigger than 0 or equal to 0.");
-                    return;
-                }
-                var siblings = GetParent()?.Children;
-                if (siblings != null)
-                {
-                    int currentOrder = siblings.IndexOf(this);
-                    if (value != currentOrder)
-                    {
-                        if (value == 0)
-                        {
-                            LowerToBottom();
-                        }
-                        else if (value < siblings.Count - 1)
-                        {
-                            if (value > currentOrder)
-                            {
-                                RaiseAbove(siblings[value]);
-                            }
-                            else
-                            {
-                                LowerBelow(siblings[value]);
-                            }
-                        }
-                        else
-                        {
-                            RaiseToTop();
-                        }
-                    }
-                }
-
+                SetValue(SiblingOrderProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1545,16 +2473,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Position temp = new Position(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.PARENT_ORIGIN).Get(temp);
-                return temp;
+                return (Position)GetValue(ParentOriginProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.PARENT_ORIGIN, new Tizen.NUI.PropertyValue((Position)value));
-                }
+                SetValue(ParentOriginProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1572,16 +2495,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Position temp = new Position(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.ANCHOR_POINT).Get(temp);
-                return temp;
+                return (Position)GetValue(PivotPointProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.ANCHOR_POINT, new Tizen.NUI.PropertyValue((Position)value));
-                }
+                SetValue(PivotPointProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1594,13 +2512,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE_WIDTH).Get(out temp);
-                return temp;
+                return (float)GetValue(SizeWidthProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE_WIDTH, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(SizeWidthProperty, value);
                 WidthSpecification = (int)Math.Ceiling(value);
                 NotifyPropertyChanged();
             }
@@ -1614,13 +2530,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE_HEIGHT).Get(out temp);
-                return temp;
+                return (float)GetValue(SizeHeightProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE_HEIGHT, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(SizeHeightProperty, value);
                 HeightSpecification = (int)Math.Ceiling(value);
                 NotifyPropertyChanged();
             }
@@ -1636,16 +2550,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Position temp = new Position(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION).Get(temp);
-                return temp;
+                return (Position)GetValue(PositionProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION, new Tizen.NUI.PropertyValue((Position)value));
-                }
+                SetValue(PositionProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1658,13 +2567,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION_X).Get(out temp);
-                return temp;
+                return (float)GetValue(PositionXProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION_X, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(PositionXProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1677,13 +2584,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION_Y).Get(out temp);
-                return temp;
+                return (float)GetValue(PositionYProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION_Y, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(PositionYProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1696,13 +2601,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.POSITION_Z).Get(out temp);
-                return temp;
+                return (float)GetValue(PositionZProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.POSITION_Z, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(PositionZProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1731,16 +2634,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Rotation temp = new Rotation();
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.ORIENTATION).Get(temp);
-                return temp;
+                return (Rotation)GetValue(OrientationProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.ORIENTATION, new Tizen.NUI.PropertyValue((Rotation)value));
-                }
+                SetValue(OrientationProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1767,16 +2665,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Vector3 temp = new Vector3(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SCALE).Get(temp);
-                return temp;
+                return (Vector3)GetValue(ScaleProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SCALE, new Tizen.NUI.PropertyValue((Vector3)value));
-                }
+                SetValue(ScaleProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1789,13 +2682,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SCALE_X).Get(out temp);
-                return temp;
+                return (float)GetValue(ScaleXProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SCALE_X, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(ScaleXProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1808,13 +2699,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SCALE_Y).Get(out temp);
-                return temp;
+                return (float)GetValue(ScaleYProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SCALE_Y, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(ScaleYProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1827,13 +2716,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                float temp = 0.0f;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SCALE_Z).Get(out temp);
-                return temp;
+                return (float)GetValue(ScaleZProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SCALE_Z, new Tizen.NUI.PropertyValue((float)value));
+                SetValue(ScaleZProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1892,17 +2779,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.NAME).Get(out temp);
-                return temp;
+                return (string)GetValue(NameProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.NAME, new Tizen.NUI.PropertyValue((string)value));
-                }
-
+                SetValue(NameProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1940,13 +2821,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SENSITIVE).Get(out temp);
-                return temp;
+                return (bool)GetValue(SensitiveProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SENSITIVE, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(SensitiveProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1959,13 +2838,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.LEAVE_REQUIRED).Get(out temp);
-                return temp;
+                return (bool)GetValue(LeaveRequiredProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.LEAVE_REQUIRED, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(LeaveRequiredProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1978,13 +2855,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.INHERIT_ORIENTATION).Get(out temp);
-                return temp;
+                return (bool)GetValue(InheritOrientationProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.INHERIT_ORIENTATION, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(InheritOrientationProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -1997,13 +2872,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.INHERIT_SCALE).Get(out temp);
-                return temp;
+                return (bool)GetValue(InheritScaleProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.INHERIT_SCALE, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(InheritScaleProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2021,24 +2894,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.DRAW_MODE).Get(out temp) == false)
-                {
-                    NUILog.Error("DrawMode get error!");
-                }
-                switch (temp)
-                {
-                    case "NORMAL": return DrawModeType.Normal;
-                    case "OVERLAY_2D": return DrawModeType.Overlay2D;
-#pragma warning disable CS0618 // Disable deprecated warning as we do need to use the deprecated API here.
-                    case "STENCIL": return DrawModeType.Stencil;
-#pragma warning restore CS0618
-                    default: return DrawModeType.Normal;
-                }
+                return (DrawModeType)GetValue(DrawModeProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.DRAW_MODE, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(DrawModeProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2053,16 +2913,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Vector3 temp = new Vector3(0.0f, 0.0f, 0.0f);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE_MODE_FACTOR).Get(temp);
-                return temp;
+                return (Vector3)GetValue(SizeModeFactorProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE_MODE_FACTOR, new Tizen.NUI.PropertyValue((Vector3)value));
-                }
+                SetValue(SizeModeFactorProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2075,27 +2930,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.WIDTH_RESIZE_POLICY).Get(out temp) == false)
-                {
-                    NUILog.Error("WidthResizePolicy get error!");
-                }
-                switch (temp)
-                {
-                    case "FIXED": return ResizePolicyType.Fixed;
-                    case "USE_NATURAL_SIZE": return ResizePolicyType.UseNaturalSize;
-                    case "FILL_TO_PARENT": return ResizePolicyType.FillToParent;
-                    case "SIZE_RELATIVE_TO_PARENT": return ResizePolicyType.SizeRelativeToParent;
-                    case "SIZE_FIXED_OFFSET_FROM_PARENT": return ResizePolicyType.SizeFixedOffsetFromParent;
-                    case "FIT_TO_CHILDREN": return ResizePolicyType.FitToChildren;
-                    case "DIMENSION_DEPENDENCY": return ResizePolicyType.DimensionDependency;
-                    case "USE_ASSIGNED_SIZE": return ResizePolicyType.UseAssignedSize;
-                    default: return ResizePolicyType.Fixed;
-                }
+                return (ResizePolicyType)GetValue(WidthResizePolicyProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.WIDTH_RESIZE_POLICY, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(WidthResizePolicyProperty, value);
                 // Match ResizePolicy to new Layouting.
                 // Parent relative policies can not be mapped at this point as parent size unknown.
                 switch (value)
@@ -2130,27 +2969,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.HEIGHT_RESIZE_POLICY).Get(out temp) == false)
-                {
-                    NUILog.Error("HeightResizePolicy get error!");
-                }
-                switch (temp)
-                {
-                    case "FIXED": return ResizePolicyType.Fixed;
-                    case "USE_NATURAL_SIZE": return ResizePolicyType.UseNaturalSize;
-                    case "FILL_TO_PARENT": return ResizePolicyType.FillToParent;
-                    case "SIZE_RELATIVE_TO_PARENT": return ResizePolicyType.SizeRelativeToParent;
-                    case "SIZE_FIXED_OFFSET_FROM_PARENT": return ResizePolicyType.SizeFixedOffsetFromParent;
-                    case "FIT_TO_CHILDREN": return ResizePolicyType.FitToChildren;
-                    case "DIMENSION_DEPENDENCY": return ResizePolicyType.DimensionDependency;
-                    case "USE_ASSIGNED_SIZE": return ResizePolicyType.UseAssignedSize;
-                    default: return ResizePolicyType.Fixed;
-                }
+                return (ResizePolicyType)GetValue(HeightResizePolicyProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.HEIGHT_RESIZE_POLICY, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(HeightResizePolicyProperty, value);
                 // Match ResizePolicy to new Layouting.
                 // Parent relative policies can not be mapped at this point as parent size unknown.
                 switch (value)
@@ -2186,32 +3009,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                string temp;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE_SCALE_POLICY).Get(out temp) == false)
-                {
-                    NUILog.Error("SizeScalePolicy get error!");
-                }
-                switch (temp)
-                {
-                    case "USE_SIZE_SET": return SizeScalePolicyType.UseSizeSet;
-                    case "FIT_WITH_ASPECT_RATIO": return SizeScalePolicyType.FitWithAspectRatio;
-                    case "FILL_WITH_ASPECT_RATIO": return SizeScalePolicyType.FillWithAspectRatio;
-                    default: return SizeScalePolicyType.UseSizeSet;
-                }
+                return (SizeScalePolicyType)GetValue(SizeScalePolicyProperty);
             }
             set
             {
-                string valueToString = "";
-
-                switch ((SizeScalePolicyType)value)
-                {
-                    case SizeScalePolicyType.UseSizeSet: { valueToString = "USE_SIZE_SET"; break; }
-                    case SizeScalePolicyType.FitWithAspectRatio: { valueToString = "FIT_WITH_ASPECT_RATIO"; break; }
-                    case SizeScalePolicyType.FillWithAspectRatio: { valueToString = "FILL_WITH_ASPECT_RATIO"; break; }
-                    default: { valueToString = "USE_SIZE_SET"; break; }
-                }
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE_SCALE_POLICY, new Tizen.NUI.PropertyValue(valueToString));
-
+                SetValue(SizeScalePolicyProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2224,13 +3026,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.WIDTH_FOR_HEIGHT).Get(out temp);
-                return temp;
+                return (bool)GetValue(WidthForHeightProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.WIDTH_FOR_HEIGHT, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(WidthForHeightProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2243,13 +3043,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.HEIGHT_FOR_WIDTH).Get(out temp);
-                return temp;
+                return (bool)GetValue(HeightForWidthProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.HEIGHT_FOR_WIDTH, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(HeightForWidthProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2262,16 +3060,35 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Extents temp = new Extents(0, 0, 0, 0);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.PADDING).Get(temp);
-                return temp;
+                // If View has a Layout then padding in stored in the base Layout class
+                if (Layout !=null)
+                {
+                    return Layout.Padding;
+                }
+                else
+                {
+                    return (Extents)GetValue(PaddingProperty);
+                }
+                // Two return points to prevent creating a zeroed Extent native object before assignment
             }
             set
             {
-                if (value != null)
+                Extents padding = value;
+                if (Layout !=null)
                 {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.PADDING, new Tizen.NUI.PropertyValue((Extents)value));
+                    // Layout set so store Padding in LayoutItem instead of in View.
+                    // If View stores the Padding value then Legacy Size Negotiation will overwrite
+                    // the position and sizes measure in the Layouting.
+                    Layout.Padding = value;
+                    // If Layout is a LayoutItem then it could be a View that handles it's own padding.
+                    // Let the View keeps it's padding.  Still store Padding in Layout to reduce code paths.
+                    if( Layout.GetType() != typeof(LayoutItem)) // If a Layout container of some kind.
+                    {
+                        padding =  new Extents(0,0,0,0); // Reset value stored in View.
+                    }
+                    _layout?.RequestLayout();
                 }
+                SetValue(PaddingProperty, padding);
                 NotifyPropertyChanged();
                 _layout?.RequestLayout();
             }
@@ -2285,9 +3102,7 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Size2D temp = new Size2D(0, 0);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.MINIMUM_SIZE).Get(temp);
-                return temp;
+                return (Size2D)GetValue(MinimumSizeProperty);
             }
             set
             {
@@ -2299,7 +3114,7 @@ namespace Tizen.NUI.BaseComponents
                     _layout.MinimumHeight = new Tizen.NUI.LayoutLength(value.Height);
                     _layout.RequestLayout();
                 }
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.MINIMUM_SIZE, new Tizen.NUI.PropertyValue((Size2D)value));
+                SetValue(MinimumSizeProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2312,9 +3127,7 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Size2D temp = new Size2D(0, 0);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.MAXIMUM_SIZE).Get(temp);
-                return temp;
+                return (Size2D)GetValue(MaximumSizeProperty);
             }
             set
             {
@@ -2328,7 +3141,7 @@ namespace Tizen.NUI.BaseComponents
                     _layout.MinimumWidth = new Tizen.NUI.LayoutLength(value.Height);
                     _layout.RequestLayout();
                 }
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.MAXIMUM_SIZE, new Tizen.NUI.PropertyValue((Size2D)value));
+                SetValue(MaximumSizeProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2343,13 +3156,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.INHERIT_POSITION).Get(out temp);
-                return temp;
+                return (bool)GetValue(InheritPositionProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.INHERIT_POSITION, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(InheritPositionProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2362,16 +3173,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                int temp = 0;
-                if (Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.CLIPPING_MODE).Get(out temp) == false)
-                {
-                    NUILog.Error("ClippingMode get error!");
-                }
-                return (ClippingModeType)temp;
+                return (ClippingModeType)GetValue(ClippingModeProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.CLIPPING_MODE, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(ClippingModeProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2433,16 +3239,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                Size temp = new Size(0, 0, 0);
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.SIZE).Get(temp);
-                return temp;
+                return (Size)GetValue(SizeProperty);
             }
             set
             {
-                if (value != null)
-                {
-                    Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.SIZE, new Tizen.NUI.PropertyValue((Size)value));
-                }
+                SetValue(SizeProperty, value);
                 // Set Specification so when layouts measure this View it matches the value set here.
                 // All Views are currently Layouts.
                 WidthSpecification = (int)Math.Ceiling(value.Width);
@@ -2496,13 +3297,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                bool temp = false;
-                Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.INHERIT_LAYOUT_DIRECTION).Get(out temp);
-                return temp;
+                return (bool)GetValue(InheritLayoutDirectionProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.INHERIT_LAYOUT_DIRECTION, new Tizen.NUI.PropertyValue((bool)value));
+                SetValue(InheritLayoutDirectionProperty, value);
                 NotifyPropertyChanged();
             }
         }
@@ -2515,16 +3314,11 @@ namespace Tizen.NUI.BaseComponents
         {
             get
             {
-                int temp;
-                if (false == Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.LAYOUT_DIRECTION).Get(out temp))
-                {
-                    NUILog.Error("LAYOUT_DIRECTION get error!");
-                }
-                return (ViewLayoutDirectionType)temp;
+                return (ViewLayoutDirectionType)GetValue(LayoutDirectionProperty);
             }
             set
             {
-                Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.LAYOUT_DIRECTION, new Tizen.NUI.PropertyValue((int)value));
+                SetValue(LayoutDirectionProperty, value);
                 NotifyPropertyChanged();
                 _layout?.RequestLayout();
             }
@@ -2550,10 +3344,9 @@ namespace Tizen.NUI.BaseComponents
                 else
                 {
                     // If Layout not set then return margin stored in View.
-                    Extents temp = new Extents(0, 0, 0, 0);
-                    Tizen.NUI.Object.GetProperty(swigCPtr, View.Property.MARGIN).Get(temp);
-                    return temp;
+                    return (Extents)GetValue(MarginProperty);
                 }
+                // Two return points to prevent creating a zeroed Extent native object before assignment
             }
             set
             {
@@ -2563,20 +3356,13 @@ namespace Tizen.NUI.BaseComponents
                     // If View stores the Margin too then the Legacy Size Negotiation will
                     // overwrite the position and size values measured in the Layouting.
                     Layout.Margin = value;
-                    if (value != null)
-                    {
-                        Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.MARGIN, new Tizen.NUI.PropertyValue((Extents)value));
-                    }
+                    SetValue(MarginProperty, new Extents(0,0,0,0));
                     _layout?.RequestLayout();
                 }
                 else
                 {
-                    if (value != null)
-                    {
-                        Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.MARGIN, new Tizen.NUI.PropertyValue((Extents)value));
-                    }
+                    SetValue(MarginProperty, value);
                 }
-                
                 NotifyPropertyChanged();
                 _layout?.RequestLayout();
             }
@@ -2627,6 +3413,7 @@ namespace Tizen.NUI.BaseComponents
                _layout?.RequestLayout();
             }
         }
+
 
         /// <summary>
         /// [Obsolete("Please do not use! this will be deprecated")]
@@ -2850,9 +3637,10 @@ namespace Tizen.NUI.BaseComponents
                     }
                     else
                     {
-                        Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.MARGIN, new Tizen.NUI.PropertyValue(_layout.Margin));
-                        Tizen.NUI.Object.SetProperty(swigCPtr, View.Property.PADDING, new Tizen.NUI.PropertyValue(_layout.Padding));
-                        NotifyPropertyChanged();
+                      // Layout not being replaced so restore margin and padding to View.
+                      SetValue(MarginProperty, _layout.Margin);
+                      SetValue(PaddingProperty, _layout.Padding);
+                      NotifyPropertyChanged();
                     }
                 }
                 else
@@ -2866,7 +3654,7 @@ namespace Tizen.NUI.BaseComponents
                         {
                             // If View already has a margin set then store it in Layout instead.
                             value.Margin = Margin;
-                            Margin = new Extents(0,0,0,0);
+                            SetValue(MarginProperty, new Extents(0,0,0,0));
                             NotifyPropertyChanged();
                         }
 
@@ -2874,7 +3662,7 @@ namespace Tizen.NUI.BaseComponents
                         {
                             // If View already has a padding set then store it in Layout instead.
                             value.Padding = Padding;
-                            Padding = new Extents(0,0,0,0);
+                            SetValue(PaddingProperty, new Extents(0,0,0,0));
                             NotifyPropertyChanged();
                         }
                     }
@@ -3273,8 +4061,16 @@ namespace Tizen.NUI.BaseComponents
         /// <since_tizen> 3 </since_tizen>
         public bool HasFocus()
         {
-            bool ret = Interop.View.View_HasKeyInputFocus(swigCPtr);
-            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            bool ret = false;
+            if (swigCPtr.Handle != global::System.IntPtr.Zero)
+            {
+                ret = Interop.View.View_HasKeyInputFocus(swigCPtr);
+				if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            }
+            else
+            {
+                Tizen.Log.Error("NUI", "swigCPtr of view is aleady disposed.");
+            }
             return ret;
         }
 

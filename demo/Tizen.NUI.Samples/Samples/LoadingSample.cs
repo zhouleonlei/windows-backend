@@ -8,7 +8,7 @@ namespace Tizen.NUI.Samples
     {
         private TextLabel board1, board2, board;
         private Button button1, button2, button3, button4;
-        private Loading loading1_1, loading1_2, loading2_1, loading2_2;  //1-null para 2-attributes; X_1-color; X_2 image track
+        private Loading loading1_1, loading2_1;  //1-null para 2-attributes; X_1-color; X_2 image track
         private View root;
 
         public void Activate()
@@ -21,30 +21,35 @@ namespace Tizen.NUI.Samples
             };
 
             CreateBoardAndButtons();
+            string[] imageArray = new string[36];
+            for (int i=0; i<36; i++)
+            {
+                if (i < 10)
+                {
+                    imageArray[i] = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_0" + i + ".png";
+                }
+                else
+                {
+                    imageArray[i] = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_" + i + ".png";
+                }
+            }
 
             loading1_1 = new Loading();
             loading1_1.Position2D = new Position2D(100, 350);
             loading1_1.Size2D = new Size2D(100, 100);
 
-            loading1_1.LoadingImageURLPrefix = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_";
-
+            loading1_1.ImageArray = imageArray;
             root.Add(loading1_1);
 
             LoadingAttributes attr = new LoadingAttributes
             {
-                LoadingImageURLPrefix = new StringSelector
-                {
-                    All = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
-                }
-
+                ImageArray = imageArray
             };
 
             loading2_1 = new Loading(attr);
             loading2_1.Position2D = new Position2D(500, 350);
             loading2_1.Size2D = new Size2D(100, 100);
             root.Add(loading2_1);
-
-            board.UpFocusableView = button1;
 
             window.Add(root);
 
@@ -62,9 +67,6 @@ namespace Tizen.NUI.Samples
             board.BackgroundColor = Color.Magenta;
             board.Text = "log pad";
             root.Add(board);
-            board.Focusable = true;
-            board.FocusGained += Board_FocusGained;
-            board.FocusLost += Board_FocusLost;
 
             board1 = new TextLabel();
             board1.Size2D = new Size2D(300, 70);
@@ -75,9 +77,6 @@ namespace Tizen.NUI.Samples
             board1.BackgroundColor = Color.Magenta;
             board1.Text = "NULL parameter construction";
             root.Add(board1);
-            board1.Focusable = true;
-            board1.FocusGained += Board_FocusGained;
-            board1.FocusLost += Board_FocusLost;
 
             board2 = new TextLabel();
             board2.Size2D = new Size2D(300, 70);
@@ -86,11 +85,8 @@ namespace Tizen.NUI.Samples
             board2.HorizontalAlignment = HorizontalAlignment.Center;
             board2.VerticalAlignment = VerticalAlignment.Center;
             board2.BackgroundColor = Color.Magenta;
-            board2.Text = "Attribute construction";
+            board2.Text = "Attribute parameter construction";
             root.Add(board2);
-            board2.Focusable = true;
-            board2.FocusGained += Board_FocusGained;
-            board2.FocusLost += Board_FocusLost;
 
             button1 = new Button();
             button1.BackgroundColor = Color.Green;
@@ -99,7 +95,9 @@ namespace Tizen.NUI.Samples
             button1.Text = "FPS++";
             root.Add(button1);
             button1.Focusable = true;
-            button1.ClickEvent += loading1FPSAdd;
+            button1.ClickEvent += Loading1FPSAdd;
+            button1.FocusGained += FocusGained;
+            button1.FocusLost += FocusLost;
 
             button2 = new Button();
             button2.BackgroundColor = Color.Green;
@@ -108,54 +106,106 @@ namespace Tizen.NUI.Samples
             button2.Text = "FPS--";
             root.Add(button2);
             button2.Focusable = true;
-            button2.ClickEvent += loading1FPSMinus;
+            button2.ClickEvent += Loading1FPSMinus;
+            button2.FocusGained += FocusGained;
+            button2.FocusLost += FocusLost;
+
+            button1.RightFocusableView = button2;
+            button2.LeftFocusableView = button1;
 
             button3 = new Button();
             button3.BackgroundColor = Color.Green;
             button3.Position2D = new Position2D(450, 600);
-            button3.Size2D = new Size2D(80, 50);
-            button3.Text = "+";
+            button3.Size2D = new Size2D(180, 50);
+            button3.Text = "Normal Loading";
             root.Add(button3);
-            button3.Focusable = true;
-            //button3.ClickEvent += Scroll2Add;
-
-            button4 = new Button();
-            button4.BackgroundColor = Color.Green;
-            button4.Position2D = new Position2D(550, 600);
-            button4.Size2D = new Size2D(80, 50);
-            button4.Text = "-";
-            root.Add(button4);
-            button4.Focusable = true;
-           // button4.ClickEvent += Scroll2Minus;
         }
 
-        private void Board_FocusLost(object sender, global::System.EventArgs e)
+        private void Loading1FPSAdd(object sender, global::System.EventArgs e)
         {
-            board.BackgroundColor = Color.Magenta;
-        }
-
-        private void Board_FocusGained(object sender, global::System.EventArgs e)
-        {
-            board.BackgroundColor = Color.Cyan;
-        }
-
-        private void loading1FPSAdd(object sender, global::System.EventArgs e)
-        {
-            board.Text = "loading1_1 FPS: "+loading1_1.FPS.ToString();
             loading1_1.FPS += 1;
+            board.Text = "loading1_1 FPS: "+loading1_1.FPS.ToString();
         }
-        private void loading1FPSMinus(object sender, global::System.EventArgs e)
+
+        private void Loading1FPSMinus(object sender, global::System.EventArgs e)
         {
-            board.Text = "loading1_1 FPS: " + loading1_1.FPS.ToString();
             loading1_1.FPS -= 1;
+            board.Text = "loading1_1 FPS: " + loading1_1.FPS.ToString();
+        }
+
+        private void FocusLost(object sender, global::System.EventArgs e)
+        {
+            View view = sender as View;
+            view.Scale = new Vector3(1.2f, 1.2f, 1.0f);
+        }
+
+        private void FocusGained(object sender, global::System.EventArgs e)
+        {
+            View view = sender as View;
+            view.Scale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         public void Deactivate()
         {
+            if (board != null)
+            {
+                root.Remove(board);
+                board.Dispose();
+                board = null;
+            }
+            if (board1 != null)
+            {
+                root.Remove(board1);
+                board1.Dispose();
+                board1 = null;
+            }
+            if (board2 != null)
+            {
+                root.Remove(board2);
+                board2.Dispose();
+                board2 = null;
+            }
+            if (button1 != null)
+            {
+                button1.ClickEvent -= Loading1FPSAdd;
+                button1.FocusGained -= FocusGained;
+                button1.FocusLost -= FocusLost;
+                root.Remove(button1);
+                button1.Dispose();
+                button1 = null;
+            }
+            if (button2 != null)
+            {
+                button2.ClickEvent -= Loading1FPSMinus;
+                button2.FocusGained -= FocusGained;
+                button2.FocusLost -= FocusLost;
+                root.Remove(button2);
+                button2.Dispose();
+                button2 = null;
+            }
+            if (button3 != null)
+            {
+                root.Remove(button3);
+                button3.Dispose();
+                button3 = null;
+            }
+            if (loading1_1 != null)
+            {
+                root.Remove(loading1_1);
+                loading1_1.Dispose();
+                loading1_1 = null;
+            }
+            if (loading2_1 != null)
+            {
+                root.Remove(loading2_1);
+                loading2_1.Dispose();
+                loading2_1 = null;
+            }
             if (root != null)
             {
                 Window.Instance.Remove(root);
                 root.Dispose();
+                root = null;
             }
         }
     }

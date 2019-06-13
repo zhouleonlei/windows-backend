@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage x:Class="Tizen.NUI.Examples.ViewToViewPage"
+<b:View x:Class="Tizen.NUI.Examples.ViewToViewPage"
   xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
   xmlns:b="clr-namespace:Tizen.NUI.Xaml.Forms.BaseComponents;assembly=Tizen.NUI.Xaml"
   xmlns:u="clr-namespace:Tizen.NUI.Xaml.UIComponents;assembly=Tizen.NUI.Xaml"
   xmlns:l="clr-namespace:Tizen.NUI.Examples;"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-  <ContentPage.XamlResources>
+  <View.XamlResources>
     <ResourceDictionary>
       <l:FloatToRotationConverter x:Key="floatToRotationConverter" />
     </ResourceDictionary>
-  </ContentPage.XamlResources>
+  </View.XamlResources>
 
   <b:TextLabel Position2D="500, 500">
     <x:Arguments>
@@ -26,4 +26,4 @@
           ShowValue="true" ValuePrecision="1" Position2D="50,200" Size2D="300,20" />
 
   <b:TextLabel Text="{Binding Path=Value, Source={x:Reference slider}, StringFormat='The angle is {0:F0} degrees'}" Position2D="50,300" Size2D="300,50" />
-</ContentPage>
+</b:View>

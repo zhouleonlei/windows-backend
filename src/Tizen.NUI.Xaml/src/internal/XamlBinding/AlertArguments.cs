@@ -1,9 +1,7 @@
-using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class AlertArguments
     {
         public AlertArguments(string title, string message, string accept, string cancel)

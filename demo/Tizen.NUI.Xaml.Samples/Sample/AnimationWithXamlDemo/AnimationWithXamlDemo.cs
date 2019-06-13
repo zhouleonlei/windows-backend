@@ -1,10 +1,10 @@
-using Tizen.NUI.Xaml;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public class AnimationWithXamlDemo : Tizen.NUI.Binding.Application
+    public class AnimationWithXamlDemo : NUIApplication
     {
-        private ContentPage myPage;
+        private View rootView;
         private Window window;
 
         protected override void OnCreate() 
@@ -14,9 +14,8 @@ namespace Tizen.NUI.Examples
             window = Window.Instance;
             window.BackgroundColor = Color.White;
 
-            myPage = new AnimationWithXamlDemoPage(window);
-
-            myPage.SetFocus();
+            rootView = new AnimationWithXamlDemoPage();
+            window.Add(rootView.ViewInstance);
         }
     }
 }

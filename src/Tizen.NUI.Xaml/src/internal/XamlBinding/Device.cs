@@ -5,9 +5,9 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding.Internals;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     internal static class Device
     {
@@ -85,7 +85,6 @@ namespace Tizen.NUI.Binding
                 if (s_platformServices == null)
                 {
                     s_platformServices = new TizenPlatformServices();
-                    //throw new InvalidOperationException("You MUST call Tizen.NUI.Init(); prior to using it.");
                 }
                 return s_platformServices;
             }

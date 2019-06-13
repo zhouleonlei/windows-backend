@@ -1,11 +1,7 @@
 using System;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 
-using Tizen.NUI;
-
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     internal class ExtentsTypeConverter : TypeConverter
     {

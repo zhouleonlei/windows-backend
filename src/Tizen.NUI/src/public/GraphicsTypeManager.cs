@@ -102,5 +102,4 @@ namespace Tizen.NUI
         private volatile static GraphicsTypeManager _graphicsTypeManager;
         private GraphicsTypeConverter _typeConverter;
     }
-
 }

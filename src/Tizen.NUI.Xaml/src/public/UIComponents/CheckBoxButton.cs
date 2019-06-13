@@ -15,6 +15,8 @@
  *
  */
 
+using System.ComponentModel;
+
 namespace Tizen.NUI.Xaml.UIComponents
 {
 
@@ -26,7 +28,9 @@ namespace Tizen.NUI.Xaml.UIComponents
     /// The selected image is shown over the background image when the box is selected (background image is not replaced by \e selected image).<br />
     /// When the button is disabled, the background image and the selected image are replaced by disabled images.<br />
     /// /// </summary>
-    /// <since_tizen> 3 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
+    /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class CheckBoxButton : Button
     {
         private Tizen.NUI.UIComponents.CheckBoxButton _checkBoxButton;
@@ -44,9 +48,11 @@ namespace Tizen.NUI.Xaml.UIComponents
         }
 
         /// <summary>
-        /// Constructor.
+        /// Creates an initialized CheckBoxButton.
         /// </summary>
-        /// <since_tizen> 3 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBoxButton() : this(new Tizen.NUI.UIComponents.CheckBoxButton())
         {
         }

@@ -14,13 +14,13 @@
  * limitations under the License.
  *
  */
-using Tizen.NUI.Xaml;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public partial class TriggerWithDataBindingDemoPage : ContentPage
+    public partial class TriggerWithDataBindingDemoPage : View
     {
-        public TriggerWithDataBindingDemoPage(Window win) : base (win)
+        public TriggerWithDataBindingDemoPage()
         {
             InitializeComponent();
 
@@ -41,11 +41,6 @@ namespace Tizen.NUI.Examples
                 flag = !flag;
                 return true;
             };
-        }
-
-        public new void SetFocus()
-        {
-            base.SetFocus();
         }
     }
 }

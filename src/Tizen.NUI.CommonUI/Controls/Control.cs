@@ -24,7 +24,7 @@ namespace Tizen.NUI.CommonUI
     /// <summary>
     /// The control component is base class of tv nui components. It's abstract class, so cann't instantiate and can only be inherited.
     /// </summary>
-    /// <since_tizen> 5.5 </since_tizen>
+    /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Control : VisualView
@@ -32,38 +32,50 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Control style.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected string style;
         /// <summary>
         /// Control attributes.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Attributes attributes;
 
-        private static Dictionary<string, Type> styleToAttributes = new Dictionary<string, Type>();
         private TapGestureDetector tapGestureDetector = new TapGestureDetector();
-        private ControlStates state;
         private bool isFocused = false;
 
         /// <summary>
         /// Construct an empty Control.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Control() : base()
         {
             Initialize(null);
         }
+
+        /// <summary>
+        /// Construct with attributes
+        /// </summary>
+        /// <param name="attributes">Create attributes customized by user</param>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Control(Attributes attributes) : base()
+        {
+            Initialize(null);
+            this.attributes = attributes.Clone();
+        }
+
         /// <summary>
         /// Construct with style
         /// </summary>
         /// <param name="style">Style to be applied</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Control(string style) : base()
@@ -74,7 +86,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get/Set the control state.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new ControlStates State
@@ -85,10 +97,8 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Whether focusable when touch
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public bool StateFocusableOnTouchMode
+        /// <since_tizen> 6 </since_tizen>
+        internal bool StateFocusableOnTouchMode
         {
             get;
             set;
@@ -106,7 +116,7 @@ namespace Tizen.NUI.CommonUI
         /// </summary>
         /// <param name="view">View which will be applied attrs</param>
         /// <param name="attrs">Attributes for View, Image or TextLabel</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected  void ApplyAttributes(View view, ViewAttributes attrs)
@@ -251,7 +261,7 @@ namespace Tizen.NUI.CommonUI
                 {
                     Color outstrokeColor = textAttrs.OutstrokeColor.GetValue(State);
                     PropertyMap outlineMap = new PropertyMap();
-                    outlineMap.Add("color", new PropertyValue(new Color(outstrokeColor.R, outstrokeColor.G, outstrokeColor.B, outstrokeColor.R)));
+                    outlineMap.Add("color", new PropertyValue(new Color(outstrokeColor.R, outstrokeColor.G, outstrokeColor.B, outstrokeColor.A)));
                     outlineMap.Add("width", new PropertyValue(thickness));
                     text.Outline = outlineMap;
                 }
@@ -295,7 +305,7 @@ namespace Tizen.NUI.CommonUI
                 }
                 if (textFieldAttrs.PlaceholderTextColor?.GetValue(State) != null)
                 {
-                    textField.TextColor = textFieldAttrs.PlaceholderTextColor.GetValue(State);
+                    textField.PlaceholderTextColor = textFieldAttrs.PlaceholderTextColor.GetValue(State);
                 }
                 if (textFieldAttrs.PrimaryCursorColor?.GetValue(State) != null)
                 {
@@ -335,7 +345,7 @@ namespace Tizen.NUI.CommonUI
         /// Dispose Control and all children on it.
         /// </summary>
         /// <param name="type">Dispose type.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void Dispose(DisposeTypes type)
@@ -348,11 +358,6 @@ namespace Tizen.NUI.CommonUI
             if (type == DisposeTypes.Explicit)
             {
                 StyleManager.Instance.ThemeChangedEvent -= OnThemeChangedEvent;
-                KeyEvent -= OnKey;
-                Relayout -= OnRelayout;
-                FocusGained -= OnFocusGained;
-                FocusLost -= OnFocusLost;
-                TouchEvent -= OnTouch;
                 tapGestureDetector.Detected -= OnTapGestureDetected;
                 tapGestureDetector.Detach(this);
             }
@@ -361,96 +366,99 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get attribues, it is abstract function and must be override.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected abstract Attributes GetAttributes();
         /// <summary>
-        /// Called after a key-event is received by the view that has had its focus set.
+        /// Called after a key event is received by the view that has had its focus set.
         /// </summary>
-        /// <param name="source">The source</param>
-        /// <param name="e">The key event data</param>
-        /// <returns>True if the key event should be consumed</returns>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <param name="key">The key event.</param>
+        /// <returns>True if the key event should be consumed.</returns>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual bool OnKey(object source, KeyEventArgs e)
+        public override bool OnKey(Key key)
         {
             return false;
         }
+
         /// <summary>
-        /// Relayout callback.
+        /// Called after the size negotiation has been finished for this control.<br />
+        /// The control is expected to assign this given size to itself or its children.<br />
+        /// Should be overridden by derived classes if they need to layout views differently after certain operations like add or remove views, resize, or after changing specific properties.<br />
+        /// As this function is called from inside the size negotiation algorithm, you cannot call RequestRelayout (the call would just be ignored).<br />
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <param name="size">The allocated size.</param>
+        /// <param name="container">The control should add views to this container that it is not able to allocate a size for.</param>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnRelayout(object sender, EventArgs e)
+        public override void OnRelayout(Vector2 size, RelayoutContainer container)
         {
-            OnUpdate(attributes);
+            OnUpdate();
         }
+
         /// <summary>
-        /// Focus gain callback.
+        /// Called when the control gain key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is gained.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnFocusGained(object sender, EventArgs e)
+        public override void OnFocusGained()
         {
             isFocused = true;
         }
+
         /// <summary>
-        /// Focus lost callback.
+        /// Called when the control loses key input focus. Should be overridden by derived classes if they need to customize what happens when the focus is lost.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnFocusLost(object sender, EventArgs e)
+        public override void OnFocusLost()
         {
             isFocused = false;
         }
+
         /// <summary>
         /// Tap gesture callback.
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The tap gesture event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnTapGestureDetected(object source, TapGestureDetector.DetectedEventArgs e)
         {
         }
         /// <summary>
-        /// Touch callback.
+        /// Called after a touch event is received by the owning view.<br />
+        /// CustomViewBehaviour.REQUIRES_TOUCH_EVENTS must be enabled during construction. See CustomView(ViewWrapperImpl.CustomViewBehaviour behaviour).<br />
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The touch event data</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <param name="touch">The touch event.</param>
+        /// <returns>True if the event should be consumed.</returns>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual bool OnTouch(object source, TouchEventArgs e)
+        public override bool OnTouch(Touch touch)
         {
             return false;
         }
+
         /// <summary>
         /// Update by attributes.
         /// </summary>
-        /// <param name="attributes">Button attributes which record all data information.</param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected virtual void OnUpdate(Attributes attributtes)
+        protected virtual void OnUpdate()
         {
         }
         /// <summary>
         /// Theme change callback when theme is changed, this callback will be trigger.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected virtual void OnThemeChangedEvent(object sender, StyleManager.ThemeChangeEventArgs e)
@@ -462,13 +470,7 @@ namespace Tizen.NUI.CommonUI
             attributes = (style == null) ? GetAttributes() : GetAttributes(style);
             State = ControlStates.Normal;
 
-            KeyEvent += OnKey;
-            Relayout += OnRelayout;
-            FocusGained += OnFocusGained;
-            FocusLost += OnFocusLost;
-
             LeaveRequired = true;
-            TouchEvent += OnTouch;
 
             StateFocusableOnTouchMode = false;
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage x:Class="Tizen.NUI.Examples.DataTriggerDemoPage"
+<b:View x:Class="Tizen.NUI.Examples.DataTriggerDemoPage"
   xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
   xmlns:b="clr-namespace:Tizen.NUI.Xaml.Forms.BaseComponents;assembly=Tizen.NUI.Xaml"
   xmlns:u="clr-namespace:Tizen.NUI.Xaml.UIComponents;assembly=Tizen.NUI.Xaml"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-  <ContentPage.XamlResources>
+  <View.XamlResources>
     <ResourceDictionary>
       <Style x:Key="CustomStyle" TargetType="ImageView">
         <Style.Triggers>
@@ -22,7 +22,7 @@
         </Style.Triggers>
       </Style>
     </ResourceDictionary>
-  </ContentPage.XamlResources>
+  </View.XamlResources>
   
   <b:TextLabel Text="Hi" Position2D="700,100" Size2D="900,50" x:Name="Label">
     <b:TextLabel.Style>
@@ -37,4 +37,4 @@
   </b:TextLabel>
  
   <u:PushButton x:Name="Click" LabelText="Click" Size2D="400,80" Position2D="1000,200" />
-</ContentPage>
+</b:View>

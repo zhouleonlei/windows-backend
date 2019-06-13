@@ -10,22 +10,12 @@ namespace Tizen.FH.NUI.Controls
             ToastAttributes attributes = new ToastAttributes
             {
                 Size2D = new Tizen.NUI.Size2D(1000, 132),
-                UpSpace = 38,
-
+               
                 BackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Tizen.NUI.Size2D(1000, 132),
                     ResourceURL = new StringSelector
                     {
                         All = CommonResource.Instance.GetFHResourcePath() + "12. Toast Popup/toast_background.png",
-                    },
-                    Position2D = "0,0",
-                    ParentOrigin = Tizen.NUI.ParentOrigin.Center,
-                    PivotPoint = Tizen.NUI.PivotPoint.Center,
-                    PositionUsesPivotPoint = true,
-                    Opacity = new FloatSelector
-                    {
-                        All = 1,
                     },
                     Border = new RectangleSelector
                     {
@@ -35,22 +25,13 @@ namespace Tizen.FH.NUI.Controls
 
                 TextAttributes = new TextAttributes
                 {
-                    Size2D = new Tizen.NUI.Size2D(808, 56),
-                    HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
-                    VerticalAlignment = Tizen.NUI.VerticalAlignment.Center,
-                    Position2D = "96,38",
-                    PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    PositionUsesPivotPoint = true,
-                    PointSize = new FloatSelector
-                    {
-                        All = 20,
-                    },
-                    TextColor = new ColorSelector
-                    {
-                        All = Color.Black,
-                    }
+                    PaddingTop = 38,
+                    PaddingBottom = 38,
+                    PaddingLeft = 204,
+                    PaddingRight = 96,
+                    PointSize = new FloatSelector { All = 26, },
+                    TextColor = new ColorSelector { All = Color.White },
                 }
-
             };
             return attributes;
         }

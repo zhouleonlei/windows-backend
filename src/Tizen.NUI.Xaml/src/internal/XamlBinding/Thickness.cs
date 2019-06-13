@@ -1,15 +1,12 @@
 using System.Diagnostics;
-using System.ComponentModel;
-using Tizen.NUI;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
     /// Struct defining thickness around the edges of a Rectangle using doubles.
     /// </summary>
     [DebuggerDisplay("Left={Left}, Top={Top}, Right={Right}, Bottom={Bottom}, HorizontalThickness={HorizontalThickness}, VerticalThickness={VerticalThickness}")]
     [TypeConverter(typeof(ThicknessTypeConverter))]
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal struct Thickness
     {
         /// <summary>

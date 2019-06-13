@@ -39,6 +39,11 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ViewAttributes(ViewAttributes attributes)
         {
+            if (attributes == null)
+            {
+                return;
+            }
+
             if (attributes.Position2D != null)
             {
                 Position2D = new Position2D(attributes.Position2D.X, attributes.Position2D.Y);

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
-using Tizen.NUI.Binding.Internals;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding.Internals;
+using Tizen.NUI.XamlBinding;
 using Tizen.NUI.StyleSheets;
 
 using static System.String;
@@ -126,7 +126,7 @@ namespace Tizen.NUI.Xaml
                     var addMethod =
                         Context.Types[parentElement].GetRuntimeMethods().First(mi => mi.Name == "Add" && mi.GetParameters().Length == 1);
 
-                    addMethod.Invoke(source, new[] { value });
+                    addMethod?.Invoke(source, new[] { value });
                     return;
                 }
                 if (xpe == null && (contentProperty = GetContentPropertyName(Context.Types[parentElement].GetTypeInfo())) != null) {
@@ -237,8 +237,9 @@ namespace Tizen.NUI.Xaml
             if (value.GetType().GetTypeInfo().GetCustomAttribute<AcceptEmptyServiceProviderAttribute>() == null)
                 serviceProvider = new XamlServiceProvider(node, Context);
 
-            if (serviceProvider != null && serviceProvider.IProvideValueTarget != null && propertyName != XmlName.Empty)
+            if (serviceProvider != null && serviceProvider.IProvideValueTarget != null && propertyName != XmlName.Empty) {
                 ((XamlValueTargetProvider)serviceProvider.IProvideValueTarget).TargetProperty = GetTargetProperty(source, propertyName, Context, node);
+            }
 
             if (markupExtension != null)
                 value = markupExtension.ProvideValue(serviceProvider);
@@ -324,11 +325,6 @@ namespace Tizen.NUI.Xaml
             var serviceProvider = new XamlServiceProvider(node, context);
             Exception xpe = null;
             var xKey = node is IElementNode && ((IElementNode)node).Properties.ContainsKey(XmlName.xKey) ? ((ValueNode)((IElementNode)node).Properties[XmlName.xKey]).Value as string : null;
-
-            if (propertyName.LocalName == "Style")
-            {
-                int temp = 0;
-            }
 
             //If it's an attached BP, update elementType and propertyName
             var bpOwnerType = xamlelement.GetType();
@@ -637,8 +633,8 @@ namespace Tizen.NUI.Xaml
 
             if (xKey != null)
                 resourceDictionary.Add(xKey, value);
-            else if (value is Tizen.NUI.Binding.Style)
-                resourceDictionary.Add((Tizen.NUI.Binding.Style)value);
+            else if (value is Tizen.NUI.XamlBinding.Style)
+                resourceDictionary.Add((Tizen.NUI.XamlBinding.Style)value);
             else if (value is ResourceDictionary)
                 resourceDictionary.Add((ResourceDictionary)value);
             else if (value is StyleSheets.StyleSheet)

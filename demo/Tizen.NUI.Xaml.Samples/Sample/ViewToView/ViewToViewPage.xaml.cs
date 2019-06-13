@@ -21,17 +21,12 @@ using Tizen.NUI.Xaml.UIComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public partial class ViewToViewPage : ContentPage
+    public partial class ViewToViewPage : View
     {
         private Slider _slider = null;
-        public ViewToViewPage(Window win) : base (win)
+        public ViewToViewPage()
         {
             InitializeComponent();
-        }
-
-        public override void SetFocus()
-        {
-            // _slider = Content.FindChildByName("slider") as Slider;
         }
 
         private bool OnClicked(object sender, EventArgs e)

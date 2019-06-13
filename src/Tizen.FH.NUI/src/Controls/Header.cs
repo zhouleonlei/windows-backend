@@ -62,9 +62,9 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Header(HeaderAttributes attributes) : base()
+        public Header(HeaderAttributes attributes) : base(attributes)
         {
-            this.attributes = headerAttribute = attributes.Clone() as HeaderAttributes;
+            Initialize();
         }
         /// <summary>
         ///The text showed in the header
@@ -185,17 +185,11 @@ namespace Tizen.FH.NUI.Controls
         /// <summary>
         /// Update Header by attributes.
         /// </summary>
-        /// <param name="attributes">Header attributes which record all data information.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnUpdate(Attributes attributtes)
+        protected override void OnUpdate()
         {
-            headerAttribute = attributes as HeaderAttributes;
-            if (headerAttribute == null)
-            {
-                return;
-            }
             if (headerAttribute.TextAttributes != null)
             {
                 if (headerTitle== null)

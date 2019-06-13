@@ -19,6 +19,18 @@ namespace Tizen.FH.NUI.Samples
             root.HeaderText = "Loading";
 
             CreateBoardAndButtons();
+            string[] imageArray = new string[36];
+            for (int i = 0; i < 36; i++)
+            {
+                if (i < 10)
+                {
+                    imageArray[i] = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_0" + i + ".png";
+                }
+                else
+                {
+                    imageArray[i] = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_" + i + ".png";
+                }
+            }
 
             loading1_1 = new Loading("DefaultLoading");
             loading1_1.Position2D = new Position2D(100, 350);
@@ -28,11 +40,7 @@ namespace Tizen.FH.NUI.Samples
 
             LoadingAttributes attr = new LoadingAttributes
             {
-                LoadingImageURLPrefix = new StringSelector
-                {
-                    All = CommonResource.GetFHResourcePath() + "9. Controller/Loading Sequence_Native/loading_",
-                }
-
+                ImageArray = imageArray,
             };
 
             loading2_1 = new Loading(attr);

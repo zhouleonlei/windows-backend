@@ -3,7 +3,6 @@ using System.Reflection;
 
 using Tizen.NUI.Xaml;
 
-// [assembly:Dependency(typeof(ValueConverterProvider))]
 namespace Tizen.NUI.Xaml
 {
     internal class ValueConverterProvider : IValueConverterProvider

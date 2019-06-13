@@ -1,14 +1,12 @@
 using System.Diagnostics;
-using System.ComponentModel;
 using Tizen.NUI;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     /// <summary>
     /// Struct that defines minimum and maximum Sizes.
     /// </summary>
     [DebuggerDisplay("Request={Request.Width}x{Request.Height}, Minimum={Minimum.Width}x{Minimum.Height}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal struct SizeRequest
     {
         /// <summary>

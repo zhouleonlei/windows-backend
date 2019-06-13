@@ -1,10 +1,11 @@
 using Tizen.NUI.Xaml;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
-    public class DataTriggerDemo : Tizen.NUI.Binding.Application
+    public class DataTriggerDemo : NUIApplication
     {
-        private ContentPage myPage;
+        private View rootView;
         private Window window;
 
         protected override void OnCreate() 
@@ -14,8 +15,8 @@ namespace Tizen.NUI.Examples
             window = Window.Instance;
             window.BackgroundColor = Color.White;
 
-            myPage = new DataTriggerDemoPage(window);
-            myPage.SetFocus();
+            rootView = new DataTriggerDemoPage();
+            window.Add(rootView.ViewInstance);
         }
     }
 }

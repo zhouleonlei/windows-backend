@@ -15,6 +15,7 @@
  *
  */
 using System.ComponentModel;
+
 namespace Tizen.NUI.CommonUI
 {
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -24,7 +25,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Creates a new instance of a CheckBox.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox() : base() { }
@@ -32,7 +33,7 @@ namespace Tizen.NUI.CommonUI
         /// Creates a new instance of a CheckBox with style.
         /// </summary>
         /// <param name="style"></param>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBox(string style) : base(style) { }
@@ -47,7 +48,7 @@ namespace Tizen.NUI.CommonUI
         /// <summary>
         /// Get CheckBoxGroup to which this CheckBox belong.
         /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
+        /// <since_tizen> 6 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CheckBoxGroup ItemGroup
@@ -60,17 +61,6 @@ namespace Tizen.NUI.CommonUI
             {
                 itemGroup = value;
             }
-        }
-
-        /// <summary>
-        /// Change CheckState to the inverse of its current state after selecting CheckBox.
-        /// </summary>
-        /// <since_tizen> 5.5 </since_tizen>
-        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void OnSelected()
-        {
-            //IsSelected = !IsSelected;
         }
     }
 }

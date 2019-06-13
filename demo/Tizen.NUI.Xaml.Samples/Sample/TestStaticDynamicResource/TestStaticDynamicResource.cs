@@ -5,14 +5,14 @@ namespace Tizen.NUI.Examples
 {
     public class TestStaticDynamicResource : NUIApplication
     {
-        private View myPage;
+        private View rootView;
         private Window window;
 
         protected override void OnCreate() 
         {
             window = Window.Instance;
-            myPage = new TestStaticDynamicResourcePage();
-            window.Add(myPage.ViewInstance);
+            rootView = new TestStaticDynamicResourcePage();
+            window.Add(rootView.ViewInstance);
         }
     }
 }

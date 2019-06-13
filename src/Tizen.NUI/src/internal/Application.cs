@@ -309,37 +309,15 @@ namespace Tizen.NUI
 
     internal class Application : BaseHandle
     {
-        static Application s_current;
-
         static SemaphoreSlim SaveSemaphore = new SemaphoreSlim(1, 1);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static void SetCurrentApplication(Application value) => Current = value;
-
-        public static Application Current
-        {
-            get { return s_current; }
-            set
-            {
-                if (s_current == value)
-                    return;
-                if (value == null)
-                    s_current = null; //Allow to reset current for unittesting
-                s_current = value;
-            }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public int PanGestureId { get; set; }
-        
-		internal event EventHandler PopCanceled;
 
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
         internal Application(global::System.IntPtr cPtr, bool cMemoryOwn) : base(NDalicPINVOKE.Application_SWIGUpcast(cPtr), cMemoryOwn)
         {
-            SetCurrentApplication(this);
-
             swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
         }
 

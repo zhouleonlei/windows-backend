@@ -14,15 +14,15 @@
  * limitations under the License.
  *
  */
-using Tizen.NUI.Xaml;
+using Tizen.NUI.Xaml.Forms.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
 
-    public partial class DataTriggerDemoPage : ContentPage
+    public partial class DataTriggerDemoPage : View
     {
 
-        public DataTriggerDemoPage(Window win) : base (win)
+        public DataTriggerDemoPage()
         {
             InitializeComponent();
 
@@ -31,11 +31,6 @@ namespace Tizen.NUI.Examples
                 Click.LabelText = "123";
                 return true;
             };
-        }
-
-        public new void SetFocus()
-        {
-            base.SetFocus();
         }
     }
 }

@@ -31,15 +31,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
-using Tizen.NUI.Binding;
+using Tizen.NUI.XamlBinding;
 using Tizen.NUI.Xaml.Forms.BaseComponents;
-using Tizen.NUI.Binding.Internals;
+using Tizen.NUI.XamlBinding.Internals;
 
 namespace Tizen.NUI.Xaml
 {
     internal static class XamlParser
     {
-        //public const string XFUri = "http://xamarin.com/schemas/2014/forms";
         public const string XFUri = "http://tizen.org/Tizen.NUI/2018/XAML";
         public const string NUI2018Uri = "http://tizen.org/Tizen.NUI/2018/XAML";
         public const string X2006Uri = "http://schemas.microsoft.com/winfx/2006/xaml";
@@ -168,7 +167,7 @@ namespace Tizen.NUI.Xaml
                         node = new ElementNode(new XmlType(elementNsUri, elementName, typeArguments), elementNsUri,
                             reader as IXmlNamespaceResolver, elementXmlInfo.LineNumber, elementXmlInfo.LinePosition);
                         ((IElementNode)node).Properties.AddRange(attributes);
-                        (node.IgnorablePrefixes ?? (node.IgnorablePrefixes = new List<string>())).AddRange(prefixes);
+                        (node.IgnorablePrefixes ?? (node.IgnorablePrefixes = new List<string>()))?.AddRange(prefixes);
 
                         ParseXamlElementFor((IElementNode)node, reader);
                         nodes.Add(node);

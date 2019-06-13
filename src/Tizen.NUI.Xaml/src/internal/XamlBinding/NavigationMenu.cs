@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Tizen.NUI.Xaml;
 using Tizen.NUI.Xaml.Forms.BaseComponents;
 
-namespace Tizen.NUI.Binding
+namespace Tizen.NUI.XamlBinding
 {
     // Mark as internal until renderers are ready for release after 1.0
     // [RenderWith(typeof(_NavigationMenuRenderer))]
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class NavigationMenu : View, /*INavigationMenuController,*/ IElementConfiguration<NavigationMenu>
     {
         readonly List<Page> _targets = new List<Page>();
@@ -67,7 +65,6 @@ namespace Tizen.NUI.Binding
             return _platformConfigurationRegistry.Value.On<T>();
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public void SendTargetSelected(Page target)
         {
             //Navigation.PushAsync(target);
