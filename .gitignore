@@ -198,7 +198,7 @@ $RECYCLE.BIN/
 bin/
 obj/
 *.exe
-#*.dll
+*.dll
 *.csproj.user
 *.lock.json
 
