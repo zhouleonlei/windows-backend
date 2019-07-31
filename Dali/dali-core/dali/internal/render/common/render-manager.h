@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H__
-#define __DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H__
+#ifndef DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H
+#define DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ namespace Integration
 {
 class GlAbstraction;
 class GlSyncAbstraction;
+class GlContextHelperAbstraction;
 class RenderStatus;
 }
 
@@ -72,13 +73,15 @@ public:
 
   /**
    * Construct a new RenderManager.
-   * @param[in]  glAbstraction           The GL abstraction used for rendering.
-   * @param[in]  glSyncAbstraction       The GL sync abstraction used fence sync creation/deletion.
-   * @param[in]  depthBufferAvailable    Whether the depth buffer is available
-   * @param[in]  stencilBufferAvailable  Whether the stencil buffer is available
+   * @param[in]  glAbstraction              The GL abstraction used for rendering.
+   * @param[in]  glSyncAbstraction          The GL sync abstraction used fence sync creation/deletion.
+   * @param[in]  glContextHelperAbstraction The GL context helper abstraction for accessing GL context.
+   * @param[in]  depthBufferAvailable       Whether the depth buffer is available
+   * @param[in]  stencilBufferAvailable     Whether the stencil buffer is available
    */
   static RenderManager* New( Integration::GlAbstraction& glAbstraction,
                              Integration::GlSyncAbstraction& glSyncAbstraction,
+                             Integration::GlContextHelperAbstraction& glContextHelperAbstraction,
                              Integration::DepthBufferAvailable depthBufferAvailable,
                              Integration::StencilBufferAvailable stencilBufferAvailable );
 
@@ -282,7 +285,7 @@ public:
    * Adds a framebuffer to the render manager
    * @param[in] frameBuffer The framebuffer to add
    */
-  void AddFrameBuffer( Render::FrameBuffer* frameBuffer );
+  void AddFrameBuffer( OwnerPointer< Render::FrameBuffer >& frameBuffer );
 
   /**
    * Removes a framebuffer from the render manager
@@ -362,4 +365,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H__
+#endif // DALI_INTERNAL_SCENE_GRAPH_RENDER_MANAGER_H

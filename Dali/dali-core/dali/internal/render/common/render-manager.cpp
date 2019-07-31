@@ -18,13 +18,18 @@
 // CLASS HEADER
 #include <dali/internal/render/common/render-manager.h>
 
+// EXTERNAL INCLUDES
+#include <memory.h>
+
 // INTERNAL INCLUDES
 #include <dali/public-api/actors/sampling.h>
 #include <dali/public-api/common/dali-common.h>
 #include <dali/public-api/common/stage.h>
 #include <dali/public-api/render-tasks/render-task.h>
+#include <dali/devel-api/threading/thread-pool.h>
 #include <dali/integration-api/debug.h>
 #include <dali/integration-api/core.h>
+#include <dali/integration-api/gl-context-helper-abstraction.h>
 #include <dali/internal/common/owner-pointer.h>
 #include <dali/internal/render/common/render-algorithms.h>
 #include <dali/internal/render/common/render-debug.h>
@@ -50,6 +55,13 @@ namespace Internal
 namespace SceneGraph
 {
 
+#if defined(DEBUG_ENABLED)
+namespace
+{
+Debug::Filter* gLogFilter = Debug::Filter::New(Debug::NoLogging, false, "LOG_RENDER_MANAGER" );
+} // unnamed namespace
+#endif
+
 /**
  * Structure to contain internal data
  */
@@ -57,12 +69,14 @@ struct RenderManager::Impl
 {
   Impl( Integration::GlAbstraction& glAbstraction,
         Integration::GlSyncAbstraction& glSyncAbstraction,
+        Integration::GlContextHelperAbstraction& glContextHelperAbstraction,
         Integration::DepthBufferAvailable depthBufferAvailableParam,
         Integration::StencilBufferAvailable stencilBufferAvailableParam )
-  : context( glAbstraction ),
+  : context( glAbstraction, &surfaceContextContainer ),
     currentContext( &context ),
     glAbstraction( glAbstraction ),
     glSyncAbstraction( glSyncAbstraction ),
+    glContextHelperAbstraction( glContextHelperAbstraction ),
     renderQueue(),
     instructions(),
     renderAlgorithms(),
@@ -79,10 +93,14 @@ struct RenderManager::Impl
     depthBufferAvailable( depthBufferAvailableParam ),
     stencilBufferAvailable( stencilBufferAvailableParam )
   {
+     // Create thread pool with just one thread ( there may be a need to create more threads in the future ).
+    threadPool = std::unique_ptr<Dali::ThreadPool>( new Dali::ThreadPool() );
+    threadPool->Initialize( 1u );
   }
 
   ~Impl()
   {
+    threadPool.reset( nullptr ); // reset now to maintain correct destruction order
   }
 
   void AddRenderTracker( Render::RenderTracker* renderTracker )
@@ -122,6 +140,7 @@ struct RenderManager::Impl
   OwnerContainer< Context* >                surfaceContextContainer; ///< List of owned contexts holding the GL state per surface
   Integration::GlAbstraction&               glAbstraction;           ///< GL abstraction
   Integration::GlSyncAbstraction&           glSyncAbstraction;       ///< GL sync abstraction
+  Integration::GlContextHelperAbstraction&  glContextHelperAbstraction; ///< GL context helper abstraction
   RenderQueue                               renderQueue;             ///< A message queue for receiving messages from the update-thread.
 
   // Render instructions describe what should be rendered during RenderManager::Render()
@@ -152,16 +171,21 @@ struct RenderManager::Impl
   Integration::DepthBufferAvailable         depthBufferAvailable;     ///< Whether the depth buffer is available
   Integration::StencilBufferAvailable       stencilBufferAvailable;   ///< Whether the stencil buffer is available
 
+  std::unique_ptr<Dali::ThreadPool>         threadPool;               ///< The thread pool
+  Vector<GLuint>                            boundTextures;            ///< The textures bound for rendering
+  Vector<GLuint>                            textureDependencyList;    ///< The dependency list of binded textures
 };
 
 RenderManager* RenderManager::New( Integration::GlAbstraction& glAbstraction,
                                    Integration::GlSyncAbstraction& glSyncAbstraction,
+                                   Integration::GlContextHelperAbstraction& glContextHelperAbstraction,
                                    Integration::DepthBufferAvailable depthBufferAvailable,
                                    Integration::StencilBufferAvailable stencilBufferAvailable )
 {
   RenderManager* manager = new RenderManager;
   manager->mImpl = new Impl( glAbstraction,
                              glSyncAbstraction,
+                             glContextHelperAbstraction,
                              depthBufferAvailable,
                              stencilBufferAvailable );
   return manager;
@@ -303,16 +327,17 @@ void RenderManager::SetWrapMode( Render::Sampler* sampler, uint32_t rWrapMode, u
   sampler->mTWrapMode = static_cast<Dali::WrapMode::Type>(tWrapMode);
 }
 
-void RenderManager::AddFrameBuffer( Render::FrameBuffer* frameBuffer )
+void RenderManager::AddFrameBuffer( OwnerPointer< Render::FrameBuffer >& frameBuffer )
 {
-  mImpl->frameBufferContainer.PushBack( frameBuffer );
-  if ( frameBuffer->IsSurfaceBacked() )
+  Render::FrameBuffer* frameBufferPtr = frameBuffer.Release();
+  mImpl->frameBufferContainer.PushBack( frameBufferPtr );
+  if ( frameBufferPtr->IsSurfaceBacked() )
   {
-    frameBuffer->Initialize( *mImpl->CreateSurfaceContext() );
+    frameBufferPtr->Initialize( *mImpl->CreateSurfaceContext() );
   }
   else
   {
-    frameBuffer->Initialize( mImpl->context );
+    frameBufferPtr->Initialize( mImpl->context );
   }
 }
 
@@ -450,9 +475,17 @@ void RenderManager::Render( Integration::RenderStatus& status, bool forceClear )
   const uint32_t count = mImpl->instructions.Count( mImpl->renderBufferIndex );
   const bool haveInstructions = count > 0u;
 
+  DALI_LOG_INFO( gLogFilter, Debug::General,
+                 "Render: haveInstructions(%s) || mImpl->lastFrameWasRendered(%s) || forceClear(%s)\n",
+                 haveInstructions ? "true" : "false",
+                 mImpl->lastFrameWasRendered ? "true" : "false",
+                 forceClear ? "true" : "false" );
+
   // Only render if we have instructions to render, or the last frame was rendered (and therefore a clear is required).
   if( haveInstructions || mImpl->lastFrameWasRendered || forceClear )
   {
+    DALI_LOG_INFO( gLogFilter, Debug::General, "Render: Processing\n" );
+
     // Mark that we will require a post-render step to be performed (includes swap-buffers).
     status.SetNeedsPostRender( true );
 
@@ -460,10 +493,15 @@ void RenderManager::Render( Integration::RenderStatus& status, bool forceClear )
     if ( mImpl->currentContext != &mImpl->context )
     {
       mImpl->currentContext = &mImpl->context;
+
+      if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+      {
+        mImpl->glContextHelperAbstraction.MakeSurfacelessContextCurrent();
+      }
+
       // Clear the current cached program when the context is switched
       mImpl->programController.ClearCurrentProgram();
     }
-
 
     // Upload the geometries
     for( uint32_t i = 0; i < count; ++i )
@@ -508,6 +546,11 @@ void RenderManager::Render( Integration::RenderStatus& status, bool forceClear )
       DoRender( instruction );
     }
 
+    if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+    {
+      mImpl->glContextHelperAbstraction.MakeSurfacelessContextCurrent();
+    }
+
     GLenum attachments[] = { GL_DEPTH, GL_STENCIL };
     mImpl->context.InvalidateFramebuffer(GL_FRAMEBUFFER, 2, attachments);
     for ( auto&& context : mImpl->surfaceContextContainer )
@@ -520,6 +563,10 @@ void RenderManager::Render( Integration::RenderStatus& status, bool forceClear )
     {
       iter->OnRenderFinished();
     }
+  }
+  else
+  {
+    DALI_LOG_RELEASE_INFO( "RenderManager::Render: Skip rendering [%d, %d, %d]\n", haveInstructions, mImpl->lastFrameWasRendered, forceClear );
   }
 
   mImpl->UpdateTrackers();
@@ -557,24 +604,45 @@ void RenderManager::DoRender( RenderInstruction& instruction )
   Integration::StencilBufferAvailable stencilBufferAvailable = mImpl->stencilBufferAvailable;
 
   Render::SurfaceFrameBuffer* surfaceFrameBuffer = nullptr;
-  if ( ( instruction.mFrameBuffer != 0 ) && instruction.mFrameBuffer->IsSurfaceBacked() )
+  if ( instruction.mFrameBuffer != 0 )
   {
-    surfaceFrameBuffer = static_cast<Render::SurfaceFrameBuffer*>( instruction.mFrameBuffer );
-
-    if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+    if ( instruction.mFrameBuffer->IsSurfaceBacked() )
     {
-      Context* surfaceContext = surfaceFrameBuffer->GetContext();
-      if ( mImpl->currentContext != surfaceContext )
+      surfaceFrameBuffer = static_cast<Render::SurfaceFrameBuffer*>( instruction.mFrameBuffer );
+
+      if ( !surfaceFrameBuffer->IsSurfaceValid() )
       {
-        // Switch the correct context if rendering to a surface
-        mImpl->currentContext = surfaceContext;
-        // Clear the current cached program when the context is switched
-        mImpl->programController.ClearCurrentProgram();
+        // Skip rendering the frame buffer if the render surface becomes invalid
+        return;
+      }
+
+      if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+      {
+        Context* surfaceContext = surfaceFrameBuffer->GetContext();
+        if ( mImpl->currentContext != surfaceContext )
+        {
+          // Switch the correct context if rendering to a surface
+          mImpl->currentContext = surfaceContext;
+          surfaceFrameBuffer->MakeContextCurrent();
+
+          // Clear the current cached program when the context is switched
+          mImpl->programController.ClearCurrentProgram();
+        }
+      }
+
+      surfaceRect = Rect<int32_t>( 0, 0, static_cast<int32_t>( surfaceFrameBuffer->GetWidth() ), static_cast<int32_t>( surfaceFrameBuffer->GetHeight() ) );
+      backgroundColor = surfaceFrameBuffer->GetBackgroundColor();
+    }
+    else
+    {
+      // Switch to shared context for off-screen buffer
+      mImpl->currentContext = &mImpl->context;
+
+      if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+      {
+        mImpl->glContextHelperAbstraction.MakeSurfacelessContextCurrent();
       }
     }
-
-    surfaceRect = Rect<int32_t>( 0, 0, static_cast<int32_t>( surfaceFrameBuffer->GetWidth() ), static_cast<int32_t>( surfaceFrameBuffer->GetHeight() ) );
-    backgroundColor = surfaceFrameBuffer->GetBackgroundColor();
   }
 
   DALI_ASSERT_DEBUG( mImpl->currentContext->IsGlContextCreated() );
@@ -586,6 +654,13 @@ void RenderManager::DoRender( RenderInstruction& instruction )
   if( instruction.mFrameBuffer )
   {
     instruction.mFrameBuffer->Bind( *mImpl->currentContext );
+
+    if ( !instruction.mFrameBuffer->IsSurfaceBacked() )
+    {
+      // For each offscreen buffer, update the dependency list with the new texture id used by this frame buffer.
+      Render::TextureFrameBuffer* textureFrameBuffer = static_cast<Render::TextureFrameBuffer*>( instruction.mFrameBuffer );
+      mImpl->textureDependencyList.PushBack( textureFrameBuffer->GetTextureId() );
+    }
   }
   else
   {
@@ -700,12 +775,79 @@ void RenderManager::DoRender( RenderInstruction& instruction )
     mImpl->currentContext->SetScissorTest( false );
   }
 
+  // Clear the list of bound textures
+  mImpl->boundTextures.Clear();
+
   mImpl->renderAlgorithms.ProcessRenderInstruction(
       instruction,
       *mImpl->currentContext,
       mImpl->renderBufferIndex,
       depthBufferAvailable,
-      stencilBufferAvailable );
+      stencilBufferAvailable,
+      mImpl->boundTextures );
+
+  // Synchronise the FBO/Texture access when there are multiple contexts
+  if ( mImpl->currentContext->IsSurfacelessContextSupported() )
+  {
+    // Check whether any binded texture is in the dependency list
+    bool textureFound = false;
+
+    if ( mImpl->boundTextures.Count() > 0u && mImpl->textureDependencyList.Count() > 0u )
+    {
+      for ( auto textureId : mImpl->textureDependencyList )
+      {
+
+        textureFound = std::find_if( mImpl->boundTextures.Begin(), mImpl->boundTextures.End(),
+                                     [textureId]( GLuint id )
+                                     {
+                                       return textureId == id;
+                                     } ) != mImpl->boundTextures.End();
+      }
+    }
+
+    if ( textureFound )
+    {
+
+      if ( !instruction.mFrameBuffer || !instruction.mFrameBuffer->IsSurfaceBacked() )
+      {
+        // For off-screen buffer
+
+        // Wait until all rendering calls for the currently context are executed
+        mImpl->glContextHelperAbstraction.WaitClient();
+
+        // Clear the dependency list
+        mImpl->textureDependencyList.Clear();
+      }
+      else
+      {
+        // For surface-backed frame buffer
+
+        // Worker thread lambda function
+        auto& glContextHelperAbstraction = mImpl->glContextHelperAbstraction;
+        auto workerFunction = [&glContextHelperAbstraction]( int workerThread )
+        {
+          // Switch to the shared context in the worker thread
+          glContextHelperAbstraction.MakeSurfacelessContextCurrent();
+
+          // Wait until all rendering calls for the shared context are executed
+          glContextHelperAbstraction.WaitClient();
+
+          // Must clear the context in the worker thread
+          // Otherwise the shared context cannot be switched to from the render thread
+          glContextHelperAbstraction.MakeContextNull();
+        };
+
+        auto future = mImpl->threadPool->SubmitTask( 0u, workerFunction );
+        if ( future )
+        {
+          mImpl->threadPool->Wait();
+
+          // Clear the dependency list
+          mImpl->textureDependencyList.Clear();
+        }
+      }
+    }
+  }
 
   if( instruction.mRenderTracker && ( instruction.mFrameBuffer != 0 ) )
   {
@@ -719,6 +861,10 @@ void RenderManager::DoRender( RenderInstruction& instruction )
   if ( surfaceFrameBuffer )
   {
     surfaceFrameBuffer->PostRender();
+  }
+  else
+  {
+    mImpl->currentContext->Flush();
   }
 }
 

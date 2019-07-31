@@ -5,20 +5,22 @@ using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class SearchBarSample : IExample
+    public class SearchBar : IExample
     {
         private SampleLayout rootView = null;
         private Tizen.FH.NUI.Controls.SearchBar searchBar = null;
 
-        private Button button;
+        private Tizen.NUI.CommonUI.Button button;
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             CreateRootView();
             CreateSearchBar();
-            button =  new Button();
+            button = new Tizen.NUI.CommonUI.Button();
+            button.PointSize = 14;
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;
-            button.Position2D = new Position2D(40,400 );
+            button.Position2D = new Position2D(40, 400);
             button.Text = "LTR/RTL";
             button.ClickEvent += OnLayoutChanged;
             rootView.Add(button);
@@ -76,7 +78,7 @@ namespace Tizen.FH.NUI.Samples
                 {
                     //if (searchBarObj.Text == "ERROR")
                     //{
-                        searchBarObj.TextColor = Color.Black;
+                    searchBarObj.TextColor = Color.Black;
                     //}
                     searchBarObj.Text = "";
                     searchBarObj.ShrinkSearchList();
@@ -101,14 +103,14 @@ namespace Tizen.FH.NUI.Samples
                         searchBarObj.ExpandSearchList();
                     }
                 }
-                
+
             }
         }
 
         public void Deactivate()
         {
             Window window = Window.Instance;
-            
+
             if (searchBar != null)
             {
                 searchBar.SearchButtonClickEvent -= OnSearchButtonClickEvent;

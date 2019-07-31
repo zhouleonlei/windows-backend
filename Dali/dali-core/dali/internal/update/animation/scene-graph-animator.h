@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H__
-#define __DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H__
+#ifndef DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H
+#define DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@
  * limitations under the License.
  *
  */
+
+// EXTERNAL INCLUDES
+#include <cmath>
 
 // INTERNAL INCLUDES
 #include <dali/public-api/animation/alpha-function.h>
@@ -1213,4 +1216,4 @@ struct PathRotationFunctor : public AnimatorFunctionBase
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H__
+#endif // DALI_INTERNAL_SCENE_GRAPH_ANIMATOR_H

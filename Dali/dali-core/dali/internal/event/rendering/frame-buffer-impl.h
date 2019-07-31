@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_FRAME_BUFFER_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,8 +63,8 @@ public:
   /**
    * @brief Create a new FrameBuffer
    *
-   * @param[in] renderSurface  The render surface
-   * @param[in] attachments    The attachments comprising the format of the FrameBuffer (bit-mask)
+   * @param[in] renderSurface   The render surface
+   * @param[in] attachments     The attachments comprising the format of the FrameBuffer (bit-mask)
    * @return A smart-pointer to the newly allocated Texture.
    */
   static FrameBufferPtr New( Dali::Integration::RenderSurface& renderSurface, Mask attachments );
@@ -90,6 +90,29 @@ public:
    * @copydoc Dali::FrameBuffer::GetColorTexture()
    */
   Texture* GetColorTexture();
+
+  /**
+   * @brief Sets the frame buffer size.
+   * @param[in] width The width size
+   * @param[in] height The height size
+   */
+  void SetSize( uint32_t width, uint32_t height );
+
+  /**
+   * @brief Sets the background color
+   * @param[in] color The new background color
+   */
+  void SetBackgroundColor( const Vector4& color );
+
+  /**
+   * @brief Mark the render surface as invalid
+   *
+   * The render surface is maked as invalid when it is deleted.
+   *
+   * @note Only for FrameBuffer backed by a render surface.
+   * @return True if the FrameBuffer is backed by a render surface
+   */
+  void MarkSurfaceAsInvalid();
 
 private: // implementation
 

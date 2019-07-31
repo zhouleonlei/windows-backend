@@ -1,8 +1,8 @@
-#ifndef __DALI_VIEW_MODE_H__
-#define __DALI_VIEW_MODE_H__
+#ifndef DALI_VIEW_MODE_H
+#define DALI_VIEW_MODE_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,9 @@ namespace Dali
  */
 enum ViewMode
 {
-  MONO,              ///< Monoscopic (single camera). This is the default @SINCE_1_0.0
-  STEREO_HORIZONTAL, ///< @DEPRECATED_1_3_39 Stereoscopic. Frame buffer is split horizontally with the left and right camera views in their respective sides. @SINCE_1_0.0
-  STEREO_VERTICAL    ///< @DEPRECATED_1_3_39 Stereoscopic. Frame buffer is split vertically with the left camera view at the top and the right camera view at the bottom. @SINCE_1_0.0
+  MONO,              ///< Monoscopic (single camera). This is the default. @SINCE_1_0.0
+  STEREO_HORIZONTAL, ///< @DEPRECATED_1_3_39 Stereoscopic. This mode presents the left image on the top half of the screen and the right image on the bottom half. @SINCE_1_0.0
+  STEREO_VERTICAL    ///< @DEPRECATED_1_3_39 Stereoscopic. This mode renders the left image on the left half of the screen and the right image on the right half. @SINCE_1_0.0
 };
 
 /**
@@ -41,4 +41,4 @@ enum ViewMode
  */
 } // namespace Dali
 
-#endif // __DALI_VIEW_MODE_H__
+#endif // DALI_VIEW_MODE_H

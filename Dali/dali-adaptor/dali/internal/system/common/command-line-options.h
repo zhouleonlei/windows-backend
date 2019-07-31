@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_COMMAND_LINE_OPTIONS_H__
-#define __DALI_INTERNAL_COMMAND_LINE_OPTIONS_H__
+#ifndef DALI_INTERNAL_COMMAND_LINE_OPTIONS_H
+#define DALI_INTERNAL_COMMAND_LINE_OPTIONS_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ namespace Adaptor
  * The following options are supported:
  *
  * @code
- *     --no-vsync       Disable VSync on Render
  *  -w|--width          Stage Width
  *  -h|--height         Stage Height
  *  -d|--dpi            Emulated DPI
@@ -66,7 +65,6 @@ public:
 
 public: // Command line parsed values
 
-  int32_t noVSyncOnRender; ///< If 1, then the user does not want VSync on Render
   int32_t stageWidth;      ///< The width of the stage required.  0 if not set.
   int32_t stageHeight;     ///< The height of the stage required.   0 if not set.
   std::string stageDPI;    ///< DPI stored as hxv, where h is horizontal DPI and v is vertical DPI
@@ -78,4 +76,4 @@ public: // Command line parsed values
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_COMMAND_LINE_OPTIONS_H__
+#endif // DALI_INTERNAL_COMMAND_LINE_OPTIONS_H

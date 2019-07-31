@@ -148,18 +148,18 @@ void InputMethodContextWin::SetRestoreAfterFocusLost( bool toggle )
  * We are still predicting what the user is typing.  The latest string is what the InputMethodContext module thinks
  * the user wants to type.
  */
-void InputMethodContextWin::PreEditChanged( void*, ImfContext* imfContext, void* event_info )
+void InputMethodContextWin::PreEditChanged( void*, ImfContext* imfContext, void* eventInfo )
 {
   DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::PreEditChanged\n" );
 }
 
-void InputMethodContextWin::CommitReceived( void*, ImfContext* imfContext, void* event_info )
+void InputMethodContextWin::CommitReceived( void*, ImfContext* imfContext, void* eventInfo )
 {
   DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::CommitReceived\n" );
 
   if ( Dali::Adaptor::IsAvailable() )
   {
-    const std::string keyString( static_cast<char*>( event_info ) );
+    const std::string keyString( static_cast<char*>( eventInfo ) );
 
     Dali::InputMethodContext handle( this );
     Dali::InputMethodContext::EventData eventData( Dali::InputMethodContext::COMMIT, keyString, 0, 0 );
@@ -208,7 +208,7 @@ bool InputMethodContextWin::RetrieveSurrounding( void* data, ImfContext* imfCont
  * Called when an InputMethodContext delete surrounding event is received.
  * Here we tell the application that it should delete a certain range.
  */
-void InputMethodContextWin::DeleteSurrounding( void* data, ImfContext* imfContext, void* event_info )
+void InputMethodContextWin::DeleteSurrounding( void* data, ImfContext* imfContext, void* eventInfo )
 {
   DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::DeleteSurrounding\n" );
 }
@@ -335,6 +335,11 @@ std::string InputMethodContextWin::GetInputPanelLocale()
   return locale;
 }
 
+void InputMethodContextWin::SetContentMIMETypes( const std::string& mimeTypes )
+{
+  DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::SetContentMIMETypes\n" );
+}
+
 bool InputMethodContextWin::FilterEventKey( const Dali::KeyEvent& keyEvent )
 {
   bool eventHandled( false );
@@ -353,6 +358,17 @@ bool InputMethodContextWin::FilterEventKey( const Dali::KeyEvent& keyEvent )
   }
 
   return eventHandled;
+}
+
+void InputMethodContextWin::SetInputPanelLanguage( Dali::InputMethodContext::InputPanelLanguage language )
+{
+  DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::SetInputPanelLanguage\n" );
+}
+
+Dali::InputMethodContext::InputPanelLanguage InputMethodContextWin::GetInputPanelLanguage() const
+{
+  DALI_LOG_INFO( gLogFilter, Debug::General, "InputMethodContextWin::GetInputPanelLanguage\n" );
+  return Dali::InputMethodContext::InputPanelLanguage::AUTOMATIC;
 }
 
 bool InputMethodContextWin::ProcessEventKeyDown( const KeyEvent& keyEvent )

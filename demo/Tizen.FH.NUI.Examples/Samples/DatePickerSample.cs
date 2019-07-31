@@ -9,14 +9,15 @@ using Tizen.FH.NUI.Controls;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class DatePickerSample : IExample
+    public class DatePicker : IExample
     {
         private SampleLayout root;
-        private Popup popup = null;
+        private Tizen.NUI.CommonUI.Popup popup = null;
         private Picker datePicker = null;
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "Date Picker";
 
@@ -25,7 +26,7 @@ namespace Tizen.FH.NUI.Samples
 
         private void CreateDatePicker()
         {
-            popup = new Popup("Popup");
+            popup = new Tizen.NUI.CommonUI.Popup("Popup");
             popup.Size2D = new Size2D(1032, 982);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Set Date";
@@ -34,7 +35,7 @@ namespace Tizen.FH.NUI.Samples
             popup.SetButtonText(1, "OK");
             popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
             root.Add(popup);
- 
+
             datePicker = new Picker("DAPicker");
             datePicker.Size2D = new Size2D(1032, 724);
             datePicker.Position2D = new Position2D(0, 0);
@@ -42,9 +43,9 @@ namespace Tizen.FH.NUI.Samples
             popup.ContentView.Add(datePicker);
         }
 
-        private void PopupButtonClickedEvent(object sender, Popup.ButtonClickEventArgs e)
+        private void PopupButtonClickedEvent(object sender, Tizen.NUI.CommonUI.Popup.ButtonClickEventArgs e)
         {
-                     
+
         }
 
         private void DestoryDatePicker()

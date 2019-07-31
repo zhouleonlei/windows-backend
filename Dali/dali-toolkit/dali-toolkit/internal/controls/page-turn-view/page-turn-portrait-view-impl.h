@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H__
-#define __DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H__
+#ifndef DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H
+#define DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public:
   /**
    * @copydoc Toolkit::PageTurnPortraitView::New( PageFactory&, const Vector2& )
    */
-  static Toolkit::PageTurnPortraitView New( PageFactory& pageFactory, const Vector2& pageSize );
+  static Toolkit::PageTurnPortraitView New( PageFactory& pageFactory, const Vector2& viewPageSize );
 
 protected:
 
@@ -49,9 +49,9 @@ protected:
    * Constructor.
    * It initializes the PageTurnPortraitView members
    * @param[in] pageFactory The factory which provides image to PageTurnView as the page content.
-   * @param[in] pageSize The size of the page
+   * @param[in] viewPageSize The size of the page
    */
-  PageTurnPortraitView( PageFactory& pageFactory, const Vector2& pageSize );
+  PageTurnPortraitView( PageFactory& pageFactory, const Vector2& viewPageSize );
 
   /**
    * A reference counted object may only be deleted by calling Unreference()
@@ -107,4 +107,5 @@ private:
 } // namespace Toolkit
 
 } // namespace Dali
-#endif /* __DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H__ */
+
+#endif // DALI_TOOLKIT_INTERNAL_PAGE_TURN_PORTRAIT_VIEW_IMPL_H

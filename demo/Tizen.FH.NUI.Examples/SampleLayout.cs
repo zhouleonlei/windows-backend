@@ -8,13 +8,13 @@ namespace Tizen.FH.NUI.Samples
 {
     public class SampleLayout : ImageView
     {
-        private Header LayoutHeader;
+        private Controls.Header LayoutHeader;
 
         private bool isThemeButtonVisible = true;
-        private Button UtilityButton;
-        private Button FoodButton;
-        private Button FamilyButton;
-        private Button KitchenButton;
+        private Tizen.NUI.CommonUI.Button UtilityButton;
+        private Tizen.NUI.CommonUI.Button FoodButton;
+        private Tizen.NUI.CommonUI.Button FamilyButton;
+        private Tizen.NUI.CommonUI.Button KitchenButton;
 
         private View Content;
         private View LayoutContent;
@@ -42,7 +42,7 @@ namespace Tizen.FH.NUI.Samples
         {
             Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height);
             //Window.Instance.Add(this);
-            LayoutHeader = new Header("DefaultHeader");
+            LayoutHeader = new Controls.Header("DefaultHeader");
             LayoutHeader.PositionY = 0;
 
             LayoutContent = new View
@@ -53,7 +53,7 @@ namespace Tizen.FH.NUI.Samples
 
             Content = new View
             {
-                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128 -150),
+                Size2D = new Size2D(Window.Instance.Size.Width, Window.Instance.Size.Height - 128 - 150),
                 Position2D = new Position2D(0, 150),
             };
             LayoutContent.Add(Content);
@@ -96,7 +96,7 @@ namespace Tizen.FH.NUI.Samples
                     }
                 };
 
-                UtilityButton = new Button(buttonAttributes);
+                UtilityButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
                 UtilityButton.Size2D = new Size2D(200, 80);
                 UtilityButton.Position2D = new Position2D(56, 32);
                 UtilityButton.Text = "Utility";
@@ -104,7 +104,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(UtilityButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_ec7510.png";
-                FoodButton = new Button(buttonAttributes);
+                FoodButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
                 FoodButton.Size2D = new Size2D(200, 80);
                 FoodButton.Position2D = new Position2D(312, 32);
                 FoodButton.Text = "Food";
@@ -112,7 +112,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(FoodButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png";
-                FamilyButton = new Button(buttonAttributes);
+                FamilyButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
                 FamilyButton.Size2D = new Size2D(200, 80);
                 FamilyButton.Position2D = new Position2D(578, 32);
                 FamilyButton.Text = "Family";
@@ -120,7 +120,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(FamilyButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_9762d9.png";
-                KitchenButton = new Button(buttonAttributes);
+                KitchenButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
                 KitchenButton.Size2D = new Size2D(200, 80);
                 KitchenButton.Position2D = new Position2D(834, 32);
                 KitchenButton.Text = "Kitchen";
@@ -129,12 +129,15 @@ namespace Tizen.FH.NUI.Samples
             }
 
             this.isThemeButtonVisible = isThemeButtonVisiable;
-            SampleMain.SampleNaviFrame.NaviFrameItemPush(LayoutHeader, LayoutContent);      
+            Window.Instance.Add(LayoutHeader);
+            Window.Instance.Add(LayoutContent);
+
+            //SampleMain.SampleNaviFrame.NaviFrameItemPush(LayoutHeader, LayoutContent);
 
             //this.ResourceUrl = CommonResource.GetFHResourcePath() + "0. BG/background_default_overlay.png";
         }
 
-        public void AttachSearchBar(SearchBar searchBar)
+        public void AttachSearchBar(Controls.SearchBar searchBar)
         {
             LayoutHeader.HeaderText = "";
             searchBar.WidthResizePolicy = ResizePolicyType.FillToParent;
@@ -144,22 +147,22 @@ namespace Tizen.FH.NUI.Samples
             //LayoutHeader.PositionY = 100;
         }
 
-        private void KitchenButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        private void KitchenButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Kitchen";
         }
 
-        private void FamilyButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        private void FamilyButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Family";
         }
 
-        private void FoodButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        private void FoodButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Food";
         }
 
-        private void UtilityButton_ClickEvent(object sender, Button.ClickEventArgs e)
+        private void UtilityButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Utility";
         }
@@ -178,8 +181,8 @@ namespace Tizen.FH.NUI.Samples
                     LayoutContent.Remove(Content);
                     Content.Dispose();
                     Content = null;
-                    
-                    if(isThemeButtonVisible)
+
+                    if (isThemeButtonVisible)
                     {
                         LayoutContent.Remove(UtilityButton);
                         UtilityButton.Dispose();
@@ -191,12 +194,14 @@ namespace Tizen.FH.NUI.Samples
                         KitchenButton.Dispose();
                     }
 
+                    LayoutContent.GetParent().Remove(LayoutContent);
                     LayoutContent.Dispose();
                     LayoutContent = null;
                 }
 
                 if (LayoutHeader != null)
                 {
+                    LayoutHeader.GetParent().Remove(LayoutHeader);
                     LayoutHeader.Dispose();
                     LayoutHeader = null;
                 }

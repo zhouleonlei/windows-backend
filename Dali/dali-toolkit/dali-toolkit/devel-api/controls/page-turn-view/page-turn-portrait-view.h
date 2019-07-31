@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H__
-#define __DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H__
+#ifndef DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H
+#define DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,10 +72,10 @@ public:
    * @brief Create an initialized  PageTurnPortraitView control
    * @SINCE_1_1.4
    * @param[in] pageFactory The factory which provides PageTurnView with pages.
-   * @param[in] pageSize The size of the page
+   * @param[in] viewPageSize The size of the page
    * @return A handle to the PageTurnPortraitView control.
    */
-  static PageTurnPortraitView New( PageFactory& pageFactory, const Vector2& pageSize );
+  static PageTurnPortraitView New( PageFactory& pageFactory, const Vector2& viewPageSize );
 
   /**
    * @brief Downcast an Object handle to PageTurnPortraitView. If handle points to a PageTurnPortraitView the
@@ -109,4 +109,4 @@ public: // Not intended for application developers
 
 } // namespace Dali
 
-#endif /* __DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H__ */
+#endif /* DALI_TOOLKIT_PAGE_TURN_PORTRAIT_VIEW_H */

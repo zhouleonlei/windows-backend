@@ -1,0 +1,12 @@
+<Project>
+
+  <PropertyGroup>
+    <TizenNETVersion>6.0.0.14810</TizenNETVersion>
+    <TizenNETSdkVersion>1.0.1</TizenNETSdkVersion>
+    <XamarinFormsVersion>2.5.0.280555</XamarinFormsVersion>
+    <XamarinFormsTizenVersion>2.5.0.280555</XamarinFormsTizenVersion>
+    <TizenXamarinFormsExtensionVersion>2.4.0-v00014</TizenXamarinFormsExtensionVersion>
+  </PropertyGroup>
+
+</Project>
+

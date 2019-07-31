@@ -6,25 +6,25 @@ using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class NavigationAttributesSample : IExample
+    public class NavigationAttributes : IExample
     {
         private View root;
 
         private TextLabel[] createText = new TextLabel[2];
 
-        private Navigation whiteNavigation = null;
-        private Navigation blackNavigation = null;
-        private Navigation conditionNavigation = null;
-        private Navigation blackConditionNavigation = null;
-        private Navigation whiteEditNavigation = null;
-        private Navigation blackEditNavigation = null;
+        private Controls.Navigation whiteNavigation = null;
+        private Controls.Navigation blackNavigation = null;
+        private Controls.Navigation conditionNavigation = null;
+        private Controls.Navigation blackConditionNavigation = null;
+        private Controls.Navigation whiteEditNavigation = null;
+        private Controls.Navigation blackEditNavigation = null;
 
-        private Navigation whiteNavigation2 = null;
-        private Navigation blackNavigation2 = null;
-        private Navigation conditionNavigation2 = null;
-        private Navigation blackConditionNavigation2 = null;
-        private Navigation whiteEditNavigation2 = null;
-        private Navigation blackEditNavigation2 = null;
+        private Controls.Navigation whiteNavigation2 = null;
+        private Controls.Navigation blackNavigation2 = null;
+        private Controls.Navigation conditionNavigation2 = null;
+        private Controls.Navigation blackConditionNavigation2 = null;
+        private Controls.Navigation whiteEditNavigation2 = null;
+        private Controls.Navigation blackEditNavigation2 = null;
         private static string[] itemPressImage = new string[]
         {
             CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_slideshow_press.png",
@@ -64,6 +64,7 @@ namespace Tizen.FH.NUI.Samples
         };
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             Window window = Window.Instance;
 
             root = new View()
@@ -75,6 +76,7 @@ namespace Tizen.FH.NUI.Samples
             ///////////////////////////////////////////////Create by Property//////////////////////////////////////////////////////////
             #region CreateByProperty
             createText[0] = new TextLabel();
+            createText[0].PointSize = 14;
             createText[0].Text = "Create Navigation just by properties";
             createText[0].Size2D = new Size2D(450, 100);
             createText[0].Position2D = new Position2D(200, 60);
@@ -83,12 +85,12 @@ namespace Tizen.FH.NUI.Samples
 
             ////////white navigation//////////
             #region WhiteNaviagtion
-            whiteNavigation = new Navigation();
+            whiteNavigation = new Controls.Navigation();
             whiteNavigation.Position2D = new Position2D(100, 150);
             whiteNavigation.IsFitWithItems = true;
 
             root.Add(whiteNavigation);
-            Navigation.NavigationItemData backItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData backItem = new Controls.Navigation.NavigationItemData();
             backItem.Size2D = new Size2D(120, 140);
             backItem.IconURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png";
             backItem.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_back_bg.png";
@@ -103,13 +105,13 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             ////////black navigation//////////
             #region BlackNavigation
-            blackNavigation = new Navigation();
+            blackNavigation = new Controls.Navigation();
             blackNavigation.Position2D = new Position2D(300, 150);
             blackNavigation.IsFitWithItems = true;
 
             root.Add(blackNavigation);
 
-            Navigation.NavigationItemData blackBackItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData blackBackItem = new Controls.Navigation.NavigationItemData();
             blackBackItem.Size2D = new Size2D(120, 140);
             blackBackItem.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_back_bg_b.png";
             blackBackItem.IconURLSelector = new StringSelector
@@ -123,7 +125,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////condition navigation//////////
             #region WhiteConditionNavigation
-            conditionNavigation = new Navigation();
+            conditionNavigation = new Controls.Navigation();
             conditionNavigation.Position2D = new Position2D(100, 300);
             conditionNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/sidenavi_bg.png";
             conditionNavigation.BackgroundImageBorder = new Rectangle(0, 0, 103, 103);
@@ -139,7 +141,7 @@ namespace Tizen.FH.NUI.Samples
             root.Add(conditionNavigation);
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItemData conditionItem = new Navigation.NavigationItemData();
+                Controls.Navigation.NavigationItemData conditionItem = new Controls.Navigation.NavigationItemData();
                 conditionItem.Size2D = new Size2D(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
@@ -180,7 +182,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////black condition navigation//////////
             #region BlackConditionNavigation
-            blackConditionNavigation = new Navigation();
+            blackConditionNavigation = new Controls.Navigation();
             blackConditionNavigation.Position2D = new Position2D(300, 300);
             blackConditionNavigation.BackgroundImageURL = CommonResource.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_bg_b.png";
             blackConditionNavigation.BackgroundImageBorder = new Rectangle(0, 0, 103, 103);
@@ -196,7 +198,7 @@ namespace Tizen.FH.NUI.Samples
             root.Add(blackConditionNavigation);
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItemData blackConditionItem = new Navigation.NavigationItemData();
+                Controls.Navigation.NavigationItemData blackConditionItem = new Controls.Navigation.NavigationItemData();
                 blackConditionItem.Size2D = new Size2D(116, 128);
                 blackConditionItem.Text = "Text " + i;
                 blackConditionItem.SubText = "SubText " + i;
@@ -237,7 +239,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////////White Edit Mode///////////////
             #region WhiteEditModeNavigation
-            whiteEditNavigation = new Navigation();
+            whiteEditNavigation = new Controls.Navigation();
             whiteEditNavigation.Size2D = new Size2D(178, 800);
             whiteEditNavigation.ShadowImageSize2D = new Size2D(6, 800);
             whiteEditNavigation.Position2D = new Position2D(500, 150);
@@ -248,7 +250,7 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(whiteEditNavigation);
 
-            Navigation.NavigationItemData firstEditItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData firstEditItem = new Controls.Navigation.NavigationItemData();
             firstEditItem.Size2D = new Size2D(178, 184);
             firstEditItem.LeftSpace = 24;
             firstEditItem.RightSpace = 24;
@@ -274,7 +276,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData();
+                Controls.Navigation.NavigationItemData editItem = new Controls.Navigation.NavigationItemData();
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.TextColorSelector = new ColorSelector
@@ -304,7 +306,7 @@ namespace Tizen.FH.NUI.Samples
                 whiteEditNavigation.AddItem(editItem);
             }
 
-            Navigation.NavigationItemData lastEditItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData lastEditItem = new Controls.Navigation.NavigationItemData();
             lastEditItem.Size2D = new Size2D(178, 166);
             lastEditItem.LeftSpace = 24;
             lastEditItem.RightSpace = 24;
@@ -334,7 +336,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////////Black Edit Mode///////////////
             #region BlackEditModeNavigation
-            blackEditNavigation = new Navigation();
+            blackEditNavigation = new Controls.Navigation();
             blackEditNavigation.Size2D = new Size2D(178, 800);
             blackEditNavigation.ShadowImageSize2D = new Size2D(6, 800);
             blackEditNavigation.Position2D = new Position2D(750, 150);
@@ -345,7 +347,7 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(blackEditNavigation);
 
-            Navigation.NavigationItemData bFirstEditItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData bFirstEditItem = new Controls.Navigation.NavigationItemData();
             bFirstEditItem.Size2D = new Size2D(178, 184);
             bFirstEditItem.LeftSpace = 24;
             bFirstEditItem.RightSpace = 24;
@@ -371,7 +373,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItemData bEditItem = new Navigation.NavigationItemData();
+                Controls.Navigation.NavigationItemData bEditItem = new Controls.Navigation.NavigationItemData();
                 bEditItem.Size2D = new Size2D(178, 108);
                 bEditItem.Text = "Text " + i;
                 bEditItem.TextColorSelector = new ColorSelector
@@ -398,7 +400,7 @@ namespace Tizen.FH.NUI.Samples
                 blackEditNavigation.AddItem(bEditItem);
             }
 
-            Navigation.NavigationItemData bLastEditItem = new Navigation.NavigationItemData();
+            Controls.Navigation.NavigationItemData bLastEditItem = new Controls.Navigation.NavigationItemData();
             bLastEditItem.Size2D = new Size2D(178, 166);
             bLastEditItem.LeftSpace = 24;
             bLastEditItem.RightSpace = 24;
@@ -430,6 +432,7 @@ namespace Tizen.FH.NUI.Samples
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             #region CreateByAttributes
             createText[1] = new TextLabel();
+            createText[1].PointSize = 14;
             createText[1].Text = "Create Navigation just by Attributes";
             createText[1].Size2D = new Size2D(450, 100);
             createText[1].Position2D = new Position2D(1000, 60);
@@ -438,11 +441,11 @@ namespace Tizen.FH.NUI.Samples
 
             ////////white navigation//////////
             #region WhiteNavigation
-            NavigationAttributes whiteNavAttrs = new NavigationAttributes
+            Controls.NavigationAttributes whiteNavAttrs = new Controls.NavigationAttributes
             {
                 IsFitWithItems = true,
             };
-            whiteNavigation2 = new Navigation(whiteNavAttrs);
+            whiteNavigation2 = new Controls.Navigation(whiteNavAttrs);
             whiteNavigation2.Position2D = new Position2D(1000, 150);
 
             root.Add(whiteNavigation2);
@@ -469,17 +472,17 @@ namespace Tizen.FH.NUI.Samples
                 },
                 EnableIconCenter = true
             };
-            Navigation.NavigationItemData backItem2 = new Navigation.NavigationItemData(attrs);
+            Controls.Navigation.NavigationItemData backItem2 = new Controls.Navigation.NavigationItemData(attrs);
             whiteNavigation2.AddItem(backItem2);
             #endregion
 
             ////////black navigation//////////
             #region BlackNavigation
-            NavigationAttributes blackNavAttrs = new NavigationAttributes
+            Controls.NavigationAttributes blackNavAttrs = new Controls.NavigationAttributes
             {
                 IsFitWithItems = true,
             };
-            blackNavigation2 = new Navigation(blackNavAttrs);
+            blackNavigation2 = new Controls.Navigation(blackNavAttrs);
             blackNavigation2.Position2D = new Position2D(1200, 150);
 
             root.Add(blackNavigation2);
@@ -502,12 +505,12 @@ namespace Tizen.FH.NUI.Samples
                 },
                 EnableIconCenter = true
             };
-            Navigation.NavigationItemData blackBackItem2 = new Navigation.NavigationItemData(blackItemAttrs);
+            Controls.Navigation.NavigationItemData blackBackItem2 = new Controls.Navigation.NavigationItemData(blackItemAttrs);
             blackNavigation2.AddItem(blackBackItem2);
             #endregion
             //////condition navigation//////////
             #region WhiteConditionNavigation
-            NavigationAttributes whiteNavAttrs2 = new NavigationAttributes
+            Controls.NavigationAttributes whiteNavAttrs2 = new Controls.NavigationAttributes
             {
                 BackgroundImageAttributes = new ImageAttributes
                 {
@@ -519,7 +522,7 @@ namespace Tizen.FH.NUI.Samples
                 DividerLineColor = new Color(0, 0, 0, 0.1f),
                 IsFitWithItems = true,
             };
-            conditionNavigation2 = new Navigation(whiteNavAttrs2);
+            conditionNavigation2 = new Controls.Navigation(whiteNavAttrs2);
             conditionNavigation2.Position2D = new Position2D(1000, 300);
             conditionNavigation2.ItemChangedEvent += NavigationItemChangedEvent2;
 
@@ -563,13 +566,13 @@ namespace Tizen.FH.NUI.Samples
                 },
                 IconAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(56, 56),                   
+                    Size2D = new Size2D(56, 56),
                 },
                 Space = new Vector4(4, 4, 8, 16),
             };
             for (int i = 0; i < 3; i++)
-            {               
-                Navigation.NavigationItemData conditionItem2 = new Navigation.NavigationItemData(conditionItemAttr2);
+            {
+                Controls.Navigation.NavigationItemData conditionItem2 = new Controls.Navigation.NavigationItemData(conditionItemAttr2);
                 conditionItem2.Size2D = new Size2D(116, 128);
                 conditionItem2.Text = "Text " + i;
                 conditionItem2.SubText = "SubText " + i;
@@ -586,7 +589,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////black condition navigation//////////
             #region BlackConditionNavigation
-            NavigationAttributes blackNavAttrs2 = new NavigationAttributes
+            Controls.NavigationAttributes blackNavAttrs2 = new Controls.NavigationAttributes
             {
                 BackgroundImageAttributes = new ImageAttributes
                 {
@@ -598,7 +601,7 @@ namespace Tizen.FH.NUI.Samples
                 DividerLineColor = new Color(1, 1, 1, 0.1f),
                 IsFitWithItems = true,
             };
-            blackConditionNavigation2 = new Navigation(blackNavAttrs2);
+            blackConditionNavigation2 = new Controls.Navigation(blackNavAttrs2);
             blackConditionNavigation2.Position2D = new Position2D(1200, 300);
             blackConditionNavigation2.ItemChangedEvent += NavigationItemChangedEvent2;
 
@@ -648,7 +651,7 @@ namespace Tizen.FH.NUI.Samples
             };
             for (int i = 0; i < 3; i++)
             {
-                Navigation.NavigationItemData conditionItem2 = new Navigation.NavigationItemData(blackConditionItemAttr2);
+                Controls.Navigation.NavigationItemData conditionItem2 = new Controls.Navigation.NavigationItemData(blackConditionItemAttr2);
                 conditionItem2.Size2D = new Size2D(116, 128);
                 conditionItem2.Text = "Text " + i;
                 conditionItem2.SubText = "SubText " + i;
@@ -665,7 +668,7 @@ namespace Tizen.FH.NUI.Samples
             #endregion
             //////////White Edit Mode///////////////
             #region WhiteEditModeNavigation
-            NavigationAttributes editAttrs = new NavigationAttributes
+            Controls.NavigationAttributes editAttrs = new Controls.NavigationAttributes
             {
                 ShadowImageAttributes = new ImageAttributes
                 {
@@ -679,7 +682,7 @@ namespace Tizen.FH.NUI.Samples
                 BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 0.9f) },
                 IsFitWithItems = false,
             };
-            whiteEditNavigation2 = new Navigation(editAttrs);
+            whiteEditNavigation2 = new Controls.Navigation(editAttrs);
             whiteEditNavigation2.Size2D = new Size2D(178, 800);
             whiteEditNavigation2.Position2D = new Position2D(1400, 150);
 
@@ -724,7 +727,7 @@ namespace Tizen.FH.NUI.Samples
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 },
             };
-            Navigation.NavigationItemData firstEditItem2 = new Navigation.NavigationItemData(firstItemAttrs);
+            Controls.Navigation.NavigationItemData firstEditItem2 = new Controls.Navigation.NavigationItemData(firstItemAttrs);
             firstEditItem2.Size2D = new Size2D(178, 184);
             whiteEditNavigation2.AddItem(firstEditItem2);
 
@@ -755,7 +758,7 @@ namespace Tizen.FH.NUI.Samples
             };
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData(itemAttributes2);
+                Controls.Navigation.NavigationItemData editItem = new Controls.Navigation.NavigationItemData(itemAttributes2);
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -808,13 +811,13 @@ namespace Tizen.FH.NUI.Samples
                 },
             };
 
-            Navigation.NavigationItemData lastEditItem2 = new Navigation.NavigationItemData(lastItemAttrs);
+            Controls.Navigation.NavigationItemData lastEditItem2 = new Controls.Navigation.NavigationItemData(lastItemAttrs);
             lastEditItem2.Size2D = new Size2D(178, 166);
             whiteEditNavigation2.AddItem(lastEditItem2);
             #endregion
             //////////Black Edit Mode///////////////
             #region BlackEditModeNavigation
-            NavigationAttributes blackEditAttrs = new NavigationAttributes
+            Controls.NavigationAttributes blackEditAttrs = new Controls.NavigationAttributes
             {
                 ShadowImageAttributes = new ImageAttributes
                 {
@@ -828,7 +831,7 @@ namespace Tizen.FH.NUI.Samples
                 BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 0.9f) },
                 IsFitWithItems = false,
             };
-            blackEditNavigation2 = new Navigation(blackEditAttrs);
+            blackEditNavigation2 = new Controls.Navigation(blackEditAttrs);
             blackEditNavigation2.Size2D = new Size2D(178, 800);
             blackEditNavigation2.Position2D = new Position2D(1650, 150);
 
@@ -873,7 +876,7 @@ namespace Tizen.FH.NUI.Samples
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                 },
             };
-            Navigation.NavigationItemData blackFirstEditItem = new Navigation.NavigationItemData(blackFirstItemAttrs);
+            Controls.Navigation.NavigationItemData blackFirstEditItem = new Controls.Navigation.NavigationItemData(blackFirstItemAttrs);
             blackFirstEditItem.Size2D = new Size2D(178, 184);
             blackEditNavigation2.AddItem(blackFirstEditItem);
 
@@ -904,7 +907,7 @@ namespace Tizen.FH.NUI.Samples
             };
             for (int i = 0; i < 2; i++)
             {
-                Navigation.NavigationItemData editItem = new Navigation.NavigationItemData(blackItemAttributes);
+                Controls.Navigation.NavigationItemData editItem = new Controls.Navigation.NavigationItemData(blackItemAttributes);
                 editItem.Size2D = new Size2D(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
@@ -957,14 +960,14 @@ namespace Tizen.FH.NUI.Samples
                 },
             };
 
-            Navigation.NavigationItemData blackLastEditItem = new Navigation.NavigationItemData(blackLastItemAttrs);
+            Controls.Navigation.NavigationItemData blackLastEditItem = new Controls.Navigation.NavigationItemData(blackLastItemAttrs);
             blackLastEditItem.Size2D = new Size2D(178, 166);
             blackEditNavigation2.AddItem(blackLastEditItem);
             #endregion
             #endregion
         }
 
-        private void NavigationItemChangedEvent(object sender, Navigation.ItemChangeEventArgs e)
+        private void NavigationItemChangedEvent(object sender, Controls.Navigation.ItemChangeEventArgs e)
         {
             createText[0].Text = "Create Navigation just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
@@ -1070,7 +1073,7 @@ namespace Tizen.FH.NUI.Samples
             }
         }
 
-        private void NavigationItemChangedEvent2(object sender, Navigation.ItemChangeEventArgs e)
+        private void NavigationItemChangedEvent2(object sender, Controls.Navigation.ItemChangeEventArgs e)
         {
             createText[1].Text = "Create Navigation just by Attributes, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }

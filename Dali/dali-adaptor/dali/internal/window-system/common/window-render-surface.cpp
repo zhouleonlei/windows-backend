@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,6 +82,11 @@ WindowRenderSurface::~WindowRenderSurface()
   if( mRotationTrigger )
   {
     delete mRotationTrigger;
+  }
+
+  if ( mEGLSurface )
+  {
+    DestroySurface();
   }
 }
 
@@ -229,7 +234,10 @@ void WindowRenderSurface::CreateSurface()
   // Check rotation capability
   mRotationSupported = mWindowBase->IsEglWindowRotationSupported();
 
-  DALI_LOG_INFO( gWindowRenderSurfaceLogFilter, Debug::Verbose, "WindowRenderSurface::CreateSurface: w = %d h = %d angle = %d screen rotation = %d\n", mPositionSize.width, mPositionSize.height, mRotationAngle, mScreenRotationAngle );
+  int screenWidth, screenHeight;
+  WindowSystem::GetScreenSize( screenWidth, screenHeight );
+  DALI_LOG_RELEASE_INFO("WindowRenderSurface::CreateSurface: w = %d h = %d screenWidth = %d screenHeight = %d angle = %d screen rotation = %d\n",
+      mPositionSize.width, mPositionSize.height, screenWidth, screenHeight, mRotationAngle, mScreenRotationAngle );
 }
 
 void WindowRenderSurface::DestroySurface()
@@ -331,7 +339,6 @@ bool WindowRenderSurface::PreRender( bool resizingSurface )
 
   if( resizingSurface )
   {
-#ifdef OVER_TIZEN_VERSION_4
     // Window rotate or screen rotate
     if( !mRotationFinished || !mScreenRotationFinished )
     {
@@ -351,7 +358,6 @@ bool WindowRenderSurface::PreRender( bool resizingSurface )
     {
       mWindowBase->SetEglWindowTransform( mRotationAngle );
     }
-#endif
 
     // Resize case
     if( !mResizeFinished )

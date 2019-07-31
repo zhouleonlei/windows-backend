@@ -4,11 +4,11 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class TabSample : IExample
+    public class Tab : IExample
     {
         private SampleLayout root;
-        private Tab tab = null;
-        private Button[] button = new Button[2];
+        private Tizen.NUI.CommonUI.Tab tab = null;
+        private Tizen.NUI.CommonUI.Button[] button = new Tizen.NUI.CommonUI.Button[2];
         private int num = 2;
 
         private static string[] mode = new string[]
@@ -19,10 +19,11 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "Tab";
 
-            tab = new Tab("Tab");
+            tab = new Tizen.NUI.CommonUI.Tab("Tab");
             tab.IsNatureTextWidth = false;
             tab.Size2D = new Size2D(1080, 108);
             tab.Position2D = new Position2D(0, 300);
@@ -31,9 +32,9 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Tab.TabItemData item = new Tab.TabItemData();
+                Tizen.NUI.CommonUI.Tab.TabItemData item = new Tizen.NUI.CommonUI.Tab.TabItemData();
                 item.Text = "Tab " + i;
-                if(i == 1)
+                if (i == 1)
                 {
                     item.Text = "Long long Tab " + i;
                 }
@@ -42,7 +43,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < num; i++)
             {
-                button[i] = new Button("ServiceButton");
+                button[i] = new Tizen.NUI.CommonUI.Button("ServiceButton");
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(280 + i * 260, 700);
                 button[i].Text = mode[i];
@@ -76,10 +77,10 @@ namespace Tizen.FH.NUI.Samples
             }
         }
 
-        private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
-            Button btn = sender as Button;
-            if(button[0] == btn)
+            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
+            if (button[0] == btn)
             {
                 tab.IsNatureTextWidth = false;
             }

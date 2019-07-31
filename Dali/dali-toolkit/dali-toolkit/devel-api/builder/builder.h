@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_UIBUILDER_H__
-#define __DALI_TOOLKIT_UIBUILDER_H__
+#ifndef DALI_TOOLKIT_UIBUILDER_H
+#define DALI_TOOLKIT_UIBUILDER_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -394,15 +394,6 @@ class DALI_TOOLKIT_API Builder : public BaseHandle
   void CreateRenderTask( const std::string &name );
 
   /**
-   * Get or create FrameBufferImage from the FrameBufferImage instance library.
-   * An empty handle is returned otherwise.
-   * @pre The Builder has been initialized.
-   * @param name The name of a FrameBufferImage in the loaded representation
-   * @return A handle to a FrameBufferImage if found, otherwise empty
-   */
-  FrameBufferImage GetFrameBufferImage( const std::string &name );
-
-  /**
    * Get or create Path from the Path instance library.
    * An empty handle is returned otherwise.
    * @pre The Builder has been initialized.
@@ -456,4 +447,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_UIBUILDER_H__
+#endif // DALI_TOOLKIT_UIBUILDER_H

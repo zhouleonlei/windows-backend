@@ -5,23 +5,25 @@ using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class InputFieldSample : IExample
+    public class InputField : IExample
     {
         private const int COUNT = 2;
         private Tizen.FH.NUI.Controls.InputField[] inputFieldArr;
         private TextLabel guideText;
         private SampleLayout rootView;
         private int posY;
-        private Button button;
+        private Tizen.NUI.CommonUI.Button button;
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             posY = 100;
             inputFieldArr = new Tizen.FH.NUI.Controls.InputField[COUNT];
             CreateRootView();
             CreateFamily();
             CreateGuideText();
-            button = new Button();
+            button = new Tizen.NUI.CommonUI.Button();
+            button.PointSize = 14;
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;
             button.Position2D = new Position2D(200, 0);
@@ -62,6 +64,16 @@ namespace Tizen.FH.NUI.Samples
             inputFieldArr[0].HintText = "DefaultInputField";
             inputFieldArr[0].CancelButtonClickEvent += OnCancelBtnClickEvent;
             inputFieldArr[0].KeyEvent += OnKeyEvent;
+
+            inputFieldArr[0].FocusGained += (object sender, EventArgs e) =>
+            {
+                Tizen.Log.Fatal("NUI", "Field0 get focus");
+            };
+
+            inputFieldArr[0].FocusLost += (object sender, EventArgs e) =>
+            {
+                Tizen.Log.Fatal("NUI", "Field0 lost focus");
+            };
 
             posY += 100;
             inputFieldArr[1] = new Tizen.FH.NUI.Controls.InputField("StyleBInputField");
@@ -141,6 +153,8 @@ namespace Tizen.FH.NUI.Samples
         {
             if (e.Key.State == Key.StateType.Down)
             {
+                Tizen.Log.Fatal("NUI", "OnKeyEvent Key is " + e.Key.KeyPressedName);
+
                 Tizen.FH.NUI.Controls.InputField inputField = sender as Tizen.FH.NUI.Controls.InputField;
                 if (inputField != null)
                 {

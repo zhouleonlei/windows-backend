@@ -23,28 +23,31 @@
 #include <dali/public-api/object/base-object.h>
 #include <dali/public-api/actors/layer.h>
 #include <dali/public-api/render-tasks/render-task-list.h>
-#include <dali/integration-api/scene.h>
+
+#ifdef DALI_ADAPTOR_COMPILATION
+#include <dali/integration-api/scene-holder-impl.h>
+#else
+#include <dali/integration-api/adaptors/scene-holder-impl.h>
+#endif
 
 // INTERNAL INCLUDES
-#include <dali/internal/adaptor/common/lifecycle-observer.h>
 #include <dali/internal/adaptor/common/adaptor-impl.h>
 #include <dali/public-api/adaptor-framework/window.h>
 #include <dali/public-api/adaptor-framework/key-grab.h>
-#include <dali/devel-api/adaptor-framework/drag-and-drop-detector.h>
 #include <dali/devel-api/adaptor-framework/window-devel.h>
+#include <dali/internal/window-system/common/event-handler.h>
 
 namespace Dali
 {
 class Adaptor;
 class Actor;
+class RenderSurfaceInterface;
 
 namespace Internal
 {
 namespace Adaptor
 {
-class EventHandler;
 class Orientation;
-class RotationObserver;
 class WindowRenderSurface;
 class WindowBase;
 
@@ -56,7 +59,7 @@ using EventHandlerPtr = IntrusivePtr< EventHandler >;
 /**
  * Window provides a surface to render onto with orientation & indicator properties.
  */
-class Window : public Dali::BaseObject, public LifeCycleObserver, public ConnectionTracker
+class Window : public Dali::Internal::Adaptor::SceneHolder, public EventHandler::Observer, public ConnectionTracker
 {
 public:
   typedef Dali::Window::IndicatorSignalType IndicatorSignalType;
@@ -73,30 +76,6 @@ public:
    * @return A newly allocated Window
    */
   static Window* New(const PositionSize& positionSize, const std::string& name, const std::string& className, bool isTransparent = false);
-
-  /**
-   * Pass the adaptor back to the overlay. This allows the window to access Core's overlay.
-   * @param[in] adaptor An initialized adaptor
-   */
-  void SetAdaptor(Dali::Adaptor& adaptor);
-
-  /**
-   * Pass the adaptor back to the overlay. This allows the window to access Core's overlay.
-   * @param[in] adaptor implementation An initialized adaptor implementation
-   */
-  void SetAdaptor(Adaptor& adaptor);
-
-  /**
-   * Get the window surface
-   * @return The render surface
-   */
-  WindowRenderSurface* GetSurface() const;
-
-  /**
-   * Set the window surface
-   * @param[in] surface The surface
-   */
-  void SetSurface(WindowRenderSurface* surface);
 
   /**
    * @copydoc Dali::Window::ShowIndicator()
@@ -117,12 +96,6 @@ public:
    * @copydoc Dali::Window::SetClass()
    */
   void SetClass( std::string name, std::string className );
-
-  /**
-   * @brief Gets the window name.
-   * @return The name of the window
-   */
-  std::string GetName() const;
 
   /**
    * @brief Gets the window class name.
@@ -146,31 +119,6 @@ public:
   void Activate();
 
   /**
-   * @copydoc Dali::Window::Add()
-   */
-  void Add( Dali::Actor actor );
-
-  /**
-   * @copydoc Dali::Window::Remove()
-   */
-  void Remove( Dali::Actor remove );
-
-  /**
-   * @copydoc Dali::Window::SetBackgroundColor()
-   */
-  void SetBackgroundColor(Vector4 color);
-
-  /**
-   * @copydoc Dali::Window::GetBackgroundColor()
-   */
-  Vector4 GetBackgroundColor() const;
-
-  /**
-   * @copydoc Dali::Window::GetRootLayer()
-   */
-  Dali::Layer GetRootLayer() const;
-
-  /**
    * @copydoc Dali::Window::GetLayerCount()
    */
   uint32_t GetLayerCount() const;
@@ -179,6 +127,11 @@ public:
    * @copydoc Dali::Window::GetLayer()
    */
   Dali::Layer GetLayer( uint32_t depth ) const;
+
+  /**
+   * @copydoc Dali::DevelWindow::GetRenderTaskList()
+   */
+  Dali::RenderTaskList GetRenderTaskList() const;
 
   /**
    * @copydoc Dali::Window::AddAvailableOrientation()
@@ -211,16 +164,6 @@ public:
   Dali::Window::WindowOrientation GetPreferredOrientation();
 
   /**
-   * @copydoc Dali::Window::GetDragAndDropDetector() const
-   */
-  Dali::DragAndDropDetector GetDragAndDropDetector() const;
-
-  /**
-   * @copydoc Dali::Window::GetNativeHandle() const
-   */
-  Dali::Any GetNativeHandle() const;
-
-  /**
    * @copydoc Dali::Window::SetAcceptFocus()
    */
   void SetAcceptFocus( bool accept );
@@ -239,11 +182,6 @@ public:
    * @copydoc Dali::Window::Hide()
    */
   void Hide();
-
-  /**
-   * @copydoc Dali::Window::IsVisible() const
-   */
-  bool IsVisible() const;
 
   /**
    * @copydoc Dali::Window::GetSupportedAuxiliaryHintCount()
@@ -361,9 +299,9 @@ public:
   void SetPositionSize( PositionSize positionSize );
 
   /**
-   * @copydoc Dali::DevelWindow::GetRootLayer()
+   * @copydoc Dali::Window::GetRootLayer()
    */
-  Dali::Layer GetRootLayer();
+  Dali::Layer GetRootLayer() const;
 
   /**
    * @copydoc Dali::Window::SetTransparency()
@@ -391,50 +329,21 @@ public:
   bool UngrabKeyList( const Dali::Vector< Dali::KEY >& key, Dali::Vector< bool >& result );
 
   /**
-   * Called from Orientation after the Change signal has been sent
+   * @copydoc Dali::DevelWindow::Get()
    */
-  void RotationDone( int orientation, int width, int height );
+  static Dali::Window Get( Dali::Actor actor );
+
+public: // Dali::Internal::Adaptor::SceneHolder
 
   /**
-   * @brief Retrieves the unique ID of the window.
-   * @return The ID
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::GetNativeHandle
    */
-  uint32_t GetId() const;
+  Dali::Any GetNativeHandle() const override;
 
   /**
-   * Feed (Send) touch event to core and gesture manager
-   * @param[in] touchEvent  The touch event holding the touch point information.
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::IsVisible
    */
-  void FeedTouchPoint( TouchPoint& point, int timeStamp );
-
-  /**
-   * Feed (Send) wheel event to core and gesture manager
-   * @param[in]  wheelEvent The wheel event
-   */
-  void FeedWheelEvent( WheelEvent& wheelEvent );
-
-  /**
-   * Feed (Send) key event to core
-   * @param[in] keyEvent The key event holding the key information.
-   */
-  void FeedKeyEvent( KeyEvent& keyEvent );
-
-  /**
-   * Called when the adaptor is paused.
-   */
-  void Pause();
-
-  /**
-   * Called when the adaptor is resumed (from pause).
-   */
-  void Resume();
-
-  /**
-   * Set the rotation observer (note, some adaptors may not have a rotation observer)
-   * @param[in] observer The rotation observer
-   * @return If the rotation observer is set
-   */
-  bool SetRotationObserver( RotationObserver* observer );
+  bool IsVisible() const override;
 
 private:
 
@@ -474,32 +383,54 @@ private:
    */
   void OnDeleteRequest();
 
-private: // Adaptor::Observer interface
+private: // Dali::Internal::Adaptor::SceneHolder
 
   /**
-   * @copydoc Dali::Internal::Adaptor::Adaptor::Observer::OnStart()
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::OnAdaptorSet
    */
-  virtual void OnStart();
+  void OnAdaptorSet( Dali::Adaptor& adaptor ) override;
 
   /**
-   * @copydoc Dali::Internal::Adaptor::Adaptor::Observer::OnPause()
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::OnSurfaceSet
    */
-  virtual void OnPause();
+  void OnSurfaceSet( Dali::RenderSurfaceInterface* surface ) override;
 
   /**
-   * @copydoc Dali::Internal::Adaptor::Adaptor::Observer::OnResume()
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::OnPause
    */
-  virtual void OnResume();
+  void OnPause() override;
 
   /**
-   * @copydoc Dali::Internal::Adaptor::Adaptor::Observer::OnStop()
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::OnResume
    */
-  virtual void OnStop();
+  void OnResume() override;
 
   /**
-   * @copydoc Dali::Internal::Adaptor::Adaptor::Observer::OnDestroy()
+   * @copydoc Dali::Internal::Adaptor::SceneHolder::RecalculateTouchPosition
    */
-  virtual void OnDestroy();
+  void RecalculateTouchPosition( Integration::Point& point ) override;
+
+private: // Dali::Internal::Adaptor::EventHandler::Observer
+
+  /**
+   * @copydoc Dali::Internal::Adaptor::EventHandler::Observer::OnTouchPoint
+   */
+  void OnTouchPoint( Dali::Integration::Point& point, int timeStamp ) override;
+
+  /**
+   * @copydoc Dali::Internal::Adaptor::EventHandler::Observer::OnWheelEvent
+   */
+  void OnWheelEvent( Dali::Integration::WheelEvent& wheelEvent ) override;
+
+  /**
+   * @copydoc Dali::Internal::Adaptor::EventHandler::Observer::OnKeyEvent
+   */
+  void OnKeyEvent( Dali::Integration::KeyEvent& keyEvent ) override;
+
+  /**
+   * @copydoc Dali::Internal::Adaptor::EventHandler::Observer::OnRotation
+   */
+  void OnRotation( const RotationEvent& rotation ) override;
 
 public: // Signals
 
@@ -545,31 +476,26 @@ public: // Signals
 
 private:
 
-  static uint32_t                       mWindowCounter;    ///< A counter to track the window creation
-  uint32_t                              mId;               ///< A unique ID to identify the window starting from 0
-  std::unique_ptr< WindowRenderSurface >mSurface;          ///< The window rendering surface
-  Dali::Integration::Scene              mScene;
+  WindowRenderSurface*                  mWindowSurface;      ///< The window rendering surface
   WindowBase*                           mWindowBase;
   std::string                           mName;
   std::string                           mClassName;
-  bool                                  mStarted:1;
   bool                                  mIsTransparent:1;
   bool                                  mIsFocusAcceptable:1;
-  bool                                  mVisible:1;
   bool                                  mIconified:1;
   bool                                  mOpaqueState:1;
   bool                                  mResizeEnabled:1;
-  Adaptor*                              mAdaptor;
-  Dali::DragAndDropDetector             mDragAndDropDetector;
   Dali::Window::Type                    mType;
 
   OrientationPtr                               mOrientation;
   std::vector<Dali::Window::WindowOrientation> mAvailableOrientations;
   Dali::Window::WindowOrientation              mPreferredOrientation;
 
-  EventHandlerPtr                       mEventHandler;      ///< The window events handler
+  int                                   mRotationAngle;     ///< The angle of the rotation
+  int                                   mWindowWidth;       ///< The width of the window
+  int                                   mWindowHeight;      ///< The height of the window
 
-  Vector4                               mBackgroundColor;
+  EventHandlerPtr                       mEventHandler;      ///< The window events handler
 
   // Signals
   IndicatorSignalType                   mIndicatorVisibilityChangedSignal;

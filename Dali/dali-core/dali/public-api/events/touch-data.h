@@ -1,8 +1,8 @@
-#ifndef __DALI_TOUCH_DATA_H__
-#define __DALI_TOUCH_DATA_H__
+#ifndef DALI_TOUCH_DATA_H
+#define DALI_TOUCH_DATA_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -223,7 +223,7 @@ public:
   Degree GetAngle( std::size_t point ) const;
 
   /**
-   * @brief Get the device class type the mouse/touch event originated from.
+   * @brief Gets the device class type from which the mouse/touch event is originated.
    *
    * The device class type is classification type of the input device of event received.
    * @SINCE_1_2.60
@@ -233,7 +233,7 @@ public:
   Device::Class::Type GetDeviceClass( std::size_t point ) const;
 
   /**
-   * @brief Get the device subclass type the mouse/touch event originated from.
+   * @brief Gets the subclass type of the device from which the mouse/touch event is originated.
    *
    * The device subclass type is subclassification type of the input device of event received.
    * @SINCE_1_2.60
@@ -244,7 +244,7 @@ public:
 
 
   /**
-   * @brief Get mouse device's button value (ex: right/left button)
+   * @brief Gets the value, which indicates a mouse button. (ex: right/left button)
    *
    * @SINCE_1_3_31
    * @param[in] point The point required
@@ -271,4 +271,4 @@ public: // Not intended for application developers
  */
 } // namespace Dali
 
-#endif // __DALI_TOUCH_DATA_H__
+#endif // DALI_TOUCH_DATA_H

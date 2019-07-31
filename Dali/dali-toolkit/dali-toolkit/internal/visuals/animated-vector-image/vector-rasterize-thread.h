@@ -112,29 +112,18 @@ public:
   void SetLoopCount( int32_t count );
 
   /**
-   * @brief Gets the loop count. -1 means to repeat forever.
-   * @return The number of times to loop
-   */
-  int32_t GetLoopCount() const;
-
-  /**
-   * @brief Set the playing range.
-   * @param[in] range Two values between [0,1] to specify minimum and maximum progress.
+   * @brief Set the playing range in frame number.
+   * @param[in] startFrame The frame number to specify minimum progress.
+   * @param[in] endFrame The frame number to specify maximum progress.
    * The animation will play between those values.
    */
-  void SetPlayRange( Vector2 range );
-
-  /**
-   * @brief Gets the playing range.
-   * @return The play range defined for the animation
-   */
-  Vector2 GetPlayRange() const;
+  void SetPlayRange( uint32_t startFrame, uint32_t endFrame );
 
   /**
    * @brief Get the play state
    * @return The play state
    */
-  DevelImageVisual::PlayState GetPlayState() const;
+  DevelImageVisual::PlayState::Type GetPlayState() const;
 
   /**
    * @brief Queries whether the resource is ready.
@@ -143,22 +132,41 @@ public:
   bool IsResourceReady() const;
 
   /**
-   * @brief Sets the progress of the animation.
-   * @param[in] progress The new progress as a normalized value between [0,1] or between the play range if specified.
+   * @brief Sets the current frame number of the animation.
+   * @param[in] frameNumber The new frame number between [0, the maximum frame number] or between the play range if specified.
    */
-  void SetCurrentProgress( float progress );
+  void SetCurrentFrameNumber( uint32_t frameNumber );
 
   /**
-   * @brief Retrieves the current progress of the animation.
-   * @return The current progress as a normalized value between [0,1]
+   * @brief Retrieves the current frame number of the animation.
+   * @return The current frame number
    */
-  float GetCurrentProgress() const;
+  uint32_t GetCurrentFrameNumber() const;
+
+  /**
+   * @brief Retrieves the total frame number of the animation.
+   * @return The total frame number
+   */
+  uint32_t GetTotalFrameNumber() const;
 
   /**
    * @brief Gets the default size of the file,.
    * @return The default size of the file
    */
   void GetDefaultSize( uint32_t& width, uint32_t& height ) const;
+
+  /**
+   * @brief Sets the stop behavior of the animation. This is performed when the animation is stopped.
+   * @param[in] stopBehavior The stop behavior
+   */
+  void SetStopBehavior( DevelImageVisual::StopBehavior::Type stopBehavior );
+
+  /**
+   * @brief Sets the looping mode.
+   * Animation plays forwards and then restarts from the beginning or runs backwards again.
+   * @param[in] loopingMode The looping mode
+   */
+  void SetLoopingMode( DevelImageVisual::LoopingMode::Type loopingMode );
 
 protected:
 
@@ -171,14 +179,19 @@ protected:
 private:
 
   /**
-   * @brief Initialize the vector renderer.
+   * @brief Initializes the vector renderer.
    */
   void Initialize();
 
   /**
-   * @brief Rasterize the current frame.
+   * @brief Rasterizes the current frame.
    */
   void Rasterize();
+
+  /**
+   * @brief Gets the frame number when the animation is stopped according to the stop behavior.
+   */
+  uint32_t GetStoppedFrame( uint32_t startFrame, uint32_t endFrame, uint32_t currentFrame );
 
   // Undefined
   VectorRasterizeThread( const VectorRasterizeThread& thread ) = delete;
@@ -188,15 +201,24 @@ private:
 
 private:
 
+  enum class PlayState
+  {
+    STOPPING,  ///< The animation is stopping
+    STOPPED,   ///< The animation has stopped
+    PLAYING,   ///< The animation is playing
+    PAUSED     ///< The animation is paused
+  };
+
   std::string                 mUrl;
   VectorAnimationRenderer     mVectorRenderer;
   ConditionalWait             mConditionalWait;
   std::unique_ptr< EventThreadCallback > mResourceReadyTrigger;
   std::unique_ptr< EventThreadCallback > mAnimationFinishedTrigger;
   Vector2                     mPlayRange;
-  DevelImageVisual::PlayState mPlayState;
+  PlayState                   mPlayState;
+  DevelImageVisual::StopBehavior::Type mStopBehavior;
+  DevelImageVisual::LoopingMode::Type mLoopingMode;
   int64_t                     mFrameDurationNanoSeconds;
-  float                       mProgress;
   float                       mFrameRate;
   uint32_t                    mCurrentFrame;
   uint32_t                    mTotalFrame;
@@ -210,6 +232,8 @@ private:
   bool                        mDestroyThread;  ///< Whether the thread be destroyed
   bool                        mResourceReady;
   bool                        mCurrentFrameUpdated;
+  bool                        mForward;
+  bool                        mUpdateFrameNumber;
   const Dali::LogFactoryInterface& mLogFactory; ///< The log factory
 
 };

@@ -74,7 +74,7 @@ namespace Tizen.FH.NUI
         /// </summary>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public FHNUIApplication(string styleSheet, WindowMode windowMode = WindowMode.Opaque) : base("", windowMode)
+        public FHNUIApplication(string styleSheet, WindowMode windowMode = WindowMode.Opaque) : base(styleSheet, windowMode)
         {
         }
 

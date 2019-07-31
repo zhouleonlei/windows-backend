@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H__
-#define __DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H__
+#ifndef DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H
+#define DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,11 +76,11 @@ public:
    * @param[in] path The path that will be used by the scroll effect
    * @param[in] forward Vector in page object space which will be aligned with the tangent of the path
    * @param[in] inputPropertyIndex Index of a property of the scroll-view which will be used as the input for the path
-   * @param[in] pageSize Size of a page in the scrollview
+   * @param[in] viewPageSize Size of a page in the scrollview
    * @param[in] pageCount Total number of pages in the scrollview
    * @return A handle to a newly allocated Dali resource
    */
-  static ScrollViewPagePathEffect New(Path path, const Vector3& forward, Dali::Property::Index inputPropertyIndex, const Vector3& pageSize, unsigned int pageCount);
+  static ScrollViewPagePathEffect New(Path path, const Vector3& forward, Dali::Property::Index inputPropertyIndex, const Vector3& viewPageSize, unsigned int pageCount);
 
   /**
    * @brief Creates an uninitialized ScrollViewPagePathEffect; this can be initialized with ScrollViewPagePathEffect::New().
@@ -128,4 +128,4 @@ protected:
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H__
+#endif // DALI_TOOLKIT_SCROLL_VIEW_PAGE_PATH_EFFECT_H

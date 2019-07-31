@@ -18,6 +18,7 @@ using System;
 using Tizen.NUI.BaseComponents;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI
 {
@@ -29,6 +30,7 @@ namespace Tizen.NUI
     public class Layer : Container
     {
         private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+        private Window window;
 
         /// <summary>
         /// Creates a Layer object.
@@ -136,7 +138,7 @@ namespace Tizen.NUI
                 else
                 {
                     // Clipping not enabled so return the window size
-                    Size2D windowSize = Window.Instance.Size;
+                    Size2D windowSize = window?.Size;
                     Rectangle ret = new Rectangle(0, 0, windowSize.Width, windowSize.Height);
                     return ret;
                 }
@@ -245,6 +247,20 @@ namespace Tizen.NUI
             }
         }
 
+        /// This will be public opened in tizen_next after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ResourceDictionary XamlResources
+        {
+            get
+            {
+                return Application.Current.XamlResources;
+            }
+            set
+            {
+                Application.Current.XamlResources = value;
+            }
+        }
+
         /// From the Container base class.
 
         /// <summary>
@@ -271,6 +287,7 @@ namespace Tizen.NUI
                 if (NDalicPINVOKE.SWIGPendingException.Pending)
                     throw NDalicPINVOKE.SWIGPendingException.Retrieve();
                 Children.Add(child);
+                BindableObject.SetInheritedBindingContext(child, this?.BindingContext);
             }
         }
 
@@ -366,6 +383,11 @@ namespace Tizen.NUI
             return ret;
         }
 
+        internal override View FindCurrentChildById(uint id)
+        {
+            return FindChildById(id);
+        }
+
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public View FindChildByName(string viewName)
@@ -388,7 +410,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public void Raise()
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
             if (parentChildren != null)
             {
                 int currentIdx = parentChildren.IndexOf(this);
@@ -407,7 +429,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public void Lower()
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
             if (parentChildren != null)
             {
                 int currentIdx = parentChildren.IndexOf(this);
@@ -426,7 +448,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public void RaiseToTop()
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
 
             if (parentChildren != null)
             {
@@ -444,7 +466,7 @@ namespace Tizen.NUI
         /// <since_tizen> 3 </since_tizen>
         public void LowerToBottom()
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
 
             if (parentChildren != null)
             {
@@ -486,14 +508,36 @@ namespace Tizen.NUI
             return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
         }
 
-        internal void SetAnchorPoint(Vector3 anchorPoint)
+        /// This will be public opened in next tizen after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetAnchorPoint(Vector3 anchorPoint)
         {
             Interop.Actor.Actor_SetAnchorPoint(swigCPtr, Vector3.getCPtr(anchorPoint));
             if (NDalicPINVOKE.SWIGPendingException.Pending)
                 throw NDalicPINVOKE.SWIGPendingException.Retrieve();
         }
 
-        internal void SetResizePolicy(ResizePolicyType policy, DimensionType dimension)
+        /// This will be public opened in next tizen after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetSize(float width, float height)
+        {
+            Interop.ActorInternal.Actor_SetSize__SWIG_0(swigCPtr, width, height);
+            if (NDalicPINVOKE.SWIGPendingException.Pending)
+                throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// This will be public opened in next tizen after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetParentOrigin(Vector3 parentOrigin)
+        {
+            Interop.ActorInternal.Actor_SetParentOrigin(swigCPtr, Vector3.getCPtr(parentOrigin));
+            if (NDalicPINVOKE.SWIGPendingException.Pending)
+                throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        /// This will be public opened in next tizen after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetResizePolicy(ResizePolicyType policy, DimensionType dimension)
         {
             Interop.Actor.Actor_SetResizePolicy(swigCPtr, (int)policy, (int)dimension);
             if (NDalicPINVOKE.SWIGPendingException.Pending)
@@ -502,7 +546,7 @@ namespace Tizen.NUI
 
         internal uint GetDepth()
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
             if (parentChildren != null)
             {
                 int idx = parentChildren.IndexOf(this);
@@ -515,7 +559,7 @@ namespace Tizen.NUI
         }
         internal void RaiseAbove(Layer target)
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
             if (parentChildren != null)
             {
                 int currentIndex = parentChildren.IndexOf(this);
@@ -542,7 +586,7 @@ namespace Tizen.NUI
 
         internal void LowerBelow(Layer target)
         {
-            var parentChildren = Window.Instance.LayersChildren;
+            var parentChildren = window?.LayersChildren;
 
             if (parentChildren != null)
             {
@@ -624,6 +668,11 @@ namespace Tizen.NUI
             Interop.Actor.Actor_SetName(swigCPtr, name);
             if (NDalicPINVOKE.SWIGPendingException.Pending)
                 throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+        }
+
+        internal void SetWindow(Window win)
+        {
+            window = win;
         }
 
         /// <summary>

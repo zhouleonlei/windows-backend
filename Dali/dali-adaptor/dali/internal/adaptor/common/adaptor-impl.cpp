@@ -29,7 +29,9 @@
 #include <dali/integration-api/context-notifier.h>
 #include <dali/integration-api/profiling.h>
 #include <dali/integration-api/input-options.h>
+#include <dali/integration-api/events/key-event-integ.h>
 #include <dali/integration-api/events/touch-event-integ.h>
+#include <dali/integration-api/events/wheel-event-integ.h>
 #include <dali/integration-api/processor-interface.h>
 
 // INTERNAL INCLUDES
@@ -46,14 +48,12 @@
 #include <dali/internal/system/common/callback-manager.h>
 #include <dali/internal/accessibility/common/tts-player-impl.h>
 #include <dali/internal/accessibility/common/accessibility-adaptor-impl.h>
-#include <dali/internal/input/common/gesture-manager.h>
 #include <dali/internal/window-system/common/event-handler.h>
 #include <dali/internal/graphics/gles/gl-proxy-implementation.h>
 #include <dali/internal/graphics/gles/gl-implementation.h>
 #include <dali/internal/graphics/gles/egl-sync-implementation.h>
 #include <dali/internal/graphics/common/egl-image-extensions.h>
 #include <dali/internal/clipboard/common/clipboard-impl.h>
-#include <dali/internal/graphics/common/vsync-monitor.h>
 #include <dali/internal/system/common/object-profiler.h>
 #include <dali/internal/window-system/common/display-connection.h>
 #include <dali/internal/window-system/common/window-impl.h>
@@ -82,7 +82,7 @@ namespace
 thread_local Adaptor* gThreadLocalAdaptor = NULL; // raw thread specific pointer to allow Adaptor::Get
 } // unnamed namespace
 
-Dali::Adaptor* Adaptor::New( Dali::Window window, Dali::RenderSurfaceInterface *surface, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
+Dali::Adaptor* Adaptor::New( Dali::Integration::SceneHolder window, Dali::RenderSurfaceInterface *surface, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
 {
   Dali::Adaptor* adaptor = new Dali::Adaptor;
   Adaptor* impl = new Adaptor( window, *adaptor, surface, environmentOptions );
@@ -97,15 +97,15 @@ Dali::Adaptor* Adaptor::New( Dali::Window window, Dali::RenderSurfaceInterface *
   return adaptor;
 }
 
-Dali::Adaptor* Adaptor::New( Dali::Window window, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
+Dali::Adaptor* Adaptor::New( Dali::Integration::SceneHolder window, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
 {
-  Window& windowImpl = Dali::GetImplementation( window );
+  Internal::Adaptor::SceneHolder& windowImpl = Dali::GetImplementation( window );
   Dali::Adaptor* adaptor = New( window, windowImpl.GetSurface(), configuration, environmentOptions );
   windowImpl.SetAdaptor( *adaptor );
   return adaptor;
 }
 
-Dali::Adaptor* Adaptor::New( GraphicsFactory& graphicsFactory, Dali::Window window, Dali::RenderSurfaceInterface *surface, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
+Dali::Adaptor* Adaptor::New( GraphicsFactory& graphicsFactory, Dali::Integration::SceneHolder window, Dali::RenderSurfaceInterface *surface, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
 {
   Dali::Adaptor* adaptor = new Dali::Adaptor; // Public adaptor
   Adaptor* impl = new Adaptor( window, *adaptor, surface, environmentOptions ); // Impl adaptor
@@ -116,9 +116,9 @@ Dali::Adaptor* Adaptor::New( GraphicsFactory& graphicsFactory, Dali::Window wind
   return adaptor;
 } // Called second
 
-Dali::Adaptor* Adaptor::New( GraphicsFactory& graphicsFactory, Dali::Window window, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
+Dali::Adaptor* Adaptor::New( GraphicsFactory& graphicsFactory, Dali::Integration::SceneHolder window, Dali::Configuration::ContextLoss configuration, EnvironmentOptions* environmentOptions )
 {
-  Window& windowImpl = Dali::GetImplementation( window );
+  Internal::Adaptor::SceneHolder& windowImpl = Dali::GetImplementation( window );
   Dali::Adaptor* adaptor = New( graphicsFactory, window, windowImpl.GetSurface(), configuration, environmentOptions );
   windowImpl.SetAdaptor( *adaptor );
   return adaptor;
@@ -155,13 +155,9 @@ void Adaptor::Initialize( GraphicsFactory& graphicsFactory, Dali::Configuration:
 
   mCallbackManager = CallbackManager::New();
 
-  WindowPtr defaultWindow = mWindows.front();
+  Dali::Internal::Adaptor::SceneHolder* defaultWindow = mWindows.front();
 
   DALI_ASSERT_DEBUG( defaultWindow->GetSurface() && "Surface not initialized" );
-
-  PositionSize size = defaultWindow->GetSurface()->GetPositionSize();
-
-  mGestureManager = new GestureManager(*this, Vector2(static_cast<float>(size.width), static_cast<float>(size.height)), mCallbackManager, *mEnvironmentOptions);
 
   mGraphics = &( graphicsFactory.Create() );
   mGraphics->Initialize( mEnvironmentOptions );
@@ -173,18 +169,25 @@ void Adaptor::Initialize( GraphicsFactory& graphicsFactory, Dali::Configuration:
 
   GlImplementation& mGLES = eglGraphics->GetGlesInterface();
   EglSyncImplementation& eglSyncImpl = eglGraphics->GetSyncImplementation();
+  EglContextHelperImplementation& eglContextHelperImpl = eglGraphics->GetContextHelperImplementation();
 
   mCore = Integration::Core::New( *this,
                                   *mPlatformAbstraction,
                                   mGLES,
                                   eglSyncImpl,
-                                  *mGestureManager,
+                                  eglContextHelperImpl,
                                   dataRetentionPolicy ,
                                   ( 0u != mEnvironmentOptions->GetRenderToFboInterval() ) ? Integration::RenderToFrameBuffer::TRUE : Integration::RenderToFrameBuffer::FALSE,
                                   mGraphics->GetDepthBufferRequired(),
                                   mGraphics->GetStencilBufferRequired() );
 
-  defaultWindow->SetAdaptor( *this );
+  defaultWindow->SetAdaptor( Get() );
+
+  Dali::Window window( dynamic_cast<Dali::Internal::Adaptor::Window*>( defaultWindow ) );
+  if ( window )
+  {
+    mWindowCreatedSignal.Emit( window );
+  }
 
   const unsigned int timeInterval = mEnvironmentOptions->GetObjectProfilerInterval();
   if( 0u < timeInterval )
@@ -193,8 +196,6 @@ void Adaptor::Initialize( GraphicsFactory& graphicsFactory, Dali::Configuration:
   }
 
   mNotificationTrigger = mTriggerEventFactory.CreateTriggerEvent( MakeCallback( this, &Adaptor::ProcessCoreEvents ), TriggerEventInterface::KEEP_ALIVE_AFTER_TRIGGER);
-
-  mVSyncMonitor = new VSyncMonitor;
 
   mDisplayConnection = Dali::DisplayConnection::New( *mGraphics, defaultWindow->GetSurface()->GetSurfaceType() );
 
@@ -265,6 +266,18 @@ void Adaptor::Initialize( GraphicsFactory& graphicsFactory, Dali::Configuration:
   {
     Integration::SetPanGestureMultitapSmoothingRange( mEnvironmentOptions->GetPanGestureMultitapSmoothingRange() );
   }
+  if( mEnvironmentOptions->GetMinimumPanDistance() >= 0 )
+  {
+    Integration::SetPanGestureMinimumDistance( mEnvironmentOptions->GetMinimumPanDistance() );
+  }
+  if( mEnvironmentOptions->GetMinimumPanEvents() >= 0 )
+  {
+    Integration::SetPanGestureMinimumPanEvents( mEnvironmentOptions->GetMinimumPanEvents() );
+  }
+  if( mEnvironmentOptions->GetMinimumPinchDistance() >= 0 )
+  {
+    Integration::SetPinchGestureMinimumDistance( mEnvironmentOptions->GetMinimumPinchDistance() );
+  }
 
   // Set max texture size
   if( mEnvironmentOptions->GetMaxTextureSize() > 0 )
@@ -290,12 +303,10 @@ Adaptor::~Adaptor()
   mWindows.clear();
 
   delete mThreadController; // this will shutdown render thread, which will call Core::ContextDestroyed before exit
-  delete mVSyncMonitor;
   delete mObjectProfiler;
 
   delete mCore;
 
-  delete mGestureManager;
   delete mDisplayConnection;
   delete mPlatformAbstraction;
   delete mCallbackManager;
@@ -328,7 +339,7 @@ void Adaptor::Start()
   // Start the callback manager
   mCallbackManager->Start();
 
-  WindowPtr defaultWindow = mWindows.front();
+  Dali::Internal::Adaptor::SceneHolder* defaultWindow = mWindows.front();
 
   unsigned int dpiHor, dpiVer;
   dpiHor = dpiVer = 0;
@@ -338,9 +349,6 @@ void Adaptor::Start()
   // set the DPI value for font rendering
   FontClient fontClient = FontClient::Get();
   fontClient.SetDpi( dpiHor, dpiVer );
-
-  // Tell the core the size of the surface just before we start the render-thread
-  mCore->SurfaceResized( defaultWindow->GetSurface() );
 
   // Initialize the thread controller
   mThreadController->Initialize();
@@ -369,7 +377,7 @@ void Adaptor::Pause()
     }
 
     // Pause all windows event handlers when adaptor paused
-    for( WindowPtr window : mWindows )
+    for( auto window : mWindows )
     {
       window->Pause();
     }
@@ -397,7 +405,7 @@ void Adaptor::Resume()
     mState = RUNNING;
 
     // Reset the event handlers when adaptor resumed
-    for( WindowPtr window : mWindows )
+    for( auto window : mWindows )
     {
       window->Resume();
     }
@@ -473,32 +481,32 @@ void Adaptor::ContextRegained()
 
 void Adaptor::FeedTouchPoint( TouchPoint& point, int timeStamp )
 {
-  mWindows.front()->FeedTouchPoint( point, timeStamp );
+  Integration::Point convertedPoint( point );
+  mWindows.front()->FeedTouchPoint( convertedPoint, timeStamp );
 }
 
 void Adaptor::FeedWheelEvent( WheelEvent& wheelEvent )
 {
-  mWindows.front()->FeedWheelEvent( wheelEvent );
+  Integration::WheelEvent event( static_cast< Integration::WheelEvent::Type >(wheelEvent.type), wheelEvent.direction, wheelEvent.modifiers, wheelEvent.point, wheelEvent.z, wheelEvent.timeStamp );
+  mWindows.front()->FeedWheelEvent( event );
 }
 
 void Adaptor::FeedKeyEvent( KeyEvent& keyEvent )
 {
-  mWindows.front()->FeedKeyEvent( keyEvent );
+  Integration::KeyEvent convertedEvent( keyEvent );
+  mWindows.front()->FeedKeyEvent( convertedEvent );
 }
 
-void Adaptor::ReplaceSurface( Dali::Window window, Dali::RenderSurfaceInterface& newSurface )
+void Adaptor::ReplaceSurface( Dali::Integration::SceneHolder window, Dali::RenderSurfaceInterface& newSurface )
 {
-  Window* windowImpl = &Dali::GetImplementation( window );
-  for( WindowPtr windowPtr : mWindows )
+  Internal::Adaptor::SceneHolder* windowImpl = &Dali::GetImplementation( window );
+  for( auto windowPtr : mWindows )
   {
-    if( windowPtr.Get() == windowImpl ) // the window is not deleted
+    if( windowPtr == windowImpl ) // the window is not deleted
     {
-      // Let the core know the surface size has changed
-      mCore->SurfaceResized( &newSurface );
-
       mResizedSignal.Emit( mAdaptor );
 
-      windowImpl->SetSurface( static_cast<WindowRenderSurface*>( &newSurface ) );
+      windowImpl->SetSurface( &newSurface );
 
       // Flush the event queue to give the update-render thread chance
       // to start processing messages for new camera setup etc as soon as possible
@@ -509,6 +517,16 @@ void Adaptor::ReplaceSurface( Dali::Window window, Dali::RenderSurfaceInterface&
       break;
     }
   }
+}
+
+void Adaptor::DeleteSurface( Dali::RenderSurfaceInterface& surface )
+{
+  // Flush the event queue to give the update-render thread chance
+  // to start processing messages for new camera setup etc as soon as possible
+  ProcessCoreEvents();
+
+  // This method blocks until the render thread has finished rendering the current surface.
+  mThreadController->DeleteSurface( &surface );
 }
 
 Dali::RenderSurfaceInterface& Adaptor::GetSurface() const
@@ -555,19 +573,26 @@ void Adaptor::SetPreRenderCallback( CallbackBase* callback )
   mThreadController->SetPreRenderCallback( callback );
 }
 
-bool Adaptor::AddWindow( Dali::Window* childWindow, const std::string& childWindowName, const std::string& childWindowClassName, const bool& childWindowMode )
+bool Adaptor::AddWindow( Dali::Integration::SceneHolder childWindow, const std::string& childWindowName, const std::string& childWindowClassName, bool childWindowMode )
 {
-  Window& windowImpl = Dali::GetImplementation( *childWindow );
+  Internal::Adaptor::SceneHolder& windowImpl = Dali::GetImplementation( childWindow );
   windowImpl.SetAdaptor( Get() );
 
   // Add the new Window to the container - the order is not important
-  mWindows.push_back( WindowPtr( &windowImpl ) );
+  mWindows.push_back( &windowImpl );
+
+  Dali::Window window( dynamic_cast<Dali::Internal::Adaptor::Window*>( &windowImpl ) );
+  if ( window )
+  {
+    mWindowCreatedSignal.Emit( window );
+  }
+
   return true;
 }
 
-bool Adaptor::RemoveWindow( Dali::Window* childWindow )
+bool Adaptor::RemoveWindow( Dali::Integration::SceneHolder* childWindow )
 {
-  Window& windowImpl = Dali::GetImplementation( *childWindow );
+  Internal::Adaptor::SceneHolder& windowImpl = Dali::GetImplementation( *childWindow );
   for ( WindowContainer::iterator iter = mWindows.begin(); iter != mWindows.end(); ++iter )
   {
     if( *iter == &windowImpl )
@@ -594,7 +619,7 @@ bool Adaptor::RemoveWindow( std::string childWindowName )
   return false;
 }
 
-bool Adaptor::RemoveWindow( Window* childWindow )
+bool Adaptor::RemoveWindow( Internal::Adaptor::SceneHolder* childWindow )
 {
   for ( WindowContainer::iterator iter = mWindows.begin(); iter != mWindows.end(); ++iter )
   {
@@ -632,11 +657,6 @@ Dali::Integration::Core& Adaptor::GetCore()
 void Adaptor::SetRenderRefreshRate( unsigned int numberOfVSyncsPerRender )
 {
   mThreadController->SetRenderRefreshRate( numberOfVSyncsPerRender );
-}
-
-void Adaptor::SetUseHardwareVSync( bool useHardware )
-{
-  mVSyncMonitor->SetUseHardwareVSync( useHardware );
 }
 
 Dali::DisplayConnection& Adaptor::GetDisplayConnectionInterface()
@@ -681,11 +701,6 @@ Dali::RenderSurfaceInterface* Adaptor::GetRenderSurfaceInterface()
   return nullptr;
 }
 
-VSyncMonitorInterface* Adaptor::GetVSyncMonitorInterface()
-{
-  return mVSyncMonitor;
-}
-
 TraceInterface& Adaptor::GetKernelTraceInterface()
 {
   return mKernelTracer;
@@ -707,24 +722,11 @@ Integration::PlatformAbstraction& Adaptor::GetPlatformAbstraction() const
   return *mPlatformAbstraction;
 }
 
-void Adaptor::SetDragAndDropDetector( DragAndDropDetectorPtr detector )
-{
-  mDragAndDropDetector = detector;
-}
-
 void Adaptor::DestroyTtsPlayer(Dali::TtsPlayer::Mode mode)
 {
   if( mTtsPlayers[mode] )
   {
     mTtsPlayers[mode].Reset();
-  }
-}
-
-void Adaptor::SetMinimumPinchDistance(float distance)
-{
-  if( mGestureManager )
-  {
-    mGestureManager->SetMinimumPinchDistance(distance);
   }
 }
 
@@ -839,7 +841,7 @@ void Adaptor::RequestProcessEventsOnIdle( bool forceProcess )
 
 void Adaptor::OnWindowShown()
 {
-  if ( PAUSED_WHILE_HIDDEN == mState )
+  if( PAUSED_WHILE_HIDDEN == mState )
   {
     // Adaptor can now be resumed
     mState = PAUSED;
@@ -849,24 +851,58 @@ void Adaptor::OnWindowShown()
     // Force a render task
     RequestUpdateOnce();
   }
+  else if( RUNNING == mState )
+  {
+    // Force a render task
+    RequestUpdateOnce();
+
+    DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowShown: Update requested.\n" );
+  }
   else
   {
-    DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowShown: Not shown [%d]\n", mState );
+    DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowShown: Adaptor is not paused state.[%d]\n", mState );
   }
 }
 
 void Adaptor::OnWindowHidden()
 {
-  if ( RUNNING == mState )
+  if( RUNNING == mState || READY == mState )
   {
-    Pause();
+    bool allWindowsHidden = true;
 
-    // Adaptor cannot be resumed until the window is shown
-    mState = PAUSED_WHILE_HIDDEN;
+    for( auto window : mWindows )
+    {
+      if ( window->IsVisible() )
+      {
+        allWindowsHidden = false;
+        break;
+      }
+    }
+
+    // Only pause the adaptor when all the windows are hidden
+    if( allWindowsHidden )
+    {
+      if( mState == RUNNING )
+      {
+        Pause();
+
+        // Adaptor cannot be resumed until any window is shown
+        mState = PAUSED_WHILE_HIDDEN;
+      }
+      else  // mState is READY
+      {
+        // Pause the adaptor after the state gets RUNNING
+        mState = PAUSED_WHILE_INITIALIZING;
+      }
+    }
+    else
+    {
+      DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowHidden: Some windows are shown. Don't pause adaptor.\n" );
+    }
   }
   else
   {
-    DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowHidden: Not hidden [%d]\n", mState );
+    DALI_LOG_RELEASE_INFO( "Adaptor::OnWindowHidden: Adaptor is not running state.[%d]\n", mState );
   }
 }
 
@@ -879,9 +915,6 @@ void Adaptor::OnDamaged( const DamageArea& area )
 
 void Adaptor::SurfaceResizePrepare( Dali::RenderSurfaceInterface* surface, SurfaceSize surfaceSize )
 {
-  // Let the core know the surface size has changed
-  mCore->SurfaceResized( surface );
-
   mResizedSignal.Emit( mAdaptor );
 }
 
@@ -908,9 +941,22 @@ void Adaptor::NotifySceneCreated()
   // Process after surface is created (registering to remote surface provider if required)
   SurfaceInitialized();
 
-  mState = RUNNING;
+  if( mState != PAUSED_WHILE_INITIALIZING )
+  {
+    mState = RUNNING;
 
-  DALI_LOG_RELEASE_INFO( "Adaptor::NotifySceneCreated\n" );
+    DALI_LOG_RELEASE_INFO( "Adaptor::NotifySceneCreated: Adaptor is running\n" );
+  }
+  else
+  {
+    mState = RUNNING;
+
+    Pause();
+
+    mState = PAUSED_WHILE_HIDDEN;
+
+    DALI_LOG_RELEASE_INFO( "Adaptor::NotifySceneCreated: Adaptor is paused\n" );
+  }
 }
 
 void Adaptor::NotifyLanguageChanged()
@@ -956,14 +1002,46 @@ bool Adaptor::ProcessCoreEventsFromIdle()
   return false;
 }
 
-Adaptor::Adaptor(Dali::Window window, Dali::Adaptor& adaptor, Dali::RenderSurfaceInterface* surface, EnvironmentOptions* environmentOptions)
+Dali::Internal::Adaptor::SceneHolder* Adaptor::GetWindow( Dali::Actor& actor )
+{
+  Dali::Integration::Scene scene = Dali::Integration::Scene::Get( actor );
+
+  for( auto window : mWindows )
+  {
+    if ( scene == window->GetScene() )
+    {
+      return window;
+    }
+  }
+
+  return nullptr;
+}
+
+Dali::WindowContainer Adaptor::GetWindows() const
+{
+  Dali::WindowContainer windows;
+
+  for ( auto iter = mWindows.begin(); iter != mWindows.end(); ++iter )
+  {
+    // Downcast to Dali::Window
+    Dali::Window window( dynamic_cast<Dali::Internal::Adaptor::Window*>( *iter ) );
+    if ( window )
+    {
+      windows.push_back( window );
+    }
+  }
+
+  return windows;
+}
+
+Adaptor::Adaptor(Dali::Integration::SceneHolder window, Dali::Adaptor& adaptor, Dali::RenderSurfaceInterface* surface, EnvironmentOptions* environmentOptions)
 : mResizedSignal(),
   mLanguageChangedSignal(),
+  mWindowCreatedSignal(),
   mAdaptor( adaptor ),
   mState( READY ),
   mCore( nullptr ),
   mThreadController( nullptr ),
-  mVSyncMonitor( nullptr ),
   mGraphics( nullptr ),
   mDisplayConnection( nullptr ),
   mWindows(),
@@ -971,12 +1049,10 @@ Adaptor::Adaptor(Dali::Window window, Dali::Adaptor& adaptor, Dali::RenderSurfac
   mCallbackManager( nullptr ),
   mNotificationOnIdleInstalled( false ),
   mNotificationTrigger( nullptr ),
-  mGestureManager( nullptr ),
   mDaliFeedbackPlugin(),
   mFeedbackController( nullptr ),
   mTtsPlayers(),
   mObservers(),
-  mDragAndDropDetector(),
   mEnvironmentOptions( environmentOptions ? environmentOptions : new EnvironmentOptions /* Create the options if not provided */),
   mPerformanceInterface( nullptr ),
   mKernelTracer(),
@@ -988,7 +1064,7 @@ Adaptor::Adaptor(Dali::Window window, Dali::Adaptor& adaptor, Dali::RenderSurfac
   mUseRemoteSurface( false )
 {
   DALI_ASSERT_ALWAYS( !IsAvailable() && "Cannot create more than one Adaptor per thread" );
-  mWindows.insert( mWindows.begin(), WindowPtr( &Dali::GetImplementation( window ) ) );
+  mWindows.insert( mWindows.begin(), &Dali::GetImplementation( window ) );
 
   gThreadLocalAdaptor = this;
 }

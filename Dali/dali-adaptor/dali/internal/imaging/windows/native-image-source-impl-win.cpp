@@ -192,7 +192,8 @@ int NativeImageSourceWin::GetPixelDepth(Dali::NativeImageSource::ColorDepth dept
   {
     case Dali::NativeImageSource::COLOR_DEPTH_DEFAULT:
     {
-      return WindowsPlatformImplementation::GetColorDepth();
+      //return WindowsPlatformImplementation::GetColorDepth();
+      return 32;
     }
     case Dali::NativeImageSource::COLOR_DEPTH_8:
     {

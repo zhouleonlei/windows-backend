@@ -33,7 +33,7 @@ namespace Tizen.FH.NUI.Samples
                 return message;
             }));
 
-            new SampleMain().Run(args);
+            new DaliDemo(CommonResource.GetFHResourcePath() + @"../../style/demo-theme.json").Run(new string[] { "Dali-demo" });
         }
     }
 }

@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_ADAPTOR_PIXEL_BUFFER_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -222,6 +222,11 @@ public:
    */
   bool Rotate( Degree angle );
 
+  /**
+   * @copydoc Devel::PixelBuffer::IsAlphaPreMultiplied()
+   */
+  bool IsAlphaPreMultiplied() const;
+
 private:
   /*
    * Undefined copy constructor.
@@ -283,6 +288,7 @@ private:
   unsigned int                    mWidth;            ///< Buffer width in pixels
   unsigned int                    mHeight;           ///< Buffer height in pixels
   Pixel::Format                   mPixelFormat;      ///< Pixel format
+  bool                            mPreMultiplied; ///< PreMultiplied
 };
 
 } // namespace Adaptor
@@ -312,4 +318,4 @@ inline const Internal::Adaptor::PixelBuffer& GetImplementation( const Devel::Pix
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_ADAPTOR_PIXEL_BUFFER_H__
+#endif // DALI_INTERNAL_ADAPTOR_PIXEL_BUFFER_H

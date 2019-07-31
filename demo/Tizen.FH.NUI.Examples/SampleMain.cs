@@ -17,6 +17,12 @@ namespace Tizen.FH.NUI.Samples
         {
             return @"../../../demo/csharp-demo/res/images/FH3/";
         }
+        public static string GetDaliResourcePath()
+        {
+            Tizen.Log.Fatal("NUI", $"GetFHResourcePath()! res={Tizen.Applications.Application.Current.DirectoryInfo.Resource}");
+            //turn Tizen.Applications.Application.Current.DirectoryInfo.Resource + "images/Dali/";
+            return @"../../../demo/csharp-demo/res/images/Dali/";
+        }
     }
     public class NaviListItemData
     {
@@ -85,14 +91,14 @@ namespace Tizen.FH.NUI.Samples
             NotifyItemRemoved(position);
         }
 
-        public override FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
+        public override Tizen.NUI.CommonUI.FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
         {
-            FlexibleView.ViewHolder viewHolder = new FlexibleView.ViewHolder(new NaviListItemView());
+            Tizen.NUI.CommonUI.FlexibleView.ViewHolder viewHolder = new Tizen.NUI.CommonUI.FlexibleView.ViewHolder(new NaviListItemView());
 
             return viewHolder;
         }
 
-        public override void OnBindViewHolder(FlexibleView.ViewHolder holder, int position)
+        public override void OnBindViewHolder(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder, int position)
         {
             NaviListItemData listItemData = mDatas[position];
             NaviListItemView listItemView = holder.ItemView as NaviListItemView;
@@ -109,7 +115,7 @@ namespace Tizen.FH.NUI.Samples
             listItemView.BackgroundColor = new Color(1f, 1f, 1f, 1f);
         }
 
-        public override void OnDestroyViewHolder(FlexibleView.ViewHolder holder)
+        public override void OnDestroyViewHolder(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
         {
             if (holder.ItemView != null)
             {
@@ -122,243 +128,244 @@ namespace Tizen.FH.NUI.Samples
             return mDatas.Count;
         }
 
-        public override void OnFocusChange(FlexibleView flexibleView, int previousFocus, int currentFocus)
+        public override void OnFocusChange(Tizen.NUI.CommonUI.FlexibleView flexibleView, int previousFocus, int currentFocus)
         {
-            FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
+            Tizen.NUI.CommonUI.FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
             if (previousFocusView != null)
             {
             
             }
-            FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
+            Tizen.NUI.CommonUI.FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
             if (currentFocusView != null)
             {
                 
             }
         }
 
-        public override void OnViewAttachedToWindow(FlexibleView.ViewHolder holder)
+        public override void OnViewAttachedToWindow(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
         {
 
         }
 
-        public override void OnViewDetachedFromWindow(FlexibleView.ViewHolder holder)
+        public override void OnViewDetachedFromWindow(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
         {
 
         }
 
     }
-    public class SampleMain : FHNUIApplication, IExample
-    {
-        public static NaviFrame SampleNaviFrame
-        {
-            get
-            {
-                Console.WriteLine("test naviFrame!!");
-                if (naviFrame == null)
-                {
-                    Console.WriteLine("test naviFrame null!!");
-                }
-                return naviFrame;
-            }
-        }
-        public void Activate()
-        {
-            Window.Instance.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            Window.Instance.GetDefaultLayer().Add(naviFrame);
-            Window.Instance.GetDefaultLayer().Add(backNavigation);
-        }
+    //public class SampleMain : FHNUIApplication, IExample
+    //{
+    //    public static NaviFrame SampleNaviFrame
+    //    {
+    //        get
+    //        {
+    //            Console.WriteLine("test naviFrame!!");
+    //            if (naviFrame == null)
+    //            {
+    //                Console.WriteLine("test naviFrame null!!");
+    //            }
+    //            return naviFrame;
+    //        }
+    //    }
+    //    public void Activate()
+    //    {
+    //        Window.Instance.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    //        Window.Instance.GetDefaultLayer().Add(naviFrame);
+    //        Window.Instance.GetDefaultLayer().Add(backNavigation);
+    //    }
 
-        public void Deactivate()
-        {
-            if (backNavigation != null)
-            {
-                Window.Instance.GetDefaultLayer().Remove(backNavigation);
-                backNavigation.Dispose();
-                backNavigation = null;
-            }
-            
-            if (naviFrame != null)
-            {
-                Window.Instance.GetDefaultLayer().Remove(naviFrame);
-                naviFrame.Dispose();
-                naviFrame = null;
-            }
-        }
+    //    public void Deactivate()
+    //    {
+    //        if (backNavigation != null)
+    //        {
+    //            Window.Instance.GetDefaultLayer().Remove(backNavigation);
+    //            backNavigation.Dispose();
+    //            backNavigation = null;
+    //        }
 
-        protected override void OnCreate()
-        {
-            base.OnCreate();
+    //        if (naviFrame != null)
+    //        {
+    //            Window.Instance.GetDefaultLayer().Remove(naviFrame);
+    //            naviFrame.Dispose();
+    //            naviFrame = null;
+    //        }
+    //    }
 
-            var examples = from type in Assembly.GetEntryAssembly().GetTypes()
-                           where typeof(IExample).GetTypeInfo().IsAssignableFrom(type) && type.Namespace == this.GetType().Namespace
-                           && type != this.GetType() && type.GetTypeInfo().IsClass
-                           orderby type.Name ascending
-                           select type.Name;
+    //    protected override void OnCreate()
+    //    {
+    //        base.OnCreate();
 
-            naviFrame = new NaviFrame("DefaultNaviFrame");
-            Header head = new Header("DefaultHeader");
-            head.BackgroundColor = new Color(1f, 1f, 1f, 0.7f);
-            head.HeaderText = "FHub Samples";
+    //        var examples = from type in Assembly.GetEntryAssembly().GetTypes()
+    //                       where typeof(IExample).GetTypeInfo().IsAssignableFrom(type) && type.Namespace == this.GetType().Namespace
+    //                       && type != this.GetType() && type.GetTypeInfo().IsClass
+    //                       orderby type.Name ascending
+    //                       select type.Name;
+    //        RunSample("Tizen.FH.NUI.Samples", "ContactCardsSample");
 
-            contentList = new FlexibleView();
-            contentList.Name = "Sample List";
-            contentList.Position2D = new Position2D(0, 1);
-            //contentList.Size2D = new Size2D(1080, 1790);
-            contentList.Size2D = new Size2D(1080, 896);
-            contentList.Padding = new Extents(0, 8, 0, 0);
-            contentList.BackgroundColor = new Color(0, 0, 0, 0.2f);
-            contentList.ItemClickEvent += OnListItemClickEvent;
-            
-            List<NaviListItemData> dataList = new List<NaviListItemData>();
-            for (int i = 0; i < examples.Count(); ++i)
-            {
-                dataList.Add(new NaviListItemData(examples.ElementAt(i)));
-            }
-            adapter = new NaviListBridge(dataList);
-            contentList.SetAdapter(adapter);
+    //        //naviFrame = new NaviFrame("DefaultNaviFrame");
+    //        //Header head = new Header("DefaultHeader");
+    //        //head.BackgroundColor = new Color(1f, 1f, 1f, 0.7f);
+    //        //head.HeaderText = "FHub Samples";
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(LinearLayoutManager.VERTICAL);
-            contentList.SetLayoutManager(layoutManager);
+    //        //contentList = new FlexibleView();
+    //        //contentList.Name = "Sample List";
+    //        //contentList.Position2D = new Position2D(0, 1);
+    //        ////contentList.Size2D = new Size2D(1080, 1790);
+    //        //contentList.Size2D = new Size2D(1080, 896);
+    //        //contentList.Padding = new Extents(0, 8, 0, 0);
+    //        //contentList.BackgroundColor = new Color(0, 0, 0, 0.2f);
+    //        //contentList.ItemClickEvent += OnListItemClickEvent;
 
-            scrollBar = new ScrollBar("DAScrollbar");
-            scrollBar.Direction = ScrollBar.DirectionType.Vertical;
-            scrollBar.Position2D = new Position2D(1074, 2);
-            //scrollBar.Size2D = new Size2D(4, 1786);
-            scrollBar.Size2D = new Size2D(4, 894);
-            scrollBar.ThumbSize = new Size2D(4, 30);
-            contentList.AttachScrollBar(scrollBar);
+    //        //List<NaviListItemData> dataList = new List<NaviListItemData>();
+    //        //for (int i = 0; i < examples.Count(); ++i)
+    //        //{
+    //        //    dataList.Add(new NaviListItemData(examples.ElementAt(i)));
+    //        //}
+    //        //adapter = new NaviListBridge(dataList);
+    //        //contentList.SetAdapter(adapter);
 
-            naviFrame.NaviFrameItemPush(head, contentList);
+    //        //LinearLayoutManager layoutManager = new LinearLayoutManager(LinearLayoutManager.VERTICAL);
+    //        //contentList.SetLayoutManager(layoutManager);
 
-            backNavigation = new Navigation("Back");
-            backNavigation.Position2D = new Position2D(0, 950);
-            backNavigation.ItemTouchEvent += OnBackNaviTouchEvent;
+    //        //scrollBar = new ScrollBar("DAScrollbar");
+    //        //scrollBar.Direction = ScrollBar.DirectionType.Vertical;
+    //        //scrollBar.Position2D = new Position2D(1074, 2);
+    //        ////scrollBar.Size2D = new Size2D(4, 1786);
+    //        //scrollBar.Size2D = new Size2D(4, 894);
+    //        //scrollBar.ThumbSize = new Size2D(4, 30);
+    //        //contentList.AttachScrollBar(scrollBar);
 
-            Navigation.NavigationItemData backItem = new Navigation.NavigationItemData("WhiteBackItem");
-            backNavigation.AddItem(backItem);
+    //        //naviFrame.NaviFrameItemPush(head, contentList);
 
-            Window.Instance.KeyEvent += Instance_Key;
+    //        //backNavigation = new Navigation("Back");
+    //        //backNavigation.Position2D = new Position2D(0, 950);
+    //        //backNavigation.ItemTouchEvent += OnBackNaviTouchEvent;
 
-            Activate();
-            sampleStack.Push(this);
-        }
+    //        //Navigation.NavigationItemData backItem = new Navigation.NavigationItemData("WhiteBackItem");
+    //        //backNavigation.AddItem(backItem);
 
-        private void OnListItemClickEvent(object sender, FlexibleView.ItemClickEventArgs e)
-        {
-            if (e.ClickedView != null)
-            {
-                int index = e.ClickedView.AdapterPosition;
-                string sampleName = (e.ClickedView.ItemView as NaviListItemView)?.MainText;
-                RunSample("Tizen.FH.NUI.Samples", sampleName);        
-            }
-        }
+    //        //Window.Instance.KeyEvent += Instance_Key;
 
-        private void OnBackNaviTouchEvent(object source, View.TouchEventArgs e)
-        {
-            Log.Debug("NUI", $"OnNaviTouchEvent! touch position=({e.Touch.GetScreenPosition(0).X}, {e.Touch.GetScreenPosition(0).Y}), {e.Touch.GetState(0)}");
-            if (e.Touch.GetState(0) == PointStateType.Up)
-            {
-                ExitSample();
-            }
-            return;
-        }
+    //        //Activate();
+    //        //sampleStack.Push(this);
+    //    }
 
-        public void ExitSample()
-        {
-            if (naviFrame.Count == 1)
-            {
-                if (sampleStack.Count() == 2)
-                {
-                    IExample lastSample = sampleStack.Pop();
-                    lastSample.Deactivate();
-                    FullGC();
-                }
-                Deactivate();
-                Exit();
-                Environment.Exit(0);
-                return;
-            }
-            else
-            {
-                naviFrame.NaviFrameItemPop();
-            }
-        }
+    //    private void OnListItemClickEvent(object sender, FlexibleView.ItemClickEventArgs e)
+    //    {
+    //        if (e.ClickedView != null)
+    //        {
+    //            int index = e.ClickedView.AdapterPosition;
+    //            string sampleName = (e.ClickedView.ItemView as NaviListItemView)?.MainText;
+    //            RunSample("Tizen.FH.NUI.Samples", sampleName);
+    //        }
+    //    }
 
-        private void Instance_Key(object sender, Window.KeyEventArgs e)
-        {
-            if (e.Key.State == Key.StateType.Down && (e.Key.KeyPressedName == "BackSpace" || e.Key.KeyPressedName == "XF86Back" || e.Key.KeyPressedName == "Escape"))
-            {
-                ExitSample();
-            }
-        }
-        public void RunSample(string @namespace, string sampleName)
-        {
-            object item = Activator.CreateInstance(global::System.Type.GetType(@namespace + "." + sampleName));
-            if (item is IExample)
-            {
-                if (sampleStack.Count() > 1)
-                {
-                    IExample lastSample = sampleStack.Pop();
-                    lastSample.Deactivate();
-                    FullGC();
-                }
-                example = item as IExample;
-                sampleStack.Push(example);
-                example.Activate();
-            }
-        }
-        
-        private void FullGC()
-        {
-            global::System.GC.Collect();
-            global::System.GC.WaitForPendingFinalizers();
-            global::System.GC.Collect();
-        }
-        
-        private bool SampleMain_KeyEvent(object source, View.KeyEventArgs e)
-        {
-            TextLabel textLabel = source as TextLabel;
+    //    private void OnBackNaviTouchEvent(object source, View.TouchEventArgs e)
+    //    {
+    //        Log.Debug("NUI", $"OnNaviTouchEvent! touch position=({e.Touch.GetScreenPosition(0).X}, {e.Touch.GetScreenPosition(0).Y}), {e.Touch.GetState(0)}");
+    //        if (e.Touch.GetState(0) == PointStateType.Up)
+    //        {
+    //            ExitSample();
+    //        }
+    //        return;
+    //    }
 
-            if (e.Key.State == Key.StateType.Down)
-            {
-                if (e.Key.KeyPressedName == "Return")
-                {
-                    string sampleName = textLabel.Text;
+    //    public void ExitSample()
+    //    {
+    //        if (naviFrame.Count == 1)
+    //        {
+    //            if (sampleStack.Count() == 2)
+    //            {
+    //                IExample lastSample = sampleStack.Pop();
+    //                lastSample.Deactivate();
+    //                FullGC();
+    //            }
+    //            Deactivate();
+    //            Exit();
+    //            Environment.Exit(0);
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            naviFrame.NaviFrameItemPop();
+    //        }
+    //    }
 
-                    RunSample("Tizen.FH.NUI.Samples", sampleName);
+    //    private void Instance_Key(object sender, Window.KeyEventArgs e)
+    //    {
+    //        if (e.Key.State == Key.StateType.Down && (e.Key.KeyPressedName == "BackSpace" || e.Key.KeyPressedName == "XF86Back" || e.Key.KeyPressedName == "Escape"))
+    //        {
+    //            ExitSample();
+    //        }
+    //    }
+    //    public void RunSample(string @namespace, string sampleName)
+    //    {
+    //        object item = Activator.CreateInstance(global::System.Type.GetType(@namespace + "." + sampleName));
+    //        if (item is IExample)
+    //        {
+    //            if (sampleStack.Count() > 1)
+    //            {
+    //                IExample lastSample = sampleStack.Pop();
+    //                lastSample.Deactivate();
+    //                FullGC();
+    //            }
+    //            example = item as IExample;
+    //            sampleStack.Push(example);
+    //            example.Activate();
+    //        }
+    //    }
 
-                    return true;
-                }
-                switch(e.Key.KeyPressedName)
-                {
-                    case "1":
-                        StyleManager.Instance.Theme = "Utility";
-                        break;
-                    case "2":
-                        StyleManager.Instance.Theme = "Food";
-                        break;
-                    case "3":
-                        StyleManager.Instance.Theme = "Family";
-                        break;
-                    case "4":
-                        StyleManager.Instance.Theme = "Kitchen";
-                        break;
-                }  
-            }
+    //    private void FullGC()
+    //    {
+    //        global::System.GC.Collect();
+    //        global::System.GC.WaitForPendingFinalizers();
+    //        global::System.GC.Collect();
+    //    }
 
-            return false;
-        }
+    //    private bool SampleMain_KeyEvent(object source, View.KeyEventArgs e)
+    //    {
+    //        TextLabel textLabel = source as TextLabel;
 
-        private static NaviFrame naviFrame;
-        private Header header;
-        private FlexibleView contentList;
-        private NaviListBridge adapter;
-        private ScrollBar scrollBar;
-        private Navigation backNavigation;
-        IExample example; 
+    //        if (e.Key.State == Key.StateType.Down)
+    //        {
+    //            if (e.Key.KeyPressedName == "Return")
+    //            {
+    //                string sampleName = textLabel.Text;
 
-        int currentIndex = 0;
-        Stack<IExample> sampleStack = new Stack<IExample>();
-    }
+    //                RunSample("Tizen.FH.NUI.Samples", sampleName);
+
+    //                return true;
+    //            }
+    //            switch (e.Key.KeyPressedName)
+    //            {
+    //                case "1":
+    //                    StyleManager.Instance.Theme = "Utility";
+    //                    break;
+    //                case "2":
+    //                    StyleManager.Instance.Theme = "Food";
+    //                    break;
+    //                case "3":
+    //                    StyleManager.Instance.Theme = "Family";
+    //                    break;
+    //                case "4":
+    //                    StyleManager.Instance.Theme = "Kitchen";
+    //                    break;
+    //            }
+    //        }
+
+    //        return false;
+    //    }
+
+    //    private static NaviFrame naviFrame;
+    //    private Header header;
+    //    private FlexibleView contentList;
+    //    private NaviListBridge adapter;
+    //    private ScrollBar scrollBar;
+    //    private Navigation backNavigation;
+    //    IExample example;
+
+    //    int currentIndex = 0;
+    //    Stack<IExample> sampleStack = new Stack<IExample>();
+    //}
 }
 

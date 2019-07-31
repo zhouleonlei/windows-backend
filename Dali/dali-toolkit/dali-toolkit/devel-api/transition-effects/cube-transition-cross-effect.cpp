@@ -38,6 +38,11 @@ CubeTransitionCrossEffect::CubeTransitionCrossEffect( Dali::Internal::CustomActo
   VerifyCustomActorPointer< Internal::CubeTransitionCrossEffect >( internal );
 }
 
+CubeTransitionCrossEffect::CubeTransitionCrossEffect()
+{
+
+}
+
 CubeTransitionCrossEffect CubeTransitionCrossEffect::New( unsigned int numRows, unsigned int numColumns )
 {
   return Internal::CubeTransitionCrossEffect::New( numRows, numColumns );

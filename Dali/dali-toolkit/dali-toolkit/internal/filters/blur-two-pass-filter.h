@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H__
-#define __DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H__
+#ifndef DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H
+#define DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 // EXTERNAL INCLUDES
 #include <dali/public-api/render-tasks/render-task.h>
-#include <dali-toolkit/public-api/controls/image-view/image-view.h>
 
 // INTERNAL INCLUDES
 #include "image-filter.h"
@@ -89,19 +88,19 @@ private:
 
 private: // Attributes
 
-  // To perform horizontal blur from mInputImage to mImageForHorz
+  // To perform horizontal blur from mInputTexture to mFrameBufferForHorz
   RenderTask         mRenderTaskForHorz;
-  Toolkit::ImageView mActorForInput;
-  FrameBufferImage   mImageForHorz;
+  Actor              mActorForInput;
+  FrameBuffer        mFrameBufferForHorz;
 
-  // To perform vertical blur from mImageForHorz to mOutputImage
+  // To perform vertical blur from mFrameBufferForHorz to mOutputFrameBuffer
   RenderTask         mRenderTaskForVert;
-  Toolkit::ImageView mActorForHorz;
-  FrameBufferImage   mBlurredImage;
+  Actor              mActorForHorz;
+  FrameBuffer        mBlurredFrameBuffer;
 
   // To blend the blurred image and input image according to the blur strength
   RenderTask         mRenderTaskForBlending;
-  Toolkit::ImageView mActorForBlending;
+  Actor              mActorForBlending;
   Actor              mRootActorForBlending;
   Property::Index    mBlurStrengthPropertyIndex;
 
@@ -113,5 +112,5 @@ private: // Attributes
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H__
+#endif // DALI_TOOLKIT_INTERNAL_BLUR_TWO_PASS_FILTER_H
 

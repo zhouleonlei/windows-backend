@@ -1,8 +1,8 @@
-#ifndef __DALI_INPUT_METHOD_CONTEXT_H__
-#define __DALI_INPUT_METHOD_CONTEXT_H__
+#ifndef DALI_INPUT_METHOD_CONTEXT_H
+#define DALI_INPUT_METHOD_CONTEXT_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,6 +88,12 @@ public:
     HARDWARE_KEYBOARD   ///< Hardware keyboard
   };
 
+  enum class InputPanelLanguage
+  {
+    AUTOMATIC,    ///< IME Language automatically set depending on the system display
+    ALPHABET      ///< Latin alphabet at all times
+  };
+
   /**
    * @brief This structure is used to pass on data from the InputMethodContext regarding predictive text.
    */
@@ -171,6 +177,7 @@ public:
   typedef Signal< void ( KeyboardType ) > KeyboardTypeSignalType; ///< keyboard type
   typedef Signal< void ( int ) > KeyboardResizedSignalType;  ///< Keyboard resized signal
   typedef Signal< void ( int ) > LanguageChangedSignalType;  ///< Language changed signal
+  typedef Signal< void ( const std::string&, const std::string&, const std::string& ) > ContentReceivedSignalType; ///< Content received signal
 
 public:
 
@@ -391,6 +398,16 @@ public:
   std::string GetInputPanelLocale();
 
   /**
+   * @brief Sets the allowed MIME Types to deliver to the input panel.
+   *
+   * ex) std::string mimeTypes = "text/plain,image/png,image/gif,application/pdf";
+   *
+   * You can receive a media content URI and its MIME type from ContentReceivedSignal(). @see ContentReceivedSignal
+   * @param[in] mimeTypes The allowed MIME types
+   */
+  void SetContentMIMETypes( const std::string& mimeTypes );
+
+  /**
    * @brief Process event key down or up, whether filter a key to isf.
    *
    * @param[in] keyEvent The event key to be handled.
@@ -411,6 +428,22 @@ public:
    * @return Whether the IM allow text prediction or not.
    */
   bool IsTextPredictionAllowed() const;
+
+  /**
+   * @brief Sets the language of the input panel.
+   *
+   * This method can be used when you want to show the English keyboard.
+   * @param[in] language The language to be set to the input panel
+   */
+  void SetInputPanelLanguage( InputPanelLanguage language );
+
+  /**
+   * @brief Gets the language of the input panel.
+   *
+   * @return The language of the input panel
+   */
+  InputPanelLanguage GetInputPanelLanguage() const;
+
 public:
 
   // Signals
@@ -482,6 +515,18 @@ public:
    */
   KeyboardTypeSignalType& KeyboardTypeChangedSignal();
 
+  /**
+   * @brief Connect to this signal to be notified when the content, such as images, of input method is received.
+   *
+   * A callback of the following type may be connected:
+   * @code
+   *   void YourCallbackName( const std::string& contentUri, const std::string& description, const std::string& contentMIMEType );
+   * @endcode
+   *
+   * @return The signal to connect to.
+   */
+  ContentReceivedSignalType& ContentReceivedSignal();
+
 public:
 
   /**
@@ -497,4 +542,4 @@ public:
 
 } // namespace Dali
 
-#endif // __DALI_INPUT_METHOD_CONTEXT_H__
+#endif // DALI_INPUT_METHOD_CONTEXT_H

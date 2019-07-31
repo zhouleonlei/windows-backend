@@ -41,9 +41,9 @@ class Core;
 namespace Integration
 {
 class Core;
-class GestureManager;
 class GlAbstraction;
 class GlSyncAbstraction;
+class GlContextHelperAbstraction;
 class PlatformAbstraction;
 class Processor;
 class RenderController;
@@ -199,8 +199,6 @@ private:
  *
  * 6) Provide an implementation of the GlAbstraction interface, used to access OpenGL services.
  *
- * 7) Provide an implementation of the GestureManager interface, used to register gestures provided by the platform.
- *
  * Multi-threading notes:
  *
  * The Dali API methods are not reentrant.  If you access the API from multiple threads simultaneously, then the results
@@ -227,7 +225,7 @@ public:
    * @param[in] platformAbstraction The interface providing platform specific services.
    * @param[in] glAbstraction The interface providing OpenGL services.
    * @param[in] glSyncAbstraction The interface providing OpenGL sync objects.
-   * @param[in] gestureManager The interface providing gesture manager services.
+   * @param[in] glContextHelperAbstraction The interface providing OpenGL context helper objects.
    * @param[in] policy The data retention policy. This depends on application setting
    * and platform support. Dali should honour this policy when deciding to discard
    * intermediate resource data.
@@ -240,7 +238,7 @@ public:
                     PlatformAbstraction& platformAbstraction,
                     GlAbstraction& glAbstraction,
                     GlSyncAbstraction& glSyncAbstraction,
-                    GestureManager& gestureManager,
+                    GlContextHelperAbstraction& glContextHelperAbstraction,
                     ResourcePolicy::DataRetention policy,
                     RenderToFrameBuffer renderToFboEnabled,
                     DepthBufferAvailable depthBufferAvailable,
@@ -291,13 +289,11 @@ public:
   void RecoverFromContextLoss();
 
   /**
-   * Notify the Core that the GL surface has been resized.
-   * This should be done at least once i.e. after the first call to ContextCreated().
-   * The Core will use the surface size for camera calculations, and to set the GL viewport.
+   * Notify the Core that the GL surface has been deleted.
    * Multi-threading note: this method should be called from the main thread
-   * @param[in] surface The resized surface
+   * @param[in] surface The deleted surface
    */
-  void SurfaceResized( Integration::RenderSurface* surface );
+  void SurfaceDeleted( Integration::RenderSurface* surface );
 
   // Core Lifecycle
 

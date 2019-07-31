@@ -24,6 +24,23 @@
 #include <CustomFile.h>
 #include <string>
 
+namespace std
+{
+	int GetRealFileMode(const char *path, int _Mode)
+	{
+		std::string strPath = path;
+
+		if ((std::ios::in | std::ios::ate == _Mode) && strPath.find(".json") != std::string::npos)
+		{
+			return std::ios::in | std::ios::binary | std::ios::ate;
+		}
+		else
+		{
+			return _Mode;
+		}
+	}
+}
+
 namespace Dali
 {
 

@@ -27,7 +27,6 @@
 #include <dali/devel-api/adaptor-framework/singleton-service.h>
 
 #include <dali/internal/adaptor/common/framework.h>
-#include <dali/internal/window-system/common/window-impl.h>
 #include <dali/internal/system/common/environment-options.h>
 #include <dali/internal/adaptor/common/adaptor-builder-impl.h>
 
@@ -248,6 +247,14 @@ public:
    * @param[in] stylesheet The path to user defined theme file
    */
   void SetStyleSheet( const std::string& stylesheet );
+
+  /**
+   * Sets a command line options.
+   * This is used in case of the preinitialized application.
+   * @param[in] argc A pointer to the number of arguments
+   * @param[in] argv A pointer to the argument list
+   */
+  void SetCommandLineOptions( int* argc, char **argv[] );
 
 public:  // Signals
 

@@ -38,6 +38,11 @@ CubeTransitionFoldEffect::CubeTransitionFoldEffect( Dali::Internal::CustomActor*
   VerifyCustomActorPointer< Internal::CubeTransitionFoldEffect >( internal );
 }
 
+CubeTransitionFoldEffect::CubeTransitionFoldEffect()
+{
+
+}
+
 CubeTransitionFoldEffect CubeTransitionFoldEffect::New(unsigned int numRows, unsigned int numColumns )
 {
   return Internal::CubeTransitionFoldEffect::New( numRows, numColumns );

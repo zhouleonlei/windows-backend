@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H__
-#define __DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H__
+#ifndef DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H
+#define DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@
 // EXTERNAL INCLUDES
 #include <dali/public-api/actors/camera-actor.h>
 #include <dali/public-api/common/dali-vector.h>
-#include <dali/public-api/images/frame-buffer-image.h>
+#include <dali/public-api/rendering/frame-buffer.h>
+#include <dali/public-api/rendering/texture.h>
 #include <dali/public-api/render-tasks/render-task.h>
 
 // INTERNAL INCLUDES
@@ -249,7 +250,7 @@ public:
    * @param outputRenderTarget A render target to receive the blurred result. Passing NULL is allowed. See also GetBlurredRenderTarget().
    * @pre This object was created with a New( ... ) call where the blurUserImage argument was set to true. If this was not the case an exception will be thrown.
    */
-  void SetUserImageAndOutputRenderTarget(Image inputImage, FrameBufferImage outputRenderTarget);
+  void SetUserImageAndOutputRenderTarget(Dali::Texture inputImage, Dali::FrameBuffer outputRenderTarget);
 
   /**
    * @brief Get the index of the property that can be used to fade the blur in / out.
@@ -271,7 +272,7 @@ public:
    * @return A handle on the blurred image, contained in a render target.
    * @pre The user must call Activate() before the render target will be returned.
    */
-  FrameBufferImage GetBlurredRenderTarget() const;
+  Dali::FrameBuffer GetBlurredRenderTarget() const;
 
   /**
   * @brief Set background color for the view. The background will be filled with this color.
@@ -323,4 +324,4 @@ public:
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H__
+#endif // DALI_TOOLKIT_GAUSSIAN_BLUR_EFFECT_H

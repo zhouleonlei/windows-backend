@@ -5,15 +5,16 @@ using Tizen.FH.NUI.Controls;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class ToastSample : IExample
+    public class Toast : IExample
     {
         private TextLabel board1, board2, board;
-        private Button button1, button2, button3, button4;
+        private Tizen.NUI.CommonUI.Button button1, button2, button3, button4;
         private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,/*;private Tizen.NUI.CommonUI.Toast */toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
         private SampleLayout root;
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout(false);
             root.HeaderText = "Toast";
 
@@ -33,6 +34,7 @@ namespace Tizen.FH.NUI.Samples
             //toast2_1.TextPaddingLeft = 204;
 
             toast2_3 = new Tizen.FH.NUI.Controls.Toast();
+            toast2_3.PointSize = 14;
             toast2_3.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
             toast2_3.BackgroundImageBorder = new Rectangle(64, 64, 4, 4);
             toast2_3.Position2D = new Position2D(30, 350);
@@ -53,9 +55,9 @@ namespace Tizen.FH.NUI.Samples
         void CreateBoardAndButtons()
         {
             board = new TextLabel();
-            board.Size2D = new Size2D(1000, 100);
+            board.Size2D = new Size2D(800, 100);
             board.Position2D = new Position2D(94, 650);
-            board.PointSize = 30;
+            board.PointSize = 14;
             board.HorizontalAlignment = HorizontalAlignment.Center;
             board.VerticalAlignment = VerticalAlignment.Center;
             board.BackgroundColor = Color.Magenta;
@@ -65,7 +67,8 @@ namespace Tizen.FH.NUI.Samples
             board.FocusGained += Board_FocusGained;
             board.FocusLost += Board_FocusLost;
 
-            button1 = new Button();
+            button1 = new Tizen.NUI.CommonUI.Button();
+            button1.PointSize = 14;
             button1.BackgroundColor = Color.Green;
             button1.Position2D = new Position2D(30, 125);
             button1.Size2D = new Size2D(220, 80);
@@ -74,7 +77,8 @@ namespace Tizen.FH.NUI.Samples
             button1.Focusable = true;
             button1.ClickEvent += toast1_1Show;
 
-            button2 = new Button();
+            button2 = new Tizen.NUI.CommonUI.Button();
+            button2.PointSize = 14;
             button2.BackgroundColor = Color.Green;
             button2.Position2D = new Position2D(270, 125);
             button2.Size2D = new Size2D(220, 80);
@@ -83,7 +87,8 @@ namespace Tizen.FH.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += toast2_1Show;
 
-            button3 = new Button();
+            button3 = new Tizen.NUI.CommonUI.Button();
+            button3.PointSize = 14;
             button3.BackgroundColor = Color.Green;
             button3.Position2D = new Position2D(510, 125);
             button3.Size2D = new Size2D(270, 80);
@@ -92,7 +97,8 @@ namespace Tizen.FH.NUI.Samples
             button3.Focusable = true;
             button3.ClickEvent += toast2_1ChangeDirection;
 
-            button4 = new Button();
+            button4 = new Tizen.NUI.CommonUI.Button();
+            button4.PointSize = 14;
             button4.BackgroundColor = Color.Green;
             button4.Position2D = new Position2D(800, 125);
             button4.Size2D = new Size2D(220, 80);

@@ -609,37 +609,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_Adaptor_SetRenderRefreshRate(void * jarg
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_Adaptor_SetUseHardwareVSync(void * jarg1, unsigned int jarg2) {
-  Dali::Adaptor *arg1 = (Dali::Adaptor *) 0 ;
-  bool arg2 ;
-
-  arg1 = (Dali::Adaptor *)jarg1;
-  arg2 = jarg2 ? true : false;
-  {
-    try {
-      (arg1)->SetUseHardwareVSync(arg2);
-    } catch (std::out_of_range& e) {
-      {
-        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
-      };
-    } catch (std::exception& e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
-      };
-    } catch (Dali::DaliException e) {
-      {
-        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
-      };
-    }
-  }
-
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_Dali_Adaptor_Get() {
   void * jresult ;
   Dali::Adaptor *result = 0 ;
@@ -738,37 +707,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Dali_Adaptor_NotifyLanguageChanged(void * jar
   {
     try {
       (arg1)->NotifyLanguageChanged();
-    } catch (std::out_of_range& e) {
-      {
-        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;
-      };
-    } catch (std::exception& e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, const_cast<char*>(e.what())); return ;
-      };
-    } catch (Dali::DaliException e) {
-      {
-        SWIG_CSharpException(SWIG_UnknownError, e.condition); return ;
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_UnknownError, "unknown error"); return ;
-      };
-    }
-  }
-
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Dali_Adaptor_SetMinimumPinchDistance(void * jarg1, float jarg2) {
-  Dali::Adaptor *arg1 = (Dali::Adaptor *) 0 ;
-  float arg2 ;
-
-  arg1 = (Dali::Adaptor *)jarg1;
-  arg2 = (float)jarg2;
-  {
-    try {
-      (arg1)->SetMinimumPinchDistance(arg2);
     } catch (std::out_of_range& e) {
       {
         SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ;

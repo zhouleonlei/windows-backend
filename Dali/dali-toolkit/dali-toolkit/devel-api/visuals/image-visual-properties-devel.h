@@ -2,7 +2,7 @@
 #define DALI_TOOLKIT_DEVEL_API_VISUALS_IMAGE_VISUAL_PROPERTIES_DEVEL_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ enum Type
   ORIENTATION_CORRECTION = Dali::Toolkit::ImageVisual::Property::ORIENTATION_CORRECTION,
 
   /**
-   * @brief Overlays the auxiliary iamge on top of an NPatch image.
+   * @brief Overlays the auxiliary image on top of an NPatch image.
    *
    * The resulting visual image will be at least as large as the
    * smallest possible n-patch or the auxiliary image, whichever is
@@ -77,7 +77,7 @@ enum Type
   AUXILIARY_IMAGE_ALPHA = ORIENTATION_CORRECTION + 2,
 
   /**
-   * @brief The number of times the AnimatedImageVisual will be looped.
+   * @brief The number of times the AnimatedImageVisual or AnimatedVectorImageVisual will be looped.
    * @details Name "loopCount", type Property::INTEGER.
    * @note For Animated images only. Default -1. if < 0, loop unlimited. else, loop loopCount times.
    */
@@ -86,27 +86,49 @@ enum Type
   /**
    * @brief The playing range the AnimatedVectorImageVisual will use.
    *
-   * Animation will play between the values specified. Both values should be between 0-1,
-   * otherwise they will be ignored. If the range provided is not in proper order ( minimum,maximum ), it will be reordered.
+   * Animation will play between the values specified. The array can only have two values, and more will be ignored.
+   * Both values should be between 0 and the total frame number, otherwise they will be ignored.
+   * If the range provided is not in proper order ( minimum, maximum ), it will be reordered.
    *
-   * @details Name "playRange", Type Property::VECTOR2, between 0 and 1
-   * @note Default 0 and 1
+   * @details Name "playRange", Type Property::ARRAY of Property::INTEGER
+   * @note Default 0 and the total frame number.
    */
   PLAY_RANGE = ORIENTATION_CORRECTION + 4,
 
   /**
    * @brief The playing state the AnimatedVectorImageVisual will use.
-   * @details Name "playState", type PlayState (Property::INTEGER)
+   * @details Name "playState", Type PlayState::Type (Property::INTEGER)
    * @note This property is read-only.
    */
   PLAY_STATE = ORIENTATION_CORRECTION + 5,
 
   /**
-   * @brief The animation progress the AnimatedVectorImageVisual will use.
-   * @details Name "currentProgress", Type Property::FLOAT, between [0, 1] or between the play range if specified
+   * @brief The current frame number the AnimatedVectorImageVisual will use.
+   * @details Name "currentFrameNumber", Type Property::INTEGER, between [0, the maximum frame number] or between the play range if specified
    * @note This property is read-only.
    */
-  CURRENT_PROGRESS = ORIENTATION_CORRECTION + 6
+  CURRENT_FRAME_NUMBER = ORIENTATION_CORRECTION + 6,
+
+  /**
+   * @brief The total frame number the AnimatedVectorImageVisual will use.
+   * @details Name "totalFrameNumber", Type Property::INTEGER.
+   * @note This property is read-only.
+   */
+  TOTAL_FRAME_NUMBER = ORIENTATION_CORRECTION + 7,
+
+  /**
+   * @brief  The stop behavior the AnimatedVectorImageVisual will use.
+   * @details Name "stopBehavior", Type StopBehavior::Type (Property::INTEGER)
+   * @note Default value is StopBehavior::CURRENT_FRAME.
+   */
+  STOP_BEHAVIOR = ORIENTATION_CORRECTION + 8,
+
+  /**
+   * @brief  The looping mode the AnimatedVectorImageVisual will use.
+   * @details Name "loopingMode", Type LoopingMode::Type (Property::INTEGER)
+   * @note Default value is LoopingMode::RESTART.
+   */
+  LOOPING_MODE = ORIENTATION_CORRECTION + 9
 };
 
 } //namespace Property
@@ -114,12 +136,46 @@ enum Type
 /**
  * @brief Enumeration for what state the animation is in.
  */
-enum class PlayState
+namespace PlayState
+{
+
+enum Type
 {
   STOPPED,   ///< Animation has stopped
   PLAYING,   ///< The animation is playing
   PAUSED     ///< The animation is paused
 };
+
+} // namespace PlayState
+
+/**
+ * @brief Enumeration for what to do when the animation is stopped.
+ */
+namespace StopBehavior
+{
+
+enum Type
+{
+  CURRENT_FRAME,  ///< When the animation is stopped, the current frame is shown.
+  FIRST_FRAME,    ///< When the animation is stopped, the first frame is shown.
+  LAST_FRAME      ///< When the animation is stopped, the last frame is shown.
+};
+
+} // namespace StopBehavoir
+
+/**
+ * @brief Enumeration for what looping mode is in.
+ */
+namespace LoopingMode
+{
+
+enum Type
+{
+  RESTART,      ///< When the animation arrives at the end in looping mode, the animation restarts from the beginning.
+  AUTO_REVERSE  ///< When the animation arrives at the end in looping mode, the animation reverses direction and runs backwards again.
+};
+
+} // namespace LoopingMode
 
 } // namespace DevelImageVisual
 

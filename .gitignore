@@ -8,6 +8,9 @@
 *.user
 *.sln.docstates
 
+# Generate code
+Dali/dali-env
+
 # Build results
 
 [Dd]ebug/
@@ -195,7 +198,7 @@ $RECYCLE.BIN/
 bin/
 obj/
 *.exe
-*.dll
+#*.dll
 *.csproj.user
 *.lock.json
 

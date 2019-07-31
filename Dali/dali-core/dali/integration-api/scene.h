@@ -21,6 +21,7 @@
 // INTERNAL INCLUDES
 #include <dali/public-api/object/handle.h>
 #include <dali/public-api/math/vector2.h>
+#include <dali/public-api/math/vector4.h>
 
 namespace Dali
 {
@@ -60,11 +61,11 @@ public:
   /**
    * @brief Create an initialized Scene handle.
    *
-   * @param[in] size The size of the scene in pixels as a Vector
+   * @param[in] surface Binds this rendering surface to this scene
    *
    * @return a handle to a newly allocated Dali resource.
    */
-  static Scene New( const Size& size );
+  static Scene New( Integration::RenderSurface& surface );
 
   /**
    * @brief Downcast an Object handle to Scene handle.
@@ -114,7 +115,7 @@ public:
    * @pre The actor has been initialized.
    * @pre The actor does not have a parent.
    */
-  void Add(Actor& actor);
+  void Add(Actor actor);
 
   /**
    * @brief Removes a child Actor from the Scene.
@@ -123,7 +124,7 @@ public:
    * @param[in] actor The child
    * @pre The actor has been added to the stage.
    */
-  void Remove(Actor& actor);
+  void Remove(Actor actor);
 
   /**
    * @brief Returns the size of the Scene in pixels as a Vector.
@@ -147,6 +148,20 @@ public:
    * @return The horizontal and vertical DPI
    */
   Vector2 GetDpi() const;
+
+  /**
+   * @brief Sets the background color.
+   *
+   * @param[in] color The new background color
+   */
+  void SetBackgroundColor( const Vector4& color );
+
+  /**
+   * @brief Gets the background color of the render　surface.
+   *
+   * @return The background color
+   */
+  Vector4 GetBackgroundColor() const;
 
   /**
    * @brief Retrieves the list of render-tasks.
@@ -187,11 +202,27 @@ public:
   void SetSurface( Integration::RenderSurface& surface );
 
   /**
+   * @brief Informs the scene that the set surface has been resized.
+   */
+  void SurfaceResized();
+
+  /**
    * @brief Gets the rendering surface bound to the scene
    *
    * @return The render surface
    */
   Integration::RenderSurface* GetSurface() const;
+
+  /**
+   * @brief Discards this Scene from the Core.
+   */
+  void Discard();
+
+  /**
+   * @brief Retrieve the Scene that the given actor belongs to.
+   * @return The Scene.
+   */
+  static Integration::Scene Get( Actor actor );
 
   /**
    * This function is called when an event is queued.

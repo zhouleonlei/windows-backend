@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H__
-#define __DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H__
+#ifndef DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H
+#define DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,6 +86,12 @@ public:
   virtual void ReplaceSurface( Dali::RenderSurfaceInterface* surface ) = 0;
 
   /**
+   * Deletes the surface.
+   * @param[in] surface The surface to be deleted
+   */
+  virtual void DeleteSurface( Dali::RenderSurfaceInterface* surface ) = 0;
+
+  /**
    * Resize the surface.
    */
   virtual void ResizeSurface() = 0;
@@ -122,4 +128,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H__
+#endif // DALI_INTERNAL_THREAD_CONTROLLER_INTERFACE_H

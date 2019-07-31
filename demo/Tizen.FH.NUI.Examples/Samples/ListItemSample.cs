@@ -5,7 +5,7 @@ using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class ListItemSample : IExample
+    public class ListItem : IExample
     {
         private SampleLayout root;
         private const int COUNT = 12;
@@ -14,73 +14,75 @@ namespace Tizen.FH.NUI.Samples
         private int itemPosY, itemPosX;
         private int itemPosYOffset;
         private uint index;
-        private Button button;
+        private Tizen.NUI.CommonUI.Button button;
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             CreateRootView();
 
             itemPosX = 100;
-            itemPosY = 50;
+            itemPosY = -80;
             itemPosYOffset = 20;
             listItemArray = new Controls.ListItem[COUNT];
 
             index = 0;
-            CreateListItem(index, "DefaultListItem", 100, 0, "default");
-            
-            index++;
-            CreateListItem(index, "MultiSubTextListItem", 160, 1, "sub text 1line");
+            CreateListItem(index, "DefaultListItem", 90, 0, "default");
 
             index++;
-            CreateListItem(index, "MultiSubTextListItem", 232, 2, "sub text 2line");
+            CreateListItem(index, "MultiSubTextListItem", 150, 1, "sub text 1line");
+
+            index++;
+            CreateListItem(index, "MultiSubTextListItem", 220, 2, "sub text 2line");
             listItemArray[index].StateDividerEnabled = false;
 
             index++;
             // checkBox + text
-            CreateListItem(index, "ItemAlignListItem", 100, 0, "item align");
+            CreateListItem(index, "ItemAlignListItem", 90, 0, "item align");
             listItemArray[index].LeftItemRootViewSize = new Size2D(48, 48);
             listItemArray[index].ItemAlignType = Controls.ListItem.ItemAlignTypes.CheckIcon;
-            listItemArray[index].RightItemRootViewSize = new Size2D(200, 90);            
+            listItemArray[index].RightItemRootViewSize = new Size2D(200, 90);
             listItemArray[index].RightText = "Sub text";
 
             index++;
             // icon
-            CreateListItem(index, "ItemAlignListItem", 100, 0, "item align, icon");
+            CreateListItem(index, "ItemAlignListItem", 90, 0, "item align, icon");
             listItemArray[index].LeftItemRootViewSize = new Size2D(48, 48);
             listItemArray[index].ItemAlignType = Controls.ListItem.ItemAlignTypes.Icon;
-            listItemArray[index].LeftIconURL = @"../../../demo/csharp-demo/res/images/FH3/0. Softkey/softkey_ic_home.png";
+            listItemArray[index].LeftIconURL = CommonResource.GetFHResourcePath() + "0. Softkey/softkey_ic_home.png";
 
             index++;
-            CreateListItem(index, "EffectListItem", 100, 0, "effect");
-            
-            index++;
-            itemPosX = 100 + 800 + 100;
-            itemPosY = 50;
-            CreateListItem(index, "NextDepthListItem", 100, 0, "next depth");
+            CreateListItem(index, "EffectListItem", 90, 0, "effect");
 
             index++;
-            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, default");
+            //itemPosX = 100 + 800 + 100;
+            //itemPosY = 50;
+            CreateListItem(index, "NextDepthListItem", 90, 0, "next depth");
+
+            index++;
+            CreateListItem(index, "GroupIndexListItem", 90, 0, "group index, default");
             listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.None;
-            
+
             index++;
-            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, next button");
+            CreateListItem(index, "GroupIndexListItem", 90, 0, "group index, next button");
             listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.Next;
             listItemArray[index].RightItemRootViewSize = new Size2D(48, 48);
 
             index++;
-            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, switch");
+            CreateListItem(index, "GroupIndexListItem", 90, 0, "group index, switch");
             listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.Switch;
             listItemArray[index].RightItemRootViewSize = new Size2D(72, 48);
 
             index++;
-            CreateListItem(index, "GroupIndexListItem", 100, 0, "group index, drop down");
+            CreateListItem(index, "GroupIndexListItem", 90, 0, "group index, drop down");
             listItemArray[index].GroupIndexType = Controls.ListItem.GroupIndexTypes.DropDown;
             listItemArray[index].RightItemRootViewSize = new Size2D(48, 48);
 
-            button = new Button();
+            button = new Tizen.NUI.CommonUI.Button();
+            button.PointSize = 14;
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;
-            button.Position2D = new Position2D(itemPosX+10, itemPosY);
+            button.Position2D = new Position2D(itemPosX + 10, itemPosY);
             button.Text = "LTR/RTL";
             button.ClickEvent += OnLayoutChanged;
             rootView.Add(button);
@@ -90,7 +92,7 @@ namespace Tizen.FH.NUI.Samples
         {
             for (int i = 0; i < COUNT; ++i)
             {
-                if(listItemArray[i])
+                if (listItemArray[i])
                 {
                     if (listItemArray[i].LayoutDirection == ViewLayoutDirectionType.LTR)
                     {

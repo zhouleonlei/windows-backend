@@ -1,8 +1,8 @@
-#ifndef __DALI_INTERNAL_OBJECT_H__
-#define __DALI_INTERNAL_OBJECT_H__
+#ifndef DALI_INTERNAL_OBJECT_H
+#define DALI_INTERNAL_OBJECT_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@
 #include <dali/public-api/object/property.h>
 #include <dali/public-api/object/property-index-ranges.h>
 #include <dali/public-api/object/property-input.h>
+#include <dali/public-api/object/property-map.h>
 #include <dali/public-api/object/property-notification.h>
 #include <dali/devel-api/common/owner-container.h>
 #include <dali/devel-api/object/handle-devel.h>
@@ -212,6 +213,16 @@ public:
    * @copydoc Dali::Handle::RegisterProperty()
    */
   Property::Index RegisterProperty( const std::string& name, Property::Index key, const Property::Value& propertyValue );
+
+  /**
+   * @copydoc Dali::DevelHandle::SetProperties()
+   */
+  void SetProperties( const Property::Map& properties );
+
+  /**
+   * @copydoc Dali::DevelHandle::GetProperties()
+   */
+  void GetProperties( Property::Map& properties );
 
   /**
    * @copydoc Dali::Handle::RegisterProperty(std::string name, Property::Value propertyValue, Property::AccessMode accessMode)
@@ -588,4 +599,4 @@ inline const Internal::Object& GetImplementation(const Dali::Handle& object)
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_OBJECT_H__
+#endif // DALI_INTERNAL_OBJECT_H

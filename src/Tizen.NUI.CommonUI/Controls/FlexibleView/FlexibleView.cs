@@ -61,6 +61,7 @@ namespace Tizen.NUI.CommonUI
 
         private EventHandler<ItemClickEventArgs> clickEventHandlers;
         private EventHandler<ItemTouchEventArgs> touchEventHandlers;
+        private EventHandler<NUI.StyleManager.StyleChangedEventArgs> styleChangedEventHandlers;
 
         /// <summary>
         /// Creates a FlexibleView instance.
@@ -122,6 +123,25 @@ namespace Tizen.NUI.CommonUI
             remove
             {
                 touchEventHandlers -= value;
+            }
+        }
+
+        /// <summary>
+        /// Style changed, for example default font size.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public event EventHandler<NUI.StyleManager.StyleChangedEventArgs> StyleChanged
+        {
+            add
+            {
+                styleChangedEventHandlers += value;
+            }
+
+            remove
+            {
+                styleChangedEventHandlers -= value;
             }
         }
 
@@ -350,6 +370,17 @@ namespace Tizen.NUI.CommonUI
         }
 
         /// <summary>
+        /// Return the recycler instance.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Recycler GetRecycler()
+        {
+            return mRecycler;
+        }
+
+        /// <summary>
         /// you can override it to clean-up your own resources.
         /// </summary>
         /// <param name="type">DisposeTypes</param>
@@ -365,6 +396,8 @@ namespace Tizen.NUI.CommonUI
 
             if (type == DisposeTypes.Explicit)
             {
+                mLayout.StopScroll();
+
                 if (mAdapter != null)
                 {
                     mAdapter.ItemEvent -= OnItemEvent;
@@ -434,6 +467,26 @@ namespace Tizen.NUI.CommonUI
             mLayout.OnLayoutChildren(mRecycler);
 
             RemoveAndRecycleScrapInt();
+        }
+
+        /// <summary>
+        /// you can override it to do something for style change.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override void OnStyleChange(NUI.StyleManager styleManager, StyleChangeType change)
+        {
+            if (change == StyleChangeType.DefaultFontSizeChange)
+            {
+                NUI.StyleManager.StyleChangedEventArgs args = new NUI.StyleManager.StyleChangedEventArgs();
+                args.StyleManager = styleManager;
+                args.StyleChange = change;
+
+                styleChangedEventHandlers?.Invoke(this, args);
+
+                RelayoutRequest();
+            }
         }
 
         private void DispatchLayoutStep1()
@@ -667,11 +720,11 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mLayout.CanScrollVertically())
                 {
-                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 300, mRecycler, false);
+                    mLayout.ScrollVerticallyBy(e.PanGesture.Velocity.Y * 600, mRecycler, false);
                 }
                 else if (mLayout.CanScrollHorizontally())
                 {
-                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 300, mRecycler, false);
+                    mLayout.ScrollHorizontallyBy(e.PanGesture.Velocity.X * 600, mRecycler, false);
                 }
                 ShowScrollBar(1200, true);
             }
@@ -1046,11 +1099,29 @@ namespace Tizen.NUI.CommonUI
         [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract class LayoutManager
         {
+            /// <summary>
+            /// Direction
+            /// </summary>
             public enum Direction
             {
+                /// <summary>
+                /// Left
+                /// </summary>
                 Left,
+
+                /// <summary>
+                /// Right
+                /// </summary>
                 Right,
+
+                /// <summary>
+                /// Up
+                /// </summary>
                 Up,
+
+                /// <summary>
+                /// Down
+                /// </summary>
                 Down
             }
 
@@ -1351,7 +1422,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Finds the view which represents the given adapter position.
             /// </summary>
-            /// <param name="index">adapter index</param>
+            /// <param name="position">adapter position</param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1377,20 +1448,16 @@ namespace Tizen.NUI.CommonUI
 
                 if (mScrollAni == null)
                 {
-                    mScrollAni = new Animation(500);
+                    mScrollAni = new Animation();
                     mScrollAni.Finished += OnScrollAnimationFinished;
                 }
                 else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    StopScroll();
-                    mScrollAni.Duration = 100;
-                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                    //StopScroll();
+                    mScrollAni.Stop(Animation.EndActions.StopFinal);
                 }
-                else
-                {
-                    mScrollAni.Duration = 500;
-                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
-                }
+                mScrollAni.Duration = 500;
+                mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.EaseOutSquare);
 
                 mScrollAni.Clear();
 
@@ -1417,7 +1484,7 @@ namespace Tizen.NUI.CommonUI
             /// <summary>
             /// Offset all child views attached to the parent FlexibleView by dy pixels along the vertical axis.
             /// </summary>
-            /// <param name="dx">Pixels to offset by </param>
+            /// <param name="dy">Pixels to offset by </param>
             /// <param name="immediate">specify if the offset need animation</param>
             /// <since_tizen> 6 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -1431,20 +1498,16 @@ namespace Tizen.NUI.CommonUI
 
                 if (mScrollAni == null)
                 {
-                    mScrollAni = new Animation(500);
+                    mScrollAni = new Animation();
                     mScrollAni.Finished += OnScrollAnimationFinished;
                 }
                 else if (mScrollAni.State == Animation.States.Playing)
                 {
-                    StopScroll();
-                    mScrollAni.Duration = 100;
-                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.Linear);
+                    //StopScroll();
+                    mScrollAni.Stop(Animation.EndActions.StopFinal);
                 }
-                else
-                {
-                    mScrollAni.Duration = 500;
-                    mScrollAni.DefaultAlphaFunction = new AlphaFunction(new Vector2(0.3f, 0), new Vector2(0.15f, 1));
-                }
+                mScrollAni.Duration = 500;
+                mScrollAni.DefaultAlphaFunction = new AlphaFunction(AlphaFunction.BuiltinFunctions.EaseOutSquare);
 
                 mScrollAni.Clear();
 
@@ -1535,8 +1598,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Add a view to the currently attached FlexibleView if needed.
-            /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).
+            /// Add a view to the currently attached FlexibleView if needed.<br />
+            /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).<br />
             /// </summary>
             /// <param name="holder">view to add</param>
             /// <since_tizen> 6 </since_tizen>
@@ -1548,8 +1611,8 @@ namespace Tizen.NUI.CommonUI
             }
 
             /// <summary>
-            /// Add a view to the currently attached FlexibleView if needed.
-            /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).
+            /// Add a view to the currently attached FlexibleView if needed.<br />
+            /// LayoutManagers should use this method to add views obtained from a FlexibleView.Recycler using getViewForPosition(int).<br />
             /// </summary>
             /// <param name="holder">view to add</param>
             /// <param name="index">index to add child at</param>
@@ -1618,7 +1681,11 @@ namespace Tizen.NUI.CommonUI
                     for (int i = startIndex; i < endIndex; i++)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        mPendingRecycleViews.Add(v);
+                        if (v.PendingRecycle == false)
+                        {
+                            v.PendingRecycle = true;
+                            mPendingRecycleViews.Add(v);
+                        }
                     }
                 }
                 else
@@ -1626,7 +1693,11 @@ namespace Tizen.NUI.CommonUI
                     for (int i = startIndex; i > endIndex; i--)
                     {
                         ViewHolder v = mChildHelper.GetChildAt(i);
-                        mPendingRecycleViews.Add(v);
+                        if (v.PendingRecycle == false)
+                        {
+                            v.PendingRecycle = true;
+                            mPendingRecycleViews.Add(v);
+                        }
                     }
                 }
                 if (immediate == true)
@@ -1660,7 +1731,7 @@ namespace Tizen.NUI.CommonUI
             {
                 if (mScrollAni != null && mScrollAni.State == Animation.States.Playing)
                 {
-                    mScrollAni.Stop();
+                    mScrollAni.Stop(Animation.EndActions.StopFinal);
                     mScrollAni.Clear();
                     OnScrollAnimationFinished(mScrollAni, null);
                 }
@@ -1734,6 +1805,7 @@ namespace Tizen.NUI.CommonUI
             {
                 foreach(ViewHolder holder in mPendingRecycleViews)
                 {
+                    holder.PendingRecycle = false;
                     recycler.RecycleView(holder);
                     mChildHelper.RemoveView(holder);
                 }
@@ -1930,6 +2002,13 @@ namespace Tizen.NUI.CommonUI
 
             internal Recycler ScrapContainer { get; set; }
 
+            internal bool PendingRecycle
+            {
+                get;
+                set;
+            } = false;
+
+
             internal bool IsScrap()
             {
                 return ScrapContainer != null;
@@ -2007,7 +2086,7 @@ namespace Tizen.NUI.CommonUI
             private List<ViewHolder> mChangedScrap = null;
             //private List<ItemView> mCachedViews = new List<ItemView>();
 
-            private List<ViewHolder> mUnmodifiableAttachedScrap;
+            //private List<ViewHolder> mUnmodifiableAttachedScrap;
 
             private int mCacheSizeMax = 2;
 
@@ -2470,16 +2549,6 @@ namespace Tizen.NUI.CommonUI
                 return true;
             }
 
-        }
-
-        private class InfoRecord
-        {
-            public static readonly int FLAG_DISAPPEARED = 1;
-            public static readonly int FLAG_APPEAR = 1 << 1;
-
-
-            public ItemViewInfo preInfo;
-            public ItemViewInfo postInfo;
         }
 
         private class ItemViewInfo

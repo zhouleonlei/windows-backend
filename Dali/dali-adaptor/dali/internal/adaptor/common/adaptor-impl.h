@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_ADAPTOR_IMPL_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,13 @@
 // INTERNAL INCLUDES
 #include <dali/integration-api/adaptor.h>
 #include <dali/integration-api/scene.h>
+
+#ifdef DALI_ADAPTOR_COMPILATION
+#include <dali/integration-api/scene-holder-impl.h>
+#else
+#include <dali/integration-api/adaptors/scene-holder-impl.h>
+#endif
+
 #include <dali/public-api/adaptor-framework/tts-player.h>
 #include <dali/devel-api/adaptor-framework/clipboard.h>
 
@@ -38,9 +45,7 @@
 #include <dali/internal/adaptor/common/adaptor-internal-services.h>
 #include <dali/internal/system/common/environment-options.h>
 #include <dali/internal/system/common/core-event-interface.h>
-#include <dali/internal/input/common/drag-and-drop-detector-impl.h>
 #include <dali/internal/window-system/common/damage-observer.h>
-#include <dali/internal/window-system/common/window-impl.h>
 #include <dali/internal/window-system/common/window-visibility-observer.h>
 #include <dali/internal/system/common/kernel-trace.h>
 #include <dali/internal/system/common/system-trace.h>
@@ -52,7 +57,6 @@ namespace Dali
 {
 
 class RenderSurfaceInterface;
-class Window;
 
 namespace Integration
 {
@@ -68,7 +72,6 @@ namespace Adaptor
 {
 class DisplayConnection;
 class GraphicsFactory;
-class GestureManager;
 class GlImplementation;
 class GlSyncImplementation;
 class ThreadController;
@@ -80,6 +83,7 @@ class VSyncMonitor;
 class PerformanceInterface;
 class LifeCycleObserver;
 class ObjectProfiler;
+class SceneHolder;
 
 /**
  * Implementation of the Adaptor class.
@@ -92,9 +96,10 @@ class Adaptor : public Integration::RenderController,
 {
 public:
 
-  typedef Dali::Adaptor::AdaptorSignalType AdaptorSignalType;
+  using AdaptorSignalType =  Dali::Adaptor::AdaptorSignalType;
+  using WindowCreatedSignalType = Dali::Adaptor::WindowCreatedSignalType;
 
-  typedef Uint16Pair SurfaceSize;          ///< Surface size type
+  using SurfaceSize = Uint16Pair;          ///< Surface size type
 
   /**
    * Creates a New Adaptor
@@ -105,7 +110,7 @@ public:
    * @param[in]  configuration       The context loss configuration ( to choose resource discard policy )
    * @param[in]  environmentOptions  A pointer to the environment options. If NULL then one is created.
    */
-  static Dali::Adaptor* New( Dali::Window window,
+  static Dali::Adaptor* New( Dali::Integration::SceneHolder window,
                              Dali::RenderSurfaceInterface* surface,
                              Dali::Configuration::ContextLoss configuration,
                              EnvironmentOptions* environmentOptions );
@@ -116,7 +121,7 @@ public:
    * @param[in]  configuration       The context loss configuration ( to choose resource discard policy )
    * @param[in]  environmentOptions  A pointer to the environment options. If NULL then one is created.
    */
-  static Dali::Adaptor* New( Dali::Window window,
+  static Dali::Adaptor* New( Dali::Integration::SceneHolder window,
                              Dali::Configuration::ContextLoss configuration,
                              EnvironmentOptions* environmentOptions );
 
@@ -131,7 +136,7 @@ public:
    * @param[in]  environmentOptions  A pointer to the environment options. If NULL then one is created.
    */
   static Dali::Adaptor* New( GraphicsFactory& graphicsFactory,
-                             Dali::Window window,
+                             Dali::Integration::SceneHolder window,
                              Dali::RenderSurfaceInterface* surface,
                              Dali::Configuration::ContextLoss configuration,
                              EnvironmentOptions* environmentOptions );
@@ -144,7 +149,7 @@ public:
    * @param[in]  environmentOptions  A pointer to the environment options. If NULL then one is created.
    */
   static Dali::Adaptor* New( GraphicsFactory& graphicsFactory,
-                             Dali::Window window,
+                             Dali::Integration::SceneHolder window,
                              Dali::Configuration::ContextLoss configuration,
                              EnvironmentOptions* environmentOptions );
 
@@ -222,9 +227,9 @@ public: // AdaptorInternalServices implementation
   virtual void FeedKeyEvent( KeyEvent& keyEvent );
 
   /**
-   * @copydoc AdaptorInterface::ReplaceSurface()
+   * @copydoc Dali::Adaptor::ReplaceSurface()
    */
-  virtual void ReplaceSurface( Dali::Window window, Dali::RenderSurfaceInterface& surface );
+  virtual void ReplaceSurface( Dali::Integration::SceneHolder window, Dali::RenderSurfaceInterface& surface );
 
   /**
    * @copydoc Dali::Adaptor::GetSurface()
@@ -255,16 +260,16 @@ public: // AdaptorInternalServices implementation
    * @param[in]  childWindowClassName The class name that the child window belongs to
    * @param[in]  childWindowMode The mode of the child window
    */
-  virtual bool AddWindow( Dali::Window* childWindow,
+  virtual bool AddWindow( Dali::Integration::SceneHolder childWindow,
                           const std::string& childWindowName,
                           const std::string& childWindowClassName,
-                          const bool& childWindowMode );
+                          bool childWindowMode );
 
   /**
    * Removes an existing Window instance from the Adaptor
    * @param[in]  window The Window instance
    */
-  virtual bool RemoveWindow( Dali::Window* childWindow );
+  virtual bool RemoveWindow( Dali::Integration::SceneHolder* childWindow );
 
   /**
    * Removes an existing Window instance from the Adaptor
@@ -287,7 +292,26 @@ public: // AdaptorInternalServices implementation
    * Removes an existing Window instance from the Adaptor
    * @param[in]  childWindow The Window instance
    */
-  bool RemoveWindow( Dali::Internal::Adaptor::Window* childWindow );
+  bool RemoveWindow( Dali::Internal::Adaptor::SceneHolder* childWindow );
+
+  /**
+   * @brief Deletes the rendering surface
+   * @param[in] surface to delete
+   */
+  void DeleteSurface( Dali::RenderSurfaceInterface& surface );
+
+  /**
+   * @brief Retrieve the window that the given actor is added to.
+   *
+   * @param[in] actor The actor
+   * @return The window the actor is added to or a null pointer if the actor is not added to any widnow.
+   */
+  Dali::Internal::Adaptor::SceneHolder* GetWindow( Dali::Actor& actor );
+
+  /**
+   * @copydoc Dali::Adaptor::GetWindows()
+   */
+  Dali::WindowContainer GetWindows() const;
 
 public:
 
@@ -302,35 +326,16 @@ public:
   void SetRenderRefreshRate( unsigned int numberOfVSyncsPerRender );
 
   /**
-   * @copydoc Dali::Adaptor::SetUseHardwareVSync()
-   */
-  void SetUseHardwareVSync(bool useHardware);
-
-  /**
    * Return the PlatformAbstraction.
    * @return The PlatformAbstraction.
    */
   Integration::PlatformAbstraction& GetPlatformAbstraction() const;
 
   /**
-   * Sets the Drag & Drop Listener.
-   * @param[in] detector The detector to send Drag & Drop events to.
-   */
-  void SetDragAndDropDetector( DragAndDropDetectorPtr detector );
-
-  /**
    * Destroy the TtsPlayer of specific mode.
    * @param[in] mode The mode of TtsPlayer to destroy
    */
   void DestroyTtsPlayer(Dali::TtsPlayer::Mode mode);
-
-  /**
-   * @brief Sets minimum distance in pixels that the fingers must move towards/away from each other in order to
-   * trigger a pinch gesture
-   *
-   * @param[in] distance The minimum pinch distance in pixels
-   */
-  void SetMinimumPinchDistance(float distance);
 
   /**
    * Gets native window handle
@@ -394,12 +399,12 @@ public:
   void GetAppId( std::string& appId );
 
   /**
-   * Informs core the surface size has changed
+   * @copydoc Dali::Adaptor::SurfaceResizePrepare
    */
   void SurfaceResizePrepare( Dali::RenderSurfaceInterface* surface, SurfaceSize surfaceSize );
 
   /**
-   * Informs ThreadController the surface size has changed
+   * @copydoc Dali::Adaptor::SurfaceResizeComplete
    */
   void SurfaceResizeComplete( Dali::RenderSurfaceInterface* surface, SurfaceSize surfaceSize );
 
@@ -467,11 +472,6 @@ public:  //AdaptorInternalServices
   virtual Dali::RenderSurfaceInterface* GetRenderSurfaceInterface();
 
   /**
-   * @copydoc Dali::Internal::Adaptor::AdaptorInternalServices::GetVSyncMonitorInterface()
-   */
-  virtual VSyncMonitorInterface* GetVSyncMonitorInterface();
-
-  /**
    * @copydoc Dali::Internal::Adaptor::AdaptorInternalServices::GetPerformanceInterface()
    */
   virtual PerformanceInterface* GetPerformanceInterface();
@@ -505,13 +505,19 @@ public: // Signals
   }
 
   /**
-   * Gets the gesture manager.
-   * @return The GestureManager
+   * @copydoc Dali::Adaptor::WindowCreatedSignal
    */
-  GestureManager* GetGestureManager() const
+  WindowCreatedSignalType& WindowCreatedSignal()
   {
-    return mGestureManager;
+    return mWindowCreatedSignal;
   }
+
+public: // From Dali::Internal::Adaptor::CoreEventInterface
+
+  /**
+   * @copydoc Dali::Internal::Adaptor:CoreEventInterface:::ProcessCoreEvents()
+   */
+  virtual void ProcessCoreEvents();
 
 private: // From Dali::Internal::Adaptor::CoreEventInterface
 
@@ -519,11 +525,6 @@ private: // From Dali::Internal::Adaptor::CoreEventInterface
    * @copydoc Dali::Internal::Adaptor::CoreEventInterface::QueueCoreEvent()
    */
   virtual void QueueCoreEvent(const Dali::Integration::Event& event);
-
-  /**
-   * @copydoc Dali::Internal::Adaptor:CoreEventInterface:::ProcessCoreEvents()
-   */
-  virtual void ProcessCoreEvents();
 
 private: // From Dali::Integration::RenderController
 
@@ -537,7 +538,7 @@ private: // From Dali::Integration::RenderController
    */
   virtual void RequestProcessEventsOnIdle( bool forceProcess );
 
-private: // From Dali::Internal::Adaptor::WindowVisibilityObserver
+public: // From Dali::Internal::Adaptor::WindowVisibilityObserver
 
   /**
    * Called when the window becomes fully or partially visible.
@@ -618,33 +619,35 @@ private:
    *                          - Window, adaptor will use existing Window to draw on to
    * @param[in]  environmentOptions  A pointer to the environment options. If NULL then one is created.
    */
-  Adaptor( Dali::Window window, Dali::Adaptor& adaptor, Dali::RenderSurfaceInterface* surface, EnvironmentOptions* environmentOptions );
+  Adaptor( Dali::Integration::SceneHolder window, Dali::Adaptor& adaptor, Dali::RenderSurfaceInterface* surface, EnvironmentOptions* environmentOptions );
 
 private: // Types
 
   enum State
   {
-    READY,               ///< Initial state before Adaptor::Start is called.
-    RUNNING,             ///< Adaptor is running.
-    PAUSED,              ///< Adaptor has been paused.
-    PAUSED_WHILE_HIDDEN, ///< Adaptor is paused while window is hidden (& cannot be resumed until window is shown).
-    STOPPED,             ///< Adaptor has been stopped.
+    READY,                     ///< Initial state before Adaptor::Start is called.
+    RUNNING,                   ///< Adaptor is running.
+    PAUSED,                    ///< Adaptor has been paused.
+    PAUSED_WHILE_HIDDEN,       ///< Adaptor is paused while window is hidden (& cannot be resumed until window is shown).
+    PAUSED_WHILE_INITIALIZING, ///< Adaptor is paused while application is initializing.
+    STOPPED,                   ///< Adaptor has been stopped.
   };
 
-  using WindowPtr = IntrusivePtr< Window >;
-  using WindowContainer = std::vector<WindowPtr>;
+  // There is no weak handle for BaseHandle in DALi, but we can't ref count the window here,
+  // so we have to store the raw pointer.
+  using WindowContainer = std::vector<Dali::Internal::Adaptor::SceneHolder*>;
   using ObserverContainer = std::vector<LifeCycleObserver*>;
 
 private: // Data
 
   AdaptorSignalType                     mResizedSignal;               ///< Resized signal.
   AdaptorSignalType                     mLanguageChangedSignal;       ///< Language changed signal.
+  WindowCreatedSignalType               mWindowCreatedSignal;         ///< Window created signal.
 
   Dali::Adaptor&                        mAdaptor;                     ///< Reference to public adaptor instance.
   State                                 mState;                       ///< Current state of the adaptor
   Dali::Integration::Core*              mCore;                        ///< Dali Core
   ThreadController*                     mThreadController;            ///< Controls the threads
-  VSyncMonitor*                         mVSyncMonitor;                ///< Monitors VSync events
 
   GraphicsInterface*                    mGraphics;                    ///< Graphics interface
   Dali::DisplayConnection*              mDisplayConnection;           ///< Display connection
@@ -655,12 +658,10 @@ private: // Data
   CallbackManager*                      mCallbackManager;             ///< Used to install callbacks
   bool                                  mNotificationOnIdleInstalled; ///< whether the idle handler is installed to send an notification event
   TriggerEventInterface*                mNotificationTrigger;         ///< Notification event trigger
-  GestureManager*                       mGestureManager;              ///< Gesture manager
   FeedbackPluginProxy*                  mDaliFeedbackPlugin;          ///< Used to access feedback support
   FeedbackController*                   mFeedbackController;          ///< Plays feedback effects for Dali-Toolkit UI Controls.
   Dali::TtsPlayer                       mTtsPlayers[Dali::TtsPlayer::MODE_NUM];                   ///< Provides TTS support
   ObserverContainer                     mObservers;                   ///< A list of adaptor observer pointers
-  DragAndDropDetectorPtr                mDragAndDropDetector;         ///< The Drag & Drop detector
   EnvironmentOptions*                   mEnvironmentOptions;          ///< environment options
   PerformanceInterface*                 mPerformanceInterface;        ///< Performance interface
   KernelTrace                           mKernelTracer;                ///< Kernel tracer

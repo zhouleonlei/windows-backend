@@ -4,7 +4,8 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class CheckBoxSample : IExample
+
+    public class CheckBox : IExample
     {
         private SampleLayout root;
 
@@ -23,7 +24,7 @@ namespace Tizen.FH.NUI.Samples
             "disabled",
             "disabledSelected",
         };
-  
+
         private static string[] applications = new string[]
         {
             "Group1",
@@ -36,6 +37,7 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "CheckBox";
 
@@ -79,7 +81,7 @@ namespace Tizen.FH.NUI.Samples
                 group[j - 1] = new CheckBoxGroup();
                 for (uint i = 1; i < rowNum; i++)
                 {
-                    CheckBox checkBox = new CheckBox("CheckBox");
+                    Tizen.NUI.CommonUI.CheckBox checkBox = new Tizen.NUI.CommonUI.CheckBox("CheckBox");
                     checkBox.Size2D = new Size2D(48, 48);
                     if (i == 3)
                     {
@@ -116,12 +118,12 @@ namespace Tizen.FH.NUI.Samples
 
         private void CheckBoxSelectedEvent(object sender, SelectButton.SelectEventArgs e)
         {
-            CheckBox obj = sender as CheckBox;
+            Tizen.NUI.CommonUI.CheckBox obj = sender as Tizen.NUI.CommonUI.CheckBox;
             for (uint i = 0; i < rowNum; i++)
             {
                 for (uint j = 0; j < colNum; j++)
                 {
-                    CheckBox child = table.GetChildAt(new TableView.CellPosition(i, j)) as CheckBox;
+                    Tizen.NUI.CommonUI.CheckBox child = table.GetChildAt(new TableView.CellPosition(i, j)) as Tizen.NUI.CommonUI.CheckBox;
                     if (child != null)
                     {
                         //child.Text = child.IsSelected.ToString();

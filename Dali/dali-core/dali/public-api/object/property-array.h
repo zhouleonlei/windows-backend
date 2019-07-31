@@ -1,8 +1,8 @@
-#ifndef __DALI_PROPERTY_ARRAY_H__
-#define __DALI_PROPERTY_ARRAY_H__
+#ifndef DALI_PROPERTY_ARRAY_H
+#define DALI_PROPERTY_ARRAY_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
  */
 
 // EXTERNAL INCLUDES
+#include <initializer_list>
 #include <string>
 
 // INTERNAL INCLUDES
@@ -50,12 +51,30 @@ public:
   Array();
 
   /**
-   * @brief Copy Constructor.
+   * @brief Constructor from initializer_list.
+   *
+   * @SINCE_1_4.17
+   * @param[in] values An initializer_list of values
+   */
+  Array( const std::initializer_list< Value >& values );
+
+  /**
+   * @brief Copy constructor.
    *
    * @SINCE_1_0.0
    * @param[in] other The Array to copy from
    */
   Array( const Array& other );
+
+  /**
+   * @brief Move constructor.
+   *
+   * A move constructor enables the resources owned by an r-value object to be moved into an l-value without copying.
+   * @SINCE_1_4.17
+   * @param[in] other The Array to move from
+   * @note After the @a other array is used, it becomes invalid and is no longer usable.
+   */
+  Array( Array&& other );
 
   /**
    * @brief Non-virtual destructor.
@@ -187,7 +206,7 @@ public:
   Value& operator[]( SizeType index );
 
   /**
-   * @brief Assignment Operator.
+   * @brief Assignment operator.
    *
    * @SINCE_1_0.0
    * @param[in] other The array to copy from
@@ -195,6 +214,18 @@ public:
    * @return The copied array.
    */
   Array& operator=( const Array& other );
+
+  /**
+   * @brief Move assignment operator.
+   *
+   * @SINCE_1_4.17
+   * @param[in] other The array to copy from
+   *
+   * @return The moved array.
+   *
+   * @note After the @a other array is used, it becomes invalid and is no longer usable.
+   */
+  Array& operator=( Array&& other );
 
   /**
    * @brief Output to stream.
@@ -222,4 +253,4 @@ DALI_CORE_API std::ostream& operator<<( std::ostream& stream, const Property::Ar
  */
 } // namespace Dali
 
-#endif // __DALI_PROPERTY_ARRAY_H__
+#endif // DALI_PROPERTY_ARRAY_H

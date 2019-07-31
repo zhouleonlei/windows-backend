@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_PATH_EFFECT_H__
-#define __DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_PATH_EFFECT_H__
+#ifndef DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_PATH_EFFECT_H
+#define DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_PATH_EFFECT_H
 
 /*
- * Copyright (c) 2015 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,10 +48,10 @@ public:
    * @param[in] path Pages will follow this path
    * @param[in] forward Vector in page local space which will be aligned with tangent of the path
    * @param[in] inputPropertyIndex index of the property in the scrollview used to drivce the path
-   * @param[in] pageSize size of a page in the scrollview
+   * @param[in] viewPageSize size of a page in the scrollview
    * @param[in] pageCount total number of pages in the scrollview
    */
-  ScrollViewPagePathEffect(Path path, const Vector3& forward, Dali::Property::Index inputPropertyIndex, const Vector3& pageSize, unsigned int pageCount );
+  ScrollViewPagePathEffect(Path path, const Vector3& forward, Dali::Property::Index inputPropertyIndex, const Vector3& viewPageSize, unsigned int pageCount );
 
 public:
 
@@ -114,4 +114,4 @@ inline const Internal::ScrollViewPagePathEffect& GetImpl(const Dali::Toolkit::Sc
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_CAROUSEL_EFFECT_H__
+#endif // DALI_TOOLKIT_INTERNAL_SCROLL_VIEW_PAGE_PATH_EFFECT_H

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,8 @@ using namespace Dali;
 
 ImageView::ImageView()
 : Control( ControlBehaviour( CONTROL_BEHAVIOUR_DEFAULT ) ),
-  mImageSize()
+  mImageSize(),
+  mImageVisualPaddingSetByTransform( false )
 {
 }
 
@@ -120,14 +121,14 @@ void ImageView::SetImage( Image image )
   }
   else
   {
-    // Unregister the exsiting visual
+    // Unregister the existing visual
     DevelControl::UnregisterVisual( *this, Toolkit::ImageView::Property::IMAGE );
 
     // Trigger a size negotiation request that may be needed when unregistering a visual.
     RelayoutRequest();
   }
 
-  Toolkit::DevelControl::RequestLayout( *this );
+  // Signal that a Relayout may be needed
 }
 
 void ImageView::SetImage( const Property::Map& map )
@@ -163,7 +164,7 @@ void ImageView::SetImage( const Property::Map& map )
     RelayoutRequest();
   }
 
-  Toolkit::DevelControl::RequestLayout( *this );
+  // Signal that a Relayout may be needed
 }
 
 void ImageView::SetImage( const std::string& url, ImageDimensions size )
@@ -200,7 +201,7 @@ void ImageView::SetImage( const std::string& url, ImageDimensions size )
     RelayoutRequest();
   }
 
-  Toolkit::DevelControl::RequestLayout( *this );
+  // Signal that a Relayout may be needed
 }
 
 Image ImageView::GetImage() const
@@ -293,7 +294,8 @@ void ImageView::OnRelayout( const Vector2& size, RelayoutContainer& container )
     Extents padding = Self().GetProperty<Extents>( Toolkit::Control::Property::PADDING );
     const Visual::FittingMode fittingMode = Toolkit::GetImplementation(mVisual).GetFittingMode();
 
-    if( ( padding != Extents() ) || // If padding is not zero
+    bool zeroPadding = ( padding == Extents() );
+    if( ( !zeroPadding ) || // If padding is not zero
         ( fittingMode == Visual::FittingMode::FIT_KEEP_ASPECT_RATIO ) )
     {
       Dali::LayoutDirection::Type layoutDirection = static_cast<Dali::LayoutDirection::Type>(
@@ -305,6 +307,7 @@ void ImageView::OnRelayout( const Vector2& size, RelayoutContainer& container )
       }
 
       auto finalOffset = Vector2( padding.start, padding.top );
+      mImageVisualPaddingSetByTransform = true;
 
       // remove padding from the size to know how much is left for the visual
       auto finalSize = size - Vector2( padding.start + padding.end, padding.top + padding.bottom );
@@ -335,8 +338,25 @@ void ImageView::OnRelayout( const Vector2& size, RelayoutContainer& container )
                   .Add( Toolkit::Visual::Transform::Property::SIZE_POLICY,
                       Vector2( Toolkit::Visual::Transform::Policy::ABSOLUTE, Toolkit::Visual::Transform::Policy::ABSOLUTE ) );
     }
+    else if ( mImageVisualPaddingSetByTransform && zeroPadding )  // Reset offset to zero only if padding applied previously
+    {
+      mImageVisualPaddingSetByTransform = false;
+      // Reset the transform map
+      transformMap.Add( Toolkit::Visual::Transform::Property::OFFSET, Vector2::ZERO )
+                  .Add( Toolkit::Visual::Transform::Property::OFFSET_POLICY,
+                        Vector2( Toolkit::Visual::Transform::Policy::RELATIVE, Toolkit::Visual::Transform::Policy::RELATIVE ) );
+    }
+
 
     mVisual.SetTransformAndSize( transformMap, size );
+
+    // mVisual is not updated util the resource is ready in the case of visual replacement.
+    // So apply the transform and size to the new visual.
+    Toolkit::Visual::Base visual = DevelControl::GetVisual( *this, Toolkit::ImageView::Property::IMAGE );
+    if( visual && visual != mVisual )
+    {
+      visual.SetTransformAndSize( transformMap, size );
+    }
   }
 }
 
@@ -344,7 +364,7 @@ void ImageView::OnResourceReady( Toolkit::Control control )
 {
   // Visual ready so update visual attached to this ImageView, following call to RelayoutRequest will use this visual.
   mVisual = DevelControl::GetVisual( *this, Toolkit::ImageView::Property::IMAGE );
-  Toolkit::DevelControl::RequestLayout( *this );
+  // Signal that a Relayout may be needed
 }
 
 ///////////////////////////////////////////////////////////

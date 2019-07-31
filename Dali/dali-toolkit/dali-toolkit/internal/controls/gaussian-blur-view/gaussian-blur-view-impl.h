@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H__
-#define __DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H__
+#ifndef DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H
+#define DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,10 +78,10 @@ public:
   void ActivateOnce();
   void Deactivate();
 
-  void SetUserImageAndOutputRenderTarget(Image inputImage, FrameBufferImage outputRenderTarget);
+  void SetUserImageAndOutputRenderTarget(Texture inputImage, FrameBuffer outputRenderTarget);
 
   Property::Index GetBlurStrengthPropertyIndex() const {return mBlurStrengthPropertyIndex;}
-  FrameBufferImage GetBlurredRenderTarget() const;
+  FrameBuffer GetBlurredRenderTarget() const;
 
   /// @copydoc Dali::Toolkit::GaussianBlurView::SetBackgroundColor(const Vector4&)
   void SetBackgroundColor( const Vector4& color );
@@ -159,30 +159,28 @@ private:
 
   /////////////////////////////////////////////////////////////
   // for rendering all user added children to offscreen target
-  FrameBufferImage mRenderTargetForRenderingChildren;
+  FrameBuffer mRenderTargetForRenderingChildren;
   RenderTask mRenderChildrenTask;
 
   /////////////////////////////////////////////////////////////
   // for rendering separated blur passes to offscreen targets
-  FrameBufferImage mRenderTarget1;
-  FrameBufferImage mRenderTarget2;
+  FrameBuffer mRenderTarget1;
+  FrameBuffer mRenderTarget2;
 
-  Toolkit::ImageView mImageViewHorizBlur;
-  Toolkit::ImageView mImageViewVertBlur;
-
-  Property::Map mCustomShader;
+  Actor mHorizBlurActor;
+  Actor mVertBlurActor;
 
   RenderTask mHorizBlurTask;
   RenderTask mVertBlurTask;
 
   /////////////////////////////////////////////////////////////
   // for compositing blur and children renders to offscreen target
-  Toolkit::ImageView mImageViewComposite;
+  Actor mCompositingActor;
   RenderTask mCompositeTask;
 
   /////////////////////////////////////////////////////////////
   // for holding blurred result
-  Toolkit::ImageView mTargetActor;
+  Actor mTargetActor;
 
   /////////////////////////////////////////////////////////////
   // for animating fade in / out of blur, hiding internal implementation but allowing user to set via GaussianBlurView interface
@@ -190,8 +188,8 @@ private:
 
   /////////////////////////////////////////////////////////////
   // User can specify image to blur and output target, so we can use GaussianBlurView for arbitrary blur processes
-  Image mUserInputImage;
-  FrameBufferImage mUserOutputRenderTarget;
+  Texture mUserInputImage;
+  FrameBuffer mUserOutputRenderTarget;
 
   Dali::Toolkit::GaussianBlurView::GaussianBlurViewSignal mFinishedSignal; ///< Signal emitted when blur has completed.
 
@@ -228,4 +226,4 @@ inline const Toolkit::Internal::GaussianBlurView& GetImpl( const Toolkit::Gaussi
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H__
+#endif // DALI_TOOLKIT_INTERNAL_GAUSSIAN_BLUR_EFFECT_H

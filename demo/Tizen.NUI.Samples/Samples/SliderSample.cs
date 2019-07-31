@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using Tizen.NUI.BaseComponents;
+﻿using Tizen.NUI.BaseComponents;
 using Tizen.NUI.CommonUI;
 
 namespace Tizen.NUI.Samples
 {
     public class SliderSample : IExample
     {
-        private const int MIN_VALUE = 0;
-        private const int MAX_VALUE = 100;
+        private const float MIN_VALUE = 0;
+        private const float MAX_VALUE = 100;
 
         private View root;
         private TextLabel[] createText = new TextLabel[2];
@@ -188,6 +187,7 @@ namespace Tizen.NUI.Samples
             source.MaxValue = MAX_VALUE;
             source.StateChangedEvent += OnStateChanged;
             source.ValueChangedEvent += OnValueChanged;
+            source.SlidingFinishedEvent += OnSlidingFinished;
 
             source.Position2D = new Position2D(posX, posY);
             source.Size2D = new Size2D(w, h);
@@ -205,6 +205,7 @@ namespace Tizen.NUI.Samples
             source.MaxValue = MAX_VALUE;
             source.StateChangedEvent += OnStateChanged;
             source.ValueChangedEvent += OnValueChanged;
+            source.SlidingFinishedEvent += OnSlidingFinished;
 
             source.Position2D = new Position2D(posX, posY);
             source.Size2D = new Size2D(w, h);
@@ -224,6 +225,22 @@ namespace Tizen.NUI.Samples
                 else
                 {
                     inforText[0].Text = "currentValue = " + args.CurrentValue;
+                }
+            }
+        }
+
+        private void OnSlidingFinished(object sender, Slider.SlidingFinishedArgs args)
+        {
+            Slider source = sender as Slider;
+            if (source != null)
+            {
+                if (source == slider2[0] || source == slider2[1] || source == slider2[2] || source == slider2[3])
+                {
+                    inforText[1].Text = "Finished currentValue = " + args.CurrentValue;
+                }
+                else
+                {
+                    inforText[0].Text = "Finished currentValue = " + args.CurrentValue;
                 }
             }
         }

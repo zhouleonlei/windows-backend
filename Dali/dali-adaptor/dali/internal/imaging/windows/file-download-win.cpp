@@ -28,6 +28,7 @@
 
 // INTERNAL INCLUDES
 #include <dali/internal/system/common/file-writer.h>
+#include <dali/internal/adaptor-framework/common/file-stream-impl.h>
 
 #ifdef TPK_CURL_ENABLED
 #include <tpkp_curl.h>
@@ -86,7 +87,8 @@ size_t __cdecl ChunkLoader(char *ptr, size_t size, size_t nmemb, void *userdata)
 
 static size_t __cdecl WriteFunction( void *input, size_t uSize, size_t uCount, void *avg )
 {
-  fwrite( input, uSize, uCount, (FILE*)avg );
+  
+  Dali::Internal::Platform::InternalFile::FWrite( input, uSize, uCount, (FILE*)avg );
   return uSize * uCount;
 }
 

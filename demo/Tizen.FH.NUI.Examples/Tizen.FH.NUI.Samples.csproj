@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,9 +50,22 @@
     <Compile Include="SampleMain.cs" />
     <Compile Include="Samples\ButtonSample.cs" />
     <Compile Include="Samples\CheckBoxSample.cs" />
+    <Compile Include="Samples\ContactCard\ClippedImage.cs" />
+    <Compile Include="Samples\ContactCard\ContactCard.cs" />
+    <Compile Include="Samples\ContactCard\ContactCardLayouter.cs" />
+    <Compile Include="Samples\ContactCard\ContactCardLayoutInfo.cs" />
+    <Compile Include="Samples\ContactCard\ContactCardsSample.cs" />
+    <Compile Include="Samples\ContactCard\ContactData.cs" />
+    <Compile Include="Samples\ContactCard\MaskedImage.cs" />
+    <Compile Include="Samples\CubeTransitionEffectSample.cs" />
+    <Compile Include="Samples\DaliDemo\DaliDemo.cs" />
+    <Compile Include="Samples\DaliDemo\DaliTableView.cs" />
     <Compile Include="Samples\DatePickerSample.cs" />
     <Compile Include="Samples\DropDownSample.cs" />
     <Compile Include="Samples\FlexibleViewSample.cs" />
+    <Compile Include="Samples\ItemViewDemo\ItemFactoryWrapper.cs" />
+    <Compile Include="Samples\ItemViewDemo\ItemViewSample.cs" />
+    <Compile Include="Samples\ItemViewDemo\Utils.cs" />
     <Compile Include="Samples\NavigationSample.cs" />
     <Compile Include="Samples\NaviFrameSample.cs" />
     <Compile Include="Samples\LoadingSample.cs" />

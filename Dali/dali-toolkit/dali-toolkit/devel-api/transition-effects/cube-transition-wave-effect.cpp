@@ -38,6 +38,10 @@ CubeTransitionWaveEffect::CubeTransitionWaveEffect( Dali::Internal::CustomActor*
   VerifyCustomActorPointer< Internal::CubeTransitionWaveEffect >( internal );
 }
 
+CubeTransitionWaveEffect::CubeTransitionWaveEffect()
+{
+}
+
 CubeTransitionWaveEffect CubeTransitionWaveEffect::New(unsigned int numRows, unsigned int numColumns )
 {
   return Internal::CubeTransitionWaveEffect::New( numRows, numColumns );

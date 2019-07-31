@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H__
-#define __DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H__
+#ifndef DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H
+#define DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
 #include <dali/public-api/actors/camera-actor.h>
 #include <dali/public-api/common/dali-vector.h>
 #include <dali/public-api/render-tasks/render-task.h>
+#include <dali/public-api/rendering/frame-buffer.h>
+#include <dali/public-api/rendering/renderer.h>
 
 // INTERNAL INCLUDES
 #include <dali-toolkit/devel-api/controls/effects-view/effects-view.h>
 #include <dali-toolkit/public-api/controls/control-impl.h>
-#include <dali-toolkit/devel-api/visual-factory/visual-factory.h>
 
 namespace Dali
 {
@@ -55,15 +56,6 @@ public:
    * @copydoc Toolkit::EffectsView New()
    */
   EffectsView();
-
-  /**
-   * Constructor.
-   * @copydoc Toolkit::EffectsView New(const unsigned int,const float,const Pixel::Format,const float,const float)
-   */
-  EffectsView(const unsigned int numSamples, const float blurBellCurveWidth, const int spread,
-              const Pixel::Format pixelFormat,
-              const float downsampleWidthScale, const float downsampleHeightScale,
-              FrameBufferImage image);
 
   /**
    * A reference counted object may only be deleted by calling Unreference()
@@ -214,8 +206,8 @@ private: // attributes/properties
 
   /////////////////////////////////////////////////////////////
   // for rendering all user added children to offscreen target
-  FrameBufferImage      mImageForChildren;
-  Toolkit::Visual::Base mVisualForChildren;
+  FrameBuffer           mFrameBufferForChildren;
+  Renderer              mRendererForChildren;
   RenderTask            mRenderTaskForChildren;
   CameraActor           mCameraForChildren;
   Actor                 mChildrenRoot; // for creating a subtree for all user added child actors
@@ -230,8 +222,8 @@ private: // attributes/properties
   Vector2 mLastSize;
   /////////////////////////////////////////////////////////////
   // post blur image
-  FrameBufferImage      mImagePostFilter;
-  Toolkit::Visual::Base mVisualPostFilter;
+  FrameBuffer           mFrameBufferPostFilter;
+  Renderer              mRendererPostFilter;
 
   Vector<ImageFilter*> mFilters;
 
@@ -274,4 +266,4 @@ inline const Toolkit::Internal::EffectsView& GetImpl( const Toolkit::EffectsView
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H__
+#endif // DALI_TOOLKIT_INTERNAL_EFFECTS_VIEW_H

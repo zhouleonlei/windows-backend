@@ -4,7 +4,7 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class SwitchSample : IExample
+    public class Switch : IExample
     {
         private SampleLayout root;
 
@@ -34,6 +34,7 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "Switch";
 
@@ -76,18 +77,18 @@ namespace Tizen.FH.NUI.Samples
             {
                 for (uint i = 1; i < rowNum; i++)
                 {
-                    Switch switchControl = new Switch("Switch");
+                    Tizen.NUI.CommonUI.Switch switchControl = new Tizen.NUI.CommonUI.Switch("Switch");
                     switchControl.Size2D = new Size2D(96, 60);
                     if (i == 3)
                     {
                         switchControl.IsEnabled = false;
                     }
-                    else if(i == 4)
-                    {                       
+                    else if (i == 4)
+                    {
                         switchControl.IsEnabled = false;
                         switchControl.IsSelected = true;
                     }
-                    table.AddChild(switchControl, new TableView.CellPosition(i, j));                   
+                    table.AddChild(switchControl, new TableView.CellPosition(i, j));
                 }
             }
 

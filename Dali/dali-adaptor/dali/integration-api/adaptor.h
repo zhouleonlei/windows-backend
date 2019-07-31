@@ -2,7 +2,7 @@
 #define DALI_INTEGRATION_ADAPTOR_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,11 @@
 // EXTERNAL INCLUDES
 #include <dali/public-api/signals/callback.h>
 #include <dali/public-api/signals/dali-signal.h>
+#include <dali/public-api/math/uint-16-pair.h>
 #include <dali/public-api/math/rect.h>
 #include <dali/public-api/events/touch-event.h>
 #include <dali/public-api/common/view-mode.h>
+#include <dali/public-api/object/any.h>
 #include <dali/integration-api/processor-interface.h>
 
 // INTERNAL INCLUDES
@@ -42,6 +44,14 @@ namespace Dali
 {
 
 class RenderSurfaceInterface;
+
+using WindowContainer = std::vector<Window>;
+
+namespace Integration
+{
+class SceneHolder;
+}
+
 
 namespace Internal
 {
@@ -115,6 +125,9 @@ class DALI_ADAPTOR_API Adaptor
 public:
 
   typedef Signal< void (Adaptor&) > AdaptorSignalType; ///< Generic Type for adaptor signals
+  typedef Signal< void (Window&) > WindowCreatedSignalType;  ///< Window created signal type
+
+  using SurfaceSize = Uint16Pair; ///< Surface size type
 
 public:
   /**
@@ -152,6 +165,42 @@ public:
    * @return a reference to the adaptor handle
    */
   static Adaptor& New( Window window, const Dali::RenderSurfaceInterface& surface, Configuration::ContextLoss configuration = Configuration::APPLICATION_DOES_NOT_HANDLE_CONTEXT_LOSS);
+
+  /**
+   * @brief Create a new adaptor using the SceneHolder.
+   *
+   * @param[in] sceneHolder The SceneHolder to draw onto
+   * @return a reference to the adaptor handle
+   */
+  static Adaptor& New( Dali::Integration::SceneHolder sceneHolder );
+
+  /**
+   * @brief Create a new adaptor using the SceneHolder.
+   *
+   * @param[in] sceneHolder The SceneHolder to draw onto
+   * @param[in] configuration The context loss configuration.
+   * @return a reference to the adaptor handle
+   */
+  static Adaptor& New( Dali::Integration::SceneHolder sceneHolder, Configuration::ContextLoss configuration );
+
+  /**
+   * @brief Create a new adaptor using render surface.
+   *
+   * @param[in] sceneHolder The SceneHolder to draw onto
+   * @param[in] surface The surface to draw onto
+   * @return a reference to the adaptor handle
+   */
+  static Adaptor& New( Dali::Integration::SceneHolder sceneHolder, const Dali::RenderSurfaceInterface& surface );
+
+  /**
+   * @brief Create a new adaptor using render surface.
+   *
+   * @param[in] sceneHolder The SceneHolder to draw onto
+   * @param[in] surface The surface to draw onto
+   * @param[in] configuration The context loss configuration.
+   * @return a reference to the adaptor handle
+   */
+  static Adaptor& New( Dali::Integration::SceneHolder sceneHolder, const Dali::RenderSurfaceInterface& surface, Configuration::ContextLoss configuration = Configuration::APPLICATION_DOES_NOT_HANDLE_CONTEXT_LOSS);
 
   /**
    * @brief Virtual Destructor.
@@ -206,6 +255,19 @@ public:
   bool AddIdle( CallbackBase* callback, bool hasReturnValue );
 
   /**
+   * @brief Adds a new Window instance to the Adaptor
+   *
+   * @param[in]  childWindow The child window instance
+   * @param[in]  childWindowName The child window title/name
+   * @param[in]  childWindowClassName The class name that the child window belongs to
+   * @param[in]  childWindowMode The mode of the child window
+   */
+  bool AddWindow( Dali::Integration::SceneHolder childWindow,
+                  const std::string& childWindowName,
+                  const std::string& childWindowClassName,
+                  bool childWindowMode );
+
+  /**
    * @brief Removes a previously added @p callback.
    * @note Function must be called from the main event thread only.
    *
@@ -222,6 +284,14 @@ public:
    * @param[in] surface to use
    */
   void ReplaceSurface( Window window, Dali::RenderSurfaceInterface& surface );
+
+  /**
+   * @brief Replaces the rendering surface
+   *
+   * @param[in] sceneHolder The SceneHolder to replace the surface for
+   * @param[in] surface to use
+   */
+  void ReplaceSurface( Dali::Integration::SceneHolder sceneHolder, Dali::RenderSurfaceInterface& surface );
 
   /**
    * @brief Get the render surface the adaptor is using to render to.
@@ -283,14 +353,6 @@ public:
   void SetPreRenderCallback( CallbackBase* callback );
 
   /**
-   * @brief Set whether the frame count per render is managed using the hardware VSync or
-   * manually timed.
-   *
-   * @param[in] useHardware True if the hardware VSync should be used
-   */
-  void SetUseHardwareVSync(bool useHardware);
-
-  /**
    * @brief Returns a reference to the instance of the adaptor used by the current thread.
    *
    * @return A reference to the adaptor.
@@ -325,14 +387,6 @@ public:
   void NotifyLanguageChanged();
 
   /**
-   * @brief Sets minimum distance in pixels that the fingers must move towards/away from each other in order to
-   * trigger a pinch gesture
-   *
-   * @param[in] distance The minimum pinch distance in pixels
-   */
-  void SetMinimumPinchDistance(float distance);
-
-  /**
    * @brief Feed a touch point to the adaptor.
    *
    * @param[in] point touch point
@@ -360,6 +414,22 @@ public:
   void SceneCreated();
 
   /**
+   * @brief Informs core the surface size has changed.
+   *
+   * @param[in] surface The current render surface
+   * @param[in] surfaceSize The new surface size
+   */
+  void SurfaceResizePrepare( Dali::RenderSurfaceInterface* surface, SurfaceSize surfaceSize );
+
+  /**
+   * @brief Informs ThreadController the surface size has changed.
+   *
+   * @param[in] surface The current render surface
+   * @param[in] surfaceSize The new surface size
+   */
+  void SurfaceResizeComplete( Dali::RenderSurfaceInterface* surface, SurfaceSize surfaceSize );
+
+  /**
    * @brief Renders once more even if we're paused
    * @note Will not work if the window is hidden.
    */
@@ -384,6 +454,22 @@ public:
    */
   void UnregisterProcessor( Integration::Processor& processor );
 
+  /**
+   * @brief Get the list of windows created.
+   * @return The list of windows
+   */
+  Dali::WindowContainer GetWindows() const;
+
+  /**
+   * @brief Called when the window becomes fully or partially visible.
+   */
+  void OnWindowShown();
+
+  /**
+   * @brief Called when the window is fully hidden.
+   */
+  void OnWindowHidden();
+
 public:  // Signals
 
   /**
@@ -400,6 +486,13 @@ public:  // Signals
    * @return The signal to connect to
    */
   AdaptorSignalType& LanguageChangedSignal();
+
+  /**
+   * @brief This signal is emitted when a new window is created
+   *
+   * @return The signal to connect to
+   */
+  WindowCreatedSignalType& WindowCreatedSignal();
 
 private:
 

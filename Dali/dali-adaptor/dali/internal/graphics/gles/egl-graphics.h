@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_BASE_GRAPHICS_IMPLEMENTATION_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
 #include <dali/internal/graphics/gles/egl-implementation.h>
 #include <dali/internal/graphics/common/egl-image-extensions.h>
 #include <dali/internal/graphics/gles/egl-sync-implementation.h>
-
+#include <dali/internal/graphics/gles/egl-context-helper-implementation.h>
 
 namespace Dali
 {
@@ -72,6 +72,12 @@ public:
   void SetGlesVersion( const int32_t glesVersion );
 
   /**
+   * Set whether the surfaceless context is supported
+   * @param[in] isSupported Whether the surfaceless context is supported
+   */
+  void SetIsSurfacelessContextSupported( const bool isSupported );
+
+  /**
    * Gets the GL abstraction
    * @return The GL abstraction
    */
@@ -99,6 +105,12 @@ public:
    * @return The implementation of GlSyncAbstraction for EGL.
    */
   EglSyncImplementation& GetSyncImplementation();
+
+  /**
+   * Gets the implementation of GlContextHelperAbstraction for EGL.
+   * @return The implementation of GlContextHelperAbstraction for EGL.
+   */
+  EglContextHelperImplementation& GetContextHelperImplementation();
 
   /**
    * @copydoc Dali::Internal::Adaptor::GraphicsInterface::GetDepthBufferRequired()
@@ -132,6 +144,7 @@ private:
   std::unique_ptr< EglImplementation > mEglImplementation;      ///< EGL implementation
   std::unique_ptr< EglImageExtensions > mEglImageExtensions;    ///< EGL image extension
   std::unique_ptr< EglSyncImplementation > mEglSync;            ///< GlSyncAbstraction implementation for EGL
+  std::unique_ptr< EglContextHelperImplementation > mEglContextHelper; ///< GlContextHelperAbstraction implementation for EGL
 
   int mMultiSamplingLevel;                                      ///< The multiple sampling level
 };
@@ -142,4 +155,4 @@ private:
 
 } // namespace Dali
 
-#endif // __DALI_INTERNAL_BASE_GRAPHICS_IMPLEMENTATION_H__
+#endif // DALI_INTERNAL_BASE_GRAPHICS_IMPLEMENTATION_H

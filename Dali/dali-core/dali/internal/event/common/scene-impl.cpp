@@ -48,21 +48,21 @@ const Vector4 DEFAULT_BACKGROUND_COLOR(0.0f, 0.0f, 0.0f, 1.0f); // Default backg
 
 } //Unnamed namespace
 
-ScenePtr Scene::New( const Size& size )
+ScenePtr Scene::New( Integration::RenderSurface& surface )
 {
-  ScenePtr scene = new Scene( size );
+  ScenePtr scene = new Scene;
 
   // Second-phase construction
-  scene->Initialize();
+  scene->Initialize( surface );
 
   return scene;
 }
 
-Scene::Scene( const Size& size )
+Scene::Scene()
 : mSurface( nullptr ),
-  mSize( size ),
-  mSurfaceSize( Vector2::ZERO ),
-  mDpi( Vector2::ZERO ),
+  mSize(), // Don't set the proper value here, this will be set when the surface is set later
+  mDpi(),
+  mBackgroundColor( DEFAULT_BACKGROUND_COLOR ),
   mDepthTreeDirty( false ),
   mEventProcessor( *this, ThreadLocalStorage::GetInternal()->GetGestureEventProcessor() )
 {
@@ -89,14 +89,16 @@ Scene::~Scene()
     mRenderTaskList.Reset();
   }
 
-  if( ThreadLocalStorage::Created() )
+  if ( mFrameBuffer )
   {
-    ThreadLocalStorage* tls = ThreadLocalStorage::GetInternal();
-    tls->RemoveScene( this );
+    mFrameBuffer.Reset();
   }
+
+  // No need to discard this Scene from Core, as Core stores an intrusive_ptr to this scene
+  // When this destructor is called, the scene has either already been removed from Core or Core has already been destroyed
 }
 
-void Scene::Initialize()
+void Scene::Initialize( Integration::RenderSurface& surface )
 {
   ThreadLocalStorage* tls = ThreadLocalStorage::GetInternal();
 
@@ -110,7 +112,7 @@ void Scene::Initialize()
   mLayerList = LayerList::New( updateManager );
 
   // The scene owns the default layer
-  mRootLayer = Layer::NewRoot( *mLayerList, updateManager );
+  mRootLayer = Layer::NewRoot( *mLayerList );
   mRootLayer->SetName("RootLayer");
   mRootLayer->SetScene( *this );
 
@@ -122,7 +124,9 @@ void Scene::Initialize()
   // Create the default camera actor first; this is needed by the RenderTaskList
   // The default camera attributes and position is such that children of the default layer,
   // can be positioned at (0,0) and be at the top-left of the viewport.
-  mDefaultCamera = CameraActor::New( mSize );
+  const PositionSize positionSize = surface.GetPositionSize();
+  const Vector2 surfaceSize( static_cast< float >( positionSize.width ), static_cast< float >( positionSize.height ) );
+  mDefaultCamera = CameraActor::New( surfaceSize );
   mDefaultCamera->SetParentOrigin(ParentOrigin::CENTER);
   Add(*(mDefaultCamera.Get()));
 
@@ -131,6 +135,9 @@ void Scene::Initialize()
 
   // Create the default render-task
   mRenderTaskList->CreateTask( mRootLayer.Get(), mDefaultCamera.Get() );
+
+  // Set the surface
+  SetSurface( surface );
 }
 
 void Scene::Add(Actor& actor)
@@ -195,43 +202,73 @@ Actor& Scene::GetDefaultRootActor()
 
 void Scene::SetSurface( Integration::RenderSurface& surface )
 {
-  mSurface = &surface;
-  if ( mSurface )
+  if( mSurface != &surface )
   {
-    mSurfaceSize.width = static_cast<float>( mSurface->GetPositionSize().width );
-    mSurfaceSize.height = static_cast<float>( mSurface->GetPositionSize().height );
-
-    mSize.width = mSurfaceSize.width;
-    mSize.height = mSurfaceSize.height;
-
-    // Calculates the aspect ratio, near and far clipping planes, field of view and camera Z position.
-    mDefaultCamera->SetPerspectiveProjection( mSurfaceSize );
-
-    mRootLayer->SetSize( mSize.width, mSize.height );
-
-    ThreadLocalStorage* tls = ThreadLocalStorage::GetInternal();
-    SceneGraph::UpdateManager& updateManager = tls->GetUpdateManager();
-    SetDefaultSurfaceRectMessage( updateManager, Rect<int32_t>( 0, 0, static_cast<int32_t>( mSurfaceSize.width ), static_cast<int32_t>( mSurfaceSize.height ) ) ); // truncated
+    mSurface = &surface;
 
     RenderTaskPtr defaultRenderTask = mRenderTaskList->GetTask( 0u );
 
-    // if single render task to screen then set its viewport parameters
-    if( 1 == mRenderTaskList->GetTaskCount() )
-    {
-      if( !defaultRenderTask->GetTargetFrameBuffer() )
-      {
-        defaultRenderTask->SetViewport( Viewport( 0, 0, static_cast<int32_t>( mSurfaceSize.width ), static_cast<int32_t>( mSurfaceSize.height ) ) ); // truncated
-      }
-    }
-
     mFrameBuffer = Dali::Internal::FrameBuffer::New( surface, Dali::FrameBuffer::Attachment::NONE );
     defaultRenderTask->SetFrameBuffer( mFrameBuffer );
+
+    SurfaceResized();
+  }
+}
+
+void Scene::SurfaceResized()
+{
+  if( mSurface )
+  {
+    const PositionSize surfacePositionSize = mSurface->GetPositionSize();
+    const float fWidth = static_cast< float >( surfacePositionSize.width );
+    const float fHeight = static_cast< float >( surfacePositionSize.height );
+
+    if( ( fabsf( mSize.width - fWidth ) > Math::MACHINE_EPSILON_1 ) || ( fabsf( mSize.height - fHeight ) > Math::MACHINE_EPSILON_1 ) )
+    {
+      Rect< int32_t > newSize( 0, 0, static_cast< int32_t >( surfacePositionSize.width ), static_cast< int32_t >( surfacePositionSize.height ) ); // truncated
+
+      mSize.width = fWidth;
+      mSize.height = fHeight;
+
+      // Calculates the aspect ratio, near and far clipping planes, field of view and camera Z position.
+      mDefaultCamera->SetPerspectiveProjection( mSize );
+
+      mRootLayer->SetSize( mSize.width, mSize.height );
+
+      ThreadLocalStorage* tls = ThreadLocalStorage::GetInternal();
+      SceneGraph::UpdateManager& updateManager = tls->GetUpdateManager();
+      SetDefaultSurfaceRectMessage( updateManager, newSize );
+
+      // set default render-task viewport parameters
+      RenderTaskPtr defaultRenderTask = mRenderTaskList->GetTask( 0u );
+      defaultRenderTask->SetViewport( newSize );
+      defaultRenderTask->GetFrameBuffer()->SetSize( static_cast<uint32_t>( newSize.width ), static_cast<uint32_t>( newSize.height ) );
+    }
+  }
+}
+
+void Scene::SurfaceDeleted()
+{
+  mSurface = nullptr;
+  if ( mFrameBuffer )
+  {
+    // The frame buffer doesn't have a valid render surface any more.
+    mFrameBuffer->MarkSurfaceAsInvalid();
   }
 }
 
 Integration::RenderSurface* Scene::GetSurface() const
 {
   return mSurface;
+}
+
+void Scene::Discard()
+{
+  if( ThreadLocalStorage::Created() )
+  {
+    ThreadLocalStorage* tls = ThreadLocalStorage::GetInternal();
+    tls->RemoveScene( this );
+  }
 }
 
 void Scene::RequestRebuildDepthTree()
@@ -260,38 +297,59 @@ void Scene::RebuildDepthTree()
   }
 }
 
-void Scene::SetBackgroundColor(Vector4 color)
+void Scene::SetBackgroundColor( const Vector4& color )
 {
+  mBackgroundColor = color;
+
   if( mSurface )
   {
-    mSurface->SetBackgroundColor( color );
+    mRenderTaskList->GetTask( 0u )->GetFrameBuffer()->SetBackgroundColor( color );
   }
 }
 
 Vector4 Scene::GetBackgroundColor() const
 {
-  return mSurface ? mSurface->GetBackgroundColor() : DEFAULT_BACKGROUND_COLOR;
+  return mBackgroundColor;
 }
 
 void Scene::EmitKeyEventSignal(const KeyEvent& event)
 {
-  mKeyEventSignal.Emit( event );
+  if ( !mKeyEventSignal.Empty() )
+  {
+    Dali::Integration::Scene handle( this );
+    mKeyEventSignal.Emit( event );
+  }
 }
 
 void Scene::EmitEventProcessingFinishedSignal()
 {
-  mEventProcessingFinishedSignal.Emit();
+  if ( !mEventProcessingFinishedSignal.Empty() )
+  {
+    Dali::Integration::Scene handle( this );
+    mEventProcessingFinishedSignal.Emit();
+  }
 }
 
 void Scene::EmitTouchedSignal( const TouchEvent& touchEvent, const Dali::TouchData& touch )
 {
-  mTouchedSignal.Emit( touchEvent );
-  mTouchSignal.Emit( touch );
+  Dali::Integration::Scene handle( this );
+  if ( !mTouchedSignal.Empty() )
+  {
+    mTouchedSignal.Emit( touchEvent );
+  }
+  if ( !mTouchSignal.Empty() )
+  {
+    mTouchSignal.Emit( touch );
+  }
 }
 
 void Scene::EmitWheelEventSignal(const WheelEvent& event)
 {
-  mWheelEventSignal.Emit( event );
+  if ( !mWheelEventSignal.Empty() )
+  {
+    Dali::Integration::Scene handle( this );
+    mWheelEventSignal.Emit( event );
+  }
 }
 
 Integration::Scene::KeyEventSignalType& Scene::KeyEventSignal()

@@ -23,6 +23,7 @@
 #include <dali/integration-api/debug.h>
 #include <dali/integration-api/events/event.h>
 #include <dali/integration-api/gl-sync-abstraction.h>
+#include <dali/integration-api/gl-context-helper-abstraction.h>
 #include <dali/integration-api/platform-abstraction.h>
 #include <dali/integration-api/processor-interface.h>
 #include <dali/integration-api/render-controller.h>
@@ -74,8 +75,8 @@ namespace Internal
 using Integration::RenderController;
 using Integration::PlatformAbstraction;
 using Integration::GlSyncAbstraction;
-using Integration::GestureManager;
 using Integration::GlAbstraction;
+using Integration::GlContextHelperAbstraction;
 using Integration::Event;
 using Integration::UpdateStatus;
 using Integration::RenderStatus;
@@ -84,7 +85,7 @@ Core::Core( RenderController& renderController,
             PlatformAbstraction& platform,
             GlAbstraction& glAbstraction,
             GlSyncAbstraction& glSyncAbstraction,
-            GestureManager& gestureManager,
+            GlContextHelperAbstraction& glContextHelperAbstraction,
             ResourcePolicy::DataRetention dataRetentionPolicy,
             Integration::RenderToFrameBuffer renderToFboEnabled,
             Integration::DepthBufferAvailable depthBufferAvailable,
@@ -108,7 +109,7 @@ Core::Core( RenderController& renderController,
 
   mRenderTaskProcessor = new SceneGraph::RenderTaskProcessor();
 
-  mRenderManager = RenderManager::New( glAbstraction, glSyncAbstraction, depthBufferAvailable, stencilBufferAvailable );
+  mRenderManager = RenderManager::New( glAbstraction, glSyncAbstraction, glContextHelperAbstraction, depthBufferAvailable, stencilBufferAvailable );
 
   RenderQueue& renderQueue = mRenderManager->GetRenderQueue();
 
@@ -132,7 +133,7 @@ Core::Core( RenderController& renderController,
   // This must be called after stage is created but before stage initialization
   mRelayoutController = IntrusivePtr< RelayoutController >( new RelayoutController( mRenderController ) );
 
-  mGestureEventProcessor = new GestureEventProcessor( *mUpdateManager, gestureManager, mRenderController );
+  mGestureEventProcessor = new GestureEventProcessor( *mUpdateManager, mRenderController );
 
   mShaderFactory = new ShaderFactory();
   mUpdateManager->SetShaderSaver( *mShaderFactory );
@@ -193,13 +194,14 @@ void Core::ContextDestroyed()
   mRenderManager->ContextDestroyed();
 }
 
-void Core::SurfaceResized( Integration::RenderSurface* surface )
+void Core::SurfaceDeleted( Integration::RenderSurface* surface )
 {
-  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  for( auto scene : mScenes )
   {
-    if( (*iter)->GetSurface() == surface )
+    if( scene->GetSurface() == surface )
     {
-      (*iter)->SetSurface( *surface );
+      scene->SurfaceDeleted();
+      break;
     }
   }
 }
@@ -270,18 +272,22 @@ void Core::ProcessEvents()
   // Signal that any messages received will be flushed soon
   mUpdateManager->EventProcessingStarted();
 
+  // Scene could be added or removed while processing the events
+  // Copy the Scene container locally to avoid possibly invalid iterator
+  SceneContainer scenes = mScenes;
+
   // process events in all scenes
-  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  for( auto scene : scenes )
   {
-    (*iter)->ProcessEvents();
+    scene->ProcessEvents();
   }
 
   mNotificationManager->ProcessMessages();
 
   // Emit signal here to inform listeners that event processing has finished.
-  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  for( auto scene : scenes )
   {
-    (*iter)->EmitEventProcessingFinishedSignal();
+    scene->EmitEventProcessingFinishedSignal();
   }
 
   // Run any registered processors
@@ -291,9 +297,9 @@ void Core::ProcessEvents()
   mRelayoutController->Relayout();
 
   // Rebuild depth tree after event processing has finished
-  for( auto iter = mScenes.begin(); iter != mScenes.end(); ++iter )
+  for( auto scene : scenes )
   {
-    (*iter)->RebuildDepthTree();
+    scene->RebuildDepthTree();
   }
 
   // Flush any queued messages for the update-thread

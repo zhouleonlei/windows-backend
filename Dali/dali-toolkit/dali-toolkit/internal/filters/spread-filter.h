@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H__
-#define __DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H__
+#ifndef DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H
+#define DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H
 
 /*
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 // EXTERNAL INCLUDES
 #include <dali/public-api/render-tasks/render-task.h>
-#include <dali-toolkit/public-api/controls/image-view/image-view.h>
 
 // INTERNAL INCLUDES
 #include "image-filter.h"
@@ -82,14 +81,14 @@ private:
 
 private: // Attributes
 
-  // To perform horizontal spread from mInputImage to mImageForHorz
+  // To perform horizontal spread from mInputTexture to mFrameBufferForHorz
   RenderTask         mRenderTaskForHorz;
-  Toolkit::ImageView mActorForInput;
-  FrameBufferImage   mImageForHorz;
+  Actor              mActorForInput;
+  FrameBuffer        mFrameBufferForHorz;
 
-  // To perform vertical spread from mImageForHorz to mOutputImage
+  // To perform vertical spread from mFrameBufferForHorz to mOutputFrameBuffer
   RenderTask         mRenderTaskForVert;
-  Toolkit::ImageView mActorForHorz;
+  Actor              mActorForHorz;
 
   int                mSpread;
 }; // class SpreadFilter
@@ -100,5 +99,5 @@ private: // Attributes
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H__
+#endif // DALI_TOOLKIT_INTERNAL_SPREAD_FILTER_H
 

@@ -2,7 +2,7 @@
 #define DALI_INTERNAL_CORE_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,9 @@ namespace Integration
 class Processor;
 class RenderController;
 class PlatformAbstraction;
-class GestureManager;
 class GlAbstraction;
 class GlSyncAbstraction;
+class GlContextHelperAbstraction;
 class UpdateStatus;
 class RenderStatus;
 class RenderSurface;
@@ -84,7 +84,7 @@ public:
         Integration::PlatformAbstraction& platform,
         Integration::GlAbstraction& glAbstraction,
         Integration::GlSyncAbstraction& glSyncAbstraction,
-        Integration::GestureManager& gestureManager,
+        Integration::GlContextHelperAbstraction& glContextHelperAbstraction,
         ResourcePolicy::DataRetention dataRetentionPolicy,
         Integration::RenderToFrameBuffer renderToFboEnabled,
         Integration::DepthBufferAvailable depthBufferAvailable,
@@ -121,9 +121,9 @@ public:
   void RecoverFromContextLoss();
 
   /**
-   * @copydoc Dali::Integration::Core::SurfaceResized(Integration::RenderSurface*)
+   * @copydoc Dali::Integration::Core::SurfaceDeleted(Integration::RenderSurface*)
    */
-  void SurfaceResized( Integration::RenderSurface* surface );
+  void SurfaceDeleted( Integration::RenderSurface* surface );
 
   /**
    * @copydoc Dali::Integration::Core::SetMinimumFrameTimeInterval(uint32_t)
@@ -328,7 +328,8 @@ private:
   OwnerPointer<GestureEventProcessor>           mGestureEventProcessor;       ///< The gesture event processor
   Dali::Vector<Integration::Processor*>         mProcessors;                  ///< Registered processors (not owned)
 
-  std::vector<ScenePtr>                         mScenes;                      ///< A container of scenes that bound to a surface for rendering, owned by Core
+  using SceneContainer = std::vector<ScenePtr>;
+  SceneContainer                                mScenes;                      ///< A container of scenes that bound to a surface for rendering, owned by Core
 
   // The object registry
   ObjectRegistryPtr                             mObjectRegistry;

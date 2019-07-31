@@ -110,12 +110,12 @@ public:
   /**
    * @copydoc Dali::InputMethodContext::PreEditChanged()
    */
-  void PreEditChanged( void* data, ImfContext* imfContext, void* event_info ) override;
+  void PreEditChanged( void* data, ImfContext* imfContext, void* eventInfo ) override;
 
   /**
    * @copydoc Dali::InputMethodContext::NotifyCursorPosition()
    */
-  void CommitReceived( void* data, ImfContext* imfContext, void* event_info ) override;
+  void CommitReceived( void* data, ImfContext* imfContext, void* eventInfo ) override;
 
   /**
    * @copydoc Dali::InputMethodContext::NotifyCursorPosition()
@@ -125,12 +125,18 @@ public:
   /**
    * @copydoc Dali::InputMethodContext::DeleteSurrounding()
    */
-  void DeleteSurrounding( void* data, ImfContext* imfContext, void* event_info ) override;
+  void DeleteSurrounding( void* data, ImfContext* imfContext, void* eventInfo ) override;
 
   /**
    * @copydoc Dali::InputMethodContext::SendPrivateCommand()
    */
-  void SendPrivateCommand( void* data, ImfContext* imfContext, void* event_info ) override
+  void SendPrivateCommand( void* data, ImfContext* imfContext, void* eventInfo ) override
+  {}
+
+  /**
+   * @copydoc Dali::InputMethodContext::SendCommitContent()
+   */
+  void SendCommitContent( void* data, ImfContext* imfContext, void* eventInfo ) override
   {}
 
   // Cursor related
@@ -225,9 +231,24 @@ public:
   std::string GetInputPanelLocale() override;
 
   /**
+   * @copydoc Dali::InputMethodContext::SetContentMIMETypes()
+   */
+  void SetContentMIMETypes( const std::string& mimeTypes ) override;
+
+  /**
    * @copydoc Dali::InputMethodContext::FilterEventKey()
    */
   bool FilterEventKey( const Dali::KeyEvent& keyEvent ) override;
+
+  /**
+   * @copydoc Dali::InputMethodContext::SetInputPanelLanguage()
+   */
+  void SetInputPanelLanguage( Dali::InputMethodContext::InputPanelLanguage language ) override;
+
+  /**
+   * @copydoc Dali::InputMethodContext::GetInputPanelLanguage()
+   */
+  Dali::InputMethodContext::InputPanelLanguage GetInputPanelLanguage() const override;
 
 private:
   /**

@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H__
-#define __DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H__
+#ifndef DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H
+#define DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
 #include <cmath>
 #include <dali/public-api/actors/camera-actor.h>
 #include <dali/public-api/render-tasks/render-task.h>
+#include <dali/public-api/rendering/frame-buffer.h>
 
 // INTERNAL INCLUDES
 #include <dali-toolkit/public-api/controls/control-impl.h>
@@ -132,14 +133,14 @@ private:
 
   /////////////////////////////////////////////////////////////
   // for rendering all user added children to offscreen target
-  FrameBufferImage mRenderTargetForRenderingChildren;
+  FrameBuffer mRenderTargetForRenderingChildren;
   RenderTask mRenderChildrenTask;
 
   /////////////////////////////////////////////////////////////
   // for extracting bright parts of image to an offscreen target
-  FrameBufferImage mBloomExtractTarget; // for rendering bright parts of image into separate texture, also used as target for gaussian blur
+  FrameBuffer mBloomExtractTarget; // for rendering bright parts of image into separate texture, also used as target for gaussian blur
   RenderTask mBloomExtractTask;
-  Toolkit::ImageView mBloomExtractImageView;
+  Actor mBloomExtractActor;
 
   /////////////////////////////////////////////////////////////
   // for blurring extracted bloom
@@ -149,12 +150,12 @@ private:
   // for compositing bloom and children renders to offscreen target
   RenderTask mCompositeTask;
 
-  Toolkit::ImageView mCompositeImageView;
+  Actor mCompositeActor;
 
   /////////////////////////////////////////////////////////////
   // for holding blurred result
-  FrameBufferImage mOutputRenderTarget;
-  Toolkit::ImageView mTargetImageView;
+  FrameBuffer mOutputRenderTarget;
+  Actor mTargetActor;
 
   /////////////////////////////////////////////////////////////
   // Properties for setting by user, e.g. by animations
@@ -197,4 +198,4 @@ inline const Toolkit::Internal::BloomView& GetImpl( const Toolkit::BloomView& ob
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H__
+#endif // DALI_TOOLKIT_INTERNAL_BLOOM_VIEW_H

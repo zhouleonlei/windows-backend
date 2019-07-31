@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F988BBA1-52C3-453F-8D1C-434172967AAD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Tizen.NUI.TCT</RootNamespace>
+    <AssemblyName>Tizen.NUI.TCT</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Dali\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resource.Designer.cs" />
+    <Compile Include="testcase\TSAdaptor.cs" />
+    <Compile Include="testcase\TSAlphaFunction.cs" />
+    <Compile Include="testcase\TSAnimatable.cs" />
+    <Compile Include="testcase\TSAnimatedImageVisual.cs" />
+    <Compile Include="testcase\TSAnimation.cs" />
+    <Compile Include="testcase\TSBaseHandle.cs" />
+    <Compile Include="testcase\TSBaseHandle.FocusRequestArgs.cs" />
+    <Compile Include="testcase\TSBorderVisual.cs" />
+    <Compile Include="testcase\TSButton.cs" />
+    <Compile Include="testcase\TSCheckBoxButton.cs" />
+    <Compile Include="testcase\TSColor.cs" />
+    <Compile Include="testcase\TSColorVisual.cs" />
+    <Compile Include="testcase\TSContainer.cs" />
+    <Compile Include="testcase\TSCustomView.cs" />
+    <Compile Include="testcase\TSCustomViewRegistry.cs" />
+    <Compile Include="testcase\TSDegree.cs" />
+    <Compile Include="testcase\TSExtents.cs" />
+    <Compile Include="testcase\TSFlexContainer.ChildProperty.cs" />
+    <Compile Include="testcase\TSFlexContainer.cs" />
+    <Compile Include="testcase\TSFocusManager.cs" />
+    <Compile Include="testcase\TSFocusManager.FocusChangedEventArgs.cs" />
+    <Compile Include="testcase\TSFocusManager.FocusedViewActivatedEventArgs.cs" />
+    <Compile Include="testcase\TSFocusManager.FocusedViewEnterKeyEventArgs.cs" />
+    <Compile Include="testcase\TSFocusManager.FocusGroupChangedEventArgs.cs" />
+    <Compile Include="testcase\TSFocusManager.PreFocusChangeEventArgs.cs" />
+    <Compile Include="testcase\TSFontClient.cs" />
+    <Compile Include="testcase\TSGeometry.cs" />
+    <Compile Include="testcase\TSGesture.cs" />
+    <Compile Include="testcase\TSGradientVisual.cs" />
+    <Compile Include="testcase\TSHover.cs" />
+    <Compile Include="testcase\TSImageView.cs" />
+    <Compile Include="testcase\TSImageView.ResourceReadyEventArgs.cs" />
+    <Compile Include="testcase\TSImageVisual.cs" />
+    <Compile Include="testcase\TSImfManager.ActivatedEventArgs.cs" />
+    <Compile Include="testcase\TSImfManager.cs" />
+    <Compile Include="testcase\TSImfManager.EventReceivedEventArgs.cs" />
+    <Compile Include="testcase\TSImfManager.ImfCallbackData.cs" />
+    <Compile Include="testcase\TSImfManager.ImfEventData.cs" />
+    <Compile Include="testcase\TSImfManager.KeyboardTypeChangedEventArgs.cs" />
+    <Compile Include="testcase\TSImfManager.LanguageChangedEventArgs.cs" />
+    <Compile Include="testcase\TSImfManager.ResizedEventArgs.cs" />
+    <Compile Include="testcase\TSImfManager.StatusChangedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethod.cs" />
+    <Compile Include="testcase\TSInputMethodContext.ActivatedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethodContext.CallbackData.cs" />
+    <Compile Include="testcase\TSInputMethodContext.cs" />
+    <Compile Include="testcase\TSInputMethodContext.EventData.cs" />
+    <Compile Include="testcase\TSInputMethodContext.EventReceivedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethodContext.KeyboardTypeChangedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethodContext.LanguageChangedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethodContext.ResizedEventArgs.cs" />
+    <Compile Include="testcase\TSInputMethodContext.StatusChangedEventArgs.cs" />
+    <Compile Include="testcase\TSKey.cs" />
+    <Compile Include="testcase\TSKeyboardTypeSignalType.cs" />
+    <Compile Include="testcase\TSKeyFrames.cs" />
+    <Compile Include="testcase\TSKeyValue.cs" />
+    <Compile Include="testcase\TSLayer.cs" />
+    <Compile Include="testcase\TSLongPressGesture.cs" />
+    <Compile Include="testcase\TSMeshVisual.cs" />
+    <Compile Include="testcase\TSNPatchVisual.cs" />
+    <Compile Include="testcase\TSNUIApplication.cs" />
+    <Compile Include="testcase\TSNUIEventType.cs" />
+    <Compile Include="testcase\TSNUIWidgetApplication.cs" />
+    <Compile Include="testcase\TSPaddingType.cs" />
+    <Compile Include="testcase\TSPanGesture.cs" />
+    <Compile Include="testcase\TSPath.cs" />
+    <Compile Include="testcase\TSPinchGesture.cs" />
+    <Compile Include="testcase\TSPopup.cs" />
+    <Compile Include="testcase\TSPopup.HiddenEventArgs.cs" />
+    <Compile Include="testcase\TSPopup.HidingEventArgs.cs" />
+    <Compile Include="testcase\TSPopup.ShowingEventArgs.cs" />
+    <Compile Include="testcase\TSPopup.ShownEventArgs.cs" />
+    <Compile Include="testcase\TSPopup.TouchedOutsideEventArgs.cs" />
+    <Compile Include="testcase\TSPosition.cs" />
+    <Compile Include="testcase\TSPosition2D.cs" />
+    <Compile Include="testcase\TSPrimitiveVisual.cs" />
+    <Compile Include="testcase\TSProgressBar.cs" />
+    <Compile Include="testcase\TSProgressBar.ValueChangedEventArgs.cs" />
+    <Compile Include="testcase\TSPropertyArray.cs" />
+    <Compile Include="testcase\TSPropertyBuffer.cs" />
+    <Compile Include="testcase\TSPropertyCondition.cs" />
+    <Compile Include="testcase\TSPropertyKey.cs" />
+    <Compile Include="testcase\TSPropertyMap.cs" />
+    <Compile Include="testcase\TSPropertyNotification.cs" />
+    <Compile Include="testcase\TSPropertyNotification.NotifyEventArgs.cs" />
+    <Compile Include="testcase\TSPropertyNotifySignal.cs" />
+    <Compile Include="testcase\TSPropertyValue.cs" />
+    <Compile Include="testcase\TSPushButton.cs" />
+    <Compile Include="testcase\TSRadian.cs" />
+    <Compile Include="testcase\TSRadioButton.cs" />
+    <Compile Include="testcase\TSRectangle.cs" />
+    <Compile Include="testcase\TSRelativeVector2.cs" />
+    <Compile Include="testcase\TSRelativeVector3.cs" />
+    <Compile Include="testcase\TSRelativeVector4.cs" />
+    <Compile Include="testcase\TSRelayoutContainer.cs" />
+    <Compile Include="testcase\TSRenderer.cs" />
+    <Compile Include="testcase\TSRenderer.Property.cs" />
+    <Compile Include="testcase\TSRotation.cs" />
+    <Compile Include="testcase\TSSampler.cs" />
+    <Compile Include="testcase\TSScrollable.CompletedEventArgs.cs" />
+    <Compile Include="testcase\TSScrollable.cs" />
+    <Compile Include="testcase\TSScrollable.Property.cs" />
+    <Compile Include="testcase\TSScrollable.StartedEventArgs.cs" />
+    <Compile Include="testcase\TSScrollable.UpdatedEventArgs.cs" />
+    <Compile Include="testcase\TSScrollBar.cs" />
+    <Compile Include="testcase\TSScrollBar.PanFinishedEventArgs.cs" />
+    <Compile Include="testcase\TSScrollBar.ScrollIntervalEventArgs.cs" />
+    <Compile Include="testcase\TSScrollView.cs" />
+    <Compile Include="testcase\TSScrollView.Property.cs" />
+    <Compile Include="testcase\TSScrollView.SnapEvent.cs" />
+    <Compile Include="testcase\TSScrollView.SnapStartedEventArgs.cs" />
+    <Compile Include="testcase\TSScrollViewEffect.cs" />
+    <Compile Include="testcase\TSShader.cs" />
+    <Compile Include="testcase\TSShader.Hint.cs" />
+    <Compile Include="testcase\TSShader.Property.cs" />
+    <Compile Include="testcase\TSSize.cs" />
+    <Compile Include="testcase\TSSize2D.cs" />
+    <Compile Include="testcase\TSSlider.cs" />
+    <Compile Include="testcase\TSSlider.MarkReachedEventArgs.cs" />
+    <Compile Include="testcase\TSSlider.SlidingFinishedEventArgs.cs" />
+    <Compile Include="testcase\TSSlider.ValueChangedEventArgs.cs" />
+    <Compile Include="testcase\TSSpin.cs" />
+    <Compile Include="testcase\TSStyleManager.cs" />
+    <Compile Include="testcase\TSStyleManager.StyleChangedEventArgs.cs" />
+    <Compile Include="testcase\TSSVGVisual.cs" />
+    <Compile Include="testcase\TSSWIGTYPE_p_bundle.cs" />
+    <Compile Include="testcase\TSTableView.CellPosition.cs" />
+    <Compile Include="testcase\TSTableView.cs" />
+    <Compile Include="testcase\TSTapGesture.cs" />
+    <Compile Include="testcase\TSTextEditor.cs" />
+    <Compile Include="testcase\TSTextEditor.ScrollStateChangedEventArgs.cs" />
+    <Compile Include="testcase\TSTextEditor.TextChangedEventArgs.cs" />
+    <Compile Include="testcase\TSTextField.cs" />
+    <Compile Include="testcase\TSTextField.MaxLengthReachedEventArgs.cs" />
+    <Compile Include="testcase\TSTextField.TextChangedEventArgs.cs" />
+    <Compile Include="testcase\TSTextLabel.cs" />
+    <Compile Include="testcase\TSTexture.cs" />
+    <Compile Include="testcase\TSTextureSet.cs" />
+    <Compile Include="testcase\TSTextVisual.cs" />
+    <Compile Include="testcase\TSTimer.cs" />
+    <Compile Include="testcase\TSTimer.TickEventArgs.cs" />
+    <Compile Include="testcase\TSToggleButton.cs" />
+    <Compile Include="testcase\TSToggleButton.Property.cs" />
+    <Compile Include="testcase\TSTouch.cs" />
+    <Compile Include="testcase\TSTransitionData.cs" />
+    <Compile Include="testcase\TSTTSPlayer.cs" />
+    <Compile Include="testcase\TSTTSPlayer.StateChangedEventArgs.cs" />
+    <Compile Include="testcase\TSTypeInfo.cs" />
+    <Compile Include="testcase\TSVector2.cs" />
+    <Compile Include="testcase\TSVector3.cs" />
+    <Compile Include="testcase\TSVector4.cs" />
+    <Compile Include="testcase\TSVideoView.cs" />
+    <Compile Include="testcase\TSVideoView.FinishedEventArgs.cs" />
+    <Compile Include="testcase\TSView.ChildAddedEventArgs.cs" />
+    <Compile Include="testcase\TSView.ChildRemovedEventArgs.cs" />
+    <Compile Include="testcase\TSView.cs" />
+    <Compile Include="testcase\TSView.HoverEventArgs.cs" />
+    <Compile Include="testcase\TSView.KeyEventArgs.cs" />
+    <Compile Include="testcase\TSView.LayoutDirectionChangedEventArgs.cs" />
+    <Compile Include="testcase\TSView.TouchEventArgs.cs" />
+    <Compile Include="testcase\TSView.VisibilityChangedEventArgs.cs" />
+    <Compile Include="testcase\TSView.WheelEventArgs.cs" />
+    <Compile Include="testcase\TSVisualAnimator.cs" />
+    <Compile Include="testcase\TSVisualBase.cs" />
+    <Compile Include="testcase\TSVisualFactory.cs" />
+    <Compile Include="testcase\TSVisualMap.cs" />
+    <Compile Include="testcase\TSVisualView.cs" />
+    <Compile Include="testcase\TSWatchTime.cs" />
+    <Compile Include="testcase\TSWebView.WebViewEventArgs.cs" />
+    <Compile Include="testcase\TSWheel.cs" />
+    <Compile Include="testcase\TSWidget.cs" />
+    <Compile Include="testcase\TSWidgetViewSignal.cs" />
+    <Compile Include="testcase\TSWindow.cs" />
+    <Compile Include="testcase\TSWindow.FocusChangedEventArgs.cs" />
+    <Compile Include="testcase\TSWindow.KeyEventArgs.cs" />
+    <Compile Include="testcase\TSWindow.ResizedEventArgs.cs" />
+    <Compile Include="testcase\TSWindow.SafeNativeWindowHandle.cs" />
+    <Compile Include="testcase\TSWindow.TouchEventArgs.cs" />
+    <Compile Include="testcase\TSWindow.WheelEventArgs.cs" />
+    <Compile Include="testcase\TSWindow.WindowFocusChangedEventArgs.cs" />
+    <Compile Include="testcase\Xaml\TSArrayExtension.cs" />
+    <Compile Include="testcase\Xaml\TSBehavior.cs" />
+    <Compile Include="testcase\Xaml\TSBindableObject.cs" />
+    <Compile Include="testcase\Xaml\TSBindableObjectExtensions.cs" />
+    <Compile Include="testcase\Xaml\TSBindableProperty.cs" />
+    <Compile Include="testcase\Xaml\TSBindablePropertyConverter.cs" />
+    <Compile Include="testcase\Xaml\TSBindablePropertyKey.cs" />
+    <Compile Include="testcase\Xaml\TSBinding.cs" />
+    <Compile Include="testcase\Xaml\TSBindingBase.cs" />
+    <Compile Include="testcase\Xaml\TSBindingCondition.cs" />
+    <Compile Include="testcase\Xaml\TSBindingExtension.cs" />
+    <Compile Include="testcase\Xaml\TSBindingMode.cs" />
+    <Compile Include="testcase\Xaml\TSBindingTypeConverter.cs" />
+    <Compile Include="testcase\Xaml\TSColorTypeConverter.cs" />
+    <Compile Include="testcase\Xaml\TSCommand.cs" />
+    <Compile Include="testcase\Xaml\TSCondition.cs" />
+    <Compile Include="testcase\Xaml\TSDataTrigger.cs" />
+    <Compile Include="testcase\Xaml\TSDynamicResourceExtension.cs" />
+    <Compile Include="testcase\Xaml\TSElement.cs" />
+    <Compile Include="testcase\Xaml\TSElementEventArgs.cs" />
+    <Compile Include="testcase\Xaml\TSEventTrigger.cs" />
+    <Compile Include="testcase\Xaml\TSExtensions.cs" />
+    <Compile Include="testcase\Xaml\TSMultiTrigger.cs" />
+    <Compile Include="testcase\Xaml\TSNameScopeExtensions.cs" />
+    <Compile Include="testcase\Xaml\TSNameScopeProvider.cs" />
+    <Compile Include="testcase\Xaml\TSNullExtension.cs" />
+    <Compile Include="testcase\Xaml\TSReferenceExtension.cs" />
+    <Compile Include="testcase\Xaml\TSResourceDictionary.cs" />
+    <Compile Include="testcase\Xaml\TSSetter.cs" />
+    <Compile Include="testcase\Xaml\TSSimpleValueTargetProvider.cs" />
+    <Compile Include="testcase\Xaml\TSSize2DTypeConverter.cs" />
+    <Compile Include="testcase\Xaml\TSSizeTypeConverter.cs" />
+    <Compile Include="testcase\Xaml\TSStaticExtension.cs" />
+    <Compile Include="testcase\Xaml\TSStaticResourceExtension.cs" />
+    <Compile Include="testcase\Xaml\TSStyle.cs" />
+    <Compile Include="testcase\Xaml\TSStyleSheetExtension.cs" />
+    <Compile Include="testcase\Xaml\TSTemplateBindingExtension.cs" />
+    <Compile Include="testcase\Xaml\TSTrigger.cs" />
+    <Compile Include="testcase\Xaml\TSTriggerAction.cs" />
+    <Compile Include="testcase\Xaml\TSTriggerBase.cs" />
+    <Compile Include="testcase\Xaml\TSTypeConverter.cs" />
+    <Compile Include="testcase\Xaml\TSXamlCompilationOptions.cs" />
+    <Compile Include="testcase\Xaml\TSXamlParseException.cs" />
+    <Compile Include="testcase\Xaml\TSXamlPropertyCondition.cs" />
+    <Compile Include="testcase\Xaml\TSXamlServiceProvider.cs" />
+    <Compile Include="testcase\Xaml\TSXamlTypeResolver.cs" />
+    <Compile Include="testcase\Xaml\TSXmlLineInfo.cs" />
+    <Compile Include="testcase\Xaml\TSXmlLineInfoProvider.cs" />
+    <Compile Include="testcase\Xaml\TSXmlNamespaceResolver.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Tizen.Applications.Common\Tizen.Applications.Common.csproj">
+      <Project>{2aedcaa7-543f-48a1-bea3-cf3e14f6edc2}</Project>
+      <Name>Tizen.Applications.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.FH.NUI\Tizen.FH.NUI.csproj">
+      <Project>{f913ea19-8768-48f1-923a-227b63fa53eb}</Project>
+      <Name>Tizen.FH.NUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.Log\Tizen.Log.csproj">
+      <Project>{1c550c1f-9370-42ff-86fa-edcd6262b258}</Project>
+      <Name>Tizen.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI.CommonUI\Tizen.NUI.CommonUI.csproj">
+      <Project>{7b7dd1ca-cfbb-4dde-9cca-f4190412975e}</Project>
+      <Name>Tizen.NUI.CommonUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.NUI\Tizen.NUI.csproj">
+      <Project>{473c3bec-2f67-4285-85fc-bf4e96bfff1c}</Project>
+      <Name>Tizen.NUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Tizen.System.SystemSettings\Tizen.System.SystemSettings.csproj">
+      <Project>{8d71b1b6-9901-436f-8914-9f812e1b10a7}</Project>
+      <Name>Tizen.System.SystemSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="nunit.framework\nunit.framework.csproj">
+      <Project>{8f2a2a87-6113-4a08-84ef-d11d7348ff7b}</Project>
+      <Name>nunit.framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.af-ZA.resx" />
+    <EmbeddedResource Include="Properties\Resource.am-ET.resx" />
+    <EmbeddedResource Include="Properties\Resource.ar-AE.resx" />
+    <EmbeddedResource Include="Properties\Resource.as-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.az.resx" />
+    <EmbeddedResource Include="Properties\Resource.bg-BG.resx" />
+    <EmbeddedResource Include="Properties\Resource.bh-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.bn-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.bs.resx" />
+    <EmbeddedResource Include="Properties\Resource.cs-CZ.resx" />
+    <EmbeddedResource Include="Properties\Resource.da-DK.resx" />
+    <EmbeddedResource Include="Properties\Resource.de-DE.resx" />
+    <EmbeddedResource Include="Properties\Resource.el-GR.resx" />
+    <EmbeddedResource Include="Properties\Resource.en-GB.resx" />
+    <EmbeddedResource Include="Properties\Resource.es-ES.resx" />
+    <EmbeddedResource Include="Properties\Resource.es-MX.resx" />
+    <EmbeddedResource Include="Properties\Resource.et-EE.resx" />
+    <EmbeddedResource Include="Properties\Resource.fa-IR.resx" />
+    <EmbeddedResource Include="Properties\Resource.fi-FI.resx" />
+    <EmbeddedResource Include="Properties\Resource.fr-CA.resx" />
+    <EmbeddedResource Include="Properties\Resource.fr-FR.resx" />
+    <EmbeddedResource Include="Properties\Resource.gu-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.ha-Latn-NG.resx" />
+    <EmbeddedResource Include="Properties\Resource.he-IL.resx" />
+    <EmbeddedResource Include="Properties\Resource.hi-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.hr-HR.resx" />
+    <EmbeddedResource Include="Properties\Resource.hu-HU.resx" />
+    <EmbeddedResource Include="Properties\Resource.hy-AM.resx" />
+    <EmbeddedResource Include="Properties\Resource.id-ID.resx" />
+    <EmbeddedResource Include="Properties\Resource.ig-NG.resx" />
+    <EmbeddedResource Include="Properties\Resource.Irc-IQ.resx" />
+    <EmbeddedResource Include="Properties\Resource.it-IT.resx" />
+    <EmbeddedResource Include="Properties\Resource.ja-JP.resx" />
+    <EmbeddedResource Include="Properties\Resource.ka-GE.resx" />
+    <EmbeddedResource Include="Properties\Resource.kk-KZ.resx" />
+    <EmbeddedResource Include="Properties\Resource.km-KH.resx" />
+    <EmbeddedResource Include="Properties\Resource.kn-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.ko-KR.resx" />
+    <EmbeddedResource Include="Properties\Resource.kok-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.ks.resx" />
+    <EmbeddedResource Include="Properties\Resource.ku.resx" />
+    <EmbeddedResource Include="Properties\Resource.lt-LT.resx" />
+    <EmbeddedResource Include="Properties\Resource.lv-LV.resx" />
+    <EmbeddedResource Include="Properties\Resource.mai-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.mk-MK.resx" />
+    <EmbeddedResource Include="Properties\Resource.ml-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.mn-MN.resx" />
+    <EmbeddedResource Include="Properties\Resource.mni-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.mr-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.ms-MY.resx" />
+    <EmbeddedResource Include="Properties\Resource.my-MM.resx" />
+    <EmbeddedResource Include="Properties\Resource.ne-NP.resx" />
+    <EmbeddedResource Include="Properties\Resource.nl-NL.resx" />
+    <EmbeddedResource Include="Properties\Resource.nn-NO.resx" />
+    <EmbeddedResource Include="Properties\Resource.or-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.pa-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.pl-PL.resx" />
+    <EmbeddedResource Include="Properties\Resource.pt-BR.resx" />
+    <EmbeddedResource Include="Properties\Resource.pt-PT.resx" />
+    <EmbeddedResource Include="Properties\Resource.resx" />
+    <EmbeddedResource Include="Properties\Resource.ro-RO.resx" />
+    <EmbeddedResource Include="Properties\Resource.ru-RU.resx" />
+    <EmbeddedResource Include="Properties\Resource.sa-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.sat-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.sd-Deva-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.sk-SK.resx" />
+    <EmbeddedResource Include="Properties\Resource.sl-SI.resx" />
+    <EmbeddedResource Include="Properties\Resource.sq-AL.resx" />
+    <EmbeddedResource Include="Properties\Resource.sr.resx" />
+    <EmbeddedResource Include="Properties\Resource.sv-SE.resx" />
+    <EmbeddedResource Include="Properties\Resource.sw-KE.resx" />
+    <EmbeddedResource Include="Properties\Resource.ta-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.te-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.th-TH.resx" />
+    <EmbeddedResource Include="Properties\Resource.tr-TR.resx" />
+    <EmbeddedResource Include="Properties\Resource.tu-IN.resx" />
+    <EmbeddedResource Include="Properties\Resource.uk-UA.resx" />
+    <EmbeddedResource Include="Properties\Resource.ur-PK.resx" />
+    <EmbeddedResource Include="Properties\Resource.uz-Cyrl-UZ.resx" />
+    <EmbeddedResource Include="Properties\Resource.vi-VN.resx" />
+    <EmbeddedResource Include="Properties\Resource.xh-ZA.resx" />
+    <EmbeddedResource Include="Properties\Resource.yo-NG.resx" />
+    <EmbeddedResource Include="Properties\Resource.zh-CN.resx" />
+    <EmbeddedResource Include="Properties\Resource.zh-HK.resx" />
+    <EmbeddedResource Include="Properties\Resource.zh-TW.resx" />
+    <EmbeddedResource Include="Properties\Resource.zu-ZA.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

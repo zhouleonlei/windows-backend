@@ -30,7 +30,12 @@ namespace Render
 SurfaceFrameBuffer::SurfaceFrameBuffer( Integration::RenderSurface* surface )
 : FrameBuffer(),
   mSurface( surface ),
-  mContext( nullptr )
+  mContext( nullptr ),
+  mWidth( mSurface->GetPositionSize().width ),
+  mHeight( mSurface->GetPositionSize().height ),
+  mBackgroundColor( 0.f, 0.f, 0.f, 1.f ),
+  mSizeChanged( false ),
+  mIsSurfaceInvalid( false )
 {
 }
 
@@ -39,6 +44,11 @@ SurfaceFrameBuffer::~SurfaceFrameBuffer()
 
 void SurfaceFrameBuffer::Destroy( Context& context )
 {
+  if ( IsSurfaceValid() )
+  {
+    mSurface->DestroySurface();
+    mSurface = nullptr;
+  }
 }
 
 void SurfaceFrameBuffer::GlContextDestroyed()
@@ -47,34 +57,53 @@ void SurfaceFrameBuffer::GlContextDestroyed()
   {
     mContext->GlContextDestroyed();
   }
+
+  if ( IsSurfaceValid() )
+  {
+    mSurface->DestroySurface();
+    mSurface = nullptr;
+  }
 }
 
 void SurfaceFrameBuffer::Initialize(Context& context)
 {
   mContext = &context;
   mContext->GlContextCreated();
-  mSurface->InitializeGraphics();
+
+  if ( IsSurfaceValid() )
+  {
+    mSurface->InitializeGraphics();
+  }
 }
 
 void SurfaceFrameBuffer::Bind( Context& context )
 {
-  mSurface->PreRender( false );
-  context.BindFramebuffer( GL_FRAMEBUFFER, 0u );
+  if ( IsSurfaceValid() )
+  {
+    mSurface->PreRender( mSizeChanged );
+
+    context.BindFramebuffer( GL_FRAMEBUFFER, 0u );
+  }
 }
 
 uint32_t SurfaceFrameBuffer::GetWidth() const
 {
-  return mSurface->GetPositionSize().width;
+  return mWidth;
 }
 
 uint32_t SurfaceFrameBuffer::GetHeight() const
 {
-  return mSurface->GetPositionSize().height;
+  return mHeight;
 }
 
 void SurfaceFrameBuffer::PostRender()
 {
-  mSurface->PostRender( false, false, false );
+  if ( IsSurfaceValid() )
+  {
+    mSurface->PostRender( false, false, mSizeChanged );
+  }
+
+  mSizeChanged = false;
 }
 
 Context* SurfaceFrameBuffer::GetContext()
@@ -82,19 +111,34 @@ Context* SurfaceFrameBuffer::GetContext()
   return mContext;
 }
 
-Integration::DepthBufferAvailable SurfaceFrameBuffer::GetDepthBufferRequired()
+void SurfaceFrameBuffer::MakeContextCurrent()
 {
-  return mSurface->GetDepthBufferRequired();
-}
-
-Integration::StencilBufferAvailable SurfaceFrameBuffer::GetStencilBufferRequired()
-{
-  return mSurface->GetStencilBufferRequired();
+  if ( IsSurfaceValid() )
+  {
+    mSurface->MakeContextCurrent();
+  }
 }
 
 Vector4 SurfaceFrameBuffer::GetBackgroundColor()
 {
-  return mSurface->GetBackgroundColor();
+  return mBackgroundColor;
+}
+
+void SurfaceFrameBuffer::SetSize( uint32_t width, uint32_t height )
+{
+  mWidth = width;
+  mHeight = height;
+  mSizeChanged = true;
+}
+
+void SurfaceFrameBuffer::SetBackgroundColor( const Vector4& color )
+{
+  mBackgroundColor = color;
+}
+
+bool SurfaceFrameBuffer::IsSurfaceValid() const
+{
+  return mSurface && !mIsSurfaceInvalid;
 }
 
 } //Render

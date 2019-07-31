@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H__
-#define __DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H__
+#ifndef DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H
+#define DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@
 namespace Dali
 {
 
+class Window;
+
 namespace Toolkit
 {
 
@@ -39,7 +41,7 @@ namespace Internal
 /**
  * @copydoc Toolkit::KeyboardFocusManager
  */
-class KeyboardFocusManager : public Dali::BaseObject
+class KeyboardFocusManager : public Dali::BaseObject, public ConnectionTracker
 {
 public:
 
@@ -174,6 +176,17 @@ private:
 
   typedef std::vector< WeakHandle< Actor > > FocusStack; ///< Define Dali::Vector< Dali::BaseObject* > as FocusStack to contain focus history
   typedef FocusStack::iterator FocusStackIterator; ///< Define FocusStack::Iterator as FocusStackIterator to navigate FocusStack
+
+  /**
+   * This will be called when the adaptor is initialized
+   */
+  void OnAdaptorInit();
+
+  /**
+   * This will be called when a new wndow is created
+   * @param window The new window
+   */
+  void OnWindowCreated( Dali::Window& window );
 
   /**
    * Get configuration from StyleManager.
@@ -313,4 +326,4 @@ inline const Internal::KeyboardFocusManager& GetImpl(const Dali::Toolkit::Keyboa
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H__
+#endif // DALI_TOOLKIT_INTERNAL_KEYBOARD_FOCUS_MANAGER_H

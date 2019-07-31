@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_SLIDER_H__
-#define __DALI_TOOLKIT_SLIDER_H__
+#ifndef DALI_TOOLKIT_SLIDER_H
+#define DALI_TOOLKIT_SLIDER_H
 
 /*
- * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -227,13 +227,13 @@ public:  // Signals
    * @brief Value changed signal type.
    * @SINCE_1_1.39
    */
-  typedef Signal< bool ( Slider&, float ) > ValueChangedSignalType;
+  typedef Signal< bool ( Slider, float ) > ValueChangedSignalType;
 
   /**
    * @brief Mark reached signal type.
    * @SINCE_1_1.39
    */
-  typedef Signal< bool ( Slider&, int ) > MarkReachedSignalType;
+  typedef Signal< bool ( Slider, int ) > MarkReachedSignalType;
 
   /**
    * @brief Signal emitted when the slider value changes.
@@ -299,4 +299,4 @@ public: // Not intended for application developers
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_SLIDER_H__
+#endif // DALI_TOOLKIT_SLIDER_H

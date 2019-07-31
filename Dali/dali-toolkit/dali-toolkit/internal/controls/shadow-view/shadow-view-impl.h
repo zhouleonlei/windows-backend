@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H__
-#define __DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H__
+#ifndef DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H
+#define DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H
 
 /*
- * Copyright (c) 2016 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,14 +137,14 @@ private:
   void CreateBlurFilter();
 
 private:
-  Toolkit::ImageView mShadowPlane; // Shadow renders into this actor
+  Actor mShadowPlane; // Shadow renders into this actor
   Actor mShadowPlaneBg; // mShadowPlane renders directly in front of this actor
   Actor mPointLight;  // Shadow is cast from this point light
 
   /////////////////////////////////////////////////////////////
-  FrameBufferImage mSceneFromLightRenderTarget;  // for rendering normal scene seen from light to texture instead of the screen
+  FrameBuffer mSceneFromLightRenderTarget;  // for rendering normal scene seen from light to texture instead of the screen
 
-  FrameBufferImage mOutputImage;
+  FrameBuffer mOutputFrameBuffer;
 
   Actor mChildrenRoot; // Subtree for all user added child actors that should be rendered normally
   Actor mBlurRootActor; // Root actor for blur filter processing
@@ -197,4 +197,4 @@ inline const Toolkit::Internal::ShadowView& GetImpl( const Toolkit::ShadowView& 
 
 } // namespace Dali
 
-#endif // __DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H__
+#endif // DALI_TOOLKIT_INTERNAL_SHADOW_VIEW_H

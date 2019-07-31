@@ -1,8 +1,8 @@
-#ifndef __DALI_TOOLKIT_IMAGE_LOAD_THREAD_H__
-#define __DALI_TOOLKIT_IMAGE_LOAD_THREAD_H__
+#ifndef DALI_TOOLKIT_IMAGE_LOAD_THREAD_H
+#define DALI_TOOLKIT_IMAGE_LOAD_THREAD_H
 
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2019 Samsung Electronics Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 #include <dali/devel-api/adaptor-framework/pixel-buffer.h>
 #include <dali/integration-api/adaptors/log-factory-interface.h>
 #include <dali-toolkit/internal/visuals/visual-url.h>
+#include <dali-toolkit/devel-api/image-loader/async-image-loader-devel.h>
 
 namespace Dali
 {
@@ -51,10 +52,12 @@ struct LoadingTask
    * @param [in] fittingMode The method used to fit the shape of the image before loading to the shape defined by the size parameter.
    * @param [in] samplingMode The filtering method used when sampling pixels from the input image while fitting it to desired size.
    * @param [in] orientationCorrection Reorient the image to respect any orientation metadata in its header.
+   * @param [in] preMultiplyOnLoad ON if the image's color should be multiplied by it's alpha.
    */
   LoadingTask( uint32_t id, const VisualUrl& url, ImageDimensions dimensions,
                FittingMode::Type fittingMode, SamplingMode::Type samplingMode,
-               bool orientationCorrection );
+               bool orientationCorrection,
+               DevelAsyncImageLoader::PreMultiplyOnLoad preMultiplyOnLoad );
 
   /**
    * Load the image
@@ -78,7 +81,7 @@ public:
   FittingMode::Type  fittingMode;   ///< fitting options
   SamplingMode::Type samplingMode;  ///< sampling options
   bool               orientationCorrection:1; ///< if orientation correction is needed
-
+  DevelAsyncImageLoader::PreMultiplyOnLoad            preMultiplyOnLoad; //< if the image's color should be multiplied by it's alpha
 };
 
 
@@ -176,4 +179,4 @@ private:
 
 } // namespace Dali
 
-#endif /* __DALI_TOOLKIT_IMAGE_LOAD_THREAD_H__ */
+#endif // DALI_TOOLKIT_IMAGE_LOAD_THREAD_H

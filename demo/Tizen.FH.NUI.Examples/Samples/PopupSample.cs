@@ -4,14 +4,14 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class PopupSample : IExample
+    public class Popup : IExample
     {
         private SampleLayout root;
         private static readonly Size2D Padding = new Size2D(50, 50);
 
-        private Popup popup = null;
+        private Tizen.NUI.CommonUI.Popup popup = null;
         private TextLabel contentText = null;
-        private Button[] button = new Button[3];
+        private Tizen.NUI.CommonUI.Button[] button = new Tizen.NUI.CommonUI.Button[3];
         private int num = 3;
 
         private static string[] mode = new string[]
@@ -23,6 +23,7 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "Popup";
 
@@ -30,7 +31,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < num; i++)
             {
-                button[i] = new Button("ServiceButton");
+                button[i] = new Tizen.NUI.CommonUI.Button("ServiceButton");
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(160 + i * 260, 700);
                 button[i].Text = mode[i];
@@ -44,7 +45,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("Popup");
+            popup = new Tizen.NUI.CommonUI.Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Popup Title";
@@ -68,7 +69,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("Popup");
+            popup = new Tizen.NUI.CommonUI.Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.ButtonCount = 2;
@@ -92,7 +93,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Popup("Popup");
+            popup = new Tizen.NUI.CommonUI.Popup("Popup");
             popup.Size2D = new Size2D(1032, 200);
             popup.Position2D = new Position2D(24, 50);
 
@@ -108,14 +109,14 @@ namespace Tizen.FH.NUI.Samples
             root.Add(popup);
         }
 
-        private void PopupButtonClickedEvent(object sender, Popup.ButtonClickEventArgs e)
+        private void PopupButtonClickedEvent(object sender, Tizen.NUI.CommonUI.Popup.ButtonClickEventArgs e)
         {
             contentText.Text = "Button index " + e.ButtonIndex + " is clicked";
         }
 
-        private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
-            Button btn = sender as Button;
+            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
             if (button[0] == btn)
             {
                 CreatePopupWithoutTitle();
@@ -148,7 +149,7 @@ namespace Tizen.FH.NUI.Samples
         }
 
         public void Deactivate()
-        {         
+        {
             if (root != null)
             {
                 DestoryPopup();

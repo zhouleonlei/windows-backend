@@ -20,6 +20,7 @@
 #include <dali/internal/graphics/gles/egl-implementation.h>
 
 // EXTERNAL INCLUDES
+#include <sstream>
 #include <dali/integration-api/debug.h>
 #include <dali/public-api/common/dali-vector.h>
 
@@ -31,6 +32,13 @@
 // EGL constants use C style casts
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wold-style-cast"
+
+namespace
+{
+  const uint32_t CHECK_EXTENSION_NUMBER = 2;
+  const std::string EGL_KHR_SURFACELESS_CONTEXT = "EGL_KHR_surfaceless_context";
+  const std::string EGL_KHR_CREATE_CONTEXT = "EGL_KHR_create_context";
+}
 
 namespace Dali
 {
@@ -71,7 +79,9 @@ EglImplementation::EglImplementation( int multiSamplingLevel,
   mIsOwnSurface( true ),
   mIsWindow( true ),
   mDepthBufferRequired( depthBufferRequired == Integration::DepthBufferAvailable::TRUE ),
-  mStencilBufferRequired( stencilBufferRequired == Integration::StencilBufferAvailable::TRUE )
+  mStencilBufferRequired( stencilBufferRequired == Integration::StencilBufferAvailable::TRUE ),
+  mIsSurfacelessContextSupported( false ),
+  mIsKhrCreateContextSupported( false )
 {
 }
 
@@ -107,6 +117,25 @@ bool EglImplementation::InitializeGles( EGLNativeDisplayType display, bool isOwn
     mIsOwnSurface = isOwnSurface;
   }
 
+  // Query EGL extensions to check whether surfaceless context is supported
+  const char* const extensionStr = eglQueryString( mEglDisplay, EGL_EXTENSIONS );
+  std::istringstream stream( extensionStr );
+  std::string currentExtension;
+  uint32_t extensionCheckCount = 0;
+  while( std::getline( stream, currentExtension, ' ' ) && extensionCheckCount < CHECK_EXTENSION_NUMBER )
+  {
+    if( currentExtension == EGL_KHR_SURFACELESS_CONTEXT )
+    {
+      mIsSurfacelessContextSupported = true;
+      extensionCheckCount++;
+    }
+    if( currentExtension == EGL_KHR_CREATE_CONTEXT )
+    {
+      mIsKhrCreateContextSupported = true;
+      extensionCheckCount++;
+    }
+  }
+
   // We want to display this information all the time, so use the LogMessage directly
   Integration::Log::LogMessage(Integration::Log::DebugInfo, "EGL Information\n"
       "            Vendor:        %s\n"
@@ -116,7 +145,7 @@ bool EglImplementation::InitializeGles( EGLNativeDisplayType display, bool isOwn
       eglQueryString( mEglDisplay, EGL_VENDOR ),
       eglQueryString( mEglDisplay, EGL_VERSION ),
       eglQueryString( mEglDisplay, EGL_CLIENT_APIS ),
-      eglQueryString( mEglDisplay, EGL_EXTENSIONS ));
+      extensionStr);
 
   return mGlesInitialized;
 }
@@ -191,8 +220,6 @@ void EglImplementation::MakeContextCurrent( EGLSurface eglSurface, EGLContext eg
 
   if(mIsOwnSurface)
   {
-    glFinish();
-
     eglMakeCurrent( mEglDisplay, eglSurface, eglSurface, eglContext );
 
     mCurrentEglContext = eglContext;
@@ -220,8 +247,6 @@ void EglImplementation::MakeCurrent( EGLNativePixmapType pixmap, EGLSurface eglS
 
   if(mIsOwnSurface)
   {
-    glFinish();
-
     eglMakeCurrent( mEglDisplay, eglSurface, eglSurface, mEglContext );
 
     mCurrentEglContext = mEglContext;
@@ -306,8 +331,6 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
     return true;
   }
 
-  bool isTransparent = ( depth == COLOR_DEPTH_32 );
-
   mColorDepth = depth;
   mIsWindow = isWindowType;
 
@@ -330,11 +353,7 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
 
   if( mGlesVersion >= 30 )
   {
-#ifdef _ARCH_ARM_
     configAttribs.PushBack( EGL_OPENGL_ES3_BIT_KHR );
-#else
-    configAttribs.PushBack( EGL_OPENGL_ES2_BIT );
-#endif // _ARCH_ARM_
   }
   else
   {
@@ -352,18 +371,9 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
   configAttribs.PushBack( EGL_BLUE_SIZE );
   configAttribs.PushBack( 8 );
 
-  if ( isTransparent )
-  {
-    configAttribs.PushBack( EGL_ALPHA_SIZE );
-#ifdef _ARCH_ARM_
-    // For underlay video playback, we also need to set the alpha value of the 24/32bit window.
-    configAttribs.PushBack( 8 );
-#else
-    // There is a bug in the desktop emulator
-    // setting EGL_ALPHA_SIZE to 8 results in eglChooseConfig failing
-    configAttribs.PushBack( 8 );
-#endif // _ARCH_ARM_
-  }
+//  For underlay video playback, we also need to set the alpha value of the 24/32bit window.
+  configAttribs.PushBack( EGL_ALPHA_SIZE );
+  configAttribs.PushBack( 8 );
 
   configAttribs.PushBack( EGL_DEPTH_SIZE );
   configAttribs.PushBack( mDepthBufferRequired ? 24 : 0 );
@@ -381,13 +391,23 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
 #endif // DALI_PROFILE_UBUNTU
   configAttribs.PushBack( EGL_NONE );
 
-  if ( eglChooseConfig( mEglDisplay, &(configAttribs[0]), &mEglConfig, 1, &numConfigs ) != EGL_TRUE )
+  // Ensure number of configs is set to 1 as on some drivers,
+  // eglChooseConfig succeeds but does not actually create a proper configuration.
+  if ( ( eglChooseConfig( mEglDisplay, &(configAttribs[0]), &mEglConfig, 1, &numConfigs ) != EGL_TRUE ) ||
+       ( numConfigs != 1 ) )
   {
     if( mGlesVersion >= 30 )
     {
       mEglConfig = NULL;
-      DALI_LOG_ERROR("Fail to use OpenGL es 3.0. Retring to use OpenGL es 2.0.");
+      DALI_LOG_ERROR("Fail to use OpenGL es 3.0. Retrying to use OpenGL es 2.0.");
       return false;
+    }
+
+    if ( numConfigs != 1 )
+    {
+      DALI_LOG_ERROR("No configurations found.\n");
+
+      TEST_EGL_ERROR("eglChooseConfig");
     }
 
     EGLint error = eglGetError();
@@ -424,7 +444,7 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
   Integration::Log::LogMessage(Integration::Log::DebugInfo, "Using OpenGL es %d.%d.\n", mGlesVersion / 10, mGlesVersion % 10 );
 
   mContextAttribs.Clear();
-  if( mGlesVersion >= 30 )
+  if( mIsKhrCreateContextSupported )
   {
     mContextAttribs.Reserve(5);
     mContextAttribs.PushBack( EGL_CONTEXT_MAJOR_VERSION_KHR );
@@ -436,16 +456,9 @@ bool EglImplementation::ChooseConfig( bool isWindowType, ColorDepth depth )
   {
     mContextAttribs.Reserve(3);
     mContextAttribs.PushBack( EGL_CONTEXT_CLIENT_VERSION );
-    mContextAttribs.PushBack( 2 );
+    mContextAttribs.PushBack( mGlesVersion / 10 );
   }
   mContextAttribs.PushBack( EGL_NONE );
-
-  if ( numConfigs != 1 )
-  {
-    DALI_LOG_ERROR("No configurations found.\n");
-
-    TEST_EGL_ERROR("eglChooseConfig");
-  }
 
   return true;
 }
@@ -496,10 +509,10 @@ bool EglImplementation::ReplaceSurfaceWindow( EGLNativeWindowType window, EGLSur
   DestroySurface( eglSurface );
 
   // create the EGL surface
-  CreateSurfaceWindow( window, mColorDepth );
+  EGLSurface newEglSurface = CreateSurfaceWindow( window, mColorDepth );
 
   // set the context to be current with the new surface
-  MakeContextCurrent( eglSurface, eglContext );
+  MakeContextCurrent( newEglSurface, eglContext );
 
   return contextLost;
 }
@@ -536,6 +549,20 @@ EGLContext EglImplementation::GetContext() const
 int32_t EglImplementation::GetGlesVersion() const
 {
   return mGlesVersion;
+}
+
+bool EglImplementation::IsSurfacelessContextSupported() const
+{
+  return mIsSurfacelessContextSupported;
+}
+
+void EglImplementation::WaitClient()
+{
+  // Wait for EGL to finish executing all rendering calls for the current context
+  if ( eglWaitClient() != EGL_TRUE )
+  {
+    TEST_EGL_ERROR("eglWaitClient");
+  }
 }
 
 } // namespace Adaptor

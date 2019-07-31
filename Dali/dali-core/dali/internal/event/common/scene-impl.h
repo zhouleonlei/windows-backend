@@ -62,7 +62,7 @@ public:
   /**
    * @copydoc Dali::Integration::Scene::New
    */
-  static ScenePtr New( const Size& size );
+  static ScenePtr New( Integration::RenderSurface& surface );
 
   /**
    * virtual destructor
@@ -120,6 +120,21 @@ public:
   void SetSurface( Integration::RenderSurface& surface );
 
   /**
+   * Notify the surface has been resized.
+   */
+  void SurfaceResized();
+
+  /**
+   * Notify the surface has been deleted.
+   */
+  void SurfaceDeleted();
+
+  /**
+   * @copydoc Dali::Integration::Scene::Discard
+   */
+  void Discard();
+
+  /**
    * Retrieve the render surface the scene is binded to.
    * @return The render surface.
    */
@@ -154,10 +169,10 @@ public:
   void RebuildDepthTree();
 
   /**
-   * @brief Sets the background color of the render　surface.
+   * @brief Sets the background color of the render surface.
    * @param[in] color The new background color
    */
-  void SetBackgroundColor(Vector4 color);
+  void SetBackgroundColor( const Vector4& color );
 
   /**
    * @brief Gets the background color of the render　surface.
@@ -236,12 +251,12 @@ public:
 private:
 
   // Constructor
-  Scene( const Size& size );
+  Scene();
 
   /**
    * Second-phase constructor.
    */
-  void Initialize();
+  void Initialize( Integration::RenderSurface& surface );
 
   // Undefined
   Scene(const Scene&) = delete;
@@ -252,11 +267,11 @@ private:
 private:
   Integration::RenderSurface* mSurface;
 
-  // The scene-size may be different with the surface-size
   Size mSize;
-  Size mSurfaceSize;
 
   Vector2 mDpi;
+
+  Vector4 mBackgroundColor;
 
   LayerPtr mRootLayer;
 

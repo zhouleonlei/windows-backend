@@ -29,9 +29,9 @@ namespace Dali
 namespace Integration
 {
 
-Scene Scene::New( const Size& size )
+Scene Scene::New( Integration::RenderSurface& surface )
 {
-  Internal::ScenePtr internal = Internal::Scene::New( size );
+  Internal::ScenePtr internal = Internal::Scene::New( surface );
   return Scene( internal.Get() );
 }
 
@@ -64,12 +64,12 @@ Scene& Scene::operator=( const Scene& rhs )
   return *this;
 }
 
-void Scene::Add( Actor& actor )
+void Scene::Add( Actor actor )
 {
   GetImplementation(*this).Add( GetImplementation(actor) );
 }
 
-void Scene::Remove( Actor& actor )
+void Scene::Remove( Actor actor )
 {
   GetImplementation(*this).Remove( GetImplementation(actor) );
 }
@@ -87,6 +87,16 @@ void Scene::SetDpi( Vector2 dpi )
 Vector2 Scene::GetDpi() const
 {
   return GetImplementation(*this).GetDpi();
+}
+
+void Scene::SetBackgroundColor( const Vector4& color )
+{
+  GetImplementation(*this).SetBackgroundColor( color );
+}
+
+Vector4 Scene::GetBackgroundColor() const
+{
+  return GetImplementation(*this).GetBackgroundColor();
 }
 
 RenderTaskList Scene::GetRenderTaskList() const
@@ -114,9 +124,24 @@ void Scene::SetSurface( Integration::RenderSurface& surface )
   GetImplementation(*this).SetSurface( surface );
 }
 
+void Scene::SurfaceResized()
+{
+  GetImplementation( *this ).SurfaceResized();
+}
+
 Integration::RenderSurface* Scene::GetSurface() const
 {
   return GetImplementation(*this).GetSurface();
+}
+
+void Scene::Discard()
+{
+  GetImplementation(*this).Discard();
+}
+
+Integration::Scene Scene::Get( Actor actor )
+{
+  return Dali::Integration::Scene( &GetImplementation( actor ).GetScene() );
 }
 
 void Scene::QueueEvent( const Integration::Event& event )

@@ -4,11 +4,11 @@ using Tizen.NUI.CommonUI;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class DropDownSample : IExample
+    public class DropDown : IExample
     {
         private SampleLayout root;
-        private DropDown dropDown = null;
-        private DropDown dropDown2 = null;
+        private Tizen.NUI.CommonUI.DropDown dropDown = null;
+        private Tizen.NUI.CommonUI.DropDown dropDown2 = null;
         private ScrollBar scrollBar = null;
         private TextLabel text = null;
 
@@ -20,18 +20,20 @@ namespace Tizen.FH.NUI.Samples
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout();
             root.HeaderText = "DropDown";
 
             text = new TextLabel();
             text.Text = "DropDown Clicked item string is ";
+            text.PointSize = 14;
             text.Size2D = new Size2D(880, 50);
             text.Position2D = new Position2D(100, 10);
             text.HorizontalAlignment = HorizontalAlignment.Center;
             text.MultiLine = true;
             root.Add(text);
 
-            dropDown = new DropDown("HeaderDropDown");
+            dropDown = new Tizen.NUI.CommonUI.DropDown("HeaderDropDown");
             dropDown.Size2D = new Size2D(1080, 108);
             dropDown.Position2D = new Position2D(0, 100);
             dropDown.ListSize2D = new Size2D(360, 500);
@@ -42,7 +44,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 8; i++)
             {
-                DropDown.DropDownItemData item = new DropDown.DropDownItemData("TextListItem");
+                Tizen.NUI.CommonUI.DropDown.DropDownItemData item = new Tizen.NUI.CommonUI.DropDown.DropDownItemData("TextListItem");
                 item.Size2D = new Size2D(360, 96);
                 item.Text = "Normal list " + i;
                 dropDown.AddItem(item);
@@ -61,7 +63,7 @@ namespace Tizen.FH.NUI.Samples
             dropDown.AttachScrollBar(scrollBar);
 
             //////////////////ListSpinner DropDown////////////////////////
-            dropDown2 = new DropDown("ListDropDown");
+            dropDown2 = new Tizen.NUI.CommonUI.DropDown("ListDropDown");
             dropDown2.Size2D = new Size2D(1080, 108);
             dropDown2.Position2D = new Position2D(0, 300);
             dropDown2.ListSize2D = new Size2D(360, 192);
@@ -71,7 +73,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 2; i++)
             {
-                DropDown.DropDownItemData item = new DropDown.DropDownItemData("IconListItem");
+                Tizen.NUI.CommonUI.DropDown.DropDownItemData item = new Tizen.NUI.CommonUI.DropDown.DropDownItemData("IconListItem");
                 item.Size2D = new Size2D(360, 96);
                 item.IconResourceUrl = iconImage[i];
                 dropDown2.AddItem(item);
@@ -82,9 +84,9 @@ namespace Tizen.FH.NUI.Samples
             dropDown.RaiseToTop();
         }
 
-        private void DropDownItemClickEvent(object sender, DropDown.ItemClickEventArgs e)
+        private void DropDownItemClickEvent(object sender, Tizen.NUI.CommonUI.DropDown.ItemClickEventArgs e)
         {
-            text.Text = "DropDown Clicked item string is " +e.Text;
+            text.Text = "DropDown Clicked item string is " + e.Text;
         }
 
         public void Deactivate()
@@ -123,10 +125,10 @@ namespace Tizen.FH.NUI.Samples
             }
         }
 
-        private void ButtonClickEvent(object sender, Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
         {
-            Button btn = sender as Button;
-           
+            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
+
         }
     }
 }

@@ -1,26 +1,28 @@
 ﻿using System;
 using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.FH.NUI.Samples
 {
-    public class PaginationSample : IExample
+    public class Pagination : IExample
     {
         private SampleLayout root;
 
-        private Pagination DAPagination1;
-        private Pagination DAPagination2;
-        private Pagination DAPagination3;
+        private Controls.Pagination DAPagination1;
+        private Controls.Pagination DAPagination2;
+        private Controls.Pagination DAPagination3;
 
         private readonly int PAGE_COUNT = 14;
 
         public void Activate()
         {
+            Window.Instance.BackgroundColor = Color.White;
             root = new SampleLayout(false);
             root.HeaderText = "Pagination";
 
             ///////////////////////////////////////////////Create by Style//////////////////////////////////////////////////////////
-            DAPagination1 = new Pagination("DefaultPagination");
+            DAPagination1 = new Controls.Pagination("DefaultPagination");
             DAPagination1.Name = "DAAppPagination1";
             DAPagination1.Position2D = new Position2D(200, 50);
             DAPagination1.Size2D = new Size2D(400, 30);
@@ -32,7 +34,7 @@ namespace Tizen.FH.NUI.Samples
 
             DAPagination1.SelectChangeEvent += DAPagination_SelectChangeEvent;
 
-            DAPagination2 = new Pagination("DefaultPagination");
+            DAPagination2 = new Controls.Pagination("DefaultPagination");
             DAPagination2.Name = "DAAppPagination2";
             DAPagination2.Position2D = new Position2D(200, 150);
             DAPagination2.Size2D = new Size2D(230, 30);
@@ -46,7 +48,7 @@ namespace Tizen.FH.NUI.Samples
 
 
             ///////////////////////////////////////////////Create by Properties//////////////////////////////////////////////////////////
-            DAPagination3 = new Pagination();
+            DAPagination3 = new Controls.Pagination();
             DAPagination3.Name = "DAAppPagination3";
             DAPagination3.Position2D = new Position2D(200, 250);
             DAPagination3.Size2D = new Size2D(400, 30);
@@ -74,9 +76,9 @@ namespace Tizen.FH.NUI.Samples
 
         }
 
-        private void DAPagination_SelectChangeEvent(object sender, Pagination.SelectChangeEventArgs e)
+        private void DAPagination_SelectChangeEvent(object sender, Controls.Pagination.SelectChangeEventArgs e)
         {
-            Pagination pagination = sender as Pagination;
+            Controls.Pagination pagination = sender as Controls.Pagination;
 
             Console.WriteLine($"{pagination?.Name} Select index changed from {e.PreviousIndex} to {e.CurrentIndex}");
         }
