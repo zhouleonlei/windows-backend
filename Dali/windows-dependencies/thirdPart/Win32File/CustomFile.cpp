@@ -17,11 +17,43 @@ extern int OriginalFSeek( const void *fp, int offset, int origin );
 extern int OriginalFTell( const void *fp );
 extern bool OriginalFEof( const void *fp );
 
+namespace std
+{
+int GetRealFileMode(const char *path, int _Mode)
+{
+	std::string strPath = path;
+
+	if ((std::ios::in | std::ios::ate == _Mode) && strPath.find(".json") != std::string::npos)
+	{
+		return std::ios::in | std::ios::binary | std::ios::ate;
+	}
+	else
+	{
+		return _Mode;
+	}
+}
+
+extern const char* GetRealName(const char *name);
+}
+
 namespace CustomFile
 {
-void* FOpen( const char *name, const char *mode )
+FILE* FOpen( const char *name, const char *mode )
 {
-  return (void*)OriginalFOpen( name, mode );
+  if( NULL != name && '*' == name[0] )
+  {
+    std::string realName = std::GetRealName( name );
+	FILE* ret = (FILE*)OriginalFOpen( realName.c_str(), mode );
+	if (NULL == ret)
+	{
+		int temp = 0;
+	}
+	return ret;
+  }
+  else
+  {
+    return (FILE*)OriginalFOpen( name, mode );
+  }
 }
 
 int FClose( const void* fp )
@@ -37,9 +69,9 @@ int FClose( const void* fp )
   }
 }
 
-void* FMemopen( void* buffer, size_t dataSize, const char * const mode )
+FILE* FMemopen( void* buffer, size_t dataSize, const char * mode )
 {
-  return (void*)MemFOpen( ( uint8_t*)buffer, dataSize, mode );
+  return (FILE*)MemFOpen( ( uint8_t*)buffer, dataSize, mode );
 }
 
 int FRead( void* buf, int eleSize, int count, const void *fp )

@@ -459,12 +459,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\widget-application-impl.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\common\logging.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\callback-manager-win.cpp" />
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\file-closer-win.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../ExInclude/PreprocessorDefinitions.h;../ExInclude/AdaptorPreDefine.h;../ExInclude/InternalFileOperation.h</ForcedIncludeFiles>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\system-settings-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\timer-impl-win.cpp" />
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\trigger-event-factory.cpp" />

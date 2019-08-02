@@ -103,9 +103,6 @@
     <ClCompile Include="..\..\..\dali-adaptor\dali\internal\haptics\common\feedback-plugin-proxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\dali-adaptor\dali\internal\system\windows\file-closer-win.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\dali-adaptor\dali\devel-api\adaptor-framework\file-loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

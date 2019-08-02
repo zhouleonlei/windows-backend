@@ -518,7 +518,9 @@
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\focus-manager\keyboard-focus-manager.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\dali-toolkit-version.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\public-api\enums.cpp" />
-    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\nanosvg\nanosvg.cc" />
+    <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\nanosvg\nanosvg.cc">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../ExInclude/InternalFileOperation.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\nanosvg\nanosvgrast.cc" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\yoga\Yoga.cpp" />
     <ClCompile Include="..\..\..\dali-toolkit\dali-toolkit\third-party\yoga\YGStyle.cpp" />
