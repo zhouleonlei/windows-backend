@@ -787,6 +787,7 @@ void Texture::Upload( Context& context, PixelDataPtr pixelData, const Internal::
   if( context.TextureRequiresConverting( glFormat, mGlFormat, isSubImage ) )
   {
     uint32_t dataSize = static_cast< uint32_t >( params.width ) * params.height;
+    //reserve() does not allocate the memory on some systems so can crash if not populated using push_back
     tempBuffer.resize( dataSize * 4u );
     for( uint32_t i = 0u; i < dataSize; ++i )
     {
