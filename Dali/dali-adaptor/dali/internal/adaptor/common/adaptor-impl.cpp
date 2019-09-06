@@ -34,6 +34,8 @@
 #include <dali/integration-api/events/wheel-event-integ.h>
 #include <dali/integration-api/processor-interface.h>
 
+#include <fstream>
+
 // INTERNAL INCLUDES
 #include <dali/public-api/dali-adaptor-common.h>
 #include <dali/internal/system/common/thread-controller.h>
@@ -183,11 +185,9 @@ void Adaptor::Initialize( GraphicsFactory& graphicsFactory, Dali::Configuration:
 
   defaultWindow->SetAdaptor( Get() );
 
-  Dali::Window window( dynamic_cast<Dali::Internal::Adaptor::Window*>( defaultWindow ) );
-  if ( window )
-  {
-    mWindowCreatedSignal.Emit( window );
-  }
+  Dali::Integration::SceneHolder defaultSceneHolder( defaultWindow );
+
+  mWindowCreatedSignal.Emit( defaultSceneHolder );
 
   const unsigned int timeInterval = mEnvironmentOptions->GetObjectProfilerInterval();
   if( 0u < timeInterval )
@@ -581,11 +581,7 @@ bool Adaptor::AddWindow( Dali::Integration::SceneHolder childWindow, const std::
   // Add the new Window to the container - the order is not important
   mWindows.push_back( &windowImpl );
 
-  Dali::Window window( dynamic_cast<Dali::Internal::Adaptor::Window*>( &windowImpl ) );
-  if ( window )
-  {
-    mWindowCreatedSignal.Emit( window );
-  }
+  mWindowCreatedSignal.Emit( childWindow );
 
   return true;
 }
@@ -733,6 +729,24 @@ void Adaptor::DestroyTtsPlayer(Dali::TtsPlayer::Mode mode)
 Any Adaptor::GetNativeWindowHandle()
 {
   return mWindows.front()->GetNativeHandle();
+}
+
+Any Adaptor::GetNativeWindowHandle( Dali::Actor actor )
+{
+  Any nativeWindowHandle;
+
+  Dali::Integration::Scene scene = Dali::Integration::Scene::Get( actor );
+
+  for( auto sceneHolder : mWindows )
+  {
+    if ( scene == sceneHolder->GetScene() )
+    {
+      nativeWindowHandle = sceneHolder->GetNativeHandle();
+      break;
+    }
+  }
+
+  return nativeWindowHandle;
 }
 
 Any Adaptor::GetGraphicsDisplay()
@@ -1032,6 +1046,18 @@ Dali::WindowContainer Adaptor::GetWindows() const
   }
 
   return windows;
+}
+
+Dali::SceneHolderList Adaptor::GetSceneHolders() const
+{
+  Dali::SceneHolderList sceneHolderList;
+
+  for( auto iter = mWindows.begin(); iter != mWindows.end(); ++iter )
+  {
+    sceneHolderList.push_back( Dali::Integration::SceneHolder( *iter ) );
+  }
+
+  return sceneHolderList;
 }
 
 Adaptor::Adaptor(Dali::Integration::SceneHolder window, Dali::Adaptor& adaptor, Dali::RenderSurfaceInterface* surface, EnvironmentOptions* environmentOptions)
