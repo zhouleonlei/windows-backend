@@ -1,18 +1,18 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyTabStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             TabAttributes attributes = new TabAttributes
             {
                 Space = new Vector4(56, 56, 1, 0),
                 UnderLineAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2D(1, 3),
+                    Size = new Size(1, 3),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,

@@ -1,5 +1,9 @@
 using NUnit.Framework;
 using Tizen.NUI.Test;
+using Tizen.NUI.Binding;
+using System;
+using System.Globalization;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Tests
 {
@@ -7,6 +11,20 @@ namespace Tizen.NUI.Tests
     [Description("Tizen.NUI.Binding.Binding Tests")]
     public class BindingTests
     {
+        private class FloatToRotationConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return new Rotation(new Radian(new Degree((float)value)), Vector3.ZAxis);
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                //return (bool)value ? 1 : 0;
+                return null;
+            }
+        }
+
         private string TAG = "NUI";
 
         [SetUp]
@@ -31,6 +49,10 @@ namespace Tizen.NUI.Tests
         public void Converter_SET_GET_VALUE()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            binding.Converter = new FloatToRotationConverter();
+
+            Assert.IsTrue(binding.Converter.GetType() == typeof(FloatToRotationConverter));
         }
 
         [Test]
@@ -43,6 +65,10 @@ namespace Tizen.NUI.Tests
         public void ConverterParameter_SET_GET_VALUE()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            binding.ConverterParameter = 123;
+
+            Assert.IsTrue(123 == (int)binding.ConverterParameter);
         }
 
         [Test]
@@ -55,6 +81,10 @@ namespace Tizen.NUI.Tests
         public void Path_SET_GET_VALUE()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            binding.Path = "Size2D";
+
+            Assert.IsTrue("Size2D" == binding.Path);
         }
 
         [Test]
@@ -67,6 +97,13 @@ namespace Tizen.NUI.Tests
         public void Source_SET_GET_VALUE()
         {
             /* TEST CODE */
+            View view = new View();
+            Binding.Binding binding = new Binding.Binding();
+            binding.Source = view;
+
+            Assert.IsTrue(binding.Source.GetHashCode() == view.GetHashCode());
+
+            view?.Dispose();
         }
 
         [Test]
@@ -79,8 +116,11 @@ namespace Tizen.NUI.Tests
         public void UpdateSourceEventName_SET_GET_VALUE()
         {
             /* TEST CODE */
-        }
+            Binding.Binding binding = new Binding.Binding();
+            binding.UpdateSourceEventName = "UpdateSourceEvent";
 
+            Assert.IsTrue("UpdateSourceEvent" == binding.UpdateSourceEventName);
+        }
 
         [Test]
         [Category("P1")]
@@ -93,6 +133,8 @@ namespace Tizen.NUI.Tests
         public void Binding_INIT()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            Assert.IsNotNull(binding);
         }
 
         [Test]
@@ -106,8 +148,8 @@ namespace Tizen.NUI.Tests
         public void Binding_INIT_WITH_STRING_BINDINGMODE_IVALUECONVERTER_OBJECT_STRING_OBJECT()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding("Size2D");
+            Assert.IsNotNull(binding);
         }
-
-
     }
 }

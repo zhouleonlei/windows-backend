@@ -16,7 +16,7 @@
  */
 using System.ComponentModel;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.NUI.Components
 {
     /// <summary>
     /// TimePickerAttributes is a class which saves Time Picker's ux data.

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
@@ -25,7 +25,7 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class ToastAttributes : Tizen.NUI.CommonUI.ToastAttributes
+    public class ToastAttributes : Tizen.NUI.Components.ToastAttributes
     {
         /// <summary>
         /// Creates a new instance of a ToastAttributes.

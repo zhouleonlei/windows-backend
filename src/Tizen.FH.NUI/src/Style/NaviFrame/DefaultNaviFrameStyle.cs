@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class DefaultNaviFrameStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if(Content != null)
             {
@@ -17,12 +17,12 @@ namespace Tizen.FH.NUI.Controls
                 WidthResizePolicy = ResizePolicyType.FillToParent,
                 NaviHeaderAttributes = new ViewAttributes
                 {
-					Position2D = new Position2D(0, 0),
-					Size2D = new Size2D(1080, 128),
+					Position = new Position(0, 0),
+					Size = new Size(1080, 128),
                 },
                 ContentAttributes = new ViewAttributes
                 {
-                    Position2D = new Position2D(0, 128),
+                    Position = new Position(0, 128),
                     HeightResizePolicy = ResizePolicyType.FillToParent,
 					WidthResizePolicy = ResizePolicyType.FillToParent,
                 },

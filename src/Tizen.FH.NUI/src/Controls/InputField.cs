@@ -18,8 +18,8 @@ using System;
 using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using Tizen.NUI.Components;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -30,7 +30,7 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class InputField : Tizen.NUI.CommonUI.InputField
+    public class InputField : Tizen.NUI.Components.InputField
     {
         // the cancel button
         private ImageView cancelBtn = null;
@@ -663,12 +663,12 @@ namespace Tizen.FH.NUI.Controls
             int space = inputFieldAttrs.Space ?? 0;
             if (textFieldState == ControlStates.Normal && textState == TextState.Guide)
             {
-                SetTextFieldSize2D(Size2D.Width - space * 2, Size2D.Height);
+                SetTextFieldSize2D((int)Size.Width - space * 2, (int)Size.Height);
                 cancelBtn.Hide();
             }
             else
             {
-                SetTextFieldSize2D(Size2D.Width - space * 2 - cancelBtn.Size2D.Width - SpaceBetweenTextFieldAndRightButton(), Size2D.Height);
+                SetTextFieldSize2D((int)(Size.Width - space * 2 - cancelBtn.Size.Width - SpaceBetweenTextFieldAndRightButton()), (int)Size.Height);
                 cancelBtn.Show();
             }
             if (shouldUpdate)
@@ -701,8 +701,8 @@ namespace Tizen.FH.NUI.Controls
             if (textFieldState == ControlStates.Normal && textState == TextState.Guide)
             {// #1
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
-                SetTextFieldSize2D(Size2D.Width - space * 2 - searchBtn.Size2D.Width - spaceBetweenTextFieldAndLeftButton, Size2D.Height);
-                textfieldX = space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton;
+                SetTextFieldSize2D((int)(Size.Width - space * 2 - searchBtn.Size.Width - spaceBetweenTextFieldAndLeftButton), (int)Size.Height);
+                textfieldX = (int)(space + searchBtn.Size.Width + spaceBetweenTextFieldAndLeftButton);
                 searchBtn.Show();
                 cancelBtn.Hide();
             }
@@ -710,15 +710,15 @@ namespace Tizen.FH.NUI.Controls
             {// #2
                 int spaceBetweenTextFieldAndLeftButton = SpaceBetweenTextFieldAndLeftButton();
                 int spaceBetweenTextFieldAndRightButton = SpaceBetweenTextFieldAndRightButton();
-                SetTextFieldSize2D(Size2D.Width - space * 2 - searchBtn.Size2D.Width - spaceBetweenTextFieldAndLeftButton - cancelBtn.Size2D.Width - spaceBetweenTextFieldAndRightButton, Size2D.Height);
-                textfieldX = space + searchBtn.Size2D.Width + spaceBetweenTextFieldAndLeftButton;
+                SetTextFieldSize2D((int)(Size.Width - space * 2 - searchBtn.Size.Width - spaceBetweenTextFieldAndLeftButton - cancelBtn.Size.Width - spaceBetweenTextFieldAndRightButton), (int)Size.Height);
+                textfieldX = (int)(space + searchBtn.Size.Width + spaceBetweenTextFieldAndLeftButton);
                 searchBtn.Show();
                 cancelBtn.Show();
             }
             else
             {// #3
                 int spaceBetweenTextFieldAndRighttButton = SpaceBetweenTextFieldAndRightButton();
-                SetTextFieldSize2D(Size2D.Width - space * 2 - cancelBtn.Size2D.Width - spaceBetweenTextFieldAndRighttButton, Size2D.Height);
+                SetTextFieldSize2D((int)(Size.Width - space * 2 - cancelBtn.Size.Width - spaceBetweenTextFieldAndRighttButton), (int)Size.Height);
                 textfieldX = space;
                 searchBtn.Hide();
                 cancelBtn.Show();
@@ -756,21 +756,21 @@ namespace Tizen.FH.NUI.Controls
             }
             int space = inputFieldAttrs.Space ?? 0;
             int spaceBetweenTextFieldAndRightButton = SpaceBetweenTextFieldAndRightButton();
-            SetTextFieldSize2D(Size2D.Width - space - spaceBetweenTextFieldAndRightButton - deleteBtn.Size2D.Width - addBtnBg.Size2D.Width, Size2D.Height);
+            SetTextFieldSize2D((int)(Size.Width - space - spaceBetweenTextFieldAndRightButton - deleteBtn.Size.Width - addBtnBg.Size.Width), (int)Size.Height);
 
             if (this.LayoutDirection == ViewLayoutDirectionType.RTL)
             {
                 SetTextFieldPosX(-space);
 
                 addBtnBg.PositionX = 0;
-                deleteBtn.PositionX = addBtnBg.Size2D.Width;
+                deleteBtn.PositionX = addBtnBg.Size.Width;
             }
             else
             {
                 SetTextFieldPosX(space);
 
                 addBtnBg.PositionX = 0;
-                deleteBtn.PositionX = -addBtnBg.Size2D.Width;
+                deleteBtn.PositionX = -addBtnBg.Size.Width;
             }
 
         }

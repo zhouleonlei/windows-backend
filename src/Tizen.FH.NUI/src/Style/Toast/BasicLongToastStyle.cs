@@ -1,15 +1,15 @@
-﻿using Tizen.NUI.CommonUI;
+﻿using Tizen.NUI.Components;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class BasicLongToastStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             ToastAttributes attributes = new ToastAttributes
             {
-                Size2D = new Tizen.NUI.Size2D(1000, 132),
+                Size = new Tizen.NUI.Size(1000, 132),
                
                 BackgroundImageAttributes = new ImageAttributes
                 {

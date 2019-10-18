@@ -1,11 +1,11 @@
 ﻿
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyOvalButtonStyle : IconButtonStyle
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {

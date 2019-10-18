@@ -487,8 +487,8 @@ private:
     float scaleFactor;             ///< The scale factor to apply to the Texture when masking
     int16_t referenceCount;        ///< The reference count of clients using this Texture
     LoadState loadState:4;         ///< The load state showing the load progress of the Texture
-    FittingMode::Type fittingMode:3; ///< The requested FittingMode
-    Dali::SamplingMode::Type samplingMode:4; ///< The requested SamplingMode
+    FittingMode::Type fittingMode:2; ///< The requested FittingMode
+    Dali::SamplingMode::Type samplingMode:3; ///< The requested SamplingMode
     StorageType storageType:2;     ///< CPU storage / GPU upload;
     bool loadSynchronously:1;      ///< True if synchronous loading was requested
     UseAtlas useAtlas:2;           ///< USE_ATLAS if an atlas was requested.
@@ -587,9 +587,8 @@ private:
    * @param[in] container The Async loading container
    * @param[in] id        This is the async image loaders Id
    * @param[in] pixelBuffer The loaded image data
-   * @param[in] isMaskTask whether this task is for mask or not
    */
-  void AsyncLoadComplete( AsyncLoadingInfoContainerType& container, uint32_t id, Devel::PixelBuffer pixelBuffer, bool isMaskTask );
+  void AsyncLoadComplete( AsyncLoadingInfoContainerType& container, uint32_t id, Devel::PixelBuffer pixelBuffer );
 
   /**
    * @brief Performs Post-Load steps including atlasing.
@@ -748,17 +747,16 @@ private:
     /**
      * @brief Main constructor that used by all other constructors
      */
-    AsyncLoadingHelper(Toolkit::AsyncImageLoader loader,
-                       TextureManager& textureManager,
-                       AsyncLoadingInfoContainerType&& loadingInfoContainer);
+    AsyncLoadingHelper( Toolkit::AsyncImageLoader loader,
+                        TextureManager& textureManager,
+                        AsyncLoadingInfoContainerType&& loadingInfoContainer );
 
     /**
      * @brief Callback to be called when texture loading is complete, it passes the pixel buffer on to texture manager.
      * @param[in] id          Loader id
      * @param[in] pixelBuffer Image data
-     * @param[in] isMaskTask whether this task is for mask or not
      */
-    void AsyncLoadComplete(uint32_t id, Devel::PixelBuffer pixelBuffer, bool isMaskTask);
+    void AsyncLoadComplete( uint32_t id, Devel::PixelBuffer pixelBuffer );
 
   private:
     Toolkit::AsyncImageLoader     mLoader;

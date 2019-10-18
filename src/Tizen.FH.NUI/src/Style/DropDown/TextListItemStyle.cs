@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class TextListItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             DropDownItemAttributes attributes = new DropDownItemAttributes
             {
@@ -18,11 +18,11 @@ namespace Tizen.FH.NUI.Controls
                 {
                     PointSize = new FloatSelector { All = 18 },
                     FontFamily = "SamsungOne 500",
-                    Position2D = new Position2D(28, 0),
+                    Position = new Position(28, 0),
                 },
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(40, 40),
+                    Size = new Size(40, 40),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
                 },
                 CheckImageRightSpace = 16,

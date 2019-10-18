@@ -18,8 +18,8 @@ using System;
 using System.Collections.Generic;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using Tizen.NUI.Components;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
@@ -226,18 +226,18 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D ShadowImageSize2D
+        public Size ShadowImageSize
         {
             get
             {
-                return navigationAttributes.ShadowImageAttributes?.Size2D;
+                return navigationAttributes.ShadowImageAttributes?.Size;
             }
             set
             {
                 if (value != null)
                 {
                     CreateShadowImageAttributes();
-                    navigationAttributes.ShadowImageAttributes.Size2D = value;
+                    navigationAttributes.ShadowImageAttributes.Size = value;
                 }
             }
         }
@@ -526,7 +526,7 @@ namespace Tizen.FH.NUI.Controls
             NavigationItem item = new NavigationItem(itemData.ItemAttributes);
             item.TouchEvent += OnItemTouchEvent;
             rootView.Add(item);
-            item.Size2D = itemData.ItemAttributes.Size2D;
+            item.Size = itemData.ItemAttributes.Size;
             if (index >= itemList.Count)
             {
                 itemList.Add(item);
@@ -554,8 +554,8 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    Position2D = new Position2D(0, 0),
-                    Size2D = new Size2D(0, 0)
+                    Position = new Position(0, 0),
+                    Size = new Size(0, 0)
                 };
             }
         }
@@ -569,8 +569,8 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    Position2D = new Position2D(0, 0),
-                    Size2D = new Size2D(0, 0)
+                    Position = new Position(0, 0),
+                    Size = new Size(0, 0)
                 };
             }
         }
@@ -583,7 +583,7 @@ namespace Tizen.FH.NUI.Controls
                 PositionUsesPivotPoint = true,
                 ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                 PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                Position2D = new Position2D(0, 0)
+                Position = new Position(0, 0)
             };
             dividerLine.Name = "DividerLine " + dividerLineList.Count;
             rootView.Add(dividerLine);
@@ -604,7 +604,7 @@ namespace Tizen.FH.NUI.Controls
 
             int preX = leftSpace;
             int preY = topSpace;
-            int parentW = itemList[0].Size2D.Width + leftSpace + rightSpace;
+            int parentW = (int)itemList[0].Size.Width + leftSpace + rightSpace;
             int parentH = topSpace + bottomSpace;
             int itemGap = navigationAttributes.ItemGap;
             for (int i = 0; i < totalNum; i++)
@@ -612,32 +612,32 @@ namespace Tizen.FH.NUI.Controls
 
                 itemList[i].Index = i;
                 itemList[i].Name = "Item" + i;
-                itemList[i].Position2D = new Position2D(preX, preY);
-                dividerLineList[i].Size2D = new Size2D(itemList[i].Size2D.Width, itemGap);
-                dividerLineList[i].Position2D = new Position2D(preX, preY + itemList[i].Size2D.Height);
-                parentH += itemList[i].Size2D.Height;
-                preY += itemList[i].Size2D.Height + itemGap;
+                itemList[i].Position = new Position(preX, preY);
+                dividerLineList[i].Size = new Size(itemList[i].Size.Width, itemGap);
+                dividerLineList[i].Position = new Position(preX, preY + itemList[i].Size.Height);
+                parentH += (int)itemList[i].Size.Height;
+                preY += (int)itemList[i].Size.Height + itemGap;
 
                 dividerLineList[i].BackgroundColor = navigationAttributes.DividerLineColor;
                 dividerLineList[i].Show();
             }
             dividerLineList[totalNum - 1].Hide();
 
-            if (rootView.Size2D.EqualTo(new Size2D(parentW, parentH)) == false)
+            if (rootView.Size.EqualTo(new Size(parentW, parentH)) == false)
             {
-                rootView.Size2D = new Size2D(parentW, parentH);
+                rootView.Size = new Size(parentW, parentH);
             }
 
             if (navigationAttributes.IsFitWithItems == true)
             {
-                if (Size2D.EqualTo(new Size2D(parentW, parentH)) == false)
+                if (Size.EqualTo(new Size(parentW, parentH)) == false)
                 {
-                    Size2D = new Size2D(parentW, parentH);
+                    Size = new Size(parentW, parentH);
                 }
             }
             else
             {
-                rootView.PositionY = (Size2D.Height - rootView.Size2D.Height) / 2;
+                rootView.PositionY = (Size.Height - rootView.Size.Height) / 2;
             }
 
             UpdateBackgroundImage();
@@ -672,7 +672,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            navigationAttributes.ShadowImageAttributes.Position2D = new Position2D(-navigationAttributes.ShadowImageAttributes.Size2D.Width, 0);
+            navigationAttributes.ShadowImageAttributes.Position = new Position(-navigationAttributes.ShadowImageAttributes.Size.Width, 0);
             ApplyAttributes(shadowImage, navigationAttributes.ShadowImageAttributes);
         }
 
@@ -682,7 +682,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            navigationAttributes.BackgroundImageAttributes.Size2D = new Size2D(Size2D.Width, Size2D.Height);
+            navigationAttributes.BackgroundImageAttributes.Size = new Size(Size.Width, Size.Height);
             ApplyAttributes(backgroundImage, navigationAttributes.BackgroundImageAttributes);
         }
 
@@ -844,24 +844,24 @@ namespace Tizen.FH.NUI.Controls
                     itemAttributes.IconAttributes.ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft;
                     itemAttributes.IconAttributes.PivotPoint = Tizen.NUI.PivotPoint.TopLeft;
 
-                    int w = Size2D.Width;
-                    int h = Size2D.Height;
-                    int iconX = (w - itemAttributes.IconAttributes.Size2D.Width) / 2;
+                    int w = (int)Size.Width;
+                    int h = (int)Size.Height;
+                    int iconX = (int)((w - itemAttributes.IconAttributes.Size.Width) / 2);
                     int iconY = topSpace;
-                    itemAttributes.IconAttributes.Position2D = new Position2D(iconX, iconY);
+                    itemAttributes.IconAttributes.Position = new Position(iconX, iconY);
                     int textPosX = leftSpace;
-                    int textPosY = iconY + itemAttributes.IconAttributes.Size2D.Height;
+                    int textPosY = (int)(iconY + itemAttributes.IconAttributes.Size.Height);
                     if (itemAttributes.TextAttributes != null)
                     {
-                        itemAttributes.TextAttributes.Position2D = new Position2D(textPosX, textPosY);
-                        if (itemAttributes.TextAttributes.Size2D != null)
+                        itemAttributes.TextAttributes.Position = new Position(textPosX, textPosY);
+                        if (itemAttributes.TextAttributes.Size != null)
                         {
-                            textPosY += itemAttributes.TextAttributes.Size2D.Height;
+                            textPosY += (int)itemAttributes.TextAttributes.Size.Height;
                         }
                     }
                     if (itemAttributes.SubTextAttributes != null)
                     {
-                        itemAttributes.SubTextAttributes.Position2D = new Position2D(textPosX, textPosY);
+                        itemAttributes.SubTextAttributes.Position = new Position(textPosX, textPosY);
                     }
                 }
             }
@@ -916,15 +916,15 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public new Size2D Size2D
+            public new Size Size
             {
                 get
                 {
-                    return ItemAttributes.Size2D;
+                    return ItemAttributes.Size;
                 }
                 set
                 {
-                    ItemAttributes.Size2D = value;
+                    ItemAttributes.Size = value;
                 }
             }
 
@@ -1050,16 +1050,16 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public Size2D TextSize2D
+            public Size TextSize
             {
                 get
                 {
-                    return ItemAttributes.TextAttributes?.Size2D;
+                    return ItemAttributes.TextAttributes?.Size;
                 }
                 set
                 {
                     CreateTextAttributes();
-                    ItemAttributes.TextAttributes.Size2D = value;
+                    ItemAttributes.TextAttributes.Size = value;
                 }
             }
 
@@ -1069,16 +1069,16 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public Size2D SubTextSize2D
+            public Size SubTextSize
             {
                 get
                 {
-                    return ItemAttributes.SubTextAttributes?.Size2D;
+                    return ItemAttributes.SubTextAttributes?.Size;
                 }
                 set
                 {
                     CreateSubTextAttributes();
-                    ItemAttributes.SubTextAttributes.Size2D = value;
+                    ItemAttributes.SubTextAttributes.Size = value;
                 }
             }
 
@@ -1175,15 +1175,15 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public Size2D IconSize2D
+            public Size IconSize
             {
                 get
                 {
-                    return ItemAttributes.IconAttributes?.Size2D;
+                    return ItemAttributes.IconAttributes?.Size;
                 }
                 set
                 {
-                    ItemAttributes.IconAttributes.Size2D = value;
+                    ItemAttributes.IconAttributes.Size = value;
                 }
             }
 
@@ -1216,16 +1216,16 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public Size2D DividerLineSize2D
+            public Size DividerLineSize
             {
                 get
                 {
-                    return ItemAttributes.DividerLineAttributes?.Size2D;
+                    return ItemAttributes.DividerLineAttributes?.Size;
                 }
                 set
                 {
                     CreateDividerLineAttributes();
-                    ItemAttributes.DividerLineAttributes.Size2D = value;
+                    ItemAttributes.DividerLineAttributes.Size = value;
                 }
             }
 
@@ -1235,16 +1235,16 @@ namespace Tizen.FH.NUI.Controls
             /// <since_tizen> 5.5 </since_tizen>
             /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public Position2D DividerLinePosition2D
+            public Position DividerLinePosition
             {
                 get
                 {
-                    return ItemAttributes.DividerLineAttributes?.Position2D;
+                    return ItemAttributes.DividerLineAttributes?.Position;
                 }
                 set
                 {
                     CreateDividerLineAttributes();
-                    ItemAttributes.DividerLineAttributes.Position2D = value;
+                    ItemAttributes.DividerLineAttributes.Position = value;
                 }
             }
 
@@ -1357,7 +1357,7 @@ namespace Tizen.FH.NUI.Controls
                 {
                     ItemAttributes.IconAttributes = new ImageAttributes()
                     {
-                        Size2D = new Size2D(0, 0),
+                        Size = new Size(0, 0),
                     };
                 }
             }

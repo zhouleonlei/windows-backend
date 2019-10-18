@@ -11,6 +11,10 @@ namespace Tizen.FH.NUI.Samples
 {
     public class DaliDemo : FHNUIApplication
     {
+        public DaliDemo() : base()
+        {
+        }
+
         public DaliDemo(string styleSheet) : base(styleSheet)
         {
         }

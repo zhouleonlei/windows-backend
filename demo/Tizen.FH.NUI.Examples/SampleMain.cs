@@ -6,8 +6,8 @@ using Tizen.FH.NUI;
 using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using Tizen.NUI.Components;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -70,7 +70,7 @@ namespace Tizen.FH.NUI.Samples
         }
     }
 
-    public class NaviListBridge : Tizen.NUI.CommonUI.FlexibleView.Adapter
+    public class NaviListBridge : Tizen.NUI.Components.FlexibleView.Adapter
     {
         private List<NaviListItemData> mDatas;
 
@@ -91,14 +91,14 @@ namespace Tizen.FH.NUI.Samples
             NotifyItemRemoved(position);
         }
 
-        public override Tizen.NUI.CommonUI.FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
+        public override Tizen.NUI.Components.FlexibleView.ViewHolder OnCreateViewHolder(int viewType)
         {
-            Tizen.NUI.CommonUI.FlexibleView.ViewHolder viewHolder = new Tizen.NUI.CommonUI.FlexibleView.ViewHolder(new NaviListItemView());
+            Tizen.NUI.Components.FlexibleView.ViewHolder viewHolder = new Tizen.NUI.Components.FlexibleView.ViewHolder(new NaviListItemView());
 
             return viewHolder;
         }
 
-        public override void OnBindViewHolder(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder, int position)
+        public override void OnBindViewHolder(Tizen.NUI.Components.FlexibleView.ViewHolder holder, int position)
         {
             NaviListItemData listItemData = mDatas[position];
             NaviListItemView listItemView = holder.ItemView as NaviListItemView;
@@ -115,7 +115,7 @@ namespace Tizen.FH.NUI.Samples
             listItemView.BackgroundColor = new Color(1f, 1f, 1f, 1f);
         }
 
-        public override void OnDestroyViewHolder(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
+        public override void OnDestroyViewHolder(Tizen.NUI.Components.FlexibleView.ViewHolder holder)
         {
             if (holder.ItemView != null)
             {
@@ -128,26 +128,26 @@ namespace Tizen.FH.NUI.Samples
             return mDatas.Count;
         }
 
-        public override void OnFocusChange(Tizen.NUI.CommonUI.FlexibleView flexibleView, int previousFocus, int currentFocus)
+        public override void OnFocusChange(Tizen.NUI.Components.FlexibleView flexibleView, int previousFocus, int currentFocus)
         {
-            Tizen.NUI.CommonUI.FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
+            Tizen.NUI.Components.FlexibleView.ViewHolder previousFocusView = flexibleView.FindViewHolderForAdapterPosition(previousFocus);
             if (previousFocusView != null)
             {
             
             }
-            Tizen.NUI.CommonUI.FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
+            Tizen.NUI.Components.FlexibleView.ViewHolder currentFocusView = flexibleView.FindViewHolderForAdapterPosition(currentFocus);
             if (currentFocusView != null)
             {
                 
             }
         }
 
-        public override void OnViewAttachedToWindow(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
+        public override void OnViewAttachedToWindow(Tizen.NUI.Components.FlexibleView.ViewHolder holder)
         {
 
         }
 
-        public override void OnViewDetachedFromWindow(Tizen.NUI.CommonUI.FlexibleView.ViewHolder holder)
+        public override void OnViewDetachedFromWindow(Tizen.NUI.Components.FlexibleView.ViewHolder holder)
         {
 
         }

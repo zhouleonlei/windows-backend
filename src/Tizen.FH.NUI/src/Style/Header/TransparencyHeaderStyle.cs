@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class TransparencyHeaderStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -13,7 +13,7 @@ namespace Tizen.FH.NUI.Controls
             }
             HeaderAttributes attributes = new HeaderAttributes
             {
-                Size2D = new Size2D(1080, 128),
+                Size = new Size(1080, 128),
                 BackgroundColor = new ColorSelector
                 {
                     All = new Color(1, 1, 1, 0)
@@ -40,7 +40,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 LineAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2D(1080, 1),
+                    Size = new Size(1080, 1),
                     BackgroundColor = new ColorSelector
                     {
                         All = new Color(1, 1, 1, 0.2f),
@@ -49,7 +49,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = ParentOrigin.BottomLeft,
                     PivotPoint = PivotPoint.TopLeft,
-                    Position2D = new Position2D(0, 0),
+                    Position = new Position(0, 0),
                 },
             };
             return attributes;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <b:View x:Class="Tizen.NUI.Examples.AnimationWithXamlDemoPage"
   xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
-  xmlns:b="clr-namespace:Tizen.NUI.Xaml.Forms.BaseComponents;assembly=Tizen.NUI.Xaml"
-  xmlns:u="clr-namespace:Tizen.NUI.Xaml.UIComponents;assembly=Tizen.NUI.Xaml"
+  xmlns:b="clr-namespace:Tizen.NUI.BaseComponents;assembly=Tizen.NUI"
+  xmlns:u="clr-namespace:Tizen.NUI.UIComponents;assembly=Tizen.NUI"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
   <View.TransitionNames>

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-using Tizen.NUI.Xaml.Forms.BaseComponents;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
@@ -24,7 +24,7 @@ namespace Tizen.NUI.Examples
         {
             InitializeComponent();
 
-            FocusManager.Instance.SetCurrentFocusView(Click.ViewInstance);
+            FocusManager.Instance.SetCurrentFocusView(Click);
 
             bool flag = true;
             Click.Clicked += (obj, e) =>

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Tizen.NUI.Binding;
 using Tizen.NUI.Test;
 
 namespace Tizen.NUI.Tests
@@ -7,6 +8,19 @@ namespace Tizen.NUI.Tests
     [Description("Tizen.NUI.Binding.BindablePropertyKey Tests")]
     public class BindablePropertyKeyTests
     {
+        private class TestBindablePropertyKey
+        {
+            public static readonly BindablePropertyKey BehaviorsPropertyKey = BindableProperty.CreateReadOnly("TestProperty", typeof(int), typeof(TestBindablePropertyKey), default(int));
+
+            private int TestProperty
+            {
+                get
+                {
+                    return 100;
+                }
+            }
+        }
+
         private string TAG = "NUI";
 
         [SetUp]
@@ -31,9 +45,8 @@ namespace Tizen.NUI.Tests
         public void BindableProperty_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = TestBindablePropertyKey.BehaviorsPropertyKey.BindableProperty;
+            Assert.IsTrue(bindableProperty.PropertyName == "TestProperty");
         }
-
-
-
     }
 }

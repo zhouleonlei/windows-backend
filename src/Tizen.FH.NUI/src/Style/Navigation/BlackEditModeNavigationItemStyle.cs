@@ -1,17 +1,17 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class BlackEditModeNavigationItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationItemAttributes attributes = new NavigationItemAttributes
             {
                 TextAttributes = new TextAttributes
                 {
-                    Size2D = new Size2D(130, 52),
+                    Size = new Size(130, 52),
                     TextColor = new ColorSelector
                     {
                         Pressed = new Color(1, 1, 1, 0.85f),
@@ -28,7 +28,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 IconAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(56, 56),
+                    Size = new Size(56, 56),
                 },
                 Space = new Vector4(24, 24, 24, 24),
             };

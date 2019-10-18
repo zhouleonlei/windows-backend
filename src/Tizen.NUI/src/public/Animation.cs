@@ -509,6 +509,8 @@ namespace Tizen.NUI
         /// <param name="handle">Handle to an object.</param>
         /// <returns>Handle to an animation object or an uninitialized handle.</returns>
         /// <since_tizen> 3 </since_tizen>
+        [Obsolete("Deprecated in API6, Will be removed in API9, Please use as keyword instead!")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public static Animation DownCast(BaseHandle handle)
         {
             Animation ret = Registry.GetManagedBaseHandleFromNativePtr(handle) as Animation;
@@ -1345,17 +1347,6 @@ namespace Tizen.NUI
             {
                 return;
             }
-            if(type == DisposeTypes.Explicit)
-            {
-                //Called by User
-                //Release your own managed resources here.
-                //You should release all of your own disposable objects here.
-
-            }
-            else if(type == DisposeTypes.Implicit)
-            {
-
-            }
 
             if (this != null)
             {
@@ -1406,7 +1397,5 @@ namespace Tizen.NUI
         {
             return (int)(sec * 1000);
         }
-
     }
-
 }

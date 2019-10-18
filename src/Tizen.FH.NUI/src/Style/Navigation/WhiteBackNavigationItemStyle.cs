@@ -1,18 +1,18 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class WhiteBackNavigationItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationItemAttributes attributes = new NavigationItemAttributes
             {
-                Size2D = new Size2D(120, 140),
+                Size = new Size(120, 140),
                 IconAttributes = new ImageAttributes()
                 {
-                    Size2D = new Size2D(56, 56),
+                    Size = new Size(56, 56),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "2. Side Navigation/sidenavi_btn_back.png" },
                 },
                 BackgroundImageAttributes = new ImageAttributes()

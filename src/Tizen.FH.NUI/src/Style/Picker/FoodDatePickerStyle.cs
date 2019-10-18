@@ -1,11 +1,11 @@
-﻿using Tizen.NUI.CommonUI;
+﻿using Tizen.NUI.Components;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodDatePickerStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -32,7 +32,7 @@ namespace Tizen.FH.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
-                    Size2D = new Size2D(80, 80),
+                    Size = new Size(80, 80),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/[Controller] App Primary Color/picker_date_select_ec7510.png" }
                 },
                 EndSelectedImageAttributes = new ImageAttributes
@@ -41,7 +41,7 @@ namespace Tizen.FH.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
-                    Size2D = new Size2D(80, 80),
+                    Size = new Size(80, 80),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/picker_date_endscheduling.png" }
                 },
                 LeftArrowImageAttributes = new ImageAttributes
@@ -50,8 +50,8 @@ namespace Tizen.FH.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
-                    Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(344, 42),
+                    Size = new Size(48, 48),
+                    Position = new Position(344, 42),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/picker_spin_btn_back.png" }
                 },
                 RightArrowImageAttributes = new ImageAttributes
@@ -60,8 +60,8 @@ namespace Tizen.FH.NUI.Controls
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
                     Border = new RectangleSelector { All = new Rectangle(0, 0, 1, 1) },
-                    Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(640, 42),
+                    Size = new Size(48, 48),
+                    Position = new Position(640, 42),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "9. Controller/picker_spin_btn_next.png" }
                 },
                 MonthTextAttributes = new TextAttributes
@@ -71,8 +71,8 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     PointSize = new FloatSelector { All = 30 },
                     TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(248, 68),
-                    Position2D = new Position2D(392, 32),
+                    Size = new Size(248, 68),
+                    Position = new Position(392, 32),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -81,8 +81,8 @@ namespace Tizen.FH.NUI.Controls
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     PositionUsesPivotPoint = true,
-                    Size2D = new Size2D(1032, 528),
-                    Position2D = new Position2D(0, 132)
+                    Size = new Size(1032, 528),
+                    Position = new Position(0, 132)
                 },
                 SunTextAttributes = new TextAttributes
                 {
@@ -92,8 +92,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Red },
                     Text = new StringSelector { All = "Sun" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(0, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(0, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -105,8 +105,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Mon" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(147, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(147, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -118,8 +118,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Tue" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(295, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(295, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -131,8 +131,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Wen" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(442, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(442, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -144,8 +144,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Thu" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(590, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(590, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -157,8 +157,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Fri" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(737, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(737, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -170,8 +170,8 @@ namespace Tizen.FH.NUI.Controls
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
                     Text = new StringSelector { All = "Sat" },
-                    Size2D = new Size2D(147, 88),
-                    Position2D = new Position2D(885, 0),
+                    Size = new Size(147, 88),
+                    Position = new Position(885, 0),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -182,7 +182,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(147, 88),
+                    Size = new Size(147, 88),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -193,7 +193,7 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     PointSize = new FloatSelector { All = 20 },
                     TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(148, 88),
+                    Size = new Size(148, 88),
                     HorizontalAlignment = Tizen.NUI.HorizontalAlignment.Center,
                     VerticalAlignment = Tizen.NUI.VerticalAlignment.Center
                 },
@@ -212,13 +212,13 @@ namespace Tizen.FH.NUI.Controls
                             PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                             WidthResizePolicy = ResizePolicyType.UseNaturalSize,
                             HeightResizePolicy = ResizePolicyType.FillToParent,
-                            Position2D = new Position2D(0, 0),
+                            Position = new Position(0, 0),
                             HorizontalAlignment = HorizontalAlignment.End,
                             VerticalAlignment = VerticalAlignment.Center,
                         },
                         IconAttributes = new ImageAttributes
                         {
-                            Size2D = new Size2D(48, 48),
+                            Size = new Size(48, 48),
                             ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
                             PositionUsesPivotPoint = true,
                             ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,
@@ -242,10 +242,10 @@ namespace Tizen.FH.NUI.Controls
                     SpaceBetweenButtonTextAndIcon = 20,
                     ListMargin = new Vector4(20, 0, 20, 0),
                     BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 1) },
-                    ListSize2D = new Size2D(304, 500),
+                    ListSize = new Size(304, 500),
                     ListPadding = new Extents(4, 4, 4, 4),
-                    Size2D = new Size2D(288, 68),
-                    Position2D = new Position2D(688, 32),
+                    Size = new Size(288, 68),
+                    Position = new Position(688, 32),
                     FocusedItemIndex = 0
                 },
                 YearDropDownItemAttributes = new DropDownItemAttributes
@@ -253,16 +253,16 @@ namespace Tizen.FH.NUI.Controls
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
-                    Size2D = new Size2D(250, 80),
+                    Size = new Size(250, 80),
                     CheckImageRightSpace = 16,
                     TextAttributes = new TextAttributes
                     {
-                        Position2D = new Position2D(28, 0),
+                        Position = new Position(28, 0),
                         PointSize = new FloatSelector { All = 18 }
                     },
                     CheckImageAttributes = new ImageAttributes
                     {
-                        Size2D = new Size2D(40, 40),
+                        Size = new Size(40, 40),
                         ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "10. Drop Down/dropdown_checkbox_on.png" },
                     },
                     BackgroundColor = new ColorSelector { Pressed = new Color(0, 0, 0, 0.4f), Other = new Color(1, 1, 1, 0)},

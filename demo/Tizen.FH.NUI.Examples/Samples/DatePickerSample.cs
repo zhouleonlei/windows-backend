@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Tizen.FH.NUI.Samples
     public class DatePicker : IExample
     {
         private SampleLayout root;
-        private Tizen.NUI.CommonUI.Popup popup = null;
+        private Tizen.NUI.Components.Popup popup = null;
         private Picker datePicker = null;
 
         public void Activate()
@@ -26,14 +26,14 @@ namespace Tizen.FH.NUI.Samples
 
         private void CreateDatePicker()
         {
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 982);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Set Date";
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Cancel");
             popup.SetButtonText(1, "OK");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
             root.Add(popup);
 
             datePicker = new Picker("DAPicker");
@@ -43,7 +43,7 @@ namespace Tizen.FH.NUI.Samples
             popup.ContentView.Add(datePicker);
         }
 
-        private void PopupButtonClickedEvent(object sender, Tizen.NUI.CommonUI.Popup.ButtonClickEventArgs e)
+        private void PopupButtonClickedEvent(object sender, Tizen.NUI.Components.Popup.ButtonClickEventArgs e)
         {
 
         }

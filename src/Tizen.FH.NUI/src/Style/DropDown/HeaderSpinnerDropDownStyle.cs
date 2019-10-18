@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class HeaderSpinnerDropDownStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             DropDownAttributes attributes = new DropDownAttributes
             {
@@ -35,13 +35,13 @@ namespace Tizen.FH.NUI.Controls
                         PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                         WidthResizePolicy = ResizePolicyType.UseNaturalSize,
                         HeightResizePolicy = ResizePolicyType.FillToParent,
-                        Position2D = new Position2D(0, 0),
+                        Position = new Position(0, 0),
                         HorizontalAlignment = HorizontalAlignment.Begin,
                         VerticalAlignment = VerticalAlignment.Center,
                     },
                     IconAttributes = new ImageAttributes
                     {
-                        Size2D = new Size2D(48, 48),
+                        Size = new Size(48, 48),
                         ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "6. List/list_ic_dropdown.png" },
                         PositionUsesPivotPoint = true,
                         ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight,

@@ -1,19 +1,19 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class KitchenCheckBoxStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {           
             SelectButtonAttributes attributes = new SelectButtonAttributes
             {
                 IsSelectable = true,
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(0, 0),
+                    Size = new Size(48, 48),
+                    Position = new Position(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "9. Controller/controller_btn_check_off.png",

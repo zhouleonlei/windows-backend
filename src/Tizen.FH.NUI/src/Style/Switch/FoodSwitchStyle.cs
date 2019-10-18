@@ -1,18 +1,18 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodSwitchStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             SwitchAttributes attributes = new SwitchAttributes
             {
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(96, 60),
+                    Size = new Size(96, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -23,7 +23,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Tizen.NUI.Test;
+using Tizen.NUI.Binding;
 
 namespace Tizen.NUI.Tests
 {
@@ -31,6 +32,9 @@ namespace Tizen.NUI.Tests
         public void Mode_SET_GET_VALUE()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            binding.Mode = BindingMode.Default;
+            Assert.IsTrue(binding.Mode == BindingMode.Default);
         }
 
         [Test]
@@ -43,6 +47,9 @@ namespace Tizen.NUI.Tests
         public void StringFormat_SET_GET_VALUE()
         {
             /* TEST CODE */
+            Binding.Binding binding = new Binding.Binding();
+            binding.StringFormat = "Format";
+            Assert.IsTrue(binding.StringFormat == "Format");
         }
 
         [Test]
@@ -68,7 +75,6 @@ namespace Tizen.NUI.Tests
         {
             /* TEST CODE */
         }
-
 
         [Test]
         [Category("P1")]
@@ -105,7 +111,5 @@ namespace Tizen.NUI.Tests
         {
             /* TEST CODE */
         }
-
-
     }
 }

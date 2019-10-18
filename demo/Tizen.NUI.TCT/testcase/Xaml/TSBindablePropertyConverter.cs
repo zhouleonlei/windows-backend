@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using Tizen.NUI.BaseComponents;
+using Tizen.NUI.Binding;
 using Tizen.NUI.Test;
 
 namespace Tizen.NUI.Tests
@@ -32,6 +34,10 @@ namespace Tizen.NUI.Tests
         public void ConvertFromInvariantString_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            BindablePropertyConverter bindablePropertyConverter = new BindablePropertyConverter();
+            BindableProperty bindableProperty = bindablePropertyConverter.ConvertFromInvariantString("Tizen.NUI.BaseComponents.View.Size2D") as BindableProperty;
+
+            Assert.IsTrue(bindableProperty.GetType() == View.Size2DProperty.GetType());
         }
 
         [Test]
@@ -44,8 +50,8 @@ namespace Tizen.NUI.Tests
         public void BindablePropertyConverter_INIT()
         {
             /* TEST CODE */
+            BindablePropertyConverter bindablePropertyConverter = new BindablePropertyConverter();
+            Assert.IsNotNull(bindablePropertyConverter);
         }
-
-
     }
 }

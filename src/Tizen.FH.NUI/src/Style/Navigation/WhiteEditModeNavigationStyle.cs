@@ -1,17 +1,17 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class WhiteEditModeNavigationStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationAttributes attributes = new NavigationAttributes
             {
                 ShadowImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(6, 800),
+                    Size = new Size(6, 800),
                     ResourceURL = new StringSelector { All = CommonResource.Instance.GetFHResourcePath() + "2. Side Navigation/sidenavi_editmode_shadow.png" },
                 },
                 BackgroundImageAttributes = new ImageAttributes

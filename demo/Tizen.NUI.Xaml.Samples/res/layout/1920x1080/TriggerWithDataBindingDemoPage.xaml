@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <b:View x:Class="Tizen.NUI.Examples.TriggerWithDataBindingDemoPage"
   xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
-  xmlns:b="clr-namespace:Tizen.NUI.Xaml.Forms.BaseComponents;assembly=Tizen.NUI.Xaml"
-  xmlns:u="clr-namespace:Tizen.NUI.Xaml.UIComponents;assembly=Tizen.NUI.Xaml"
+  xmlns:b="clr-namespace:Tizen.NUI.BaseComponents;assembly=Tizen.NUI"
+  xmlns:u="clr-namespace:Tizen.NUI.UIComponents;assembly=Tizen.NUI"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
   <View.XamlResources>
@@ -24,7 +24,7 @@
     </ResourceDictionary>
   </View.XamlResources>
 
-  <b:ImageView x:Name="ImageView" Position2D="0,0" Size2D="400,400" BindingContext="{x:Reference label}" ResourceUrl="{Binding Text, Mode=OneWay}"  Style="{StaticResource CustomStyle}"/>
+  <b:ImageView x:Name="ImageView" Position2D="0,0" Size2D="400,400" BindingContext="{x:Reference label}" ResourceUrl="{Binding Text, Mode=OneWay}"  XamlStyle="{StaticResource CustomStyle}"/>
 
   <b:TextLabel x:Name="label" Name ="label" Text="*DemoRes*/images/AmbientScreenUXControl/Cut/traffic_content.png" Position2D="700,100" Size2D="900,50" 
              HorizontalAlignment="Center" VerticalAlignment="Center" PivotPoint="Center" />

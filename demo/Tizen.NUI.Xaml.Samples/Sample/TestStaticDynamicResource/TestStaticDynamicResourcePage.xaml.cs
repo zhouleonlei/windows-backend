@@ -15,8 +15,8 @@
  *
  */
 using System;
-using Tizen.NUI.Xaml.Forms.BaseComponents;
-using Tizen.NUI.Xaml;
+using Tizen.NUI.BaseComponents;
+using Tizen.NUI;
 
 namespace Tizen.NUI.Examples
 {

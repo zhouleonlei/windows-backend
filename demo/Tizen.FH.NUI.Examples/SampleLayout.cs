@@ -1,8 +1,8 @@
 ﻿using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using Tizen.NUI.Components;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -11,10 +11,10 @@ namespace Tizen.FH.NUI.Samples
         private Controls.Header LayoutHeader;
 
         private bool isThemeButtonVisible = true;
-        private Tizen.NUI.CommonUI.Button UtilityButton;
-        private Tizen.NUI.CommonUI.Button FoodButton;
-        private Tizen.NUI.CommonUI.Button FamilyButton;
-        private Tizen.NUI.CommonUI.Button KitchenButton;
+        private Tizen.NUI.Components.Button UtilityButton;
+        private Tizen.NUI.Components.Button FoodButton;
+        private Tizen.NUI.Components.Button FamilyButton;
+        private Tizen.NUI.Components.Button KitchenButton;
 
         private View Content;
         private View LayoutContent;
@@ -96,7 +96,7 @@ namespace Tizen.FH.NUI.Samples
                     }
                 };
 
-                UtilityButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
+                UtilityButton = new Tizen.NUI.Components.Button(buttonAttributes);
                 UtilityButton.Size2D = new Size2D(200, 80);
                 UtilityButton.Position2D = new Position2D(56, 32);
                 UtilityButton.Text = "Utility";
@@ -104,7 +104,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(UtilityButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_ec7510.png";
-                FoodButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
+                FoodButton = new Tizen.NUI.Components.Button(buttonAttributes);
                 FoodButton.Size2D = new Size2D(200, 80);
                 FoodButton.Position2D = new Position2D(312, 32);
                 FoodButton.Text = "Food";
@@ -112,7 +112,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(FoodButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_24c447.png";
-                FamilyButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
+                FamilyButton = new Tizen.NUI.Components.Button(buttonAttributes);
                 FamilyButton.Size2D = new Size2D(200, 80);
                 FamilyButton.Position2D = new Position2D(578, 32);
                 FamilyButton.Text = "Family";
@@ -120,7 +120,7 @@ namespace Tizen.FH.NUI.Samples
                 LayoutContent.Add(FamilyButton);
 
                 buttonAttributes.BackgroundImageAttributes.ResourceURL.All = CommonResource.GetFHResourcePath() + "3. Button/[Button] App Primary Color/rectangle_point_btn_normal_9762d9.png";
-                KitchenButton = new Tizen.NUI.CommonUI.Button(buttonAttributes);
+                KitchenButton = new Tizen.NUI.Components.Button(buttonAttributes);
                 KitchenButton.Size2D = new Size2D(200, 80);
                 KitchenButton.Position2D = new Position2D(834, 32);
                 KitchenButton.Text = "Kitchen";
@@ -147,22 +147,22 @@ namespace Tizen.FH.NUI.Samples
             //LayoutHeader.PositionY = 100;
         }
 
-        private void KitchenButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void KitchenButton_ClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Kitchen";
         }
 
-        private void FamilyButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void FamilyButton_ClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Family";
         }
 
-        private void FoodButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void FoodButton_ClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Food";
         }
 
-        private void UtilityButton_ClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void UtilityButton_ClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             StyleManager.Instance.Theme = "Utility";
         }

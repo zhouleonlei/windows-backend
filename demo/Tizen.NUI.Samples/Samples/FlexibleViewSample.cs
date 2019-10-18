@@ -1,6 +1,6 @@
 ﻿using System;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System.Collections.Generic;
 
 namespace Tizen.NUI.Samples

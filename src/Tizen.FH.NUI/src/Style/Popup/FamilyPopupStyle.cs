@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyPopupStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             PopupAttributes attributes = new PopupAttributes
             {
@@ -15,13 +15,13 @@ namespace Tizen.FH.NUI.Controls
                 {
                     PointSize = new FloatSelector { All = 25 },
                     TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(0, 68),
+                    Size = new Size(0, 68),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     HorizontalAlignment = HorizontalAlignment.Begin,
                     VerticalAlignment = VerticalAlignment.Bottom,
-                    Position2D = new Position2D(64, 52),
+                    Position = new Position(64, 52),
                 },
                 ShadowImageAttributes = new ImageAttributes
                 {
@@ -43,7 +43,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 ButtonAttributes = new ButtonAttributes
                 {
-                    Size2D = new Size2D(0, 132),
+                    Size = new Size(0, 132),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,

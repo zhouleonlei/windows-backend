@@ -16,7 +16,7 @@
  */
 
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using Tizen.NUI;
 using System;
 using System.ComponentModel;
@@ -31,11 +31,11 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 6 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class Toast : Tizen.NUI.CommonUI.Toast
+    public class Toast : Tizen.NUI.Components.Toast
     {
         private ToastAttributes toastAttributes;
         private Loading loading;
-        private readonly Size2D loadingSize = new Size2D(100, 100);
+        private readonly Size loadingSize = new Size(100, 100);
 
         /// <summary>
         /// Construct Toast with null.
@@ -140,8 +140,8 @@ namespace Tizen.FH.NUI.Controls
                     loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterLeft;
                     loading.PivotPoint = Tizen.NUI.PivotPoint.CenterLeft;
                     loading.PositionUsesPivotPoint = true;
-                    loading.Size2D = loadingSize;
-                    loading.Position2D = new Position2D(TextPaddingLeft - loadingSize.Width - 8, 0);
+                    loading.Size = loadingSize;
+                    loading.Position = new Position(TextPadding.Start - loadingSize.Width - 8, 0);
                 }
             }
             else
@@ -151,8 +151,8 @@ namespace Tizen.FH.NUI.Controls
                     loading.ParentOrigin = Tizen.NUI.ParentOrigin.CenterRight;
                     loading.PivotPoint = Tizen.NUI.PivotPoint.CenterRight;
                     loading.PositionUsesPivotPoint = true;
-                    loading.Size2D = loadingSize;
-                    loading.Position2D = new Position2D(-TextPaddingLeft + loadingSize.Width + 8, 0);
+                    loading.Size = loadingSize;
+                    loading.Position = new Position(-TextPadding.Start + loadingSize.Width + 8, 0);
                 }
             }
         }

@@ -19,12 +19,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     /// <summary>
-    /// The NaviFrame  is a component that contain head content and view content
+    /// The NaviFrame is a component that contain head content and view content
     /// </summary>
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
@@ -33,28 +33,84 @@ namespace Tizen.FH.NUI.Controls
     {
         private List<NaviItem> pushStack = new List<NaviItem>();
         private NaviFrameAttributes naviframeAttributes;
-        private View headContent;
+        private View headerView;
         private View contentView;
-        private NaviItem rootItem;
         private NaviItem currentItem;
         private NaviItem prevItem;
-        private Animation flickAnimation;
+        private Animation fadeInOutAnimation;
         private bool popFlag;
-        private float startcur, endcur, startpre, endpre;
+        private float startcur, endcur, endpre;
+        private Notifier mNotifier;
+
+        /// <summary>
+        /// NaviItem is a wrapper for header and content views.
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class NaviItem
+        {
+            public NaviItem(View header, View content)
+            {
+                Header = header;
+                Content = content;
+            }
+
+            public View Header
+            {
+                get;
+            }
+
+            public View Content
+            {
+                get;
+            }
+        }
+
+        /// <summary>
+        /// Notifier is to notify lifecycle of NaviItem.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public abstract class Notifier
+        {
+            /// <summary>
+            /// Called after NaviItem is created.
+            /// </summary>
+            /// <param name="viewType">The view type of the new View</param>
+            /// <since_tizen> 6 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            public virtual void OnNaviItemCreated(NaviItem item)
+            {
+            }
+
+            /// <summary>
+            /// Called when NaviItem will be destroyed.
+            /// </summary>
+            /// <param name="viewType">The view type of the new View</param>
+            /// <since_tizen> 6 </since_tizen>
+            /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+            public virtual void OnNaviItemDestroyed(NaviItem item)
+            {
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the NaviFrame class.
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
-	/// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NaviFrame() : base()
         {
             Initialize();
         }
+
         /// <summary>
         /// Initializes a new instance of the NaviFrame class.
         /// </summary>
-	/// <param name="style">Create NaviFrame by special style defined in UX.</param>
+	    /// <param name="style">Create NaviFrame by special style defined in UX.</param>
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -62,6 +118,7 @@ namespace Tizen.FH.NUI.Controls
         {
             Initialize();
         }
+
         /// <summary>
         /// Initializes a new instance of the NaviFrame class.
         /// </summary>
@@ -72,6 +129,18 @@ namespace Tizen.FH.NUI.Controls
         public NaviFrame(NaviFrameAttributes attributes) : base(attributes)
         {
             Initialize();
+        }
+
+        /// <summary>
+        /// Set a notifier for NaviItem.
+        /// </summary>
+        /// <param name="notifier">lifecycle of NaviItem</param>
+        /// <since_tizen> 6 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SetNotifier(Notifier notifier)
+        {
+            mNotifier = notifier;
         }
 
         /// <summary>
@@ -87,6 +156,7 @@ namespace Tizen.FH.NUI.Controls
                 return pushStack.Count;
             }
         }
+
         /// <summary>
         ///Create a nave naviframe item with given header and content
         /// </summary>
@@ -97,25 +167,23 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void NaviFrameItemPush(View header,View content)
         {
-            ManualStop();
+            StopFadeInOutAnimation();
             popFlag = false;
-            NaviItem item = new NaviItem();
-            item.header = header;
-            item.contentView = content;
+
+            NaviItem item = CreateNaviItem(header, content);
             pushStack.Add(item);
-            contentView.Add(content);
-            headContent.Add(header);
             prevItem = currentItem;
             currentItem = pushStack[pushStack.Count - 1];
 
             if (pushStack.Count == 1)
             {
-                rootItem= item;
                 return;
             }
-            currentItem.Show();
-            AnitMateContent(false);
+
+            ShowNaviItem(currentItem);
+            PlayFadeInOutAnimation(false);
         }
+
         /// <summary>
         /// Pop the top item of the naviframe and also delete it
         /// </summary>
@@ -124,16 +192,21 @@ namespace Tizen.FH.NUI.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void NaviFrameItemPop()
         {
-            ManualStop();
-            if (pushStack.Count <= 1) return;
-            popFlag = true ;
+            StopFadeInOutAnimation();
+            if (pushStack.Count <= 1)
+                return;
+
+            popFlag = true;
             prevItem = currentItem;
             currentItem = pushStack[pushStack.Count - 2];
-            currentItem.Show();
-            AnitMateContent(true);
+            ShowNaviItem(currentItem);
+
+            PlayFadeInOutAnimation(true);
+
             NaviItem result = pushStack[pushStack.Count - 1];
             pushStack.RemoveAt(pushStack.Count - 1);
         }
+
 	/// <summary>
         /// Get NaviFrame attribues.
         /// </summary>
@@ -144,6 +217,7 @@ namespace Tizen.FH.NUI.Controls
         {
             return new NaviFrameAttributes();
         }
+
         /// <summary>
         /// Dispose NaviFrame and all children on it.
         /// </summary>
@@ -157,38 +231,41 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
+
             if (type == DisposeTypes.Explicit)
             {
+                if (fadeInOutAnimation != null)
+                {
+                    if (fadeInOutAnimation.State == Animation.States.Playing)
+                    {
+                        fadeInOutAnimation.Stop();
+                    }
+                    fadeInOutAnimation.Dispose();
+                    fadeInOutAnimation = null;
+                }
+
                 for (int i = 0; i < pushStack.Count; i++)
                 {
-                    if (pushStack[i] != null)
-                    {
-                        if (contentView != null) contentView.Remove(pushStack[i].contentView);
-                        if(headContent != null) headContent.Remove(pushStack[i].header);
-                        pushStack[i].Dispose();
-                        pushStack[i] = null;
-                    }
+                    DestroyNaviItem(pushStack[i]);
+                    pushStack[i] = null;
                 }
                 pushStack.Clear();
                
-                if (headContent != null)
+                if (headerView != null)
                 {
-                    Remove(headContent);
-                    headContent.Dispose();
-                    headContent = null;
+                    Remove(headerView);
+                    headerView.Dispose();
+                    headerView = null;
                 }
+
                 if (contentView != null)
                 {
                     Remove(contentView);
                     contentView.Dispose();
                     contentView = null;
                 }
-                if (flickAnimation != null)
-                {
-                    flickAnimation.Dispose();
-                    flickAnimation = null;
-                }
             }
+
             base.Dispose(type);
         }
 
@@ -202,7 +279,7 @@ namespace Tizen.FH.NUI.Controls
         {
             if(naviframeAttributes.NaviHeaderAttributes != null)
             {
-                ApplyAttributes(headContent, naviframeAttributes.NaviHeaderAttributes);
+                ApplyAttributes(headerView, naviframeAttributes.NaviHeaderAttributes);
             }
 
             if (naviframeAttributes.ContentAttributes != null)
@@ -218,155 +295,170 @@ namespace Tizen.FH.NUI.Controls
             {
                 throw new Exception("Fail to get the NaviFrame attributes.");
             }
+
             ClippingMode = ClippingModeType.ClipToBoundingBox;
             popFlag = false;
-            flickAnimation = new Animation(300);
-            flickAnimation.Finished += FlickFinish;
+            fadeInOutAnimation = new Animation(300);
+            fadeInOutAnimation.Finished += OnFadeInOutFinish;
 
-            headContent = new View();
-            Add(headContent);
+            headerView = new View();
+            Add(headerView);
             contentView = new View();
             Add(contentView);
+
             ApplyAttributes(this, naviframeAttributes);
         }
 
-        private void FlickFinish(object sender, EventArgs e)
+        private void OnFadeInOutFinish(object sender, EventArgs e)
         {
-            if(popFlag)
+            if (popFlag)
             {
-                if (prevItem != null)
-                {
-                    contentView.Remove(prevItem.contentView);
-                    headContent.Remove(prevItem.header);
-                    prevItem.Dispose();
-                    prevItem = null;
-                }
+                DestroyNaviItem(prevItem);
+                prevItem = null;
             }
             else
             {
-                if (prevItem != null)
-                {
-                    prevItem.Hide();
-                }
+                HideNaviItem(prevItem);
             }
-           
         }
-        private void ManualStop()
+
+        private void StopFadeInOutAnimation()
         {
-            if (flickAnimation != null)
+            if (fadeInOutAnimation != null)
             {
-                if (flickAnimation.State == Animation.States.Playing)
+                if (fadeInOutAnimation.State == Animation.States.Playing)
                 {
-                    flickAnimation.Stop();
+                    fadeInOutAnimation.Stop();
                 }
 
-                flickAnimation.Clear();
+                fadeInOutAnimation.Clear();
             }
-            if (prevItem != null)
-            {
-                if (popFlag)
-                {
-                    contentView.Remove(prevItem.contentView);
-                    headContent.Remove(prevItem.header);
-                    prevItem.Dispose();
-                    prevItem = null;
-                }
-                else
-                {
-                    prevItem.Hide();
-                }
 
+            if (popFlag)
+            {
+                DestroyNaviItem(prevItem);
+                prevItem = null;
             }
-            if (currentItem != null) currentItem.SetX(endcur);
+            else
+            {
+                HideNaviItem(prevItem);
+            }
+
+            SetNaviItemPositionX(currentItem, endcur);
         }
-        private void AnitMateContent(bool nextflag)
-        {
 
+        private void PlayFadeInOutAnimation(bool nextflag)
+        {
             if (currentItem != null)
             {
                 if (nextflag)
                 {
-                    startcur = prevItem.contentView.SizeWidth * (-1);
+                    startcur = prevItem.Content.SizeWidth * (-1);
                     endcur = 0;
                 }
                 else
                 {
-                    startcur = prevItem.contentView.SizeWidth;
+                    startcur = prevItem.Content.SizeWidth;
                     endcur = 0;
                 }
+
                 startcur = startcur / 2;
-                currentItem.SetX(startcur);
-                currentItem.contentView.Opacity = 1.0f;
-                currentItem.header.Opacity = 1.0f;
+
+                SetNaviItemPositionX(currentItem, startcur);
+                currentItem.Content.Opacity = 1.0f;
+                currentItem.Header.Opacity = 1.0f;
+
                 //flickAnimation.AnimateTo(currentItem.contentView, "Opacity", 1.0f);
                 //flickAnimation.AnimateTo(currentItem.header, "Opacity", 1.0f);
-                flickAnimation.AnimateTo(currentItem.contentView, "PositionX", endcur);
-                flickAnimation.AnimateTo(currentItem.header, "PositionX", endcur);
+                fadeInOutAnimation.AnimateTo(currentItem.Content, "PositionX", endcur);
+                fadeInOutAnimation.AnimateTo(currentItem.Header, "PositionX", endcur);
             }
            
             if (prevItem != null)
             {
                 if (nextflag)
                 {
-                    endpre = prevItem.contentView.SizeWidth;
+                    endpre = prevItem.Content.SizeWidth;
                 }
                 else
                 {
-                    endpre = prevItem.contentView.SizeWidth * (-1);
+                    endpre = prevItem.Content.SizeWidth * (-1);
                 }
+
                 startcur = 0;
                 endpre = endpre / 2;
-                prevItem.Show();
-                prevItem.contentView.Opacity = 1.0f;
-                prevItem.header.Opacity = 1.0f;
-                prevItem.SetX(startpre);
-                flickAnimation.AnimateTo(prevItem.contentView, "Opacity", 0f);
-                flickAnimation.AnimateTo(prevItem.header, "Opacity", 0f);
-                flickAnimation.AnimateTo(prevItem.contentView, "PositionX", endpre);
-                flickAnimation.AnimateTo(prevItem.header, "PositionX", endpre);
+
+                ShowNaviItem(prevItem);
+
+                prevItem.Content.Opacity = 1.0f;
+                prevItem.Header.Opacity = 1.0f;
+
+                SetNaviItemPositionX(prevItem, 0);
+
+                fadeInOutAnimation.AnimateTo(prevItem.Content, "Opacity", 0f);
+                fadeInOutAnimation.AnimateTo(prevItem.Header, "Opacity", 0f);
+                fadeInOutAnimation.AnimateTo(prevItem.Content, "PositionX", endpre);
+                fadeInOutAnimation.AnimateTo(prevItem.Header, "PositionX", endpre);
             }
 
-            flickAnimation.Play();
+            fadeInOutAnimation.Play();
         }
 
-        private void CreateNaviframeAttributes()
+        private NaviItem CreateNaviItem(View header, View content)
         {
-            if (naviframeAttributes.NaviHeaderAttributes == null)
+            if (header == null || content == null)
+                return null;
+
+            headerView.Add(header);
+            contentView.Add(content);
+            NaviItem item = new NaviItem(header, content);
+
+            if (mNotifier != null)
             {
-                naviframeAttributes.NaviHeaderAttributes = new ViewAttributes();
+                mNotifier.OnNaviItemCreated(item);
             }
-           
-            if (naviframeAttributes.ContentAttributes == null)
+
+            return item;
+        }
+
+        private void DestroyNaviItem(NaviItem item)
+        {
+            if (item == null)
+                return;
+
+            contentView.Remove(item.Content);
+            headerView.Remove(item.Header);
+
+            if (mNotifier != null)
             {
-                naviframeAttributes.ContentAttributes = new ViewAttributes();
+                mNotifier.OnNaviItemDestroyed(item);
             }
         }
 
- 
-        internal class NaviItem
+        private void SetNaviItemPositionX(NaviItem item, float x)
         {
+            if (item != null)
+            {
+                item.Header.PositionX = x;
+                item.Content.PositionX = x;
+            }
+        }
 
-            internal View header;
-            internal View contentView;
-            internal void SetX(float x)
+        private void ShowNaviItem(NaviItem item)
+        {
+            if (item != null)
             {
-                header.PositionX = x;
-                contentView.PositionX = x;
+                item.Header.Show();
+                item.Content.Show();
             }
-            internal void Show()
+        }
+
+        private void HideNaviItem(NaviItem item)
+        {
+            if (item != null)
             {
-                header.Show();
-                contentView.Show();
-            }
-            internal void Hide()
-            {
-                header.Hide();
-                contentView.Hide();
-            }
-            internal void Dispose()
-            {
-                header.Dispose();
-                contentView.Dispose();
+                item.Header.Hide();
+                item.Content.Hide();
             }
         }
     }

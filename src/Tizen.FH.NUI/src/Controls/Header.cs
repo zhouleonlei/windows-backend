@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -212,7 +212,7 @@ namespace Tizen.FH.NUI.Controls
                     headerLine = new View
                     {
                         WidthResizePolicy = ResizePolicyType.FillToParent,
-                        Size2D = new Size2D(1080, 1),
+                        Size = new Size(1080, 1),
                         PositionUsesPivotPoint = true,
                         ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                         PivotPoint = Tizen.NUI.PivotPoint.TopLeft

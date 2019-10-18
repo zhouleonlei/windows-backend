@@ -1,5 +1,8 @@
 using NUnit.Framework;
+using System;
+using System.Collections;
 using Tizen.NUI.Test;
+using Tizen.NUI.Xaml;
 
 namespace Tizen.NUI.Tests
 {
@@ -31,6 +34,9 @@ namespace Tizen.NUI.Tests
         public void Items_READ_ONLY()
         {
             /* TEST CODE */
+            ArrayExtension arrayExtension = new ArrayExtension();
+            Assert.IsNotNull(arrayExtension);
+            Assert.IsInstanceOf<IList>(arrayExtension.Items, "Should be instance of IList");
         }
 
         [Test]
@@ -43,8 +49,12 @@ namespace Tizen.NUI.Tests
         public void Type_SET_GET_VALUE()
         {
             /* TEST CODE */
-        }
+            ArrayExtension arrayExtension = new ArrayExtension();
+            Assert.IsNotNull(arrayExtension);
 
+            arrayExtension.Type = typeof(string);
+            Assert.IsInstanceOf<Type>(arrayExtension.Type, "Should be instance of Type");
+        }
 
         [Test]
         [Category("P1")]
@@ -56,6 +66,8 @@ namespace Tizen.NUI.Tests
         public void ArrayExtension_INIT()
         {
             /* TEST CODE */
+            ArrayExtension arrayExtension = new ArrayExtension();
+            Assert.IsNotNull(arrayExtension);
         }
 
         [Test]
@@ -68,8 +80,17 @@ namespace Tizen.NUI.Tests
         public void ProvideValue_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            ArrayExtension arrayExtension = new ArrayExtension();
+            Assert.IsNotNull(arrayExtension);
+
+            arrayExtension.Type = typeof(string);
+
+            XamlServiceProvider xamlServiceProvider = new XamlServiceProvider();
+            Assert.IsNotNull(xamlServiceProvider);
+
+            Array array = arrayExtension.ProvideValue(xamlServiceProvider);
+            Assert.IsNotNull(array);
+            Assert.IsInstanceOf<Array>(array, "Should be instance of Array");
         }
-
-
     }
 }

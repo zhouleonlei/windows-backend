@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class NextDepthListItemAttributes : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -33,12 +33,12 @@ namespace Tizen.FH.NUI.Controls
                 
                 RightItemRootViewAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                 },
 
                 RightIconAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         All = CommonResource.Instance.GetFHResourcePath() + "6. List/list_ic_arrow_right.png"

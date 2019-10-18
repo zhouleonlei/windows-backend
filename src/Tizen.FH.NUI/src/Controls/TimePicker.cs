@@ -17,9 +17,9 @@
 using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System.ComponentModel;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -270,22 +270,22 @@ namespace Tizen.FH.NUI.Controls
             
             if (shadowImage != null)
             {
-                w = (int)(Size2D.Width + timePickerAttributes.ShadowOffset.W + timePickerAttributes.ShadowOffset.X);
-                h = (int)(Size2D.Height + timePickerAttributes.ShadowOffset.Y + timePickerAttributes.ShadowOffset.Z);
-                shadowImage.Size2D = new Size2D(w, h);
+                w = (int)(Size.Width + timePickerAttributes.ShadowOffset.W + timePickerAttributes.ShadowOffset.X);
+                h = (int)(Size.Height + timePickerAttributes.ShadowOffset.Y + timePickerAttributes.ShadowOffset.Z);
+                shadowImage.Size = new Size(w, h);
             }
 
             int x = 0;
-            int y = 0;
+            //int y = 0;
             
             if (colonImage2 != null)
             {
-                x = minuteSpin.Position2D.X + minuteSpin.Size2D.Width + (minuteSpin.Position2D.X - hourSpin.Position2D.X - hourSpin.Size2D.Width - colonImage.Size2D.Width)/2;
-                colonImage2.Position2D = new Position2D(x, colonImage2.Position2D.Y);
+                x = (int)(minuteSpin.Position.X + minuteSpin.Size.Width + (minuteSpin.Position.X - hourSpin.Position.X - hourSpin.Size.Width - colonImage.Size.Width)/2);
+                colonImage2.Position = new Position(x, colonImage2.Position.Y);
             }
 
-            x = hourSpin.Position2D.X + hourSpin.Size2D.Width + (minuteSpin.Position2D.X - hourSpin.Position2D.X - hourSpin.Size2D.Width - colonImage.Size2D.Width)/2;
-            colonImage.Position2D = new Position2D(x, colonImage.Position2D.Y);
+            x = (int)(hourSpin.Position.X + hourSpin.Size.Width + (minuteSpin.Position.X - hourSpin.Position.X - hourSpin.Size.Width - colonImage.Size.Width)/2);
+            colonImage.Position = new Position(x, colonImage.Position.Y);
 
             if (weekView != null)
             {
@@ -293,8 +293,8 @@ namespace Tizen.FH.NUI.Controls
                 {
                     for (int i = 0; i < 7; i++)
                     {
-                        weekText[i].Position2D = new Position2D(i * weekText[i].Size2D.Width, weekText[i].Position2D.Y);
-                        weekSelectImage[i].Position2D = new Position2D(i * weekText[i].Size2D.Width + (weekText[i].Size2D.Width -weekSelectImage[i].Size2D.Width)/2, weekSelectImage[i].Position2D.Y);
+                        weekText[i].Position = new Position(i * weekText[i].Size.Width, weekText[i].Position.Y);
+                        weekSelectImage[i].Position = new Position(i * weekText[i].Size.Width + (weekText[i].Size.Width -weekSelectImage[i].Size.Width)/2, weekSelectImage[i].Position.Y);
                     }
                     weekText[0].Text = "Sun";
                     weekText[0].TextColor = Color.Red;

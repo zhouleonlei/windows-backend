@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System;
 using Tizen.NUI;
 
@@ -10,13 +10,13 @@ namespace Tizen.FH.NUI.Samples
         private SampleLayout rootView = null;
         private Tizen.FH.NUI.Controls.SearchBar searchBar = null;
 
-        private Tizen.NUI.CommonUI.Button button;
+        private Tizen.NUI.Components.Button button;
         public void Activate()
         {
             Window.Instance.BackgroundColor = Color.White;
             CreateRootView();
             CreateSearchBar();
-            button = new Tizen.NUI.CommonUI.Button();
+            button = new Tizen.NUI.Components.Button();
             button.PointSize = 14;
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;

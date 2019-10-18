@@ -18,7 +18,7 @@ using System;
 using System.Reflection;
 using Tizen.NUI;
 using Tizen.FH.NUI.Controls;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI

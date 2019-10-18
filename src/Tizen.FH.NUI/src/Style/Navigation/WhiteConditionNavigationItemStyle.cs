@@ -1,17 +1,17 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class WhiteConditionNavigationItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationItemAttributes attributes = new NavigationItemAttributes
             {
                 TextAttributes = new TextAttributes
                 {
-                    Size2D = new Size2D(108, 24),
+                    Size = new Size(108, 24),
                     TextColor = new ColorSelector
                     {
                         Pressed = new Color(0, 0, 0, 1),
@@ -28,7 +28,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 SubTextAttributes = new TextAttributes
                 {
-                    Size2D = new Size2D(108, 24),
+                    Size = new Size(108, 24),
                     TextColor = new ColorSelector
                     {
                         Pressed = new Color(0, 0, 0, 1),
@@ -45,7 +45,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 IconAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(56, 56),
+                    Size = new Size(56, 56),
                 },
                 Space = new Vector4(4, 4, 8, 16),
             };

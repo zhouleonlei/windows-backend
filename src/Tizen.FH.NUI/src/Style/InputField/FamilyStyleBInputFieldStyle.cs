@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyStyleBInputFieldStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -57,7 +57,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 AddButtonBgAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(92, 92),
+                    Size = new Size(92, 92),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "7. Input Field/[Input Field] App Primary Color/field_btn_add_bg_24c447.png",
@@ -85,7 +85,7 @@ namespace Tizen.FH.NUI.Controls
 
                 DeleteButtonAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(92, 92),
+                    Size = new Size(92, 92),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "7. Input Field/field_btn_ic_delete.png",

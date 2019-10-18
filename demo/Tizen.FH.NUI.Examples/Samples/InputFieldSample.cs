@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System;
 using Tizen.NUI;
 
@@ -12,7 +12,7 @@ namespace Tizen.FH.NUI.Samples
         private TextLabel guideText;
         private SampleLayout rootView;
         private int posY;
-        private Tizen.NUI.CommonUI.Button button;
+        private Tizen.NUI.Components.Button button;
 
         public void Activate()
         {
@@ -22,7 +22,7 @@ namespace Tizen.FH.NUI.Samples
             CreateRootView();
             CreateFamily();
             CreateGuideText();
-            button = new Tizen.NUI.CommonUI.Button();
+            button = new Tizen.NUI.Components.Button();
             button.PointSize = 14;
             button.Size2D = new Size2D(300, 80);
             button.BackgroundColor = Color.Green;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <b:View x:Class="Tizen.NUI.Examples.DataTriggerDemoPage"
   xmlns="http://tizen.org/Tizen.NUI/2018/XAML"
-  xmlns:b="clr-namespace:Tizen.NUI.Xaml.Forms.BaseComponents;assembly=Tizen.NUI.Xaml"
-  xmlns:u="clr-namespace:Tizen.NUI.Xaml.UIComponents;assembly=Tizen.NUI.Xaml"
+  xmlns:b="clr-namespace:Tizen.NUI.BaseComponents;assembly=Tizen.NUI"
+  xmlns:u="clr-namespace:Tizen.NUI.UIComponents;assembly=Tizen.NUI"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
   <View.XamlResources>
@@ -25,7 +25,7 @@
   </View.XamlResources>
   
   <b:TextLabel Text="Hi" Position2D="700,100" Size2D="900,50" x:Name="Label">
-    <b:TextLabel.Style>
+    <b:TextLabel.XamlStyle>
       <Style TargetType="TextLabel">
         <Style.Triggers>
           <DataTrigger TargetType="TextLabel" Binding="{Binding Path=LabelText, Source={x:Reference Click}}" Value="123">
@@ -33,7 +33,7 @@
           </DataTrigger>
         </Style.Triggers>
       </Style>
-    </b:TextLabel.Style>
+    </b:TextLabel.XamlStyle>
   </b:TextLabel>
  
   <u:PushButton x:Name="Click" LabelText="Click" Size2D="400,80" Position2D="1000,200" />

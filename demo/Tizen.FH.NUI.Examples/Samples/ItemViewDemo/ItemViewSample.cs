@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using Tizen.NUI.UIComponents;
 
 namespace Tizen.FH.NUI.Samples

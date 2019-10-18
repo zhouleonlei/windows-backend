@@ -16,7 +16,7 @@
  */
 using System.ComponentModel;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.NUI.Components
 {
     /// <summary>
     /// PickerAttributes is a class which saves Date Picker's ux data.

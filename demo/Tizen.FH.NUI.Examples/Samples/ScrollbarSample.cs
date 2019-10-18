@@ -1,13 +1,13 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
     public class Scrollbar : IExample
     {
         private TextLabel board1, board2;
-        private Tizen.NUI.CommonUI.Button button1, button2, button3, button4;
+        private Tizen.NUI.Components.Button button1, button2, button3, button4;
         private ScrollBar scrollBar1, scrollBar2;
         private ScrollBar daScrollBar1, daScrollBar2;
         private SampleLayout root;
@@ -27,7 +27,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar1.Size2D = new Size2D(300, 4);
             daScrollBar1.MaxValue = (int)daScrollBar1.SizeWidth / 10;
             daScrollBar1.MinValue = 0;
-            daScrollBar1.ThumbSize = new Size2D(30, 4);
+            daScrollBar1.ThumbSize = new Size(30, 4);
             daScrollBar1.CurrentValue = 0;
             daScrollBar1.Direction = ScrollBar.DirectionType.Horizontal;
             root.Add(daScrollBar1);
@@ -37,7 +37,7 @@ namespace Tizen.FH.NUI.Samples
             daScrollBar2.Size2D = new Size2D(4, 300);
             daScrollBar2.MaxValue = (int)daScrollBar1.SizeWidth / 10;
             daScrollBar2.MinValue = 0;
-            daScrollBar2.ThumbSize = new Size2D(4, 30);
+            daScrollBar2.ThumbSize = new Size(4, 30);
             daScrollBar2.CurrentValue = 0;
             daScrollBar2.Direction = ScrollBar.DirectionType.Vertical;
             root.Add(daScrollBar2);
@@ -48,7 +48,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar1.TrackColor = Color.Green;
             scrollBar1.MaxValue = (int)scrollBar1.SizeWidth / 10;
             scrollBar1.MinValue = 0;
-            scrollBar1.ThumbSize = new Size2D(30, 4);
+            scrollBar1.ThumbSize = new Size(30, 4);
             scrollBar1.CurrentValue = 0;
             scrollBar1.ThumbColor = Color.Black;
             root.Add(scrollBar1);
@@ -77,7 +77,7 @@ namespace Tizen.FH.NUI.Samples
             scrollBar2.Size2D = new Size2D(300, 4);
             scrollBar2.MaxValue = (int)scrollBar2.SizeWidth / 10;
             scrollBar2.MinValue = 0;
-            scrollBar2.ThumbSize = new Size2D(30, 4);
+            scrollBar2.ThumbSize = new Size(30, 4);
             scrollBar2.CurrentValue = 0;
 
             root.Add(scrollBar2);
@@ -111,7 +111,7 @@ namespace Tizen.FH.NUI.Samples
             root.Add(board2);
             board2.Focusable = true;
 
-            button1 = new Tizen.NUI.CommonUI.Button();
+            button1 = new Tizen.NUI.Components.Button();
             button1.PointSize = 14;
             button1.BackgroundColor = Color.Green;
             button1.Position2D = new Position2D(100, 500);
@@ -121,7 +121,7 @@ namespace Tizen.FH.NUI.Samples
             button1.Focusable = true;
             button1.ClickEvent += Scroll1Add;
 
-            button2 = new Tizen.NUI.CommonUI.Button();
+            button2 = new Tizen.NUI.Components.Button();
             button2.PointSize = 14;
             button2.BackgroundColor = Color.Green;
             button2.Position2D = new Position2D(200, 500);
@@ -131,7 +131,7 @@ namespace Tizen.FH.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += Scroll1Minus;
 
-            button3 = new Tizen.NUI.CommonUI.Button();
+            button3 = new Tizen.NUI.Components.Button();
             button3.PointSize = 14;
             button3.BackgroundColor = Color.Green;
             button3.Position2D = new Position2D(450, 500);
@@ -141,7 +141,7 @@ namespace Tizen.FH.NUI.Samples
             button3.Focusable = true;
             button3.ClickEvent += Scroll2Add;
 
-            button4 = new Tizen.NUI.CommonUI.Button();
+            button4 = new Tizen.NUI.Components.Button();
             button4.PointSize = 14;
             button4.BackgroundColor = Color.Green;
             button4.Position2D = new Position2D(550, 500);

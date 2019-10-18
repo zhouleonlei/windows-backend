@@ -17,7 +17,7 @@
 using System;
 using System.ComponentModel;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
@@ -28,7 +28,7 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class Pagination : Tizen.NUI.CommonUI.Pagination
+    public class Pagination : Tizen.NUI.Components.Pagination
     {
         private PaginationAttributes paginationAttributes;
         private ImageView returnArrow;
@@ -151,11 +151,11 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D ReturnArrowSize
+        public Size ReturnArrowSize
         {
             get
             {
-                return paginationAttributes?.ReturnArrowAttributes?.Size2D;
+                return paginationAttributes?.ReturnArrowAttributes?.Size;
             }
             set
             {
@@ -172,7 +172,7 @@ namespace Tizen.FH.NUI.Controls
                         PositionUsesPivotPoint = true
                     };
                 }
-                paginationAttributes.ReturnArrowAttributes.Size2D = value;
+                paginationAttributes.ReturnArrowAttributes.Size = value;
             }
         }
 
@@ -182,11 +182,11 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D NextArrowSize
+        public Size NextArrowSize
         {
             get
             {
-                return paginationAttributes?.NextArrowAttributes?.Size2D;
+                return paginationAttributes?.NextArrowAttributes?.Size;
             }
             set
             {
@@ -203,7 +203,7 @@ namespace Tizen.FH.NUI.Controls
                         PositionUsesPivotPoint = true
                     };
                 }
-                paginationAttributes.NextArrowAttributes.Size2D = value;
+                paginationAttributes.NextArrowAttributes.Size = value;
             }
         }
 
@@ -446,20 +446,20 @@ namespace Tizen.FH.NUI.Controls
             if (paginationAttributes != null)
             {
                 int returnArrowWidth = 0, nextArrowWidth = 0;
-                if (paginationAttributes.ReturnArrowAttributes != null && paginationAttributes.ReturnArrowAttributes.Size2D != null)
+                if (paginationAttributes.ReturnArrowAttributes != null && paginationAttributes.ReturnArrowAttributes.Size != null)
                 {
-                    returnArrowWidth = paginationAttributes.ReturnArrowAttributes.Size2D.Width;
+                    returnArrowWidth = (int)paginationAttributes.ReturnArrowAttributes.Size.Width;
                 }
-                if (paginationAttributes.NextArrowAttributes != null && paginationAttributes.NextArrowAttributes.Size2D != null)
+                if (paginationAttributes.NextArrowAttributes != null && paginationAttributes.NextArrowAttributes.Size != null)
                 {
-                    nextArrowWidth = paginationAttributes.NextArrowAttributes.Size2D.Width;
+                    nextArrowWidth = (int)paginationAttributes.NextArrowAttributes.Size.Width;
                 }
                 int indicatorWidth = 0, indicatorHeight = 0;
                 int indicatorSpacing = 0;
                 if (paginationAttributes.IndicatorSize != null)
                 {
-                    indicatorWidth = paginationAttributes.IndicatorSize.Width;
-                    indicatorHeight = paginationAttributes.IndicatorSize.Height;
+                    indicatorWidth = (int)paginationAttributes.IndicatorSize.Width;
+                    indicatorHeight = (int)paginationAttributes.IndicatorSize.Height;
                 }
                 indicatorSpacing = paginationAttributes.IndicatorSpacing;
 

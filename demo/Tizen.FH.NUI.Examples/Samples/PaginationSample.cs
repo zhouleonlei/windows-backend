@@ -53,20 +53,20 @@ namespace Tizen.FH.NUI.Samples
             DAPagination3.Position2D = new Position2D(200, 250);
             DAPagination3.Size2D = new Size2D(400, 30);
             DAPagination3.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
-            DAPagination3.IndicatorSize = new Size2D(26, 26);
+            DAPagination3.IndicatorSize = new Size(26, 26);
             DAPagination3.IndicatorBackgroundURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_nor.png";
             DAPagination3.IndicatorSelectURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_sel.png";
             DAPagination3.IndicatorSpacing = 8;
-            DAPagination3.ReturnArrowURLs = new Tizen.NUI.CommonUI.StringSelector
+            DAPagination3.ReturnArrowURLs = new Tizen.NUI.Components.StringSelector
             {
                 All = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_return.png"
             };
-            DAPagination3.ReturnArrowSize = new Size2D(26, 26);
-            DAPagination3.NextArrowURLs = new Tizen.NUI.CommonUI.StringSelector
+            DAPagination3.ReturnArrowSize = new Size(26, 26);
+            DAPagination3.NextArrowURLs = new Tizen.NUI.Components.StringSelector
             {
                 All = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_next.png"
             };
-            DAPagination3.NextArrowSize = new Size2D(26, 26);
+            DAPagination3.NextArrowSize = new Size(26, 26);
             DAPagination3.IndicatorCount = PAGE_COUNT;
             DAPagination3.SelectedIndex = 0;
             DAPagination3.Focusable = true;

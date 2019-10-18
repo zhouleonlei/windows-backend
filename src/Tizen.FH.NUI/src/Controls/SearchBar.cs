@@ -17,9 +17,9 @@
 using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System.ComponentModel;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
+using StyleManager = Tizen.NUI.Components.StyleManager;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -209,7 +209,7 @@ namespace Tizen.FH.NUI.Controls
         {
             if (resultListRoot != null)
             {
-                resultListRoot.Size2D.Height = (int)resultListHeight;
+                resultListRoot.Size.Height = (int)resultListHeight;
             }
         }
         /// <summary>
@@ -222,7 +222,7 @@ namespace Tizen.FH.NUI.Controls
         {
             if (resultListRoot != null)
             {
-                resultListRoot.Size2D.Height = 0;
+                resultListRoot.Size.Height = 0;
             }
         }
 
@@ -335,10 +335,10 @@ namespace Tizen.FH.NUI.Controls
 
         private void RelayoutComponents()
         {
-            inputField.Size2D = new Size2D(Size2D.Width - Space() * 2, Size2D.Height);
+            inputField.Size = new Size(Size.Width - Space() * 2, Size.Height);
 
-            resultListRoot.Size2D.Height = 0;// (int)resultListHeight;
-            resultListRoot.PositionY = Size2D.Height;
+            resultListRoot.Size.Height = 0;// (int)resultListHeight;
+            resultListRoot.PositionY = Size.Height;
         }
 
         private int Space()

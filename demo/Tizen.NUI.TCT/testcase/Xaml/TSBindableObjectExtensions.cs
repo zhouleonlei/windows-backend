@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using Tizen.NUI.BaseComponents;
+using Tizen.NUI.Binding;
 using Tizen.NUI.Test;
 
 namespace Tizen.NUI.Tests
@@ -32,8 +34,20 @@ namespace Tizen.NUI.Tests
         public void SetBinding_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            View view1 = new View();
+            view1.IsCreateByXaml = true;
+
+            View view2 = new View();
+            view2.IsCreateByXaml = true;
+
+            view1.BindingContext = view2;
+            BindableObjectExtensions.SetBinding(view1, View.Size2DProperty, "Size2D");
+
+            view2.Size2D = new Size2D(300, 200);
+
+            Assert.IsTrue(view1.Size2D.Equals(new Size2D(300, 200)));
+
+            view1?.Dispose();
         }
-
-
     }
 }

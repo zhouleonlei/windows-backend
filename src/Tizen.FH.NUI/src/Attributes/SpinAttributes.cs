@@ -16,7 +16,7 @@
  */
 using System.ComponentModel;
 
-namespace Tizen.NUI.CommonUI
+namespace Tizen.NUI.Components
 {
     /// <summary>
     /// SpinAttributes is a class which saves Spin's ux data.

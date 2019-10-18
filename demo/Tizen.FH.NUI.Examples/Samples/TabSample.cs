@@ -1,14 +1,14 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
     public class Tab : IExample
     {
         private SampleLayout root;
-        private Tizen.NUI.CommonUI.Tab tab = null;
-        private Tizen.NUI.CommonUI.Button[] button = new Tizen.NUI.CommonUI.Button[2];
+        private Tizen.NUI.Components.Tab tab = null;
+        private Tizen.NUI.Components.Button[] button = new Tizen.NUI.Components.Button[2];
         private int num = 2;
 
         private static string[] mode = new string[]
@@ -23,8 +23,8 @@ namespace Tizen.FH.NUI.Samples
             root = new SampleLayout();
             root.HeaderText = "Tab";
 
-            tab = new Tizen.NUI.CommonUI.Tab("Tab");
-            tab.IsNatureTextWidth = false;
+            tab = new Tizen.NUI.Components.Tab("Tab");
+            tab.UseTextNaturalSize = false;
             tab.Size2D = new Size2D(1080, 108);
             tab.Position2D = new Position2D(0, 300);
             tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
@@ -32,7 +32,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < 3; i++)
             {
-                Tizen.NUI.CommonUI.Tab.TabItemData item = new Tizen.NUI.CommonUI.Tab.TabItemData();
+                Tizen.NUI.Components.Tab.TabItemData item = new Tizen.NUI.Components.Tab.TabItemData();
                 item.Text = "Tab " + i;
                 if (i == 1)
                 {
@@ -43,7 +43,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < num; i++)
             {
-                button[i] = new Tizen.NUI.CommonUI.Button("ServiceButton");
+                button[i] = new Tizen.NUI.Components.Button("ServiceButton");
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(280 + i * 260, 700);
                 button[i].Text = mode[i];
@@ -77,16 +77,16 @@ namespace Tizen.FH.NUI.Samples
             }
         }
 
-        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
-            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
+            Tizen.NUI.Components.Button btn = sender as Tizen.NUI.Components.Button;
             if (button[0] == btn)
             {
-                tab.IsNatureTextWidth = false;
+                tab.UseTextNaturalSize = false;
             }
             else if (button[1] == btn)
             {
-                tab.IsNatureTextWidth = true;
+                tab.UseTextNaturalSize = true;
             }
 
             //tab.DeleteItem(0);

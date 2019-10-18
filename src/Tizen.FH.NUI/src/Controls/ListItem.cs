@@ -17,7 +17,7 @@
 using System;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using System.ComponentModel;
 
 namespace Tizen.FH.NUI.Controls
@@ -28,7 +28,7 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class ListItem : Tizen.NUI.CommonUI.Control
+    public class ListItem : Tizen.NUI.Components.Control
     {
         private View textRootView = null;
         private TextLabel mainTextLabel = null;
@@ -47,8 +47,8 @@ namespace Tizen.FH.NUI.Controls
         private uint? rightSpace = null;
         private uint? spaceBetweenLeftItemAndText = null;
         private uint? spaceBetweenRightItemAndText = null;
-        private Size2D leftItemRootSize = null;
-        private Size2D rightItemRootSize = null;
+        private Size leftItemRootSize = null;
+        private Size rightItemRootSize = null;
 
         private bool isSelected = false;
         private bool isEnabled = true;
@@ -326,6 +326,76 @@ namespace Tizen.FH.NUI.Controls
         }
 
         /// <summary>
+        /// Property for the content of the main textlabel
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public float MainTextPointSize
+        {
+            get
+            {
+                if (styleType == StyleTypes.GroupIndex && groupIndexType == GroupIndexTypes.None)
+                {
+                    return listItemAttrs?.MainText2Attributes?.PointSize?.All ?? 0;
+                }
+                else
+                {
+                    return listItemAttrs?.MainTextAttributes?.PointSize?.All ?? 0;
+                }
+            }
+            set
+            {
+                CreateMainTextAttributesIfNecessary();
+
+                if (styleType == StyleTypes.GroupIndex && groupIndexType == GroupIndexTypes.None)
+                {
+                    if (listItemAttrs.MainText2Attributes.PointSize == null)
+                    {
+                        listItemAttrs.MainText2Attributes.PointSize = new FloatSelector();
+                    }
+                    listItemAttrs.MainText2Attributes.PointSize.All = value;
+                }
+                else
+                {
+                    if (listItemAttrs.MainTextAttributes.PointSize == null)
+                    {
+                        listItemAttrs.MainTextAttributes.PointSize = new FloatSelector();
+                    }
+                    listItemAttrs.MainTextAttributes.PointSize.All = value;
+                }
+
+                RelayoutTextComponents();
+            }
+        }
+
+        /// <summary>
+        /// Property for the content of the sub textlabel
+        /// </summary>
+        /// <since_tizen> 5.5 </since_tizen>
+        /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public float SubTextPointSize
+        {
+            get
+            {
+                return listItemAttrs?.SubTextAttributes?.PointSize?.All ?? 0;
+            }
+            set
+            {
+                CreateSubTextAttributesIfNecessary();
+
+                if (listItemAttrs.SubTextAttributes.PointSize == null)
+                {
+                    listItemAttrs.SubTextAttributes.PointSize = new FloatSelector();
+                }
+                listItemAttrs.SubTextAttributes.PointSize.All = value;
+
+                RelayoutTextComponents();
+            }
+        }
+
+        /// <summary>
         /// Property for the count of the sub textlabel
         /// </summary>
         /// <since_tizen> 5.5 </since_tizen>
@@ -449,7 +519,7 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D LeftItemRootViewSize
+        public Size LeftItemRootViewSize
         {
             set
             {
@@ -469,7 +539,7 @@ namespace Tizen.FH.NUI.Controls
         /// <since_tizen> 5.5 </since_tizen>
         /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size2D RightItemRootViewSize
+        public Size RightItemRootViewSize
         {
             set
             {
@@ -1054,9 +1124,9 @@ namespace Tizen.FH.NUI.Controls
             int rootWidth = TextRootViewWidth();
             if (mainTextLabel != null)
             {
-                int height = mainTextLabel.NaturalSize2D.Height;
-                mainTextLabel.Size2D = new Size2D(rootWidth, height);
-                mainTextLabel.Position2D = new Position2D(0, 0);
+                int height = (int)mainTextLabel.NaturalSize.Height;
+                mainTextLabel.Size = new Size(rootWidth, height);
+                mainTextLabel.Position = new Position(0, 0);
                 heightSum += height;
             }
             if (subTextLabelArray != null)
@@ -1066,9 +1136,9 @@ namespace Tizen.FH.NUI.Controls
                 {
                     if (subTextLabelArray[i] != null)
                     {
-                        int height = subTextLabelArray[i].NaturalSize2D.Height;
-                        subTextLabelArray[i].Size2D = new Size2D(rootWidth, height);
-                        subTextLabelArray[i].Position2D = new Position2D(0, heightSum);
+                        int height = (int)subTextLabelArray[i].NaturalSize.Height;
+                        subTextLabelArray[i].Size = new Size(rootWidth, height);
+                        subTextLabelArray[i].Position = new Position(0, heightSum);
                         heightSum += height;
                     }
                 }
@@ -1076,11 +1146,11 @@ namespace Tizen.FH.NUI.Controls
             if (textRootView != null)
             {
                 int testrootx = LeftSpaceValue() + LeftItemRootViewWidth() + SpaceBetweenLeftItemAndTextValue();
-                textRootView.Size2D = new Size2D(rootWidth, heightSum);
+                textRootView.Size = new Size(rootWidth, heightSum);
                 if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
-                    textRootView.Position2D = new Position2D(testrootx, 0);
+                    textRootView.Position = new Position(testrootx, 0);
                 else
-                    textRootView.Position2D = new Position2D(-testrootx, 0);
+                    textRootView.Position = new Position(-testrootx, 0);
             }
         }
 
@@ -1090,8 +1160,8 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            Size2D size = this.Size2D;
-            dividerView.Size2D = new Size2D(size.Width - LeftSpaceValue() - RightSpaceValue(), DividerSize().Height);
+            Size size = this.Size;
+            dividerView.Size = new Size(size.Width - LeftSpaceValue() - RightSpaceValue(), DividerSize().Height);
         }
 
         private void ResizeLeftItemRootView()
@@ -1100,7 +1170,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            leftItemRootView.Size2D = leftItemRootSize;
+            leftItemRootView.Size = leftItemRootSize;
         }
 
         private void RelayoutLeftItemRootView()
@@ -1111,9 +1181,9 @@ namespace Tizen.FH.NUI.Controls
             }
             int leftspace = LeftSpaceValue();
             if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
-                leftItemRootView.Position2D = new Position2D(leftspace, 0);
+                leftItemRootView.Position = new Position(leftspace, 0);
             else
-                leftItemRootView.Position2D = new Position2D(-leftspace, 0);
+                leftItemRootView.Position = new Position(-leftspace, 0);
         }
 
         private void ResizeRightItemRootView()
@@ -1122,7 +1192,7 @@ namespace Tizen.FH.NUI.Controls
             {
                 return;
             }
-            rightItemRootView.Size2D = rightItemRootSize;
+            rightItemRootView.Size = rightItemRootSize;
         }
 
         private void RelayoutRightItemRootView()
@@ -1133,9 +1203,9 @@ namespace Tizen.FH.NUI.Controls
             }
             int rightspace = RightSpaceValue();
             if (this.LayoutDirection == ViewLayoutDirectionType.LTR)
-                rightItemRootView.Position2D = new Position2D(-rightspace, 0);
+                rightItemRootView.Position = new Position(-rightspace, 0);
             else
-                rightItemRootView.Position2D = new Position2D(rightspace, 0);
+                rightItemRootView.Position = new Position(rightspace, 0);
         }
 
         private int TextRootViewWidth()
@@ -1183,7 +1253,7 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
 
-            width = this.Size2D.Width - LeftSpaceValue() - RightSpaceValue() - leftPartSpace - rightPartSpace;
+            width = (int)(this.Size.Width - LeftSpaceValue() - RightSpaceValue() - leftPartSpace - rightPartSpace);
             return width;
         }
 
@@ -1260,13 +1330,13 @@ namespace Tizen.FH.NUI.Controls
             int width = 0;
             if (leftItemRootSize != null)
             {
-                width = leftItemRootSize.Width;
+                width = (int)leftItemRootSize.Width;
             }
             else
             {
-                if (listItemAttrs != null && listItemAttrs.LeftItemRootViewAttributes != null && listItemAttrs.LeftItemRootViewAttributes.Size2D != null)
+                if (listItemAttrs != null && listItemAttrs.LeftItemRootViewAttributes != null && listItemAttrs.LeftItemRootViewAttributes.Size != null)
                 {
-                    width = listItemAttrs.LeftItemRootViewAttributes.Size2D.Width;
+                    width = (int)listItemAttrs.LeftItemRootViewAttributes.Size.Width;
                 }
             }
             return width;
@@ -1277,24 +1347,24 @@ namespace Tizen.FH.NUI.Controls
             int width = 0;
             if (rightItemRootSize != null)
             {
-                width = rightItemRootSize.Width;
+                width = (int)rightItemRootSize.Width;
             }
             else
             {
-                if (listItemAttrs != null && listItemAttrs.RightItemRootViewAttributes != null && listItemAttrs.RightItemRootViewAttributes.Size2D != null)
+                if (listItemAttrs != null && listItemAttrs.RightItemRootViewAttributes != null && listItemAttrs.RightItemRootViewAttributes.Size != null)
                 {
-                    width = listItemAttrs.RightItemRootViewAttributes.Size2D.Width;
+                    width = (int)listItemAttrs.RightItemRootViewAttributes.Size.Width;
                 }
             }
             return width;
         }
 
-        private Size2D DividerSize()
+        private Size DividerSize()
         {
-            Size2D size = new Size2D(0, 0);
-            if (listItemAttrs != null && listItemAttrs.DividerViewAttributes != null && listItemAttrs.DividerViewAttributes.Size2D != null)
+            Size size = new Size(0, 0);
+            if (listItemAttrs != null && listItemAttrs.DividerViewAttributes != null && listItemAttrs.DividerViewAttributes.Size != null)
             {
-                size = listItemAttrs.DividerViewAttributes.Size2D;
+                size = listItemAttrs.DividerViewAttributes.Size;
             }
             return size;
         }
@@ -1510,6 +1580,32 @@ namespace Tizen.FH.NUI.Controls
                         }
                     }
                 }
+            }
+        }
+
+        private void CreateMainTextAttributesIfNecessary()
+        {
+            if (styleType == StyleTypes.GroupIndex && groupIndexType == GroupIndexTypes.None)
+            {
+                if (null == listItemAttrs.MainTextAttributes)
+                {
+                    listItemAttrs.MainTextAttributes = new TextAttributes();
+                }
+            }
+            else
+            {
+                if (null == listItemAttrs.MainText2Attributes)
+                {
+                    listItemAttrs.MainText2Attributes = new TextAttributes();
+                }
+            }
+        }
+
+        private void CreateSubTextAttributesIfNecessary()
+        {
+            if (null == listItemAttrs.SubTextAttributes)
+            {
+                listItemAttrs.SubTextAttributes = new TextAttributes();
             }
         }
     }

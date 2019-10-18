@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
     public class NaviFrame : IExample
     {
         private SampleLayout root;
-        private Tizen.NUI.CommonUI.Button NextButton;
-        private Tizen.NUI.CommonUI.Button BackButton;
+        private Tizen.NUI.Components.Button NextButton;
+        private Tizen.NUI.Components.Button BackButton;
         private Controls.NaviFrame navi;
         private Controls.Header h;
         private TextLabel c;
         private int i;
+
         public void Activate()
         {
             Window.Instance.BackgroundColor = Color.White;
@@ -24,9 +25,10 @@ namespace Tizen.FH.NUI.Samples
             root.HeaderText = "NaviFrame";
 
             navi = new Controls.NaviFrame("DefaultNaviFrame");
+			navi.SetNotifier(new NaviItemLifecycle());
             root.Add(navi);
 
-            BackButton = new Tizen.NUI.CommonUI.Button()
+            BackButton = new Tizen.NUI.Components.Button()
             {
                 Size2D = new Size2D(90, 60),
                 BackgroundColor = Color.Cyan,
@@ -40,7 +42,7 @@ namespace Tizen.FH.NUI.Samples
 
             root.Add(BackButton);
             BackButton.RaiseToTop();
-            NextButton = new Tizen.NUI.CommonUI.Button()
+            NextButton = new Tizen.NUI.Components.Button()
             {
                 Text = "Pop",
                 Size2D = new Size2D(90, 60),
@@ -57,11 +59,11 @@ namespace Tizen.FH.NUI.Samples
 
             ClickPush(null, null);
         }
+
         public void Deactivate()
         {
             if (root != null)
             {
-
                 if (navi != null)
                 {
                     root.Remove(navi);
@@ -81,13 +83,37 @@ namespace Tizen.FH.NUI.Samples
                 root.Dispose();
             }
         }
+
+        private class NaviItemLifecycle : Controls.NaviFrame.Notifier
+        {
+            public override void OnNaviItemCreated(Controls.NaviFrame.NaviItem item)
+            {
+                // nothing
+            }
+
+            public override void OnNaviItemDestroyed(Controls.NaviFrame.NaviItem item)
+            {
+                if (item.Header != null)
+                {
+                    item.Header.Dispose();
+                }
+
+                if (item.Content != null)
+                {
+                    item.Content.Dispose();
+                }
+            }
+        }
+
         private Tizen.FH.NUI.Controls.Header MakeHeader(string txt)
         {
             Controls.Header head = new Controls.Header("DefaultHeader");
             head.BackgroundColor = new Color(255, 255, 255, 0.7f);
             head.HeaderText = "Title " + txt;
+
             return head;
         }
+
         private TextLabel MakeLabel(string txt)
         {
             TextLabel content = new TextLabel()
@@ -102,7 +128,7 @@ namespace Tizen.FH.NUI.Samples
             return content;
         }
 
-        private void ClickPush(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void ClickPush(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             string head = "header" + i;
             string lable = "lable" + i;
@@ -113,9 +139,9 @@ namespace Tizen.FH.NUI.Samples
             {
                 navi.NaviFrameItemPush(h, c);
             }
-
         }
-        private void ClickPop(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+
+        private void ClickPop(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
             if (navi != null)
             {

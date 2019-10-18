@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -9,9 +9,9 @@ namespace Tizen.FH.NUI.Samples
         private SampleLayout root;
         private static readonly Size2D Padding = new Size2D(50, 50);
 
-        private Tizen.NUI.CommonUI.Popup popup = null;
+        private Tizen.NUI.Components.Popup popup = null;
         private TextLabel contentText = null;
-        private Tizen.NUI.CommonUI.Button[] button = new Tizen.NUI.CommonUI.Button[3];
+        private Tizen.NUI.Components.Button[] button = new Tizen.NUI.Components.Button[3];
         private int num = 3;
 
         private static string[] mode = new string[]
@@ -31,7 +31,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < num; i++)
             {
-                button[i] = new Tizen.NUI.CommonUI.Button("ServiceButton");
+                button[i] = new Tizen.NUI.Components.Button("ServiceButton");
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(160 + i * 260, 700);
                 button[i].Text = mode[i];
@@ -45,14 +45,14 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Popup Title";
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Yes");
             popup.SetButtonText(1, "Exit");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
 
             contentText = new TextLabel();
             contentText.Size2D = new Size2D(800, 200);
@@ -69,13 +69,13 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 500);
             popup.Position2D = new Position2D(24, 50);
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Yes");
             popup.SetButtonText(1, "Exit");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
 
             contentText = new TextLabel();
             contentText.WidthResizePolicy = ResizePolicyType.FillToParent;
@@ -93,7 +93,7 @@ namespace Tizen.FH.NUI.Samples
         {
             DestoryPopup();
 
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 200);
             popup.Position2D = new Position2D(24, 50);
 
@@ -109,14 +109,14 @@ namespace Tizen.FH.NUI.Samples
             root.Add(popup);
         }
 
-        private void PopupButtonClickedEvent(object sender, Tizen.NUI.CommonUI.Popup.ButtonClickEventArgs e)
+        private void PopupButtonClickedEvent(object sender, Tizen.NUI.Components.Popup.ButtonClickEventArgs e)
         {
             contentText.Text = "Button index " + e.ButtonIndex + " is clicked";
         }
 
-        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
-            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
+            Tizen.NUI.Components.Button btn = sender as Tizen.NUI.Components.Button;
             if (button[0] == btn)
             {
                 CreatePopupWithoutTitle();

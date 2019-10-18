@@ -1,11 +1,11 @@
-﻿using Tizen.NUI.CommonUI;
+﻿using Tizen.NUI.Components;
 using Tizen.NUI;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class DAScrollBarStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             ScrollBarAttributes attributes = new ScrollBarAttributes
             {

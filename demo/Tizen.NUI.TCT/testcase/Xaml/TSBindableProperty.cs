@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using System;
+using Tizen.NUI.Binding;
 using Tizen.NUI.Test;
 
 namespace Tizen.NUI.Tests
@@ -31,6 +33,10 @@ namespace Tizen.NUI.Tests
         public void DeclaringType_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.Default, null, null,
+                null, null, null);
+            Assert.IsInstanceOf<Type>(bindableProperty.DeclaringType, "Should be instance of Type.");
+            Assert.AreEqual(bindableProperty.DeclaringType, typeof(string), "Not returning expected type.");
         }
 
         [Test]
@@ -43,6 +49,10 @@ namespace Tizen.NUI.Tests
         public void DefaultBindingMode_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                null, null, null);
+            Assert.IsInstanceOf<BindingMode>(bindableProperty.DefaultBindingMode, "Should be instance of BindingMode.");
+            Assert.AreEqual(bindableProperty.DefaultBindingMode, BindingMode.TwoWay, "Not returning expected Value.");
         }
 
         [Test]
@@ -55,6 +65,10 @@ namespace Tizen.NUI.Tests
         public void DefaultValue_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                null, null, null);
+            Assert.IsInstanceOf<Object>(bindableProperty.DefaultValue, "Should be instance of Object.");
+            Assert.AreEqual(bindableProperty.DefaultValue, "TizenNew", "Not returning expected Value.");
         }
 
         [Test]
@@ -67,6 +81,10 @@ namespace Tizen.NUI.Tests
         public void IsReadOnly_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                null, null, null);
+            Assert.IsInstanceOf<Boolean>(bindableProperty.IsReadOnly, "Should be instance of Boolean.");
+            Assert.IsFalse(bindableProperty.IsReadOnly, "BindableProperty should not be readonly.");
         }
 
         [Test]
@@ -79,6 +97,10 @@ namespace Tizen.NUI.Tests
         public void PropertyName_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                 null, null, null);
+            Assert.IsInstanceOf<String>(bindableProperty.PropertyName, "Should be instance of String.");
+            Assert.AreEqual(bindableProperty.PropertyName, "Tizen", "Not returning proper value.");
         }
 
         [Test]
@@ -91,6 +113,10 @@ namespace Tizen.NUI.Tests
         public void ReturnType_READ_ONLY()
         {
             /* TEST CODE */
+            BindableProperty bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                 null, null, null);
+            Assert.IsInstanceOf<Type>(bindableProperty.ReturnType, "Should be instance of Type.");
+            Assert.AreEqual(bindableProperty.ReturnType, typeof(string), "Not returning proper Value.");
         }
 
 
@@ -104,6 +130,10 @@ namespace Tizen.NUI.Tests
         public void Create_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            var bindableProperty = BindableProperty.Create("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay, null, null,
+                 null, null, null);
+            Assert.IsNotNull(bindableProperty, "Instance is null");
+            Assert.IsInstanceOf<BindableProperty>(bindableProperty, "Should be instance of BindableProperty.");
         }
 
         [Test]
@@ -116,6 +146,9 @@ namespace Tizen.NUI.Tests
         public void CreateAttached_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            var bindableProperty = BindableProperty.CreateAttached("Tizen", typeof(string), typeof(string), "TizenNew");
+            Assert.IsNotNull(bindableProperty, "BindableProperty instance is null");
+            Assert.IsInstanceOf<BindableProperty>(bindableProperty, "Should be instance of BindableProperty.");
         }
 
         [Test]
@@ -128,6 +161,9 @@ namespace Tizen.NUI.Tests
         public void CreateAttachedReadOnly_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            var bindablePropertyKey = BindableProperty.CreateAttachedReadOnly("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay);
+            Assert.IsNotNull(bindablePropertyKey, "BindableProperty instance is null");
+            Assert.IsInstanceOf<BindablePropertyKey>(bindablePropertyKey, "Should be instance of BindableProperty.");
         }
 
         [Test]
@@ -140,8 +176,9 @@ namespace Tizen.NUI.Tests
         public void CreateReadOnly_CHECK_RETURN_VALUE()
         {
             /* TEST CODE */
+            var bindableProperty = BindableProperty.CreateReadOnly("Tizen", typeof(string), typeof(string), "TizenNew", BindingMode.TwoWay);
+            Assert.IsNotNull(bindableProperty, "BindableProperty instance is null");
+            Assert.IsInstanceOf<BindablePropertyKey>(bindableProperty, "Should be instance of BindableProperty.");
         }
-
-
     }
 }

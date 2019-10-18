@@ -1,16 +1,16 @@
 ﻿using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
     public class TimePicker : IExample
     {
         private SampleLayout root;
-        private Tizen.NUI.CommonUI.Popup popup = null;
+        private Tizen.NUI.Components.Popup popup = null;
         private Controls.TimePicker timePicker = null;
-        private Tizen.NUI.CommonUI.Button[] button = new Tizen.NUI.CommonUI.Button[3];
+        private Tizen.NUI.Components.Button[] button = new Tizen.NUI.Components.Button[3];
         private int num = 3;
 
         private static string[] mode = new string[]
@@ -29,7 +29,7 @@ namespace Tizen.FH.NUI.Samples
 
             for (int i = 0; i < num; i++)
             {
-                button[i] = new Tizen.NUI.CommonUI.Button("ServiceButton");
+                button[i] = new Tizen.NUI.Components.Button("ServiceButton");
                 button[i].Size2D = new Size2D(240, 80);
                 button[i].Position2D = new Position2D(160 + i * 260, 1350);
                 button[i].Text = mode[i];
@@ -42,14 +42,14 @@ namespace Tizen.FH.NUI.Samples
         private void CreateBaseTimePicker()
         {
             DestoryTimePicker();
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 776);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Timer 01";
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Cancel");
             popup.SetButtonText(1, "OK");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
             root.Add(popup);
 
             timePicker = new Controls.TimePicker("DATimePicker");
@@ -61,14 +61,14 @@ namespace Tizen.FH.NUI.Samples
         private void CreateAMPMTimePicker()
         {
             DestoryTimePicker();
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 776);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Timer 02";
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Cancel");
             popup.SetButtonText(1, "OK");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
             root.Add(popup);
 
             timePicker = new Controls.TimePicker("DATimePickerAMPM");
@@ -80,14 +80,14 @@ namespace Tizen.FH.NUI.Samples
         private void CreateRepeatTimePicker()
         {
             DestoryTimePicker();
-            popup = new Tizen.NUI.CommonUI.Popup("Popup");
+            popup = new Tizen.NUI.Components.Popup("Popup");
             popup.Size2D = new Size2D(1032, 1064);
             popup.Position2D = new Position2D(24, 50);
             popup.TitleText = "Timer 02";
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Cancel");
             popup.SetButtonText(1, "OK");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
             root.Add(popup);
 
             timePicker = new Controls.TimePicker("DATimePickerRepeat");
@@ -97,14 +97,14 @@ namespace Tizen.FH.NUI.Samples
         }
 
 
-        private void PopupButtonClickedEvent(object sender, Tizen.NUI.CommonUI.Popup.ButtonClickEventArgs e)
+        private void PopupButtonClickedEvent(object sender, Tizen.NUI.Components.Popup.ButtonClickEventArgs e)
         {
 
         }
 
-        private void ButtonClickEvent(object sender, Tizen.NUI.CommonUI.Button.ClickEventArgs e)
+        private void ButtonClickEvent(object sender, Tizen.NUI.Components.Button.ClickEventArgs e)
         {
-            Tizen.NUI.CommonUI.Button btn = sender as Tizen.NUI.CommonUI.Button;
+            Tizen.NUI.Components.Button btn = sender as Tizen.NUI.Components.Button;
             if (button[0] == btn)
             {
                 CreateBaseTimePicker();

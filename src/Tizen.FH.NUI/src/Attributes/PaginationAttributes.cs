@@ -15,7 +15,7 @@
  *
  */
 using System.ComponentModel;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
@@ -25,7 +25,7 @@ namespace Tizen.FH.NUI.Controls
     /// <since_tizen> 5.5 </since_tizen>
     /// This will be public opened in tizen_5.5 after ACR done. Before ACR, need to be hidden as inhouse API.
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class PaginationAttributes : Tizen.NUI.CommonUI.PaginationAttributes
+    public class PaginationAttributes : Tizen.NUI.Components.PaginationAttributes
     {
         /// <summary>
         /// Creates a new instance of a PaginationAttributes.

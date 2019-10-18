@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodDefaultSliderStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -41,7 +41,7 @@ namespace Tizen.FH.NUI.Controls
 
                 ThumbBackgroundAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = "",

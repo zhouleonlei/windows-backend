@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -14,7 +14,7 @@ namespace Tizen.FH.NUI.Samples
         private uint colNum;
         private uint rowNum;
 
-        private Tizen.NUI.CommonUI.RadioButtonGroup[] group;
+        private Tizen.NUI.Components.RadioButtonGroup[] group;
 
         private static string[] styles = new string[]
         {
@@ -81,7 +81,7 @@ namespace Tizen.FH.NUI.Samples
                 group[j - 1] = new RadioButtonGroup();
                 for (uint i = 1; i < rowNum; i++)
                 {
-                    Tizen.NUI.CommonUI.RadioButton radioButton = new Tizen.NUI.CommonUI.RadioButton("RadioButton");
+                    Tizen.NUI.Components.RadioButton radioButton = new Tizen.NUI.Components.RadioButton("RadioButton");
                     radioButton.Size2D = new Size2D(48, 48);
                     if (i == 3)
                     {
@@ -117,12 +117,12 @@ namespace Tizen.FH.NUI.Samples
 
         private void RadioButtonSelectedEvent(object sender, SelectButton.SelectEventArgs e)
         {
-            Tizen.NUI.CommonUI.RadioButton obj = sender as Tizen.NUI.CommonUI.RadioButton;
+            Tizen.NUI.Components.RadioButton obj = sender as Tizen.NUI.Components.RadioButton;
             for (uint i = 0; i < rowNum; i++)
             {
                 for (uint j = 0; j < colNum; j++)
                 {
-                    Tizen.NUI.CommonUI.RadioButton child = table.GetChildAt(new TableView.CellPosition(i, j)) as Tizen.NUI.CommonUI.RadioButton;
+                    Tizen.NUI.Components.RadioButton child = table.GetChildAt(new TableView.CellPosition(i, j)) as Tizen.NUI.Components.RadioButton;
                     if (child != null)
                     {
                         //child.Text = child.IsSelected.ToString();

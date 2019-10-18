@@ -1,4 +1,4 @@
-using Tizen.NUI.Xaml.Forms.BaseComponents;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
@@ -16,7 +16,7 @@ namespace Tizen.NUI.Examples
 
             rootView = new TriggerWithDataBindingDemoPage();
 
-            window.Add(rootView.ViewInstance);
+            window.Add(rootView);
         }
     }
 }

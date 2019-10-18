@@ -1,7 +1,7 @@
 ﻿using Tizen.FH.NUI.Controls;
 using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -101,7 +101,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 3; i++)
             {
                 Controls.Navigation.NavigationItemData conditionItem = new Controls.Navigation.NavigationItemData("WhiteConditionItem");
-                conditionItem.Size2D = new Size2D(116, 128);
+                conditionItem.Size = new Size(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
                 conditionItem.IconURLSelector = new StringSelector
@@ -126,7 +126,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 3; i++)
             {
                 Controls.Navigation.NavigationItemData conditionItem = new Controls.Navigation.NavigationItemData("BlackConditionItem");
-                conditionItem.Size2D = new Size2D(116, 128);
+                conditionItem.Size = new Size(116, 128);
                 conditionItem.Text = "Text " + i;
                 conditionItem.SubText = "SubText " + i;
                 conditionItem.IconURLSelector = new StringSelector
@@ -144,13 +144,13 @@ namespace Tizen.FH.NUI.Samples
             //////////White Edit Mode///////////////
             #region WhiteEditModeNavigation
             whiteEditNavigation = new Controls.Navigation("WhiteEditMode");
-            whiteEditNavigation.Size2D = new Size2D(178, 800);
+            whiteEditNavigation.Size = new Size(178, 800);
             whiteEditNavigation.Position2D = new Position2D(500, 150);
             whiteEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(whiteEditNavigation);
 
             Controls.Navigation.NavigationItemData firstEditItem = new Controls.Navigation.NavigationItemData("WhiteEditModeFirstItem");
-            firstEditItem.Size2D = new Size2D(178, 184);
+            firstEditItem.Size = new Size(178, 184);
             firstEditItem.Text = "1";
             firstEditItem.SubText = "SELECTED";
             whiteEditNavigation.AddItem(firstEditItem);
@@ -158,7 +158,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 2; i++)
             {
                 Controls.Navigation.NavigationItemData editItem = new Controls.Navigation.NavigationItemData("WhiteEditModeItem");
-                editItem.Size2D = new Size2D(178, 108);
+                editItem.Size = new Size(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
                 {
@@ -171,7 +171,7 @@ namespace Tizen.FH.NUI.Samples
                 whiteEditNavigation.AddItem(editItem);
             }
             Controls.Navigation.NavigationItemData editLastItem = new Controls.Navigation.NavigationItemData("WhiteEditModeLastItem");
-            editLastItem.Size2D = new Size2D(178, 166);
+            editLastItem.Size = new Size(178, 166);
             editLastItem.Text = "Cancel";
             editLastItem.IconURLSelector = new StringSelector
             {
@@ -187,13 +187,13 @@ namespace Tizen.FH.NUI.Samples
             //////////Black Edit Mode///////////////
             #region BlackEditModeNavigation
             blackEditNavigation = new Controls.Navigation("BlackEditMode");
-            blackEditNavigation.Size2D = new Size2D(178, 800);
+            blackEditNavigation.Size = new Size(178, 800);
             blackEditNavigation.Position2D = new Position2D(700, 150);
             blackEditNavigation.ItemChangedEvent += NavigationItemChangedEvent;
             root.Add(blackEditNavigation);
 
             Controls.Navigation.NavigationItemData firstEditItem2 = new Controls.Navigation.NavigationItemData("BlackEditModeFirstItem");
-            firstEditItem2.Size2D = new Size2D(178, 184);
+            firstEditItem2.Size = new Size(178, 184);
             firstEditItem2.Text = "1";
             firstEditItem2.SubText = "SELECTED";
             blackEditNavigation.AddItem(firstEditItem2);
@@ -201,7 +201,7 @@ namespace Tizen.FH.NUI.Samples
             for (int i = 0; i < 2; i++)
             {
                 Controls.Navigation.NavigationItemData editItem = new Controls.Navigation.NavigationItemData("BlackEditModeItem");
-                editItem.Size2D = new Size2D(178, 108);
+                editItem.Size = new Size(178, 108);
                 editItem.Text = "Text " + i;
                 editItem.IconURLSelector = new StringSelector
                 {
@@ -214,7 +214,7 @@ namespace Tizen.FH.NUI.Samples
                 blackEditNavigation.AddItem(editItem);
             }
             Controls.Navigation.NavigationItemData editLastItem2 = new Controls.Navigation.NavigationItemData("BlackEditModeLastItem");
-            editLastItem2.Size2D = new Size2D(178, 166);
+            editLastItem2.Size = new Size(178, 166);
             editLastItem2.Text = "Cancel";
             editLastItem2.IconURLSelector = new StringSelector
             {

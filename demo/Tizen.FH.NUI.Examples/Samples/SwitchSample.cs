@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Samples
 {
@@ -77,7 +77,7 @@ namespace Tizen.FH.NUI.Samples
             {
                 for (uint i = 1; i < rowNum; i++)
                 {
-                    Tizen.NUI.CommonUI.Switch switchControl = new Tizen.NUI.CommonUI.Switch("Switch");
+                    Tizen.NUI.Components.Switch switchControl = new Tizen.NUI.Components.Switch("Switch");
                     switchControl.Size2D = new Size2D(96, 60);
                     if (i == 3)
                     {

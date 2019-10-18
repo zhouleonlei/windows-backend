@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class DefaultListItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -32,7 +32,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 DividerViewAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(0, 1),
+                    Size = new Size(0, 1),
                     BackgroundColor = new ColorSelector
                     {
                         All = new Color(0, 0, 0, 0.1f),

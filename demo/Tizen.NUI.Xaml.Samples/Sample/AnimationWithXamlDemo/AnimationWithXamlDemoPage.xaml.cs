@@ -15,8 +15,8 @@
  *
  */
 using System;
-using Tizen.NUI.XamlBinding;
-using Tizen.NUI.Xaml.Forms.BaseComponents;
+using Tizen.NUI.Binding;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
@@ -28,7 +28,7 @@ namespace Tizen.NUI.Examples
 
             Transition newAnimation = GetTransition("Type1");
             Transition orientationAnimation = GetTransition("Orientation");
-            FocusManager.Instance.SetCurrentFocusView(Click.ViewInstance);
+            FocusManager.Instance.SetCurrentFocusView(Click);
 
             Click.Clicked += (obj, e) =>
             {

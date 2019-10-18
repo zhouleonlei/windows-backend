@@ -1,18 +1,18 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class ListIndexSwitchStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             SwitchAttributes attributes = new SwitchAttributes
             {
                 IsSelectable = true,
                 SwitchBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(72, 48),
+                    Size = new Size(72, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "6. List/list_index_swich_bg_off.png",
@@ -23,7 +23,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.Instance.GetFHResourcePath() + "6. List/list_index_controller_swich.png",

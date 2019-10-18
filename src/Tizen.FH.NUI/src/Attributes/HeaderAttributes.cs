@@ -15,7 +15,7 @@
  *
  */
 using System.ComponentModel;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {

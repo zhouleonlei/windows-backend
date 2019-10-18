@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-using Tizen.NUI.Xaml.Forms.BaseComponents;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {

@@ -1,10 +1,10 @@
-﻿using Tizen.NUI.CommonUI;
+﻿using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class BackNavigationStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationAttributes attributes = new NavigationAttributes
             {

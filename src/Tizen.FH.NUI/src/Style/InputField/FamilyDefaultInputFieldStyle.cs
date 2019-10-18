@@ -1,11 +1,11 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class FamilyDefaultInputFieldStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {
@@ -57,7 +57,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 CancelButtonAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(56, 56),
+                    Size = new Size(56, 56),
                     ResourceURL = new StringSelector
                     {
                         All = CommonResource.Instance.GetFHResourcePath() + "7. Input Field/[Input Field] App Primary Color/field_ic_cancel_24c447.png",

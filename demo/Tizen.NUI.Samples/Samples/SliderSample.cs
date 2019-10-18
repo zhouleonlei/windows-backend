@@ -1,5 +1,5 @@
 ﻿using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.NUI.Samples
 {
@@ -247,9 +247,9 @@ namespace Tizen.NUI.Samples
 
         private void OnStateChanged(object sender, Slider.StateChangedArgs args)
         {
-            if (sender is Tizen.NUI.CommonUI.Slider)
+            if (sender is Tizen.NUI.Components.Slider)
             {
-                Tizen.NUI.CommonUI.Slider slider = sender as Tizen.NUI.CommonUI.Slider;
+                Tizen.NUI.Components.Slider slider = sender as Tizen.NUI.Components.Slider;
                 if (slider != null)
                 {
                     // Do something

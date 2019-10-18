@@ -1,10 +1,10 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 namespace Tizen.FH.NUI.Controls
 {
     internal class FoodToggleButtonStyle : TextButtonStyle
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             if (Content != null)
             {

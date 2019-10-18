@@ -1,6 +1,6 @@
 ﻿using Tizen.NUI;
 using Tizen.NUI.BaseComponents;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 using Tizen.FH.NUI.Controls;
 
 namespace Tizen.FH.NUI.Samples
@@ -8,8 +8,8 @@ namespace Tizen.FH.NUI.Samples
     public class Toast : IExample
     {
         private TextLabel board1, board2, board;
-        private Tizen.NUI.CommonUI.Button button1, button2, button3, button4;
-        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,/*;private Tizen.NUI.CommonUI.Toast */toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
+        private Tizen.NUI.Components.Button button1, button2, button3, button4;
+        private FH.NUI.Controls.Toast toast1_1, toast1_2, toast2_1, toast2_2,toast2_3;  //1-no loading 2-have loading; X_1-long; X_2 short
         private SampleLayout root;
 
         public void Activate()
@@ -39,8 +39,8 @@ namespace Tizen.FH.NUI.Samples
             toast2_3.BackgroundImageBorder = new Rectangle(64, 64, 4, 4);
             toast2_3.Position2D = new Position2D(30, 350);
             toast2_3.Size2D = new Size2D(1000, 272);
-            toast2_3.TextPaddingLeft = 96;
-            toast2_3.TextPaddingTop = 48;
+            toast2_3.TextPadding.Start = 96;
+            toast2_3.TextPadding.Top = 48;
             toast2_3.TextArray = new string[3] {
                 "I have a very long long text, I have a very long long text, I have a very long long text",
                 "This is my 2 line, I have a very long long text, I have a very long long text",
@@ -67,7 +67,7 @@ namespace Tizen.FH.NUI.Samples
             board.FocusGained += Board_FocusGained;
             board.FocusLost += Board_FocusLost;
 
-            button1 = new Tizen.NUI.CommonUI.Button();
+            button1 = new Tizen.NUI.Components.Button();
             button1.PointSize = 14;
             button1.BackgroundColor = Color.Green;
             button1.Position2D = new Position2D(30, 125);
@@ -77,7 +77,7 @@ namespace Tizen.FH.NUI.Samples
             button1.Focusable = true;
             button1.ClickEvent += toast1_1Show;
 
-            button2 = new Tizen.NUI.CommonUI.Button();
+            button2 = new Tizen.NUI.Components.Button();
             button2.PointSize = 14;
             button2.BackgroundColor = Color.Green;
             button2.Position2D = new Position2D(270, 125);
@@ -87,7 +87,7 @@ namespace Tizen.FH.NUI.Samples
             button2.Focusable = true;
             button2.ClickEvent += toast2_1Show;
 
-            button3 = new Tizen.NUI.CommonUI.Button();
+            button3 = new Tizen.NUI.Components.Button();
             button3.PointSize = 14;
             button3.BackgroundColor = Color.Green;
             button3.Position2D = new Position2D(510, 125);
@@ -97,7 +97,7 @@ namespace Tizen.FH.NUI.Samples
             button3.Focusable = true;
             button3.ClickEvent += toast2_1ChangeDirection;
 
-            button4 = new Tizen.NUI.CommonUI.Button();
+            button4 = new Tizen.NUI.Components.Button();
             button4.PointSize = 14;
             button4.BackgroundColor = Color.Green;
             button4.Position2D = new Position2D(800, 125);

@@ -1,5 +1,5 @@
-using Tizen.NUI.Xaml;
-using Tizen.NUI.Xaml.Forms.BaseComponents;
+using Tizen.NUI;
+using Tizen.NUI.BaseComponents;
 
 namespace Tizen.NUI.Examples
 {
@@ -12,7 +12,7 @@ namespace Tizen.NUI.Examples
         {
             window = Window.Instance;
             rootView = new TestStaticDynamicResourcePage();
-            window.Add(rootView.ViewInstance);
+            window.Add(rootView);
         }
     }
 }

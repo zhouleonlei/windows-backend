@@ -17,8 +17,8 @@
 using System;
 using Tizen.NUI.BaseComponents;
 using System.Globalization;
-using StyleManager = Tizen.NUI.CommonUI.StyleManager;
-using Tizen.NUI.CommonUI;
+using StyleManager = Tizen.NUI.Components.StyleManager;
+using Tizen.NUI.Components;
 using Tizen.NUI;
 using System.ComponentModel;
 
@@ -345,9 +345,9 @@ namespace Tizen.FH.NUI.Controls
             }
                         
             int tableX = 0;
-            int tableY = sunText.Size2D.Height;
-            int tableW = dateTable[0, 0].Size2D.Width;
-            int tableH = dateTable[0, 0].Size2D.Height;
+            int tableY = (int)sunText.Size.Height;
+            int tableW = (int)dateTable[0, 0].Size.Width;
+            int tableH = (int)dateTable[0, 0].Size.Height;
             
             for (int i = 0; i < 6; i++)
             { 
@@ -355,15 +355,15 @@ namespace Tizen.FH.NUI.Controls
                 
                 for (int j = 0; j < 7; j++)
                 {
-                    dateTable[i, j].Position2D = new Position2D(tableX, tableY );
+                    dateTable[i, j].Position = new Position(tableX, tableY );
                     
                     if (j % 2 == 0)
                     {
-                        tableW = dateTable[0, 0].Size2D.Width; 
+                        tableW = (int)dateTable[0, 0].Size.Width; 
                     }
                     else
                     {
-                        tableW = dateTable[0, 1].Size2D.Width; 
+                        tableW = (int)dateTable[0, 1].Size.Width; 
                     }
                     
                     tableX += tableW;
@@ -636,12 +636,12 @@ namespace Tizen.FH.NUI.Controls
         private bool OnDateTouchEvent(object source, View.TouchEventArgs e)
         {
             TextLabel textLabel = source as TextLabel;           
-            int line = (textLabel.Position2D.Y - dateTable[0, 0].Position2D.Y) / dateTable[0, 0].Size2D.Height;
+            int line = (int)((textLabel.Position.Y - dateTable[0, 0].Position.Y) / dateTable[0, 0].Size.Height);
             int i = 0;
             
             for (i = 0; i < 7; i++)
             {
-                if (dateTable[line, i].Position2D.X == textLabel.Position2D.X)
+                if (dateTable[line, i].Position.X == textLabel.Position.X)
                 {
                      break;
                 }
@@ -656,7 +656,7 @@ namespace Tizen.FH.NUI.Controls
 
             if (preTouch != null)
             {
-                int X = preTouch.Position2D.X;
+                int X = (int)preTouch.Position.X;
                 
                 if (X == 0)
                 {
@@ -668,10 +668,10 @@ namespace Tizen.FH.NUI.Controls
                 }
             }
             
-            int focusX = textLabel.Position2D.X + (textLabel.Size2D.Width - focusImage.Size2D.Width) / 2;
-            int focusY = textLabel.Position2D.Y + (textLabel.Size2D.Height - focusImage.Size2D.Height) / 2;
+            int focusX = (int)(textLabel.Position.X + (textLabel.Size.Width - focusImage.Size.Width) / 2);
+            int focusY = (int)(textLabel.Position.Y + (textLabel.Size.Height - focusImage.Size.Height) / 2);
             
-            focusImage.Position2D = new Position2D(focusX, focusY);
+            focusImage.Position = new Position(focusX, focusY);
             focusImage.Show();            
             textLabel.TextColor = Color.White;
             preTouch = textLabel;
@@ -685,7 +685,7 @@ namespace Tizen.FH.NUI.Controls
             int days = DateTime.DaysInMonth(showDate.Year, showDate.Month); 
             int lines = ((days + weekStart) % 7 == 0) ? (days + weekStart) / 7 : ((days + weekStart) / 7 + 1);
             
-            dateView.Size2D = new Size2D(dateView.Size2D.Width, dateTable[0, 0].Size2D.Height*(lines + 1));
+            dateView.Size = new Size(dateView.Size.Width, dateTable[0, 0].Size.Height*(lines + 1));
             data.curnum = days;
             data.prenum = weekStart;
             data.nextnum = 42 - weekStart - days;
@@ -744,15 +744,15 @@ namespace Tizen.FH.NUI.Controls
             
             dateTable[focusidx / 7, focusidx % 7].TextColor = Color.White;
 
-            int focusX = dateTable[focusidx / 7, focusidx % 7].Position2D.X + (dateTable[focusidx / 7, focusidx % 7].Size2D.Width - focusImage.Size2D.Width) / 2;
-            int focusY = dateTable[focusidx / 7, focusidx % 7].Position2D.Y + (dateTable[focusidx / 7, focusidx % 7].Size2D.Height - focusImage.Size2D.Height) / 2;
+            int focusX = (int)(dateTable[focusidx / 7, focusidx % 7].Position.X + (dateTable[focusidx / 7, focusidx % 7].Size.Width - focusImage.Size.Width) / 2);
+            int focusY = (int)(dateTable[focusidx / 7, focusidx % 7].Position.Y + (dateTable[focusidx / 7, focusidx % 7].Size.Height - focusImage.Size.Height) / 2);
             
-            focusImage.Position2D = new Position2D(focusX, focusY);
+            focusImage.Position = new Position(focusX, focusY);
             focusImage.Show();
 
             if (showDate.Month == curDate.Month && showDate.Year == curDate.Year)
             {
-                endSelectedImage.Position2D = new Position2D(focusX, focusY);
+                endSelectedImage.Position = new Position(focusX, focusY);
                 endSelectedImage.Show();
                 
                 if (showDate.Day == curDate.Day)

@@ -1,18 +1,18 @@
 ﻿using Tizen.NUI;
-using Tizen.NUI.CommonUI;
+using Tizen.NUI.Components;
 
 namespace Tizen.FH.NUI.Controls
 {
     internal class BlackEditModeLastNavigationItemStyle : StyleBase
     {
-        protected override Attributes GetAttributes()
+        protected internal override Attributes GetAttributes()
         {
             NavigationItemAttributes attributes = new NavigationItemAttributes
             {
                 Space = new Vector4(24, 24, 58, 0),
                 TextAttributes = new TextAttributes
                 {
-                    Size2D = new Size2D(130, 52),
+                    Size = new Size(130, 52),
                     TextColor = new ColorSelector { All = new Color(1, 1, 1, 0.85f) },
                     PointSize = new FloatSelector { All = 8 },
                     FontFamily = "SamsungOneUI 500C",
@@ -25,7 +25,7 @@ namespace Tizen.FH.NUI.Controls
                 },
                 IconAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(56, 56),
+                    Size = new Size(56, 56),
                     ResourceURL = new StringSelector
                     {
                         Pressed = CommonResource.Instance.GetFHResourcePath() + "2. Side Navigation/[Black ver.]/sidenavi_btn_cancel_b_press.png",
@@ -37,9 +37,9 @@ namespace Tizen.FH.NUI.Controls
                 },
                 DividerLineAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2D(178, 2),
+                    Size = new Size(178, 2),
                     BackgroundColor = new ColorSelector { All = new Color(1, 1, 1, 0.1f) },
-                    Position2D = new Position2D(0, 16),
+                    Position = new Position(0, 16),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
