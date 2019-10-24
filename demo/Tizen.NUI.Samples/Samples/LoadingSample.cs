@@ -123,14 +123,14 @@ namespace Tizen.NUI.Samples
 
         private void Loading1FPSAdd(object sender, global::System.EventArgs e)
         {
-            loading1_1.FPS += 1;
-            board.Text = "loading1_1 FPS: "+loading1_1.FPS.ToString();
+            loading1_1.FrameRate += 1;
+            board.Text = "loading1_1 FPS: "+loading1_1.FrameRate.ToString();
         }
 
         private void Loading1FPSMinus(object sender, global::System.EventArgs e)
         {
-            loading1_1.FPS -= 1;
-            board.Text = "loading1_1 FPS: " + loading1_1.FPS.ToString();
+            loading1_1.FrameRate -= 1;
+            board.Text = "loading1_1 FPS: " + loading1_1.FrameRate.ToString();
         }
 
         private void FocusLost(object sender, global::System.EventArgs e)

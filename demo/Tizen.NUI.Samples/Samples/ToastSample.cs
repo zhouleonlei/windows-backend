@@ -30,17 +30,14 @@ namespace Tizen.NUI.Samples
             toast1_1.PointSize = 26;
             toast1_1.TextColor = Color.White;
             toast1_1.BackgroundImageURL = CommonResource.GetFHResourcePath() + "12. Toast Popup/toast_background.png";
-            toast1_1.TextPaddingTop = 38;
-            toast1_1.TextPaddingBottom = 38;
-            toast1_1.TextPaddingLeft = 96;
-            toast1_1.TextPaddingRight = 96;
+            toast1_1.TextPadding = new Extents(38, 38, 96, 96);
             
             toast1_1.Duration = 1500;
             root.Add(toast1_1);
 
             ToastAttributes attr = new ToastAttributes
             {
-                Size2D = new Size2D(512, 132),
+                Size = new Size(512, 132),
                 TextAttributes = new TextAttributes
                 {
                     PaddingTop = 38,

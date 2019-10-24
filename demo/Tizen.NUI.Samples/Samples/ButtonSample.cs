@@ -57,15 +57,9 @@ namespace Tizen.NUI.Samples
             iconTextButton.BackgroundImageBorder = new Rectangle(4, 4, 5, 5);
             iconTextButton.IconRelativeOrientation = Button.IconOrientation.Left;
             iconTextButton.IconURL = CommonResource.GetTVResourcePath() + "component/c_radiobutton/c_radiobutton_white_check.png";
-            iconTextButton.IconPaddingTop = 20;
-            iconTextButton.IconPaddingBottom = 20;
-            iconTextButton.IconPaddingLeft = 20;
-            iconTextButton.IconPaddingRight = 20;
+            iconTextButton.IconPadding = new Extents(20, 20, 20, 20);
             iconTextButton.Text = "IconTextButton";
-            iconTextButton.TextPaddingTop = 20;
-            iconTextButton.TextPaddingBottom = 20;
-            iconTextButton.TextPaddingLeft = 20;
-            iconTextButton.TextPaddingRight = 50;
+            iconTextButton.TextPadding = new Extents(20, 20, 20, 20);
             iconTextButton.Size2D = new Size2D(500, 300);
             iconTextButton.Position2D = new Position2D(800, 100);
             root.Add(iconTextButton);
@@ -379,10 +373,10 @@ namespace Tizen.NUI.Samples
                         iconTextButton.IconRelativeOrientation = Button.IconOrientation.Left;
                         break;
                     case "5":
-                        iconTextButton.IconPaddingLeft = 50;
+                        iconTextButton.IconPadding = new Extents(50, iconTextButton.IconPadding.End, iconTextButton.IconPadding.Top, iconTextButton.IconPadding.Bottom);
                         break;
                     case "6":
-                        iconTextButton.IconPaddingRight = 50;
+                        iconTextButton.IconPadding = new Extents(iconTextButton.IconPadding.Start, 50, iconTextButton.IconPadding.Top, iconTextButton.IconPadding.Bottom);
                         break;
                     case "7":
                         iconTextButton.LayoutDirection = ViewLayoutDirectionType.RTL;

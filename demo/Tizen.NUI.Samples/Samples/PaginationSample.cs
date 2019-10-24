@@ -20,7 +20,7 @@ namespace Tizen.NUI.Samples
             pagination1.Position2D = new Position2D(500, 450);
             pagination1.Size2D = new Size2D(400, 30);
             pagination1.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.6f);
-            pagination1.IndicatorSize = new Size2D(26, 26);
+            pagination1.IndicatorSize = new Size(26, 26);
             pagination1.IndicatorBackgroundURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_nor.png";
             pagination1.IndicatorSelectURL = CommonResource.GetFHResourcePath() + "9. Controller/pagination_ic_sel.png";
             pagination1.IndicatorSpacing = 8;
@@ -30,7 +30,7 @@ namespace Tizen.NUI.Samples
 
             ///////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             PaginationAttributes attrs = new PaginationAttributes();
-            attrs.IndicatorSize = new Size2D(15, 15);
+            attrs.IndicatorSize = new Size(15, 15);
             attrs.IndicatorBackgroundURL = CommonResource.GetTVResourcePath() + "component/c_pagination/c_paganation_medium_dot_normal.png";
             attrs.IndicatorSelectURL = CommonResource.GetTVResourcePath() + "component/c_pagination/c_paganation_medium_dot_focus.png";
             attrs.IndicatorSpacing = 14;

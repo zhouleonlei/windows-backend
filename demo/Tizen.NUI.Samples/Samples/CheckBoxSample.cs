@@ -64,7 +64,7 @@ namespace Tizen.NUI.Samples
                 utilityCheckBox[i] = new CheckBox();
                 utilityCheckBox[i].Size2D = new Size2D(150, 48);
                 utilityCheckBox[i].Position2D = new Position2D(300, 300 + i * 100);
-                utilityCheckBox[i].CheckImageSize2D = new Size2D(48, 48);
+                utilityCheckBox[i].CheckImageSize = new Size(48, 48);
                 utilityCheckBox[i].CheckImagePaddingLeft = 0;
                 utilityCheckBox[i].CheckImagePaddingRight = 0;
                 utilityCheckBox[i].CheckImagePaddingTop = 0;
@@ -122,7 +122,7 @@ namespace Tizen.NUI.Samples
                 familyCheckBox[i] = new CheckBox();
                 familyCheckBox[i].Size2D = new Size2D(48, 48);
                 familyCheckBox[i].Position2D = new Position2D(500, 300 + i * 100);
-                familyCheckBox[i].CheckImageSize2D = new Size2D(48, 48);
+                familyCheckBox[i].CheckImageSize = new Size(48, 48);
                 familyCheckBox[i].CheckImagePaddingLeft = 0;
                 familyCheckBox[i].CheckImagePaddingRight = 0;
                 familyCheckBox[i].CheckImagePaddingTop = 0;
@@ -147,7 +147,7 @@ namespace Tizen.NUI.Samples
                 foodCheckBox[i] = new CheckBox();
                 foodCheckBox[i].Size2D = new Size2D(48, 48);
                 foodCheckBox[i].Position2D = new Position2D(700, 300 + i * 100);
-                foodCheckBox[i].CheckImageSize2D = new Size2D(48, 48);
+                foodCheckBox[i].CheckImageSize = new Size(48, 48);
                 foodCheckBox[i].CheckImagePaddingLeft = 0;
                 foodCheckBox[i].CheckImagePaddingRight = 0;
                 foodCheckBox[i].CheckImagePaddingTop = 0;
@@ -172,7 +172,7 @@ namespace Tizen.NUI.Samples
                 kitchenCheckBox[i] = new CheckBox();
                 kitchenCheckBox[i].Size2D = new Size2D(48, 48);
                 kitchenCheckBox[i].Position2D = new Position2D(900, 300 + i * 100);
-                kitchenCheckBox[i].CheckImageSize2D = new Size2D(48, 48);
+                kitchenCheckBox[i].CheckImageSize = new Size(48, 48);
                 kitchenCheckBox[i].CheckImagePaddingLeft = 0;
                 kitchenCheckBox[i].CheckImagePaddingRight = 0;
                 kitchenCheckBox[i].CheckImagePaddingTop = 0;
@@ -222,7 +222,7 @@ namespace Tizen.NUI.Samples
             {
                 CheckBackgroundImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_check_off.png",
@@ -240,7 +240,7 @@ namespace Tizen.NUI.Samples
                 },               
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = "",
@@ -258,7 +258,7 @@ namespace Tizen.NUI.Samples
                 },
                 CheckShadowImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
+                    Size = new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = "",
@@ -279,7 +279,7 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D =  new Size2D(48, 48),
+                    Size =  new Size(48, 48),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_check_off.png",
@@ -300,8 +300,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
-                    Position2D = new Position2D(0, 0),
+                    Size = new Size(48, 48),
+                    Position = new Position(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_check_off.png",
@@ -322,8 +322,8 @@ namespace Tizen.NUI.Samples
             {
                 CheckImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(48, 48),
-                    Position2D =  new Position2D(0, 0),
+                    Size = new Size(48, 48),
+                    Position =  new Position(0, 0),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_check_off.png",

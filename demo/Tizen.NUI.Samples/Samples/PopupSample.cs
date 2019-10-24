@@ -58,7 +58,7 @@ namespace Tizen.NUI.Samples
             popup.TitleTextColor = Color.Black;
             popup.TitleHeight = 68;
             popup.TitleTextHorizontalAlignment = HorizontalAlignment.Begin;
-            popup.TitleTextPosition2D = new Position2D(64, 52);
+            popup.TitleTextPosition = new Position(64, 52);
             popup.TitleText = "Popup Title";
 
             popup.ShadowImageURL = CommonResource.GetFHResourcePath() + "11. Popup/popup_background_shadow.png";
@@ -80,7 +80,7 @@ namespace Tizen.NUI.Samples
             popup.ButtonCount = 2;
             popup.SetButtonText(0, "Yes");
             popup.SetButtonText(1, "Exit");
-            popup.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup.PopupButtonClickEvent += PopupButtonClickedEvent;
             popup.LayoutDirectionChanged += PopupLayoutDirectionChanged;
 
             root.Add(popup);
@@ -108,13 +108,13 @@ namespace Tizen.NUI.Samples
                 {
                     PointSize = new FloatSelector { All = 25 },
                     TextColor = new ColorSelector { All = Color.Black },
-                    Size2D = new Size2D(0, 68),
+                    Size = new Size(0, 68),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.TopLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.TopLeft,
                     HorizontalAlignment = HorizontalAlignment.Begin,
                     VerticalAlignment = VerticalAlignment.Bottom,
-                    Position2D = new Position2D(64, 52),
+                    Position = new Position(64, 52),
                     Text = new StringSelector { All = "Popup Title" },
                 },
                 ShadowImageAttributes = new ImageAttributes
@@ -137,7 +137,7 @@ namespace Tizen.NUI.Samples
                 },
                 ButtonAttributes = new ButtonAttributes
                 {
-                    Size2D = new Size2D(0, 132),
+                    Size = new Size(0, 132),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
@@ -183,7 +183,7 @@ namespace Tizen.NUI.Samples
             popup2.ButtonCount = 2;
             popup2.SetButtonText(0, "Yes");
             popup2.SetButtonText(1, "Exit");
-            popup2.PopupButtonClickedEvent += PopupButtonClickedEvent;
+            popup2.PopupButtonClickEvent += PopupButtonClickedEvent;
             popup2.LayoutDirectionChanged += Popup2LayoutDirectionChanged;
             root.Add(popup2);
 

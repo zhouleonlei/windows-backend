@@ -38,11 +38,11 @@ namespace Tizen.NUI.Samples
 
             slider[2] = CreateByProperty(40, 400, 800, 50, 30, Slider.DirectionType.Horizontal);
             slider[2].LowIndicatorTextContent = "SubText";
-            slider[2].LowIndicatorSize = new Size2D(100, 40);
+            slider[2].LowIndicatorSize = new Size(100, 40);
 
             slider[3] = CreateByProperty(600, 450, 50, 400, 30, Slider.DirectionType.Vertical);
             slider[3].LowIndicatorTextContent = "SubText";
-            slider[3].LowIndicatorSize = new Size2D(100, 40);
+            slider[3].LowIndicatorSize = new Size(100, 40);
 
             /////////////////////////////////////////////Create by Attributes//////////////////////////////////////////////////////////
             createText[1] = new TextLabel();
@@ -82,7 +82,7 @@ namespace Tizen.NUI.Samples
 
                 ThumbBackgroundAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = "",
@@ -96,11 +96,11 @@ namespace Tizen.NUI.Samples
 
             slider2[2] = CreateByAttributes(attributes, 890, 400, 800, 50, 30, Slider.DirectionType.Horizontal);
             slider2[2].LowIndicatorTextContent = "SubText";
-            slider2[2].LowIndicatorSize = new Size2D(100, 40);
+            slider2[2].LowIndicatorSize = new Size(100, 40);
 
             slider2[3] = CreateByAttributes(attributes, 1450, 450, 50, 400, 30, Slider.DirectionType.Vertical);
             slider2[3].LowIndicatorTextContent = "SubText";
-            slider2[3].LowIndicatorSize = new Size2D(100, 40);
+            slider2[3].LowIndicatorSize = new Size(100, 40);
         }
 
         public void Deactivate()
@@ -174,7 +174,7 @@ namespace Tizen.NUI.Samples
                 Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_slide_handler_normal.png",
                 Pressed = CommonResource.GetFHResourcePath() + "9. Controller/controller_btn_slide_handler_press.png",
             };
-            source.ThumbSize = new Size2D(60, 60);
+            source.ThumbSize = new Size(60, 60);
             source.ThumbImageBackgroundURLSelector = new StringSelector
             {
                 Normal = "",

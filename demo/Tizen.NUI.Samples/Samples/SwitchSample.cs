@@ -61,7 +61,7 @@ namespace Tizen.NUI.Samples
                 utilitySwitch[i] = new Switch();
                 utilitySwitch[i].Size2D = new Size2D(96, 60);
                 utilitySwitch[i].Position2D = new Position2D(300, 300 + i * 100);
-                utilitySwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
+                utilitySwitch[i].SwitchHandlerImageSize = new Size(60, 60);
                 utilitySwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -81,7 +81,7 @@ namespace Tizen.NUI.Samples
                 familySwitch[i] = new Switch();
                 familySwitch[i].Size2D = new Size2D(96, 60);
                 familySwitch[i].Position2D = new Position2D(500, 300 + i * 100);
-                familySwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
+                familySwitch[i].SwitchHandlerImageSize = new Size(60, 60);
                 familySwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -100,7 +100,7 @@ namespace Tizen.NUI.Samples
                 foodSwitch[i] = new Switch();
                 foodSwitch[i].Size2D = new Size2D(96, 60);
                 foodSwitch[i].Position2D = new Position2D(700, 300 + i * 100);
-                foodSwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
+                foodSwitch[i].SwitchHandlerImageSize = new Size(60, 60);
                 foodSwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -120,7 +120,7 @@ namespace Tizen.NUI.Samples
                 kitchenSwitch[i] = new Switch();
                 kitchenSwitch[i].Size2D = new Size2D(96, 60);
                 kitchenSwitch[i].Position2D = new Position2D(900, 300 + i * 100);
-                kitchenSwitch[i].SwitchHandlerImageSize2D = new Size2D(60, 60);
+                kitchenSwitch[i].SwitchHandlerImageSize = new Size(60, 60);
                 kitchenSwitch[i].SwitchBackgroundImageURLSelector = new StringSelector
                 {
                     Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_bg_off.png",
@@ -173,7 +173,7 @@ namespace Tizen.NUI.Samples
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
@@ -198,7 +198,7 @@ namespace Tizen.NUI.Samples
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
@@ -223,7 +223,7 @@ namespace Tizen.NUI.Samples
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D = new Size2D(60, 60),
+                    Size = new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",
@@ -248,7 +248,7 @@ namespace Tizen.NUI.Samples
                 },
                 SwitchHandlerImageAttributes = new ImageAttributes
                 {
-                    Size2D =  new Size2D(60, 60),
+                    Size =  new Size(60, 60),
                     ResourceURL = new StringSelector
                     {
                         Normal = CommonResource.GetFHResourcePath() + "9. Controller/controller_switch_handler.png",

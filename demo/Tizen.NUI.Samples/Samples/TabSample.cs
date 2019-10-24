@@ -53,13 +53,9 @@ namespace Tizen.NUI.Samples
             tab.Size2D = new Size2D(700, 108);
             tab.Position2D = new Position2D(100, 300);
             tab.BackgroundColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            tab.IsNatureTextWidth = true;
-            tab.ItemGap = 40;
-            tab.LeftSpace = 56;
-            tab.RightSpace = 56;
-            tab.TopSpace = 1;
-            tab.BottomSpace = 0;
-            tab.UnderLineSize2D = new Size2D(1, 3);
+            tab.ItemSpace = 40;
+            tab.Space = new Extents(56, 56, 1, 0);
+            tab.UnderLineSize = new Size(1, 3);
             tab.UnderLineBackgroundColor = color[0];
             tab.PointSize = 25;
             tab.TextColorSelector = new ColorSelector
@@ -92,11 +88,10 @@ namespace Tizen.NUI.Samples
 
             TabAttributes attrs = new TabAttributes
             {
-                IsNatureTextWidth = false,
                 Space = new Vector4(56, 56, 1, 0),
                 UnderLineAttributes = new ViewAttributes
                 {
-                    Size2D = new Size2D(1, 3),
+                    Size = new Size(1, 3),
                     PositionUsesPivotPoint = true,
                     ParentOrigin = Tizen.NUI.ParentOrigin.BottomLeft,
                     PivotPoint = Tizen.NUI.PivotPoint.BottomLeft,
@@ -147,7 +142,7 @@ namespace Tizen.NUI.Samples
             root.Add(button2);
         }
 
-        private void TabItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
+        private void TabItemChangedEvent(object sender, Tab.ItemChangedEventArgs e)
         {
             createText[0].Text = "Create Tab just by properties, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
@@ -202,7 +197,7 @@ namespace Tizen.NUI.Samples
             }
         }
 
-        private void Tab2ItemChangedEvent(object sender, Tab.ItemChangeEventArgs e)
+        private void Tab2ItemChangedEvent(object sender, Tab.ItemChangedEventArgs e)
         {
             createText[1].Text = "Create Tab just by Attributes, Selected index from " + e.PreviousIndex + " to " + e.CurrentIndex;
         }
